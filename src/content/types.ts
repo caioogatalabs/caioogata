@@ -89,6 +89,18 @@ export interface Content {
     tagline: string
     tech: string
   }
+  intro: {
+    tips: string
+  }
+  projects: {
+    command: string
+    heading: string
+    items: {
+      title: string
+      description: string
+      imagePlaceholder: string
+    }[]
+  }
   notifications: {
     copySuccess: string
     copyError: string
