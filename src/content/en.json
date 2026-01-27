@@ -1,0 +1,214 @@
+{
+  "hero": {
+    "name": "Caio Ogata",
+    "tagline": "Design Director specializing in design systems, brand experience, and developer-focused products",
+    "summary": "I lead design teams at the intersection of brand strategy and technical implementation. Twenty years in Art Direction—fifteen focused on UI—building digital experiences for brands like Petrobras, O Boticario, and Azion taught me that great design bridges business goals with user needs—and that the best solutions come from questioning assumptions and iterating fearlessly.",
+    "location": "Based in Porto Alegre, Brazil | 20+ years in Art Direction, 15 in UI design | Open to remote & hybrid opportunities",
+    "cta": {
+      "copy": "Copy as Markdown for AI",
+      "copying": "Copying...",
+      "copyAriaLabel": "Copy entire portfolio as markdown for AI assistants",
+      "linkedin": "View on LinkedIn"
+    }
+  },
+  "about": {
+    "command": "whoami",
+    "heading": "About",
+    "bio": "I'm a Design Director based in Porto Alegre, Brazil, with over 20 years in Art Direction—15 of those specifically focused on User Interface design—creating digital experiences at the intersection of brand strategy and developer tools.\n\nI've led design teams at Azion (as Design Director, Brand Experience Director, and Developer Experience Director), where I built a 14-person design organization and implemented two design systems from the ground up. Before that, I joined Huia from day one and eventually became a Partner at the design and technology studio, which grew to around 40 employees before being acquired by Stefanini.\n\nMy work spans iconic Brazilian brands including Petrobras, O Boticario, Tramontina, Sicredi, and Ache Group, as well as international clients like Mondelez (Lacta, Bis, Toblerone, Oreo).",
+    "expertise": [
+      "Design Systems Architecture & Implementation",
+      "Developer Experience (DevEx) & Technical Product Design",
+      "Brand Strategy & Creative Direction",
+      "Design Team Leadership (up to 14 people)",
+      "Cross-functional Collaboration (Design + Engineering)",
+      "PLG (Product-Led Growth) Strategy",
+      "UI/UX Design & Interaction Design"
+    ]
+  },
+  "experience": {
+    "command": "cat experience.txt",
+    "heading": "Experience",
+    "jobs": [
+      {
+        "company": "Azion Technologies",
+        "title": "Developer Experience Director",
+        "location": "Remote, Porto Alegre, Brazil",
+        "dateRange": "Oct 2023 - Dec 2025",
+        "description": "Led design strategy for developer-facing products, documentation, and developer experience initiatives at Azion, a global edge computing platform. Managed a cross-functional design team spanning Product Design, Creative Design, Design Ops, UX Research, and Design Systems.",
+        "achievements": [
+          { "text": "Built and led a 14-person design organization structured around Product Design, Creative Design, Design Ops, UX Research, and Design Systems" },
+          { "text": "Transformed company culture from engineering-first to design-thinking, establishing usability metrics and product discovery processes" },
+          { "text": "Implemented two design systems: one built from scratch, another assembled from open-source libraries" },
+          { "text": "Led PLG (Product-Led Growth) transformation, connecting designers and engineers to reduce silos" },
+          { "text": "Created Azion Design (www.azion.design), the company's public design system documentation" }
+        ]
+      },
+      {
+        "company": "Azion Technologies",
+        "title": "Director of Brand Experience",
+        "location": "Remote, Porto Alegre, Brazil",
+        "dateRange": "Jul 2022 - Sep 2023",
+        "description": "Led brand strategy and creative direction for Azion's marketing, brand identity, and customer-facing touchpoints. Bridged brand vision with technical implementation across digital products.",
+        "achievements": [
+          { "text": "Defined and executed brand strategy across digital touchpoints, ensuring consistency between marketing and product" },
+          { "text": "Led rebranding initiatives and visual identity evolution" },
+          { "text": "Established brand guidelines and design language for marketing materials" }
+        ]
+      },
+      {
+        "company": "Azion Technologies",
+        "title": "Director of Design",
+        "location": "Remote, Porto Alegre, Brazil",
+        "dateRange": "Jan 2021 - Jun 2022",
+        "description": "First design leadership hire at Azion. Built the design function from the ground up, establishing design processes, hiring the design team, and integrating design into product development workflows.",
+        "achievements": [
+          { "text": "Hired and onboarded the first design team members, growing from solo designer to multi-person team" },
+          { "text": "Established design operations, including tools (Figma), workflows (Agile/Scrum integration), and handoff processes" },
+          { "text": "Introduced design thinking methodologies to an engineering-led organization" }
+        ]
+      },
+      {
+        "company": "Huia (acquired by Stefanini)",
+        "title": "Partner & Head of Creative",
+        "location": "Porto Alegre, Brazil",
+        "dateRange": "2012 - 2021 (9 years)",
+        "description": "Joined Huia from day one and eventually became Partner and Head of Creative at the design and technology studio specializing in digital products and brand experiences. Led creative direction, client relationships, and team growth through acquisition by Stefanini.",
+        "achievements": [
+          { "text": "Joined from day one, became Partner as studio grew to ~40 employees" },
+          { "text": "Led teams of up to 15 people on specific projects" },
+          { "text": "Led creative direction for 40+ digital projects across web, mobile, and interactive TV platforms" },
+          { "text": "Managed client relationships with major Brazilian brands: Petrobras, O Boticario, Tramontina, Sicredi, Ache Group" },
+          { "text": "Won projects with international brands through Mondelez (Lacta, Bis, Toblerone, Oreo)" }
+        ]
+      },
+      {
+        "company": "W3haus",
+        "title": "Art Director",
+        "location": "Sao Paulo, Brazil",
+        "dateRange": "2012",
+        "description": "Led creative direction for O Boticario's retail and digital initiatives, managing a creative team focused on brand consistency across touchpoints.",
+        "achievements": [
+          { "text": "Directed creative strategy for O Boticario retail experiences" },
+          { "text": "Managed team of 8 designers and creatives" }
+        ]
+      },
+      {
+        "company": "Post Digital",
+        "title": "Creative Manager",
+        "location": "Sao Paulo, Brazil",
+        "dateRange": "2010 - 2012",
+        "description": "Led creative projects across mobile, web, and interactive TV platforms during the early mobile and digital transformation era in Brazil.",
+        "achievements": [
+          { "text": "Delivered 40+ digital projects spanning mobile applications, interactive TV, and web platforms" },
+          { "text": "Worked at the forefront of Brazil's mobile design evolution (2010-2012)" }
+        ]
+      }
+    ]
+  },
+  "skills": {
+    "command": "ls skills/",
+    "heading": "Skills",
+    "categories": [
+      {
+        "title": "Design Leadership",
+        "skills": ["UI/UX Design", "Design Systems Architecture", "Creative Direction", "Brand Strategy", "Team Leadership", "Design Operations", "Product Design", "Interaction Design", "Developer Experience (DevEx)"]
+      },
+      {
+        "title": "Technical Skills",
+        "skills": ["Front-end Collaboration", "HTML/CSS", "JavaScript (intermediate)", "Design Tokens", "Component Architecture", "Git/Version Control", "Design-to-Code Workflows"]
+      },
+      {
+        "title": "Tools & Platforms",
+        "skills": ["Figma", "Adobe Creative Suite", "Framer", "Cursor", "VS Code", "Claude AI", "Google AI Studio", "N8n"]
+      },
+      {
+        "title": "Methodologies",
+        "skills": ["Design Thinking", "Design Sprint", "Agile/Scrum/Kanban", "Atomic Design", "Product Discovery", "UX Research", "PLG Strategy"]
+      }
+    ]
+  },
+  "education": {
+    "command": "cat education.txt",
+    "heading": "Education",
+    "items": [
+      {
+        "degree": "Bachelor in Publicidade e Propaganda (Advertising)",
+        "institution": "UNOESTE - Universidade do Oeste Paulista",
+        "location": "Presidente Prudente, SP, Brazil",
+        "year": "2001 - 2005",
+        "note": "Final project grade: 10/10"
+      },
+      {
+        "degree": "Art Direction Specialization",
+        "institution": "Miami Ad School (ESPM Sao Paulo campus)",
+        "location": "Sao Paulo, Brazil",
+        "year": "2009",
+        "note": "Portfolio that opened doors across Sao Paulo's design studios"
+      }
+    ],
+    "additional": ["Udacity - Nanodegree Program", "Memorisely - Design System Bootcamp"]
+  },
+  "projects": {
+    "command": "ls projects/",
+    "heading": "Projects",
+    "items": [
+      {
+        "title": "Azion Design System",
+        "description": "Complete design system built from scratch for Azion's edge computing platform, including public documentation and reusable components.",
+        "imagePlaceholder": "[Project Image]"
+      },
+      {
+        "title": "Developer Experience Platform",
+        "description": "Platform focused on improving developer experience using Azion products, with emphasis on documentation, tools, and workflows.",
+        "imagePlaceholder": "[Project Image]"
+      },
+      {
+        "title": "Brand Experience - O Boticario",
+        "description": "Complete digital experience for one of Brazil's largest beauty retail chains, integrating brand strategy with product design.",
+        "imagePlaceholder": "[Project Image]"
+      },
+      {
+        "title": "Product Design - Petrobras",
+        "description": "Digital products for one of the world's largest energy companies, focusing on usability and operational efficiency.",
+        "imagePlaceholder": "[Project Image]"
+      }
+    ]
+  },
+  "clients": {
+    "command": "grep \"notable\" clients.log",
+    "heading": "Notable Clients",
+    "description": "Over two decades, I've led Design and Brand projects for some of Brazil's most recognizable companies—from national champions like Petrobras and O Boticario to international names like Mondelez. Whether building digital products for financial services or brand experiences for retail, the work always focuses on connecting business goals with user needs.",
+    "brazilian": ["Petrobras", "Petrobras Distribuidora", "O Boticario", "Tramontina", "Sicredi", "Ache Group", "Alphaville"],
+    "international": ["Lacta", "Bis", "Toblerone", "Belvita", "Trakinas", "Sonho de Valsa", "Oreo"],
+    "other": ["Try On", "Fila"]
+  },
+  "philosophy": {
+    "command": "vim philosophy.md",
+    "heading": "Philosophy",
+    "title": "Fall, learn, evolve",
+    "body": "Great design comes from the same place as great athleticism: the willingness to fail, learn, and iterate.\n\nI learned this first on the Judo mat. As I wrote in 2018: \"In Judo, the first lessons are all focused on teaching how to fall. From the beginning, it's understood that you will fall, lose, err. So suffer less, lose the fear, preserve your body and, most importantly, prepare your mind for the obstacles ahead.\"\n\nYears later, skateboarding taught me the same lesson. Skateboarders are the most persistent people I've ever met. They fall hundreds of times perfecting a single trick, and they do it without fear because falling is part of the process.\n\nThis mindset translates directly to design. The best work comes from teams that aren't afraid to test, fail, and iterate. Ship early, get feedback, evolve. Great products aren't born perfect—they're refined through countless small improvements.\n\nAs a design leader, I try to create environments where teams can fall safely. Where iteration is celebrated, not feared. Where \"I don't know yet\" is an acceptable answer, as long as it's followed by curiosity and action."
+  },
+  "contact": {
+    "command": "send message",
+    "heading": "Let's connect",
+    "description": "I'm currently exploring opportunities in design leadership, product development, and innovation—particularly where AI augments creative workflows. Open to remote, hybrid, or relocation for the right role.\n\nIf you're building something interesting, or just want to talk design systems, developer experience, or the intersection of sports and UX, reach out.",
+    "links": [
+      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/caioogata/" },
+      { "label": "GitHub", "url": "https://github.com/caioogatalabs" },
+      { "label": "Instagram", "url": "https://www.instagram.com/caioogata.labs" },
+      { "label": "Medium", "url": "https://medium.com/@caioogata" }
+    ]
+  },
+  "intro": {
+    "tips": "Or press enter to load the site."
+  },
+  "footer": {
+    "copyright": "2026 Caio Ogata. All rights reserved.",
+    "tagline": "Built for humans and AI assistants. Optimized for LLM consumption.",
+    "tech": "Powered by Next.js, Tailwind CSS, and a lot of iteration."
+  },
+  "notifications": {
+    "copySuccess": "Content copied! Ready to paste into your AI assistant.",
+    "copyError": "Couldn't copy automatically. Please try again or select text manually."
+  }
+}
