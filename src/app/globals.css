@@ -142,6 +142,19 @@ body {
   }
 }
 
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
 /* Override max-w-content to ensure 1200px */
 .max-w-content {
   max-width: 1200px !important;

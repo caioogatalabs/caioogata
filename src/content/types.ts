@@ -32,11 +32,13 @@ export interface ContactLink {
 export interface MenuItem {
   key: string
   label: string
+  description?: string
 }
 
 export interface Menu {
   command: string
   legend: string
+  inputHint: string
   items: MenuItem[]
 }
 

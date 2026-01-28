@@ -2,15 +2,16 @@
   "menu": {
     "command": "/menu",
     "legend": "Pressione ↑↓ para navegar · Enter para selecionar · Esc para voltar",
+    "inputHint": "Tente \"/\" ou digite algo",
     "items": [
-      { "key": "about", "label": "sobre" },
-      { "key": "projects", "label": "projetos" },
-      { "key": "experience", "label": "experiencia" },
-      { "key": "skills", "label": "habilidades" },
-      { "key": "education", "label": "educacao" },
-      { "key": "clients", "label": "clientes-notaveis" },
-      { "key": "philosophy", "label": "filosofia" },
-      { "key": "contact", "label": "contato" }
+      { "key": "about", "label": "sobre", "description": "Bio, expertises e trajetoria." },
+      { "key": "projects", "label": "projetos", "description": "Trabalhos selecionados de design e produto." },
+      { "key": "experience", "label": "experiencia", "description": "Cargos, empresas e principais conquistas." },
+      { "key": "skills", "label": "habilidades", "description": "Design systems, DevEx, UI/UX e ferramentas." },
+      { "key": "education", "label": "educacao", "description": "Formacao, instituicoes e aprendizado continuo." },
+      { "key": "clients", "label": "clientes-notaveis", "description": "Marcas brasileiras e internacionais com que trabalhei." },
+      { "key": "philosophy", "label": "filosofia", "description": "Principios de design e como encaro produto e times." },
+      { "key": "contact", "label": "contato", "description": "Como entrar em contato e conectar." }
     ]
   },
   "hero": {

@@ -2,7 +2,6 @@
 
 import { useEffect, useCallback } from 'react'
 import { useNavigation, SectionKey, SECTIONS_WITH_SUBITEMS } from '@/components/providers/NavigationProvider'
-import { useLanguage } from '@/components/providers/LanguageProvider'
 
 export function useKeyboardNavigation() {
   const {
@@ -10,9 +9,11 @@ export function useKeyboardNavigation() {
     setActiveSection,
     selectedIndex,
     setSelectedIndex,
-    menuItemsCount,
     isMenuOpen,
     setIsMenuOpen,
+    setMenuFilter,
+    filteredMenuCount,
+    filteredMenuKeys,
     // Sub-item navigation
     subItemIndex,
     setSubItemIndex,
@@ -22,10 +23,6 @@ export function useKeyboardNavigation() {
     collapseSubItem,
     hasExpandedItems,
   } = useNavigation()
-  const { content } = useLanguage()
-
-  const menuItems = content.menu.items
-
   // Check if current section has sub-items
   const sectionHasSubItems = activeSection && SECTIONS_WITH_SUBITEMS.includes(activeSection)
 
@@ -40,9 +37,11 @@ export function useKeyboardNavigation() {
       setIsMenuOpen(true)
       return
     }
-    // Navigate in menu
-    setSelectedIndex((selectedIndex - 1 + menuItemsCount) % menuItemsCount)
-  }, [sectionHasSubItems, subItemsCount, subItemIndex, setSubItemIndex, isMenuOpen, setIsMenuOpen, selectedIndex, setSelectedIndex, menuItemsCount])
+    // Navigate in filtered menu
+    if (filteredMenuCount > 0) {
+      setSelectedIndex((selectedIndex - 1 + filteredMenuCount) % filteredMenuCount)
+    }
+  }, [sectionHasSubItems, subItemsCount, subItemIndex, setSubItemIndex, isMenuOpen, setIsMenuOpen, selectedIndex, setSelectedIndex, filteredMenuCount])
 
   const navigateDown = useCallback(() => {
     // If a section with sub-items is open, navigate within sub-items
@@ -55,9 +54,11 @@ export function useKeyboardNavigation() {
       setIsMenuOpen(true)
       return
     }
-    // Navigate in menu
-    setSelectedIndex((selectedIndex + 1) % menuItemsCount)
-  }, [sectionHasSubItems, subItemsCount, subItemIndex, setSubItemIndex, isMenuOpen, setIsMenuOpen, selectedIndex, setSelectedIndex, menuItemsCount])
+    // Navigate in filtered menu
+    if (filteredMenuCount > 0) {
+      setSelectedIndex((selectedIndex + 1) % filteredMenuCount)
+    }
+  }, [sectionHasSubItems, subItemsCount, subItemIndex, setSubItemIndex, isMenuOpen, setIsMenuOpen, selectedIndex, setSelectedIndex, filteredMenuCount])
 
   const selectItem = useCallback(() => {
     // If menu is closed, open it
@@ -70,14 +71,15 @@ export function useKeyboardNavigation() {
       toggleSubItemExpanded(subItemIndex)
       return
     }
-    // If menu is open and no section active, select the item
-    if (!activeSection) {
-      const item = menuItems[selectedIndex]
-      if (item) {
-        setActiveSection(item.key as SectionKey)
+    // If menu is open and no section active, select the item from filtered list
+    if (!activeSection && filteredMenuKeys.length > 0) {
+      const key = filteredMenuKeys[selectedIndex]
+      if (key) {
+        setActiveSection(key as SectionKey)
+        setMenuFilter('')
       }
     }
-  }, [isMenuOpen, setIsMenuOpen, sectionHasSubItems, subItemsCount, subItemIndex, toggleSubItemExpanded, activeSection, menuItems, selectedIndex, setActiveSection])
+  }, [isMenuOpen, setIsMenuOpen, sectionHasSubItems, subItemsCount, subItemIndex, toggleSubItemExpanded, activeSection, filteredMenuKeys, selectedIndex, setActiveSection, setMenuFilter])
 
   const goBack = useCallback(() => {
     // If in a section with sub-items and there are expanded items
@@ -105,12 +107,22 @@ export function useKeyboardNavigation() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Ignore if user is typing in an input
-      if (
-        event.target instanceof HTMLInputElement ||
-        event.target instanceof HTMLTextAreaElement ||
-        (event.target as HTMLElement).isContentEditable
-      ) {
+      const target = event.target as HTMLElement
+      const isMenuInput = target.getAttribute('data-menu-input') === 'true'
+      const isOtherInput = (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target.isContentEditable
+      ) && !isMenuInput
+
+      // For menu input, only handle navigation keys (arrows, escape)
+      // For other inputs, ignore all navigation
+      if (isOtherInput) {
+        return
+      }
+
+      // In menu input, don't handle Enter here (let the input handle it)
+      if (isMenuInput && event.key === 'Enter') {
         return
       }
 
@@ -129,6 +141,10 @@ export function useKeyboardNavigation() {
           break
         case 'Escape':
           event.preventDefault()
+          // In menu input, also clear the filter
+          if (isMenuInput) {
+            setMenuFilter('')
+          }
           goBack()
           break
       }
@@ -136,7 +152,7 @@ export function useKeyboardNavigation() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [navigateUp, navigateDown, selectItem, goBack])
+  }, [navigateUp, navigateDown, selectItem, goBack, setMenuFilter])
 
   return {
     navigateUp,

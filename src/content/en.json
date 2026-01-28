@@ -2,15 +2,16 @@
   "menu": {
     "command": "/menu",
     "legend": "Press ↑↓ to navigate · Enter to select · Esc to go back",
+    "inputHint": "Try \"/\" or type something",
     "items": [
-      { "key": "about", "label": "about" },
-      { "key": "projects", "label": "projects" },
-      { "key": "experience", "label": "experience" },
-      { "key": "skills", "label": "skills" },
-      { "key": "education", "label": "education" },
-      { "key": "clients", "label": "notable-clients" },
-      { "key": "philosophy", "label": "philosophy" },
-      { "key": "contact", "label": "contact" }
+      { "key": "about", "label": "about", "description": "Bio, expertise, and background." },
+      { "key": "projects", "label": "projects", "description": "Selected design and product work." },
+      { "key": "experience", "label": "experience", "description": "Roles, companies, and key achievements." },
+      { "key": "skills", "label": "skills", "description": "Design systems, DevEx, UI/UX, and tools." },
+      { "key": "education", "label": "education", "description": "Degrees, institutions, and continuing learning." },
+      { "key": "clients", "label": "notable-clients", "description": "Brazilian and international brands I've worked with." },
+      { "key": "philosophy", "label": "philosophy", "description": "Design principles and how I approach product and teams." },
+      { "key": "contact", "label": "contact", "description": "How to get in touch and connect." }
     ]
   },
   "hero": {

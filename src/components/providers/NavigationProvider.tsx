@@ -16,6 +16,13 @@ interface NavigationContextType {
   menuItemsCount: number
   isMenuOpen: boolean
   setIsMenuOpen: (open: boolean) => void
+  // Menu filter
+  menuFilter: string
+  setMenuFilter: (filter: string) => void
+  filteredMenuCount: number
+  setFilteredMenuCount: (count: number) => void
+  filteredMenuKeys: string[]
+  setFilteredMenuKeys: (keys: string[]) => void
   // Sub-item navigation (within sections)
   subItemIndex: number
   setSubItemIndex: (index: number) => void
@@ -37,6 +44,9 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   const [activeSection, setActiveSectionState] = useState<SectionKey | null>(null)
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [menuFilter, setMenuFilter] = useState('')
+  const [filteredMenuCount, setFilteredMenuCount] = useState(MENU_ITEMS_COUNT)
+  const [filteredMenuKeys, setFilteredMenuKeys] = useState<string[]>([])
 
   // Sub-item navigation state
   const [subItemIndex, setSubItemIndex] = useState(0)
@@ -91,6 +101,12 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         menuItemsCount: MENU_ITEMS_COUNT,
         isMenuOpen,
         setIsMenuOpen,
+        menuFilter,
+        setMenuFilter,
+        filteredMenuCount,
+        setFilteredMenuCount,
+        filteredMenuKeys,
+        setFilteredMenuKeys,
         subItemIndex,
         setSubItemIndex,
         subItemsCount,
