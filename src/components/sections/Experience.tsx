@@ -1,11 +1,19 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
+import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ExpandableSection from '@/components/ui/ExpandableSection'
 
 export default function Experience() {
   const { content } = useLanguage()
+  const { subItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded } = useNavigation()
+
+  // Set the number of sub-items for keyboard navigation
+  useEffect(() => {
+    setSubItemsCount(content.experience.jobs.length)
+  }, [content.experience.jobs.length, setSubItemsCount])
 
   return (
     <section id="experience" aria-labelledby="experience-heading">
@@ -16,9 +24,17 @@ export default function Experience() {
       <div className="space-y-4">
         {content.experience.jobs.map((job, index) => {
           const title = `${job.title} @ ${job.company} | ${job.dateRange}`
-          
+          const isSelected = subItemIndex === index
+          const isExpanded = expandedSubItems.has(index)
+
           return (
-            <ExpandableSection key={index} title={title} defaultExpanded={false}>
+            <ExpandableSection
+              key={index}
+              title={title}
+              isSelected={isSelected}
+              isExpanded={isExpanded}
+              onToggle={() => toggleSubItemExpanded(index)}
+            >
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-primary font-mono">*</span>

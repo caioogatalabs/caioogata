@@ -1,11 +1,23 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
+import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ExpandableSection from '@/components/ui/ExpandableSection'
 
 export default function Education() {
   const { content } = useLanguage()
+  const { subItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded } = useNavigation()
+
+  // Calculate total items: education items + additional training (if exists)
+  const hasAdditional = content.education.additional && content.education.additional.length > 0
+  const totalItems = content.education.items.length + (hasAdditional ? 1 : 0)
+
+  // Set the number of sub-items for keyboard navigation
+  useEffect(() => {
+    setSubItemsCount(totalItems)
+  }, [totalItems, setSubItemsCount])
 
   return (
     <section id="education" aria-labelledby="education-heading">
@@ -16,9 +28,17 @@ export default function Education() {
       <div className="space-y-4">
         {content.education.items.map((edu, index) => {
           const title = `${edu.degree} @ ${edu.institution} | ${edu.year}`
-          
+          const isSelected = subItemIndex === index
+          const isExpanded = expandedSubItems.has(index)
+
           return (
-            <ExpandableSection key={index} title={title} defaultExpanded={false}>
+            <ExpandableSection
+              key={index}
+              title={title}
+              isSelected={isSelected}
+              isExpanded={isExpanded}
+              onToggle={() => toggleSubItemExpanded(index)}
+            >
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-primary font-mono">#</span>
                 <h3 className="text-base font-bold text-primary">
@@ -43,8 +63,13 @@ export default function Education() {
           )
         })}
 
-        {content.education.additional && content.education.additional.length > 0 && (
-          <ExpandableSection title="Additional Training" defaultExpanded={false}>
+        {hasAdditional && (
+          <ExpandableSection
+            title="Additional Training"
+            isSelected={subItemIndex === content.education.items.length}
+            isExpanded={expandedSubItems.has(content.education.items.length)}
+            onToggle={() => toggleSubItemExpanded(content.education.items.length)}
+          >
             <div className="flex items-center gap-2 mb-3">
               <span className="text-primary font-mono">$</span>
               <h3 className="text-base font-bold text-primary">

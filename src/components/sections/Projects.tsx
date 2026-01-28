@@ -1,11 +1,19 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
+import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
-import CLIBox from '@/components/ui/CLIBox'
+import ExpandableSection from '@/components/ui/ExpandableSection'
 
 export default function Projects() {
   const { content } = useLanguage()
+  const { subItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded } = useNavigation()
+
+  // Set the number of sub-items for keyboard navigation
+  useEffect(() => {
+    setSubItemsCount(content.projects.items.length)
+  }, [content.projects.items.length, setSubItemsCount])
 
   return (
     <section id="projects" aria-labelledby="projects-heading">
@@ -13,33 +21,91 @@ export default function Projects() {
         {content.projects.heading}
       </SectionHeading>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        {content.projects.items.map((project, index) => (
-          <CLIBox key={index}>
-            <div className="aspect-video bg-neutral border border-primary/30 rounded-base mb-4 flex items-center justify-center relative overflow-hidden">
-              {/* Placeholder image */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-neutral-400 font-mono text-xs">
-                  {project.imagePlaceholder}
+      <div className="space-y-4">
+        {content.projects.items.map((project, index) => {
+          const isSelected = subItemIndex === index
+          const isExpanded = expandedSubItems.has(index)
+
+          return (
+            <ExpandableSection
+              key={index}
+              title={project.title}
+              isSelected={isSelected}
+              isExpanded={isExpanded}
+              onToggle={() => toggleSubItemExpanded(index)}
+            >
+              {/* Project Detail Page - Model Template */}
+              <div className="space-y-6">
+                {/* Project Header */}
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-primary font-mono">$</span>
+                    <h3 className="text-lg font-bold text-primary">
+                      {project.title}
+                    </h3>
+                  </div>
+                  <p className="text-base text-secondary leading-relaxed ml-6">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Project Image Placeholder */}
+                <div className="aspect-video bg-neutral border border-primary/30 rounded-base flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-neutral-400 font-mono text-sm">
+                      {project.imagePlaceholder}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Project Details - Template sections for future content */}
+                <div className="space-y-4">
+                  {/* Role */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-primary font-mono text-sm">@</span>
+                      <span className="text-primary font-mono text-sm">Role</span>
+                    </div>
+                    <p className="text-sm text-neutral-400 ml-6">
+                      [To be defined]
+                    </p>
+                  </div>
+
+                  {/* Technologies */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-primary font-mono text-sm">#</span>
+                      <span className="text-primary font-mono text-sm">Technologies</span>
+                    </div>
+                    <p className="text-sm text-neutral-400 ml-6">
+                      [To be defined]
+                    </p>
+                  </div>
+
+                  {/* Impact */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-primary font-mono text-sm">*</span>
+                      <span className="text-primary font-mono text-sm">Impact</span>
+                    </div>
+                    <p className="text-sm text-neutral-400 ml-6">
+                      [To be defined]
+                    </p>
+                  </div>
+
+                  {/* Links placeholder */}
+                  <div className="pt-2 border-t border-primary/10">
+                    <div className="flex items-center gap-4">
+                      <span className="text-xs text-neutral-500 font-mono">
+                        &gt; View case study [coming soon]
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              {/* Fire icon overlay */}
-              <div className="absolute top-2 right-2">
-                <span className="text-accent text-xl" aria-label="Featured project" title="Projeto em destaque">
-                  🔥
-                </span>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-base font-bold text-primary mb-2 font-mono">
-                {project.title}
-              </h3>
-              <p className="text-sm text-secondary leading-relaxed">
-                {project.description}
-              </p>
-            </div>
-          </CLIBox>
-        ))}
+            </ExpandableSection>
+          )
+        })}
       </div>
     </section>
   )

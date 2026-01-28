@@ -1,4 +1,18 @@
 {
+  "menu": {
+    "command": "/menu",
+    "legend": "Press ↑↓ to navigate · Enter to select · Esc to go back",
+    "items": [
+      { "key": "about", "label": "about" },
+      { "key": "projects", "label": "projects" },
+      { "key": "experience", "label": "experience" },
+      { "key": "skills", "label": "skills" },
+      { "key": "education", "label": "education" },
+      { "key": "clients", "label": "notable-clients" },
+      { "key": "philosophy", "label": "philosophy" },
+      { "key": "contact", "label": "contact" }
+    ]
+  },
   "hero": {
     "name": "Caio Ogata",
     "tagline": "Design Director specializing in design systems, brand experience, and developer-focused products",

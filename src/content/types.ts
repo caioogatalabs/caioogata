@@ -29,7 +29,19 @@ export interface ContactLink {
   url: string
 }
 
+export interface MenuItem {
+  key: string
+  label: string
+}
+
+export interface Menu {
+  command: string
+  legend: string
+  items: MenuItem[]
+}
+
 export interface Content {
+  menu: Menu
   hero: {
     name: string
     tagline: string

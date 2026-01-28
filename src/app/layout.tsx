@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { JetBrains_Mono } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 import { LanguageProvider } from '@/components/providers/LanguageProvider'
+import { NavigationProvider } from '@/components/providers/NavigationProvider'
 import './globals.css'
 
 const jetbrainsMono = JetBrains_Mono({
@@ -76,8 +77,9 @@ export default function RootLayout({
     <html lang="en" className={jetbrainsMono.variable}>
       <body className="font-mono bg-neutral text-neutral-200 antialiased">
         <LanguageProvider>
-          {children}
-          <Toaster
+          <NavigationProvider>
+            {children}
+            <Toaster
             position="top-center"
             toastOptions={{
               duration: 4000,
@@ -102,7 +104,8 @@ export default function RootLayout({
                 },
               },
             }}
-          />
+            />
+          </NavigationProvider>
         </LanguageProvider>
       </body>
     </html>
