@@ -4,11 +4,23 @@
     "legend": "Press ↑↓ to navigate · Enter to select · Esc to go back",
     "inputHint": "Try \"/\" or type something",
     "navigation": {
-      "navigate": "to navigate",
-      "select": "to select",
-      "back": "to go back",
-      "arrowUp": "Up",
-      "arrowDown": "Down"
+      "arrowUp": "Navigate up",
+      "arrowDown": "Navigate down",
+      "keyboard": {
+        "back": "to go back",
+        "navigate": "to navigate",
+        "select": "to select"
+      },
+      "mouse": {
+        "back": "to go back",
+        "navigate": "to select",
+        "select": "Click to open"
+      },
+      "touch": {
+        "back": "to go back",
+        "navigate": "to select",
+        "select": "Tap to open"
+      }
     },
     "items": [
       { "key": "about", "label": "about", "description": "Bio, expertise, and background." },

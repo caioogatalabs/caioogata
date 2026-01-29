@@ -35,12 +35,20 @@ export interface MenuItem {
   description?: string
 }
 
-export interface NavigationLabels {
+export interface NavigationModeLabels {
+  back: string
   navigate: string
   select: string
-  back: string
+}
+
+export interface NavigationLabels {
+  // Aria labels for buttons
   arrowUp: string
   arrowDown: string
+  // Labels by interaction mode
+  keyboard: NavigationModeLabels
+  mouse: NavigationModeLabels
+  touch: NavigationModeLabels
 }
 
 export interface Menu {

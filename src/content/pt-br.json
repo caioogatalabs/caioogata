@@ -4,11 +4,23 @@
     "legend": "Pressione ↑↓ para navegar · Enter para selecionar · Esc para voltar",
     "inputHint": "Tente \"/\" ou digite algo",
     "navigation": {
-      "navigate": "para navegar",
-      "select": "para selecionar",
-      "back": "para voltar",
-      "arrowUp": "Cima",
-      "arrowDown": "Baixo"
+      "arrowUp": "Navegar para cima",
+      "arrowDown": "Navegar para baixo",
+      "keyboard": {
+        "back": "para voltar",
+        "navigate": "para navegar",
+        "select": "para selecionar"
+      },
+      "mouse": {
+        "back": "para voltar",
+        "navigate": "para selecionar",
+        "select": "Clique para abrir"
+      },
+      "touch": {
+        "back": "para voltar",
+        "navigate": "para selecionar",
+        "select": "Toque para abrir"
+      }
     },
     "items": [
       { "key": "about", "label": "sobre", "description": "Bio, expertises e trajetoria." },

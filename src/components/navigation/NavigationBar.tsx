@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation'
+import { useInteractionMode } from '@/hooks/useInteractionMode'
 
 interface NavigationBarProps {
   variant?: 'primary' | 'secondary'
@@ -52,10 +53,35 @@ function ArrowDownIcon({ className }: { className?: string }) {
   )
 }
 
+function ArrowLeftIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      className={className}
+      aria-hidden
+    >
+      <path
+        d="M9 6H3M3 6L6 3M3 6L6 9"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export default function NavigationBar({ variant = 'primary' }: NavigationBarProps) {
   const { content } = useLanguage()
   const { navigateUp, navigateDown, selectItem, goBack } = useKeyboardNavigation()
+  const { mode } = useInteractionMode()
   const [activeKey, setActiveKey] = useState<ActiveKey>(null)
+
+  // Get labels based on current interaction mode
+  const labels = content.menu.navigation[mode]
 
   // Listen for keyboard events to show visual feedback
   useEffect(() => {
@@ -94,17 +120,22 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
   const keyClass = 'px-1 py-0.5 rounded bg-neutral-800/50 text-neutral-400 hover:bg-neutral-700/50 hover:text-primary transition-colors'
   const keyActiveClass = 'px-1 py-0.5 rounded bg-neutral-700/50 text-primary transition-colors'
 
+  // Show arrow icon instead of "Esc" for mouse/touch modes
+  const showBackAsArrow = mode === 'mouse' || mode === 'touch'
+
   return (
     <div className={`mt-8 pt-4 border-t ${borderColor}`}>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-neutral-500">
-        {/* Esc to go back */}
+        {/* Back button - Esc for keyboard, Arrow for mouse/touch */}
         <button
           type="button"
           onClick={goBack}
           className={`${buttonBaseClass} ${activeKey === 'esc' ? 'text-primary' : ''}`}
         >
-          <span className={activeKey === 'esc' ? keyActiveClass : keyClass}>Esc</span>
-          <span>{content.menu.navigation.back}</span>
+          <span className={activeKey === 'esc' ? keyActiveClass : keyClass}>
+            {showBackAsArrow ? <ArrowLeftIcon /> : 'Esc'}
+          </span>
+          <span>{labels.back}</span>
         </button>
 
         <span className="text-neutral-600" aria-hidden>·</span>
@@ -127,19 +158,21 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
           >
             <ArrowDownIcon />
           </button>
-          <span className="ml-0.5">{content.menu.navigation.navigate}</span>
+          <span className="ml-0.5">{labels.navigate}</span>
         </div>
 
         <span className="text-neutral-600" aria-hidden>·</span>
 
-        {/* Enter to select */}
+        {/* Select/Open button - Enter for keyboard, Click/Tap for mouse/touch */}
         <button
           type="button"
           onClick={selectItem}
           className={`${buttonBaseClass} ${activeKey === 'enter' ? 'text-primary' : ''}`}
         >
-          <span className={activeKey === 'enter' ? keyActiveClass : keyClass}>Enter</span>
-          <span>{content.menu.navigation.select}</span>
+          {mode === 'keyboard' && (
+            <span className={activeKey === 'enter' ? keyActiveClass : keyClass}>Enter</span>
+          )}
+          <span>{labels.select}</span>
         </button>
       </div>
     </div>
