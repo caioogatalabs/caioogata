@@ -51,10 +51,16 @@ export interface NavigationLabels {
   touch: NavigationModeLabels
 }
 
+export interface InputHintLabels {
+  keyboard: string
+  mouse: string
+  touch: string
+}
+
 export interface Menu {
   command: string
   legend: string
-  inputHint: string
+  inputHint: InputHintLabels
   navigation: NavigationLabels
   items: MenuItem[]
 }

@@ -32,7 +32,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        mono: ['var(--font-jetbrains)', 'ui-monospace', 'Courier New', 'monospace'],
+        mono: ['"Cascadia Mono"', 'ui-monospace', 'Courier New', 'monospace'],
       },
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.5' }],

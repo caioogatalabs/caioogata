@@ -2,7 +2,11 @@
   "menu": {
     "command": "/menu",
     "legend": "Pressione ↑↓ para navegar · Enter para selecionar · Esc para voltar",
-    "inputHint": "Tente \"/\" ou digite algo",
+    "inputHint": {
+      "keyboard": "Tente \"/\" ou digite algo",
+      "mouse": "Tente \"/\" digite ou clique aqui",
+      "touch": "Toque para abrir"
+    },
     "navigation": {
       "arrowUp": "Navegar para cima",
       "arrowDown": "Navegar para baixo",

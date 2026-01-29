@@ -1,18 +1,10 @@
 import type { Metadata } from 'next'
-import { JetBrains_Mono } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 import { LanguageProvider } from '@/components/providers/LanguageProvider'
 import { NavigationProvider } from '@/components/providers/NavigationProvider'
+import '@fontsource/cascadia-mono/400.css'
+import '@fontsource/cascadia-mono/700.css'
 import './globals.css'
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-jetbrains',
-  display: 'swap',
-  preload: true,
-  fallback: ['ui-monospace', 'Courier New', 'monospace'],
-})
 
 export const metadata: Metadata = {
   title: 'Caio Ogata - Design Director | Design Systems & DevEx',
@@ -66,15 +58,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // #region agent log
-  if (typeof window !== 'undefined') {
-    const fontVar = getComputedStyle(document.documentElement).getPropertyValue('--font-jetbrains');
-    const bodyFont = getComputedStyle(document.body).fontFamily;
-    fetch('http://127.0.0.1:7244/ingest/fc0fd57c-00b9-4980-affa-2a3b4cd560ee',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'layout.tsx:61',message:'Font variables check',data:{fontVariable:fontVar,bodyFontFamily:bodyFont,jetbrainsMonoVariable:jetbrainsMono.variable,hasVariable:!!jetbrainsMono.variable},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-  }
-  // #endregion
   return (
-    <html lang="en" className={jetbrainsMono.variable}>
+    <html lang="en">
       <body className="font-mono bg-neutral text-neutral-200 antialiased">
         <LanguageProvider>
           <NavigationProvider>
@@ -88,7 +73,7 @@ export default function RootLayout({
                 color: '#D8D1DA',
                 border: '1px solid #618985',
                 borderRadius: '0.25rem',
-                fontFamily: 'var(--font-jetbrains), monospace',
+                fontFamily: '"Cascadia Mono", monospace',
                 fontSize: '0.875rem',
               },
               success: {

@@ -3,6 +3,7 @@
 import { useRef, useEffect, useMemo } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation, SectionKey } from '@/components/providers/NavigationProvider'
+import { useInteractionMode } from '@/hooks/useInteractionMode'
 import NavigationBar from '@/components/navigation/NavigationBar'
 
 const ARROW_WIDTH_CLASS = 'w-4'
@@ -41,6 +42,7 @@ export default function CLIMenu() {
     setFilteredMenuCount,
     setFilteredMenuKeys
   } = useNavigation()
+  const { mode } = useInteractionMode()
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Filter items based on input (works with or without "/" prefix)
@@ -152,7 +154,7 @@ export default function CLIMenu() {
             <span className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-1.5 pointer-events-none">
               <span className="inline-block w-1 h-4 bg-primary animate-blink shrink-0" aria-hidden />
               <span className="text-secondary opacity-40 text-sm font-mono whitespace-nowrap">
-                {content.menu.inputHint}
+                {content.menu.inputHint[mode]}
               </span>
             </span>
           )}
