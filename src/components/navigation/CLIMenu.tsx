@@ -3,6 +3,7 @@
 import { useRef, useEffect, useMemo } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation, SectionKey } from '@/components/providers/NavigationProvider'
+import NavigationBar from '@/components/navigation/NavigationBar'
 
 const ARROW_WIDTH_CLASS = 'w-4'
 
@@ -200,12 +201,8 @@ export default function CLIMenu() {
               )}
             </ul>
           </nav>
-          {/* Keyboard hint – mesmo padrão das outras páginas; cor secundária */}
-          <div className="mt-8 pt-4 border-t border-secondary/10">
-            <p className="text-xs font-mono text-neutral-500">
-              {content.menu.legend}
-            </p>
-          </div>
+          {/* Interactive navigation bar */}
+          <NavigationBar variant="secondary" />
         </>
       )}
     </div>

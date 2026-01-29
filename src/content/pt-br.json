@@ -3,6 +3,13 @@
     "command": "/menu",
     "legend": "Pressione ↑↓ para navegar · Enter para selecionar · Esc para voltar",
     "inputHint": "Tente \"/\" ou digite algo",
+    "navigation": {
+      "navigate": "para navegar",
+      "select": "para selecionar",
+      "back": "para voltar",
+      "arrowUp": "Cima",
+      "arrowDown": "Baixo"
+    },
     "items": [
       { "key": "about", "label": "sobre", "description": "Bio, expertises e trajetoria." },
       { "key": "projects", "label": "projetos", "description": "Trabalhos selecionados de design e produto." },

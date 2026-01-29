@@ -1,11 +1,11 @@
 'use client'
 
 import { useNavigation } from '@/components/providers/NavigationProvider'
-import { useLanguage } from '@/components/providers/LanguageProvider'
 import Hero from '@/components/hero/Hero'
 import Intro from '@/components/sections/Intro'
 import IntroCompact from '@/components/sections/IntroCompact'
 import CLIMenu from '@/components/navigation/CLIMenu'
+import NavigationBar from '@/components/navigation/NavigationBar'
 import Projects from '@/components/sections/Projects'
 import About from '@/components/sections/About'
 import Experience from '@/components/sections/Experience'
@@ -18,7 +18,6 @@ import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation'
 
 export default function MainContent() {
   const { activeSection } = useNavigation()
-  const { content } = useLanguage()
 
   // Initialize keyboard navigation (works even when section is open)
   useKeyboardNavigation()
@@ -34,7 +33,10 @@ export default function MainContent() {
 
         {/* Section Content */}
         <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 pb-8 md:pb-12 w-full">
-          <div className="transition-opacity duration-200">
+          {/* Navigation bar at top */}
+          <NavigationBar variant="primary" />
+
+          <div className="transition-opacity duration-200 mt-8">
             {activeSection === 'projects' && <Projects />}
             {activeSection === 'about' && <About />}
             {activeSection === 'experience' && <Experience />}
@@ -45,12 +47,8 @@ export default function MainContent() {
             {activeSection === 'contact' && <Contact />}
           </div>
 
-          {/* Keyboard hint */}
-          <div className="mt-8 pt-4 border-t border-primary/10">
-            <p className="text-xs font-mono text-neutral-500">
-              {content.menu.legend}
-            </p>
-          </div>
+          {/* Interactive navigation bar */}
+          <NavigationBar variant="primary" />
         </div>
       </div>
     )

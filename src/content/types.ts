@@ -35,10 +35,19 @@ export interface MenuItem {
   description?: string
 }
 
+export interface NavigationLabels {
+  navigate: string
+  select: string
+  back: string
+  arrowUp: string
+  arrowDown: string
+}
+
 export interface Menu {
   command: string
   legend: string
   inputHint: string
+  navigation: NavigationLabels
   items: MenuItem[]
 }
 
