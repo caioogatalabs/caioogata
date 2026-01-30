@@ -25,7 +25,7 @@ export default function Education() {
         {content.education.heading}
       </SectionHeading>
 
-      <div className="space-y-4">
+      <div className="space-y-0">
         {content.education.items.map((edu, index) => {
           const title = `${edu.degree} @ ${edu.institution} | ${edu.year}`
           const isSelected = subItemIndex === index
@@ -39,23 +39,17 @@ export default function Education() {
               isExpanded={isExpanded}
               onToggle={() => toggleSubItemExpanded(index)}
             >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-primary font-mono">#</span>
-                <h3 className="text-base font-bold text-primary">
-                  {edu.degree}
-                </h3>
-              </div>
-              <div className="flex items-center gap-2 mb-1 ml-4">
+              <div className="flex items-center gap-2 mb-1">
                 <span className="text-secondary font-mono">@</span>
                 <p className="text-base text-secondary">
                   {edu.institution}
                 </p>
               </div>
-              <p className="text-sm text-neutral-400 font-mono ml-6 mb-2">
+              <p className="text-sm text-neutral-400 font-mono ml-4 mb-2">
                 {edu.location} | {edu.year}
               </p>
               {edu.note && (
-                <p className="text-sm text-primary italic ml-6">
+                <p className="text-sm text-primary italic ml-4">
                   {edu.note}
                 </p>
               )}
@@ -70,12 +64,6 @@ export default function Education() {
             isExpanded={expandedSubItems.has(content.education.items.length)}
             onToggle={() => toggleSubItemExpanded(content.education.items.length)}
           >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-primary font-mono">$</span>
-              <h3 className="text-base font-bold text-primary">
-                Additional Training
-              </h3>
-            </div>
             <ul className="space-y-1.5 ml-4" role="list">
               {content.education.additional.map((item, index) => (
                 <li

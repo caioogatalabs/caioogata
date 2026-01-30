@@ -8,10 +8,10 @@ export default function Hero() {
 
   return (
     <section
-      className="min-h-screen flex flex-col justify-center"
+      className="w-full"
       aria-labelledby="hero-heading"
     >
-      <div className="max-w-content mx-0 px-6 py-24 md:px-12 lg:px-16 w-full">
+      <div className="max-w-content mx-0 px-6 pt-6 pb-8 md:px-12 md:pt-8 md:pb-10 lg:px-16 w-full">
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-primary font-mono">$</span>

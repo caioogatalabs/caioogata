@@ -5,29 +5,9 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation, SectionKey } from '@/components/providers/NavigationProvider'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
 import NavigationBar from '@/components/navigation/NavigationBar'
+import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 const ARROW_WIDTH_CLASS = 'w-4'
-
-function ArrowRightIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      className={className}
-      aria-hidden
-    >
-      <path
-        d="M6 4l4 4-4 4"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
 
 export default function CLIMenu() {
   const { content } = useLanguage()

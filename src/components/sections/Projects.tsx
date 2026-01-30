@@ -21,7 +21,7 @@ export default function Projects() {
         {content.projects.heading}
       </SectionHeading>
 
-      <div className="space-y-4">
+      <div className="space-y-0">
         {content.projects.items.map((project, index) => {
           const isSelected = subItemIndex === index
           const isExpanded = expandedSubItems.has(index)
@@ -34,20 +34,10 @@ export default function Projects() {
               isExpanded={isExpanded}
               onToggle={() => toggleSubItemExpanded(index)}
             >
-              {/* Project Detail Page - Model Template */}
               <div className="space-y-6">
-                {/* Project Header */}
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-primary font-mono">$</span>
-                    <h3 className="text-lg font-bold text-primary">
-                      {project.title}
-                    </h3>
-                  </div>
-                  <p className="text-base text-secondary leading-relaxed ml-6">
-                    {project.description}
-                  </p>
-                </div>
+                <p className="text-base text-secondary leading-relaxed">
+                  {project.description}
+                </p>
 
                 {/* Project Image Placeholder */}
                 <div className="aspect-video bg-neutral border border-primary/30 rounded-base flex items-center justify-center relative overflow-hidden">

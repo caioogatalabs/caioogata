@@ -2,13 +2,13 @@
 
 import { useState } from 'react'
 import { clsx } from 'clsx'
+import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 interface ExpandableSectionProps {
   title: string
   children: React.ReactNode
   defaultExpanded?: boolean
   className?: string
-  // Controlled mode props
   isSelected?: boolean
   isExpanded?: boolean
   onToggle?: () => void
@@ -23,10 +23,7 @@ export default function ExpandableSection({
   isExpanded: controlledExpanded,
   onToggle,
 }: ExpandableSectionProps) {
-  // Uncontrolled state (fallback)
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded)
-
-  // Use controlled state if provided, otherwise use internal state
   const isControlled = controlledExpanded !== undefined
   const expanded = isControlled ? controlledExpanded : internalExpanded
 
@@ -38,30 +35,39 @@ export default function ExpandableSection({
     }
   }
 
+  const borderClass = 'border-secondary/10 group-hover:border-primary'
+
   return (
     <div
       className={clsx(
-        'border-2 rounded-base transition-colors duration-150',
-        isSelected ? 'border-primary bg-primary/5' : 'border-primary/30',
+        'group border-t transition-colors duration-150',
+        borderClass,
         className
       )}
     >
       <button
         onClick={handleToggle}
         className={clsx(
-          'w-full text-left px-4 py-3 font-mono text-sm transition-colors duration-150 flex items-center justify-between',
-          isSelected ? 'text-primary bg-primary/10' : 'text-primary hover:bg-primary/10'
+          'w-full text-left py-2 font-mono text-sm transition-colors duration-150 flex items-center justify-between',
+          isSelected
+            ? 'text-primary opacity-100'
+            : 'text-secondary opacity-60 group-hover:text-primary group-hover:opacity-100'
         )}
         aria-expanded={expanded}
       >
-        <span className="flex items-center gap-2">
-          {isSelected && <span className="text-primary">&gt;</span>}
-          <span>{title}</span>
+        <span className="flex items-center gap-2 min-w-0 truncate">{title}</span>
+        <span
+          aria-hidden
+          className={clsx(
+            'shrink-0 flex items-center justify-center w-4 transition-transform duration-150',
+            expanded && 'rotate-90'
+          )}
+        >
+          <ArrowRightIcon />
         </span>
-        <span aria-hidden="true">{expanded ? '▼' : '▶'}</span>
       </button>
       {expanded && (
-        <div className="px-4 pb-4 pt-2">
+        <div className="pb-4 pt-2">
           {children}
         </div>
       )}

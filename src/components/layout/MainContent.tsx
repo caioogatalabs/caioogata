@@ -58,16 +58,16 @@ export default function MainContent() {
   return (
     <div className="animate-fade-in">
       {/* Intro */}
-      <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 pt-8 md:pt-12 pb-8 w-full">
+      <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 pt-8 md:pt-12 pb-4 w-full">
         <Intro />
       </div>
 
-      {/* CLI Menu */}
-      <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 pb-8 md:pb-12 w-full">
+      {/* CLI Menu — fixed min-height safe area so open menu never pushes Hero */}
+      <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 min-h-[320px] pb-4 md:pb-5 w-full">
         <CLIMenu />
       </div>
 
-      {/* Hero */}
+      {/* Hero — hugs content vertically; close to menu block, no overlap */}
       <Hero />
     </div>
   )
