@@ -62,7 +62,7 @@ export default function Intro() {
               <div className="flex items-center gap-2" role="group" aria-label="Language selection">
                 <button
                   onClick={() => setLanguage('en')}
-                  className={`px-3 py-1.5 rounded-base font-mono text-sm transition-colors border border-primary/30 ${
+                  className={`px-3 py-1.5 rounded-base font-mono text-sm transition-colors border border-primary/30 focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10 ${
                     language === 'en'
                       ? 'border-primary text-primary bg-primary/10'
                       : 'text-secondary hover:border-primary hover:text-primary hover:bg-primary/10'
@@ -74,7 +74,7 @@ export default function Intro() {
                 </button>
                 <button
                   onClick={() => setLanguage('pt-br')}
-                  className={`px-3 py-1.5 rounded-base font-mono text-sm transition-colors border border-primary/30 ${
+                  className={`px-3 py-1.5 rounded-base font-mono text-sm transition-colors border border-primary/30 focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10 ${
                     language === 'pt-br'
                       ? 'border-primary text-primary bg-primary/10'
                       : 'text-secondary hover:border-primary hover:text-primary hover:bg-primary/10'

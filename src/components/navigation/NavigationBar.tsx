@@ -116,9 +116,9 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
 
   const borderColor = variant === 'primary' ? 'border-primary/10' : 'border-secondary/10'
 
-  const buttonBaseClass = 'inline-flex items-center gap-1 text-xs font-mono text-neutral-500 hover:text-primary transition-colors cursor-pointer select-none'
-  const keyClass = 'px-1 py-0.5 rounded bg-neutral-800/50 text-neutral-400 hover:bg-neutral-700/50 hover:text-primary transition-colors'
-  const keyActiveClass = 'px-1 py-0.5 rounded bg-neutral-700/50 text-primary transition-colors'
+  const buttonBaseClass = 'inline-flex items-center gap-1 text-xs font-mono text-neutral-500 hover:text-primary focus-visible:text-primary transition-colors cursor-pointer select-none focus:outline-none'
+  const keyClass = 'px-1 py-0.5 rounded bg-neutral-800/50 text-neutral-400 hover:bg-neutral-700/50 hover:text-primary focus-visible:bg-neutral-700/50 focus-visible:text-primary transition-colors focus:outline-none'
+  const keyActiveClass = 'px-1 py-0.5 rounded bg-neutral-700/50 text-primary transition-colors focus:outline-none'
 
   // Show arrow icon instead of "Esc" for mouse/touch modes
   const showBackAsArrow = mode === 'mouse' || mode === 'touch'
@@ -131,6 +131,7 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
           type="button"
           onClick={goBack}
           className={`${buttonBaseClass} ${activeKey === 'esc' ? 'text-primary' : ''}`}
+          aria-label={labels.back}
         >
           <span className={activeKey === 'esc' ? keyActiveClass : keyClass}>
             {showBackAsArrow ? <ArrowLeftIcon /> : 'Esc'}
@@ -168,6 +169,7 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
           type="button"
           onClick={selectItem}
           className={`${buttonBaseClass} ${activeKey === 'enter' ? 'text-primary' : ''}`}
+          aria-label={labels.select}
         >
           {mode === 'keyboard' && (
             <span className={activeKey === 'enter' ? keyActiveClass : keyClass}>Enter</span>

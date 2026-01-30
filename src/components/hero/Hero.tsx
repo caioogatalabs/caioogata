@@ -45,7 +45,7 @@ export default function Hero() {
                        rounded-base font-mono text-sm
                        hover:border-primary hover:text-primary hover:bg-primary/10
                        transition-colors duration-200
-                       focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-neutral-950"
+                       focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10"
             aria-label="View Caio Ogata's profile on LinkedIn (opens in new tab)"
           >
             <span className="mr-1">&gt;</span>

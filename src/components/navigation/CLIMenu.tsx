@@ -24,6 +24,7 @@ export default function CLIMenu() {
   } = useNavigation()
   const { mode } = useInteractionMode()
   const inputRef = useRef<HTMLInputElement>(null)
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   // Filter items based on input (works with or without "/" prefix)
   const filteredItems = useMemo(() => {
@@ -47,6 +48,24 @@ export default function CLIMenu() {
       setSelectedIndex(0)
     }
   }, [filteredItems.length, selectedIndex, setSelectedIndex])
+
+  // When selectedIndex changes via Arrow keys (not Tab), move focus to the selected menu item (keeps Tab and Arrow in sync)
+  const prevSelectedIndexRef = useRef(selectedIndex)
+  useEffect(() => {
+    if (!isMenuOpen || filteredItems.length === 0) return
+    const selectedIndexChanged = prevSelectedIndexRef.current !== selectedIndex
+    prevSelectedIndexRef.current = selectedIndex
+    if (!selectedIndexChanged) return
+    const currentFocusedIsMenuItem = itemRefs.current.some(ref => ref === document.activeElement)
+    if (!currentFocusedIsMenuItem) {
+      itemRefs.current[selectedIndex]?.focus()
+    }
+  }, [selectedIndex, isMenuOpen, filteredItems.length])
+
+  // Keep refs array length in sync with filtered items
+  useEffect(() => {
+    itemRefs.current = itemRefs.current.slice(0, filteredItems.length)
+  }, [filteredItems.length])
 
   // Focus input on mount and when menu opens
   useEffect(() => {
@@ -122,7 +141,7 @@ export default function CLIMenu() {
             onChange={handleInputChange}
             onKeyDown={handleInputKeyDown}
             onClick={() => setIsMenuOpen(true)}
-            className={`bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 text-primary font-mono text-sm w-full ${
+            className={`bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 text-primary font-mono text-sm w-full ${
               menuFilter ? 'caret-primary' : 'caret-transparent'
             }`}
             placeholder=""
@@ -153,10 +172,12 @@ export default function CLIMenu() {
                 return (
                   <li key={item.key}>
                     <button
+                      ref={el => { itemRefs.current[index] = el }}
                       type="button"
                       onClick={() => handleItemClick(item.key)}
-                      onMouseEnter={() => handleItemHover(index)}
-                      className={`w-full text-left py-0.5 font-mono text-sm transition-all grid grid-cols-[180px_100px_1fr] items-baseline gap-0 ${
+                      onFocus={() => setSelectedIndex(index)}
+                      onMouseEnter={() => setSelectedIndex(index)}
+                      className={`w-full text-left py-0.5 font-mono text-sm transition-all grid grid-cols-[180px_100px_1fr] items-baseline gap-0 focus:outline-none focus:ring-0 focus:ring-offset-0 ${
                         isSelected
                           ? 'text-primary opacity-100'
                           : 'text-secondary hover:text-primary opacity-60 hover:opacity-100'

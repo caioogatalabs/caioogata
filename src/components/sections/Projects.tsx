@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
@@ -8,12 +8,21 @@ import ExpandableSection from '@/components/ui/ExpandableSection'
 
 export default function Projects() {
   const { content } = useLanguage()
-  const { subItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded } = useNavigation()
+  const { subItemIndex, setSubItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded } = useNavigation()
+  const sectionRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   // Set the number of sub-items for keyboard navigation
   useEffect(() => {
     setSubItemsCount(content.projects.items.length)
   }, [content.projects.items.length, setSubItemsCount])
+
+  // When subItemIndex changes via Arrow keys, move focus to the selected section (keeps Tab and Arrow in sync)
+  useEffect(() => {
+    const currentFocusedIsSection = sectionRefs.current.some(ref => ref === document.activeElement)
+    if (!currentFocusedIsSection && sectionRefs.current[subItemIndex]) {
+      sectionRefs.current[subItemIndex]?.focus()
+    }
+  }, [subItemIndex])
 
   return (
     <section id="projects" aria-labelledby="projects-heading">
@@ -29,10 +38,12 @@ export default function Projects() {
           return (
             <ExpandableSection
               key={index}
+              ref={el => { sectionRefs.current[index] = el }}
               title={project.title}
               isSelected={isSelected}
               isExpanded={isExpanded}
               onToggle={() => toggleSubItemExpanded(index)}
+              onFocus={() => setSubItemIndex(index)}
             >
               <div className="space-y-6">
                 <p className="text-base text-secondary leading-relaxed">

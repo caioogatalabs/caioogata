@@ -37,7 +37,7 @@ export default function IntroCompact() {
           <div className="flex items-center gap-1" role="group" aria-label="Language selection">
             <button
               onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded-base font-mono text-xs transition-colors border border-primary/30 ${
+              className={`px-2 py-1 rounded-base font-mono text-xs transition-colors border border-primary/30 focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10 ${
                 language === 'en'
                   ? 'border-primary text-primary bg-primary/10'
                   : 'text-secondary hover:border-primary hover:text-primary hover:bg-primary/10'
@@ -49,7 +49,7 @@ export default function IntroCompact() {
             </button>
             <button
               onClick={() => setLanguage('pt-br')}
-              className={`px-2 py-1 rounded-base font-mono text-xs transition-colors border border-primary/30 ${
+              className={`px-2 py-1 rounded-base font-mono text-xs transition-colors border border-primary/30 focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10 ${
                 language === 'pt-br'
                   ? 'border-primary text-primary bg-primary/10'
                   : 'text-secondary hover:border-primary hover:text-primary hover:bg-primary/10'

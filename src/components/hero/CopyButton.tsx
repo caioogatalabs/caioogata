@@ -56,8 +56,7 @@ export default function CopyButton({
         'px-3 py-1.5 font-mono text-sm rounded-base',
         'border border-primary/30 text-secondary transition-colors duration-200',
         'hover:border-primary hover:text-primary hover:bg-primary/10',
-        'focus:outline-none focus:ring-2 focus:ring-primary',
-        'focus:ring-offset-2 focus:ring-offset-neutral-950',
+        'focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         className
       )}

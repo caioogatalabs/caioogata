@@ -111,11 +111,11 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
           'inline-flex items-center justify-center',
           'px-3 py-1.5 font-mono text-sm rounded-base',
           'transition-colors duration-200',
-          'focus:outline-none focus:ring-2',
+          'focus:outline-none',
           'disabled:opacity-50 disabled:cursor-not-allowed',
           variant === 'inverted'
-            ? 'border border-neutral-800/50 text-neutral-800 hover:border-neutral-800 hover:text-neutral-950 hover:bg-neutral-800/10 focus:ring-neutral-800 focus:ring-offset-2 focus:ring-offset-primary'
-            : 'border border-primary/30 text-secondary hover:border-primary hover:text-primary hover:bg-primary/10 focus:ring-primary focus:ring-offset-2 focus:ring-offset-neutral-950',
+            ? 'border border-neutral-800/50 text-neutral-800 hover:border-neutral-800 hover:text-neutral-950 hover:bg-neutral-800/10 focus-visible:border-neutral-800 focus-visible:text-neutral-950 focus-visible:bg-neutral-800/10'
+            : 'border border-primary/30 text-secondary hover:border-primary hover:text-primary hover:bg-primary/10 focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10',
           className
         )}
         aria-label={content.hero.cta.copyAriaLabel}
@@ -137,7 +137,7 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
         >
           <button
             onClick={handleCopy}
-            className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
+            className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
             role="menuitem"
           >
             <span aria-hidden="true">$</span>
@@ -150,7 +150,7 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
             <button
               key={platform.name}
               onClick={() => handleOpenAI(platform)}
-              className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
+              className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
               role="menuitem"
             >
               <span aria-hidden="true">{platform.icon}</span>

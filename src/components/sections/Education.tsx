@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
@@ -8,7 +8,8 @@ import ExpandableSection from '@/components/ui/ExpandableSection'
 
 export default function Education() {
   const { content } = useLanguage()
-  const { subItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded } = useNavigation()
+  const { subItemIndex, setSubItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded } = useNavigation()
+  const sectionRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   // Calculate total items: education items + additional training (if exists)
   const hasAdditional = content.education.additional && content.education.additional.length > 0
@@ -18,6 +19,14 @@ export default function Education() {
   useEffect(() => {
     setSubItemsCount(totalItems)
   }, [totalItems, setSubItemsCount])
+
+  // When subItemIndex changes via Arrow keys, move focus to the selected section (keeps Tab and Arrow in sync)
+  useEffect(() => {
+    const currentFocusedIsSection = sectionRefs.current.some(ref => ref === document.activeElement)
+    if (!currentFocusedIsSection && sectionRefs.current[subItemIndex]) {
+      sectionRefs.current[subItemIndex]?.focus()
+    }
+  }, [subItemIndex])
 
   return (
     <section id="education" aria-labelledby="education-heading">
@@ -34,10 +43,12 @@ export default function Education() {
           return (
             <ExpandableSection
               key={index}
+              ref={el => { sectionRefs.current[index] = el }}
               title={title}
               isSelected={isSelected}
               isExpanded={isExpanded}
               onToggle={() => toggleSubItemExpanded(index)}
+              onFocus={() => setSubItemIndex(index)}
             >
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-secondary font-mono">@</span>
@@ -59,10 +70,12 @@ export default function Education() {
 
         {hasAdditional && (
           <ExpandableSection
+            ref={el => { sectionRefs.current[content.education.items.length] = el }}
             title="Additional Training"
             isSelected={subItemIndex === content.education.items.length}
             isExpanded={expandedSubItems.has(content.education.items.length)}
             onToggle={() => toggleSubItemExpanded(content.education.items.length)}
+            onFocus={() => setSubItemIndex(content.education.items.length)}
           >
             <ul className="space-y-1.5 ml-4" role="list">
               {content.education.additional.map((item, index) => (

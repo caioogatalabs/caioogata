@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { forwardRef, useState } from 'react'
 import { clsx } from 'clsx'
 import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
@@ -12,9 +12,10 @@ interface ExpandableSectionProps {
   isSelected?: boolean
   isExpanded?: boolean
   onToggle?: () => void
+  onFocus?: () => void
 }
 
-export default function ExpandableSection({
+const ExpandableSection = forwardRef<HTMLButtonElement, ExpandableSectionProps>(function ExpandableSection({
   title,
   children,
   defaultExpanded = false,
@@ -22,7 +23,8 @@ export default function ExpandableSection({
   isSelected,
   isExpanded: controlledExpanded,
   onToggle,
-}: ExpandableSectionProps) {
+  onFocus,
+}, ref) {
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded)
   const isControlled = controlledExpanded !== undefined
   const expanded = isControlled ? controlledExpanded : internalExpanded
@@ -46,9 +48,12 @@ export default function ExpandableSection({
       )}
     >
       <button
+        ref={ref}
+        type="button"
         onClick={handleToggle}
+        onFocus={onFocus}
         className={clsx(
-          'w-full text-left py-2 font-mono text-sm transition-colors duration-150 flex items-center justify-between',
+          'w-full text-left py-2 font-mono text-sm transition-colors duration-150 flex items-center justify-between focus:outline-none',
           isSelected
             ? 'text-primary opacity-100'
             : 'text-secondary opacity-60 group-hover:text-primary group-hover:opacity-100'
@@ -73,4 +78,6 @@ export default function ExpandableSection({
       )}
     </div>
   )
-}
+})
+
+export default ExpandableSection
