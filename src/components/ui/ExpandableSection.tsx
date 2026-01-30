@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 interface ExpandableSectionProps {
-  title: string
+  title: React.ReactNode
   children: React.ReactNode
   defaultExpanded?: boolean
   className?: string
@@ -55,7 +55,7 @@ export default function ExpandableSection({
         )}
         aria-expanded={expanded}
       >
-        <span className="flex items-center gap-2 min-w-0 truncate">{title}</span>
+        <span className="flex items-center gap-2 min-w-0 flex-1">{title}</span>
         <span
           aria-hidden
           className={clsx(

@@ -1,10 +1,11 @@
 import enContent from '@/content/en.json'
 import ptContent from '@/content/pt-br.json'
-import type { Content, Language, Job, SkillCategory, EducationItem } from '@/content/types'
+import type { Content, Language, Job, SkillCategory, EducationItem, QuickFact, LookingForItem } from '@/content/types'
 
 export function generateMarkdown(language: Language = 'en'): string {
   const content = (language === 'en' ? enContent : ptContent) as Content
   const today = new Date().toISOString().split('T')[0]
+  const isEnglish = language === 'en'
 
   const sections = [
     generateFrontmatter(content, today),
@@ -12,68 +13,89 @@ export function generateMarkdown(language: Language = 'en'): string {
     `# ${content.hero.name}`,
     `## ${content.hero.tagline}`,
     '',
-    `**Location:** ${content.hero.location.split('|')[0].trim()}`,
-    `**Experience:** 20+ years in Art Direction, 15 in User Interface design`,
+    `**${isEnglish ? 'Location' : 'Localização'}:** Porto Alegre, Brazil`,
+    `**${isEnglish ? 'Experience' : 'Experiência'}:** 20+ ${isEnglish ? 'years in Art Direction, 15 in User Interface design' : 'anos em Direção de Arte, 15 em design de Interface de Usuário'}`,
     `**LinkedIn:** [linkedin.com/in/caioogata](https://www.linkedin.com/in/caioogata/)`,
-    `**Languages:** Portuguese (native), English (fluent)`,
+    `**${isEnglish ? 'Languages' : 'Idiomas'}:** ${isEnglish ? 'Portuguese (native), English (fluent - worked with Silicon Valley team)' : 'Português (nativo), Inglês (fluente - trabalhou com time do Silicon Valley)'}`,
     '',
     '---',
     '',
-    `## ${content.about.heading}`,
+    `## ${isEnglish ? 'Professional Summary' : 'Resumo Profissional'}`,
+    '',
+    content.hero.summary,
     '',
     content.about.bio,
     '',
-    '### Core Expertise',
+    `### ${isEnglish ? 'Core Expertise' : 'Principais Competências'}`,
     ...content.about.expertise.map(item => `- ${item}`),
     '',
     '---',
     '',
     `## ${content.experience.heading}`,
     '',
-    ...generateExperienceMarkdown(content.experience.jobs),
+    ...generateExperienceMarkdown(content.experience.jobs, isEnglish),
     '---',
     '',
-    `## ${content.skills.heading}`,
+    `## ${isEnglish ? 'Skills & Competencies' : 'Habilidades & Competências'}`,
     '',
     ...generateSkillsMarkdown(content.skills.categories),
     '---',
     '',
     `## ${content.education.heading}`,
     '',
-    ...generateEducationMarkdown(content.education.items, content.education.additional),
+    ...generateEducationMarkdown(content.education.items, content.education.additional, isEnglish),
     '---',
     '',
     `## ${content.clients.heading}`,
     '',
     content.clients.description,
     '',
-    '**Brazilian Brands:**',
+    `**${isEnglish ? 'Brazilian Brands' : 'Marcas Brasileiras'}:**`,
     ...content.clients.brazilian.map(client => `- ${client}`),
     '',
-    '**International Brands (via Mondelez):**',
-    ...content.clients.international.map(client => `- ${client}`),
+    `**${isEnglish ? 'International Brands (via Mondelez)' : 'Marcas Internacionais (via Mondelez)'}:**`,
+    `- ${content.clients.international.join(', ')}`,
+    '',
+    `**${isEnglish ? 'Other' : 'Outras'}:**`,
+    `- ${content.clients.other.join(', ')}`,
     '',
     '---',
     '',
-    `## ${content.philosophy.heading}`,
-    '',
-    `### ${content.philosophy.title}`,
+    `## ${isEnglish ? 'Design Philosophy' : 'Filosofia de Design'}`,
     '',
     content.philosophy.body,
     '',
     '---',
     '',
-    `## ${content.contact.heading}`,
+    `## ${content.lifestyle.heading}`,
     '',
-    content.contact.description,
+    content.lifestyle.body,
     '',
-    ...content.contact.links.map(link => `**${link.label}:** [${link.url}](${link.url})`),
+    `**${content.quickFacts.heading}:**`,
+    ...generateQuickFactsMarkdown(content.quickFacts.facts),
     '',
     '---',
     '',
-    '*This portfolio is optimized for both human readers and AI assistants. Feel free to copy this entire document into your preferred AI tool (ChatGPT, Claude, etc.) for career assistance, interview preparation, application drafting, or job matching.*',
+    `## ${content.lookingFor.heading}`,
     '',
-    `*Last updated: ${today}*`,
+    content.lookingFor.description,
+    '',
+    `**${isEnglish ? 'Ideal role characteristics' : 'Características da função ideal'}:**`,
+    ...generateLookingForMarkdown(content.lookingFor.idealRole),
+    '',
+    `**${content.lookingFor.focusAreas}**`,
+    '',
+    '---',
+    '',
+    `## ${isEnglish ? 'Contact' : 'Contato'}`,
+    '',
+    ...content.contact.links.map(link => `**${link.label}:** [${link.url}](${link.url})`),
+    `**Portfolio:** [https://www.caioogata.com](https://www.caioogata.com)`,
+    `**Azion Design System:** [https://www.azion.design](https://www.azion.design)`,
+    '',
+    '---',
+    '',
+    generateFooterNote(isEnglish, today),
   ]
 
   return sections.join('\n')
@@ -95,18 +117,18 @@ optimized_for: Claude, ChatGPT, LLMs
 ---`
 }
 
-function generateExperienceMarkdown(jobs: Job[]): string[] {
+function generateExperienceMarkdown(jobs: Job[], isEnglish: boolean): string[] {
   const lines: string[] = []
 
-  jobs.forEach((job) => {
-    lines.push(`### ${job.title} at ${job.company}`)
+  jobs.forEach((job, index) => {
+    lines.push(`### ${job.title} ${isEnglish ? 'at' : 'na'} ${job.company}`)
     lines.push(`**${job.dateRange} | ${job.location}**`)
     lines.push('')
     lines.push(job.description)
     lines.push('')
 
     if (job.achievements && job.achievements.length > 0) {
-      lines.push('**Key Achievements:**')
+      lines.push(`**${isEnglish ? 'Key Achievements' : 'Principais Conquistas'}:**`)
       job.achievements.forEach((achievement) => {
         lines.push(`- ${achievement.text}`)
       })
@@ -129,7 +151,7 @@ function generateSkillsMarkdown(categories: SkillCategory[]): string[] {
   return lines
 }
 
-function generateEducationMarkdown(items: EducationItem[], additional: string[]): string[] {
+function generateEducationMarkdown(items: EducationItem[], additional: string[], isEnglish: boolean): string[] {
   const lines: string[] = []
 
   items.forEach((edu) => {
@@ -143,7 +165,7 @@ function generateEducationMarkdown(items: EducationItem[], additional: string[])
   })
 
   if (additional.length > 0) {
-    lines.push('**Additional Training:**')
+    lines.push(`**${isEnglish ? 'Additional Training' : 'Formação Adicional'}:**`)
     additional.forEach((item) => {
       lines.push(`- ${item}`)
     })
@@ -151,4 +173,24 @@ function generateEducationMarkdown(items: EducationItem[], additional: string[])
   }
 
   return lines
+}
+
+function generateQuickFactsMarkdown(facts: QuickFact[]): string[] {
+  return facts.map(fact => `- ${fact.label}: ${fact.value}`)
+}
+
+function generateLookingForMarkdown(items: LookingForItem[]): string[] {
+  return items.map(item => `- ${item.text}`)
+}
+
+function generateFooterNote(isEnglish: boolean, today: string): string {
+  if (isEnglish) {
+    return `*This portfolio is optimized for both human readers and AI assistants. Feel free to copy this entire document into your preferred AI tool (ChatGPT, Claude, etc.) for career assistance, interview preparation, application drafting, or job matching. The structured format helps LLMs understand context and provide better analysis.*
+
+*Last updated: ${today}*`
+  }
+
+  return `*Este portfólio é otimizado tanto para leitores humanos quanto para assistentes de IA. Sinta-se à vontade para copiar este documento inteiro para sua ferramenta de IA preferida (ChatGPT, Claude, etc.) para assistência de carreira, preparação de entrevistas, redação de candidaturas ou matching de vagas. O formato estruturado ajuda LLMs a entender o contexto e fornecer análises melhores.*
+
+*Última atualização: ${today}*`
 }

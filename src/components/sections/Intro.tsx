@@ -40,14 +40,19 @@ export default function Intro() {
                 <p className="text-base text-secondary leading-relaxed">
                   {content.footer.tagline}
                 </p>
-                <p className="text-sm text-neutral-400 font-mono">
-                  {content.footer.tech}
+                <p className="text-base text-neutral-400 font-mono">
+                  {content.hero.tagline}
                 </p>
               </div>
             </div>
 
-            {/* Right Column - Buttons and Tips */}
+            {/* Right Column - Tips and Buttons */}
             <div className="flex flex-col gap-4">
+              {/* Tips Text */}
+              <p className="text-sm font-mono text-neutral-400">
+                {content.intro.tips}
+              </p>
+
               {/* CTA Button - Dropdown */}
               <div>
                 <CopyDropdown />
@@ -79,13 +84,6 @@ export default function Intro() {
                 >
                   PT
                 </button>
-              </div>
-
-              {/* Tips Text */}
-              <div className="mt-2">
-                <p className="text-xs font-mono text-neutral-400">
-                  {content.intro.tips}
-                </p>
               </div>
             </div>
           </div>

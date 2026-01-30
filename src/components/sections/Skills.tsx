@@ -25,7 +25,7 @@ export default function Skills() {
               {category.skills.map((skill, skillIndex) => (
                 <span
                   key={skillIndex}
-                  className="px-2 py-1 bg-neutral border border-primary/30
+                  className="px-2 py-1 bg-neutral border border-secondary/10
                              text-secondary rounded-base text-sm
                              font-mono"
                 >

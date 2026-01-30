@@ -19,7 +19,7 @@ export default function Hero() {
               id="hero-heading"
               className="text-2xl font-bold text-primary tracking-tight"
             >
-              {content.hero.name}
+              {content.hero.welcomeTitle}
             </h1>
           </div>
           <p className="text-base text-secondary mb-4 leading-relaxed">

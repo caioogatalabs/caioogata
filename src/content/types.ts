@@ -65,10 +65,20 @@ export interface Menu {
   items: MenuItem[]
 }
 
+export interface QuickFact {
+  label: string
+  value: string
+}
+
+export interface LookingForItem {
+  text: string
+}
+
 export interface Content {
   menu: Menu
   hero: {
     name: string
+    welcomeTitle: string
     tagline: string
     summary: string
     location: string
@@ -115,6 +125,20 @@ export interface Content {
     title: string
     body: string
   }
+  lifestyle: {
+    heading: string
+    body: string
+  }
+  quickFacts: {
+    heading: string
+    facts: QuickFact[]
+  }
+  lookingFor: {
+    heading: string
+    description: string
+    idealRole: LookingForItem[]
+    focusAreas: string
+  }
   contact: {
     command: string
     heading: string
@@ -125,6 +149,9 @@ export interface Content {
     copyright: string
     tagline: string
     tech: string
+    poweredByPrefix: string
+    poweredByTailwindLabel: string
+    poweredBySuffix: string
   }
   intro: {
     tips: string

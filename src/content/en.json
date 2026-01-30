@@ -39,6 +39,7 @@
   },
   "hero": {
     "name": "Caio Ogata",
+    "welcomeTitle": "Welcome to Caio Ogata Portfolio",
     "tagline": "Design Director specializing in design systems, brand experience, and developer-focused products",
     "summary": "I lead design teams at the intersection of brand strategy and technical implementation. Twenty years in Art Direction—fifteen focused on UI—building digital experiences for brands like Petrobras, O Boticario, and Azion taught me that great design bridges business goals with user needs—and that the best solutions come from questioning assumptions and iterating fearlessly.",
     "location": "Based in Porto Alegre, Brazil | 20+ years in Art Direction, 15 in UI design | Open to remote & hybrid opportunities",
@@ -226,6 +227,35 @@
     "title": "Fall, learn, evolve",
     "body": "Great design comes from the same place as great athleticism: the willingness to fail, learn, and iterate.\n\nI learned this first on the Judo mat. As I wrote in 2018: \"In Judo, the first lessons are all focused on teaching how to fall. From the beginning, it's understood that you will fall, lose, err. So suffer less, lose the fear, preserve your body and, most importantly, prepare your mind for the obstacles ahead.\"\n\nYears later, skateboarding taught me the same lesson. Skateboarders are the most persistent people I've ever met. They fall hundreds of times perfecting a single trick, and they do it without fear because falling is part of the process.\n\nThis mindset translates directly to design. The best work comes from teams that aren't afraid to test, fail, and iterate. Ship early, get feedback, evolve. Great products aren't born perfect—they're refined through countless small improvements.\n\nAs a design leader, I try to create environments where teams can fall safely. Where iteration is celebrated, not feared. Where \"I don't know yet\" is an acceptable answer, as long as it's followed by curiosity and action."
   },
+  "lifestyle": {
+    "heading": "Life Outside Design",
+    "body": "I'm a triathlete, training 10-14 hours per week across running, cycling, and swimming. The discipline of athletic training—waking at 5 AM for a two-hour run, then putting in a full workday—teaches you to manage energy, focus on what matters, and push through discomfort.\n\nVideo games have been a lifelong passion and a major influence on my design work. I've always looked at games as inspiration—particularly for visual references and interaction design. The attention to detail in game UI/UX, the storytelling through visuals, and the immersive experiences have shaped how I approach digital product design.\n\nBefore design consumed my life, music did. I played bass in INFUSE, a melodic punk rock band. I'm a cinephile who watches every Oscar nominee each year (favorite directors: Tarantino, Wes Anderson, Almodovar, Scorsese, Nolan, Villeneuve).\n\nI'm also a three-time Brazilian vice-champion in youth baseball categories, played volleyball at the state championship level at 17, and surfed for years. I'm an INTP—analytical, curious, always questioning. I work to balance my natural tendency to question everything with the need to ship and execute."
+  },
+  "quickFacts": {
+    "heading": "Quick Facts",
+    "facts": [
+      { "label": "Born", "value": "June 23, 1984 | Presidente Prudente, SP" },
+      { "label": "Current", "value": "Porto Alegre, RS, Brazil" },
+      { "label": "Age", "value": "40 years old" },
+      { "label": "MBTI", "value": "INTP (The Logician)" },
+      { "label": "DISC", "value": "D (Dominance) primary" },
+      { "label": "Training", "value": "10-14 hours/week (triathlon)" },
+      { "label": "Hobbies", "value": "Triathlon, video games (design inspiration), cinema, photography" },
+      { "label": "Former", "value": "Bassist (INFUSE), 3x Brazilian youth baseball vice-champion" }
+    ]
+  },
+  "lookingFor": {
+    "heading": "What I'm Looking For",
+    "description": "I'm currently exploring opportunities in design leadership, product development, and innovation—particularly where AI augments creative workflows. Open to remote, hybrid, or relocation for the right role.",
+    "idealRole": [
+      { "text": "Design leadership or senior IC role with hands-on work" },
+      { "text": "Opportunity to solve business problems, move metrics, seek results" },
+      { "text": "Clear purpose, inspiring people, growth opportunity" },
+      { "text": "Startup, big tech, or agency with strong culture" },
+      { "text": "Open to CLT, PJ, or any contract type for the right opportunity" }
+    ],
+    "focusAreas": "Decision-making positions at large companies, or partner/founder roles in invested businesses interest me most. Focus areas: innovation, technology development, sports tech, wellness, making the world better."
+  },
   "contact": {
     "command": "send message",
     "heading": "Let's connect",
@@ -238,12 +268,15 @@
     ]
   },
   "intro": {
-    "tips": "Or press enter to load the site."
+    "tips": "Built for Human and Ai assistants. Optimized for LLM consumptions."
   },
   "footer": {
     "copyright": "2026 Caio Ogata. All rights reserved.",
-    "tagline": "Built for humans and AI assistants. Optimized for LLM consumption.",
-    "tech": "Powered by Next.js, Tailwind CSS, and a lot of iteration."
+    "tagline": "Welcome to Caio Ogata Portfolio",
+    "tech": "Powered by Next.js, Tailwind CSS, and a lot of iteration.",
+    "poweredByPrefix": "Powered by Next.js, ",
+    "poweredByTailwindLabel": "Tailwind CSS",
+    "poweredBySuffix": ", and a lot of iteration."
   },
   "notifications": {
     "copySuccess": "Content copied! Ready to paste into your AI assistant.",

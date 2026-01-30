@@ -39,6 +39,7 @@
   },
   "hero": {
     "name": "Caio Ogata",
+    "welcomeTitle": "Bem-vindo ao Portfólio Caio Ogata",
     "tagline": "Diretor de Design especializado em design systems, brand experience e produtos para desenvolvedores",
     "summary": "Lidero equipes de design na intersecao entre estrategia de marca e implementacao tecnica. Vinte anos em Direcao de Arte—quinze focados em UI—construindo experiencias digitais para marcas como Petrobras, O Boticario e Azion me ensinaram que otimo design conecta objetivos de negocio com necessidades de usuarios—e que as melhores solucoes vem de questionar premissas e iterar sem medo.",
     "location": "Baseado em Porto Alegre, Brasil | 20+ anos em Direcao de Arte, 15 em UI design | Aberto a oportunidades remotas e hibridas",
@@ -226,6 +227,35 @@
     "title": "Caia, aprenda, evolua",
     "body": "Otimo design vem do mesmo lugar que grande performance atletica: a disposicao de falhar, aprender e iterar.\n\nAprendi isso primeiro no tatame de Judo. Como escrevi em 2018: \"No Judo, as primeiras licoes sao todas focadas em ensinar a cair. Desde o inicio, esta entendido que voce vai cair, perder, errar. Entao sofra menos, perca o medo, preserve seu corpo e, mais importante, prepare sua mente para os obstaculos a frente.\"\n\nAnos depois, o skate me ensinou a mesma licao. Skatistas sao as pessoas mais persistentes que ja conheci. Eles caem centenas de vezes aperfeicoando uma unica manobra, e fazem isso sem medo porque cair e parte do processo.\n\nEssa mentalidade se traduz diretamente para design. O melhor trabalho vem de times que nao tem medo de testar, falhar e iterar. Lance cedo, receba feedback, evolua. Otimos produtos nao nascem perfeitos—eles sao refinados atraves de incontaveis pequenas melhorias.\n\nComo lider de design, tento criar ambientes onde times podem cair com seguranca. Onde iteracao e celebrada, nao temida. Onde \"ainda nao sei\" e uma resposta aceitavel, desde que seguida de curiosidade e acao."
   },
+  "lifestyle": {
+    "heading": "Vida Fora da Tela",
+    "body": "Sou triatleta, treino 10-14 horas por semana entre corrida, ciclismo e natacao. A disciplina do treino atletico—acordar as 5h para uma corrida de duas horas, depois encarar um dia inteiro de trabalho—ensina a gerenciar energia, focar no que importa e superar desconforto.\n\nVideogames sao uma paixao de vida e grande influencia no meu trabalho de design. Sempre olhei para jogos como inspiracao—particularmente pelas referencias visuais e design de interacao. A atencao aos detalhes em UI/UX de jogos, a narrativa atraves de visuais, e as experiencias imersivas moldaram como abordo design de produtos digitais.\n\nAntes do design consumir minha vida, foi a musica. Toquei baixo no INFUSE, uma banda de punk rock melodico. Tambem sou cinefilo, assisto todos os indicados ao Oscar a cada ano (diretores favoritos: Tarantino, Wes Anderson, Almodovar, Scorsese, Nolan, Villeneuve).\n\nTambem sou tres vezes vice-campeao brasileiro de baseball nas categorias de base, joguei volei em nivel de campeonato estadual aos 17, e surfei por anos. Sou INTP—analitico, curioso, sempre questionando. Trabalho para balancear minha tendencia natural de questionar tudo com a necessidade de entregar e executar."
+  },
+  "quickFacts": {
+    "heading": "Fatos Rapidos",
+    "facts": [
+      { "label": "Nascimento", "value": "23 de junho de 1984 | Presidente Prudente, SP" },
+      { "label": "Atual", "value": "Porto Alegre, RS, Brasil" },
+      { "label": "Idade", "value": "40 anos" },
+      { "label": "MBTI", "value": "INTP (O Logico)" },
+      { "label": "DISC", "value": "D (Dominancia) primario" },
+      { "label": "Treino", "value": "10-14 horas/semana (triatlo)" },
+      { "label": "Hobbies", "value": "Triatlo, videogames (inspiracao de design), cinema, fotografia" },
+      { "label": "Ex", "value": "Baixista (INFUSE), 3x vice-campeao brasileiro de baseball (categorias de base)" }
+    ]
+  },
+  "lookingFor": {
+    "heading": "O Que Estou Buscando",
+    "description": "Atualmente explorando oportunidades em lideranca de design, desenvolvimento de produto e inovacao—particularmente onde IA aumenta workflows criativos. Aberto para remoto, hibrido ou relocacao para a funcao certa.",
+    "idealRole": [
+      { "text": "Lideranca de design ou cargo senior IC com trabalho hands-on" },
+      { "text": "Oportunidade de resolver problemas de negocio, mover metricas, buscar resultados" },
+      { "text": "Proposito claro, pessoas inspiradoras, oportunidade de crescimento" },
+      { "text": "Startup, big tech ou agencia com cultura forte" },
+      { "text": "Aberto a CLT, PJ ou qualquer tipo de contrato para a oportunidade certa" }
+    ],
+    "focusAreas": "Posicoes de tomada de decisao em grandes empresas, ou cargos de socio/fundador em negocios investidos me interessam mais. Areas de foco: inovacao, desenvolvimento de tecnologia, sports tech, wellness, fazer o mundo melhor."
+  },
   "contact": {
     "command": "send mensagem",
     "heading": "Vamos conversar",
@@ -238,12 +268,15 @@
     ]
   },
   "intro": {
-    "tips": "Ou pressione enter para carregar o site."
+    "tips": "Feito para humanos e assistentes de IA. Otimizado para consumo por LLM."
   },
   "footer": {
     "copyright": "2026 Caio Ogata. Todos os direitos reservados.",
-    "tagline": "Feito para humanos e assistentes de IA. Otimizado para consumo por LLM.",
-    "tech": "Desenvolvido com Next.js, Tailwind CSS e muita iteracao."
+    "tagline": "Bem-vindo ao Portfólio de Caio Ogata",
+    "tech": "Desenvolvido com Next.js, Tailwind CSS e muita iteracao.",
+    "poweredByPrefix": "Desenvolvido com Next.js, ",
+    "poweredByTailwindLabel": "Tailwind CSS",
+    "poweredBySuffix": " e muita iteracao."
   },
   "notifications": {
     "copySuccess": "Conteudo copiado! Pronto para colar no seu assistente de IA.",
