@@ -7,25 +7,10 @@ export default function Hero() {
   const { content } = useLanguage()
 
   return (
-    <section
-      className="w-full"
-      aria-labelledby="hero-heading"
-    >
+    <section className="w-full">
       <div className="max-w-content mx-0 px-6 pt-6 pb-8 md:px-12 md:pt-8 md:pb-10 lg:px-16 w-full">
         <div className="mb-6">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-primary font-mono">$</span>
-            <h1
-              id="hero-heading"
-              className="text-2xl font-bold text-primary tracking-tight"
-            >
-              {content.hero.welcomeTitle}
-            </h1>
-          </div>
-          <p className="text-base text-secondary mb-4 leading-relaxed">
-            {content.hero.tagline}
-          </p>
-          <p className="text-base text-secondary mb-4 leading-relaxed">
+          <p className="text-sm text-neutral-400 font-mono mb-4 leading-relaxed">
             {content.hero.summary}
           </p>
           <p className="text-sm text-neutral-400 font-mono">

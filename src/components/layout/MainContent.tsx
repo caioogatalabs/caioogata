@@ -69,6 +69,11 @@ export default function MainContent() {
 
       {/* Hero — hugs content vertically; close to menu block, no overlap */}
       <Hero />
+
+      {/* Contact — below Hero, same flow and grid as rest of page */}
+      <div className="max-w-content mx-0 px-6 pt-6 pb-8 md:px-12 md:pt-8 md:pb-10 lg:px-16 w-full">
+        <Contact />
+      </div>
     </div>
   )
 }
