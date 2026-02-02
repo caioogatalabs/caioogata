@@ -127,9 +127,9 @@ export default function CLIMenu() {
   }
 
   return (
-    <div className="p-4 md:p-6">
+    <div className="py-4 md:py-6">
       {/* Input line: bordas cor secundária, opacidade/espessura como outras linhas; ícone e label dentro */}
-      <div className="flex items-center gap-2 border-t border-b border-secondary/10 py-2 -mx-4 md:-mx-6 px-4 md:px-6 mb-2">
+      <div className="flex items-center gap-2 border-t border-b border-secondary/10 py-2 mb-2">
         <span className={`${ARROW_WIDTH_CLASS} shrink-0 flex items-center justify-center text-primary`}>
           <ArrowRightIcon />
         </span>

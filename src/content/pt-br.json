@@ -258,13 +258,15 @@
   },
   "contact": {
     "command": "send mensagem",
-    "heading": "Vamos conversar",
+    "heading": "Entre em contato",
     "description": "Atualmente explorando oportunidades em lideranca de design, desenvolvimento de produto e inovacao—particularmente onde IA aumenta workflows criativos. Aberto para remoto, hibrido ou relocacao para a funcao certa.\n\nSe voce esta construindo algo interessante, ou so quer conversar sobre design systems, developer experience, ou a intersecao entre esportes e UX, entre em contato.",
+    "email": "caioogata.labs@gmail.com",
     "links": [
       { "label": "LinkedIn", "url": "https://www.linkedin.com/in/caioogata/" },
       { "label": "GitHub", "url": "https://github.com/caioogatalabs" },
       { "label": "Instagram", "url": "https://www.instagram.com/caioogata.labs" },
-      { "label": "Medium", "url": "https://medium.com/@caioogata" }
+      { "label": "YouTube", "url": "https://www.youtube.com/@caioogatalabs" },
+      { "label": "Discord", "url": "https://discord.gg/caioogatalabs" }
     ]
   },
   "intro": {

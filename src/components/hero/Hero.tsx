@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import CopyDropdown from './CopyDropdown'
+import ExternalLinkIcon from '@/components/ui/ExternalLinkIcon'
 
 export default function Hero() {
   const { content } = useLanguage()
@@ -25,7 +26,7 @@ export default function Hero() {
             href="https://www.linkedin.com/in/caioogata/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-3 py-1.5
+            className="inline-flex items-center px-1.5 py-1.5
                        border border-primary/30 text-secondary
                        rounded-base font-mono text-sm
                        hover:border-primary hover:text-primary hover:bg-primary/10
@@ -33,8 +34,13 @@ export default function Hero() {
                        focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10"
             aria-label="View Caio Ogata's profile on LinkedIn (opens in new tab)"
           >
-            <span className="mr-1">&gt;</span>
             {content.hero.cta.linkedin}
+            <span
+              className="ml-1.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm bg-primary text-neutral-950"
+              aria-hidden="true"
+            >
+              <ExternalLinkIcon />
+            </span>
           </a>
         </div>
       </div>

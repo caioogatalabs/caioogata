@@ -143,6 +143,7 @@ export interface Content {
     command: string
     heading: string
     description: string
+    email: string
     links: ContactLink[]
   }
   footer: {

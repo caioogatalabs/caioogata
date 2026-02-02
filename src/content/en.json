@@ -258,13 +258,15 @@
   },
   "contact": {
     "command": "send message",
-    "heading": "Let's connect",
+    "heading": "Get in touch",
     "description": "I'm currently exploring opportunities in design leadership, product development, and innovation—particularly where AI augments creative workflows. Open to remote, hybrid, or relocation for the right role.\n\nIf you're building something interesting, or just want to talk design systems, developer experience, or the intersection of sports and UX, reach out.",
+    "email": "caioogata.labs@gmail.com",
     "links": [
       { "label": "LinkedIn", "url": "https://www.linkedin.com/in/caioogata/" },
       { "label": "GitHub", "url": "https://github.com/caioogatalabs" },
       { "label": "Instagram", "url": "https://www.instagram.com/caioogata.labs" },
-      { "label": "Medium", "url": "https://medium.com/@caioogata" }
+      { "label": "YouTube", "url": "https://www.youtube.com/@caioogatalabs" },
+      { "label": "Discord", "url": "https://discord.gg/caioogatalabs" }
     ]
   },
   "intro": {

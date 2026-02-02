@@ -1,7 +1,6 @@
 'use client'
 
 import { useNavigation } from '@/components/providers/NavigationProvider'
-import Hero from '@/components/hero/Hero'
 import Intro from '@/components/sections/Intro'
 import IntroCompact from '@/components/sections/IntroCompact'
 import CLIMenu from '@/components/navigation/CLIMenu'
@@ -54,7 +53,7 @@ export default function MainContent() {
     )
   }
 
-  // Default view: Intro + Menu + Hero
+  // Default view: Intro + Menu + Contact
   return (
     <div className="animate-fade-in">
       {/* Intro */}
@@ -62,15 +61,12 @@ export default function MainContent() {
         <Intro />
       </div>
 
-      {/* CLI Menu — fixed min-height safe area so open menu never pushes Hero */}
+      {/* CLI Menu — fixed min-height safe area */}
       <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 min-h-[320px] pb-4 md:pb-5 w-full">
         <CLIMenu />
       </div>
 
-      {/* Hero — hugs content vertically; close to menu block, no overlap */}
-      <Hero />
-
-      {/* Contact — below Hero, same flow and grid as rest of page */}
+      {/* Contact — below menu */}
       <div className="max-w-content mx-0 px-6 pt-6 pb-8 md:px-12 md:pt-8 md:pb-10 lg:px-16 w-full">
         <Contact />
       </div>
