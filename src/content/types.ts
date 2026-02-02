@@ -29,6 +29,18 @@ export interface ContactLink {
   url: string
 }
 
+export interface ProjectImage {
+  src: string
+  title: string
+}
+
+export interface ProjectItem {
+  title: string
+  slug: string
+  description: string
+  images: ProjectImage[]
+}
+
 export interface MenuItem {
   key: string
   label: string
@@ -160,11 +172,13 @@ export interface Content {
   projects: {
     command: string
     heading: string
-    items: {
-      title: string
-      description: string
-      imagePlaceholder: string
-    }[]
+    viewModes: {
+      free: string
+      grid: string
+      list: string
+      carousel: string
+    }
+    items: ProjectItem[]
   }
   notifications: {
     copySuccess: string

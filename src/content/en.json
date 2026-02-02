@@ -190,26 +190,54 @@
   "projects": {
     "command": "ls projects/",
     "heading": "Projects",
+    "viewModes": {
+      "free": "Free",
+      "grid": "Grid",
+      "list": "List",
+      "carousel": "Carousel"
+    },
     "items": [
       {
         "title": "Azion Design System",
+        "slug": "azion-design-system",
         "description": "Complete design system built from scratch for Azion's edge computing platform, including public documentation and reusable components.",
-        "imagePlaceholder": "[Project Image]"
+        "images": [
+          { "src": "/projects/azion-design-system/09.png", "title": "Visual Identity" },
+          { "src": "/projects/azion-design-system/cloud-vs-edge2%201.png", "title": "Cloud vs Edge" },
+          { "src": "/projects/azion-design-system/estudo_texturas-05%201.png", "title": "Texture Study" },
+          { "src": "/projects/azion-design-system/Frame%205506.png", "title": "Frame Component" },
+          { "src": "/projects/azion-design-system/Group%205369.png", "title": "Illustration Group" },
+          { "src": "/projects/azion-design-system/Group%205372.png", "title": "Icon Set" },
+          { "src": "/projects/azion-design-system/Notebook-Escudo%201.png", "title": "Security Shield" },
+          { "src": "/projects/azion-design-system/orchestrator4%201.png", "title": "Orchestrator" },
+          { "src": "/projects/azion-design-system/VELOCIDADE-SEGURAN%C3%87A2%202.png", "title": "Speed & Security" }
+        ]
       },
       {
         "title": "Developer Experience Platform",
+        "slug": "developer-experience",
         "description": "Platform focused on improving developer experience using Azion products, with emphasis on documentation, tools, and workflows.",
-        "imagePlaceholder": "[Project Image]"
+        "images": [
+          { "src": "/projects/developer-experience/01.png", "title": "Fintech Concept" },
+          { "src": "/projects/developer-experience/02.png", "title": "Planets Detail" }
+        ]
       },
       {
         "title": "Brand Experience - O Boticario",
+        "slug": "brand-oboticario",
         "description": "Complete digital experience for one of Brazil's largest beauty retail chains, integrating brand strategy with product design.",
-        "imagePlaceholder": "[Project Image]"
+        "images": [
+          { "src": "/projects/brand-oboticario/01.png", "title": "Containers Infographic" },
+          { "src": "/projects/brand-oboticario/02.png", "title": "Edge Computing" }
+        ]
       },
       {
         "title": "Product Design - Petrobras",
+        "slug": "product-petrobras",
         "description": "Digital products for one of the world's largest energy companies, focusing on usability and operational efficiency.",
-        "imagePlaceholder": "[Project Image]"
+        "images": [
+          { "src": "/projects/product-petrobras/01.png", "title": "Security Shield" }
+        ]
       }
     ]
   },

@@ -5,6 +5,7 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ExpandableSection from '@/components/ui/ExpandableSection'
+import ProjectCanvas from '@/components/ui/ProjectCanvas'
 
 export default function Projects() {
   const { content } = useLanguage()
@@ -50,14 +51,21 @@ export default function Projects() {
                   {project.description}
                 </p>
 
-                {/* Project Image Placeholder */}
-                <div className="aspect-video bg-neutral border border-primary/30 rounded-base flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-neutral-400 font-mono text-sm">
-                      {project.imagePlaceholder}
-                    </div>
+                {/* Project Images Canvas */}
+                {project.images && project.images.length > 0 ? (
+                  <div className="relative -mr-6 md:-mr-12 lg:-mr-24 xl:-mr-48 2xl:-mr-96">
+                    <ProjectCanvas
+                      images={project.images}
+                      viewModeLabels={content.projects.viewModes}
+                    />
                   </div>
-                </div>
+                ) : (
+                  <div className="aspect-video bg-neutral border border-primary/30 rounded-base flex items-center justify-center">
+                    <span className="text-neutral-400 font-mono text-sm">
+                      No images available
+                    </span>
+                  </div>
+                )}
 
                 {/* Project Details - Template sections for future content */}
                 <div className="space-y-4">
