@@ -198,7 +198,7 @@ export default function CLIMenu() {
                 )
               })}
               {filteredItems.length === 0 && (
-                <li className="py-0.5 text-sm font-mono text-neutral-500">
+                <li className="py-0.5 text-sm font-mono text-neutral-300">
                   No commands found
                 </li>
               )}

@@ -121,6 +121,7 @@ export interface Content {
     command: string
     heading: string
     items: EducationItem[]
+    additionalHeading: string
     additional: string[]
   }
   clients: {

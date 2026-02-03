@@ -4,20 +4,20 @@
 
 :root {
   /* Colors */
-  --color-primary: #EFD246;
-  --color-secondary: #D8D1DA;
+  --color-primary: #FAEA4D;
+  --color-secondary: #b7b7b7;
   --color-accent: #BC5F04;
-  --color-neutral-dark: #22221F;
+  --color-neutral-dark: #0c0c0d;
   --color-neutral-teal: #618985;
 
   /* Background - consolidated to single token */
-  --bg-neutral: #22221F;
+  --bg-neutral: #161618;
 
   /* Text */
-  --text-primary: #D8D1DA;
-  --text-secondary: #B5B6B1;
-  --text-muted: #8B8C87;
-  --text-accent: #EFD246;
+  --text-primary: #b7b7b7;
+  --text-secondary: #949495;
+  --text-muted: #636364;
+  --text-accent: #FAEA4D;
 
   /* Section spacing */
   --section-gap: 3.75rem;

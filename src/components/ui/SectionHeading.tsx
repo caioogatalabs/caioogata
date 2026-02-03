@@ -1,12 +1,12 @@
+import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
+
 interface SectionHeadingProps {
-  command: string
   children: React.ReactNode
   id?: string
   level?: 'h2' | 'h3'
 }
 
 export default function SectionHeading({
-  command,
   children,
   id,
   level = 'h2'
@@ -14,17 +14,13 @@ export default function SectionHeading({
   const Tag = level
 
   return (
-    <Tag
-      id={id}
-      className="text-xl font-bold mb-6"
-    >
-      <span
-        className="text-primary mr-2"
-        aria-hidden="true"
-      >
-        $ {command}
+    <div className="flex items-center gap-2 mb-6">
+      <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+        <ArrowRightIcon />
       </span>
-      <span className="text-secondary">{children}</span>
-    </Tag>
+      <Tag id={id} className="text-base font-bold text-primary font-mono">
+        {children}
+      </Tag>
+    </div>
   )
 }

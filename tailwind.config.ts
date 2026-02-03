@@ -10,25 +10,26 @@ const config: Config = {
     extend: {
       colors: {
         // Brand colors
-        primary: '#EFD246',
-        secondary: '#D8D1DA',
+        primary: '#FAEA4D',
+        secondary: '#b7b7b7',
         accent: '#BC5F04',
-        'neutral-dark': '#22221F',
+        'neutral-dark': '#0c0c0d', // neutral-800
         'neutral-teal': '#618985',
 
-        // Extended neutral scale
+        // Extended neutral scale (adapted from grey palette)
         neutral: {
-          DEFAULT: '#22221F',
-          50: '#F9FAF5',
-          100: '#EEEFEA',
-          200: '#D8D1DA',
-          300: '#B5B6B1',
-          400: '#8B8C87',
-          600: '#618985',
-          700: '#4A4B46',
-          800: '#22221F',
-          900: '#22221F',
-          950: '#22221F',
+          DEFAULT: '#161618',
+          50: '#e8e8e8',
+          100: '#b7b7b7',
+          200: '#949495',
+          300: '#636364',
+          400: '#454546',
+          500: '#161618',
+          600: '#141416',
+          700: '#101011',
+          800: '#0c0c0d',
+          900: '#09090a',
+          950: '#09090a',
         },
       },
       fontFamily: {

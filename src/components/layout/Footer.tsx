@@ -48,7 +48,7 @@ function AntiGravityIcon({ className }: { className?: string }) {
 
 export default function Footer() {
   const { content } = useLanguage()
-  const iconClass = 'w-4 h-4 inline-block align-middle text-neutral-500'
+  const iconClass = 'w-4 h-4 inline-block align-middle text-neutral-300'
 
   return (
     <footer className="border-t border-neutral bg-neutral">
@@ -58,7 +58,7 @@ export default function Footer() {
             <p className="text-sm text-neutral-400">
               &copy; {content.footer.copyright}
             </p>
-            <p className="text-sm text-neutral-500 font-mono mt-2 flex flex-wrap items-center gap-x-1 gap-y-1">
+            <p className="text-sm text-neutral-300 font-mono mt-2 flex flex-wrap items-center gap-x-1 gap-y-1">
               <span>{content.footer.poweredByPrefix}</span>
               <TailwindIcon className={iconClass} />
               <span> {content.footer.poweredByTailwindLabel}</span>

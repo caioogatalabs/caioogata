@@ -1,33 +1,40 @@
 'use client'
 
 import { useLanguage } from '@/components/providers/LanguageProvider'
+import SectionHeading from '@/components/ui/SectionHeading'
 
 export default function Philosophy() {
   const { content } = useLanguage()
 
+  const menuLabel =
+    content.menu.items.find((item) => item.key === 'philosophy')?.label ?? 'philosophy'
+
   return (
     <section id="philosophy" aria-labelledby="philosophy-heading" className="text-left">
-      <div className="grid grid-cols-1 md:grid-cols-[10fr_50fr_20fr] gap-8 md:gap-12">
-        {/* Col 10%: title */}
-        <h2 id="philosophy-heading" className="text-base font-bold text-primary font-mono">
-          {content.philosophy.heading}
-        </h2>
-        {/* Col 50%: body */}
-        <div className="space-y-4">
-          {content.philosophy.body.split('\n\n').map((paragraph, index) => (
-            <p
-              key={index}
-              className="text-sm text-neutral-400 font-mono leading-relaxed"
-            >
-              {paragraph}
+      <SectionHeading id="philosophy-heading">
+        {content.philosophy.heading}
+      </SectionHeading>
+
+      {/* Same alignment as CLIMenu: grid-cols-[180px_100px_1fr] */}
+      <div className="mt-2">
+        <div className="pl-6 grid grid-cols-[180px_100px_1fr] items-baseline gap-0">
+          <span className="min-w-0 truncate font-mono text-sm text-primary py-0.5">
+            /{menuLabel}
+          </span>
+          <span aria-hidden />
+          <div className="min-w-0 space-y-4 py-0.5">
+            <p className="text-sm font-mono font-bold text-primary">
+              {content.philosophy.title}
             </p>
-          ))}
-        </div>
-        {/* Col 20%: philosophy title as subtitle */}
-        <div className="flex flex-col w-full">
-          <p className="text-sm text-neutral-400 font-mono leading-relaxed">
-            {content.philosophy.title}
-          </p>
+            {content.philosophy.body.split('\n\n').map((paragraph, index) => (
+              <p
+                key={index}
+                className="text-sm text-neutral-300 font-mono leading-relaxed"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
     </section>

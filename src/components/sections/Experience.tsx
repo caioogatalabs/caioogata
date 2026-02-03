@@ -5,6 +5,7 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ExpandableSection from '@/components/ui/ExpandableSection'
+import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 export default function Experience() {
   const { content } = useLanguage()
@@ -26,7 +27,7 @@ export default function Experience() {
 
   return (
     <section id="experience" aria-labelledby="experience-heading">
-      <SectionHeading command={content.experience.command} id="experience-heading">
+      <SectionHeading id="experience-heading">
         {content.experience.heading}
       </SectionHeading>
 
@@ -56,20 +57,22 @@ export default function Experience() {
               {job.achievements && job.achievements.length > 0 ? (
                 <div className="grid grid-cols-[3fr_2fr] gap-6">
                   <div>
-                    <p className="text-sm text-neutral-400 font-mono leading-relaxed">
+                    <p className="text-sm text-neutral-300 font-mono leading-relaxed">
                       {job.description}
                     </p>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 mb-element-sm ml-4">
-                      <span className="text-primary font-mono">$</span>
-                      <span className="text-primary font-mono text-sm">Achievements</span>
+                    <div className="flex items-center gap-2 mb-6 ml-4">
+                      <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+                        <ArrowRightIcon />
+                      </span>
+                      <h3 className="text-base font-bold text-primary font-mono">Achievements</h3>
                     </div>
                     <ul className="ml-4" role="list">
                       {job.achievements.map((achievement, achievementIndex) => (
                         <li
                           key={achievementIndex}
-                          className="text-sm text-neutral-400 font-mono border-t border-secondary/10 py-2 first:border-t-0 first:pt-0 first:pb-2"
+                          className="text-sm text-neutral-300 font-mono border-t border-secondary/10 py-2 first:border-t-0 first:pt-0 first:pb-2"
                         >
                           {achievement.text}
                         </li>
@@ -78,7 +81,7 @@ export default function Experience() {
                   </div>
                 </div>
               ) : (
-                <p className="text-sm text-neutral-400 font-mono leading-relaxed">
+                <p className="text-sm text-neutral-300 font-mono leading-relaxed">
                   {job.description}
                 </p>
               )}

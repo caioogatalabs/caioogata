@@ -130,7 +130,7 @@ export default function ImageWindow({
     <motion.div
       ref={windowRef}
       data-window-id={id}
-      className={`absolute select-none ${isActive ? 'ring-1 ring-neutral-400' : ''}`}
+      className={`absolute select-none ${isActive ? 'ring-1 ring-neutral-700' : ''}`}
       style={{ zIndex }}
       initial={{ opacity: 0, scale: 0.9, y: position.y - 20 }}
       animate={{
@@ -169,10 +169,10 @@ export default function ImageWindow({
       role="dialog"
       aria-label={image.title}
     >
-      <div className="h-full flex flex-col bg-neutral-100 border border-secondary/10 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]">
+      <div className="h-full flex flex-col bg-neutral-100 border border-neutral-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]">
         {/* Header — neutral bar */}
         <div
-          className="h-7 bg-neutral-700 flex items-center justify-between px-1 cursor-move shrink-0 border-b border-secondary/10"
+          className="h-7 bg-neutral-700 relative flex items-center px-1 cursor-move shrink-0 border-b border-neutral-400"
           onPointerDown={(e) => {
             if (isDraggable) {
               dragControls.start(e)
@@ -180,22 +180,22 @@ export default function ImageWindow({
           }}
           onDoubleClick={handleMaximize}
         >
-          {/* Title */}
-          <div className="flex-1 flex items-center justify-center">
-            <span className="text-xs text-neutral-100 font-mono truncate px-2">
+          {/* Title — centered over full header width */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none pr-14">
+            <span className="text-xs text-neutral-100 font-mono truncate max-w-[calc(100%-3.5rem)] text-center">
               {image.title}
             </span>
           </div>
 
           {/* Window Controls — dark, same icon style as Contact (rounded-sm box, symbol contrast) */}
-          <div className="flex items-center gap-0.5 shrink-0">
+          <div className="relative z-10 flex items-center gap-0.5 shrink-0 ml-auto">
             {/* Minimize */}
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 handleMinimize()
               }}
-              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-secondary/10 bg-neutral-800 text-neutral-100 font-mono text-xs hover:bg-neutral-600 hover:border-neutral-500 transition-colors duration-200 focus:outline-none focus-visible:border-primary focus-visible:text-primary"
+              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-neutral-400 bg-neutral-800 text-neutral-100 font-mono text-xs hover:bg-neutral-600 hover:border-neutral-500 transition-colors duration-200 focus:outline-none focus-visible:border-primary focus-visible:text-primary"
               aria-label="Minimize window"
             >
               <span className="leading-none">_</span>
@@ -207,7 +207,7 @@ export default function ImageWindow({
                 e.stopPropagation()
                 handleMaximize()
               }}
-              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-secondary/10 bg-neutral-800 text-neutral-100 font-mono hover:bg-neutral-600 hover:border-neutral-500 transition-colors duration-200 focus:outline-none focus-visible:border-primary focus-visible:text-primary"
+              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-neutral-400 bg-neutral-800 text-neutral-100 font-mono hover:bg-neutral-600 hover:border-neutral-500 transition-colors duration-200 focus:outline-none focus-visible:border-primary focus-visible:text-primary"
               aria-label={sizeState === 'maximized' ? 'Restore window' : 'Maximize window'}
             >
               {sizeState === 'maximized' ? (
@@ -223,7 +223,7 @@ export default function ImageWindow({
                 e.stopPropagation()
                 onClose()
               }}
-              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-secondary/10 bg-neutral-800 text-neutral-100 font-mono text-xs hover:bg-neutral-600 hover:border-neutral-500 transition-colors duration-200 focus:outline-none focus-visible:border-primary focus-visible:text-primary"
+              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-neutral-400 bg-neutral-800 text-neutral-100 font-mono text-xs hover:bg-neutral-600 hover:border-neutral-500 transition-colors duration-200 focus:outline-none focus-visible:border-primary focus-visible:text-primary"
               aria-label="Close window"
             >
               <span className="leading-none">×</span>

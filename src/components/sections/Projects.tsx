@@ -6,6 +6,7 @@ import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ExpandableSection from '@/components/ui/ExpandableSection'
 import ProjectCanvas from '@/components/ui/ProjectCanvas'
+import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 export default function Projects() {
   const { content } = useLanguage()
@@ -51,7 +52,7 @@ export default function Projects() {
 
   return (
     <section id="projects" aria-labelledby="projects-heading">
-      <SectionHeading command={content.projects.command} id="projects-heading">
+      <SectionHeading id="projects-heading">
         {content.projects.heading}
       </SectionHeading>
 
@@ -71,7 +72,7 @@ export default function Projects() {
               onFocus={() => setSubItemIndex(index)}
             >
               <div className="space-y-6">
-                <p className="text-sm text-neutral-400 font-mono leading-relaxed">
+                <p className="text-sm text-neutral-300 font-mono leading-relaxed">
                   {project.description}
                 </p>
 
@@ -86,7 +87,7 @@ export default function Projects() {
                   </div>
                 ) : (
                   <div className="aspect-video bg-neutral border border-primary/30 rounded-base flex items-center justify-center">
-                    <span className="text-sm text-neutral-400 font-mono">
+                    <span className="text-sm text-neutral-300 font-mono">
                       No images available
                     </span>
                   </div>
@@ -96,33 +97,39 @@ export default function Projects() {
                 <div className="space-y-4">
                   {/* Role */}
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-primary font-mono text-sm">@</span>
-                      <span className="text-primary font-mono text-sm">Role</span>
+                    <div className="flex items-center gap-2 mb-6">
+                      <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+                        <ArrowRightIcon />
+                      </span>
+                      <h3 className="text-base font-bold text-primary font-mono">Role</h3>
                     </div>
-                    <p className="text-sm text-neutral-400 font-mono ml-6">
+                    <p className="text-sm text-neutral-300 font-mono ml-6">
                       [To be defined]
                     </p>
                   </div>
 
                   {/* Technologies */}
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-primary font-mono text-sm">#</span>
-                      <span className="text-primary font-mono text-sm">Technologies</span>
+                    <div className="flex items-center gap-2 mb-6">
+                      <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+                        <ArrowRightIcon />
+                      </span>
+                      <h3 className="text-base font-bold text-primary font-mono">Technologies</h3>
                     </div>
-                    <p className="text-sm text-neutral-400 font-mono ml-6">
+                    <p className="text-sm text-neutral-300 font-mono ml-6">
                       [To be defined]
                     </p>
                   </div>
 
                   {/* Impact */}
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-primary font-mono text-sm">*</span>
-                      <span className="text-primary font-mono text-sm">Impact</span>
+                    <div className="flex items-center gap-2 mb-6">
+                      <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+                        <ArrowRightIcon />
+                      </span>
+                      <h3 className="text-base font-bold text-primary font-mono">Impact</h3>
                     </div>
-                    <p className="text-sm text-neutral-400 font-mono ml-6">
+                    <p className="text-sm text-neutral-300 font-mono ml-6">
                       [To be defined]
                     </p>
                   </div>
@@ -130,7 +137,7 @@ export default function Projects() {
                   {/* Links placeholder */}
                   <div className="pt-2 border-t border-primary/10">
                     <div className="flex items-center gap-4">
-                      <span className="text-sm text-neutral-400 font-mono">
+                      <span className="text-sm text-neutral-300 font-mono">
                         &gt; View case study [coming soon]
                       </span>
                     </div>

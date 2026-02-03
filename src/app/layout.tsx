@@ -70,15 +70,15 @@ export default function RootLayout({
               duration: 4000,
               style: {
                 background: 'var(--bg-neutral)',
-                color: '#D8D1DA',
-                border: '1px solid #618985',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--color-neutral-teal)',
                 borderRadius: '0.25rem',
                 fontFamily: '"Cascadia Mono", monospace',
                 fontSize: '0.875rem',
               },
               success: {
                 iconTheme: {
-                  primary: '#EFD246',
+                  primary: 'var(--color-primary)',
                   secondary: 'var(--bg-neutral)',
                 },
               },

@@ -31,7 +31,7 @@ export function PixelRevealLogo({
   displayWidth,
   displayHeight,
   pixelSize = 20,
-  color = '#EFD246',
+  color = '#FAEA4D',
   paths,
   className = '',
   animationDuration = 1.5,

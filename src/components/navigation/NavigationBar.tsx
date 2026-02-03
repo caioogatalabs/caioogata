@@ -116,8 +116,8 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
 
   const borderColor = variant === 'primary' ? 'border-primary/10' : 'border-secondary/10'
 
-  const buttonBaseClass = 'inline-flex items-center gap-1 text-xs font-mono text-neutral-500 hover:text-primary focus-visible:text-primary transition-colors cursor-pointer select-none focus:outline-none'
-  const keyClass = 'px-1 py-0.5 rounded bg-neutral-800/50 text-neutral-400 hover:bg-neutral-700/50 hover:text-primary focus-visible:bg-neutral-700/50 focus-visible:text-primary transition-colors focus:outline-none'
+  const buttonBaseClass = 'inline-flex items-center gap-1 text-xs font-mono text-neutral-300 hover:text-primary focus-visible:text-primary transition-colors cursor-pointer select-none focus:outline-none'
+  const keyClass = 'px-1 py-0.5 rounded bg-neutral-800/50 text-neutral-200 hover:bg-neutral-700/50 hover:text-primary focus-visible:bg-neutral-700/50 focus-visible:text-primary transition-colors focus:outline-none'
   const keyActiveClass = 'px-1 py-0.5 rounded bg-neutral-700/50 text-primary transition-colors focus:outline-none'
 
   // Show arrow icon instead of "Esc" for mouse/touch modes
@@ -125,7 +125,7 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
 
   return (
     <div className={`mt-8 pt-4 border-t ${borderColor}`}>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-neutral-500">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-neutral-300">
         {/* Back button - Esc for keyboard, Arrow for mouse/touch */}
         <button
           type="button"
@@ -139,7 +139,7 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
           <span>{labels.back}</span>
         </button>
 
-        <span className="text-neutral-600" aria-hidden>·</span>
+        <span className="text-neutral-400" aria-hidden>·</span>
 
         {/* Arrow navigation */}
         <div className="inline-flex items-center gap-1">
@@ -162,7 +162,7 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
           <span className="ml-0.5">{labels.navigate}</span>
         </div>
 
-        <span className="text-neutral-600" aria-hidden>·</span>
+        <span className="text-neutral-400" aria-hidden>·</span>
 
         {/* Select/Open button - Enter for keyboard, Click/Tap for mouse/touch */}
         <button

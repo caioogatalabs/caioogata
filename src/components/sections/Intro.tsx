@@ -14,10 +14,10 @@ export default function Intro() {
     <div className="relative">
       {/* Version above outline */}
       <div className="mb-2">
-        <span className="text-xs font-mono text-neutral-400">v{version}</span>
+        <span className="text-xs font-mono text-neutral-300">v{version}</span>
       </div>
 
-      <section className="border-2 border-primary/30 rounded-base px-6 md:px-12 lg:px-16 py-8 md:py-12 w-full">
+      <section className="border-2 border-primary/30 rounded-base p-6 w-full">
         <div className="grid md:grid-cols-[2fr_1fr] gap-8 md:gap-12">
             {/* Left Column - Logo and Text */}
             <div className="space-y-6">
@@ -37,10 +37,10 @@ export default function Intro() {
 
               {/* Text Content */}
               <div className="space-y-3">
-                <p className="text-base text-secondary leading-relaxed">
+                <p className="text-base text-neutral-300 leading-relaxed">
                   {content.footer.tagline}
                 </p>
-                <p className="text-base text-neutral-400 font-mono">
+                <p className="text-base text-neutral-300 font-mono">
                   {content.hero.tagline}
                 </p>
               </div>
@@ -49,7 +49,7 @@ export default function Intro() {
             {/* Right Column - Tips and Buttons */}
             <div className="flex flex-col gap-4">
               {/* Tips Text */}
-              <p className="text-sm font-mono text-neutral-400">
+              <p className="text-sm font-mono text-neutral-300">
                 {content.intro.tips}
               </p>
 
