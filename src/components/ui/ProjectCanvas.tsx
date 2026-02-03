@@ -1,9 +1,10 @@
 'use client'
 
 import { useRef, useEffect, useCallback } from 'react'
-import { AnimatePresence } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 import { useWindowManager } from '@/hooks/useWindowManager'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
+import { useNavigation } from '@/components/providers/NavigationProvider'
 import ImageWindow from './ImageWindow'
 import ViewModeControls from './ViewModeControls'
 import type { ProjectImage } from '@/content/types'
@@ -15,33 +16,36 @@ interface ProjectCanvasProps {
     grid: string
     list: string
     carousel: string
+    cascade: string
   }
+  onExit?: () => void
 }
 
-const CANVAS_WIDTH = 1400
-const CANVAS_HEIGHT = 700
+const BASE_CANVAS_WIDTH = 1400
+const BASE_CANVAS_HEIGHT = 600
 
-export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasProps) {
+export default function ProjectCanvas({ images, viewModeLabels, onExit }: ProjectCanvasProps) {
   const canvasRef = useRef<HTMLDivElement>(null)
   const { mode } = useInteractionMode()
+  const { setIsCanvasActive } = useNavigation()
 
   const {
     windows,
     viewMode,
     activeWindowId,
     carouselIndex,
+    canvasDimensions,
     setViewMode,
     bringToFront,
     closeWindow,
     openAllWindows,
     updatePosition,
-    setActiveWindow,
     navigateCarousel,
     navigateWindows
   } = useWindowManager({
     images,
-    canvasWidth: CANVAS_WIDTH,
-    canvasHeight: CANVAS_HEIGHT
+    baseCanvasWidth: BASE_CANVAS_WIDTH,
+    baseCanvasHeight: BASE_CANVAS_HEIGHT
   })
 
   const openWindowsCount = windows.filter(w => w.isOpen).length
@@ -52,7 +56,7 @@ export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasP
     }
 
     switch (e.key) {
-      case 'ArrowLeft':
+      case 'ArrowUp':
         e.preventDefault()
         if (viewMode === 'carousel') {
           navigateCarousel('prev')
@@ -60,21 +64,13 @@ export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasP
           navigateWindows('prev')
         }
         break
-      case 'ArrowRight':
+      case 'ArrowDown':
         e.preventDefault()
         if (viewMode === 'carousel') {
           navigateCarousel('next')
         } else {
           navigateWindows('next')
         }
-        break
-      case 'ArrowUp':
-        e.preventDefault()
-        navigateWindows('prev')
-        break
-      case 'ArrowDown':
-        e.preventDefault()
-        navigateWindows('next')
         break
       case '1':
         setViewMode('free')
@@ -88,24 +84,52 @@ export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasP
       case '4':
         setViewMode('carousel')
         break
+      case '5':
+        setViewMode('cascade')
+        break
       case 'r':
       case 'R':
         openAllWindows()
         break
+      case 'Enter':
       case 'Escape':
-        if (activeWindowId) {
-          closeWindow(activeWindowId)
-        }
+        setIsCanvasActive(false)
+        onExit?.()
         break
     }
-  }, [viewMode, navigateCarousel, navigateWindows, setViewMode, openAllWindows, activeWindowId, closeWindow])
+  }, [viewMode, navigateCarousel, navigateWindows, setViewMode, openAllWindows, onExit, setIsCanvasActive])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [handleKeyDown])
 
-  // Touch/swipe handling for carousel
+  // Auto-focus canvas when mounted (when project expands)
+  useEffect(() => {
+    canvasRef.current?.focus()
+    setIsCanvasActive(true)
+
+    // Cleanup: deactivate canvas mode when unmounted
+    return () => {
+      setIsCanvasActive(false)
+    }
+  }, [setIsCanvasActive])
+
+  // Handle click outside canvas to exit
+  useEffect(() => {
+    const handleMouseDown = (e: MouseEvent) => {
+      // Check if click is outside the canvas
+      if (canvasRef.current && !canvasRef.current.contains(e.target as Node)) {
+        setIsCanvasActive(false)
+        onExit?.()
+      }
+    }
+
+    document.addEventListener('mousedown', handleMouseDown)
+    return () => document.removeEventListener('mousedown', handleMouseDown)
+  }, [onExit, setIsCanvasActive])
+
+  // Touch/swipe handling
   const touchStartX = useRef<number | null>(null)
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -116,11 +140,11 @@ export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasP
     if (touchStartX.current === null) return
 
     const touchEndX = e.changedTouches[0]?.clientX ?? 0
-    const diff = touchStartX.current - touchEndX
+    const diffX = touchStartX.current - touchEndX
 
-    if (Math.abs(diff) > 50) {
+    if (Math.abs(diffX) > 50) {
       if (viewMode === 'carousel') {
-        navigateCarousel(diff > 0 ? 'next' : 'prev')
+        navigateCarousel(diffX > 0 ? 'next' : 'prev')
       }
     }
 
@@ -128,15 +152,19 @@ export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasP
   }
 
   return (
-    <div className="relative w-full">
-      {/* Canvas container - aligned left, overflows right */}
-      <div
+    <div className="relative">
+      {/* Canvas with dynamic dimensions - no internal scroll */}
+      <motion.div
         ref={canvasRef}
-        className="relative overflow-hidden"
-        style={{
-          width: CANVAS_WIDTH,
-          height: CANVAS_HEIGHT,
-          maxWidth: 'none'
+        className="relative"
+        animate={{
+          width: canvasDimensions.width,
+          height: canvasDimensions.height
+        }}
+        transition={{
+          type: 'spring',
+          stiffness: 300,
+          damping: 30
         }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
@@ -157,8 +185,8 @@ export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasP
           }}
         />
 
-        {/* Controls - positioned at top left */}
-        <div className="absolute top-4 left-4 z-50">
+        {/* Controls - fixed position within canvas */}
+        <div className="absolute top-4 left-4 z-50 flex items-start gap-4">
           <ViewModeControls
             currentMode={viewMode}
             onModeChange={setViewMode}
@@ -172,28 +200,31 @@ export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasP
           <div className="text-xs text-secondary/50 font-mono bg-black/60 px-2 py-1 rounded-sm border border-white/10">
             {mode === 'keyboard' && (
               <span>
-                <kbd className="text-primary">1-4</kbd> modes
+                <kbd className="text-primary">1-5</kbd> modes
                 <span className="mx-2">·</span>
-                <kbd className="text-primary">←→</kbd> navigate
+                <kbd className="text-primary">↑↓</kbd> navigate
                 <span className="mx-2">·</span>
                 <kbd className="text-primary">R</kbd> reset
+                <span className="mx-2">·</span>
+                <kbd className="text-primary">Esc</kbd> exit
               </span>
             )}
             {mode === 'mouse' && (
-              <span>Drag to move · Double-click to maximize</span>
+              <span>Drag to move · Double-click to maximize · Click outside to exit</span>
             )}
             {mode === 'touch' && (
-              <span>Swipe to navigate · Tap to focus</span>
+              <span>Swipe to navigate · Tap to focus · Tap outside to exit</span>
             )}
           </div>
         </div>
 
         {/* Windows */}
         <AnimatePresence>
-          {windows.map((window) => (
+          {windows.map((window, index) => (
             <ImageWindow
               key={window.id}
               id={window.id}
+              index={index}
               image={window.image}
               x={window.x}
               y={window.y}
@@ -201,8 +232,8 @@ export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasP
               isActive={activeWindowId === window.id}
               isOpen={window.isOpen}
               viewMode={viewMode}
-              canvasWidth={CANVAS_WIDTH}
-              canvasHeight={CANVAS_HEIGHT}
+              canvasWidth={canvasDimensions.width}
+              canvasHeight={canvasDimensions.height}
               onClose={() => closeWindow(window.id)}
               onFocus={() => bringToFront(window.id)}
               onDragEnd={(x, y) => updatePosition(window.id, x, y)}
@@ -246,7 +277,7 @@ export default function ProjectCanvas({ images, viewModeLabels }: ProjectCanvasP
             ))}
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   )
 }

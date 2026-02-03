@@ -10,6 +10,7 @@ type WindowSizeState = 'normal' | 'maximized' | 'minimized'
 
 interface ImageWindowProps {
   id: string
+  index: number
   image: ProjectImage
   x: number
   y: number
@@ -31,6 +32,7 @@ const MIN_HEIGHT = 200
 
 export default function ImageWindow({
   id,
+  index,
   image,
   x,
   y,
@@ -128,9 +130,9 @@ export default function ImageWindow({
     <motion.div
       ref={windowRef}
       data-window-id={id}
-      className={`absolute select-none ${isActive ? 'ring-1 ring-primary' : ''}`}
+      className={`absolute select-none ${isActive ? 'ring-1 ring-neutral-400' : ''}`}
       style={{ zIndex }}
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.9, y: position.y - 20 }}
       animate={{
         opacity: 1,
         scale: 1,
@@ -142,8 +144,9 @@ export default function ImageWindow({
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{
         type: 'spring',
-        stiffness: 400,
-        damping: 30
+        stiffness: 500,
+        damping: 30,
+        delay: index * 0.03 // Fast staggered entry
       }}
       drag={isDraggable}
       dragControls={dragControls}
@@ -166,10 +169,10 @@ export default function ImageWindow({
       role="dialog"
       aria-label={image.title}
     >
-      <div className="h-full flex flex-col bg-neutral-100 border border-neutral-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)]">
-        {/* Windows-style Header */}
+      <div className="h-full flex flex-col bg-neutral-100 border border-secondary/10 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]">
+        {/* Header — neutral bar */}
         <div
-          className="h-7 bg-gradient-to-r from-neutral-700 to-neutral-500 flex items-center justify-between px-1 cursor-move shrink-0"
+          className="h-7 bg-neutral-700 flex items-center justify-between px-1 cursor-move shrink-0 border-b border-secondary/10"
           onPointerDown={(e) => {
             if (isDraggable) {
               dragControls.start(e)
@@ -179,23 +182,23 @@ export default function ImageWindow({
         >
           {/* Title */}
           <div className="flex-1 flex items-center justify-center">
-            <span className="text-xs text-white font-mono truncate px-2">
+            <span className="text-xs text-neutral-100 font-mono truncate px-2">
               {image.title}
             </span>
           </div>
 
-          {/* Window Controls - Windows style (right side) */}
-          <div className="flex items-center gap-px shrink-0">
+          {/* Window Controls — dark, same icon style as Contact (rounded-sm box, symbol contrast) */}
+          <div className="flex items-center gap-0.5 shrink-0">
             {/* Minimize */}
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 handleMinimize()
               }}
-              className="w-5 h-5 bg-neutral-300 border border-neutral-400 border-t-white border-l-white flex items-center justify-center hover:bg-neutral-200 active:border-neutral-400 active:border-t-neutral-400 active:border-l-neutral-400"
+              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-secondary/10 bg-neutral-800 text-neutral-100 font-mono text-xs hover:bg-neutral-600 hover:border-neutral-500 transition-colors duration-200 focus:outline-none focus-visible:border-primary focus-visible:text-primary"
               aria-label="Minimize window"
             >
-              <span className="text-black text-xs font-bold leading-none mb-1">_</span>
+              <span className="leading-none">_</span>
             </button>
 
             {/* Maximize */}
@@ -204,13 +207,13 @@ export default function ImageWindow({
                 e.stopPropagation()
                 handleMaximize()
               }}
-              className="w-5 h-5 bg-neutral-300 border border-neutral-400 border-t-white border-l-white flex items-center justify-center hover:bg-neutral-200 active:border-neutral-400 active:border-t-neutral-400 active:border-l-neutral-400"
+              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-secondary/10 bg-neutral-800 text-neutral-100 font-mono hover:bg-neutral-600 hover:border-neutral-500 transition-colors duration-200 focus:outline-none focus-visible:border-primary focus-visible:text-primary"
               aria-label={sizeState === 'maximized' ? 'Restore window' : 'Maximize window'}
             >
               {sizeState === 'maximized' ? (
-                <span className="text-black text-[10px] font-bold leading-none">❐</span>
+                <span className="text-[10px] leading-none">❐</span>
               ) : (
-                <span className="text-black text-[10px] font-bold leading-none border border-black w-2.5 h-2.5" />
+                <span className="text-[10px] leading-none border border-current w-2.5 h-2.5" />
               )}
             </button>
 
@@ -220,16 +223,16 @@ export default function ImageWindow({
                 e.stopPropagation()
                 onClose()
               }}
-              className="w-5 h-5 bg-neutral-300 border border-neutral-400 border-t-white border-l-white flex items-center justify-center hover:bg-red-400 active:border-neutral-400 active:border-t-neutral-400 active:border-l-neutral-400"
+              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-secondary/10 bg-neutral-800 text-neutral-100 font-mono text-xs hover:bg-neutral-600 hover:border-neutral-500 transition-colors duration-200 focus:outline-none focus-visible:border-primary focus-visible:text-primary"
               aria-label="Close window"
             >
-              <span className="text-black text-xs font-bold leading-none">×</span>
+              <span className="leading-none">×</span>
             </button>
           </div>
         </div>
 
         {/* Window Content */}
-        <div className="flex-1 relative bg-neutral-900 overflow-hidden">
+        <div className="flex-1 relative bg-neutral overflow-hidden">
           {!imageError ? (
             <Image
               src={image.src}
@@ -241,10 +244,10 @@ export default function ImageWindow({
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-neutral-800">
+            <div className="absolute inset-0 flex items-center justify-center bg-neutral">
               <div className="text-center">
-                <div className="text-primary/40 text-4xl mb-2">[ ]</div>
-                <span className="text-neutral-500 font-mono text-xs">
+                <div className="text-neutral-400 text-4xl mb-2 font-mono">[ ]</div>
+                <span className="text-neutral-400 font-mono text-sm">
                   {image.title}
                 </span>
               </div>

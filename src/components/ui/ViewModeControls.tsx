@@ -11,6 +11,7 @@ interface ViewModeControlsProps {
     grid: string
     list: string
     carousel: string
+    cascade: string
   }
 }
 
@@ -84,6 +85,23 @@ function IconCarousel({ className }: { className?: string }) {
   )
 }
 
+function IconCascade({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="1" y="1" width="8" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="4" y="4" width="8" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" fill="#0a0a0a" />
+      <rect x="7" y="7" width="8" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" fill="#0a0a0a" />
+    </svg>
+  )
+}
+
 function IconReset({ className }: { className?: string }) {
   return (
     <svg
@@ -115,7 +133,8 @@ const modes: { mode: ViewMode; icon: typeof IconFree; labelKey: keyof ViewModeCo
   { mode: 'free', icon: IconFree, labelKey: 'free' },
   { mode: 'grid', icon: IconGrid, labelKey: 'grid' },
   { mode: 'list', icon: IconList, labelKey: 'list' },
-  { mode: 'carousel', icon: IconCarousel, labelKey: 'carousel' }
+  { mode: 'carousel', icon: IconCarousel, labelKey: 'carousel' },
+  { mode: 'cascade', icon: IconCascade, labelKey: 'cascade' }
 ]
 
 export default function ViewModeControls({

@@ -14,7 +14,7 @@ export default function Clients() {
       </SectionHeading>
 
       <CLIBox>
-        <p className="text-base text-secondary leading-relaxed mb-6">
+        <p className="text-sm text-neutral-400 font-mono leading-relaxed mb-6">
           {content.clients.description}
         </p>
 
@@ -22,16 +22,16 @@ export default function Clients() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-primary font-mono">/</span>
-              <h3 className="text-base font-bold text-primary">
+              <h3 className="text-base font-bold text-primary font-mono">
                 Brazilian Brands
               </h3>
             </div>
             <ul className="space-y-1.5 ml-4" role="list">
               {content.clients.brazilian.map((client, index) => (
-                <li
-                  key={index}
-                  className="text-base text-secondary flex"
-                >
+<li
+                key={index}
+                className="text-sm text-neutral-400 font-mono flex"
+              >
                   <span className="text-primary mr-2" aria-hidden="true">•</span>
                   <span>{client}</span>
                 </li>
@@ -42,7 +42,7 @@ export default function Clients() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-primary font-mono">/</span>
-              <h3 className="text-base font-bold text-primary">
+              <h3 className="text-base font-bold text-primary font-mono">
                 International (via Mondelez)
               </h3>
             </div>
@@ -50,7 +50,7 @@ export default function Clients() {
               {content.clients.international.map((client, index) => (
                 <li
                   key={index}
-                  className="text-base text-secondary flex"
+                  className="text-sm text-neutral-400 font-mono flex"
                 >
                   <span className="text-primary mr-2" aria-hidden="true">•</span>
                   <span>{client}</span>

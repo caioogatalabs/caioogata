@@ -17,7 +17,7 @@ export default function Skills() {
           <div key={index}>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-primary font-mono">&gt;</span>
-              <h3 className="text-base font-bold text-primary">
+              <h3 className="text-base font-bold text-primary font-mono">
                 {category.title}
               </h3>
             </div>
@@ -26,7 +26,7 @@ export default function Skills() {
                 <span
                   key={skillIndex}
                   className="px-2 py-1 bg-neutral border border-secondary/10
-                             text-secondary rounded-base text-sm
+                             text-neutral-400 rounded-base text-sm
                              font-mono"
                 >
                   {skill}

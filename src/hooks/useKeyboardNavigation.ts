@@ -22,6 +22,8 @@ export function useKeyboardNavigation() {
     toggleSubItemExpanded,
     collapseSubItem,
     hasExpandedItems,
+    // Canvas mode
+    isCanvasActive,
   } = useNavigation()
   // Check if current section has sub-items
   const sectionHasSubItems = activeSection && SECTIONS_WITH_SUBITEMS.includes(activeSection)
@@ -121,6 +123,11 @@ export function useKeyboardNavigation() {
         return
       }
 
+      // When canvas is active, let it handle its own navigation
+      if (isCanvasActive) {
+        return
+      }
+
       // In menu input, don't handle Enter here (let the input handle it)
       if (isMenuInput && event.key === 'Enter') {
         return
@@ -152,7 +159,7 @@ export function useKeyboardNavigation() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [navigateUp, navigateDown, selectItem, goBack, setMenuFilter])
+  }, [navigateUp, navigateDown, selectItem, goBack, setMenuFilter, isCanvasActive])
 
   return {
     navigateUp,

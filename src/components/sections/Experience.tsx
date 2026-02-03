@@ -56,7 +56,7 @@ export default function Experience() {
               {job.achievements && job.achievements.length > 0 ? (
                 <div className="grid grid-cols-[3fr_2fr] gap-6">
                   <div>
-                    <p className="text-base text-secondary leading-relaxed">
+                    <p className="text-sm text-neutral-400 font-mono leading-relaxed">
                       {job.description}
                     </p>
                   </div>
@@ -69,7 +69,7 @@ export default function Experience() {
                       {job.achievements.map((achievement, achievementIndex) => (
                         <li
                           key={achievementIndex}
-                          className="text-base text-secondary border-t border-secondary/10 py-2 first:border-t-0 first:pt-0 first:pb-2"
+                          className="text-sm text-neutral-400 font-mono border-t border-secondary/10 py-2 first:border-t-0 first:pt-0 first:pb-2"
                         >
                           {achievement.text}
                         </li>
@@ -78,7 +78,7 @@ export default function Experience() {
                   </div>
                 </div>
               ) : (
-                <p className="text-base text-secondary leading-relaxed">
+                <p className="text-sm text-neutral-400 font-mono leading-relaxed">
                   {job.description}
                 </p>
               )}

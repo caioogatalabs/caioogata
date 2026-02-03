@@ -177,6 +177,7 @@ export interface Content {
       grid: string
       list: string
       carousel: string
+      cascade: string
     }
     items: ProjectItem[]
   }

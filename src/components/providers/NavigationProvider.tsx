@@ -34,6 +34,9 @@ interface NavigationContextType {
   collapseAllSubItems: () => void
   hasExpandedItems: boolean
   resetSubNavigation: () => void
+  // Canvas mode (when active, global navigation is disabled)
+  isCanvasActive: boolean
+  setIsCanvasActive: (active: boolean) => void
 }
 
 const MENU_ITEMS_COUNT = 8
@@ -52,6 +55,9 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   const [subItemIndex, setSubItemIndex] = useState(0)
   const [subItemsCount, setSubItemsCount] = useState(0)
   const [expandedSubItems, setExpandedSubItems] = useState<Set<number>>(new Set())
+
+  // Canvas mode state
+  const [isCanvasActive, setIsCanvasActive] = useState(false)
 
   const resetSubNavigation = useCallback(() => {
     setSubItemIndex(0)
@@ -117,6 +123,8 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         collapseAllSubItems,
         hasExpandedItems,
         resetSubNavigation,
+        isCanvasActive,
+        setIsCanvasActive,
       }}
     >
       {children}

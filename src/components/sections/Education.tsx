@@ -52,7 +52,7 @@ export default function Education() {
             >
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-secondary font-mono">@</span>
-                <p className="text-base text-secondary">
+                <p className="text-sm text-neutral-400 font-mono">
                   {edu.institution}
                 </p>
               </div>
@@ -60,7 +60,7 @@ export default function Education() {
                 {edu.location} | {edu.year}
               </p>
               {edu.note && (
-                <p className="text-sm text-primary italic ml-4">
+                <p className="text-sm text-primary font-mono ml-4">
                   {edu.note}
                 </p>
               )}
@@ -81,7 +81,7 @@ export default function Education() {
               {content.education.additional.map((item, index) => (
                 <li
                   key={index}
-                  className="text-base text-secondary flex"
+                  className="text-sm text-neutral-400 font-mono flex"
                 >
                   <span className="text-primary mr-2" aria-hidden="true">&gt;</span>
                   <span>{item}</span>
