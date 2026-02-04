@@ -155,6 +155,21 @@ body {
   animation: blink 1s step-end infinite;
 }
 
+@keyframes bar-fill {
+  from {
+    width: 0%;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Override max-w-content to ensure 1200px */
 .max-w-content {
   max-width: 1200px !important;

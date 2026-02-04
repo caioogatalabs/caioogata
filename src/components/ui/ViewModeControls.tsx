@@ -12,6 +12,7 @@ interface ViewModeControlsProps {
     list: string
     carousel: string
     cascade: string
+    showcase: string
   }
 }
 
@@ -102,6 +103,22 @@ function IconCascade({ className }: { className?: string }) {
   )
 }
 
+function IconShowcase({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="1" y="3" width="14" height="10" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M6.5 6.5L10.5 8L6.5 9.5V6.5Z" fill="currentColor" />
+    </svg>
+  )
+}
+
 function IconReset({ className }: { className?: string }) {
   return (
     <svg
@@ -134,7 +151,8 @@ const modes: { mode: ViewMode; icon: typeof IconFree; labelKey: keyof ViewModeCo
   { mode: 'grid', icon: IconGrid, labelKey: 'grid' },
   { mode: 'free', icon: IconFree, labelKey: 'free' },
   { mode: 'list', icon: IconList, labelKey: 'list' },
-  { mode: 'carousel', icon: IconCarousel, labelKey: 'carousel' }
+  { mode: 'carousel', icon: IconCarousel, labelKey: 'carousel' },
+  { mode: 'showcase', icon: IconShowcase, labelKey: 'showcase' }
 ]
 
 export default function ViewModeControls({

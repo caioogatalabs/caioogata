@@ -11,9 +11,14 @@ export interface Job {
   achievements: Achievement[]
 }
 
+export interface Skill {
+  name: string
+  level: number
+}
+
 export interface SkillCategory {
   title: string
-  skills: string[]
+  skills: Skill[]
 }
 
 export interface EducationItem {
@@ -179,6 +184,7 @@ export interface Content {
       list: string
       carousel: string
       cascade: string
+      showcase: string
     }
     items: ProjectItem[]
   }

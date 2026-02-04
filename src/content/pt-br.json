@@ -150,19 +150,54 @@
     "categories": [
       {
         "title": "Lideranca de Design",
-        "skills": ["UI/UX Design", "Arquitetura de Design Systems", "Direcao Criativa", "Estrategia de Marca", "Lideranca de Times", "Design Operations", "Product Design", "Interaction Design", "Developer Experience (DevEx)"]
+        "skills": [
+          { "name": "UI/UX Design", "level": 95 },
+          { "name": "Arquitetura de Design Systems", "level": 90 },
+          { "name": "Direcao Criativa", "level": 92 },
+          { "name": "Estrategia de Marca", "level": 88 },
+          { "name": "Lideranca de Times", "level": 90 },
+          { "name": "Design Operations", "level": 85 },
+          { "name": "Product Design", "level": 88 },
+          { "name": "Interaction Design", "level": 85 },
+          { "name": "Developer Experience (DevEx)", "level": 82 }
+        ]
       },
       {
         "title": "Habilidades Tecnicas",
-        "skills": ["Colaboracao Front-end", "HTML/CSS", "JavaScript (intermediario)", "Design Tokens", "Arquitetura de Componentes", "Git/Controle de Versao", "Workflows Design-to-Code"]
+        "skills": [
+          { "name": "Colaboracao Front-end", "level": 80 },
+          { "name": "HTML/CSS", "level": 75 },
+          { "name": "JavaScript (intermediario)", "level": 55 },
+          { "name": "Design Tokens", "level": 90 },
+          { "name": "Arquitetura de Componentes", "level": 85 },
+          { "name": "Git/Controle de Versao", "level": 65 },
+          { "name": "Workflows Design-to-Code", "level": 80 }
+        ]
       },
       {
         "title": "Ferramentas & Plataformas",
-        "skills": ["Figma", "Adobe Creative Suite", "Framer", "Cursor", "VS Code", "Claude AI", "Google AI Studio", "N8n"]
+        "skills": [
+          { "name": "Figma", "level": 95 },
+          { "name": "Adobe Creative Suite", "level": 90 },
+          { "name": "Framer", "level": 75 },
+          { "name": "Cursor", "level": 70 },
+          { "name": "VS Code", "level": 65 },
+          { "name": "Claude AI", "level": 80 },
+          { "name": "Google AI Studio", "level": 60 },
+          { "name": "N8n", "level": 55 }
+        ]
       },
       {
         "title": "Metodologias",
-        "skills": ["Design Thinking", "Design Sprint", "Agile/Scrum/Kanban", "Atomic Design", "Product Discovery", "UX Research", "Estrategia PLG"]
+        "skills": [
+          { "name": "Design Thinking", "level": 92 },
+          { "name": "Design Sprint", "level": 88 },
+          { "name": "Agile/Scrum/Kanban", "level": 85 },
+          { "name": "Atomic Design", "level": 90 },
+          { "name": "Product Discovery", "level": 82 },
+          { "name": "UX Research", "level": 78 },
+          { "name": "Estrategia PLG", "level": 75 }
+        ]
       }
     ]
   },
@@ -196,7 +231,8 @@
       "grid": "Grade",
       "list": "Lista",
       "carousel": "Carrossel",
-      "cascade": "Cascata"
+      "cascade": "Cascata",
+      "showcase": "Showcase"
     },
     "items": [
       {
