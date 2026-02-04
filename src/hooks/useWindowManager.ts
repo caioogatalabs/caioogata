@@ -12,6 +12,7 @@ export interface WindowState {
   y: number
   zIndex: number
   isOpen: boolean
+  rotation: number
 }
 
 export interface CanvasDimensions {
@@ -30,6 +31,7 @@ interface UseWindowManagerReturn {
   viewMode: ViewMode
   activeWindowId: string | null
   carouselIndex: number
+  stackIndex: number
   canvasDimensions: CanvasDimensions
   setViewMode: (mode: ViewMode) => void
   bringToFront: (id: string) => void
@@ -40,12 +42,17 @@ interface UseWindowManagerReturn {
   navigateCarousel: (direction: 'prev' | 'next') => void
   setCarouselIndex: (index: number) => void
   navigateWindows: (direction: 'prev' | 'next') => void
+  navigateStack: (direction: 'prev' | 'next') => void
 }
 
 const WINDOW_WIDTH = 320
 const WINDOW_HEIGHT = 240
 const WINDOW_HEADER_HEIGHT = 32
 const GAP = 16
+
+// Minimized window dimensions for grid mode
+const MIN_WINDOW_WIDTH = 180
+const MIN_WINDOW_HEIGHT = 120
 
 function generateInitialPositions(
   count: number,
@@ -73,31 +80,52 @@ function calculateGridPositions(
   canvasWidth: number
 ): { x: number; y: number }[] {
   const positions: { x: number; y: number }[] = []
-  const columns = Math.max(1, Math.floor(canvasWidth / (WINDOW_WIDTH + GAP)))
+  // Use minimized window size for grid layout
+  const cellWidth = MIN_WINDOW_WIDTH + GAP
+  const cellHeight = MIN_WINDOW_HEIGHT + WINDOW_HEADER_HEIGHT + GAP
+  const columns = Math.max(1, Math.floor((canvasWidth - GAP) / cellWidth))
 
   for (let i = 0; i < count; i++) {
     const col = i % columns
     const row = Math.floor(i / columns)
     positions.push({
-      x: col * (WINDOW_WIDTH + GAP) + GAP,
-      y: row * (WINDOW_HEIGHT + WINDOW_HEADER_HEIGHT + GAP) + GAP + 60 // +60 for controls
+      x: col * cellWidth + GAP,
+      y: row * cellHeight + GAP + 60 // +60 for controls
     })
   }
 
   return positions
 }
 
+// Stack mode: 3D perspective carousel (rotateX) with visible headers
+const STACK_HEADER_OFFSET = 36 // Height to show each header
+
+function calculateStackRotateX(positionInStack: number): number {
+  // Front image (position 0) is flat
+  if (positionInStack === 0) return 0
+  // Images behind have increasing negative rotateX (tilted back)
+  // Diminishing returns for depth effect
+  return -15 - (positionInStack - 1) * 5 // -15°, -20°, -25°, etc.
+}
+
 function calculateListPositions(
   count: number,
-  canvasWidth: number
+  canvasWidth: number,
+  _canvasHeight: number,
+  stackIndex: number = 0
 ): { x: number; y: number }[] {
   const positions: { x: number; y: number }[] = []
   const centerX = Math.max(GAP, (canvasWidth - WINDOW_WIDTH) / 2)
+  const baseY = 80 // Start position for the front card
 
   for (let i = 0; i < count; i++) {
+    // Calculate position in stack relative to current front
+    const positionInStack = (i - stackIndex + count) % count
+
     positions.push({
       x: centerX,
-      y: i * (WINDOW_HEIGHT + WINDOW_HEADER_HEIGHT + GAP) + GAP + 60 // +60 for controls
+      // Front card at baseY, cards behind stack upward showing headers
+      y: baseY + positionInStack * STACK_HEADER_OFFSET
     })
   }
 
@@ -106,15 +134,17 @@ function calculateListPositions(
 
 function calculateCarouselPositions(
   count: number,
+  canvasWidth: number,
   canvasHeight: number
 ): { x: number; y: number }[] {
   const positions: { x: number; y: number }[] = []
+  // Center all images at the same position (carousel shows one at a time)
+  const centerX = Math.max(GAP, (canvasWidth - WINDOW_WIDTH) / 2)
   const centerY = Math.max(60, (canvasHeight - WINDOW_HEIGHT - WINDOW_HEADER_HEIGHT) / 2)
-  const spacing = WINDOW_WIDTH + GAP
 
   for (let i = 0; i < count; i++) {
     positions.push({
-      x: GAP + i * spacing,
+      x: centerX,
       y: centerY
     })
   }
@@ -147,37 +177,39 @@ function calculateCanvasDimensions(
   baseWidth: number,
   baseHeight: number
 ): CanvasDimensions {
-  const windowTotalHeight = WINDOW_HEIGHT + WINDOW_HEADER_HEIGHT + GAP
-  const windowTotalWidth = WINDOW_WIDTH + GAP
   const controlsHeight = 60
+  // Use minimized dimensions for grid
+  const gridCellWidth = MIN_WINDOW_WIDTH + GAP
+  const gridCellHeight = MIN_WINDOW_HEIGHT + WINDOW_HEADER_HEIGHT + GAP
 
   switch (mode) {
     case 'free':
       return { width: baseWidth, height: baseHeight }
 
     case 'grid': {
-      const columns = Math.max(1, Math.floor(baseWidth / windowTotalWidth))
+      // Grid with minimized windows - fixed width, expand height only
+      const columns = Math.max(1, Math.floor((baseWidth - GAP) / gridCellWidth))
       const rows = Math.ceil(count / columns)
-      const height = Math.max(baseHeight, rows * windowTotalHeight + controlsHeight + GAP)
+      const height = Math.max(baseHeight, rows * gridCellHeight + controlsHeight + GAP)
       return { width: baseWidth, height }
     }
 
     case 'list': {
-      const height = Math.max(baseHeight, count * windowTotalHeight + controlsHeight + GAP)
-      return { width: baseWidth, height }
+      // Stack mode: height for one full window + headers for others
+      const stackHeight = WINDOW_HEIGHT + WINDOW_HEADER_HEIGHT + (count - 1) * STACK_HEADER_OFFSET + controlsHeight + GAP * 2
+      return { width: baseWidth, height: Math.max(baseHeight, stackHeight) }
     }
 
     case 'carousel': {
-      const width = Math.max(baseWidth, count * windowTotalWidth + GAP * 2)
-      return { width, height: baseHeight }
+      // Fixed width, no lateral expansion - just base dimensions
+      return { width: baseWidth, height: baseHeight }
     }
 
     case 'cascade': {
-      // Cascade expands diagonally, need space for all windows stacked
-      const cascadeWidth = WINDOW_WIDTH + (count - 1) * CASCADE_OFFSET + GAP * 2
+      // Cascade expands only vertically, fixed width
       const cascadeHeight = WINDOW_HEIGHT + WINDOW_HEADER_HEIGHT + (count - 1) * CASCADE_OFFSET + controlsHeight + GAP
       return {
-        width: Math.max(baseWidth, cascadeWidth),
+        width: baseWidth,
         height: Math.max(baseHeight, cascadeHeight)
       }
     }
@@ -192,10 +224,11 @@ export function useWindowManager({
   baseCanvasWidth,
   baseCanvasHeight
 }: UseWindowManagerProps): UseWindowManagerReturn {
-  const [viewMode, setViewModeState] = useState<ViewMode>('free')
+  const [viewMode, setViewModeState] = useState<ViewMode>('cascade')
   const [maxZIndex, setMaxZIndex] = useState(images.length)
   const [activeWindowId, setActiveWindow] = useState<string | null>(null)
   const [carouselIndex, setCarouselIndex] = useState(0)
+  const [stackIndex, setStackIndex] = useState(0)
 
   const canvasDimensions = useMemo(
     () => calculateCanvasDimensions(viewMode, images.length, baseCanvasWidth, baseCanvasHeight),
@@ -214,7 +247,8 @@ export function useWindowManager({
       x: initialPositions[index]?.x ?? 0,
       y: initialPositions[index]?.y ?? 0,
       zIndex: index + 1,
-      isOpen: true
+      isOpen: true,
+      rotation: 0
     }))
   )
 
@@ -246,7 +280,8 @@ export function useWindowManager({
         isOpen: true,
         x: initialPositions[index]?.x ?? 0,
         y: initialPositions[index]?.y ?? 0,
-        zIndex: index + 1
+        zIndex: index + 1,
+        rotation: 0
       }))
     )
     setMaxZIndex(images.length)
@@ -276,10 +311,10 @@ export function useWindowManager({
         newPositions = calculateGridPositions(images.length, dims.width)
         break
       case 'list':
-        newPositions = calculateListPositions(images.length, dims.width)
+        newPositions = calculateListPositions(images.length, dims.width, dims.height, 0)
         break
       case 'carousel':
-        newPositions = calculateCarouselPositions(images.length, dims.height)
+        newPositions = calculateCarouselPositions(images.length, dims.width, dims.height)
         break
       case 'cascade':
         newPositions = calculateCascadePositions(images.length)
@@ -288,14 +323,36 @@ export function useWindowManager({
         newPositions = initialPositions
     }
 
-    setWindows(prev =>
-      prev.map((w, index) => ({
-        ...w,
-        x: newPositions[index]?.x ?? 0,
-        y: newPositions[index]?.y ?? 0,
-        isOpen: true
-      }))
-    )
+    // Reset stack index when entering list mode
+    if (mode === 'list') {
+      setStackIndex(0)
+    }
+
+    setWindows(prev => {
+      const openCount = prev.filter(w => w.isOpen).length || prev.length
+      return prev.map((w, index) => {
+        // For list mode (stack), set z-indexes and rotations
+        if (mode === 'list') {
+          const positionInStack = index
+          return {
+            ...w,
+            x: newPositions[index]?.x ?? 0,
+            y: newPositions[index]?.y ?? 0,
+            isOpen: true,
+            zIndex: openCount - positionInStack, // First window on top
+            rotation: calculateStackRotateX(positionInStack)
+          }
+        }
+        // For other modes, reset rotation
+        return {
+          ...w,
+          x: newPositions[index]?.x ?? 0,
+          y: newPositions[index]?.y ?? 0,
+          isOpen: true,
+          rotation: 0
+        }
+      })
+    })
   }, [images.length, baseCanvasWidth, baseCanvasHeight, initialPositions])
 
   const navigateCarousel = useCallback((direction: 'prev' | 'next') => {
@@ -331,11 +388,51 @@ export function useWindowManager({
     }
   }, [windows, activeWindowId, bringToFront])
 
+  // Stack navigation: rotate through images like a 3D carousel
+  const navigateStack = useCallback((direction: 'prev' | 'next') => {
+    const openWindows = windows.filter(w => w.isOpen)
+    if (openWindows.length === 0) return
+
+    const openCount = openWindows.length
+    const newStackIndex = direction === 'next'
+      ? (stackIndex + 1) % openCount
+      : (stackIndex - 1 + openCount) % openCount
+
+    setStackIndex(newStackIndex)
+
+    // Recalculate positions for new stack order
+    const newPositions = calculateListPositions(
+      windows.length,
+      canvasDimensions.width,
+      canvasDimensions.height,
+      newStackIndex
+    )
+
+    // Update positions, z-indexes and rotations based on new stack order
+    setWindows(prev => {
+      return prev.map((w, originalIndex) => {
+        if (!w.isOpen) return w
+
+        // Calculate position in stack relative to the new front
+        const positionInStack = (originalIndex - newStackIndex + prev.length) % prev.length
+
+        return {
+          ...w,
+          x: newPositions[originalIndex]?.x ?? w.x,
+          y: newPositions[originalIndex]?.y ?? w.y,
+          zIndex: openCount - positionInStack, // Front has highest z-index
+          rotation: calculateStackRotateX(positionInStack)
+        }
+      })
+    })
+  }, [windows, stackIndex, canvasDimensions])
+
   return {
     windows,
     viewMode,
     activeWindowId,
     carouselIndex,
+    stackIndex,
     canvasDimensions,
     setViewMode: handleViewModeChange,
     bringToFront,
@@ -345,6 +442,7 @@ export function useWindowManager({
     setActiveWindow,
     navigateCarousel,
     setCarouselIndex,
-    navigateWindows
+    navigateWindows,
+    navigateStack
   }
 }

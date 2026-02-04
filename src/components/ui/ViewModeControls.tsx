@@ -130,11 +130,11 @@ function IconReset({ className }: { className?: string }) {
 }
 
 const modes: { mode: ViewMode; icon: typeof IconFree; labelKey: keyof ViewModeControlsProps['labels'] }[] = [
-  { mode: 'free', icon: IconFree, labelKey: 'free' },
+  { mode: 'cascade', icon: IconCascade, labelKey: 'cascade' },
   { mode: 'grid', icon: IconGrid, labelKey: 'grid' },
+  { mode: 'free', icon: IconFree, labelKey: 'free' },
   { mode: 'list', icon: IconList, labelKey: 'list' },
-  { mode: 'carousel', icon: IconCarousel, labelKey: 'carousel' },
-  { mode: 'cascade', icon: IconCascade, labelKey: 'cascade' }
+  { mode: 'carousel', icon: IconCarousel, labelKey: 'carousel' }
 ]
 
 export default function ViewModeControls({

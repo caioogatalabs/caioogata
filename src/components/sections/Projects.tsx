@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
@@ -10,32 +10,8 @@ import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 export default function Projects() {
   const { content } = useLanguage()
-  const { subItemIndex, setSubItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded, collapseSubItem } = useNavigation()
+  const { subItemIndex, setSubItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded } = useNavigation()
   const sectionRefs = useRef<(HTMLButtonElement | null)[]>([])
-
-  // Flag to prevent double-toggle when clicking outside canvas on ExpandableSection
-  const justExitedCanvasRef = useRef(false)
-
-  // Handle canvas exit - only collapse, don't toggle
-  const handleCanvasExit = useCallback((index: number) => {
-    justExitedCanvasRef.current = true
-    collapseSubItem(index)
-    // Reset flag after 2 animation frames to ensure click event has been processed
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        justExitedCanvasRef.current = false
-      })
-    })
-  }, [collapseSubItem])
-
-  // Handle toggle - skip if we just exited the canvas (to avoid double-toggle)
-  const handleToggle = useCallback((index: number) => {
-    if (justExitedCanvasRef.current) {
-      justExitedCanvasRef.current = false
-      return
-    }
-    toggleSubItemExpanded(index)
-  }, [toggleSubItemExpanded])
 
   // Set the number of sub-items for keyboard navigation
   useEffect(() => {
@@ -68,7 +44,7 @@ export default function Projects() {
               title={project.title}
               isSelected={isSelected}
               isExpanded={isExpanded}
-              onToggle={() => handleToggle(index)}
+              onToggle={() => toggleSubItemExpanded(index)}
               onFocus={() => setSubItemIndex(index)}
             >
               <div className="space-y-6">
@@ -82,7 +58,7 @@ export default function Projects() {
                     <ProjectCanvas
                       images={project.images}
                       viewModeLabels={content.projects.viewModes}
-                      onExit={() => handleCanvasExit(index)}
+                      onExit={() => toggleSubItemExpanded(index)}
                     />
                   </div>
                 ) : (

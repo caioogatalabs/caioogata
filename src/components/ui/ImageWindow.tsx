@@ -15,6 +15,7 @@ interface ImageWindowProps {
   x: number
   y: number
   zIndex: number
+  rotation: number
   isActive: boolean
   isOpen: boolean
   viewMode: ViewMode
@@ -30,6 +31,10 @@ const HEADER_HEIGHT = 28
 const MIN_WIDTH = 280
 const MIN_HEIGHT = 200
 
+// Grid mode uses smaller thumbnail size
+const GRID_WIDTH = 180
+const GRID_HEIGHT = 120
+
 export default function ImageWindow({
   id,
   index,
@@ -37,6 +42,7 @@ export default function ImageWindow({
   x,
   y,
   zIndex,
+  rotation,
   isActive,
   isOpen,
   viewMode,
@@ -105,13 +111,17 @@ export default function ImageWindow({
     }
   }
 
-  // Calculate dimensions based on state
+  // Calculate dimensions based on state and view mode
   const getWindowDimensions = () => {
     if (sizeState === 'maximized') {
       return { width: canvasWidth - 20, height: canvasHeight - 20 }
     }
     if (sizeState === 'minimized') {
       return { width: MIN_WIDTH, height: MIN_HEIGHT }
+    }
+    // Grid mode uses smaller thumbnail size
+    if (viewMode === 'grid') {
+      return { width: GRID_WIDTH, height: GRID_HEIGHT }
     }
     return imageDimensions
   }
@@ -131,17 +141,22 @@ export default function ImageWindow({
       ref={windowRef}
       data-window-id={id}
       className={`absolute select-none ${isActive ? 'ring-1 ring-neutral-700' : ''}`}
-      style={{ zIndex }}
-      initial={{ opacity: 0, scale: 0.9, y: position.y - 20 }}
+      style={{
+        zIndex,
+        transformStyle: 'preserve-3d',
+        transformOrigin: 'center top'
+      }}
+      initial={{ opacity: 0, scale: 0.9, y: position.y - 20, rotateX: 0 }}
       animate={{
         opacity: 1,
         scale: 1,
         x: position.x,
         y: position.y,
         width: dimensions.width,
-        height: dimensions.height + HEADER_HEIGHT
+        height: dimensions.height + HEADER_HEIGHT,
+        rotateX: rotation
       }}
-      exit={{ opacity: 0, scale: 0.95 }}
+      exit={{ opacity: 0, scale: 0.95, rotateX: 0 }}
       transition={{
         type: 'spring',
         stiffness: 500,

@@ -41,7 +41,8 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     openAllWindows,
     updatePosition,
     navigateCarousel,
-    navigateWindows
+    navigateWindows,
+    navigateStack
   } = useWindowManager({
     images,
     baseCanvasWidth: BASE_CANVAS_WIDTH,
@@ -60,6 +61,8 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
         e.preventDefault()
         if (viewMode === 'carousel') {
           navigateCarousel('prev')
+        } else if (viewMode === 'list') {
+          navigateStack('prev')
         } else {
           navigateWindows('prev')
         }
@@ -68,24 +71,26 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
         e.preventDefault()
         if (viewMode === 'carousel') {
           navigateCarousel('next')
+        } else if (viewMode === 'list') {
+          navigateStack('next')
         } else {
           navigateWindows('next')
         }
         break
       case '1':
-        setViewMode('free')
+        setViewMode('cascade')
         break
       case '2':
         setViewMode('grid')
         break
       case '3':
-        setViewMode('list')
+        setViewMode('free')
         break
       case '4':
-        setViewMode('carousel')
+        setViewMode('list')
         break
       case '5':
-        setViewMode('cascade')
+        setViewMode('carousel')
         break
       case 'r':
       case 'R':
@@ -97,7 +102,7 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
         onExit?.()
         break
     }
-  }, [viewMode, navigateCarousel, navigateWindows, setViewMode, openAllWindows, onExit, setIsCanvasActive])
+  }, [viewMode, navigateCarousel, navigateWindows, navigateStack, setViewMode, openAllWindows, onExit, setIsCanvasActive])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
@@ -115,20 +120,6 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     }
   }, [setIsCanvasActive])
 
-  // Handle click outside canvas to exit
-  useEffect(() => {
-    const handleMouseDown = (e: MouseEvent) => {
-      // Check if click is outside the canvas
-      if (canvasRef.current && !canvasRef.current.contains(e.target as Node)) {
-        setIsCanvasActive(false)
-        onExit?.()
-      }
-    }
-
-    document.addEventListener('mousedown', handleMouseDown)
-    return () => document.removeEventListener('mousedown', handleMouseDown)
-  }, [onExit, setIsCanvasActive])
-
   // Touch/swipe handling
   const touchStartX = useRef<number | null>(null)
 
@@ -145,6 +136,8 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     if (Math.abs(diffX) > 50) {
       if (viewMode === 'carousel') {
         navigateCarousel(diffX > 0 ? 'next' : 'prev')
+      } else if (viewMode === 'list') {
+        navigateStack(diffX > 0 ? 'next' : 'prev')
       }
     }
 
@@ -157,6 +150,10 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
       <motion.div
         ref={canvasRef}
         className="relative"
+        style={{
+          perspective: viewMode === 'list' ? '1000px' : 'none',
+          perspectiveOrigin: 'center top'
+        }}
         animate={{
           width: canvasDimensions.width,
           height: canvasDimensions.height
@@ -210,10 +207,10 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
               </span>
             )}
             {mode === 'mouse' && (
-              <span>Drag to move · Double-click to maximize · Click outside to exit</span>
+              <span>Drag to move · Double-click to maximize</span>
             )}
             {mode === 'touch' && (
-              <span>Swipe to navigate · Tap to focus · Tap outside to exit</span>
+              <span>Swipe to navigate · Tap to focus</span>
             )}
           </div>
         </div>
@@ -229,6 +226,7 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
               x={window.x}
               y={window.y}
               zIndex={window.zIndex}
+              rotation={window.rotation}
               isActive={activeWindowId === window.id}
               isOpen={window.isOpen}
               viewMode={viewMode}
