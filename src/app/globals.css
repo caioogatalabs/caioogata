@@ -174,3 +174,50 @@ body {
 .max-w-content {
   max-width: 1200px !important;
 }
+
+/* Image editor slider */
+.editor-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: 1px;
+  cursor: pointer;
+}
+
+.editor-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: #FAEA4D;
+  border: 1px solid #454546;
+  border-radius: 1px;
+  margin-top: -4.5px;
+  cursor: pointer;
+}
+
+.editor-slider:focus-visible::-webkit-slider-thumb {
+  border-color: #FAEA4D;
+  box-shadow: 0 0 0 2px rgba(250, 234, 77, 0.3);
+}
+
+.editor-slider::-moz-range-track {
+  height: 3px;
+  background: #454546;
+  border-radius: 1px;
+}
+
+.editor-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #FAEA4D;
+  border: 1px solid #454546;
+  border-radius: 1px;
+  cursor: pointer;
+}
+
+.editor-slider::-moz-range-progress {
+  background: rgba(250, 234, 77, 0.4);
+  height: 3px;
+  border-radius: 1px;
+}

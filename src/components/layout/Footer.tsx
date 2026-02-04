@@ -51,21 +51,29 @@ export default function Footer() {
   const iconClass = 'w-4 h-4 inline-block align-middle text-neutral-300'
 
   return (
-    <footer className="border-t border-neutral bg-neutral">
+    <footer className="bg-neutral">
       <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 py-12 md:py-16 w-full">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-          <div>
-            <p className="text-sm text-neutral-400">
-              &copy; {content.footer.copyright}
-            </p>
-            <p className="text-sm text-neutral-300 font-mono mt-2 flex flex-wrap items-center gap-x-1 gap-y-1">
-              <span>{content.footer.poweredByPrefix}</span>
-              <TailwindIcon className={iconClass} />
-              <span> {content.footer.poweredByTailwindLabel}</span>
-              <span>{content.footer.poweredBySuffix}</span>
-              <CursorIcon className={iconClass} />
-              <AntiGravityIcon className={iconClass} />
-            </p>
+        <div className="pl-6">
+          <div 
+            className="font-mono text-neutral-300 text-sm mb-6 w-full overflow-hidden whitespace-nowrap"
+            aria-hidden="true"
+          >
+            {'//'.repeat(200)}
+          </div>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            <div>
+              <p className="text-sm text-neutral-400">
+                &copy; {content.footer.copyright}
+              </p>
+              <p className="text-sm text-neutral-300 font-mono mt-2 flex flex-wrap items-center gap-x-1 gap-y-1">
+                <span>{content.footer.poweredByPrefix}</span>
+                <TailwindIcon className={iconClass} />
+                <span> {content.footer.poweredByTailwindLabel}</span>
+                <span>{content.footer.poweredBySuffix}</span>
+                <CursorIcon className={iconClass} />
+                <AntiGravityIcon className={iconClass} />
+              </p>
+            </div>
           </div>
         </div>
       </div>
