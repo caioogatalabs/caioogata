@@ -8,7 +8,8 @@ import type { FilterState } from './editor-presets'
 export function renderToCanvas(
   canvas: HTMLCanvasElement,
   source: HTMLImageElement | HTMLVideoElement,
-  filters: FilterState
+  filters: FilterState,
+  crop?: { top: number; bottom: number }
 ): void {
   const ctx = canvas.getContext('2d', { willReadFrequently: true })
   if (!ctx) return
@@ -25,7 +26,16 @@ export function renderToCanvas(
   } else {
     ctx.filter = 'none'
   }
-  ctx.drawImage(source, 0, 0, w, h)
+
+  if (crop && (crop.top > 0 || crop.bottom > 0)) {
+    const srcW = source instanceof HTMLVideoElement ? source.videoWidth : source.naturalWidth
+    const srcH = source instanceof HTMLVideoElement ? source.videoHeight : source.naturalHeight
+    const sy = srcH * crop.top
+    const sh = srcH * (1 - crop.top - crop.bottom)
+    ctx.drawImage(source, 0, sy, srcW, sh, 0, 0, w, h)
+  } else {
+    ctx.drawImage(source, 0, 0, w, h)
+  }
   ctx.filter = 'none'
 
   // 3. Pixelate (must happen before per-pixel effects)
@@ -83,7 +93,9 @@ function applyBrightness(data: Uint8ClampedArray, amount: number): void {
 
 function applyContrast(data: Uint8ClampedArray, amount: number): void {
   if (amount === 100) return
-  const factor = (259 * (amount * 2.55 + 255)) / (255 * (259 - amount * 2.55))
+  // Map 0-200 to -255..255 where 100 → 0 (neutral)
+  const contrast = (amount - 100) * 2.55
+  const factor = (259 * (contrast + 255)) / (255 * (259 - contrast))
   for (let i = 0; i < data.length; i += 4) {
     data[i] = clamp(factor * (data[i] - 128) + 128)
     data[i + 1] = clamp(factor * (data[i + 1] - 128) + 128)

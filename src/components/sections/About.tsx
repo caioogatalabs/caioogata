@@ -33,8 +33,8 @@ export default function About() {
 
       {/* Left ~35% file icons, right ~65%: bio + Core Expertise */}
       <div className="grid grid-cols-1 md:grid-cols-[35fr_65fr] gap-8 md:gap-12">
-        {/* Desktop: file icons in left column */}
-        <div className="hidden md:flex flex-col items-center gap-4 pt-4 min-w-0">
+        {/* Desktop: file icons horizontal, left-aligned */}
+        <div className="hidden md:flex items-start gap-4 pl-6 pt-4 min-w-0">
           <FileIcon
             onClick={() => setIsImageEditorOpen(true)}
             label="profile.jpg"

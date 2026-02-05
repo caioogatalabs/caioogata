@@ -4,7 +4,6 @@ import { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, useDragControls } from 'motion/react'
 import { useImageEditor } from '@/hooks/useImageEditor'
 import { EDITOR_PRESETS, DEFAULT_FILTERS } from '@/lib/editor-presets'
-import EditorSlider from '@/components/ui/EditorSlider'
 import type { FilterState } from '@/lib/editor-presets'
 
 interface ImageEditorWindowProps {
@@ -14,28 +13,40 @@ interface ImageEditorWindowProps {
   dragConstraints: React.RefObject<HTMLElement | null>
 }
 
-const HEADER_HEIGHT = 28
 const CANVAS_MAX_WIDTH = 360
+const IMAGE_CROP = { top: 0.1, bottom: 0.1 }
 
-const SLIDER_CONFIG: {
-  key: keyof FilterState
-  label: string
-  min: number
-  max: number
-  step?: number
-}[] = [
-  { key: 'brightness', label: 'Brightness', min: 0, max: 200 },
-  { key: 'contrast', label: 'Contrast', min: 0, max: 200 },
-  { key: 'saturation', label: 'Saturation', min: 0, max: 200 },
-  { key: 'blur', label: 'Blur', min: 0, max: 20 },
-  { key: 'grayscale', label: 'Grayscale', min: 0, max: 100 },
-  { key: 'hueRotate', label: 'Hue Rotate', min: 0, max: 360 },
-  { key: 'invert', label: 'Invert', min: 0, max: 100 },
-  { key: 'posterize', label: 'Posterize', min: 2, max: 32 },
-  { key: 'pixelate', label: 'Pixelate', min: 1, max: 32 },
-  { key: 'noise', label: 'Noise', min: 0, max: 100 },
-  { key: 'dithering', label: 'Dithering', min: 0, max: 100 },
-]
+function FilterOverlay({ filters }: { filters: FilterState }) {
+  const lines = (Object.keys(DEFAULT_FILTERS) as (keyof FilterState)[]).map((key) => {
+    const val = filters[key]
+    const def = DEFAULT_FILTERS[key]
+    const changed = val !== def
+    return { key, val, changed }
+  })
+
+  return (
+    <div className="absolute inset-0 pointer-events-none flex items-end p-2">
+      <pre className="text-[10px] leading-tight font-mono text-neutral-400 px-2 py-1.5 max-w-full overflow-hidden">
+        <span>{'{\n'}</span>
+        {lines.map(({ key, val, changed }) => (
+          <span key={key}>
+            {'  '}
+            <span className={changed ? 'text-neutral-300' : ''}>
+              {key}
+            </span>
+            <span>: </span>
+            <span className={changed ? 'text-neutral-300' : ''}>
+              {val}
+            </span>
+            <span>,</span>
+            {'\n'}
+          </span>
+        ))}
+        <span>{'}'}</span>
+      </pre>
+    </div>
+  )
+}
 
 export default function ImageEditorWindow({
   imageSrc,
@@ -49,9 +60,9 @@ export default function ImageEditorWindow({
   const [canvasSize, setCanvasSize] = useState({ width: CANVAS_MAX_WIDTH, height: 300 })
   const [isMobile, setIsMobile] = useState(false)
 
-  const { filters, setFilter, applyPreset, reset, isDefault } = useImageEditor(canvasRef, sourceImage)
+  const { filters, applyPreset, reset, isDefault, activePresetName } =
+    useImageEditor(canvasRef, sourceImage, IMAGE_CROP)
 
-  // Detect mobile
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
     check()
@@ -59,7 +70,6 @@ export default function ImageEditorWindow({
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  // Load source image
   useEffect(() => {
     const img = new window.Image()
     img.crossOrigin = 'anonymous'
@@ -68,12 +78,12 @@ export default function ImageEditorWindow({
       const displayWidth = isMobile
         ? Math.min(window.innerWidth - 32, CANVAS_MAX_WIDTH)
         : CANVAS_MAX_WIDTH
-      const aspectRatio = img.height / img.width
+      const cropFraction = 1 - IMAGE_CROP.top - IMAGE_CROP.bottom
+      const aspectRatio = (img.height / img.width) * cropFraction
       const displayHeight = Math.round(displayWidth * aspectRatio)
 
       setCanvasSize({ width: displayWidth, height: displayHeight })
 
-      // Set canvas internal resolution for HiDPI
       if (canvasRef.current) {
         canvasRef.current.width = displayWidth * dpr
         canvasRef.current.height = displayHeight * dpr
@@ -81,9 +91,7 @@ export default function ImageEditorWindow({
         canvasRef.current.style.height = `${displayHeight}px`
 
         const ctx = canvasRef.current.getContext('2d')
-        if (ctx) {
-          ctx.scale(dpr, dpr)
-        }
+        if (ctx) ctx.scale(dpr, dpr)
       }
 
       setSourceImage(img)
@@ -91,25 +99,47 @@ export default function ImageEditorWindow({
     img.src = imageSrc
   }, [imageSrc, isMobile])
 
-  // Close on Escape
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose()
-      }
+      if (e.key === 'Escape') onClose()
     },
     [onClose]
   )
 
-  // Check which preset is currently active
-  const activePreset = EDITOR_PRESETS.find((preset) => {
-    const merged = { ...DEFAULT_FILTERS, ...preset.filters }
-    return (Object.keys(merged) as (keyof FilterState)[]).every(
-      (key) => filters[key] === merged[key]
-    )
-  })
+  const windowWidth = canvasSize.width + 2
 
-  const windowWidth = canvasSize.width + 2 // +2 for borders
+  const presetButtons = (
+    <div className="flex items-center gap-1 p-1.5 bg-neutral-800 border-t border-neutral-600">
+      {EDITOR_PRESETS.map((preset) => (
+        <button
+          key={preset.name}
+          onClick={() => applyPreset(preset.name)}
+          className={`px-2 py-1 rounded-sm text-xs font-mono transition-colors border ${
+            activePresetName === preset.name
+              ? 'bg-primary/20 text-primary border-primary/30'
+              : 'text-neutral-300 hover:text-primary hover:bg-neutral-700 border-neutral-600'
+          }`}
+          aria-pressed={activePresetName === preset.name}
+        >
+          {preset.name}
+        </button>
+      ))}
+
+      <div className="w-px h-5 bg-neutral-600 mx-0.5" />
+
+      <button
+        onClick={reset}
+        disabled={isDefault}
+        className={`px-2 py-1 rounded-sm text-xs font-mono transition-colors border ${
+          isDefault
+            ? 'text-neutral-500 border-neutral-700 cursor-not-allowed'
+            : 'text-neutral-300 hover:text-primary hover:bg-neutral-700 border-neutral-600'
+        }`}
+      >
+        Reset
+      </button>
+    </div>
+  )
 
   if (isMobile) {
     return (
@@ -125,7 +155,6 @@ export default function ImageEditorWindow({
         aria-label={`Image editor - ${title}`}
         aria-modal="true"
       >
-        {/* Header */}
         <div className="h-7 bg-neutral-700 flex items-center px-1 shrink-0 border-b border-neutral-400">
           <div className="flex-1 flex items-center justify-center pointer-events-none">
             <span className="text-xs text-neutral-100 font-mono truncate">{title}</span>
@@ -139,69 +168,20 @@ export default function ImageEditorWindow({
           </button>
         </div>
 
-        {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto">
-          {/* Canvas */}
-          <div className="flex justify-center p-4 bg-neutral-100">
+        <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex justify-center items-center p-4 relative">
             <canvas ref={canvasRef} />
+            {!isDefault && <FilterOverlay filters={filters} />}
           </div>
-
-          {/* Sliders */}
-          <div className="bg-neutral-800 border-t border-neutral-600">
-            {SLIDER_CONFIG.map(({ key, label, min, max, step }) => (
-              <EditorSlider
-                key={key}
-                label={label}
-                value={filters[key]}
-                min={min}
-                max={max}
-                step={step}
-                defaultValue={DEFAULT_FILTERS[key]}
-                onChange={(val) => setFilter(key, val)}
-              />
-            ))}
-
-            {/* Presets + Reset */}
-            <div className="flex flex-wrap gap-1 p-2 border-t border-neutral-600">
-              {EDITOR_PRESETS.map((preset) => (
-                <button
-                  key={preset.name}
-                  onClick={() => applyPreset(preset.name)}
-                  className={`px-2 py-1 rounded-sm text-xs font-mono transition-colors border ${
-                    activePreset?.name === preset.name
-                      ? 'bg-primary/20 text-primary border-primary/30'
-                      : 'text-neutral-300 hover:text-primary hover:bg-neutral-700 border-neutral-600'
-                  }`}
-                  aria-pressed={activePreset?.name === preset.name}
-                >
-                  {preset.name}
-                </button>
-              ))}
-
-              <div className="w-px h-6 bg-neutral-600 mx-1 self-center" />
-
-              <button
-                onClick={reset}
-                disabled={isDefault}
-                className={`px-2 py-1 rounded-sm text-xs font-mono transition-colors border ${
-                  isDefault
-                    ? 'text-neutral-500 border-neutral-700 cursor-not-allowed'
-                    : 'text-neutral-300 hover:text-primary hover:bg-neutral-700 border-neutral-600'
-                }`}
-              >
-                Reset
-              </button>
-            </div>
-          </div>
+          {presetButtons}
         </div>
       </motion.div>
     )
   }
 
-  // Desktop: draggable window
   return (
     <motion.div
-      className="absolute z-40 select-none"
+      className="absolute top-0 left-0 z-40 select-none"
       style={{ width: windowWidth }}
       initial={{ opacity: 0, scale: 0.9, y: -20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -218,7 +198,6 @@ export default function ImageEditorWindow({
       aria-label={`Image editor - ${title}`}
     >
       <div className="flex flex-col bg-neutral-100 border border-neutral-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]">
-        {/* Header */}
         <div
           className="h-7 bg-neutral-700 relative flex items-center px-1 cursor-move shrink-0 border-b border-neutral-400"
           onPointerDown={(e) => {
@@ -246,61 +225,12 @@ export default function ImageEditorWindow({
           </div>
         </div>
 
-        {/* Canvas area */}
-        <div className="flex justify-center bg-neutral-100 p-1">
-          <canvas ref={canvasRef} />
+        <div className="relative">
+          <canvas ref={canvasRef} className="block" />
+          {!isDefault && <FilterOverlay filters={filters} />}
         </div>
 
-        {/* Sliders panel */}
-        <div
-          className="bg-neutral-800 border-t border-neutral-600 max-h-[280px] overflow-y-auto"
-          onPointerDown={(e) => e.stopPropagation()}
-        >
-          {SLIDER_CONFIG.map(({ key, label, min, max, step }) => (
-            <EditorSlider
-              key={key}
-              label={label}
-              value={filters[key]}
-              min={min}
-              max={max}
-              step={step}
-              defaultValue={DEFAULT_FILTERS[key]}
-              onChange={(val) => setFilter(key, val)}
-            />
-          ))}
-
-          {/* Presets + Reset */}
-          <div className="flex flex-wrap gap-1 p-2 border-t border-neutral-600">
-            {EDITOR_PRESETS.map((preset) => (
-              <button
-                key={preset.name}
-                onClick={() => applyPreset(preset.name)}
-                className={`px-2 py-1 rounded-sm text-xs font-mono transition-colors border ${
-                  activePreset?.name === preset.name
-                    ? 'bg-primary/20 text-primary border-primary/30'
-                    : 'text-neutral-300 hover:text-primary hover:bg-neutral-700 border-neutral-600'
-                }`}
-                aria-pressed={activePreset?.name === preset.name}
-              >
-                {preset.name}
-              </button>
-            ))}
-
-            <div className="w-px h-6 bg-neutral-600 mx-1 self-center" />
-
-            <button
-              onClick={reset}
-              disabled={isDefault}
-              className={`px-2 py-1 rounded-sm text-xs font-mono transition-colors border ${
-                isDefault
-                  ? 'text-neutral-500 border-neutral-700 cursor-not-allowed'
-                  : 'text-neutral-300 hover:text-primary hover:bg-neutral-700 border-neutral-600'
-              }`}
-            >
-              Reset
-            </button>
-          </div>
-        </div>
+        {presetButtons}
       </div>
     </motion.div>
   )

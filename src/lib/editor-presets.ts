@@ -26,71 +26,73 @@ export const DEFAULT_FILTERS: FilterState = {
   dithering: 0,
 }
 
+// A preset value can be a fixed number or a range [min, max] that animates
+export type PresetValue = number | [number, number]
+
 export interface EditorPreset {
   name: string
-  filters: Partial<FilterState>
+  filters: { [K in keyof FilterState]?: PresetValue }
+}
+
+// Resolve a PresetValue to a concrete number (picks random within range)
+export function resolvePresetValue(value: PresetValue): number {
+  if (Array.isArray(value)) {
+    const [min, max] = value
+    return Math.round(min + Math.random() * (max - min))
+  }
+  return value
+}
+
+// Resolve an entire preset to a FilterState
+export function resolvePreset(preset: EditorPreset): FilterState {
+  const resolved = { ...DEFAULT_FILTERS }
+  for (const key of Object.keys(preset.filters) as (keyof FilterState)[]) {
+    const val = preset.filters[key]
+    if (val !== undefined) {
+      resolved[key] = resolvePresetValue(val)
+    }
+  }
+  return resolved
+}
+
+// Extract which keys have animated ranges
+export function getAnimatedKeys(preset: EditorPreset): (keyof FilterState)[] {
+  return (Object.keys(preset.filters) as (keyof FilterState)[]).filter(
+    (key) => Array.isArray(preset.filters[key])
+  )
 }
 
 export const EDITOR_PRESETS: EditorPreset[] = [
   {
-    name: 'Vintage',
-    filters: {
-      brightness: 110,
-      contrast: 85,
-      saturation: 60,
-      noise: 15,
-      hueRotate: 20,
-    },
-  },
-  {
     name: 'B&W',
     filters: {
+      brightness: 100,
+      contrast: 100,
+      saturation: 100,
+      blur: 0,
       grayscale: 100,
-      contrast: 120,
+      hueRotate: 0,
+      invert: 0,
+      posterize: [30, 32],
+      pixelate: 1,
+      noise: [5, 15],
+      dithering: 0,
     },
   },
   {
-    name: 'High Contrast',
+    name: 'Dithering',
     filters: {
-      contrast: 160,
-      brightness: 105,
-      saturation: 120,
-    },
-  },
-  {
-    name: 'Posterize',
-    filters: {
-      posterize: 4,
-      contrast: 110,
-    },
-  },
-  {
-    name: 'Pixel Art',
-    filters: {
-      pixelate: 8,
-      posterize: 6,
-      saturation: 130,
-    },
-  },
-  {
-    name: 'Dithered',
-    filters: {
-      dithering: 80,
+      brightness: [150, 156],
+      contrast: 100,
+      saturation: 114,
+      blur: 0,
       grayscale: 100,
-    },
-  },
-  {
-    name: 'Dreamy',
-    filters: {
-      blur: 3,
-      brightness: 115,
-      saturation: 80,
-    },
-  },
-  {
-    name: 'Inverted',
-    filters: {
-      invert: 100,
+      hueRotate: 0,
+      invert: 0,
+      posterize: [30, 32],
+      pixelate: 1,
+      noise: 28,
+      dithering: 76,
     },
   },
 ]
