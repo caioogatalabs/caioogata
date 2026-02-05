@@ -5,7 +5,6 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ExpandableSection from '@/components/ui/ExpandableSection'
-import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 export default function Experience() {
   const { content } = useLanguage()
@@ -53,37 +52,51 @@ export default function Experience() {
               isExpanded={isExpanded}
               onToggle={() => toggleSubItemExpanded(index)}
               onFocus={() => setSubItemIndex(index)}
+              className="pl-6"
             >
               {job.achievements && job.achievements.length > 0 ? (
-                <div className="grid grid-cols-[3fr_2fr] gap-6">
-                  <div>
-                    <p className="text-sm text-neutral-300 font-mono leading-relaxed">
+                <div className="flex flex-col gap-6">
+                  <div className="columns-2 gap-6">
+                    <p className="text-sm text-neutral-300 font-mono leading-relaxed break-inside-avoid">
                       {job.description}
                     </p>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 mb-6 ml-4">
-                      <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
-                        <ArrowRightIcon />
-                      </span>
-                      <h3 className="text-base font-bold text-primary font-mono">Achievements</h3>
+                    <p className="text-sm text-neutral-300 py-2.5 px-4 text-left font-mono leading-relaxed mb-0">
+                      Achievements
+                    </p>
+                    <div className="border border-dotted border-secondary/30 rounded-base font-mono overflow-x-auto">
+                      <table className="w-full border-collapse">
+                        <tbody>
+                          <tr>
+                            {job.achievements.map((achievement, achievementIndex) => (
+                              <td
+                                key={achievementIndex}
+                                className="text-sm text-neutral-300 py-2.5 px-4 text-left font-mono border-r border-dotted border-secondary/30 last:border-r-0 align-top"
+                              >
+                                <div className="flex flex-col">
+                                  <p className="text-sm text-neutral-300 font-mono leading-relaxed mb-2">
+                                    {achievement.text}
+                                  </p>
+                                  <div className="border-b border-dotted border-secondary/30 mb-2"></div>
+                                  <p className="text-sm text-neutral-300 font-mono">
+                                    +{((achievementIndex + 1) * 10)}%
+                                  </p>
+                                </div>
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <ul className="ml-4" role="list">
-                      {job.achievements.map((achievement, achievementIndex) => (
-                        <li
-                          key={achievementIndex}
-                          className="text-sm text-neutral-300 font-mono border-t border-secondary/10 py-2 first:border-t-0 first:pt-0 first:pb-2"
-                        >
-                          {achievement.text}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </div>
               ) : (
-                <p className="text-sm text-neutral-300 font-mono leading-relaxed">
-                  {job.description}
-                </p>
+                <div className="columns-2 gap-6">
+                  <p className="text-sm text-neutral-300 font-mono leading-relaxed break-inside-avoid">
+                    {job.description}
+                  </p>
+                </div>
               )}
             </ExpandableSection>
           )
