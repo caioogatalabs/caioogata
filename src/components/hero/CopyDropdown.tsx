@@ -6,19 +6,7 @@ import { clsx } from 'clsx'
 import { copyToClipboard } from '@/lib/clipboard'
 import { generateMarkdown } from '@/lib/markdown-generator'
 import { useLanguage } from '@/components/providers/LanguageProvider'
-
-interface AIPlatform {
-  name: string
-  url: string
-  icon: string
-}
-
-const AI_PLATFORMS: AIPlatform[] = [
-  { name: 'Claude', url: 'https://claude.ai', icon: '>' },
-  { name: 'ChatGPT', url: 'https://chat.openai.com', icon: '*' },
-  { name: 'Google AI', url: 'https://gemini.google.com', icon: '&' },
-  { name: 'Grok', url: 'https://x.com/i/grok', icon: '<' },
-]
+import { AI_PLATFORMS, getMarkdownUrl, type AIPlatform } from '@/lib/ai-link-builder'
 
 interface CopyDropdownProps {
   variant?: 'primary' | 'secondary' | 'inverted'
@@ -75,30 +63,70 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
   }
 
   const handleOpenAI = async (platform: AIPlatform) => {
-    setIsCopying(true)
+    setIsOpen(false)
+
+    // Build the URL with the markdown URL embedded in the prompt
+    const markdownUrl = getMarkdownUrl(language)
+    const aiUrl = platform.buildUrl(markdownUrl, language)
+
+    // Open AI platform in new tab with the prompt
+    window.open(aiUrl, '_blank', 'noopener,noreferrer')
+
+    // Show appropriate toast based on platform capability
+    if (platform.canFetchUrls) {
+      toast.success(
+        language === 'en'
+          ? `Opening ${platform.name}... It will read my portfolio automatically.`
+          : `Abrindo ${platform.name}... Ele vai ler meu portfólio automaticamente.`,
+        {
+          duration: 4000,
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        }
+      )
+    } else {
+      toast(
+        language === 'en'
+          ? `Opening ${platform.name}... Ask it to read the URL in the prompt.`
+          : `Abrindo ${platform.name}... Peça para ele ler a URL no prompt.`,
+        {
+          duration: 5000,
+          icon: 'ℹ️',
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        }
+      )
+    }
+  }
+
+  const handleCopyUrl = async () => {
     setIsOpen(false)
 
     try {
-      const markdown = generateMarkdown(language)
-      await copyToClipboard(markdown)
+      const markdownUrl = getMarkdownUrl(language)
+      await copyToClipboard(markdownUrl)
 
-      // Open AI platform in new tab
-      window.open(platform.url, '_blank', 'noopener,noreferrer')
-
-      toast.success(`Copied! Opening ${platform.name}...`, {
-        duration: 3000,
-        ariaProps: {
-          role: 'status',
-          'aria-live': 'polite',
-        },
-      })
+      toast.success(
+        language === 'en'
+          ? 'URL copied! Paste it in any AI assistant.'
+          : 'URL copiada! Cole em qualquer assistente de IA.',
+        {
+          duration: 4000,
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        }
+      )
     } catch (error) {
-      console.error('Failed to copy:', error)
+      console.error('Failed to copy URL:', error)
       toast.error(content.notifications.copyError, {
         duration: 5000,
       })
-    } finally {
-      setIsCopying(false)
     }
   }
 
@@ -131,30 +159,53 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
 
       {isOpen && (
         <div
-          className="absolute top-full left-0 mt-2 min-w-[200px] bg-neutral border-2 border-primary rounded-base shadow-lg z-50"
+          className="absolute top-full left-0 mt-2 min-w-[240px] bg-neutral border-2 border-primary rounded-base shadow-lg z-50"
           role="menu"
           aria-orientation="vertical"
         >
+          {/* Copy options */}
           <button
             onClick={handleCopy}
             className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
             role="menuitem"
           >
-            <span aria-hidden="true">$</span>
-            <span>Copy Markdown</span>
+            <span aria-hidden="true" className="w-4 text-center">$</span>
+            <span>{language === 'en' ? 'Copy Markdown' : 'Copiar Markdown'}</span>
           </button>
 
-          <div className="border-t border-primary/30" />
+          <button
+            onClick={handleCopyUrl}
+            className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
+            role="menuitem"
+          >
+            <span aria-hidden="true" className="w-4 text-center">#</span>
+            <span>{language === 'en' ? 'Copy URL' : 'Copiar URL'}</span>
+          </button>
+
+          <div className="border-t border-primary/30 my-1" />
+
+          {/* AI Platforms - sorted by URL fetch capability */}
+          <div className="px-3 py-2 text-xs text-neutral-400 font-mono">
+            {language === 'en' ? 'Open in AI' : 'Abrir em IA'}
+          </div>
 
           {AI_PLATFORMS.map((platform) => (
             <button
-              key={platform.name}
+              key={platform.id}
               onClick={() => handleOpenAI(platform)}
               className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
               role="menuitem"
             >
-              <span aria-hidden="true">{platform.icon}</span>
-              <span>Open in {platform.name}</span>
+              <span aria-hidden="true" className="w-4 text-center">{platform.icon}</span>
+              <span className="flex-1">{platform.name}</span>
+              {platform.canFetchUrls && (
+                <span
+                  className="text-xs text-primary/70"
+                  title={language === 'en' ? 'Auto-reads URLs' : 'Lê URLs automaticamente'}
+                >
+                  ✓
+                </span>
+              )}
             </button>
           ))}
         </div>
