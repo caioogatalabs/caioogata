@@ -7,8 +7,8 @@ export interface Job {
   title: string
   location: string
   dateRange: string
-  description: string
-  achievements: Achievement[]
+  description?: string
+  achievements?: Achievement[]
 }
 
 export interface Skill {
@@ -127,7 +127,7 @@ export interface Content {
     heading: string
     items: EducationItem[]
     additionalHeading: string
-    additional: string[]
+    additional: EducationItem[]
   }
   clients: {
     command: string

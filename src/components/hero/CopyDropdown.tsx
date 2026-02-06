@@ -163,6 +163,25 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
           role="menu"
           aria-orientation="vertical"
         >
+          {/* AI Platforms first */}
+          <div className="px-3 py-2 text-xs text-neutral-400 font-mono">
+            {language === 'en' ? 'Interact with AI' : 'Interagir com IA'}
+          </div>
+
+          {AI_PLATFORMS.map((platform) => (
+            <button
+              key={platform.id}
+              onClick={() => handleOpenAI(platform)}
+              className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
+              role="menuitem"
+            >
+              <span aria-hidden="true" className="w-4 text-center">{platform.icon}</span>
+              <span>{platform.name}</span>
+            </button>
+          ))}
+
+          <div className="border-t border-primary/30 my-1" />
+
           {/* Copy options */}
           <button
             onClick={handleCopy}
@@ -181,33 +200,6 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
             <span aria-hidden="true" className="w-4 text-center">#</span>
             <span>{language === 'en' ? 'Copy URL' : 'Copiar URL'}</span>
           </button>
-
-          <div className="border-t border-primary/30 my-1" />
-
-          {/* AI Platforms - sorted by URL fetch capability */}
-          <div className="px-3 py-2 text-xs text-neutral-400 font-mono">
-            {language === 'en' ? 'Open in AI' : 'Abrir em IA'}
-          </div>
-
-          {AI_PLATFORMS.map((platform) => (
-            <button
-              key={platform.id}
-              onClick={() => handleOpenAI(platform)}
-              className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
-              role="menuitem"
-            >
-              <span aria-hidden="true" className="w-4 text-center">{platform.icon}</span>
-              <span className="flex-1">{platform.name}</span>
-              {platform.canFetchUrls && (
-                <span
-                  className="text-xs text-primary/70"
-                  title={language === 'en' ? 'Auto-reads URLs' : 'Lê URLs automaticamente'}
-                >
-                  ✓
-                </span>
-              )}
-            </button>
-          ))}
         </div>
       )}
     </div>

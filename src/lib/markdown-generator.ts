@@ -13,9 +13,11 @@ export function generateMarkdown(language: Language = 'en'): string {
     `# ${content.hero.name}`,
     `## ${content.hero.tagline}`,
     '',
+    `**${isEnglish ? 'Profile Photo' : 'Foto de Perfil'}:** [https://www.caioogata.com/caio-ogata-profile.png](https://www.caioogata.com/caio-ogata-profile.png)`,
+    '',
     `**${isEnglish ? 'Location' : 'Localização'}:** Porto Alegre, Brazil`,
+    `**${isEnglish ? 'Birthplace' : 'Cidade Natal'}:** ${isEnglish ? 'Born in Presidente Prudente, SP, Brazil on June 23, 1984' : 'Nascido em Presidente Prudente-SP no dia 23 de junho de 1984'}`,
     `**${isEnglish ? 'Experience' : 'Experiência'}:** 20+ ${isEnglish ? 'years in Art Direction, 15 in User Interface design' : 'anos em Direção de Arte, 15 em design de Interface de Usuário'}`,
-    `**LinkedIn:** [linkedin.com/in/caioogata](https://www.linkedin.com/in/caioogata/)`,
     `**${isEnglish ? 'Languages' : 'Idiomas'}:** ${isEnglish ? 'Portuguese (native), English (fluent - worked with Silicon Valley team)' : 'Português (nativo), Inglês (fluente - trabalhou com time do Silicon Valley)'}`,
     '',
     '---',
@@ -74,6 +76,59 @@ export function generateMarkdown(language: Language = 'en'): string {
     `**${content.quickFacts.heading}:**`,
     ...generateQuickFactsMarkdown(content.quickFacts.facts),
     '',
+    `### ${isEnglish ? 'Personal Interests & Hobbies' : 'Interesses Pessoais & Hobbies'}`,
+    '',
+    `**${isEnglish ? 'Sports & Athletics' : 'Esportes & Atletismo'}:**`,
+    isEnglish
+      ? `- Triathlete training 10-14 hours/week (running, cycling, swimming)`
+      : `- Triatleta treinando 10-14 horas/semana (corrida, ciclismo, natação)`,
+    isEnglish
+      ? `- 3x Brazilian youth baseball vice-champion`
+      : `- 3x vice-campeão brasileiro de baseball nas categorias de base`,
+    isEnglish
+      ? `- Volleyball at state championship level (age 17)`
+      : `- Voleibol em nível de campeonato estadual (aos 17 anos)`,
+    isEnglish
+      ? `- Surfing (practiced for years)`
+      : `- Surf (praticou por anos)`,
+    isEnglish
+      ? `- Judo practitioner (philosophy influences design approach)`
+      : `- Praticante de Judô (filosofia influencia abordagem de design)`,
+    isEnglish
+      ? `- Skateboarding (persistence and iteration mindset)`
+      : `- Skate (mentalidade de persistência e iteração)`,
+    '',
+    `**${isEnglish ? 'Creative Pursuits' : 'Atividades Criativas'}:**`,
+    isEnglish
+      ? `- Video games (major design inspiration for UI/UX and interaction patterns)`
+      : `- Videogames (grande inspiração de design para UI/UX e padrões de interação)`,
+    isEnglish
+      ? `- Cinema enthusiast (watches all Oscar nominees yearly)`
+      : `- Entusiasta de cinema (assiste todos os indicados ao Oscar anualmente)`,
+    isEnglish
+      ? `- Favorite directors: Tarantino, Wes Anderson, Almodovar, Scorsese, Nolan, Villeneuve`
+      : `- Diretores favoritos: Tarantino, Wes Anderson, Almodovar, Scorsese, Nolan, Villeneuve`,
+    isEnglish
+      ? `- Photography (visual storytelling)`
+      : `- Fotografia (narrativa visual)`,
+    isEnglish
+      ? `- Former bassist in INFUSE (melodic punk rock band)`
+      : `- Ex-baixista do INFUSE (banda de punk rock melódico)`,
+    '',
+    `**${isEnglish ? 'Technology & Learning' : 'Tecnologia & Aprendizado'}:**`,
+    isEnglish
+      ? `- AI tools exploration (Claude AI, Google AI Studio, Cursor)`
+      : `- Exploração de ferramentas de IA (Claude AI, Google AI Studio, Cursor)`,
+    isEnglish
+      ? `- Automation workflows (N8n)`
+      : `- Workflows de automação (N8n)`,
+    isEnglish
+      ? `- Front-end development (HTML/CSS, JavaScript)`
+      : `- Desenvolvimento front-end (HTML/CSS, JavaScript)`,
+    isEnglish
+      ? `- Continuous learning mindset (Udacity, Memorisely, online courses)`
+      : `- Mentalidade de aprendizado contínuo (Udacity, Memorisely, cursos online)`,
+    '',
     '---',
     '',
     `## ${content.lookingFor.heading}`,
@@ -85,10 +140,62 @@ export function generateMarkdown(language: Language = 'en'): string {
     '',
     `**${content.lookingFor.focusAreas}**`,
     '',
+    `### ${isEnglish ? 'Open for Work' : 'Aberto para Trabalho'}`,
+    '',
+    isEnglish
+      ? `Caio is actively seeking opportunities in design leadership, product development, and innovation. He's particularly interested in roles where AI augments creative workflows and where he can make a meaningful impact on products, teams, and users.`
+      : `Caio está buscando ativamente oportunidades em liderança de design, desenvolvimento de produto e inovação. Ele está particularmente interessado em funções onde IA aumenta workflows criativos e onde ele possa ter impacto significativo em produtos, times e usuários.`,
+    '',
+    `**${isEnglish ? 'Types of Work Accepted' : 'Tipos de Trabalho Aceitos'}:**`,
+    isEnglish
+      ? `- Design Leadership roles (Head of Design, Design Director, VP of Design) at startups or scale-ups`
+      : `- Funções de Liderança de Design (Head of Design, Design Director, VP of Design) em startups ou scale-ups`,
+    isEnglish
+      ? `- Senior IC (Individual Contributor) roles with hands-on product design work`
+      : `- Funções Senior IC (Individual Contributor) com trabalho hands-on em design de produto`,
+    isEnglish
+      ? `- Partner or co-founder positions in funded businesses`
+      : `- Posições de sócio ou co-fundador em negócios investidos`,
+    isEnglish
+      ? `- Decision-making positions at large companies focused on innovation`
+      : `- Posições de tomada de decisão em grandes empresas focadas em inovação`,
+    isEnglish
+      ? `- Consulting or advisory roles for companies building design systems, developer experience, or PLG products`
+      : `- Funções de consultoria ou advisory para empresas construindo design systems, developer experience ou produtos PLG`,
+    '',
+    `**${isEnglish ? 'Main Challenges Accepted' : 'Principais Desafios Aceitos'}:**`,
+    isEnglish
+      ? `- Building and scaling design teams from scratch (0 to 1, 1 to 10+)`
+      : `- Construir e escalar times de design do zero (0 para 1, 1 para 10+)`,
+    isEnglish
+      ? `- Implementing design systems and design operations in complex organizations`
+      : `- Implementar design systems e design operations em organizações complexas`,
+    isEnglish
+      ? `- Leading design transformation in engineering-first or product-first cultures`
+      : `- Liderar transformação de design em culturas engineering-first ou product-first`,
+    isEnglish
+      ? `- Designing developer-facing products and improving developer experience (DevEx)`
+      : `- Projetar produtos voltados a desenvolvedores e melhorar developer experience (DevEx)`,
+    isEnglish
+      ? `- PLG (Product-Led Growth) strategy and execution through design`
+      : `- Estratégia e execução de PLG (Product-Led Growth) através de design`,
+    isEnglish
+      ? `- Bridging design, engineering, and business stakeholders in cross-functional environments`
+      : `- Conectar design, engenharia e stakeholders de negócio em ambientes cross-funcionais`,
+    isEnglish
+      ? `- Innovation projects at the intersection of technology, sports tech, wellness, and sustainability`
+      : `- Projetos de inovação na interseção de tecnologia, sports tech, wellness e sustentabilidade`,
+    '',
+    `**${isEnglish ? 'Work Arrangement' : 'Regime de Trabalho'}:**`,
+    isEnglish
+      ? `Open to CLT (Brazilian employment), PJ (contractor), full-time, part-time, or any contract type for the right opportunity. Remote, hybrid, or willing to relocate for exceptional roles.`
+      : `Aberto a CLT, PJ, tempo integral, meio período ou qualquer tipo de contrato para a oportunidade certa. Remoto, híbrido ou disposto a relocação para funções excepcionais.`,
+    '',
     '---',
     '',
-    `## ${isEnglish ? 'Contact' : 'Contato'}`,
+    `## ${isEnglish ? 'Contact & Social Media' : 'Contato & Redes Sociais'}`,
     '',
+    `**Email:** [${content.contact.email}](mailto:${content.contact.email})`,
     ...content.contact.links.map(link => `**${link.label}:** [${link.url}](${link.url})`),
     `**Portfolio:** [https://www.caioogata.com](https://www.caioogata.com)`,
     `**Azion Design System:** [https://www.azion.design](https://www.azion.design)`,
@@ -106,26 +213,44 @@ function generateFrontmatter(content: Content, today: string): string {
 type: professional_portfolio
 name: ${content.hero.name}
 current_title: Design Director
+profile_photo: https://www.caioogata.com/caio-ogata-profile.png
 location: Porto Alegre, Brazil
-years_experience: 20+
+age: 40
+birth_date: June 23, 1984
+birthplace: Presidente Prudente, SP, Brazil
+years_experience: 20+ (Art Direction), 15+ (UI/UX)
 languages: Portuguese (native), English (fluent)
+mbti: INTP (The Logician)
+disc: D (Dominance) primary
+email: caioogata.labs@gmail.com
 linkedin: https://www.linkedin.com/in/caioogata/
 github: https://github.com/caioogatalabs
+instagram: https://www.instagram.com/caioogata.labs
+youtube: https://www.youtube.com/@caioogatalabs
+discord: https://discord.gg/caioogatalabs
 portfolio: https://www.caioogata.com
+design_system: https://www.azion.design
+open_for_work: true
+work_type: Design Leadership, Senior IC, Partner/Co-founder, Consulting
+work_arrangement: Remote, Hybrid, Relocation (open to all)
+contract_type: CLT, PJ, Full-time, Part-time (flexible)
 last_updated: ${today}
-optimized_for: Claude, ChatGPT, LLMs
+optimized_for: Claude, ChatGPT, Gemini, LLMs
 ---`
 }
 
 function generateExperienceMarkdown(jobs: Job[], isEnglish: boolean): string[] {
   const lines: string[] = []
 
-  jobs.forEach((job, index) => {
+  jobs.forEach((job) => {
     lines.push(`### ${job.title} ${isEnglish ? 'at' : 'na'} ${job.company}`)
     lines.push(`**${job.dateRange} | ${job.location}**`)
     lines.push('')
-    lines.push(job.description)
-    lines.push('')
+
+    if (job.description) {
+      lines.push(job.description)
+      lines.push('')
+    }
 
     if (job.achievements && job.achievements.length > 0) {
       lines.push(`**${isEnglish ? 'Key Achievements' : 'Principais Conquistas'}:**`)
@@ -144,16 +269,17 @@ function generateSkillsMarkdown(categories: SkillCategory[]): string[] {
 
   categories.forEach((category) => {
     lines.push(`### ${category.title}`)
-    lines.push(category.skills.join(', '))
+    lines.push(category.skills.map(s => s.name).join(', '))
     lines.push('')
   })
 
   return lines
 }
 
-function generateEducationMarkdown(items: EducationItem[], additional: string[], isEnglish: boolean): string[] {
+function generateEducationMarkdown(items: EducationItem[], additional: EducationItem[], isEnglish: boolean): string[] {
   const lines: string[] = []
 
+  // Formal education
   items.forEach((edu) => {
     lines.push(`**${edu.degree}**`)
     lines.push(`${edu.institution}`)
@@ -164,12 +290,19 @@ function generateEducationMarkdown(items: EducationItem[], additional: string[],
     lines.push('')
   })
 
+  // Additional training (now as full items)
   if (additional.length > 0) {
     lines.push(`**${isEnglish ? 'Additional Training' : 'Formação Adicional'}:**`)
-    additional.forEach((item) => {
-      lines.push(`- ${item}`)
-    })
     lines.push('')
+    additional.forEach((edu) => {
+      lines.push(`**${edu.degree}**`)
+      lines.push(`${edu.institution}`)
+      lines.push(`${edu.location} | ${edu.year}`)
+      if (edu.note) {
+        lines.push(edu.note)
+      }
+      lines.push('')
+    })
   }
 
   return lines

@@ -71,76 +71,124 @@
       {
         "company": "Azion Technologies",
         "title": "Developer Experience Director",
-        "location": "Remote, Porto Alegre, Brazil",
-        "dateRange": "Oct 2023 - Dec 2025",
-        "description": "Led design strategy for developer-facing products, documentation, and developer experience initiatives at Azion, a global edge computing platform. Managed a cross-functional design team spanning Product Design, Creative Design, Design Ops, UX Research, and Design Systems.",
+        "location": "Porto Alegre, Brazil",
+        "dateRange": "2024 - 2025",
+        "description": "Promoted to lead the Developer Experience department under Engineering, owning all user-facing interfaces while maintaining brand strategy oversight.",
         "achievements": [
-          { "text": "Built and led a 14-person design organization structured around Product Design, Creative Design, Design Ops, UX Research, and Design Systems" },
-          { "text": "Transformed company culture from engineering-first to design-thinking, establishing usability metrics and product discovery processes" },
-          { "text": "Implemented two design systems: one built from scratch, another assembled from open-source libraries" },
-          { "text": "Led PLG (Product-Led Growth) transformation, connecting designers and engineers to reduce silos" },
-          { "text": "Created Azion Design (www.azion.design), the company's public design system documentation" }
+          { "text": "Led Console, CLI, and all developer tools as the entire user-facing layer of engineering" },
+          { "text": "Rebuilt Console from scratch (console.azion.com) using open-source libraries and block componentization, reducing new screen implementation time to ~1 day" },
+          { "text": "Managed cross-functional team of developers and designers across product and brand workstreams" }
         ]
       },
       {
         "company": "Azion Technologies",
-        "title": "Director of Brand Experience",
-        "location": "Remote, Porto Alegre, Brazil",
-        "dateRange": "Jul 2022 - Sep 2023",
-        "description": "Led brand strategy and creative direction for Azion's marketing, brand identity, and customer-facing touchpoints. Bridged brand vision with technical implementation across digital products.",
+        "title": "Brand Experience Director",
+        "location": "Porto Alegre, Brazil",
+        "dateRange": "2023 - 2024",
+        "description": "Promoted to bridge brand strategy with developer-focused product experience, ensuring visual and strategic consistency across all digital touchpoints.",
         "achievements": [
-          { "text": "Defined and executed brand strategy across digital touchpoints, ensuring consistency between marketing and product" },
-          { "text": "Led rebranding initiatives and visual identity evolution" },
-          { "text": "Established brand guidelines and design language for marketing materials" }
+          { "text": "Established brand guidelines for technical documentation, product interfaces, and marketing materials" },
+          { "text": "Led rebranding initiatives and visual identity evolution across marketing and product" },
+          { "text": "Collaborated with engineering and product teams to maintain brand integrity in developer tools" }
         ]
       },
       {
         "company": "Azion Technologies",
-        "title": "Director of Design",
-        "location": "Remote, Porto Alegre, Brazil",
-        "dateRange": "Jan 2021 - Jun 2022",
-        "description": "First design leadership hire at Azion. Built the design function from the ground up, establishing design processes, hiring the design team, and integrating design into product development workflows.",
+        "title": "Design Director",
+        "location": "Porto Alegre, Brazil",
+        "dateRange": "2021 - 2023",
+        "description": "Led design organization under Product, responsible for creative direction (Product Marketing) and product usability (Development).",
         "achievements": [
-          { "text": "Hired and onboarded the first design team members, growing from solo designer to multi-person team" },
-          { "text": "Established design operations, including tools (Figma), workflows (Agile/Scrum integration), and handoff processes" },
-          { "text": "Introduced design thinking methodologies to an engineering-led organization" }
+          { "text": "Built 14-person design organization spanning Product Design, Creative, Design Ops, UX Research, and Design Systems" },
+          { "text": "Established design-thinking culture and usability metrics in an engineering-first environment" },
+          { "text": "Created Azion Design (www.azion.design), the company's public design system documentation" },
+          { "text": "Led PLG (Product-Led Growth) transformation from Enterprise-first strategy" },
+          { "text": "Implemented two design systems: one custom-built, one assembled from open-source libraries" },
+          { "text": "Established product discovery processes and UX research practices" }
         ]
       },
       {
         "company": "Huia (acquired by Stefanini)",
-        "title": "Partner & Head of Creative",
+        "title": "Partner, Head of Creative Technology",
         "location": "Porto Alegre, Brazil",
-        "dateRange": "2012 - 2021 (9 years)",
-        "description": "Joined Huia from day one and eventually became Partner and Head of Creative at the design and technology studio specializing in digital products and brand experiences. Led creative direction, client relationships, and team growth through acquisition by Stefanini.",
+        "dateRange": "2015 - 2021",
+        "description": "Leader of UX and Design teams, creating innovative digital experiences and interface products. Huia grew to ~40 employees before being acquired by Stefanini Haus Group.",
         "achievements": [
-          { "text": "Joined from day one, became Partner as studio grew to ~40 employees" },
-          { "text": "Led teams of up to 15 people on specific projects" },
+          { "text": "Became Partner as studio grew to ~40 employees" },
+          { "text": "Led UX and Design teams for the last 2 years of tenure" },
+          { "text": "Managed client relationships: O Boticário, Petrobras, Postos BR, Tramontina, Aché Labs (Profuse), Grendene (Ipanema), Sicredi, Samsung, Takeda Labs (Neosaldina), Shure, Rocket Chat, Bimbo (Pinguinos)" }
+        ]
+      },
+      {
+        "company": "Huia",
+        "title": "Production Designer & Creative Coordinator",
+        "location": "São Paulo, Brazil",
+        "dateRange": "2013 - 2021",
+        "description": "Squad leader managing art, motion and video teams as creative supervisor. Part of Nonconformity Group.",
+        "achievements": [
           { "text": "Led creative direction for 40+ digital projects across web, mobile, and interactive TV platforms" },
-          { "text": "Managed client relationships with major Brazilian brands: Petrobras, O Boticario, Tramontina, Sicredi, Ache Group" },
-          { "text": "Won projects with international brands through Mondelez (Lacta, Bis, Toblerone, Oreo)" }
+          { "text": "Clients: O Boticário, Petrobras, Tramontina, Bis, Trakinas, Sonho de Valsa, Lacta, Toblerone, Melitta Wake, Devassa, LG, Reckitt Benckiser" }
         ]
       },
       {
         "company": "W3haus",
         "title": "Art Director",
-        "location": "Sao Paulo, Brazil",
+        "location": "São Paulo, Brazil",
         "dateRange": "2012",
-        "description": "Led creative direction for O Boticario's retail and digital initiatives, managing a creative team focused on brand consistency across touchpoints.",
+        "description": "Art Director responsible for O Boticário's retail display unit (Vitrines). Part of Nonconformity Group.",
         "achievements": [
-          { "text": "Directed creative strategy for O Boticario retail experiences" },
-          { "text": "Managed team of 8 designers and creatives" }
+          { "text": "Directed creative strategy for O Boticário retail experiences" },
+          { "text": "Clients: O Boticário, Bis, Belvita, Trakinas, Sonho de Valsa, Lacta, Toblerone, Petrobras, Petrobras Distribuidora, Tramontina, Try On, Fila, Alphaville" }
         ]
       },
       {
         "company": "Post Digital",
-        "title": "Creative Manager",
-        "location": "Sao Paulo, Brazil",
+        "title": "Creative Manager (Gestor Criativo)",
+        "location": "São Paulo, Brazil",
         "dateRange": "2010 - 2012",
-        "description": "Led creative projects across mobile, web, and interactive TV platforms during the early mobile and digital transformation era in Brazil.",
+        "description": "Joined as first project designer at a 2-month-old tech startup. Gained extensive experience in usability and multiplatform web interface design. Managed Design on ~40 projects.",
         "achievements": [
-          { "text": "Delivered 40+ digital projects spanning mobile applications, interactive TV, and web platforms" },
-          { "text": "Worked at the forefront of Brazil's mobile design evolution (2010-2012)" }
+          { "text": "Delivered 40+ digital projects: software interfaces, iPad/mobile projects, corporate social networks, interactive TV, wireframes, e-commerce sites" },
+          { "text": "Clients: Grupo Inbrands, Ellus, Fundação CESP, Amir Slama, Arizona, Senior Solution, Performance Nutrition, Laser Ocular, Thelure, Elementar" }
         ]
+      },
+      {
+        "company": "Oz Propaganda",
+        "title": "Art Director",
+        "location": "Londrina, PR, Brazil",
+        "dateRange": "2007 - 2008",
+        "description": "Developed creative concepts, art direction, and design for print and point-of-sale materials in healthcare and education markets.",
+        "achievements": [
+          { "text": "Clients: Unimed Londrina, Sandoz, Shopping Catuaí, Drogamais" }
+        ]
+      },
+      {
+        "company": "Dispert Propaganda e Marketing",
+        "title": "Art Director",
+        "location": "Londrina, PR, Brazil",
+        "dateRange": "2007 - 2008",
+        "description": "Developed all types of print and point-of-sale materials, logos, radio spot scripts, and TV commercials with retail focus."
+      },
+      {
+        "company": "Agência Ativa",
+        "title": "Creative (Criativo)",
+        "location": "Presidente Prudente, SP, Brazil",
+        "dateRange": "2005 - 2006",
+        "description": "Creative development for advertising campaigns."
+      },
+      {
+        "company": "Holos Sistema de Ensino",
+        "title": "Layout Designer (Diagramador)",
+        "location": "Presidente Prudente, SP, Brazil",
+        "dateRange": "2004 - 2005",
+        "description": "Editorial layout for educational system workbooks, illustration of graphs and equations. Complex file preparation and finishing."
+      },
+      {
+        "company": "PB.com",
+        "title": "Intern",
+        "location": "Presidente Prudente, SP, Brazil",
+        "dateRange": "2002 - 2003",
+        "description": "Web design internship at local internet provider."
       }
     ]
   },
@@ -221,7 +269,29 @@
       }
     ],
     "additionalHeading": "Additional Training",
-    "additional": ["Udacity - Nanodegree Program", "Memorisely - Design System Bootcamp"]
+    "additional": [
+      {
+        "degree": "From Figma MCP to Cursor AI",
+        "institution": "AI Creative Builders",
+        "location": "Online",
+        "year": "2026",
+        "note": "Design-to-code workflow using Figma's Model Context Protocol and AI-powered coding tools for rapid prototyping and development"
+      },
+      {
+        "degree": "Design System Bootcamp",
+        "institution": "Memorisely",
+        "location": "Online",
+        "year": "2023",
+        "note": "4-week intensive bootcamp on building scalable design systems in Figma with live classes, exercises, and guided office hours"
+      },
+      {
+        "degree": "Product Design Nanodegree",
+        "institution": "Udacity",
+        "location": "Online",
+        "year": "2019",
+        "note": "Comprehensive program covering product strategy, UX research, design sprints, and prototyping"
+      }
+    ]
   },
   "projects": {
     "command": "ls projects/",

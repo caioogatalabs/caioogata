@@ -71,76 +71,124 @@
       {
         "company": "Azion Technologies",
         "title": "Developer Experience Director",
-        "location": "Remoto, Porto Alegre, Brasil",
-        "dateRange": "Out 2023 - Dez 2025",
-        "description": "Liderou estrategia de design para produtos voltados a desenvolvedores, documentacao e iniciativas de developer experience na Azion, uma plataforma global de edge computing. Gerenciou uma equipe multifuncional de design abrangendo Product Design, Creative Design, Design Ops, UX Research e Design Systems.",
+        "location": "Porto Alegre, Brasil",
+        "dateRange": "2024 - 2025",
+        "description": "Promovido para liderar o departamento de Developer Experience sob Engenharia, sendo responsável por todas as interfaces user-facing e mantendo supervisão de estratégia de marca.",
         "achievements": [
-          { "text": "Construiu e liderou uma organizacao de design de 14 pessoas estruturada em Product Design, Creative Design, Design Ops, UX Research e Design Systems" },
-          { "text": "Transformou a cultura da empresa de engineering-first para design-thinking, estabelecendo metricas de usabilidade e processos de product discovery" },
-          { "text": "Implementou dois design systems: um construido do zero, outro montado a partir de bibliotecas open-source" },
-          { "text": "Liderou transformacao PLG (Product-Led Growth), conectando designers e engenheiros para reduzir silos" },
-          { "text": "Criou Azion Design (www.azion.design), a documentacao publica do design system da empresa" }
+          { "text": "Liderou Console, CLI e todas as ferramentas de desenvolvedor como camada user-facing completa da engenharia" },
+          { "text": "Reconstruiu Console do zero (console.azion.com) usando bibliotecas open-source e componentização de blocos, reduzindo implementação de novas telas para ~1 dia" },
+          { "text": "Gerenciou time multifuncional de desenvolvedores e designers em frentes de produto e marca" }
         ]
       },
       {
         "company": "Azion Technologies",
-        "title": "Director of Brand Experience",
-        "location": "Remoto, Porto Alegre, Brasil",
-        "dateRange": "Jul 2022 - Set 2023",
-        "description": "Liderou estrategia de marca e direcao criativa para marketing, identidade de marca e pontos de contato com clientes da Azion. Conectou visao de marca com implementacao tecnica em produtos digitais.",
+        "title": "Brand Experience Director",
+        "location": "Porto Alegre, Brasil",
+        "dateRange": "2023 - 2024",
+        "description": "Promovido para conectar estratégia de marca com experiência de produto focada em desenvolvedores, garantindo consistência visual e estratégica em todos os pontos de contato digitais.",
         "achievements": [
-          { "text": "Definiu e executou estrategia de marca em pontos de contato digitais, garantindo consistencia entre marketing e produto" },
-          { "text": "Liderou iniciativas de rebranding e evolucao da identidade visual" },
-          { "text": "Estabeleceu guidelines de marca e linguagem de design para materiais de marketing" }
+          { "text": "Estabeleceu diretrizes de marca para documentação técnica, interfaces de produto e materiais de marketing" },
+          { "text": "Liderou iniciativas de rebranding e evolução da identidade visual em marketing e produto" },
+          { "text": "Colaborou com times de engenharia e produto para manter integridade de marca em ferramentas de desenvolvedor" }
         ]
       },
       {
         "company": "Azion Technologies",
-        "title": "Director of Design",
-        "location": "Remoto, Porto Alegre, Brasil",
-        "dateRange": "Jan 2021 - Jun 2022",
-        "description": "Primeira contratacao de lideranca de design na Azion. Construiu a funcao de design do zero, estabelecendo processos de design, contratando o time de design e integrando design em workflows de desenvolvimento de produto.",
+        "title": "Design Director",
+        "location": "Porto Alegre, Brasil",
+        "dateRange": "2021 - 2023",
+        "description": "Liderou organização de design sob área de Produto, responsável por direção criativa (Product Marketing) e usabilidade de produto (Desenvolvimento).",
         "achievements": [
-          { "text": "Contratou e integrou os primeiros membros do time de design, crescendo de designer solo para time multi-pessoa" },
-          { "text": "Estabeleceu operacoes de design, incluindo ferramentas (Figma), workflows (integracao Agile/Scrum) e processos de handoff" },
-          { "text": "Introduziu metodologias de design thinking em uma organizacao liderada por engenharia" }
+          { "text": "Construiu organização de design de 14 pessoas cobrindo Product Design, Creative, Design Ops, UX Research e Design Systems" },
+          { "text": "Estabeleceu cultura de design-thinking e métricas de usabilidade em ambiente engineering-first" },
+          { "text": "Criou Azion Design (www.azion.design), documentação pública do design system da empresa" },
+          { "text": "Liderou transformação PLG (Product-Led Growth) a partir de estratégia Enterprise-first" },
+          { "text": "Implementou dois design systems: um customizado, outro montado com bibliotecas open-source" },
+          { "text": "Estabeleceu processos de product discovery e práticas de UX research" }
         ]
       },
       {
         "company": "Huia (adquirida pela Stefanini)",
-        "title": "Socio & Head of Creative",
+        "title": "Sócio, Head of Creative Technology",
         "location": "Porto Alegre, Brasil",
-        "dateRange": "2012 - 2021 (9 anos)",
-        "description": "Entrou na Huia desde o dia 1 e eventualmente se tornou Socio e Head of Creative do estudio de design e tecnologia especializado em produtos digitais e experiencias de marca. Liderou direcao criativa, relacionamentos com clientes e crescimento do time ate a aquisicao pela Stefanini.",
+        "dateRange": "2015 - 2021",
+        "description": "Líder de times de UX e Design, criando experiências digitais inovadoras e produtos de interface. A Huia cresceu para ~40 funcionários antes de ser adquirida pelo Stefanini Haus Group.",
         "achievements": [
-          { "text": "Entrou desde o dia 1, tornou-se Socio enquanto o estudio crescia para ~40 funcionarios" },
-          { "text": "Liderou times de ate 15 pessoas em projetos especificos" },
-          { "text": "Liderou direcao criativa para mais de 40 projetos digitais em plataformas web, mobile e TV interativa" },
-          { "text": "Gerenciou relacionamentos com grandes marcas brasileiras: Petrobras, O Boticario, Tramontina, Sicredi, Ache Group" },
-          { "text": "Conquistou projetos com marcas internacionais via Mondelez (Lacta, Bis, Toblerone, Oreo)" }
+          { "text": "Tornou-se Sócio enquanto o estúdio crescia para ~40 funcionários" },
+          { "text": "Liderou times de UX e Design nos últimos 2 anos de atuação" },
+          { "text": "Gerenciou relacionamentos com clientes: O Boticário, Petrobras, Postos BR, Tramontina, Aché Labs (Profuse), Grendene (Ipanema), Sicredi, Samsung, Takeda Labs (Neosaldina), Shure, Rocket Chat, Bimbo (Pinguinos)" }
+        ]
+      },
+      {
+        "company": "Huia",
+        "title": "Production Designer & Coordenador Criativo",
+        "location": "São Paulo, Brasil",
+        "dateRange": "2013 - 2021",
+        "description": "Líder de squad gerenciando times de arte, motion e vídeo como supervisor criativo. Parte do Nonconformity Group.",
+        "achievements": [
+          { "text": "Liderou direção criativa para mais de 40 projetos digitais em plataformas web, mobile e TV interativa" },
+          { "text": "Clientes: O Boticário, Petrobras, Tramontina, Bis, Trakinas, Sonho de Valsa, Lacta, Toblerone, Melitta Wake, Devassa, LG, Reckitt Benckiser" }
         ]
       },
       {
         "company": "W3haus",
         "title": "Diretor de Arte",
-        "location": "Sao Paulo, Brasil",
+        "location": "São Paulo, Brasil",
         "dateRange": "2012",
-        "description": "Liderou direcao criativa para iniciativas de varejo e digitais do O Boticario, gerenciando time criativo focado em consistencia de marca em pontos de contato.",
+        "description": "Diretor de Arte responsável pelo núcleo de Vitrines do O Boticário. Parte do Nonconformity Group.",
         "achievements": [
-          { "text": "Dirigiu estrategia criativa para experiencias de varejo do O Boticario" },
-          { "text": "Gerenciou time de 8 designers e criativos" }
+          { "text": "Dirigiu estratégia criativa para experiências de varejo do O Boticário" },
+          { "text": "Clientes: O Boticário, Bis, Belvita, Trakinas, Sonho de Valsa, Lacta, Toblerone, Petrobras, Petrobras Distribuidora, Tramontina, Try On, Fila, Alphaville" }
         ]
       },
       {
         "company": "Post Digital",
         "title": "Gestor Criativo",
-        "location": "Sao Paulo, Brasil",
+        "location": "São Paulo, Brasil",
         "dateRange": "2010 - 2012",
-        "description": "Liderou projetos criativos em plataformas mobile, web e TV interativa durante a era inicial de transformacao mobile e digital no Brasil.",
+        "description": "Entrou como primeiro designer de projetos em uma startup de tecnologia com apenas 2 meses de vida. Ganhou extensa experiência em usabilidade e interface web multiplataforma. Gestor de Design em ~40 projetos.",
         "achievements": [
-          { "text": "Entregou mais de 40 projetos digitais abrangendo aplicativos mobile, TV interativa e plataformas web" },
-          { "text": "Trabalhou na vanguarda da evolucao do design mobile no Brasil (2010-2012)" }
+          { "text": "Entregou mais de 40 projetos digitais: interfaces de software, projetos iPad/mobile, redes sociais corporativas, TV interativa, wireframes, sites e lojas virtuais" },
+          { "text": "Clientes: Grupo Inbrands, Ellus, Fundação CESP, Amir Slama, Arizona, Senior Solution, Performance Nutrition, Laser Ocular, Thelure, Elementar" }
         ]
+      },
+      {
+        "company": "Oz Propaganda",
+        "title": "Diretor de Arte",
+        "location": "Londrina, PR, Brasil",
+        "dateRange": "2007 - 2008",
+        "description": "Desenvolvimento de conceitos criativos, direção de arte, design de folder e outros materiais gráficos e de ponto de venda para o mercado de saúde e escolar.",
+        "achievements": [
+          { "text": "Clientes: Unimed Londrina, Sandoz, Shopping Catuaí, Drogamais" }
+        ]
+      },
+      {
+        "company": "Dispert Propaganda e Marketing",
+        "title": "Diretor de Arte",
+        "location": "Londrina, PR, Brasil",
+        "dateRange": "2007 - 2008",
+        "description": "Desenvolvimento de todo tipo de material gráfico e de ponto de venda, logos, roteiros para spots de rádio e comerciais de televisão, tudo com foco em varejo."
+      },
+      {
+        "company": "Agência Ativa",
+        "title": "Criativo",
+        "location": "Presidente Prudente, SP, Brasil",
+        "dateRange": "2005 - 2006",
+        "description": "Desenvolvimento criativo para campanhas publicitárias."
+      },
+      {
+        "company": "Holos Sistema de Ensino",
+        "title": "Diagramador",
+        "location": "Presidente Prudente, SP, Brasil",
+        "dateRange": "2004 - 2005",
+        "description": "Diagramação editorial de apostilas para sistema de ensino, ilustração de gráficos e equações. Diagramação e fechamento de arquivos complexos."
+      },
+      {
+        "company": "PB.com",
+        "title": "Estagiário",
+        "location": "Presidente Prudente, SP, Brasil",
+        "dateRange": "2002 - 2003",
+        "description": "Estágio em web design em provedor de internet local."
       }
     ]
   },
@@ -221,7 +269,29 @@
       }
     ],
     "additionalHeading": "Formação complementar",
-    "additional": ["Udacity - Programa Nanodegree", "Memorisely - Bootcamp de Design System"]
+    "additional": [
+      {
+        "degree": "Do Figma MCP ao Cursor AI",
+        "institution": "AI Creative Builders",
+        "location": "Online",
+        "year": "2026",
+        "note": "Workflow design-to-code usando Model Context Protocol do Figma e ferramentas de código com IA para prototipagem e desenvolvimento rápido"
+      },
+      {
+        "degree": "Bootcamp de Design System",
+        "institution": "Memorisely",
+        "location": "Online",
+        "year": "2023",
+        "note": "Bootcamp intensivo de 4 semanas sobre construção de design systems escaláveis em Figma com aulas ao vivo, exercícios e sessões guiadas"
+      },
+      {
+        "degree": "Nanodegree em Product Design",
+        "institution": "Udacity",
+        "location": "Online",
+        "year": "2019",
+        "note": "Programa completo cobrindo estratégia de produto, pesquisa UX, design sprints e prototipagem"
+      }
+    ]
   },
   "projects": {
     "command": "ls projetos/",

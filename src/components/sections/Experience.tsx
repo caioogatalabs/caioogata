@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
+import { clsx } from 'clsx'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
@@ -34,6 +35,7 @@ export default function Experience() {
         {content.experience.jobs.map((job, index) => {
           const isSelected = subItemIndex === index
           const isExpanded = expandedSubItems.has(index)
+          const hasContent = !!(job.description || (job.achievements && job.achievements.length > 0))
 
           const titleContent = (
             <div className="grid grid-cols-[2fr_3fr_3fr] gap-4 items-center w-full">
@@ -42,6 +44,30 @@ export default function Experience() {
               <span className="truncate">{job.title}</span>
             </div>
           )
+
+          if (!hasContent) {
+            return (
+              <div
+                key={index}
+                className="group border-t transition-colors duration-150 border-secondary/10 pl-6"
+              >
+                <button
+                  ref={el => { sectionRefs.current[index] = el }}
+                  type="button"
+                  onFocus={() => setSubItemIndex(index)}
+                  className={clsx(
+                    'w-full text-left py-2 font-mono text-sm transition-colors duration-150 flex items-center justify-between focus:outline-none cursor-default',
+                    isSelected
+                      ? 'text-primary opacity-100'
+                      : 'text-secondary opacity-60'
+                  )}
+                  tabIndex={0}
+                >
+                  <span className="flex items-center gap-2 min-w-0 flex-1">{titleContent}</span>
+                </button>
+              </div>
+            )
+          }
 
           return (
             <ExpandableSection

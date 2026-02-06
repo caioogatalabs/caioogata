@@ -57,14 +57,13 @@ export const AI_PLATFORMS: AIPlatform[] = [
     },
   },
   {
-    id: 'google-ai',
-    name: 'Google AI',
+    id: 'gemini',
+    name: 'Gemini',
     icon: 'G',
     canFetchUrls: true,
     buildUrl: (markdownUrl, language) => {
       const prompt = PROMPTS[language](markdownUrl)
-      // udm=50 is AI Overview mode, aep=11 enables enhanced AI
-      return `https://www.google.com/search?udm=50&aep=11&q=${encodeURIComponent(prompt)}`
+      return `https://gemini.google.com/app?q=${encodeURIComponent(prompt)}`
     },
   },
   {
