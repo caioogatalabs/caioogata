@@ -25,7 +25,7 @@ export default function Clients() {
               <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                 <ArrowRightIcon />
               </span>
-              <h3 className="text-base font-bold text-primary font-mono">
+              <h3 className="text-base font-bold text-secondary font-mono">
                 Brazilian Brands
               </h3>
             </div>
@@ -47,7 +47,7 @@ export default function Clients() {
               <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                 <ArrowRightIcon />
               </span>
-              <h3 className="text-base font-bold text-primary font-mono">
+              <h3 className="text-base font-bold text-secondary font-mono">
                 International (via Mondelez)
               </h3>
             </div>

@@ -77,7 +77,7 @@ export default function Projects() {
                       <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                         <ArrowRightIcon />
                       </span>
-                      <h3 className="text-base font-bold text-primary font-mono">Role</h3>
+                      <h3 className="text-base font-bold text-secondary font-mono">Role</h3>
                     </div>
                     <p className="text-sm text-neutral-300 font-mono ml-6">
                       [To be defined]
@@ -90,7 +90,7 @@ export default function Projects() {
                       <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                         <ArrowRightIcon />
                       </span>
-                      <h3 className="text-base font-bold text-primary font-mono">Technologies</h3>
+                      <h3 className="text-base font-bold text-secondary font-mono">Technologies</h3>
                     </div>
                     <p className="text-sm text-neutral-300 font-mono ml-6">
                       [To be defined]
@@ -103,7 +103,7 @@ export default function Projects() {
                       <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                         <ArrowRightIcon />
                       </span>
-                      <h3 className="text-base font-bold text-primary font-mono">Impact</h3>
+                      <h3 className="text-base font-bold text-secondary font-mono">Impact</h3>
                     </div>
                     <p className="text-sm text-neutral-300 font-mono ml-6">
                       [To be defined]

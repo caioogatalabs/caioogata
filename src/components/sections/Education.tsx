@@ -14,8 +14,8 @@ function getSortYear(yearStr: string): number {
 
 function EducationCard({ edu }: { edu: EducationItem }) {
   return (
-    <article className="rounded-base border border-neutral-400 bg-neutral p-4 md:p-5">
-      <h3 className="text-base font-bold text-primary font-mono mb-6">
+    <article className="rounded-base border border-dotted border-secondary/30 bg-neutral p-4 md:p-5">
+      <h3 className="text-base font-bold text-secondary font-mono mb-3">
         {edu.institution}
       </h3>
       <p className="text-sm text-neutral-300 font-mono mb-1">{edu.degree}</p>
@@ -23,7 +23,7 @@ function EducationCard({ edu }: { edu: EducationItem }) {
         {edu.location} · {edu.year}
       </p>
       {edu.note && (
-        <p className="text-sm text-primary font-mono">{edu.note}</p>
+        <p className="text-sm text-secondary font-mono">{edu.note}</p>
       )}
     </article>
   )

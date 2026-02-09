@@ -15,7 +15,7 @@ export default function Skills() {
       <div className="grid gap-4 md:grid-cols-2 pl-6">
         {content.skills.categories.map((category, catIndex) => (
           <div key={catIndex} className={`flex flex-col gap-3 ${catIndex >= 2 ? 'mt-6' : ''}`}>
-            <h3 className="text-sm text-neutral-300 font-mono leading-relaxed">
+            <h3 className="text-sm text-secondary font-mono leading-relaxed">
               {category.title}
             </h3>
             <div className="flex flex-col">

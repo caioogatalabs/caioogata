@@ -74,9 +74,9 @@ export default function About() {
           </div>
 
           <div className="flex flex-col w-full min-w-0 pl-6">
-            <p className="text-sm font-mono text-primary py-2 border-t border-secondary/10 first:border-t-0 first:pt-0">
+            <h3 className="text-sm font-mono text-secondary py-2 border-t border-secondary/10 first:border-t-0 first:pt-0">
               Core Expertise
-            </p>
+            </h3>
             {content.about.expertise.map((item, index) => (
               <p
                 key={index}

@@ -88,9 +88,9 @@ export default function Experience() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-neutral-300 py-2.5 px-4 text-left font-mono leading-relaxed mb-0">
+                    <h3 className="text-sm text-secondary py-2.5 px-4 text-left font-mono leading-relaxed mb-0">
                       Achievements
-                    </p>
+                    </h3>
                     <div className="border border-dotted border-secondary/30 rounded-base font-mono overflow-x-auto">
                       <table className="w-full border-collapse">
                         <tbody>
@@ -105,7 +105,7 @@ export default function Experience() {
                                     {achievement.text}
                                   </p>
                                   <div className="border-b border-dotted border-secondary/30 mb-2"></div>
-                                  <p className="text-sm text-neutral-300 font-mono">
+                                  <p className="text-sm text-secondary font-mono">
                                     +{((achievementIndex + 1) * 10)}%
                                   </p>
                                 </div>
