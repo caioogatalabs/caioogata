@@ -54,7 +54,7 @@ export default function Projects() {
 
                 {/* Project Images Canvas */}
                 {project.images && project.images.length > 0 ? (
-                  <div className="relative -mr-6 md:-mr-12 lg:-mr-24 xl:-mr-48 2xl:-mr-96">
+                  <div className="relative -mr-6 md:-mr-12 lg:-mr-24 xl:-mr-48 2xl:-mr-96 overflow-hidden">
                     <ProjectCanvas
                       images={project.images}
                       viewModeLabels={content.projects.viewModes}

@@ -9,7 +9,7 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
 import { AI_PLATFORMS, getMarkdownUrl, type AIPlatform } from '@/lib/ai-link-builder'
 
 interface CopyDropdownProps {
-  variant?: 'primary' | 'secondary' | 'inverted'
+  variant?: 'primary' | 'secondary' | 'inverted' | 'filled'
   className?: string
 }
 
@@ -141,9 +141,11 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
           'transition-colors duration-200',
           'focus:outline-none',
           'disabled:opacity-50 disabled:cursor-not-allowed',
-          variant === 'inverted'
-            ? 'border border-neutral-800/50 text-neutral-800 hover:border-neutral-800 hover:text-neutral-950 hover:bg-neutral-800/10 focus-visible:border-neutral-800 focus-visible:text-neutral-950 focus-visible:bg-neutral-800/10'
-            : 'border border-primary/30 text-secondary hover:border-primary hover:text-primary hover:bg-primary/10 focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10',
+          variant === 'filled'
+            ? 'bg-primary text-neutral-900 hover:bg-primary/90 focus-visible:bg-primary/90'
+            : variant === 'inverted'
+              ? 'border border-neutral-800/50 text-neutral-800 hover:border-neutral-800 hover:text-neutral-950 hover:bg-neutral-800/10 focus-visible:border-neutral-800 focus-visible:text-neutral-950 focus-visible:bg-neutral-800/10'
+              : 'border border-primary/30 text-secondary hover:border-primary hover:text-primary hover:bg-primary/10 focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10',
           className
         )}
         aria-label={content.hero.cta.copyAriaLabel}
@@ -159,7 +161,7 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
 
       {isOpen && (
         <div
-          className="absolute top-full left-0 mt-2 min-w-[240px] bg-neutral border-2 border-primary rounded-base shadow-lg z-50"
+          className="absolute top-full right-0 sm:right-auto sm:left-0 mt-2 min-w-[240px] max-w-[calc(100vw-2rem)] bg-neutral border-2 border-primary rounded-base shadow-lg z-50"
           role="menu"
           aria-orientation="vertical"
         >

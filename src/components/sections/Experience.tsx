@@ -38,7 +38,7 @@ export default function Experience() {
           const hasContent = !!(job.description || (job.achievements && job.achievements.length > 0))
 
           const titleContent = (
-            <div className="grid grid-cols-[2fr_3fr_3fr] gap-4 items-center w-full">
+            <div className="flex flex-col gap-1 md:grid md:grid-cols-[2fr_3fr_3fr] md:gap-4 md:items-center w-full">
               <span className="truncate">{job.dateRange}</span>
               <span className="truncate">{job.company}</span>
               <span className="truncate">{job.title}</span>
@@ -82,7 +82,7 @@ export default function Experience() {
             >
               {job.achievements && job.achievements.length > 0 ? (
                 <div className="flex flex-col gap-6">
-                  <div className="columns-2 gap-6">
+                  <div className="columns-1 md:columns-2 gap-6">
                     <p className="text-sm text-neutral-300 font-mono leading-relaxed break-inside-avoid">
                       {job.description}
                     </p>
@@ -91,7 +91,29 @@ export default function Experience() {
                     <h3 className="text-sm text-secondary py-2.5 px-4 text-left font-mono leading-relaxed mb-0">
                       Achievements
                     </h3>
-                    <div className="border border-dotted border-secondary/30 rounded-base font-mono overflow-x-auto">
+                    {/* Mobile: stacked cards */}
+                    <div className="md:hidden border border-dotted border-secondary/30 rounded-base font-mono">
+                      <div className="flex flex-col">
+                        {job.achievements.map((achievement, achievementIndex) => (
+                          <div
+                            key={achievementIndex}
+                            className="text-sm text-neutral-300 py-2.5 px-4 text-left font-mono border-b border-dotted border-secondary/30 last:border-b-0"
+                          >
+                            <div className="flex flex-col">
+                              <p className="text-sm text-neutral-300 font-mono leading-relaxed mb-2">
+                                {achievement.text}
+                              </p>
+                              <div className="border-b border-dotted border-secondary/30 mb-2"></div>
+                              <p className="text-sm text-secondary font-mono">
+                                +{((achievementIndex + 1) * 10)}%
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    {/* Desktop: horizontal table */}
+                    <div className="hidden md:block border border-dotted border-secondary/30 rounded-base font-mono overflow-x-auto">
                       <table className="w-full border-collapse">
                         <tbody>
                           <tr>
@@ -118,7 +140,7 @@ export default function Experience() {
                   </div>
                 </div>
               ) : (
-                <div className="columns-2 gap-6">
+                <div className="columns-1 md:columns-2 gap-6">
                   <p className="text-sm text-neutral-300 font-mono leading-relaxed break-inside-avoid">
                     {job.description}
                   </p>

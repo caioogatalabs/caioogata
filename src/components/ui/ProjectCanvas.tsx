@@ -30,8 +30,29 @@ const BASE_CANVAS_HEIGHT = 600
 
 export default function ProjectCanvas({ images, viewModeLabels, onExit }: ProjectCanvasProps) {
   const canvasRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const { mode } = useInteractionMode()
   const { setIsCanvasActive } = useNavigation()
+
+  // Track container width for responsive canvas
+  const [containerWidth, setContainerWidth] = useState<number | null>(null)
+
+  // Compute responsive canvas dimensions
+  const effectiveWidth = Math.min(
+    containerWidth || (typeof window !== 'undefined' ? window.innerWidth : BASE_CANVAS_WIDTH),
+    BASE_CANVAS_WIDTH
+  )
+
+  const aspectRatio = BASE_CANVAS_HEIGHT / BASE_CANVAS_WIDTH
+  let effectiveHeight = Math.min(
+    Math.round(effectiveWidth * aspectRatio),
+    BASE_CANVAS_HEIGHT
+  )
+
+  // On mobile, ensure minimum height of 400px
+  if (typeof window !== 'undefined' && window.innerWidth < 640) {
+    effectiveHeight = Math.max(effectiveHeight, 400)
+  }
 
   const {
     windows,
@@ -53,11 +74,31 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     setShowcasePaused
   } = useWindowManager({
     images,
-    baseCanvasWidth: BASE_CANVAS_WIDTH,
-    baseCanvasHeight: BASE_CANVAS_HEIGHT
+    baseCanvasWidth: effectiveWidth,
+    baseCanvasHeight: effectiveHeight
   })
 
   const openWindowsCount = windows.filter(w => w.isOpen).length
+
+  // Measure container width for responsive canvas
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.clientWidth)
+      }
+    }
+
+    // Initial measurement
+    updateWidth()
+
+    // ResizeObserver for dynamic updates
+    const resizeObserver = new ResizeObserver(updateWidth)
+    resizeObserver.observe(containerRef.current)
+
+    return () => resizeObserver.disconnect()
+  }, [])
 
   // Showcase: track natural image dimensions for pan detection
   const [showcaseImageNatural, setShowcaseImageNatural] = useState<{ width: number; height: number } | null>(null)
@@ -200,7 +241,7 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
   }
 
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative w-full">
       {/* Canvas with dynamic dimensions - no internal scroll */}
       <motion.div
         ref={canvasRef}
@@ -238,7 +279,7 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
         />
 
         {/* Controls - fixed position within canvas */}
-        <div className="absolute top-4 left-4 z-50 flex items-start gap-4">
+        <div className="absolute top-4 left-4 z-50 flex items-start gap-4 max-w-full overflow-x-auto">
           <ViewModeControls
             currentMode={viewMode}
             onModeChange={setViewMode}
@@ -249,9 +290,9 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
 
         {/* Navigation hints */}
         <div className="absolute top-4 right-4 z-50">
-          <div className="text-xs text-secondary/50 font-mono bg-black/60 px-2 py-1 rounded-sm border border-white/10">
+          <div className="text-xs text-secondary/50 font-mono bg-black/60 px-2 py-1 rounded-sm border border-white/10 whitespace-nowrap">
             {mode === 'keyboard' && (
-              <span>
+              <span className="hidden sm:inline">
                 <kbd className="text-primary">1-6</kbd> modes
                 <span className="mx-2">·</span>
                 <kbd className="text-primary">↑↓</kbd> navigate
@@ -262,10 +303,10 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
               </span>
             )}
             {mode === 'mouse' && (
-              <span>Drag to move · Double-click to maximize</span>
+              <span className="hidden sm:inline">Drag to move · Double-click to maximize</span>
             )}
             {mode === 'touch' && (
-              <span>Swipe to navigate · Tap to focus</span>
+              <span>Swipe · Tap</span>
             )}
           </div>
         </div>
@@ -430,12 +471,12 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
 
         {/* Empty state */}
         {viewMode !== 'showcase' && openWindowsCount === 0 && (
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center px-4">
             <button
               onClick={openAllWindows}
-              className="text-secondary/60 hover:text-primary transition-colors font-mono text-sm bg-black/40 px-4 py-2 rounded border border-white/10"
+              className="text-secondary/60 hover:text-primary transition-colors font-mono text-sm bg-black/40 px-4 py-2 rounded border border-white/10 text-center"
             >
-              All windows closed. Press <kbd className="text-primary">R</kbd> or click to reset.
+              All windows closed. <span className="hidden sm:inline">Press <kbd className="text-primary">R</kbd> or click</span><span className="sm:hidden">Tap</span> to reset.
             </button>
           </div>
         )}

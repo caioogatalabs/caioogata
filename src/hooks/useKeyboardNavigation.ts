@@ -2,6 +2,7 @@
 
 import { useEffect, useCallback } from 'react'
 import { useNavigation, SectionKey, SECTIONS_WITH_SUBITEMS } from '@/components/providers/NavigationProvider'
+import { useInteractionMode } from '@/hooks/useInteractionMode'
 
 export function useKeyboardNavigation() {
   const {
@@ -25,6 +26,8 @@ export function useKeyboardNavigation() {
     // Canvas mode
     isCanvasActive,
   } = useNavigation()
+  const { isTouchDevice } = useInteractionMode()
+
   // Check if current section has sub-items
   const sectionHasSubItems = activeSection && SECTIONS_WITH_SUBITEMS.includes(activeSection)
 
@@ -108,6 +111,11 @@ export function useKeyboardNavigation() {
   }, [activeSection, sectionHasSubItems, expandedSubItems, subItemIndex, collapseSubItem, hasExpandedItems, setActiveSection, isMenuOpen, setIsMenuOpen])
 
   useEffect(() => {
+    // Skip keyboard navigation setup on touch devices (mobile/tablet)
+    if (isTouchDevice) {
+      return
+    }
+
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement
       const isMenuInput = target.getAttribute('data-menu-input') === 'true'
@@ -159,7 +167,7 @@ export function useKeyboardNavigation() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [navigateUp, navigateDown, selectItem, goBack, setMenuFilter, isCanvasActive])
+  }, [navigateUp, navigateDown, selectItem, goBack, setMenuFilter, isCanvasActive, isTouchDevice])
 
   return {
     navigateUp,

@@ -10,7 +10,7 @@ export default function IntroCompact() {
 
   return (
     <section className="border-2 border-primary/30 rounded-base px-4 md:px-6 py-6 w-full">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
         {/* Logo - smaller, clickable to return to intro view */}
         <button
           type="button"
@@ -32,7 +32,7 @@ export default function IntroCompact() {
         </button>
 
         {/* Right side - CTA and Language */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Language Buttons - compact */}
           <div className="flex items-center gap-1" role="group" aria-label="Language selection">
             <button

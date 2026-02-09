@@ -44,9 +44,9 @@
     "summary": "I lead design teams at the intersection of brand strategy and technical implementation. Twenty years in Art Direction—fifteen focused on UI—building digital experiences for brands like Petrobras, O Boticario, and Azion taught me that great design bridges business goals with user needs—and that the best solutions come from questioning assumptions and iterating fearlessly.",
     "location": "Based in Porto Alegre, Brazil | 20+ years in Art Direction, 15 in UI design | Open to remote & hybrid opportunities",
     "cta": {
-      "copy": "Copy as Markdown for AI",
+      "copy": "Share with AI",
       "copying": "Copying...",
-      "copyAriaLabel": "Copy entire portfolio as markdown for AI assistants",
+      "copyAriaLabel": "Open menu to share this portfolio with AI assistants",
       "linkedin": "View on LinkedIn"
     }
   },
@@ -406,7 +406,7 @@
     ]
   },
   "intro": {
-    "tips": "Built for Human and Ai assistants. Optimized for LLM consumptions."
+    "tips": "Built for humans and AI assistants. Get to know Caio through your favorite AI."
   },
   "footer": {
     "copyright": "2026 Caio Ogata. All rights reserved.",

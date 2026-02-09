@@ -27,13 +27,13 @@
       }
     },
     "items": [
-      { "key": "about", "label": "sobre", "description": "Bio, expertises e trajetoria." },
+      { "key": "about", "label": "sobre", "description": "Bio, expertises e trajetória." },
       { "key": "projects", "label": "projetos", "description": "Trabalhos selecionados de design e produto." },
-      { "key": "experience", "label": "experiencia", "description": "Cargos, empresas e principais conquistas." },
+      { "key": "experience", "label": "experiência", "description": "Cargos, empresas e principais conquistas." },
       { "key": "skills", "label": "habilidades", "description": "Design systems, DevEx, UI/UX e ferramentas." },
-      { "key": "education", "label": "educacao", "description": "Formacao, instituicoes e aprendizado continuo." },
-      { "key": "clients", "label": "clientes-notaveis", "description": "Marcas brasileiras e internacionais com que trabalhei." },
-      { "key": "philosophy", "label": "filosofia", "description": "Principios de design e como encaro produto e times." },
+      { "key": "education", "label": "educação", "description": "Formação, instituições e aprendizado contínuo." },
+      { "key": "clients", "label": "clientes-notáveis", "description": "Marcas brasileiras e internacionais com que trabalhei." },
+      { "key": "philosophy", "label": "filosofia", "description": "Princípios de design e como encaro produto e times." },
       { "key": "contact", "label": "contato", "description": "Como entrar em contato e conectar." }
     ]
   },
@@ -41,32 +41,32 @@
     "name": "Caio Ogata",
     "welcomeTitle": "Bem-vindo ao Portfólio Caio Ogata",
     "tagline": "Diretor de Design especializado em design systems, brand experience e produtos para desenvolvedores",
-    "summary": "Lidero equipes de design na intersecao entre estrategia de marca e implementacao tecnica. Vinte anos em Direcao de Arte—quinze focados em UI—construindo experiencias digitais para marcas como Petrobras, O Boticario e Azion me ensinaram que otimo design conecta objetivos de negocio com necessidades de usuarios—e que as melhores solucoes vem de questionar premissas e iterar sem medo.",
-    "location": "Baseado em Porto Alegre, Brasil | 20+ anos em Direcao de Arte, 15 em UI design | Aberto a oportunidades remotas e hibridas",
+    "summary": "Lidero equipes de design na interseção entre estratégia de marca e implementação técnica. Vinte anos em Direção de Arte—quinze focados em UI—construindo experiências digitais para marcas como Petrobras, O Boticário e Azion me ensinaram que ótimo design conecta objetivos de negócio com necessidades de usuários—e que as melhores soluções vêm de questionar premissas e iterar sem medo.",
+    "location": "Baseado em Porto Alegre, Brasil | 20+ anos em Direção de Arte, 15 em UI design | Aberto a oportunidades remotas e híbridas",
     "cta": {
-      "copy": "Copiar como Markdown para IA",
+      "copy": "Compartilhar com IA",
       "copying": "Copiando...",
-      "copyAriaLabel": "Copiar portfolio completo como markdown para assistentes de IA",
+      "copyAriaLabel": "Abrir menu para compartilhar este portfólio com assistentes de IA",
       "linkedin": "Ver no LinkedIn"
     }
   },
   "about": {
     "command": "whoami",
     "heading": "Sobre",
-    "bio": "Sou Diretor de Design baseado em Porto Alegre, Brasil, com mais de 20 anos em Direcao de Arte—sendo 15 destes especificamente focados em design de Interface de Usuario—criando experiencias digitais na intersecao entre estrategia de marca e ferramentas para desenvolvedores.\n\nLiderei equipes de design na Azion (como Diretor de Design, Diretor de Brand Experience e Diretor de Developer Experience), onde construi uma organizacao de 14 pessoas e implementei dois design systems do zero. Antes disso, entrei na Huia desde o dia 1 e eventualmente me tornei Socio do estudio de design e tecnologia, que cresceu para cerca de 40 funcionarios antes de ser adquirida pela Stefanini.\n\nMeu trabalho abrange marcas brasileiras iconicas como Petrobras, O Boticario, Tramontina, Sicredi e Ache Group, alem de clientes internacionais como Mondelez (Lacta, Bis, Toblerone, Oreo).",
+    "bio": "Sou Diretor de Design baseado em Porto Alegre, Brasil, com mais de 20 anos em Direção de Arte—sendo 15 destes especificamente focados em design de Interface de Usuário—criando experiências digitais na interseção entre estratégia de marca e ferramentas para desenvolvedores.\n\nLiderei equipes de design na Azion (como Diretor de Design, Diretor de Brand Experience e Diretor de Developer Experience), onde construí uma organização de 14 pessoas e implementei dois design systems do zero. Antes disso, entrei na Huia desde o dia 1 e eventualmente me tornei Sócio do estúdio de design e tecnologia, que cresceu para cerca de 40 funcionários antes de ser adquirida pela Stefanini.\n\nMeu trabalho abrange marcas brasileiras icônicas como Petrobras, O Boticário, Tramontina, Sicredi e Aché Group, além de clientes internacionais como Mondelez (Lacta, Bis, Toblerone, Oreo).",
     "expertise": [
-      "Arquitetura e Implementacao de Design Systems",
-      "Developer Experience (DevEx) & Product Design Tecnico",
-      "Estrategia de Marca & Direcao Criativa",
-      "Lideranca de Times de Design (ate 14 pessoas)",
-      "Colaboracao Cross-funcional (Design + Engenharia)",
-      "Estrategia PLG (Product-Led Growth)",
+      "Arquitetura e Implementação de Design Systems",
+      "Developer Experience (DevEx) & Product Design Técnico",
+      "Estratégia de Marca & Direção Criativa",
+      "Liderança de Times de Design (até 14 pessoas)",
+      "Colaboração Cross-funcional (Design + Engenharia)",
+      "Estratégia PLG (Product-Led Growth)",
       "UI/UX Design & Interaction Design"
     ]
   },
   "experience": {
-    "command": "cat experiencia.txt",
-    "heading": "Experiencia",
+    "command": "cat experiência.txt",
+    "heading": "Experiência",
     "jobs": [
       {
         "company": "Azion Technologies",
@@ -197,13 +197,13 @@
     "heading": "Habilidades",
     "categories": [
       {
-        "title": "Lideranca de Design",
+        "title": "Liderança de Design",
         "skills": [
           { "name": "UI/UX Design", "level": 95 },
           { "name": "Arquitetura de Design Systems", "level": 90 },
-          { "name": "Direcao Criativa", "level": 92 },
-          { "name": "Estrategia de Marca", "level": 88 },
-          { "name": "Lideranca de Times", "level": 90 },
+          { "name": "Direção Criativa", "level": 92 },
+          { "name": "Estratégia de Marca", "level": 88 },
+          { "name": "Liderança de Times", "level": 90 },
           { "name": "Design Operations", "level": 85 },
           { "name": "Product Design", "level": 88 },
           { "name": "Interaction Design", "level": 85 },
@@ -211,14 +211,14 @@
         ]
       },
       {
-        "title": "Habilidades Tecnicas",
+        "title": "Habilidades Técnicas",
         "skills": [
-          { "name": "Colaboracao Front-end", "level": 80 },
+          { "name": "Colaboração Front-end", "level": 80 },
           { "name": "HTML/CSS", "level": 75 },
-          { "name": "JavaScript (intermediario)", "level": 55 },
+          { "name": "JavaScript (intermediário)", "level": 55 },
           { "name": "Design Tokens", "level": 90 },
           { "name": "Arquitetura de Componentes", "level": 85 },
-          { "name": "Git/Controle de Versao", "level": 65 },
+          { "name": "Git/Controle de Versão", "level": 65 },
           { "name": "Workflows Design-to-Code", "level": 80 }
         ]
       },
@@ -244,14 +244,14 @@
           { "name": "Atomic Design", "level": 90 },
           { "name": "Product Discovery", "level": 82 },
           { "name": "UX Research", "level": 78 },
-          { "name": "Estrategia PLG", "level": 75 }
+          { "name": "Estratégia PLG", "level": 75 }
         ]
       }
     ]
   },
   "education": {
-    "command": "cat educacao.txt",
-    "heading": "Educacao",
+    "command": "cat educação.txt",
+    "heading": "Educação",
     "items": [
       {
         "degree": "Bacharelado em Publicidade e Propaganda",
@@ -261,14 +261,14 @@
         "note": "Nota do projeto final: 10/10"
       },
       {
-        "degree": "Especializacao em Direcao de Arte",
-        "institution": "Miami Ad School (campus ESPM Sao Paulo)",
-        "location": "Sao Paulo, Brasil",
+        "degree": "Especialização em Direção de Arte",
+        "institution": "Miami Ad School (campus ESPM São Paulo)",
+        "location": "São Paulo, Brasil",
         "year": "2009",
-        "note": "Portfolio que abriu portas em estudios de design de Sao Paulo"
+        "note": "Portfólio que abriu portas em estúdios de design de São Paulo"
       }
     ],
-    "additionalHeading": "Formação complementar",
+    "additionalHeading": "Formação Complementar",
     "additional": [
       {
         "degree": "Do Figma MCP ao Cursor AI",
@@ -308,32 +308,32 @@
       {
         "title": "Design System Azion",
         "slug": "azion-design-system",
-        "description": "Sistema de design completo construido do zero para a plataforma de edge computing Azion, incluindo documentacao publica e componentes reutilizaveis.",
+        "description": "Sistema de design completo construído do zero para a plataforma de edge computing Azion, incluindo documentação pública e componentes reutilizáveis.",
         "images": [
           { "src": "/projects/azion-design-system/09.png", "title": "Identidade Visual" },
           { "src": "/projects/azion-design-system/cloud-vs-edge2%201.png", "title": "Cloud vs Edge" },
           { "src": "/projects/azion-design-system/estudo_texturas-05%201.png", "title": "Estudo de Texturas" },
           { "src": "/projects/azion-design-system/Frame%205506.png", "title": "Componente Frame" },
-          { "src": "/projects/azion-design-system/Group%205369.png", "title": "Grupo de Ilustracoes" },
-          { "src": "/projects/azion-design-system/Group%205372.png", "title": "Conjunto de Icones" },
-          { "src": "/projects/azion-design-system/Notebook-Escudo%201.png", "title": "Escudo de Seguranca" },
+          { "src": "/projects/azion-design-system/Group%205369.png", "title": "Grupo de Ilustrações" },
+          { "src": "/projects/azion-design-system/Group%205372.png", "title": "Conjunto de Ícones" },
+          { "src": "/projects/azion-design-system/Notebook-Escudo%201.png", "title": "Escudo de Segurança" },
           { "src": "/projects/azion-design-system/orchestrator4%201.png", "title": "Orquestrador" },
-          { "src": "/projects/azion-design-system/VELOCIDADE-SEGURAN%C3%87A2%202.png", "title": "Velocidade e Seguranca" }
+          { "src": "/projects/azion-design-system/VELOCIDADE-SEGURAN%C3%87A2%202.png", "title": "Velocidade e Segurança" }
         ]
       },
       {
         "title": "Developer Experience Platform",
         "slug": "developer-experience",
-        "description": "Plataforma focada em melhorar a experiencia de desenvolvedores usando produtos da Azion, com foco em documentacao, ferramentas e workflows.",
+        "description": "Plataforma focada em melhorar a experiência de desenvolvedores usando produtos da Azion, com foco em documentação, ferramentas e workflows.",
         "images": [
           { "src": "/projects/developer-experience/01.png", "title": "Conceito Fintech" },
           { "src": "/projects/developer-experience/02.png", "title": "Detalhe Planetas" }
         ]
       },
       {
-        "title": "Brand Experience - O Boticario",
+        "title": "Brand Experience - O Boticário",
         "slug": "brand-oboticario",
-        "description": "Experiencia digital completa para uma das maiores redes de beleza do Brasil, integrando estrategia de marca com design de produto.",
+        "description": "Experiência digital completa para uma das maiores redes de beleza do Brasil, integrando estratégia de marca com design de produto.",
         "images": [
           { "src": "/projects/brand-oboticario/01.png", "title": "Infografico Containers" },
           { "src": "/projects/brand-oboticario/02.png", "title": "Edge Computing" }
@@ -342,18 +342,18 @@
       {
         "title": "Product Design - Petrobras",
         "slug": "product-petrobras",
-        "description": "Produtos digitais para uma das maiores empresas de energia do mundo, focando em usabilidade e eficiencia operacional.",
+        "description": "Produtos digitais para uma das maiores empresas de energia do mundo, focando em usabilidade e eficiência operacional.",
         "images": [
-          { "src": "/projects/product-petrobras/01.png", "title": "Escudo de Seguranca" }
+          { "src": "/projects/product-petrobras/01.png", "title": "Escudo de Segurança" }
         ]
       }
     ]
   },
   "clients": {
-    "command": "grep \"notavel\" clientes.log",
-    "heading": "Clientes Notaveis",
-    "description": "Ao longo de duas decadas, liderei projetos de Design e Marca para algumas das empresas mais reconhecidas do Brasil—desde campeoes nacionais como Petrobras e O Boticario ate nomes internacionais como Mondelez. Seja construindo produtos digitais para servicos financeiros ou experiencias de marca para varejo, o trabalho sempre foca em conectar objetivos de negocio com necessidades de usuarios.",
-    "brazilian": ["Petrobras", "Petrobras Distribuidora", "O Boticario", "Tramontina", "Sicredi", "Ache Group", "Alphaville"],
+    "command": "grep \"notável\" clientes.log",
+    "heading": "Clientes Notáveis",
+    "description": "Ao longo de duas décadas, liderei projetos de Design e Marca para algumas das empresas mais reconhecidas do Brasil—desde campeões nacionais como Petrobras e O Boticário até nomes internacionais como Mondelez. Seja construindo produtos digitais para serviços financeiros ou experiências de marca para varejo, o trabalho sempre foca em conectar objetivos de negócio com necessidades de usuários.",
+    "brazilian": ["Petrobras", "Petrobras Distribuidora", "O Boticário", "Tramontina", "Sicredi", "Aché Group", "Alphaville"],
     "international": ["Lacta", "Bis", "Toblerone", "Belvita", "Trakinas", "Sonho de Valsa", "Oreo"],
     "other": ["Try On", "Fila"]
   },
@@ -361,41 +361,41 @@
     "command": "vim filosofia.md",
     "heading": "Filosofia",
     "title": "Caia, aprenda, evolua",
-    "body": "Otimo design vem do mesmo lugar que grande performance atletica: a disposicao de falhar, aprender e iterar.\n\nAprendi isso primeiro no tatame de Judo. Como escrevi em 2018: \"No Judo, as primeiras licoes sao todas focadas em ensinar a cair. Desde o inicio, esta entendido que voce vai cair, perder, errar. Entao sofra menos, perca o medo, preserve seu corpo e, mais importante, prepare sua mente para os obstaculos a frente.\"\n\nAnos depois, o skate me ensinou a mesma licao. Skatistas sao as pessoas mais persistentes que ja conheci. Eles caem centenas de vezes aperfeicoando uma unica manobra, e fazem isso sem medo porque cair e parte do processo.\n\nEssa mentalidade se traduz diretamente para design. O melhor trabalho vem de times que nao tem medo de testar, falhar e iterar. Lance cedo, receba feedback, evolua. Otimos produtos nao nascem perfeitos—eles sao refinados atraves de incontaveis pequenas melhorias.\n\nComo lider de design, tento criar ambientes onde times podem cair com seguranca. Onde iteracao e celebrada, nao temida. Onde \"ainda nao sei\" e uma resposta aceitavel, desde que seguida de curiosidade e acao."
+    "body": "Ótimo design vem do mesmo lugar que grande performance atlética: a disposição de falhar, aprender e iterar.\n\nAprendi isso primeiro no tatame de Judô. Como escrevi em 2018: \"No Judô, as primeiras lições são todas focadas em ensinar a cair. Desde o início, está entendido que você vai cair, perder, errar. Então sofra menos, perca o medo, preserve seu corpo e, mais importante, prepare sua mente para os obstáculos à frente.\"\n\nAnos depois, o skate me ensinou a mesma lição. Skatistas são as pessoas mais persistentes que já conheci. Eles caem centenas de vezes aperfeiçoando uma única manobra, e fazem isso sem medo porque cair é parte do processo.\n\nEssa mentalidade se traduz diretamente para design. O melhor trabalho vem de times que não têm medo de testar, falhar e iterar. Lance cedo, receba feedback, evolua. Ótimos produtos não nascem perfeitos—eles são refinados através de incontáveis pequenas melhorias.\n\nComo líder de design, tento criar ambientes onde times podem cair com segurança. Onde iteração é celebrada, não temida. Onde \"ainda não sei\" é uma resposta aceitável, desde que seguida de curiosidade e ação."
   },
   "lifestyle": {
     "heading": "Vida Fora da Tela",
-    "body": "Sou triatleta, treino 10-14 horas por semana entre corrida, ciclismo e natacao. A disciplina do treino atletico—acordar as 5h para uma corrida de duas horas, depois encarar um dia inteiro de trabalho—ensina a gerenciar energia, focar no que importa e superar desconforto.\n\nVideogames sao uma paixao de vida e grande influencia no meu trabalho de design. Sempre olhei para jogos como inspiracao—particularmente pelas referencias visuais e design de interacao. A atencao aos detalhes em UI/UX de jogos, a narrativa atraves de visuais, e as experiencias imersivas moldaram como abordo design de produtos digitais.\n\nAntes do design consumir minha vida, foi a musica. Toquei baixo no INFUSE, uma banda de punk rock melodico. Tambem sou cinefilo, assisto todos os indicados ao Oscar a cada ano (diretores favoritos: Tarantino, Wes Anderson, Almodovar, Scorsese, Nolan, Villeneuve).\n\nTambem sou tres vezes vice-campeao brasileiro de baseball nas categorias de base, joguei volei em nivel de campeonato estadual aos 17, e surfei por anos. Sou INTP—analitico, curioso, sempre questionando. Trabalho para balancear minha tendencia natural de questionar tudo com a necessidade de entregar e executar."
+    "body": "Sou triatleta, treino 10-14 horas por semana entre corrida, ciclismo e natação. A disciplina do treino atlético—acordar às 5h para uma corrida de duas horas, depois encarar um dia inteiro de trabalho—ensina a gerenciar energia, focar no que importa e superar desconforto.\n\nVideogames são uma paixão de vida e grande influência no meu trabalho de design. Sempre olhei para jogos como inspiração—particularmente pelas referências visuais e design de interação. A atenção aos detalhes em UI/UX de jogos, a narrativa através de visuais, e as experiências imersivas moldaram como abordo design de produtos digitais.\n\nAntes do design consumir minha vida, foi a música. Toquei baixo no INFUSE, uma banda de punk rock melódico. Também sou cinéfilo, assisto todos os indicados ao Oscar a cada ano (diretores favoritos: Tarantino, Wes Anderson, Almodóvar, Scorsese, Nolan, Villeneuve).\n\nTambém sou três vezes vice-campeão brasileiro de baseball nas categorias de base, joguei vôlei em nível de campeonato estadual aos 17, e surfei por anos. Sou INTP—analítico, curioso, sempre questionando. Trabalho para balancear minha tendência natural de questionar tudo com a necessidade de entregar e executar."
   },
   "quickFacts": {
-    "heading": "Fatos Rapidos",
+    "heading": "Fatos Rápidos",
     "facts": [
       { "label": "Nascimento", "value": "23 de junho de 1984 | Presidente Prudente, SP" },
       { "label": "Atual", "value": "Porto Alegre, RS, Brasil" },
       { "label": "Idade", "value": "40 anos" },
-      { "label": "MBTI", "value": "INTP (O Logico)" },
-      { "label": "DISC", "value": "D (Dominancia) primario" },
+      { "label": "MBTI", "value": "INTP (O Lógico)" },
+      { "label": "DISC", "value": "D (Dominância) primário" },
       { "label": "Treino", "value": "10-14 horas/semana (triatlo)" },
-      { "label": "Hobbies", "value": "Triatlo, videogames (inspiracao de design), cinema, fotografia" },
-      { "label": "Ex", "value": "Baixista (INFUSE), 3x vice-campeao brasileiro de baseball (categorias de base)" }
+      { "label": "Hobbies", "value": "Triatlo, videogames (inspiração de design), cinema, fotografia" },
+      { "label": "Ex", "value": "Baixista (INFUSE), 3x vice-campeão brasileiro de baseball (categorias de base)" }
     ]
   },
   "lookingFor": {
     "heading": "O Que Estou Buscando",
-    "description": "Atualmente explorando oportunidades em lideranca de design, desenvolvimento de produto e inovacao—particularmente onde IA aumenta workflows criativos. Aberto para remoto, hibrido ou relocacao para a funcao certa.",
+    "description": "Atualmente explorando oportunidades em liderança de design, desenvolvimento de produto e inovação—particularmente onde IA aumenta workflows criativos. Aberto para remoto, híbrido ou relocação para a função certa.",
     "idealRole": [
-      { "text": "Lideranca de design ou cargo senior IC com trabalho hands-on" },
-      { "text": "Oportunidade de resolver problemas de negocio, mover metricas, buscar resultados" },
-      { "text": "Proposito claro, pessoas inspiradoras, oportunidade de crescimento" },
-      { "text": "Startup, big tech ou agencia com cultura forte" },
+      { "text": "Liderança de design ou cargo senior IC com trabalho hands-on" },
+      { "text": "Oportunidade de resolver problemas de negócio, mover métricas, buscar resultados" },
+      { "text": "Propósito claro, pessoas inspiradoras, oportunidade de crescimento" },
+      { "text": "Startup, big tech ou agência com cultura forte" },
       { "text": "Aberto a CLT, PJ ou qualquer tipo de contrato para a oportunidade certa" }
     ],
-    "focusAreas": "Posicoes de tomada de decisao em grandes empresas, ou cargos de socio/fundador em negocios investidos me interessam mais. Areas de foco: inovacao, desenvolvimento de tecnologia, sports tech, wellness, fazer o mundo melhor."
+    "focusAreas": "Posições de tomada de decisão em grandes empresas, ou cargos de sócio/fundador em negócios investidos me interessam mais. Áreas de foco: inovação, desenvolvimento de tecnologia, sports tech, wellness, fazer o mundo melhor."
   },
   "contact": {
     "command": "send mensagem",
     "heading": "Entre em contato",
-    "description": "Atualmente explorando oportunidades em lideranca de design, desenvolvimento de produto e inovacao—particularmente onde IA aumenta workflows criativos. Aberto para remoto, hibrido ou relocacao para a funcao certa.\n\nSe voce esta construindo algo interessante, ou so quer conversar sobre design systems, developer experience, ou a intersecao entre esportes e UX, entre em contato.",
+    "description": "Atualmente explorando oportunidades em liderança de design, desenvolvimento de produto e inovação—particularmente onde IA aumenta workflows criativos. Aberto para remoto, híbrido ou relocação para a função certa.\n\nSe você está construindo algo interessante, ou só quer conversar sobre design systems, developer experience, ou a interseção entre esportes e UX, entre em contato.",
     "email": "caioogata.labs@gmail.com",
     "links": [
       { "label": "LinkedIn", "url": "https://www.linkedin.com/in/caioogata/" },
@@ -406,18 +406,18 @@
     ]
   },
   "intro": {
-    "tips": "Feito para humanos e assistentes de IA. Otimizado para consumo por LLM."
+    "tips": "Feito para humanos e assistentes de IA. Conheça o Caio através da sua IA preferida."
   },
   "footer": {
     "copyright": "2026 Caio Ogata. Todos os direitos reservados.",
     "tagline": "Bem-vindo ao Portfólio de Caio Ogata",
-    "tech": "Desenvolvido com Next.js, Tailwind CSS e muita iteracao.",
+    "tech": "Desenvolvido com Next.js, Tailwind CSS e muita iteração.",
     "poweredByPrefix": "Desenvolvido com Next.js, ",
     "poweredByTailwindLabel": "Tailwind CSS",
-    "poweredBySuffix": " e muita iteracao."
+    "poweredBySuffix": " e muita iteração."
   },
   "notifications": {
-    "copySuccess": "Conteudo copiado! Pronto para colar no seu assistente de IA.",
-    "copyError": "Nao foi possivel copiar automaticamente. Tente novamente ou selecione o texto manualmente."
+    "copySuccess": "Conteúdo copiado! Pronto para colar no seu assistente de IA.",
+    "copyError": "Não foi possível copiar automaticamente. Tente novamente ou selecione o texto manualmente."
   }
 }

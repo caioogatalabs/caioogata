@@ -77,14 +77,16 @@ function ArrowLeftIcon({ className }: { className?: string }) {
 export default function NavigationBar({ variant = 'primary' }: NavigationBarProps) {
   const { content } = useLanguage()
   const { navigateUp, navigateDown, selectItem, goBack } = useKeyboardNavigation()
-  const { mode } = useInteractionMode()
+  const { mode, isTouchDevice } = useInteractionMode()
   const [activeKey, setActiveKey] = useState<ActiveKey>(null)
 
   // Get labels based on current interaction mode
   const labels = content.menu.navigation[mode]
 
-  // Listen for keyboard events to show visual feedback
+  // Listen for keyboard events to show visual feedback (desktop only)
   useEffect(() => {
+    if (isTouchDevice) return
+
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'Escape':
@@ -112,7 +114,12 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keyup', handleKeyUp)
     }
-  }, [])
+  }, [isTouchDevice])
+
+  // Hide navigation bar on touch devices (keyboard shortcuts are not relevant)
+  if (isTouchDevice) {
+    return null
+  }
 
   const borderColor = variant === 'primary' ? 'border-primary/10' : 'border-secondary/10'
 

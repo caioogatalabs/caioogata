@@ -128,9 +128,10 @@ export function PixelRevealLogo({
                 key={`${p.r}-${p.c}`}
                 x={p.x}
                 y={p.y}
-                width={pixelSize + 1.5}
-                height={pixelSize + 1.5}
+                width={pixelSize + 4}
+                height={pixelSize + 4}
                 fill="white"
+                shapeRendering="crispEdges"
                 initial="hidden"
                 animate={isHovered && p.shouldFlicker ? 'hover' : 'visible'}
                 variants={getVariants(p)}

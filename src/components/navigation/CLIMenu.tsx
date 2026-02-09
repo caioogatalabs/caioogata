@@ -22,7 +22,7 @@ export default function CLIMenu() {
     setFilteredMenuCount,
     setFilteredMenuKeys
   } = useNavigation()
-  const { mode } = useInteractionMode()
+  const { mode, isTouchDevice } = useInteractionMode()
   const inputRef = useRef<HTMLInputElement>(null)
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([])
 
@@ -67,21 +67,23 @@ export default function CLIMenu() {
     itemRefs.current = itemRefs.current.slice(0, filteredItems.length)
   }, [filteredItems.length])
 
-  // Focus input on mount and when menu opens
+  // Focus input on mount and when menu opens (desktop only)
   useEffect(() => {
+    if (isTouchDevice) return
     if (inputRef.current) {
       inputRef.current.focus()
     }
-  }, [isMenuOpen])
+  }, [isMenuOpen, isTouchDevice])
 
-  // On home, refocus input on any click so keyboard/mouse always target it
+  // On home, refocus input on any click so keyboard/mouse always target it (desktop only)
   useEffect(() => {
+    if (isTouchDevice) return
     const focusInput = () => {
       inputRef.current?.focus()
     }
     document.addEventListener('click', focusInput)
     return () => document.removeEventListener('click', focusInput)
-  }, [])
+  }, [isTouchDevice])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -133,31 +135,48 @@ export default function CLIMenu() {
         <span className={`${ARROW_WIDTH_CLASS} shrink-0 flex items-center justify-center text-primary`}>
           <ArrowRightIcon />
         </span>
-        <div className="relative flex-1 min-w-0 flex items-center">
-          <input
-            ref={inputRef}
-            type="text"
-            value={menuFilter}
-            onChange={handleInputChange}
-            onKeyDown={handleInputKeyDown}
-            onClick={() => setIsMenuOpen(true)}
-            className={`bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 text-primary font-mono text-sm w-full ${
-              menuFilter ? 'caret-primary' : 'caret-transparent'
-            }`}
-            placeholder=""
-            aria-label="Menu command input"
-            data-menu-input="true"
-          />
-          {/* Cursor + label no local de digitação; label secundária ~40% opacidade; mesmo tamanho que categoria; some com interação */}
-          {!menuFilter && (
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-1.5 pointer-events-none">
-              <span className="inline-block w-1 h-4 bg-primary animate-blink shrink-0" aria-hidden />
-              <span className="text-secondary opacity-40 text-sm font-mono whitespace-nowrap">
-                {content.menu.inputHint[mode]}
+        {isTouchDevice ? (
+          /* On mobile: Show simple title, no input */
+          <div className="flex-1 min-w-0">
+            <button
+              type="button"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="w-full text-left text-primary font-mono text-sm focus:outline-none"
+              aria-label={isMenuOpen ? 'Hide menu' : 'Show menu'}
+            >
+              <span className="text-secondary opacity-40">
+                {isMenuOpen ? 'Menu' : 'Tap to open menu'}
               </span>
-            </span>
-          )}
-        </div>
+            </button>
+          </div>
+        ) : (
+          /* On desktop: Show interactive input with cursor */
+          <div className="relative flex-1 min-w-0 flex items-center">
+            <input
+              ref={inputRef}
+              type="text"
+              value={menuFilter}
+              onChange={handleInputChange}
+              onKeyDown={handleInputKeyDown}
+              onClick={() => setIsMenuOpen(true)}
+              className={`bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 text-primary font-mono text-sm w-full ${
+                menuFilter ? 'caret-primary' : 'caret-transparent'
+              }`}
+              placeholder=""
+              aria-label="Menu command input"
+              data-menu-input="true"
+            />
+            {/* Cursor + label no local de digitação; label secundária ~40% opacidade; mesmo tamanho que categoria; some com interação */}
+            {!menuFilter && (
+              <span className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-1.5 pointer-events-none">
+                <span className="inline-block w-1 h-4 bg-primary animate-blink shrink-0" aria-hidden />
+                <span className="text-secondary opacity-40 text-sm font-mono whitespace-nowrap">
+                  {content.menu.inputHint[mode]}
+                </span>
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Menu items – / antes do nome; 100px até descrição; descrições alinhadas; opacidade 60% não selecionados */}
@@ -177,7 +196,11 @@ export default function CLIMenu() {
                       onClick={() => handleItemClick(item.key)}
                       onFocus={() => setSelectedIndex(index)}
                       onMouseEnter={() => setSelectedIndex(index)}
-                      className={`w-full text-left py-0.5 font-mono text-sm transition-all grid grid-cols-[180px_100px_1fr] items-baseline gap-0 focus:outline-none focus:ring-0 focus:ring-offset-0 ${
+                      className={`w-full text-left py-0.5 font-mono text-sm transition-all items-baseline gap-0 focus:outline-none focus:ring-0 focus:ring-offset-0 ${
+                        isTouchDevice
+                          ? 'flex flex-col gap-0.5'
+                          : 'grid grid-cols-[180px_100px_1fr]'
+                      } ${
                         isSelected
                           ? 'text-primary opacity-100'
                           : 'text-secondary hover:text-primary opacity-60 hover:opacity-100'
@@ -185,13 +208,13 @@ export default function CLIMenu() {
                       aria-current={isSelected ? 'true' : undefined}
                     >
                       <span className="min-w-0 truncate">/{item.label}</span>
-                      <span aria-hidden />
+                      {!isTouchDevice && <span aria-hidden />}
                       {desc ? (
-                        <span className="min-w-0 truncate text-sm font-mono text-secondary">
+                        <span className={`min-w-0 truncate text-sm font-mono text-secondary ${isTouchDevice ? 'pl-4 opacity-70' : ''}`}>
                           {desc}
                         </span>
                       ) : (
-                        <span />
+                        !isTouchDevice && <span />
                       )}
                     </button>
                   </li>

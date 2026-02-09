@@ -55,34 +55,26 @@ export default function Intro() {
 
               {/* CTA Button - Dropdown */}
               <div>
-                <CopyDropdown />
+                <CopyDropdown variant="filled" />
               </div>
 
               {/* Language Buttons */}
-              <div className="flex items-center gap-2" role="group" aria-label="Language selection">
+              <div className="flex items-center gap-3" role="group" aria-label="Language selection">
                 <button
                   onClick={() => setLanguage('en')}
-                  className={`px-3 py-1.5 rounded-base font-mono text-sm transition-colors border border-primary/30 focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10 ${
-                    language === 'en'
-                      ? 'border-primary text-primary bg-primary/10'
-                      : 'text-secondary hover:border-primary hover:text-primary hover:bg-primary/10'
-                  }`}
+                  className="font-mono text-sm transition-colors focus:outline-none text-neutral-300 hover:text-primary"
                   aria-pressed={language === 'en'}
                   aria-label="Switch to English"
                 >
-                  EN
+                  {language === 'en' && <span className="mr-1">&gt;</span>}EN
                 </button>
                 <button
                   onClick={() => setLanguage('pt-br')}
-                  className={`px-3 py-1.5 rounded-base font-mono text-sm transition-colors border border-primary/30 focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10 ${
-                    language === 'pt-br'
-                      ? 'border-primary text-primary bg-primary/10'
-                      : 'text-secondary hover:border-primary hover:text-primary hover:bg-primary/10'
-                  }`}
+                  className="font-mono text-sm transition-colors focus:outline-none text-neutral-300 hover:text-primary"
                   aria-pressed={language === 'pt-br'}
                   aria-label="Mudar para Portugues"
                 >
-                  PT
+                  {language === 'pt-br' && <span className="mr-1">&gt;</span>}PT
                 </button>
               </div>
             </div>
