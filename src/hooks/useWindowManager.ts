@@ -53,6 +53,9 @@ const WINDOW_WIDTH = 320
 const WINDOW_HEADER_HEIGHT = 32
 const GAP = 16
 
+// Reserved height for the top controls area (ViewModeControls + nav hints)
+export const CONTROLS_RESERVED_HEIGHT = 60
+
 // Actual maximum rendered window dimensions (must match ImageWindow.tsx)
 // ImageWindow scales images up to 450px height + 28px header
 const MAX_IMAGE_HEIGHT = 450
@@ -74,10 +77,10 @@ function generateInitialPositions(
 
   for (let i = 0; i < count; i++) {
     const offsetX = (i % 4) * 60 + 20
-    const offsetY = Math.floor(i / 4) * 50 + 20
+    const offsetY = Math.floor(i / 4) * 50 + CONTROLS_RESERVED_HEIGHT
     positions.push({
       x: Math.min(offsetX + (i * 30) % 200, maxX),
-      y: Math.min(offsetY + (i * 25) % 150, Math.max(20, maxY))
+      y: Math.min(offsetY + (i * 25) % 150, Math.max(CONTROLS_RESERVED_HEIGHT, maxY))
     })
   }
 
@@ -314,13 +317,13 @@ export function useWindowManager({
   }, [initialPositions, images.length])
 
   const updatePosition = useCallback((id: string, x: number, y: number) => {
-    if (viewMode !== 'free') return
+    const clampedY = Math.max(CONTROLS_RESERVED_HEIGHT, y)
     setWindows(prev =>
       prev.map(w =>
-        w.id === id ? { ...w, x, y } : w
+        w.id === id ? { ...w, x, y: clampedY } : w
       )
     )
-  }, [viewMode])
+  }, [])
 
   const handleViewModeChange = useCallback((mode: ViewMode) => {
     setViewModeState(mode)

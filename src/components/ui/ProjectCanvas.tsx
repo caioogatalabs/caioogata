@@ -3,7 +3,7 @@
 import { useRef, useEffect, useCallback, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import Image from 'next/image'
-import { useWindowManager } from '@/hooks/useWindowManager'
+import { useWindowManager, CONTROLS_RESERVED_HEIGHT } from '@/hooks/useWindowManager'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
 import { useNavigation } from '@/components/providers/NavigationProvider'
 import ImageWindow from './ImageWindow'
@@ -31,6 +31,7 @@ const BASE_CANVAS_HEIGHT = 600
 export default function ProjectCanvas({ images, viewModeLabels, onExit }: ProjectCanvasProps) {
   const canvasRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const carouselScrollRef = useRef<HTMLDivElement>(null)
   const { mode } = useInteractionMode()
   const { setIsCanvasActive } = useNavigation()
 
@@ -68,6 +69,7 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     openAllWindows,
     updatePosition,
     navigateCarousel,
+    setCarouselIndex,
     navigateWindows,
     navigateStack,
     navigateShowcase,
@@ -214,6 +216,46 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     }
   }, [setIsCanvasActive])
 
+  // Carousel: scroll to active index when navigating via keyboard/dots
+  const carouselScrollingRef = useRef(false)
+  useEffect(() => {
+    if (viewMode !== 'carousel' || !carouselScrollRef.current) return
+    const container = carouselScrollRef.current
+    const target = container.children[carouselIndex] as HTMLElement
+    if (target) {
+      carouselScrollingRef.current = true
+      target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+      // Reset flag after scroll animation
+      const timeout = setTimeout(() => { carouselScrollingRef.current = false }, 500)
+      return () => clearTimeout(timeout)
+    }
+  }, [viewMode, carouselIndex])
+
+  // Carousel: sync scroll position back to carouselIndex
+  useEffect(() => {
+    if (viewMode !== 'carousel' || !carouselScrollRef.current) return
+    const container = carouselScrollRef.current
+    const handleScroll = () => {
+      if (carouselScrollingRef.current) return
+      const children = Array.from(container.children) as HTMLElement[]
+      if (children.length === 0) return
+      const containerCenter = container.scrollLeft + container.clientWidth / 2
+      let closestIndex = 0
+      let closestDist = Infinity
+      children.forEach((child, i) => {
+        const childCenter = child.offsetLeft + child.offsetWidth / 2
+        const dist = Math.abs(containerCenter - childCenter)
+        if (dist < closestDist) {
+          closestDist = dist
+          closestIndex = i
+        }
+      })
+      setCarouselIndex(closestIndex)
+    }
+    container.addEventListener('scroll', handleScroll, { passive: true })
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [viewMode, setCarouselIndex])
+
   // Touch/swipe handling
   const touchStartX = useRef<number | null>(null)
 
@@ -230,8 +272,6 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     if (Math.abs(diffX) > 50) {
       if (viewMode === 'showcase') {
         navigateShowcase(diffX > 0 ? 'next' : 'prev')
-      } else if (viewMode === 'carousel') {
-        navigateCarousel(diffX > 0 ? 'next' : 'prev')
       } else if (viewMode === 'list') {
         navigateStack(diffX > 0 ? 'next' : 'prev')
       }
@@ -311,8 +351,8 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
           </div>
         </div>
 
-        {/* Windows — hidden in showcase mode */}
-        {viewMode !== 'showcase' && (
+        {/* Windows — absolute positioned (all modes except showcase and carousel) */}
+        {viewMode !== 'showcase' && viewMode !== 'carousel' && (
           <AnimatePresence>
             {windows.map((window, index) => (
               <ImageWindow
@@ -336,6 +376,52 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
               />
             ))}
           </AnimatePresence>
+        )}
+
+        {/* Carousel mode — horizontal scroll strip */}
+        {viewMode === 'carousel' && (
+          <div
+            ref={carouselScrollRef}
+            className="absolute left-0 right-0 flex items-center gap-6 px-6 overflow-x-auto [&::-webkit-scrollbar]:hidden"
+            style={{
+              top: CONTROLS_RESERVED_HEIGHT,
+              bottom: 48,
+              scrollSnapType: 'x mandatory',
+              WebkitOverflowScrolling: 'touch',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+          >
+            <AnimatePresence>
+              {windows.filter(w => w.isOpen).map((window, index) => (
+                <div
+                  key={window.id}
+                  className="shrink-0"
+                  style={{ scrollSnapAlign: 'center' }}
+                >
+                  <ImageWindow
+                    id={window.id}
+                    index={index}
+                    image={window.image}
+                    x={window.x}
+                    y={window.y}
+                    zIndex={window.zIndex}
+                    rotation={0}
+                    isActive={activeWindowId === window.id}
+                    isOpen={window.isOpen}
+                    viewMode={viewMode}
+                    canvasWidth={canvasDimensions.width}
+                    canvasHeight={canvasDimensions.height}
+                    isInline
+                    onClose={() => closeWindow(window.id)}
+                    onFocus={() => bringToFront(window.id)}
+                    onDragEnd={(x, y) => updatePosition(window.id, x, y)}
+                    dragConstraints={canvasRef}
+                  />
+                </div>
+              ))}
+            </AnimatePresence>
+          </div>
         )}
 
         {/* Showcase mode */}
@@ -368,10 +454,13 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
                     // Show image at its natural size (or scaled to fit the larger dimension)
                     // and pan across the overflow
                     const scale = Math.max(cw / nat.width, ch / nat.height)
-                    const displayW = nat.width * scale
-                    const displayH = nat.height * scale
-                    const panX = overflowsX ? (displayW - cw) / 2 : 0
-                    const panY = overflowsY ? (displayH - ch) / 2 : 0
+                    const displayW = nat.width * scale + 2
+                    const displayH = nat.height * scale + 2
+                    const isMobileViewport = cw < 640
+                    const rawPanX = overflowsX ? (displayW - cw) / 2 : 0
+                    const rawPanY = overflowsY ? (displayH - ch) / 2 : 0
+                    const panX = isMobileViewport ? Math.min(rawPanX, cw * 0.3) : rawPanX
+                    const panY = isMobileViewport ? Math.min(rawPanY, ch * 0.2) : rawPanY
 
                     return (
                       <motion.div

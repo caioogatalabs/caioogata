@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react'
 import { motion, useDragControls } from 'motion/react'
 import Image from 'next/image'
 import type { ProjectImage } from '@/content/types'
-import type { ViewMode } from '@/hooks/useWindowManager'
+import { CONTROLS_RESERVED_HEIGHT, type ViewMode } from '@/hooks/useWindowManager'
 
 type WindowSizeState = 'normal' | 'maximized' | 'minimized'
 
@@ -21,6 +21,7 @@ interface ImageWindowProps {
   viewMode: ViewMode
   canvasWidth: number
   canvasHeight: number
+  isInline?: boolean
   onClose: () => void
   onFocus: () => void
   onDragEnd: (x: number, y: number) => void
@@ -48,6 +49,7 @@ export default function ImageWindow({
   viewMode,
   canvasWidth,
   canvasHeight,
+  isInline = false,
   onClose,
   onFocus,
   onDragEnd,
@@ -92,7 +94,7 @@ export default function ImageWindow({
 
   if (!isOpen) return null
 
-  const isDraggable = viewMode === 'free' && sizeState !== 'maximized'
+  const isDraggable = sizeState !== 'maximized' && !isInline
 
   const handleMaximize = () => {
     if (sizeState === 'maximized') {
@@ -114,7 +116,7 @@ export default function ImageWindow({
   // Calculate dimensions based on state and view mode
   const getWindowDimensions = () => {
     if (sizeState === 'maximized') {
-      return { width: canvasWidth - 20, height: canvasHeight - 20 }
+      return { width: canvasWidth - 20, height: canvasHeight - CONTROLS_RESERVED_HEIGHT - 10 }
     }
     if (sizeState === 'minimized') {
       return { width: MIN_WIDTH, height: MIN_HEIGHT }
@@ -128,7 +130,7 @@ export default function ImageWindow({
 
   const getWindowPosition = () => {
     if (sizeState === 'maximized') {
-      return { x: 10, y: 10 }
+      return { x: 10, y: CONTROLS_RESERVED_HEIGHT }
     }
     return { x, y }
   }
@@ -140,18 +142,17 @@ export default function ImageWindow({
     <motion.div
       ref={windowRef}
       data-window-id={id}
-      className={`absolute select-none ${isActive ? 'ring-1 ring-neutral-700' : ''}`}
+      className={`${isInline ? 'relative shrink-0' : 'absolute'} select-none ${isActive ? 'ring-1 ring-neutral-700' : ''}`}
       style={{
-        zIndex,
+        zIndex: isInline ? undefined : zIndex,
         transformStyle: 'preserve-3d',
         transformOrigin: 'center top'
       }}
-      initial={{ opacity: 0, scale: 0.9, y: position.y - 20, rotateX: 0 }}
+      initial={{ opacity: 0, scale: 0.9, ...(isInline ? {} : { y: position.y - 20 }), rotateX: 0 }}
       animate={{
         opacity: 1,
         scale: 1,
-        x: position.x,
-        y: position.y,
+        ...(isInline ? {} : { x: position.x, y: position.y }),
         width: dimensions.width,
         height: dimensions.height + HEADER_HEIGHT,
         rotateX: rotation

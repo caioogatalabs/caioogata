@@ -1,10 +1,17 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Toaster } from 'react-hot-toast'
 import { LanguageProvider } from '@/components/providers/LanguageProvider'
 import { NavigationProvider } from '@/components/providers/NavigationProvider'
 import '@fontsource/cascadia-mono/400.css'
 import '@fontsource/cascadia-mono/700.css'
 import './globals.css'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
 
 export const metadata: Metadata = {
   title: 'Caio Ogata - Design Director | Design Systems & DevEx',
