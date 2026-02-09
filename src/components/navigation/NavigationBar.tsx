@@ -116,11 +116,6 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
     }
   }, [isTouchDevice])
 
-  // Hide navigation bar on touch devices (keyboard shortcuts are not relevant)
-  if (isTouchDevice) {
-    return null
-  }
-
   const borderColor = variant === 'primary' ? 'border-primary/10' : 'border-secondary/10'
 
   const buttonBaseClass = 'inline-flex items-center gap-1 text-xs font-mono text-neutral-300 hover:text-primary focus-visible:text-primary transition-colors cursor-pointer select-none focus:outline-none'

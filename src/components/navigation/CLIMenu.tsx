@@ -209,8 +209,8 @@ export default function CLIMenu() {
                     >
                       <span className="min-w-0 truncate">/{item.label}</span>
                       {!isTouchDevice && <span aria-hidden />}
-                      {desc ? (
-                        <span className={`min-w-0 truncate text-sm font-mono text-secondary ${isTouchDevice ? 'pl-4 opacity-70' : ''}`}>
+                      {!isTouchDevice && desc ? (
+                        <span className="min-w-0 truncate text-sm font-mono text-secondary">
                           {desc}
                         </span>
                       ) : (
