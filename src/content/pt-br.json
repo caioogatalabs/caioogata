@@ -297,11 +297,7 @@
     "command": "ls projetos/",
     "heading": "Projetos",
     "viewModes": {
-      "free": "Livre",
-      "grid": "Grade",
-      "list": "Lista",
       "carousel": "Carrossel",
-      "cascade": "Cascata",
       "showcase": "Showcase"
     },
     "items": [

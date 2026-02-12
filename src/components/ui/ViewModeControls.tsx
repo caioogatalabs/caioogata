@@ -7,66 +7,9 @@ interface ViewModeControlsProps {
   onModeChange: (mode: ViewMode) => void
   onResetWindows: () => void
   labels: {
-    free: string
-    grid: string
-    list: string
     carousel: string
-    cascade: string
     showcase: string
   }
-}
-
-function IconFree({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect x="1" y="1" width="5" height="4" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="8" y="3" width="5" height="4" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="3" y="9" width="5" height="4" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="10" y="10" width="5" height="4" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  )
-}
-
-function IconGrid({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect x="1" y="1" width="6" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="9" y="1" width="6" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="1" y="9" width="6" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="9" y="9" width="6" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  )
-}
-
-function IconList({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect x="1" y="1" width="14" height="4" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="1" y="6" width="14" height="4" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="1" y="11" width="14" height="4" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  )
 }
 
 function IconCarousel({ className }: { className?: string }) {
@@ -82,23 +25,6 @@ function IconCarousel({ className }: { className?: string }) {
       <rect x="4" y="2" width="8" height="12" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
       <path d="M1 5v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       <path d="M15 5v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function IconCascade({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect x="1" y="1" width="8" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="4" y="4" width="8" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" fill="#0a0a0a" />
-      <rect x="7" y="7" width="8" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" fill="#0a0a0a" />
     </svg>
   )
 }
@@ -146,11 +72,7 @@ function IconReset({ className }: { className?: string }) {
   )
 }
 
-const modes: { mode: ViewMode; icon: typeof IconFree; labelKey: keyof ViewModeControlsProps['labels'] }[] = [
-  { mode: 'cascade', icon: IconCascade, labelKey: 'cascade' },
-  { mode: 'grid', icon: IconGrid, labelKey: 'grid' },
-  { mode: 'free', icon: IconFree, labelKey: 'free' },
-  { mode: 'list', icon: IconList, labelKey: 'list' },
+const modes: { mode: ViewMode; icon: typeof IconCarousel; labelKey: keyof ViewModeControlsProps['labels'] }[] = [
   { mode: 'carousel', icon: IconCarousel, labelKey: 'carousel' },
   { mode: 'showcase', icon: IconShowcase, labelKey: 'showcase' }
 ]

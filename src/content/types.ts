@@ -179,11 +179,7 @@ export interface Content {
     command: string
     heading: string
     viewModes: {
-      free: string
-      grid: string
-      list: string
       carousel: string
-      cascade: string
       showcase: string
     }
     items: ProjectItem[]

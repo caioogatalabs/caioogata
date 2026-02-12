@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useMemo } from 'react'
 import { motion, useDragControls } from 'motion/react'
 import Image from 'next/image'
 import type { ProjectImage } from '@/content/types'
@@ -32,9 +32,6 @@ const HEADER_HEIGHT = 28
 const MIN_WIDTH = 280
 const MIN_HEIGHT = 200
 
-// Grid mode uses smaller thumbnail size
-const GRID_WIDTH = 180
-const GRID_HEIGHT = 120
 
 export default function ImageWindow({
   id,
@@ -59,38 +56,43 @@ export default function ImageWindow({
   const windowRef = useRef<HTMLDivElement>(null)
   const [imageError, setImageError] = useState(false)
   const [sizeState, setSizeState] = useState<WindowSizeState>('normal')
-  const [imageDimensions, setImageDimensions] = useState({ width: MIN_WIDTH, height: MIN_HEIGHT })
+  const [naturalDimensions, setNaturalDimensions] = useState<{ width: number; height: number } | null>(null)
   const [previousPosition, setPreviousPosition] = useState({ x, y })
 
-  // Load image dimensions
+  // Load natural image dimensions once per image src
   useEffect(() => {
     const img = new window.Image()
     img.onload = () => {
-      // Scale down if image is too large, maintain aspect ratio
-      const maxWidth = Math.min(600, canvasWidth - 40)
-      const maxHeight = Math.min(450, canvasHeight - HEADER_HEIGHT - 40)
-
-      let width = img.width
-      let height = img.height
-
-      if (width > maxWidth) {
-        height = (maxWidth / width) * height
-        width = maxWidth
-      }
-      if (height > maxHeight) {
-        width = (maxHeight / height) * width
-        height = maxHeight
-      }
-
-      // Ensure minimum size
-      width = Math.max(MIN_WIDTH, width)
-      height = Math.max(MIN_HEIGHT, height)
-
-      setImageDimensions({ width, height })
+      setNaturalDimensions({ width: img.width, height: img.height })
     }
     img.onerror = () => setImageError(true)
     img.src = decodeURIComponent(image.src)
-  }, [image.src, canvasWidth, canvasHeight])
+  }, [image.src])
+
+  // Compute constrained dimensions from natural size only (stable across resize)
+  const imageDimensions = useMemo(() => {
+    if (!naturalDimensions) return { width: MIN_WIDTH, height: MIN_HEIGHT }
+
+    const maxWidth = 600
+    const maxHeight = 450
+
+    let width = naturalDimensions.width
+    let height = naturalDimensions.height
+
+    if (width > maxWidth) {
+      height = (maxWidth / width) * height
+      width = maxWidth
+    }
+    if (height > maxHeight) {
+      width = (maxHeight / height) * width
+      height = maxHeight
+    }
+
+    return {
+      width: Math.max(MIN_WIDTH, width),
+      height: Math.max(MIN_HEIGHT, height)
+    }
+  }, [naturalDimensions])
 
   if (!isOpen) return null
 
@@ -120,10 +122,6 @@ export default function ImageWindow({
     }
     if (sizeState === 'minimized') {
       return { width: MIN_WIDTH, height: MIN_HEIGHT }
-    }
-    // Grid mode uses smaller thumbnail size
-    if (viewMode === 'grid') {
-      return { width: GRID_WIDTH, height: GRID_HEIGHT }
     }
     return imageDimensions
   }
@@ -162,16 +160,26 @@ export default function ImageWindow({
         type: 'spring',
         stiffness: 500,
         damping: 30,
-        delay: index * 0.03 // Fast staggered entry
+        delay: index * 0.03,
+        // x/y: no delay so drag-end doesn't snap
+        x: { type: 'spring', stiffness: 500, damping: 30 },
+        y: { type: 'spring', stiffness: 500, damping: 30 }
       }}
       drag={isDraggable}
       dragControls={dragControls}
       dragMomentum={false}
       dragConstraints={dragConstraints}
       dragElastic={0}
-      onDragEnd={(_, info) => {
-        if (isDraggable) {
-          onDragEnd(position.x + info.offset.x, position.y + info.offset.y)
+      onDragEnd={() => {
+        if (isDraggable && windowRef.current && dragConstraints.current) {
+          const canvasRect = dragConstraints.current.getBoundingClientRect()
+          const windowRect = windowRef.current.getBoundingClientRect()
+          const scrollTop = dragConstraints.current.scrollTop || 0
+          const scrollLeft = dragConstraints.current.scrollLeft || 0
+          onDragEnd(
+            windowRect.left - canvasRect.left + scrollLeft,
+            windowRect.top - canvasRect.top + scrollTop
+          )
         }
       }}
       onPointerDown={onFocus}

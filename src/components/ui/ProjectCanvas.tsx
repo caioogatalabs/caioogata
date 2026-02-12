@@ -13,11 +13,7 @@ import type { ProjectImage } from '@/content/types'
 interface ProjectCanvasProps {
   images: ProjectImage[]
   viewModeLabels: {
-    free: string
-    grid: string
-    list: string
     carousel: string
-    cascade: string
     showcase: string
   }
   onExit?: () => void
@@ -70,8 +66,6 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     updatePosition,
     navigateCarousel,
     setCarouselIndex,
-    navigateWindows,
-    navigateStack,
     navigateShowcase,
     setShowcasePaused
   } = useWindowManager({
@@ -82,9 +76,11 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
 
   const openWindowsCount = windows.filter(w => w.isOpen).length
 
-  // Measure container width for responsive canvas
+  // Measure container width for responsive canvas (debounced to avoid jitter)
   useEffect(() => {
     if (!containerRef.current) return
+
+    let debounceTimer: ReturnType<typeof setTimeout>
 
     const updateWidth = () => {
       if (containerRef.current) {
@@ -92,14 +88,22 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
       }
     }
 
-    // Initial measurement
+    const debouncedUpdate = () => {
+      clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(updateWidth, 150)
+    }
+
+    // Initial measurement (immediate)
     updateWidth()
 
-    // ResizeObserver for dynamic updates
-    const resizeObserver = new ResizeObserver(updateWidth)
+    // ResizeObserver with debounce for dynamic updates
+    const resizeObserver = new ResizeObserver(debouncedUpdate)
     resizeObserver.observe(containerRef.current)
 
-    return () => resizeObserver.disconnect()
+    return () => {
+      clearTimeout(debounceTimer)
+      resizeObserver.disconnect()
+    }
   }, [])
 
   // Showcase: track natural image dimensions for pan detection
@@ -145,10 +149,6 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
           navigateShowcase('prev')
         } else if (viewMode === 'carousel') {
           navigateCarousel('prev')
-        } else if (viewMode === 'list') {
-          navigateStack('prev')
-        } else {
-          navigateWindows('prev')
         }
         break
       case 'ArrowDown':
@@ -158,10 +158,6 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
           navigateShowcase('next')
         } else if (viewMode === 'carousel') {
           navigateCarousel('next')
-        } else if (viewMode === 'list') {
-          navigateStack('next')
-        } else {
-          navigateWindows('next')
         }
         break
       case ' ':
@@ -171,21 +167,9 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
         }
         break
       case '1':
-        setViewMode('cascade')
-        break
-      case '2':
-        setViewMode('grid')
-        break
-      case '3':
-        setViewMode('free')
-        break
-      case '4':
-        setViewMode('list')
-        break
-      case '5':
         setViewMode('carousel')
         break
-      case '6':
+      case '2':
         setViewMode('showcase')
         break
       case 'r':
@@ -198,7 +182,7 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
         onExit?.()
         break
     }
-  }, [viewMode, navigateCarousel, navigateWindows, navigateStack, navigateShowcase, showcasePaused, setShowcasePaused, setViewMode, openAllWindows, onExit, setIsCanvasActive])
+  }, [viewMode, navigateCarousel, navigateShowcase, showcasePaused, setShowcasePaused, setViewMode, openAllWindows, onExit, setIsCanvasActive])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
@@ -215,6 +199,13 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
       setIsCanvasActive(false)
     }
   }, [setIsCanvasActive])
+
+  // Reset scroll position when view mode changes
+  useEffect(() => {
+    if (canvasRef.current) {
+      canvasRef.current.scrollTop = 0
+    }
+  }, [viewMode])
 
   // Carousel: scroll to active index when navigating via keyboard/dots
   const carouselScrollingRef = useRef(false)
@@ -272,8 +263,6 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     if (Math.abs(diffX) > 50) {
       if (viewMode === 'showcase') {
         navigateShowcase(diffX > 0 ? 'next' : 'prev')
-      } else if (viewMode === 'list') {
-        navigateStack(diffX > 0 ? 'next' : 'prev')
       }
     }
 
@@ -282,14 +271,10 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
 
   return (
     <div ref={containerRef} className="relative w-full">
-      {/* Canvas with dynamic dimensions - no internal scroll */}
+      {/* Canvas with dynamic dimensions */}
       <motion.div
         ref={canvasRef}
         className="relative"
-        style={{
-          perspective: viewMode === 'list' ? '1000px' : 'none',
-          perspectiveOrigin: 'center top'
-        }}
         animate={{
           width: canvasDimensions.width,
           height: canvasDimensions.height
@@ -307,8 +292,9 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
       >
         {/* Background grid pattern */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute top-0 left-0 w-full pointer-events-none"
           style={{
+            height: canvasDimensions.height,
             backgroundColor: '#0a0a0a',
             backgroundImage: `
               linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
@@ -333,7 +319,7 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
           <div className="text-xs text-secondary/50 font-mono bg-black/60 px-2 py-1 rounded-sm border border-white/10 whitespace-nowrap">
             {mode === 'keyboard' && (
               <span className="hidden sm:inline">
-                <kbd className="text-primary">1-6</kbd> modes
+                <kbd className="text-primary">1-2</kbd> modes
                 <span className="mx-2">·</span>
                 <kbd className="text-primary">↑↓</kbd> navigate
                 <span className="mx-2">·</span>
@@ -343,40 +329,13 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
               </span>
             )}
             {mode === 'mouse' && (
-              <span className="hidden sm:inline">Drag to move · Double-click to maximize</span>
+              <span className="hidden sm:inline">Double-click to maximize</span>
             )}
             {mode === 'touch' && (
               <span>Swipe · Tap</span>
             )}
           </div>
         </div>
-
-        {/* Windows — absolute positioned (all modes except showcase and carousel) */}
-        {viewMode !== 'showcase' && viewMode !== 'carousel' && (
-          <AnimatePresence>
-            {windows.map((window, index) => (
-              <ImageWindow
-                key={window.id}
-                id={window.id}
-                index={index}
-                image={window.image}
-                x={window.x}
-                y={window.y}
-                zIndex={window.zIndex}
-                rotation={window.rotation}
-                isActive={activeWindowId === window.id}
-                isOpen={window.isOpen}
-                viewMode={viewMode}
-                canvasWidth={canvasDimensions.width}
-                canvasHeight={canvasDimensions.height}
-                onClose={() => closeWindow(window.id)}
-                onFocus={() => bringToFront(window.id)}
-                onDragEnd={(x, y) => updatePosition(window.id, x, y)}
-                dragConstraints={canvasRef}
-              />
-            ))}
-          </AnimatePresence>
-        )}
 
         {/* Carousel mode — horizontal scroll strip */}
         {viewMode === 'carousel' && (
