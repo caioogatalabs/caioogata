@@ -120,19 +120,19 @@ portolio-v1/
 
 ```bash
 # Install dependencies
-npm install clsx react-hot-toast
+pnpm add clsx react-hot-toast
 
 # Optional analytics (post-MVP)
-npm install @vercel/analytics
+pnpm add @vercel/analytics
 
 # Development
-npm run dev
+pnpm dev
 
 # Build for production
-npm run build
+pnpm build
 
 # Preview production build
-npm run start
+pnpm start
 ```
 
 ### 1.4 Next.js Configuration
@@ -2006,7 +2006,7 @@ useEffect(() => {
 **vercel.json** (optional, for custom settings):
 ```json
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "pnpm run build",
   "outputDirectory": "out",
   "framework": "nextjs",
   "rewrites": [
@@ -2154,7 +2154,7 @@ CNAME www   cname.vercel-dns.com
 **Manual Deployment**:
 ```bash
 # Install Vercel CLI
-npm install -g vercel
+pnpm add -g vercel
 
 # Deploy to preview
 vercel

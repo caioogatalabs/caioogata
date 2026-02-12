@@ -25,17 +25,17 @@ Portfólio pessoal desenvolvido com foco em consumo por LLMs (Large Language Mod
 ## Desenvolvimento
 
 ```bash
-# Instalar dependências
-npm install
+# Instalar dependências (requer pnpm: corepack enable && corepack prepare pnpm@9.14.0 --activate)
+pnpm install
 
 # Executar em desenvolvimento
-npm run dev
+pnpm dev
 
 # Build para produção
-npm run build
+pnpm build
 
 # Iniciar servidor de produção
-npm start
+pnpm start
 ```
 
 ## Estrutura
