@@ -414,7 +414,13 @@
     ]
   },
   "intro": {
-    "tips": "Built for humans and AI assistants. Get to know Caio through your favorite AI."
+    "tips": "This project is built for humans and AI assistance. Explore as you wish."
+  },
+  "firstVisit": {
+    "optionMeetAI": "Ask about Caio",
+    "optionMeetAIDescription": "Conversational experience through your AI.",
+    "optionLoadWebsite": "load website",
+    "optionLoadWebsiteDescription": "Browse the site and explore the interface."
   },
   "footer": {
     "copyright": "2026 Caio Ogata. All rights reserved.",

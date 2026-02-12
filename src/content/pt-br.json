@@ -414,7 +414,13 @@
     ]
   },
   "intro": {
-    "tips": "Feito para humanos e assistentes de IA. Conheça o Caio através da sua IA preferida."
+    "tips": "Este projeto foi construído para humanos e assistência de IA. Explore como desejar."
+  },
+  "firstVisit": {
+    "optionMeetAI": "Pergunte sobre o Caio",
+    "optionMeetAIDescription": "Experiência conversacional pela sua IA.",
+    "optionLoadWebsite": "carregar site",
+    "optionLoadWebsiteDescription": "Navegue pelo site e explore a interface."
   },
   "footer": {
     "copyright": "2026 Caio Ogata. Todos os direitos reservados.",

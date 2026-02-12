@@ -5,17 +5,17 @@ import { useNavigation } from '@/components/providers/NavigationProvider'
 import CopyDropdown from '@/components/hero/CopyDropdown'
 
 export default function IntroCompact() {
-  const { language, setLanguage } = useLanguage()
+  const { content } = useLanguage()
   const { setActiveSection } = useNavigation()
 
   return (
-    <section className="border-2 border-primary/30 rounded-base px-4 md:px-6 py-6 w-full">
-      <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
-        {/* Logo - smaller, clickable to return to intro view */}
+    <section className="border-2 border-primary/30 rounded-base px-4 md:px-6 py-4 md:py-5 w-full">
+      <div className="flex items-center justify-between gap-4">
+        {/* Logo - compacto, clicável para voltar à intro */}
         <button
           type="button"
           onClick={() => setActiveSection(null)}
-          className="flex-shrink-0 focus:outline-none p-0 border-0 bg-transparent cursor-pointer"
+          className="flex-shrink-0 focus:outline-none p-0 border-0 bg-transparent cursor-pointer w-[80px] h-9"
           aria-label="Voltar ao início"
         >
           <svg
@@ -31,38 +31,9 @@ export default function IntroCompact() {
           </svg>
         </button>
 
-        {/* Right side - CTA and Language */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {/* Language Buttons - compact */}
-          <div className="flex items-center gap-1" role="group" aria-label="Language selection">
-            <button
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded-base font-mono text-xs transition-colors border border-primary/30 focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10 ${
-                language === 'en'
-                  ? 'border-primary text-primary bg-primary/10'
-                  : 'text-secondary hover:border-primary hover:text-primary hover:bg-primary/10'
-              }`}
-              aria-pressed={language === 'en'}
-              aria-label="Switch to English"
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLanguage('pt-br')}
-              className={`px-2 py-1 rounded-base font-mono text-xs transition-colors border border-primary/30 focus:outline-none focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10 ${
-                language === 'pt-br'
-                  ? 'border-primary text-primary bg-primary/10'
-                  : 'text-secondary hover:border-primary hover:text-primary hover:bg-primary/10'
-              }`}
-              aria-pressed={language === 'pt-br'}
-              aria-label="Mudar para Portugues"
-            >
-              PT
-            </button>
-          </div>
-
-          {/* CTA Button */}
-          <CopyDropdown />
+        {/* Botão Ask about Caio */}
+        <div className="flex-shrink-0">
+          <CopyDropdown variant="filled" buttonLabel={content.firstVisit.optionMeetAI} />
         </div>
       </div>
     </section>

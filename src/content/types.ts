@@ -175,6 +175,12 @@ export interface Content {
   intro: {
     tips: string
   }
+  firstVisit: {
+    optionMeetAI: string
+    optionMeetAIDescription: string
+    optionLoadWebsite: string
+    optionLoadWebsiteDescription: string
+  }
   projects: {
     command: string
     heading: string

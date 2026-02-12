@@ -1,8 +1,11 @@
 'use client'
 
+import { useState, useEffect, useContext } from 'react'
 import { useNavigation } from '@/components/providers/NavigationProvider'
+import { FirstVisitContext } from '@/components/providers/FirstVisitProvider'
 import Intro from '@/components/sections/Intro'
 import IntroCompact from '@/components/sections/IntroCompact'
+import FirstVisitIntro from '@/components/sections/FirstVisitIntro'
 import CLIMenu from '@/components/navigation/CLIMenu'
 import NavigationBar from '@/components/navigation/NavigationBar'
 import Projects from '@/components/sections/Projects'
@@ -15,11 +18,44 @@ import Philosophy from '@/components/sections/Philosophy'
 import Contact from '@/components/sections/Contact'
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation'
 
+const FIRST_VISIT_KEY = 'portfolio-intro-seen'
+
 export default function MainContent() {
   const { activeSection } = useNavigation()
+  const firstVisit = useContext(FirstVisitContext)
+  const [showFirstVisitIntro, setShowFirstVisitIntro] = useState(true)
 
-  // Initialize keyboard navigation (works even when section is open)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (sessionStorage.getItem(FIRST_VISIT_KEY) === '1') {
+      setShowFirstVisitIntro(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    firstVisit?.setIsFirstVisitActive(showFirstVisitIntro)
+  }, [showFirstVisitIntro, firstVisit])
+
+  const handleFirstVisitContinue = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem(FIRST_VISIT_KEY, '1')
+    }
+    setShowFirstVisitIntro(false)
+  }
+
+  // Initialize keyboard navigation (works even when section is open; intro captures its own keys)
   useKeyboardNavigation()
+
+  // First visit intro: show once per session until user continues
+  if (showFirstVisitIntro) {
+    return (
+      <div className="animate-fade-in">
+        <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 pt-8 md:pt-12 pb-8 w-full">
+          <FirstVisitIntro onContinue={handleFirstVisitContinue} />
+        </div>
+      </div>
+    )
+  }
 
   // When a section is active, show IntroCompact + section content
   if (activeSection) {

@@ -11,9 +11,11 @@ import { AI_PLATFORMS, getMarkdownUrl, type AIPlatform } from '@/lib/ai-link-bui
 interface CopyDropdownProps {
   variant?: 'primary' | 'secondary' | 'inverted' | 'filled'
   className?: string
+  /** Override button label (e.g. "Ask about Caio." for Intro) */
+  buttonLabel?: string
 }
 
-export default function CopyDropdown({ variant = 'primary', className = '' }: CopyDropdownProps) {
+export default function CopyDropdown({ variant = 'primary', className = '', buttonLabel }: CopyDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isCopying, setIsCopying] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -148,12 +150,12 @@ export default function CopyDropdown({ variant = 'primary', className = '' }: Co
               : 'border border-primary/30 text-secondary hover:border-primary hover:text-primary hover:bg-primary/10 focus-visible:border-primary focus-visible:text-primary focus-visible:bg-primary/10',
           className
         )}
-        aria-label={content.hero.cta.copyAriaLabel}
+        aria-label={buttonLabel ?? content.hero.cta.copyAriaLabel}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
         <span className="mr-1">&gt;</span>
-        {isCopying ? content.hero.cta.copying : content.hero.cta.copy}
+        {isCopying ? content.hero.cta.copying : (buttonLabel ?? content.hero.cta.copy)}
         <span className="ml-2" aria-hidden="true">
           {isOpen ? '▲' : '▼'}
         </span>
