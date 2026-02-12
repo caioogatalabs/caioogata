@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'motion/react'
-import type { Variants } from 'motion-dom'
+import type { Variants } from 'motion'
 import { useMemo, useId, useState } from 'react'
 
 export interface PixelRevealLogoProps {
