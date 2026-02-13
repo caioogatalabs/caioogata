@@ -3,7 +3,7 @@
 import { useState, useCallback, useMemo } from 'react'
 import type { ProjectImage } from '@/content/types'
 
-export type ViewMode = 'carousel' | 'showcase'
+export type ViewMode = 'grid' | 'free' | 'showcase'
 
 export interface WindowState {
   id: string
@@ -12,7 +12,6 @@ export interface WindowState {
   y: number
   zIndex: number
   isOpen: boolean
-  rotation: number
 }
 
 export interface CanvasDimensions {
@@ -22,15 +21,14 @@ export interface CanvasDimensions {
 
 interface UseWindowManagerProps {
   images: ProjectImage[]
-  baseCanvasWidth: number
-  baseCanvasHeight: number
+  containerWidth: number
+  containerHeight: number
 }
 
 interface UseWindowManagerReturn {
   windows: WindowState[]
   viewMode: ViewMode
   activeWindowId: string | null
-  carouselIndex: number
   showcaseIndex: number
   showcasePaused: boolean
   canvasDimensions: CanvasDimensions
@@ -40,211 +38,181 @@ interface UseWindowManagerReturn {
   openAllWindows: () => void
   updatePosition: (id: string, x: number, y: number) => void
   setActiveWindow: (id: string | null) => void
-  navigateCarousel: (direction: 'prev' | 'next') => void
-  setCarouselIndex: (index: number) => void
   navigateShowcase: (direction: 'prev' | 'next') => void
+  setShowcaseIndex: (index: number) => void
   setShowcasePaused: (paused: boolean) => void
 }
 
-const WINDOW_WIDTH = 320
-const GAP = 16
+const CONTROLS_HEIGHT = 56
+const PADDING = 16
 
-// Reserved height for the top controls area (ViewModeControls + nav hints)
-export const CONTROLS_RESERVED_HEIGHT = 60
-
-// Actual maximum rendered window dimensions (must match ImageWindow.tsx)
-// ImageWindow scales images up to 450px height + 28px header
-const MAX_IMAGE_HEIGHT = 450
-const ACTUAL_HEADER_HEIGHT = 28
-const MAX_WINDOW_TOTAL_HEIGHT = MAX_IMAGE_HEIGHT + ACTUAL_HEADER_HEIGHT // 478
-
-function calculateCarouselPositions(
+// Generate scattered positions for free mode, centered horizontally, scattered vertically
+function calculateFreePositions(
   count: number,
   canvasWidth: number,
   canvasHeight: number
 ): { x: number; y: number }[] {
   const positions: { x: number; y: number }[] = []
-  // Center all images using actual rendered height
-  const centerX = Math.max(GAP, (canvasWidth - WINDOW_WIDTH) / 2)
-  const centerY = Math.max(60, (canvasHeight - MAX_WINDOW_TOTAL_HEIGHT) / 2)
+  const windowW = 320
+  const windowH = 280
+  // Center horizontally
+  const centerX = (canvasWidth - windowW) / 2
+  // Vertical scatter range
+  const usableTop = CONTROLS_HEIGHT + PADDING
+  const usableBottom = canvasHeight - windowH - PADDING
+  const spreadY = Math.max(0, usableBottom - usableTop)
 
   for (let i = 0; i < count; i++) {
-    positions.push({
-      x: centerX,
-      y: centerY
-    })
+    // Small horizontal offset for visual variety, but stays centered
+    const seedX = ((i * 7 + 3) % 11) / 11 - 0.5 // range [-0.5, 0.5]
+    const offsetX = seedX * Math.min(60, canvasWidth * 0.05) // max ~60px drift from center
+    const x = Math.max(PADDING, Math.min(canvasWidth - windowW - PADDING, centerX + offsetX))
+
+    // Vertical scatter across usable area
+    const seedY = ((i * 13 + 5) % 11) / 11
+    const y = usableTop + seedY * spreadY
+    positions.push({ x, y })
   }
 
   return positions
 }
 
-function calculateCanvasDimensions(
+function calculateCanvasHeight(
   mode: ViewMode,
-  _count: number,
-  baseWidth: number,
+  imageCount: number,
+  containerWidth: number,
   baseHeight: number
-): CanvasDimensions {
-  const controlsHeight = 60
-
+): number {
   switch (mode) {
-    case 'carousel': {
-      // Centered window needs enough height
-      const carouselHeight = MAX_WINDOW_TOTAL_HEIGHT + controlsHeight + GAP * 2
-      return { width: baseWidth, height: Math.max(baseHeight, carouselHeight) }
+    case 'grid': {
+      // Grid auto-sizes based on content, but we set a reasonable minimum
+      const cols = containerWidth >= 1024 ? 3 : containerWidth >= 640 ? 2 : 1
+      const rows = Math.ceil(imageCount / cols)
+      const cellHeight = containerWidth >= 640 ? 300 : 250
+      return Math.max(baseHeight, rows * cellHeight + CONTROLS_HEIGHT + PADDING * 3)
     }
-
+    case 'free': {
+      const minFreeHeight = 900
+      return Math.max(baseHeight, minFreeHeight)
+    }
     case 'showcase':
-      return { width: baseWidth, height: baseHeight }
-
+      return Math.max(baseHeight, 900)
     default:
-      return { width: baseWidth, height: baseHeight }
+      return baseHeight
   }
 }
 
 export function useWindowManager({
   images,
-  baseCanvasWidth,
-  baseCanvasHeight
+  containerWidth,
+  containerHeight
 }: UseWindowManagerProps): UseWindowManagerReturn {
-  const [viewMode, setViewModeState] = useState<ViewMode>('carousel')
+  const [viewMode, setViewModeState] = useState<ViewMode>('grid')
   const [maxZIndex, setMaxZIndex] = useState(images.length)
   const [activeWindowId, setActiveWindow] = useState<string | null>(null)
-  const [carouselIndex, setCarouselIndex] = useState(0)
   const [showcaseIndex, setShowcaseIndex] = useState(0)
   const [showcasePaused, setShowcasePaused] = useState(false)
 
-  const canvasDimensions = useMemo(
-    () => calculateCanvasDimensions(viewMode, images.length, baseCanvasWidth, baseCanvasHeight),
-    [viewMode, images.length, baseCanvasWidth, baseCanvasHeight]
-  )
+  const canvasDimensions = useMemo<CanvasDimensions>(() => ({
+    width: containerWidth,
+    height: calculateCanvasHeight(viewMode, images.length, containerWidth, containerHeight)
+  }), [viewMode, images.length, containerWidth, containerHeight])
 
-  // Initial positions use carousel since that's the default viewMode
-  const carouselInitialPositions = useMemo(
-    () => calculateCarouselPositions(images.length, baseCanvasWidth, baseCanvasHeight),
-    [images.length, baseCanvasWidth, baseCanvasHeight]
+  const freePositions = useMemo(
+    () => calculateFreePositions(images.length, containerWidth, canvasDimensions.height),
+    [images.length, containerWidth, canvasDimensions.height]
   )
 
   const [windows, setWindows] = useState<WindowState[]>(() =>
     images.map((image, index) => ({
       id: `window-${index}`,
       image,
-      x: carouselInitialPositions[index]?.x ?? 0,
-      y: carouselInitialPositions[index]?.y ?? 0,
+      x: freePositions[index]?.x ?? 0,
+      y: freePositions[index]?.y ?? 0,
       zIndex: index + 1,
-      isOpen: true,
-      rotation: 0
+      isOpen: true
     }))
   )
 
   const bringToFront = useCallback((id: string) => {
-    setMaxZIndex(prev => prev + 1)
-    setWindows(prev =>
-      prev.map(w =>
-        w.id === id ? { ...w, zIndex: maxZIndex + 1 } : w
-      )
-    )
+    setMaxZIndex(prev => {
+      const next = prev + 1
+      setWindows(ws => ws.map(w => w.id === id ? { ...w, zIndex: next } : w))
+      return next
+    })
     setActiveWindow(id)
-  }, [maxZIndex])
+  }, [])
 
   const closeWindow = useCallback((id: string) => {
-    setWindows(prev =>
-      prev.map(w =>
-        w.id === id ? { ...w, isOpen: false } : w
-      )
-    )
-    if (activeWindowId === id) {
-      setActiveWindow(null)
-    }
-  }, [activeWindowId])
+    setWindows(prev => prev.map(w => w.id === id ? { ...w, isOpen: false } : w))
+    setActiveWindow(prev => prev === id ? null : prev)
+  }, [])
 
   const updatePosition = useCallback((id: string, x: number, y: number) => {
-    const clampedY = Math.max(CONTROLS_RESERVED_HEIGHT, y)
-    setWindows(prev =>
-      prev.map(w =>
-        w.id === id ? { ...w, x, y: clampedY } : w
-      )
-    )
+    setWindows(prev => prev.map(w => w.id === id ? { ...w, x, y } : w))
   }, [])
+
+  const openAllWindows = useCallback(() => {
+    const positions = calculateFreePositions(images.length, containerWidth, canvasDimensions.height)
+    setWindows(prev => prev.map((w, i) => ({
+      ...w,
+      x: positions[i]?.x ?? 0,
+      y: positions[i]?.y ?? 0,
+      isOpen: true,
+      zIndex: i + 1
+    })))
+    setMaxZIndex(images.length)
+  }, [images.length, containerWidth, canvasDimensions.height])
 
   const handleViewModeChange = useCallback((mode: ViewMode) => {
     setViewModeState(mode)
-
-    const dims = calculateCanvasDimensions(mode, images.length, baseCanvasWidth, baseCanvasHeight)
-    let newPositions: { x: number; y: number }[]
-
-    switch (mode) {
-      case 'carousel':
-        newPositions = calculateCarouselPositions(images.length, dims.width, dims.height)
-        break
-      case 'showcase':
-        // Showcase doesn't use window positions — rendered separately
-        newPositions = calculateCarouselPositions(images.length, dims.width, dims.height)
-        break
-      default:
-        newPositions = calculateCarouselPositions(images.length, dims.width, dims.height)
-    }
-
     if (mode === 'showcase') {
       setShowcaseIndex(0)
       setShowcasePaused(false)
     }
-
-    setWindows(prev => {
-      return prev.map((w, index) => ({
+    if (mode === 'free') {
+      const h = calculateCanvasHeight(mode, images.length, containerWidth, containerHeight)
+      const positions = calculateFreePositions(images.length, containerWidth, h)
+      setWindows(prev => prev.map((w, i) => ({
         ...w,
-        x: newPositions[index]?.x ?? 0,
-        y: newPositions[index]?.y ?? 0,
+        x: positions[i]?.x ?? 0,
+        y: positions[i]?.y ?? 0,
         isOpen: true,
-        zIndex: index + 1,
-        rotation: 0
-      }))
-    })
-    setMaxZIndex(prev => Math.max(prev, images.length))
-  }, [images.length, baseCanvasWidth, baseCanvasHeight])
-
-  const openAllWindows = useCallback(() => {
-    handleViewModeChange(viewMode)
-  }, [viewMode, handleViewModeChange])
-
-  const navigateCarousel = useCallback((direction: 'prev' | 'next') => {
-    const openWindows = windows.filter(w => w.isOpen)
-    if (openWindows.length === 0) return
-
-    setCarouselIndex(prev => {
-      const newIndex = direction === 'next'
-        ? (prev + 1) % openWindows.length
-        : (prev - 1 + openWindows.length) % openWindows.length
-      return newIndex
-    })
-  }, [windows])
+        zIndex: i + 1
+      })))
+      setMaxZIndex(images.length)
+    }
+    // Grid and showcase don't need positional state - they use CSS layout
+    if (mode === 'grid') {
+      setWindows(prev => prev.map((w, i) => ({ ...w, isOpen: true, zIndex: i + 1 })))
+    }
+  }, [images.length, containerWidth, containerHeight])
 
   const navigateShowcase = useCallback((direction: 'prev' | 'next') => {
     if (images.length === 0) return
     setShowcasePaused(true)
-    setShowcaseIndex(prev => {
-      return direction === 'next'
+    setShowcaseIndex(prev =>
+      direction === 'next'
         ? (prev + 1) % images.length
         : (prev - 1 + images.length) % images.length
-    })
+    )
   }, [images.length])
 
   return {
     windows,
     viewMode,
     activeWindowId,
-    carouselIndex,
     canvasDimensions,
+    showcaseIndex,
+    showcasePaused,
     setViewMode: handleViewModeChange,
     bringToFront,
     closeWindow,
     openAllWindows,
     updatePosition,
     setActiveWindow,
-    navigateCarousel,
-    setCarouselIndex,
-    showcaseIndex,
-    showcasePaused,
     navigateShowcase,
+    setShowcaseIndex,
     setShowcasePaused
   }
 }

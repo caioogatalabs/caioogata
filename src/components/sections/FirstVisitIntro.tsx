@@ -202,7 +202,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
 
       {/* Box: logo (fixo) | Design Director 60% | Built for humans 40% — mesma linha */}
       <section className="border-2 border-primary/30 rounded-base p-6 w-full mb-6">
-        <div className="grid grid-cols-[120px_3fr_2fr] gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[120px_3fr_2fr] gap-4 md:gap-6 items-start">
           <div className="w-[120px] h-[55px] flex-shrink-0">
             <PixelRevealLogo
               paths={LOGO_PATHS}
@@ -245,7 +245,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
                 }}
                 onFocus={() => setSelectedIndex(0)}
                 onMouseEnter={() => setSelectedIndex(0)}
-                className={`w-full text-left py-0.5 font-mono text-sm transition-all focus:outline-none focus:ring-0 grid grid-cols-[1rem_180px_100px_1fr] items-center gap-0 lowercase ${
+                className={`w-full text-left py-0.5 font-mono text-sm transition-all focus:outline-none focus:ring-0 grid grid-cols-[1rem_1fr] md:grid-cols-[1rem_180px_100px_1fr] items-center gap-0 lowercase ${
                   selectedIndex === 0 && !subExpanded
                     ? 'text-primary opacity-100'
                     : 'text-secondary hover:text-primary opacity-60 hover:opacity-100'
@@ -257,8 +257,8 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
                   {selectedIndex === 0 && !subExpanded ? <ArrowRightIcon /> : null}
                 </span>
                 <span className="min-w-0 truncate">{content.firstVisit.optionMeetAI.toLowerCase()}</span>
-                <span aria-hidden />
-                <span className={`min-w-0 truncate text-sm font-mono ${subExpanded ? 'text-secondary opacity-60' : 'text-secondary'}`}>
+                <span className="hidden md:block" aria-hidden />
+                <span className={`hidden md:inline min-w-0 truncate text-sm font-mono ${subExpanded ? 'text-secondary opacity-60' : 'text-secondary'}`}>
                   {content.firstVisit.optionMeetAIDescription}
                 </span>
               </button>
@@ -316,7 +316,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
                 onClick={() => onContinue()}
                 onFocus={() => setSelectedIndex(1)}
                 onMouseEnter={() => setSelectedIndex(1)}
-                className={`w-full text-left py-0.5 font-mono text-sm transition-all focus:outline-none focus:ring-0 grid grid-cols-[1rem_180px_100px_1fr] items-center gap-0 lowercase ${
+                className={`w-full text-left py-0.5 font-mono text-sm transition-all focus:outline-none focus:ring-0 grid grid-cols-[1rem_1fr] md:grid-cols-[1rem_180px_100px_1fr] items-center gap-0 lowercase ${
                   selectedIndex === 1 ? 'text-primary opacity-100' : 'text-secondary hover:text-primary opacity-60 hover:opacity-100'
                 }`}
                 aria-current={selectedIndex === 1 ? 'true' : undefined}
@@ -325,8 +325,8 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
                   {selectedIndex === 1 ? <ArrowRightIcon /> : null}
                 </span>
                 <span className="min-w-0 truncate">{content.firstVisit.optionLoadWebsite.toLowerCase()}</span>
-                <span aria-hidden />
-                <span className="min-w-0 truncate text-sm font-mono text-secondary">
+                <span className="hidden md:block" aria-hidden />
+                <span className="hidden md:inline min-w-0 truncate text-sm font-mono text-secondary">
                   {content.firstVisit.optionLoadWebsiteDescription}
                 </span>
               </button>

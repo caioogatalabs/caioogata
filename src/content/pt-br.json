@@ -297,7 +297,8 @@
     "command": "ls projetos/",
     "heading": "Projetos",
     "viewModes": {
-      "carousel": "Carrossel",
+      "grid": "Grid",
+      "free": "Livre",
       "showcase": "Showcase"
     },
     "items": [

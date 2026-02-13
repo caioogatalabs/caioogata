@@ -7,38 +7,35 @@ interface ViewModeControlsProps {
   onModeChange: (mode: ViewMode) => void
   onResetWindows: () => void
   labels: {
-    carousel: string
+    grid: string
+    free: string
     showcase: string
   }
 }
 
-function IconCarousel({ className }: { className?: string }) {
+function IconGrid({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect x="4" y="2" width="8" height="12" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M1 5v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M15 5v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <svg className={className} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="6" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="9" y="1" width="6" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="1" y="9" width="6" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="9" y="9" width="6" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  )
+}
+
+function IconFree({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="2" width="8" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="7" y="8" width="8" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
     </svg>
   )
 }
 
 function IconShowcase({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg className={className} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="1" y="3" width="14" height="10" rx="0.5" stroke="currentColor" strokeWidth="1.5" />
       <path d="M6.5 6.5L10.5 8L6.5 9.5V6.5Z" fill="currentColor" />
     </svg>
@@ -47,33 +44,16 @@ function IconShowcase({ className }: { className?: string }) {
 
 function IconReset({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M2 8a6 6 0 1 1 1.5 4"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M2 12V8h4"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg className={className} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 8a6 6 0 1 1 1.5 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M2 12V8h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
-const modes: { mode: ViewMode; icon: typeof IconCarousel; labelKey: keyof ViewModeControlsProps['labels'] }[] = [
-  { mode: 'carousel', icon: IconCarousel, labelKey: 'carousel' },
+const modes: { mode: ViewMode; icon: typeof IconGrid; labelKey: keyof ViewModeControlsProps['labels'] }[] = [
+  { mode: 'grid', icon: IconGrid, labelKey: 'grid' },
+  { mode: 'free', icon: IconFree, labelKey: 'free' },
   { mode: 'showcase', icon: IconShowcase, labelKey: 'showcase' }
 ]
 

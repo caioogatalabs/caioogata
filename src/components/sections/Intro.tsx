@@ -13,7 +13,7 @@ export default function Intro() {
   return (
     <div className="relative">
       {/* Welcome + version à esquerda; seletor de idiomas à direita */}
-      <div className="mb-2 flex items-baseline justify-between min-h-[1.5rem] px-6">
+      <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 min-h-[1.5rem] px-6">
         <div className="flex items-baseline gap-2">
           <span className="text-sm font-mono text-primary">{content.footer.tagline}</span>
           <span className="text-sm font-mono text-secondary">v{version}</span>
@@ -40,7 +40,7 @@ export default function Intro() {
 
       {/* Box: logo | Design Director | botão */}
       <section className="border-2 border-primary/30 rounded-base p-6 w-full">
-        <div className="grid grid-cols-[120px_3fr_2fr] gap-6 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-[120px_3fr_2fr] gap-6 items-center">
           <div className="w-[120px] h-[55px] flex-shrink-0">
             <PixelRevealLogo
               paths={LOGO_PATHS}
@@ -56,7 +56,7 @@ export default function Intro() {
           <p className="text-base font-mono text-neutral-300">
             {content.hero.tagline}
           </p>
-          <div className="flex flex-col items-end justify-center">
+          <div className="flex flex-col items-start md:items-end justify-center">
             <CopyDropdown variant="filled" buttonLabel={content.firstVisit.optionMeetAI} />
           </div>
         </div>
