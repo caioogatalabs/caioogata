@@ -93,7 +93,7 @@ export default function About() {
       <AnimatePresence>
         {isImageEditorOpen && (
           <ImageEditorWindow
-            imageSrc="/caio-ogata-profile.png"
+            imageSrc="/caio-ogata-profile.webp"
             title="profile.jpg"
             onClose={() => setIsImageEditorOpen(false)}
             dragConstraints={sectionRef}

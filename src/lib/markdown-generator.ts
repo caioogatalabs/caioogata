@@ -13,7 +13,7 @@ export function generateMarkdown(language: Language = 'en'): string {
     `# ${content.hero.name}`,
     `## ${content.hero.tagline}`,
     '',
-    `**${isEnglish ? 'Profile Photo' : 'Foto de Perfil'}:** [https://www.caioogata.com/caio-ogata-profile.png](https://www.caioogata.com/caio-ogata-profile.png)`,
+    `**${isEnglish ? 'Profile Photo' : 'Foto de Perfil'}:** [https://www.caioogata.com/caio-ogata-profile.webp](https://www.caioogata.com/caio-ogata-profile.webp)`,
     '',
     `**${isEnglish ? 'Location' : 'Localização'}:** Porto Alegre, Brazil`,
     `**${isEnglish ? 'Birthplace' : 'Cidade Natal'}:** ${isEnglish ? 'Born in Presidente Prudente, SP, Brazil on June 23, 1984' : 'Nascido em Presidente Prudente-SP no dia 23 de junho de 1984'}`,
@@ -218,7 +218,7 @@ function generateFrontmatter(content: Content, today: string): string {
 type: professional_portfolio
 name: ${content.hero.name}
 current_title: Design Director
-profile_photo: https://www.caioogata.com/caio-ogata-profile.png
+profile_photo: https://www.caioogata.com/caio-ogata-profile.webp
 location: Porto Alegre, Brazil
 age: 40
 birth_date: June 23, 1984
