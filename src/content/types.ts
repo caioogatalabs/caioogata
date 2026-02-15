@@ -39,10 +39,27 @@ export interface ProjectImage {
   title: string
 }
 
+export interface ProjectCredit {
+  name: string
+  role?: string
+  url?: string
+}
+
+export interface ProjectDownload {
+  label: string
+  url: string
+}
+
 export interface ProjectItem {
   title: string
   slug: string
   description: string
+  role?: string
+  technologies?: string
+  impact?: string
+  caseStudyUrl?: string
+  credits?: ProjectCredit[]
+  downloads?: ProjectDownload[]
   images: ProjectImage[]
 }
 

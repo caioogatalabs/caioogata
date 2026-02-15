@@ -1,6 +1,6 @@
 import enContent from '@/content/en.json'
 import ptContent from '@/content/pt-br.json'
-import type { Content, Language, Job, SkillCategory, EducationItem, QuickFact, LookingForItem } from '@/content/types'
+import type { Content, Language, Job, SkillCategory, EducationItem, QuickFact, LookingForItem, ProjectItem } from '@/content/types'
 
 export function generateMarkdown(language: Language = 'en'): string {
   const content = (language === 'en' ? enContent : ptContent) as Content
@@ -61,6 +61,11 @@ export function generateMarkdown(language: Language = 'en'): string {
     `**${isEnglish ? 'Other' : 'Outras'}:**`,
     `- ${content.clients.other.join(', ')}`,
     '',
+    '---',
+    '',
+    `## ${content.projects.heading}`,
+    '',
+    ...generateProjectsMarkdown(content.projects.items, isEnglish),
     '---',
     '',
     `## ${isEnglish ? 'Design Philosophy' : 'Filosofia de Design'}`,
@@ -198,7 +203,7 @@ export function generateMarkdown(language: Language = 'en'): string {
     `**Email:** [${content.contact.email}](mailto:${content.contact.email})`,
     ...content.contact.links.map(link => `**${link.label}:** [${link.url}](${link.url})`),
     `**Portfolio:** [https://www.caioogata.com](https://www.caioogata.com)`,
-    `**Azion Design System:** [https://www.azion.design](https://www.azion.design)`,
+    `**Azion Brand System:** [https://www.azion.design](https://www.azion.design)`,
     '',
     '---',
     '',
@@ -229,7 +234,7 @@ instagram: https://www.instagram.com/caioogata.labs
 youtube: https://www.youtube.com/@caioogatalabs
 discord: https://discord.gg/caioogatalabs
 portfolio: https://www.caioogata.com
-design_system: https://www.azion.design
+azion_brand_system: https://www.azion.design
 open_for_work: true
 work_type: Design Leadership, Senior IC, Partner/Co-founder, Consulting
 work_arrangement: Remote, Hybrid, Relocation (open to all)
@@ -314,6 +319,41 @@ function generateQuickFactsMarkdown(facts: QuickFact[]): string[] {
 
 function generateLookingForMarkdown(items: LookingForItem[]): string[] {
   return items.map(item => `- ${item.text}`)
+}
+
+function generateProjectsMarkdown(projects: ProjectItem[], isEnglish: boolean): string[] {
+  const lines: string[] = []
+
+  projects.forEach((project) => {
+    lines.push(`### ${project.title}`)
+    lines.push('')
+    lines.push(project.description)
+    lines.push('')
+    if (project.role) {
+      lines.push(`**${isEnglish ? 'Role' : 'Papel'}:** ${project.role}`)
+    }
+    if (project.technologies) {
+      lines.push(`**${isEnglish ? 'Technologies' : 'Tecnologias'}:** ${project.technologies}`)
+    }
+    if (project.impact) {
+      lines.push(`**${isEnglish ? 'Impact' : 'Impacto'}:** ${project.impact}`)
+    }
+    if (project.credits && project.credits.length > 0) {
+      lines.push(`**${isEnglish ? 'Credits' : 'Créditos'}:** ${project.credits.map(c => {
+        const name = c.url ? `[${c.name}](${c.url})` : c.name
+        return c.role ? `${name} (${c.role})` : name
+      }).join(', ')}`)
+    }
+    if (project.downloads && project.downloads.length > 0) {
+      lines.push(`**Downloads:** ${project.downloads.map(d => `[${d.label}](https://www.caioogata.com${d.url})`).join(', ')}`)
+    }
+    if (project.caseStudyUrl) {
+      lines.push(`**${isEnglish ? 'Full Case Study' : 'Estudo de Caso Completo'}:** [https://www.caioogata.com${project.caseStudyUrl}](https://www.caioogata.com${project.caseStudyUrl})`)
+    }
+    lines.push('')
+  })
+
+  return lines
 }
 
 function generateFooterNote(isEnglish: boolean, today: string): string {

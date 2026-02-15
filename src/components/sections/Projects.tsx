@@ -69,55 +69,120 @@ export default function Projects() {
                   </div>
                 )}
 
-                {/* Project Details - Template sections for future content */}
+                {/* Project Details */}
                 <div className="space-y-4">
-                  {/* Role */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-6">
-                      <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
-                        <ArrowRightIcon />
-                      </span>
-                      <h3 className="text-base font-bold text-secondary font-mono">Role</h3>
+                  {project.role && (
+                    <div>
+                      <div className="flex items-center gap-2 mb-6">
+                        <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+                          <ArrowRightIcon />
+                        </span>
+                        <h3 className="text-base font-bold text-secondary font-mono">Role</h3>
+                      </div>
+                      <p className="text-sm text-neutral-300 font-mono ml-6">
+                        {project.role}
+                      </p>
                     </div>
-                    <p className="text-sm text-neutral-300 font-mono ml-6">
-                      [To be defined]
-                    </p>
-                  </div>
+                  )}
 
-                  {/* Technologies */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-6">
-                      <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
-                        <ArrowRightIcon />
-                      </span>
-                      <h3 className="text-base font-bold text-secondary font-mono">Technologies</h3>
+                  {project.technologies && (
+                    <div>
+                      <div className="flex items-center gap-2 mb-6">
+                        <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+                          <ArrowRightIcon />
+                        </span>
+                        <h3 className="text-base font-bold text-secondary font-mono">Technologies</h3>
+                      </div>
+                      <p className="text-sm text-neutral-300 font-mono ml-6">
+                        {project.technologies}
+                      </p>
                     </div>
-                    <p className="text-sm text-neutral-300 font-mono ml-6">
-                      [To be defined]
-                    </p>
-                  </div>
+                  )}
 
-                  {/* Impact */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-6">
-                      <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
-                        <ArrowRightIcon />
-                      </span>
-                      <h3 className="text-base font-bold text-secondary font-mono">Impact</h3>
+                  {project.impact && (
+                    <div>
+                      <div className="flex items-center gap-2 mb-6">
+                        <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+                          <ArrowRightIcon />
+                        </span>
+                        <h3 className="text-base font-bold text-secondary font-mono">Impact</h3>
+                      </div>
+                      <p className="text-sm text-neutral-300 font-mono ml-6">
+                        {project.impact}
+                      </p>
                     </div>
-                    <p className="text-sm text-neutral-300 font-mono ml-6">
-                      [To be defined]
-                    </p>
-                  </div>
+                  )}
 
-                  {/* Links placeholder */}
-                  <div className="pt-2 border-t border-primary/10">
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm text-neutral-300 font-mono">
-                        &gt; View case study [coming soon]
-                      </span>
+                  {project.credits && project.credits.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-2 mb-6">
+                        <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+                          <ArrowRightIcon />
+                        </span>
+                        <h3 className="text-base font-bold text-secondary font-mono">Credits</h3>
+                      </div>
+                      <div className="ml-6 space-y-1">
+                        {project.credits.map((credit, i) => (
+                          <p key={i} className="text-sm text-neutral-300 font-mono">
+                            {credit.url ? (
+                              <a
+                                href={credit.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-secondary hover:text-primary transition-colors"
+                              >
+                                {credit.name}
+                              </a>
+                            ) : (
+                              <span className="text-secondary">{credit.name}</span>
+                            )}
+                            {credit.role && (
+                              <span className="text-neutral-500"> — {credit.role}</span>
+                            )}
+                          </p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
+
+                  {project.downloads && project.downloads.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-2 mb-6">
+                        <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
+                          <ArrowRightIcon />
+                        </span>
+                        <h3 className="text-base font-bold text-secondary font-mono">Downloads</h3>
+                      </div>
+                      <div className="ml-6 space-y-1">
+                        {project.downloads.map((download, i) => (
+                          <a
+                            key={i}
+                            href={download.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-sm text-primary font-mono hover:underline"
+                          >
+                            &gt; {download.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {project.caseStudyUrl && (
+                    <div className="pt-2 border-t border-primary/10">
+                      <div className="flex items-center gap-4">
+                        <a
+                          href={project.caseStudyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-primary font-mono hover:underline"
+                        >
+                          &gt; View full case study
+                        </a>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </ExpandableSection>
