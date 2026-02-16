@@ -347,6 +347,28 @@
         ]
       },
       {
+        "title": "Huia, Creativity & Innovation",
+        "slug": "huia",
+        "description": "Eight years leading creative technology at a digital innovation studio — from specialized production nucleus to full-service partner serving major Brazilian and international brands. Pioneered the integration of emerging technologies (facial recognition, AI, interactive experiences) into commercial digital campaigns while scaling the operation from boutique team to 40-person studio, culminating in acquisition by Stefanini.",
+        "role": "Partner, Head of Creative Technology & Design Director",
+        "technologies": "Adobe Creative Suite, Premiere Pro, After Effects, Cinema 4D, Facial Recognition APIs, Early AI Integration, E-commerce Platforms, UX/UI Design, Video Production, Interactive Campaign Technologies, Agile Creative Methodologies",
+        "impact": "Scaled studio from internal agency nucleus to independent 40-person operation leading to Stefanini acquisition. Delivered monthly coupon campaigns for O Boticário that increased franchise store traffic by 30% across Brazil, sustained over 3 years. Led creative direction for 40+ digital projects across major brands including Petrobras, Tramontina, Sicredi, Samsung, and Mondelez.",
+        "caseStudyUrl": "/llms/projects/huia.txt",
+        "images": [
+          { "type": "video", "platform": "youtube", "videoId": "d8_xTUsyQdo", "src": "", "title": "Creative Technology Showcase" },
+          { "type": "video", "platform": "youtube", "videoId": "s-3rKGVUQiM", "src": "", "title": "Digital Production & Innovation Reel" },
+          { "type": "video", "platform": "vimeo", "videoId": "377557773", "src": "", "title": "Interactive Campaigns & UX Solutions" },
+          { "type": "video", "platform": "vimeo", "videoId": "185564121", "src": "", "title": "Integrated Creative & Technology Work" },
+          { "type": "video", "platform": "youtube", "videoId": "u-bbxKjiZvk", "src": "", "title": "Brand & Campaign Highlights" },
+          { "type": "video", "platform": "youtube", "videoId": "1RpIxQtXwYY", "src": "", "title": "Creative Direction Reel" },
+          { "type": "video", "platform": "youtube", "videoId": "TnaCQZDCAmo", "src": "", "title": "Digital Experience Showcase" },
+          { "src": "/projects/huia/huia-bird.webp", "title": "Huia Bird — Studio Mascot" },
+          { "src": "/projects/huia/golden-circle.webp", "title": "Golden Circle — Why, How, What" },
+          { "src": "/projects/huia/we-unlock-ideas.webp", "title": "We Unlock Ideas" },
+          { "src": "/projects/huia/team-portraits.webp", "title": "The Huia Team" }
+        ]
+      },
+      {
         "title": "Developer Experience Platform",
         "slug": "developer-experience",
         "description": "Platform focused on improving developer experience using Azion products, with emphasis on documentation, tools, and workflows.",

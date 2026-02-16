@@ -37,7 +37,7 @@ export default function FreeView({
       transition={{ duration: 0.3 }}
     >
       <AnimatePresence>
-        {windows.filter(w => w.isOpen).map((window, index) => (
+        {windows.map((window, index) => !window.isOpen ? null : (
           <ImageWindow
             key={window.id}
             id={window.id}

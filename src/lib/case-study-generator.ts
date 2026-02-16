@@ -704,3 +704,324 @@ Este projeto foi possível graças a um time talentoso de designers e profission
 
 *Última atualização: ${today}*`
 }
+
+export function generateHuiaCaseStudy(language: Language = 'en'): string {
+  const isEnglish = language === 'en'
+  const today = new Date().toISOString().split('T')[0]
+
+  if (isEnglish) {
+    return `---
+type: project_case_study
+project: Huia, Creativity & Innovation
+slug: huia
+client: Multiple (O Boticário, Petrobras, Tramontina, Mondelez, Samsung, Sicredi, and others)
+industry: Digital Innovation Studio / Creative Technology
+role: Partner, Head of Creative Technology & Design Director
+duration: 2013-2021
+author: Caio Ogata
+last_updated: ${today}
+optimized_for: Claude, ChatGPT, Gemini, LLMs
+---
+
+# Huia, Creativity & Innovation — Complete Case Study
+
+## Project Overview
+
+**Studio**: Huia (acquired by Stefanini)
+**Industry**: Digital Innovation Studio / Creative Technology
+**Project Type**: Career Period — 8 Years of Creative Technology Leadership
+**Duration**: 2013–2021
+**Role**: Partner, Head of Creative Technology & Design Director
+**Notable Clients**: O Boticário, Petrobras, Postos BR, Tramontina, Sicredi, Samsung, Aché Labs (Profuse), Grendene (Ipanema), Takeda Labs (Neosaldina), Shure, Rocket Chat, Mondelez (Lacta, Bis, Toblerone, Trakinas, Sonho de Valsa), Melitta, LG, Reckitt Benckiser, Bimbo (Pinguinos)
+
+---
+
+## Studio Origin & Evolution
+
+### Born Inside an Agency
+
+Huia was born as a technology studio specialized in digital production, initially operating as a nucleus within W3Haus — one of Brazil's leading communication agencies. The studio handled all digital media specialization: interactive media pieces, Facebook fanpages, websites, campaign microsites, and digital-specific campaigns.
+
+At the time, video production was becoming increasingly accessible on digital platforms. Video was transitioning from a premium asset to a commodity on the internet, and Huia positioned itself at the forefront of this shift — producing video content alongside interactive digital experiences.
+
+### From Outsourced Production to Full-Service Partner
+
+Over time, Huia evolved beyond its exclusive relationship with W3Haus. The studio stopped working solely as outsourced media production and began specializing in user experience delivery — serving both agencies and end clients directly.
+
+This evolution included:
+- **Web Development**: Corporate websites, campaign microsites, interactive landing pages
+- **Application Development**: Mobile apps and web applications
+- **E-commerce**: Full digital commerce solutions
+- **UX/UI Design**: Research-driven design for complex digital products
+- **Video Production**: Commercial and brand video content
+- **Interactive Experiences**: Emerging technology integrations (facial recognition, AI, AR)
+
+### Growth & Acquisition
+
+Under Caio's leadership as Partner, Huia grew from a boutique agency team to approximately 40 employees. The studio's consistent delivery and client portfolio attracted attention from Stefanini, one of Brazil's largest technology services companies, which acquired Huia — integrating it into the Stefanini Haus Group.
+
+---
+
+## Key Highlight: O Boticário Coupon Campaigns
+
+One of Huia's most impactful engagements was an ongoing partnership with O Boticário, one of Brazil's largest beauty retail chains.
+
+### The Campaign Model
+
+Huia developed and operated a recurring online coupon distribution system:
+- **Frequency**: Nearly monthly campaigns, aligned with each product cycle or new product launch
+- **Mechanism**: Consumers redeemed coupons online through dedicated campaign websites, then visited physical franchise stores to claim free products or significant discounts
+- **Scale**: Nationwide reach across all O Boticário franchisees throughout Brazil
+- **Duration**: Campaigns ran monthly for approximately 3 consecutive years
+
+### Impact
+
+- **+30% increase in franchise store traffic** across all Brazilian locations
+- Created a measurable bridge between digital engagement and physical retail conversion
+- Demonstrated the power of integrated online-to-offline (O2O) marketing strategies
+- Became a recurring revenue and engagement engine for both the brand and its franchisees
+
+---
+
+## Creative-Tech Collaboration
+
+### Bridging Creativity and Technology
+
+A defining aspect of Huia's approach was the deep integration between creative and technical teams. Rather than operating in silos, designers and developers worked side by side:
+
+- **Collaborative Ideation**: Technologists sat alongside creatives during brainstorming sessions, making current technologies accessible for ideation
+- **Technology Translation**: The team translated complex technical capabilities into actionable creative possibilities
+- **Emerging Tech Integration**: Pioneered the commercial application of technologies that would later become mainstream — including facial recognition cameras, early AI integrations, and interactive digital experiences
+- **Innovation Before the Boom**: Utilized AI and computer vision in commercial campaigns years before these technologies entered the mainstream conversation
+
+### Production Capabilities
+
+The studio maintained full-stack creative production capabilities:
+- **Art Direction**: Creative concepts for digital campaigns
+- **Motion Design**: Animated content for social media and digital platforms
+- **Video Production**: From concept to final delivery
+- **Interactive Development**: Web, mobile, and emerging platforms
+- **UX Research**: User-centered design methodologies
+
+---
+
+## Caio's Role Evolution
+
+### Phase 1: Production Designer & Creative Coordinator (2013–2015)
+
+- Squad leader managing art, motion, and video teams as creative supervisor
+- Part of the Nonconformity Group (creative collective within the agency ecosystem)
+- Led creative direction for 40+ digital projects across web, mobile, and interactive TV platforms
+- Clients included: O Boticário, Petrobras, Tramontina, Bis, Trakinas, Sonho de Valsa, Lacta, Toblerone, Melitta Wake, Devassa, LG, Reckitt Benckiser
+
+### Phase 2: Partner, Head of Creative Technology (2015–2021)
+
+- Became Partner as the studio scaled
+- Leader of UX and Design teams for the final 2 years of tenure
+- Managed key client relationships across major Brazilian and international brands
+- Oversaw the studio's evolution from production house to full-service creative technology partner
+- Clients included: O Boticário, Petrobras, Postos BR, Tramontina, Aché Labs (Profuse), Grendene (Ipanema), Sicredi, Samsung, Takeda Labs (Neosaldina), Shure, Rocket Chat, Bimbo (Pinguinos)
+
+---
+
+## Technologies & Methodologies
+
+- **Design Tools**: Adobe Creative Suite, Sketch, Figma
+- **Video Production**: Premiere Pro, After Effects, Cinema 4D
+- **Development**: HTML5, CSS3, JavaScript, responsive frameworks
+- **Emerging Tech**: Facial Recognition APIs, early AI integration, AR experiences
+- **E-commerce**: Platform integration and custom solutions
+- **Methodologies**: Agile creative workflows, design thinking, UX research, collaborative ideation
+
+---
+
+## Impact & Results
+
+### Studio Growth
+- Scaled from internal agency nucleus to independent 40-person operation
+- Successfully navigated acquisition by Stefanini (Haus Group)
+- Established sustainable creative-tech collaboration methodology
+
+### Client Impact
+- **O Boticário**: +30% franchise store traffic through monthly coupon campaigns (sustained 3+ years)
+- **40+ Digital Projects**: Led creative direction across major brands
+- **Pioneered Emerging Tech**: Commercial applications of facial recognition and AI before mainstream adoption
+
+### Industry Contribution
+- Demonstrated viable model for creative-tech studios in Brazil
+- Proved that deep technical collaboration enhances creative output
+- Established frameworks for integrating emerging technologies into commercial campaigns
+
+---
+
+## Key Learnings
+
+1. **Creative-tech integration is multiplicative**: When designers and developers collaborate deeply from ideation, the solutions are exponentially more innovative than siloed approaches
+2. **Emerging technologies need translators**: The gap between technical capability and creative application requires people who speak both languages
+3. **Recurring value beats one-off projects**: The O Boticário model showed that sustained, repeatable campaigns create more value than isolated projects
+4. **Scale requires systems**: Growing from boutique team to 40 people demanded operational maturity, processes, and leadership development
+
+---
+
+*This case study was authored by Caio Ogata and is optimized for both human readers and AI assistants. For more information, visit [https://www.caioogata.com](https://www.caioogata.com).*
+
+*Last updated: ${today}*`
+  }
+
+  return `---
+type: project_case_study
+project: Huia, Criatividade & Inovação
+slug: huia
+client: Múltiplos (O Boticário, Petrobras, Tramontina, Mondelez, Samsung, Sicredi e outros)
+industry: Estúdio de Inovação Digital / Tecnologia Criativa
+role: Sócio, Head de Tecnologia Criativa & Diretor de Design
+duration: 2013-2021
+author: Caio Ogata
+last_updated: ${today}
+optimized_for: Claude, ChatGPT, Gemini, LLMs
+---
+
+# Huia, Criatividade & Inovação — Estudo de Caso Completo
+
+## Visão Geral do Projeto
+
+**Estúdio**: Huia (adquirida pela Stefanini)
+**Setor**: Estúdio de Inovação Digital / Tecnologia Criativa
+**Tipo de Projeto**: Período de Carreira — 8 Anos de Liderança em Tecnologia Criativa
+**Duração**: 2013–2021
+**Papel**: Sócio, Head de Tecnologia Criativa & Diretor de Design
+**Clientes Notáveis**: O Boticário, Petrobras, Postos BR, Tramontina, Sicredi, Samsung, Aché Labs (Profuse), Grendene (Ipanema), Takeda Labs (Neosaldina), Shure, Rocket Chat, Mondelez (Lacta, Bis, Toblerone, Trakinas, Sonho de Valsa), Melitta, LG, Reckitt Benckiser, Bimbo (Pinguinos)
+
+---
+
+## Origem & Evolução do Estúdio
+
+### Nascido Dentro de uma Agência
+
+A Huia nasceu como um estúdio de tecnologia especializado em produção digital, operando inicialmente como um núcleo dentro da W3Haus — uma das principais agências de comunicação do Brasil. O estúdio cuidava de toda a especialização em mídia digital: peças de mídia interativa, fanpages do Facebook, sites, microsites de campanhas e campanhas específicas do meio digital.
+
+Na época, a produção de vídeo estava se tornando cada vez mais acessível nas plataformas digitais. O vídeo estava em transição de um ativo premium para uma commodity na internet, e a Huia se posicionou na vanguarda dessa mudança — produzindo conteúdo em vídeo junto com experiências digitais interativas.
+
+### De Produção Terceirizada a Parceiro Full-Service
+
+Com o tempo, a Huia evoluiu além de sua relação exclusiva com a W3Haus. O estúdio deixou de trabalhar exclusivamente como produção de mídia terceirizada e começou a se especializar na entrega de experiência do usuário — atendendo tanto agências quanto clientes finais diretamente.
+
+Essa evolução incluiu:
+- **Desenvolvimento Web**: Sites corporativos, microsites de campanha, landing pages interativas
+- **Desenvolvimento de Aplicativos**: Apps mobile e aplicações web
+- **E-commerce**: Soluções completas de comércio digital
+- **UX/UI Design**: Design orientado por pesquisa para produtos digitais complexos
+- **Produção de Vídeo**: Conteúdo de vídeo comercial e de marca
+- **Experiências Interativas**: Integrações de tecnologias emergentes (reconhecimento facial, IA, AR)
+
+### Crescimento & Aquisição
+
+Sob a liderança de Caio como Sócio, a Huia cresceu de uma equipe boutique de agência para aproximadamente 40 colaboradores. A entrega consistente do estúdio e seu portfólio de clientes atraíram a atenção da Stefanini, uma das maiores empresas de serviços de tecnologia do Brasil, que adquiriu a Huia — integrando-a ao Grupo Stefanini Haus.
+
+---
+
+## Destaque Principal: Campanhas de Cuponagem O Boticário
+
+Uma das entregas mais impactantes da Huia foi uma parceria contínua com O Boticário, uma das maiores redes de beleza do Brasil.
+
+### O Modelo de Campanha
+
+A Huia desenvolveu e operou um sistema recorrente de distribuição de cupons online:
+- **Frequência**: Campanhas quase mensais, alinhadas a cada ciclo de produto ou lançamento
+- **Mecanismo**: Consumidores resgatavam cupons online em sites dedicados de campanha, depois visitavam lojas franqueadas para retirar produtos grátis ou obter descontos significativos
+- **Escala**: Alcance nacional em todas as franquias do O Boticário pelo Brasil
+- **Duração**: Campanhas rodaram mensalmente por aproximadamente 3 anos consecutivos
+
+### Impacto
+
+- **+30% de aumento no tráfego das lojas franqueadas** em todas as localizações brasileiras
+- Criou uma ponte mensurável entre engajamento digital e conversão no varejo físico
+- Demonstrou o poder de estratégias integradas de marketing online-to-offline (O2O)
+- Tornou-se um motor recorrente de receita e engajamento tanto para a marca quanto para seus franqueados
+
+---
+
+## Colaboração Criativo-Tecnológica
+
+### Conectando Criatividade e Tecnologia
+
+Um aspecto definidor da abordagem da Huia era a integração profunda entre equipes criativas e técnicas. Em vez de operar em silos, designers e desenvolvedores trabalhavam lado a lado:
+
+- **Ideação Colaborativa**: Tecnólogos sentavam ao lado de criativos durante sessões de brainstorming, tornando tecnologias vigentes acessíveis para a ideação
+- **Tradução Tecnológica**: O time traduzia capacidades técnicas complexas em possibilidades criativas acionáveis
+- **Integração de Tecnologia Emergente**: Pioneiros na aplicação comercial de tecnologias que depois se tornariam mainstream — incluindo câmeras de reconhecimento facial, integrações iniciais de IA e experiências digitais interativas
+- **Inovação Antes do Boom**: Utilizou IA e visão computacional em campanhas comerciais anos antes dessas tecnologias entrarem na conversa mainstream
+
+### Capacidades de Produção
+
+O estúdio mantinha capacidades completas de produção criativa:
+- **Direção de Arte**: Conceitos criativos para campanhas digitais
+- **Motion Design**: Conteúdo animado para redes sociais e plataformas digitais
+- **Produção de Vídeo**: Do conceito à entrega final
+- **Desenvolvimento Interativo**: Web, mobile e plataformas emergentes
+- **Pesquisa de UX**: Metodologias de design centrado no usuário
+
+---
+
+## Evolução do Papel de Caio
+
+### Fase 1: Production Designer & Coordenador Criativo (2013–2015)
+
+- Líder de squad gerenciando equipes de arte, motion e vídeo como supervisor criativo
+- Parte do Nonconformity Group (coletivo criativo dentro do ecossistema de agências)
+- Liderou direção criativa de mais de 40 projetos digitais em web, mobile e plataformas de TV interativa
+- Clientes incluíam: O Boticário, Petrobras, Tramontina, Bis, Trakinas, Sonho de Valsa, Lacta, Toblerone, Melitta Wake, Devassa, LG, Reckitt Benckiser
+
+### Fase 2: Sócio, Head de Tecnologia Criativa (2015–2021)
+
+- Tornou-se Sócio conforme o estúdio escalou
+- Líder das equipes de UX e Design nos últimos 2 anos de atuação
+- Gerenciou relacionamentos com clientes-chave em grandes marcas brasileiras e internacionais
+- Supervisionou a evolução do estúdio de produtora para parceiro full-service de tecnologia criativa
+- Clientes incluíam: O Boticário, Petrobras, Postos BR, Tramontina, Aché Labs (Profuse), Grendene (Ipanema), Sicredi, Samsung, Takeda Labs (Neosaldina), Shure, Rocket Chat, Bimbo (Pinguinos)
+
+---
+
+## Tecnologias & Metodologias
+
+- **Ferramentas de Design**: Adobe Creative Suite, Sketch, Figma
+- **Produção de Vídeo**: Premiere Pro, After Effects, Cinema 4D
+- **Desenvolvimento**: HTML5, CSS3, JavaScript, frameworks responsivos
+- **Tecnologia Emergente**: APIs de Reconhecimento Facial, integração inicial de IA, experiências AR
+- **E-commerce**: Integração de plataformas e soluções customizadas
+- **Metodologias**: Workflows ágeis criativos, design thinking, pesquisa de UX, ideação colaborativa
+
+---
+
+## Impacto & Resultados
+
+### Crescimento do Estúdio
+- Escalou de núcleo interno de agência para operação independente de 40 pessoas
+- Navegou com sucesso a aquisição pela Stefanini (Grupo Haus)
+- Estabeleceu metodologia sustentável de colaboração criativo-tecnológica
+
+### Impacto nos Clientes
+- **O Boticário**: +30% de tráfego em lojas franqueadas através de campanhas mensais de cupons (sustentadas por 3+ anos)
+- **40+ Projetos Digitais**: Liderou direção criativa para grandes marcas
+- **Pioneirismo em Tecnologia Emergente**: Aplicações comerciais de reconhecimento facial e IA antes da adoção mainstream
+
+### Contribuição para a Indústria
+- Demonstrou modelo viável para estúdios criativo-tecnológicos no Brasil
+- Provou que colaboração técnica profunda potencializa o resultado criativo
+- Estabeleceu frameworks para integração de tecnologias emergentes em campanhas comerciais
+
+---
+
+## Aprendizados-Chave
+
+1. **Integração criativo-tecnológica é multiplicativa**: Quando designers e desenvolvedores colaboram profundamente desde a ideação, as soluções são exponencialmente mais inovadoras do que abordagens em silos
+2. **Tecnologias emergentes precisam de tradutores**: A lacuna entre capacidade técnica e aplicação criativa requer pessoas que falam ambas as linguagens
+3. **Valor recorrente supera projetos únicos**: O modelo O Boticário mostrou que campanhas sustentadas e repetíveis criam mais valor do que projetos isolados
+4. **Escala requer sistemas**: Crescer de equipe boutique para 40 pessoas demandou maturidade operacional, processos e desenvolvimento de liderança
+
+---
+
+*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com](https://www.caioogata.com).*
+
+*Última atualização: ${today}*`
+}

@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import Image from 'next/image'
+import VideoEmbed from './VideoEmbed'
 import type { ProjectImage } from '@/content/types'
 
 interface ShowcaseViewProps {
@@ -30,9 +31,15 @@ export default function ShowcaseView({
   const [naturalSize, setNaturalSize] = useState<{ w: number; h: number } | null>(null)
   const [containerSize, setContainerSize] = useState<{ w: number; h: number }>({ w: 800, h: 800 })
 
+  const isVideo = currentImage?.type === 'video'
+
   // Load natural dimensions when image changes
   useEffect(() => {
     if (!currentImage) return
+    if (currentImage.type === 'video') {
+      setNaturalSize({ w: 1920, h: 1080 })
+      return
+    }
     setNaturalSize(null)
     const img = new window.Image()
     img.onload = () => setNaturalSize({ w: img.width, h: img.height })
@@ -107,17 +114,22 @@ export default function ShowcaseView({
             transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           >
             {naturalSize ? (
-              <Image
-                src={currentImage.src}
-                alt={currentImage.title}
-                width={displayW}
-                height={displayH}
-                className="block"
-                sizes={`${displayW}px`}
-                priority
-              />
+              isVideo && currentImage.platform && currentImage.videoId ? (
+                <div style={{ width: displayW, height: displayH }}>
+                  <VideoEmbed platform={currentImage.platform} videoId={currentImage.videoId} />
+                </div>
+              ) : (
+                <Image
+                  src={currentImage.src}
+                  alt={currentImage.title}
+                  width={displayW}
+                  height={displayH}
+                  className="block"
+                  sizes={`${displayW}px`}
+                  priority
+                />
+              )
             ) : (
-              // Placeholder while loading natural dimensions
               <div className="text-white/20 font-mono text-sm">Loading...</div>
             )}
           </motion.div>

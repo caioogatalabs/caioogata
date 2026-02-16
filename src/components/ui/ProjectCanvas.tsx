@@ -68,15 +68,19 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     containerHeight: baseHeight
   })
 
-  // Showcase auto-play
+  // Showcase auto-play (skips videos — they pause the slideshow automatically)
   useEffect(() => {
     if (viewMode !== 'showcase' || showcasePaused || images.length <= 1) return
+    // If the current item is a video, pause so the video can play through
+    if (images[showcaseIndex]?.type === 'video') {
+      setShowcasePaused(true)
+      return
+    }
     const timer = setInterval(() => {
       navigateShowcase('next')
-      setShowcasePaused(false)
     }, SHOWCASE_INTERVAL)
     return () => clearInterval(timer)
-  }, [viewMode, showcasePaused, images.length, navigateShowcase, setShowcasePaused])
+  }, [viewMode, showcasePaused, showcaseIndex, images, navigateShowcase, setShowcasePaused])
 
   // Keyboard handling
   const handleKeyDown = useCallback((e: KeyboardEvent) => {

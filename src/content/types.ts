@@ -37,6 +37,9 @@ export interface ContactLink {
 export interface ProjectImage {
   src: string
   title: string
+  type?: 'image' | 'video'
+  platform?: 'youtube' | 'vimeo'
+  videoId?: string
 }
 
 export interface ProjectCredit {

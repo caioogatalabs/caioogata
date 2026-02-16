@@ -46,32 +46,23 @@ interface UseWindowManagerReturn {
 const CONTROLS_HEIGHT = 56
 const PADDING = 16
 
-// Generate scattered positions for free mode, centered horizontally, scattered vertically
+// Generate stacked positions for free mode — all centered horizontally, cascaded vertically
 function calculateFreePositions(
   count: number,
   canvasWidth: number,
-  canvasHeight: number
+  _canvasHeight: number
 ): { x: number; y: number }[] {
   const positions: { x: number; y: number }[] = []
-  const windowW = 320
-  const windowH = 280
-  // Center horizontally
-  const centerX = (canvasWidth - windowW) / 2
-  // Vertical scatter range
+  const windowW = 560 // 16:9 video width
   const usableTop = CONTROLS_HEIGHT + PADDING
-  const usableBottom = canvasHeight - windowH - PADDING
-  const spreadY = Math.max(0, usableBottom - usableTop)
+  const cascadeStepY = 40 // vertical offset between each stacked window
+
+  // All windows share the same centered X
+  const centerX = Math.max(PADDING, (canvasWidth - windowW) / 2)
 
   for (let i = 0; i < count; i++) {
-    // Small horizontal offset for visual variety, but stays centered
-    const seedX = ((i * 7 + 3) % 11) / 11 - 0.5 // range [-0.5, 0.5]
-    const offsetX = seedX * Math.min(60, canvasWidth * 0.05) // max ~60px drift from center
-    const x = Math.max(PADDING, Math.min(canvasWidth - windowW - PADDING, centerX + offsetX))
-
-    // Vertical scatter across usable area
-    const seedY = ((i * 13 + 5) % 11) / 11
-    const y = usableTop + seedY * spreadY
-    positions.push({ x, y })
+    const y = usableTop + i * cascadeStepY
+    positions.push({ x: centerX, y })
   }
 
   return positions
@@ -168,7 +159,8 @@ export function useWindowManager({
     setViewModeState(mode)
     if (mode === 'showcase') {
       setShowcaseIndex(0)
-      setShowcasePaused(false)
+      // Auto-pause if first item is a video so it can play through
+      setShowcasePaused(images[0]?.type === 'video')
     }
     if (mode === 'free') {
       const h = calculateCanvasHeight(mode, images.length, containerWidth, containerHeight)

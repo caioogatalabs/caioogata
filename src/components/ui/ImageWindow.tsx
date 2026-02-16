@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useMemo } from 'react'
 import { motion, useDragControls } from 'motion/react'
 import Image from 'next/image'
+import VideoEmbed from './VideoEmbed'
 import type { ProjectImage } from '@/content/types'
 
 type WindowSizeState = 'normal' | 'maximized' | 'minimized'
@@ -58,12 +59,18 @@ export default function ImageWindow({
   const [sizeState, setSizeState] = useState<WindowSizeState>('normal')
   const [naturalDimensions, setNaturalDimensions] = useState<{ width: number; height: number } | null>(null)
 
+  const isVideo = image.type === 'video'
+
   useEffect(() => {
+    if (isVideo) {
+      setNaturalDimensions({ width: 560, height: 315 })
+      return
+    }
     const img = new window.Image()
     img.onload = () => setNaturalDimensions({ width: img.width, height: img.height })
     img.onerror = () => setImageError(true)
     img.src = decodeURIComponent(image.src)
-  }, [image.src])
+  }, [image.src, isVideo])
 
   const imageDimensions = useMemo(() => {
     if (!naturalDimensions) return { width: MIN_WIDTH, height: MIN_HEIGHT }
@@ -271,6 +278,14 @@ function WindowContent({
   imageError: boolean
   onError: () => void
 }) {
+  if (image.type === 'video' && image.platform && image.videoId) {
+    return (
+      <div className="absolute inset-0">
+        <VideoEmbed platform={image.platform} videoId={image.videoId} />
+      </div>
+    )
+  }
+
   if (imageError) {
     return (
       <div className="absolute inset-0 flex items-center justify-center bg-neutral">
