@@ -3,6 +3,7 @@
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import ExternalLinkIcon from '@/components/ui/ExternalLinkIcon'
 import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
+import ContactForm from '@/components/ui/ContactForm'
 
 export default function Contact() {
   const { content } = useLanguage()
@@ -19,7 +20,7 @@ export default function Contact() {
         </h2>
       </div>
 
-      {/* Two columns: 80% text, 20% email + links — text aligned with title */}
+      {/* Two columns: description text (left), email + links (right) */}
       <div className="grid grid-cols-1 md:grid-cols-[4fr_1fr] gap-8 md:gap-12">
         <div className="space-y-4 min-w-0 pl-6">
           <p className="text-sm text-neutral-300 font-mono leading-relaxed">
@@ -63,6 +64,11 @@ export default function Contact() {
             </a>
           ))}
         </div>
+      </div>
+
+      {/* Contact Form + ASCII Smile — below description, full width */}
+      <div className="mt-8 pl-6">
+        <ContactForm />
       </div>
     </section>
   )

@@ -101,11 +101,6 @@ export default function MainContent() {
       <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 min-h-[320px] pb-4 md:pb-5 w-full">
         <CLIMenu />
       </div>
-
-      {/* Contact — below menu */}
-      <div className="max-w-content mx-0 px-6 pt-6 pb-8 md:px-12 md:pt-8 md:pb-10 lg:px-16 w-full">
-        <Contact />
-      </div>
     </div>
   )
 }

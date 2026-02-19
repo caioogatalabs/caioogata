@@ -450,7 +450,48 @@
       { "label": "Instagram", "url": "https://www.instagram.com/caioogata.labs" },
       { "label": "YouTube", "url": "https://www.youtube.com/@caioogatalabs" },
       { "label": "Discord", "url": "https://discord.gg/caioogatalabs" }
-    ]
+    ],
+    "form": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Select a subject...",
+      "subjectOptions": {
+        "job": "Job Opportunity",
+        "freelance": "Freelance Project",
+        "feedback": "Feedback",
+        "other": "Other"
+      },
+      "messageLabel": "Message",
+      "messagePlaceholder": "Write your message here...",
+      "submitButton": "Send Message",
+      "submitting": "Sending...",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email",
+        "messageRequired": "Message is required"
+      },
+      "success": "Message sent!",
+      "successDetail": "Thank you for reaching out. I'll reply soon.",
+      "error": "Something went wrong.",
+      "errorRetry": "Please try again or email me directly."
+    },
+    "log": {
+      "idleMessages": [
+        "Liked the portfolio? Leave some feedback.",
+        "Found a bug? Let me know.",
+        "Got a project in mind? Let's talk.",
+        "Shall we work together?",
+        "Looking for a design director? Say hi.",
+        "Ideas? Questions? Drop a message.",
+        "Open for freelance and full-time roles.",
+        "Curiosity is always welcome here."
+      ],
+      "waitingMessage": "Waiting for your message."
+    }
   },
   "intro": {
     "tips": "This project is built for humans and AI assistance. Explore as you wish."

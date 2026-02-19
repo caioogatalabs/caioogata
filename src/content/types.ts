@@ -34,6 +34,44 @@ export interface ContactLink {
   url: string
 }
 
+export interface ContactFormValidation {
+  nameRequired: string
+  emailRequired: string
+  emailInvalid: string
+  messageRequired: string
+}
+
+export interface ContactFormSubjectOptions {
+  job: string
+  freelance: string
+  feedback: string
+  other: string
+}
+
+export interface ContactForm {
+  nameLabel: string
+  namePlaceholder: string
+  emailLabel: string
+  emailPlaceholder: string
+  subjectLabel: string
+  subjectPlaceholder: string
+  subjectOptions: ContactFormSubjectOptions
+  messageLabel: string
+  messagePlaceholder: string
+  submitButton: string
+  submitting: string
+  validation: ContactFormValidation
+  success: string
+  successDetail: string
+  error: string
+  errorRetry: string
+}
+
+export interface ContactLog {
+  idleMessages: string[]
+  waitingMessage: string
+}
+
 export interface ProjectImage {
   src: string
   title: string
@@ -183,6 +221,8 @@ export interface Content {
     description: string
     email: string
     links: ContactLink[]
+    form: ContactForm
+    log: ContactLog
   }
   footer: {
     copyright: string

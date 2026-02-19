@@ -450,7 +450,48 @@
       { "label": "Instagram", "url": "https://www.instagram.com/caioogata.labs" },
       { "label": "YouTube", "url": "https://www.youtube.com/@caioogatalabs" },
       { "label": "Discord", "url": "https://discord.gg/caioogatalabs" }
-    ]
+    ],
+    "form": {
+      "nameLabel": "Nome",
+      "namePlaceholder": "Seu nome",
+      "emailLabel": "Email",
+      "emailPlaceholder": "seu@email.com",
+      "subjectLabel": "Assunto",
+      "subjectPlaceholder": "Selecione um assunto...",
+      "subjectOptions": {
+        "job": "Oportunidade de Trabalho",
+        "freelance": "Projeto Freelance",
+        "feedback": "Feedback",
+        "other": "Outro"
+      },
+      "messageLabel": "Mensagem",
+      "messagePlaceholder": "Escreva sua mensagem aqui...",
+      "submitButton": "Enviar Mensagem",
+      "submitting": "Enviando...",
+      "validation": {
+        "nameRequired": "Nome é obrigatório",
+        "emailRequired": "Email é obrigatório",
+        "emailInvalid": "Digite um email válido",
+        "messageRequired": "Mensagem é obrigatória"
+      },
+      "success": "Mensagem enviada!",
+      "successDetail": "Obrigado por entrar em contato. Responderei em breve.",
+      "error": "Algo deu errado.",
+      "errorRetry": "Tente novamente ou me envie um email diretamente."
+    },
+    "log": {
+      "idleMessages": [
+        "Gostou do portfólio? Deixe um feedback.",
+        "Achou algum bug? Me avise.",
+        "Tem um projeto em mente? Vamos conversar.",
+        "Vamos trabalhar juntos?",
+        "Procurando um diretor de design? Manda um oi.",
+        "Ideias? Dúvidas? Mande uma mensagem.",
+        "Disponível para freelance e posições fixas.",
+        "Curiosidade é sempre bem-vinda aqui."
+      ],
+      "waitingMessage": "Aguardando seu contato."
+    }
   },
   "intro": {
     "tips": "Este projeto foi construído para humanos e assistência de IA. Explore como desejar."
