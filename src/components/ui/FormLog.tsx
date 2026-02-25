@@ -19,6 +19,7 @@ interface FormLogProps {
   values: { name: string; email: string; subject: string; message: string }
   errors: { name?: string; email?: string; message?: string }
   hasInteracted: boolean
+  submitCount: number
   idleMessages: string[]
   waitingMessage: string
   errorMessage?: string
@@ -40,6 +41,7 @@ export default function FormLog({
   values,
   errors,
   hasInteracted,
+  submitCount,
   idleMessages,
   waitingMessage,
   errorMessage,
@@ -167,6 +169,24 @@ export default function FormLog({
 
     prevErrorsRef.current = currentErrors
   }, [errors.name, errors.email, errors.message, pushLog])
+
+  // Re-log all current errors on each submit attempt
+  const prevSubmitCountRef = useRef(0)
+  useEffect(() => {
+    if (submitCount === 0 || submitCount === prevSubmitCountRef.current) return
+    prevSubmitCountRef.current = submitCount
+
+    const currentErrors = Object.entries(errors)
+      .filter(([, v]) => !!v)
+      .map(([k, v]) => `${k}: ${v}`)
+
+    if (currentErrors.length > 0) {
+      pushLog(`[${getTimestamp()}] submit blocked`, 'system')
+      for (const err of currentErrors) {
+        pushLog(`[${getTimestamp()}] ✗ ${err}`, 'error')
+      }
+    }
+  }, [submitCount, errors, pushLog])
 
   // Track status changes
   useEffect(() => {

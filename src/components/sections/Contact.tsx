@@ -37,12 +37,6 @@ export default function Contact() {
         </div>
 
         <div className="flex flex-col w-full min-w-0">
-          <a
-            href={`mailto:${content.contact.email}`}
-            className="block w-full text-sm font-mono text-secondary/70 hover:text-primary focus:outline-none focus-visible:text-primary transition-colors duration-200 border-t border-secondary/10 py-2 first:border-t-0 first:pt-0"
-          >
-            {content.contact.email}
-          </a>
           {content.contact.links.map((link, index) => (
             <a
               key={index}
@@ -51,7 +45,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="flex items-center justify-between w-full py-2 border-t border-secondary/10
                          text-secondary/70 font-mono text-sm
-                         hover:text-primary focus:outline-none focus-visible:text-primary transition-colors duration-200"
+                         hover:text-primary focus:outline-none focus-visible:text-primary transition-colors duration-200 first:border-t-0 first:pt-0"
               aria-label={`${link.label} (opens in new tab)`}
             >
               <span className="min-w-0 truncate">{link.label}</span>

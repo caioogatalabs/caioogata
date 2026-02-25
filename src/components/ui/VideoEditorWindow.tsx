@@ -76,11 +76,23 @@ export default function VideoEditorWindow({
     function onLoadedMetadata() {
       if (!video) return
       const dpr = window.devicePixelRatio || 1
-      const displayWidth = isMobile
+      const aspectRatio = video.videoHeight / video.videoWidth
+
+      const maxDisplayWidth = isMobile
         ? Math.min(window.innerWidth - 32, CANVAS_MAX_WIDTH)
         : CANVAS_MAX_WIDTH
-      const aspectRatio = video.videoHeight / video.videoWidth
-      const displayHeight = Math.round(displayWidth * aspectRatio)
+
+      const maxDisplayHeight = isMobile
+        ? Math.max(200, window.innerHeight - 180)
+        : Number.POSITIVE_INFINITY
+
+      let displayWidth = maxDisplayWidth
+      let displayHeight = Math.round(displayWidth * aspectRatio)
+
+      if (displayHeight > maxDisplayHeight) {
+        displayHeight = Math.round(maxDisplayHeight)
+        displayWidth = Math.round(displayHeight / aspectRatio)
+      }
 
       setCanvasSize({ width: displayWidth, height: displayHeight })
 

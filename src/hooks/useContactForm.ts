@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useCallback, useRef } from 'react'
-import emailjs from '@emailjs/browser'
 import type { ContactFormValidation } from '@/content/types'
 
 export type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
@@ -28,10 +27,6 @@ interface FormErrors {
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? ''
-const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? ''
-const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? ''
-
 export function useContactForm(validationMessages: ContactFormValidation) {
   const [values, setValues] = useState<FormValues>({
     name: '',
@@ -46,6 +41,7 @@ export function useContactForm(validationMessages: ContactFormValidation) {
   })
   const [status, setStatus] = useState<FormStatus>('idle')
   const [focusedField, setFocusedField] = useState<FocusedField>(null)
+  const [submitCount, setSubmitCount] = useState(0)
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const validate = useCallback(
@@ -98,6 +94,7 @@ export function useContactForm(validationMessages: ContactFormValidation) {
 
       // Touch all fields to show errors
       setTouched({ name: true, email: true, message: true })
+      setSubmitCount((c) => c + 1)
 
       const submitErrors = validate(values)
       if (Object.keys(submitErrors).length > 0) return
@@ -105,17 +102,18 @@ export function useContactForm(validationMessages: ContactFormValidation) {
       setStatus('submitting')
 
       try {
-        await emailjs.send(
-          SERVICE_ID,
-          TEMPLATE_ID,
-          {
-            from_name: values.name.trim(),
-            from_email: values.email.trim(),
-            subject: values.subject || 'No subject',
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: values.name.trim(),
+            email: values.email.trim(),
+            subject: values.subject || '',
             message: values.message.trim(),
-          },
-          PUBLIC_KEY
-        )
+          }),
+        })
+
+        if (!res.ok) throw new Error('Send failed')
 
         setStatus('success')
 
@@ -134,12 +132,14 @@ export function useContactForm(validationMessages: ContactFormValidation) {
   return {
     values,
     errors: visibleErrors,
+    rawErrors: errors,
     touched,
     status,
     focusedField,
     isValid,
     hasInteracted,
     hasErrors: Object.keys(visibleErrors).length > 0,
+    submitCount,
     handleChange,
     handleBlur,
     handleFocus,

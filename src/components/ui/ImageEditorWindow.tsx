@@ -14,7 +14,7 @@ interface ImageEditorWindowProps {
 }
 
 const CANVAS_MAX_WIDTH = 360
-const IMAGE_CROP = { top: 0.1, bottom: 0.1 }
+const IMAGE_CROP = { top: 0, bottom: 0 }
 
 function FilterOverlay({ filters }: { filters: FilterState }) {
   const lines = (Object.keys(DEFAULT_FILTERS) as (keyof FilterState)[]).map((key) => {
@@ -75,12 +75,23 @@ export default function ImageEditorWindow({
     img.crossOrigin = 'anonymous'
     img.onload = () => {
       const dpr = window.devicePixelRatio || 1
-      const displayWidth = isMobile
+      const aspectRatio = img.height / img.width
+
+      const maxDisplayWidth = isMobile
         ? Math.min(window.innerWidth - 32, CANVAS_MAX_WIDTH)
         : CANVAS_MAX_WIDTH
-      const cropFraction = 1 - IMAGE_CROP.top - IMAGE_CROP.bottom
-      const aspectRatio = (img.height / img.width) * cropFraction
-      const displayHeight = Math.round(displayWidth * aspectRatio)
+
+      const maxDisplayHeight = isMobile
+        ? Math.max(200, window.innerHeight - 180)
+        : Number.POSITIVE_INFINITY
+
+      let displayWidth = maxDisplayWidth
+      let displayHeight = Math.round(displayWidth * aspectRatio)
+
+      if (displayHeight > maxDisplayHeight) {
+        displayHeight = Math.round(maxDisplayHeight)
+        displayWidth = Math.round(displayHeight / aspectRatio)
+      }
 
       setCanvasSize({ width: displayWidth, height: displayHeight })
 

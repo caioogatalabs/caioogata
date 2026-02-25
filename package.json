@@ -4,20 +4,21 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:3001": "rm -rf .next && next dev --hostname 127.0.0.1 -p 3001",
     "build": "next build",
     "postbuild": "node scripts/patch-webpack-runtime.js",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "@fontsource/cascadia-mono": "^5.2.3",
     "clsx": "^2.1.1",
     "motion": "^12.29.2",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "resend": "^6.9.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

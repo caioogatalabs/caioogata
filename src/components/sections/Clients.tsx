@@ -2,11 +2,15 @@
 
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
-import CLIBox from '@/components/ui/CLIBox'
-import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 export default function Clients() {
   const { content } = useLanguage()
+
+  const allClients = [
+    ...content.clients.brazilian,
+    ...content.clients.international,
+    ...(content.clients.other ?? []),
+  ]
 
   return (
     <section id="clients" aria-labelledby="clients-heading">
@@ -14,57 +18,24 @@ export default function Clients() {
         {content.clients.heading}
       </SectionHeading>
 
-      <CLIBox>
-        <p className="text-sm text-neutral-300 font-mono leading-relaxed mb-6">
-          {content.clients.description}
-        </p>
+      <p className="text-sm text-neutral-300 font-mono leading-relaxed mb-6">
+        {content.clients.description}
+      </p>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
-                <ArrowRightIcon />
+      <div className="border border-dotted border-secondary/30 rounded-base p-2 sm:p-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+          {allClients.map((client, index) => (
+            <div
+              key={`${client}-${index}`}
+              className="border border-dotted border-secondary/30 rounded-base p-4 min-h-[100px] flex items-center justify-center bg-[var(--bg-neutral)]"
+            >
+              <span className="text-sm font-mono text-secondary/70 text-center">
+                {client}
               </span>
-              <h3 className="text-base font-bold text-secondary font-mono">
-                Brazilian Brands
-              </h3>
             </div>
-            <ul className="space-y-1.5 ml-4" role="list">
-              {content.clients.brazilian.map((client, index) => (
-<li
-                key={index}
-                className="text-sm text-neutral-300 font-mono flex"
-              >
-                  <span className="text-primary mr-2" aria-hidden="true">•</span>
-                  <span>{client}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
-                <ArrowRightIcon />
-              </span>
-              <h3 className="text-base font-bold text-secondary font-mono">
-                International (via Mondelez)
-              </h3>
-            </div>
-            <ul className="space-y-1.5 ml-4" role="list">
-              {content.clients.international.map((client, index) => (
-                <li
-                  key={index}
-                  className="text-sm text-neutral-300 font-mono flex"
-                >
-                  <span className="text-primary mr-2" aria-hidden="true">•</span>
-                  <span>{client}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          ))}
         </div>
-      </CLIBox>
+      </div>
     </section>
   )
 }

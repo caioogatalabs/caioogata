@@ -8,8 +8,10 @@ import FormLog from '@/components/ui/FormLog'
 import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 // CLI Menu input style
-const inputClasses =
-  'bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 text-primary font-mono text-sm w-full caret-primary placeholder:text-secondary/40'
+const baseInputClasses =
+  'bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 font-mono text-sm w-full caret-primary placeholder:text-secondary/40'
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 
 export default function ContactForm() {
@@ -22,11 +24,18 @@ export default function ContactForm() {
     status,
     focusedField,
     hasInteracted,
+    submitCount,
     handleChange,
     handleBlur,
     handleFocus,
     handleSubmit,
   } = useContactForm(formContent.validation)
+
+  // Field validity for icon colors and email text color
+  const isNameValid = values.name.trim().length > 0
+  const isEmailValid = EMAIL_REGEX.test(values.email.trim())
+  const isSubjectValid = values.subject !== ''
+  const isMessageValid = values.message.trim().length > 0
 
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -104,7 +113,7 @@ export default function ContactForm() {
               <div>
                 {/* Name */}
                 <div className="flex items-center gap-2 border-b border-dotted border-secondary/30 py-2 px-4">
-                  <span className="w-4 shrink-0 flex items-center justify-center text-primary">
+                  <span className={`w-4 shrink-0 flex items-center justify-center ${isNameValid ? 'text-primary' : 'text-secondary/40'}`}>
                     <ArrowRightIcon />
                   </span>
                   <label htmlFor="contact-name" className="sr-only">{formContent.nameLabel}</label>
@@ -117,14 +126,14 @@ export default function ContactForm() {
                     onFocus={() => handleFocus('name')}
                     placeholder={formContent.nameLabel}
                     aria-invalid={!!errors.name}
-                    className={inputClasses}
+                    className={`${baseInputClasses} text-primary`}
                     autoComplete="name"
                   />
                 </div>
 
                 {/* Email */}
                 <div className="flex items-center gap-2 border-b border-dotted border-secondary/30 py-2 px-4">
-                  <span className="w-4 shrink-0 flex items-center justify-center text-primary">
+                  <span className={`w-4 shrink-0 flex items-center justify-center ${isEmailValid ? 'text-primary' : 'text-secondary/40'}`}>
                     <ArrowRightIcon />
                   </span>
                   <label htmlFor="contact-email" className="sr-only">{formContent.emailLabel}</label>
@@ -137,14 +146,14 @@ export default function ContactForm() {
                     onFocus={() => handleFocus('email')}
                     placeholder="email@example.com"
                     aria-invalid={!!errors.email}
-                    className={inputClasses}
+                    className={`${baseInputClasses} ${isEmailValid ? 'text-primary' : 'text-secondary'}`}
                     autoComplete="email"
                   />
                 </div>
 
                 {/* Subject */}
                 <div className="flex items-center gap-2 border-b border-dotted border-secondary/30 py-2 px-4">
-                  <span className="w-4 shrink-0 flex items-center justify-center text-primary">
+                  <span className={`w-4 shrink-0 flex items-center justify-center ${isSubjectValid ? 'text-primary' : 'text-secondary/40'}`}>
                     <ArrowRightIcon />
                   </span>
                   <label htmlFor="contact-subject" className="sr-only">{formContent.subjectLabel}</label>
@@ -155,7 +164,7 @@ export default function ContactForm() {
                       onChange={(e) => handleChange('subject', e.target.value)}
                       onFocus={() => handleFocus('subject')}
                       onBlur={() => handleFocus(null)}
-                      className={`${inputClasses} appearance-none cursor-pointer pr-6`}
+                      className={`${baseInputClasses} ${isSubjectValid ? 'text-primary' : 'text-secondary'} appearance-none cursor-pointer pr-6`}
                     >
                       <option value="" disabled>
                         {formContent.subjectLabel}
@@ -174,7 +183,7 @@ export default function ContactForm() {
 
                 {/* Message — textarea with wrapping */}
                 <div className="flex items-start gap-2 py-2 px-4">
-                  <span className="w-4 shrink-0 flex items-center justify-center text-primary leading-relaxed">
+                  <span className={`w-4 shrink-0 flex items-center justify-center leading-relaxed ${isMessageValid ? 'text-primary' : 'text-secondary/40'}`}>
                     <ArrowRightIcon />
                   </span>
                   <label htmlFor="contact-message" className="sr-only">{formContent.messageLabel}</label>
@@ -188,7 +197,7 @@ export default function ContactForm() {
                     placeholder={formContent.messageLabel}
                     aria-invalid={!!errors.message}
                     rows={4}
-                    className={`${inputClasses} resize-none overflow-hidden`}
+                    className={`${baseInputClasses} text-primary resize-none overflow-hidden`}
                   />
                 </div>
               </div>
@@ -201,6 +210,7 @@ export default function ContactForm() {
                   values={values}
                   errors={errors}
                   hasInteracted={hasInteracted}
+                  submitCount={submitCount}
                   idleMessages={logContent.idleMessages}
                   waitingMessage={logContent.waitingMessage}
                   errorMessage={formContent.error}
