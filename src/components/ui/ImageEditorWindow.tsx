@@ -101,8 +101,6 @@ export default function ImageEditorWindow({
         canvasRef.current.style.width = `${displayWidth}px`
         canvasRef.current.style.height = `${displayHeight}px`
 
-        const ctx = canvasRef.current.getContext('2d')
-        if (ctx) ctx.scale(dpr, dpr)
       }
 
       setSourceImage(img)
