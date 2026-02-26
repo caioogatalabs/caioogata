@@ -442,9 +442,8 @@
   "quickFacts": {
     "heading": "Quick Facts",
     "facts": [
-      { "label": "Born", "value": "June 23, 1984 | Presidente Prudente, SP" },
+      { "label": "Born", "value": "June 1984" },
       { "label": "Current", "value": "Porto Alegre, RS, Brazil" },
-      { "label": "Age", "value": "40 years old" },
       { "label": "MBTI", "value": "INTP (The Logician)" },
       { "label": "DISC", "value": "D (Dominance) primary" },
       { "label": "Training", "value": "10-14 hours/week (triathlon)" },

@@ -442,9 +442,8 @@
   "quickFacts": {
     "heading": "Fatos Rápidos",
     "facts": [
-      { "label": "Nascimento", "value": "23 de junho de 1984 | Presidente Prudente, SP" },
+      { "label": "Nascimento", "value": "Junho de 1984" },
       { "label": "Atual", "value": "Porto Alegre, RS, Brasil" },
-      { "label": "Idade", "value": "40 anos" },
       { "label": "MBTI", "value": "INTP (O Lógico)" },
       { "label": "DISC", "value": "D (Dominância) primário" },
       { "label": "Treino", "value": "10-14 horas/semana (triatlo)" },

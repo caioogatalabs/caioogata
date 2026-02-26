@@ -1,10 +1,19 @@
 import { NextResponse } from 'next/server'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 import { generateMarkdown } from '@/lib/markdown-generator'
 
 export const dynamic = 'force-static'
 
 export async function GET() {
-  const markdown = generateMarkdown('pt-br')
+  let faqContent: string | undefined
+  try {
+    faqContent = readFileSync(join(process.cwd(), 'RECRUITER-FAQ.md'), 'utf-8')
+  } catch {
+    faqContent = undefined
+  }
+
+  const markdown = generateMarkdown('pt-br', faqContent)
 
   return new NextResponse(markdown, {
     status: 200,
