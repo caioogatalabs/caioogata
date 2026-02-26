@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: 'Caio Ogata Portfolio',
     images: [
       {
-        url: 'https://www.caioogata.com/og-image.png',
+        url: 'https://www.caioogata.com/og-img.png',
         width: 1200,
         height: 630,
         alt: 'Caio Ogata - Design Director',
@@ -49,11 +49,17 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Caio Ogata - Design Director | Design Systems & DevEx',
     description: 'Design Director with 20+ years in Art Direction and 15 in UI design.',
-    images: ['https://www.caioogata.com/og-image.png'],
+    images: ['https://www.caioogata.com/og-img.png'],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon/favicon.ico', sizes: 'any' },
+      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/favicon/apple-touch-icon.png',
   },
+  manifest: '/favicon/site.webmanifest',
   robots: {
     index: true,
     follow: true,
