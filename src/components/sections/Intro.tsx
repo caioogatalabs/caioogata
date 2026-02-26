@@ -5,11 +5,11 @@ import CopyDropdown from '@/components/hero/CopyDropdown'
 import { PixelRevealLogo } from '@/components/ui/PixelRevealLogo'
 import { LOGO_PATHS } from '@/lib/logo-paths'
 import packageJson from '../../../package.json'
+import { COMMIT_COUNT } from '@/lib/build-info'
 
 export default function Intro() {
   const { language, setLanguage, content } = useLanguage()
-  const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME
-  const version = buildTime ? `${packageJson.version}.${buildTime}` : packageJson.version
+  const version = `${packageJson.version}.${COMMIT_COUNT}`
 
   return (
     <div className="relative">

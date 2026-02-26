@@ -10,6 +10,7 @@ import { copyToClipboard } from '@/lib/clipboard'
 import { generateMarkdown } from '@/lib/markdown-generator'
 import { AI_PLATFORMS, getMarkdownUrl, type AIPlatform } from '@/lib/ai-link-builder'
 import packageJson from '../../../package.json'
+import { COMMIT_COUNT } from '@/lib/build-info'
 
 const ARROW_WIDTH_CLASS = 'w-4'
 
@@ -49,8 +50,7 @@ function useTypewriter(fullText: string, enabled = true) {
 
 export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
   const { content, language } = useLanguage()
-  const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME
-  const version = buildTime ? `${packageJson.version}.${buildTime}` : packageJson.version
+  const version = `${packageJson.version}.${COMMIT_COUNT}`
 
   const headerTagline = useTypewriter(content.footer.tagline)
   const headerVersion = useTypewriter(` v${version}`)
