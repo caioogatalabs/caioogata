@@ -49,7 +49,8 @@ function useTypewriter(fullText: string, enabled = true) {
 
 export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
   const { content, language } = useLanguage()
-  const version = packageJson.version
+  const commitCount = process.env.NEXT_PUBLIC_GIT_COMMIT_COUNT
+  const version = commitCount ? `${packageJson.version}.${commitCount}` : packageJson.version
 
   const headerTagline = useTypewriter(content.footer.tagline)
   const headerVersion = useTypewriter(` v${version}`)
@@ -201,7 +202,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
       </div>
 
       {/* Box: logo (fixo) | Design Director 60% | Built for humans 40% — mesma linha */}
-      <section className="border-2 border-primary/30 rounded-base p-6 w-full mb-6">
+      <section className="border-2 border-primary rounded-base p-6 w-full mb-6">
         <div className="grid grid-cols-1 md:grid-cols-[120px_3fr_2fr] gap-4 md:gap-6 items-start">
           <div className="w-[120px] h-[55px] flex-shrink-0">
             <PixelRevealLogo

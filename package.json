@@ -1,11 +1,11 @@
 {
   "name": "caio-ogata-portfolio",
-  "version": "1.0.0",
+  "version": "1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:3001": "rm -rf .next && next dev --hostname 127.0.0.1 -p 3001",
-    "build": "next build",
+    "dev": "NEXT_PUBLIC_GIT_COMMIT_COUNT=$(git rev-list --count HEAD) next dev",
+    "dev:3001": "rm -rf .next && NEXT_PUBLIC_GIT_COMMIT_COUNT=$(git rev-list --count HEAD) next dev --hostname 127.0.0.1 -p 3001",
+    "build": "NEXT_PUBLIC_GIT_COMMIT_COUNT=$(git rev-list --count HEAD) next build",
     "postbuild": "node scripts/patch-webpack-runtime.js",
     "start": "next start",
     "lint": "next lint"
