@@ -9,7 +9,7 @@ export default function IntroCompact() {
   const { setActiveSection } = useNavigation()
 
   return (
-    <section className="border-2 border-primary/30 rounded-base px-4 md:px-6 py-4 md:py-5 w-full">
+    <section className="border-2 border-primary rounded-base px-4 md:px-6 py-4 md:py-5 w-full">
       <div className="flex flex-wrap items-center justify-between gap-4">
         {/* Logo - compacto, clicável para voltar à intro */}
         <button

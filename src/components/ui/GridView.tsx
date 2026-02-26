@@ -29,6 +29,7 @@ export default function GridView({ windows, activeWindowId, onFocus, onClose }: 
     const state = sizeStates[windowId] ?? 'normal'
     if (state === 'maximized') return 'col-span-1 sm:col-span-2 lg:col-span-4'
     if (state === 'minimized') return 'col-span-1'
+    if (openWindows.length === 1) return 'col-span-1 sm:col-span-2 lg:col-span-4'
     if (HIGHLIGHT_INDICES.has(index)) return 'col-span-1 sm:col-span-2'
     return 'col-span-1'
   }

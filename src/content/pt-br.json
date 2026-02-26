@@ -53,7 +53,7 @@
   "about": {
     "command": "whoami",
     "heading": "Sobre",
-    "bio": "Sou Diretor de Design baseado em Porto Alegre, Brasil, com mais de 20 anos em Direção de Arte—sendo 15 destes especificamente focados em design de Interface de Usuário—criando experiências digitais na interseção entre estratégia de marca e ferramentas para desenvolvedores.\n\nLiderei equipes de design na Azion (como Diretor de Design, Diretor de Brand Experience e Diretor de Developer Experience), onde construí uma organização de 14 pessoas e implementei dois design systems do zero. Antes disso, entrei na Huia desde o dia 1 e eventualmente me tornei Sócio do estúdio de design e tecnologia, que cresceu para cerca de 40 funcionários antes de ser adquirida pela Stefanini.\n\nMeu trabalho abrange marcas brasileiras icônicas como Petrobras, O Boticário, Tramontina, Sicredi e Aché Group, além de clientes internacionais como Mondelez (Lacta, Bis, Toblerone, Oreo).",
+    "bio": "Sou Diretor de Design baseado em Porto Alegre, com mais de 20 anos em Direção de Arte — sendo 15 deles especificamente focados em design de Interface de Usuário. Meu trabalho vive na interseção entre estratégia de marca, pensamento de produto e ferramentas para desenvolvedores. Essa não é uma combinação comum, e é a que passei uma carreira construindo.\n\nNa Azion Technologies ocupei três cargos progressivos ao longo de quatro anos — Design Director, Brand Experience Director e Developer Experience Director. Nesses papéis, construí a organização de design do zero, estabeleci cultura de design thinking e processos de discovery, criei o Azion Design, liderei o rebranding completo da empresa e, por fim, assumi toda a camada user-facing da engenharia: Console, CLI e ferramentas de desenvolvedor. O projeto mais significativo desse período foi a reconstrução do Azion Console do zero como iniciativa open source — atualmente em produção em console.azion.com.\n\nNa Huia, fiz parte de um estúdio de tecnologia criativa full-service que cresceu para cerca de 40 pessoas antes de ser adquirido pela Stefanini. O trabalho abrangeu liderança de UX e design, iniciativas de tecnologia criativa e entregas para alguns dos clientes mais exigentes do Brasil — rápido, amplo em escopo e sempre no limite do que a produção digital conseguia fazer.\n\nO histórico de clientes passa por Petrobras, O Boticário, Tramontina e Sicredi, além de marcas Mondelez como Lacta, Bis e Toblerone.\n\nO que me move é o problema da tradução — pegar algo tecnicamente complexo e torná-lo legível, útil e bem construído para quem o usa. Rigor de engenharia e craft de design não são opostos. Os melhores produtos de que fiz parte aconteceram quando essas duas disciplinas pararam de se ignorar.",
     "expertise": [
       "Arquitetura e Implementação de Design Systems",
       "Developer Experience (DevEx) & Product Design Técnico",
@@ -75,9 +75,9 @@
         "dateRange": "2024 - 2025",
         "description": "Promovido para liderar o departamento de Developer Experience sob Engenharia, sendo responsável por todas as interfaces user-facing e mantendo supervisão de estratégia de marca.",
         "achievements": [
-          { "text": "Liderou Console, CLI e todas as ferramentas de desenvolvedor como camada user-facing completa da engenharia" },
-          { "text": "Reconstruiu Console do zero (console.azion.com) usando bibliotecas open-source e componentização de blocos, reduzindo implementação de novas telas para ~1 dia" },
-          { "text": "Gerenciou time multifuncional de desenvolvedores e designers em frentes de produto e marca" }
+          { "text": "Liderou Console, CLI e todas as ferramentas de desenvolvedor como a camada user-facing completa da engenharia" },
+          { "text": "Reconstruiu o Console do zero ([Azion Console Kit](/projects/azion-console-kit)) com bibliotecas open-source e componentização em blocos, reduzindo o tempo de implementação de novas telas de dias para horas" },
+          { "text": "Gerenciou time multifuncional de desenvolvedores e designers nas frentes de produto e marca" }
         ]
       },
       {
@@ -89,7 +89,7 @@
         "achievements": [
           { "text": "Estabeleceu diretrizes de marca para documentação técnica, interfaces de produto e materiais de marketing" },
           { "text": "Liderou iniciativas de rebranding e evolução da identidade visual em marketing e produto" },
-          { "text": "Colaborou com times de engenharia e produto para manter integridade de marca em ferramentas de desenvolvedor" }
+          { "text": "Liderou os visuais de lançamentos de produto e colaborou em eventos de comunidade e marca" }
         ]
       },
       {
@@ -99,11 +99,9 @@
         "dateRange": "2021 - 2023",
         "description": "Liderou organização de design sob área de Produto, responsável por direção criativa (Product Marketing) e usabilidade de produto (Desenvolvimento).",
         "achievements": [
-          { "text": "Construiu organização de design de 14 pessoas cobrindo Product Design, Creative, Design Ops, UX Research e Design Systems" },
-          { "text": "Estabeleceu cultura de design-thinking e métricas de usabilidade em ambiente engineering-first" },
-          { "text": "Criou Azion Design (www.azion.design), documentação pública do design system da empresa" },
-          { "text": "Liderou transformação PLG (Product-Led Growth) a partir de estratégia Enterprise-first" },
-          { "text": "Implementou dois design systems: um customizado, outro montado com bibliotecas open-source" },
+          { "text": "Construiu uma organização de design cobrindo Product Design, Creative, Design Ops, UX Research e Design Systems" },
+          { "text": "Estabeleceu cultura de design thinking e práticas de usabilidade em um ambiente engineering-first" },
+          { "text": "Criou o Azion Design (www.azion.design), a documentação pública do design system da empresa" },
           { "text": "Estabeleceu processos de product discovery e práticas de UX research" }
         ]
       },
@@ -116,7 +114,8 @@
         "achievements": [
           { "text": "Tornou-se Sócio enquanto o estúdio crescia para ~40 funcionários" },
           { "text": "Liderou times de UX e Design nos últimos 2 anos de atuação" },
-          { "text": "Gerenciou relacionamentos com clientes: O Boticário, Petrobras, Postos BR, Tramontina, Aché Labs (Profuse), Grendene (Ipanema), Sicredi, Samsung, Takeda Labs (Neosaldina), Shure, Rocket Chat, Bimbo (Pinguinos)" }
+          { "text": "Melhorou a rentabilidade de projetos em +30% com técnicas de Design Sprint" },
+          { "text": "Gerenciou relacionamentos com clientes: O Boticário, Petrobras, Postos BR, Tramontina, Aché Labs (Profuse), Grendene (Ipanema), Sicredi, Takeda Labs (Neosaldina), Shure, Rocket Chat" }
         ]
       },
       {
@@ -369,30 +368,56 @@
         ]
       },
       {
-        "title": "Developer Experience Platform",
+        "title": "Azion Console Kit",
+        "slug": "azion-console-kit",
+        "description": "A reconstrução completa do front-end do console de gerenciamento da Azion — a interface que engenheiros usam para fazer deploy, proteger e observar aplicações na edge. Construído com Vue 3, um design system customizado e uma arquitetura headless que desacopla UI da lógica de negócio, o Console Kit entrega features com consistência e na velocidade que uma plataforma edge global exige.",
+        "role": "Developer Experience Director",
+        "technologies": "Vue 3, Vite, PrimeVue, TypeScript, Design Tokens, Arquitetura de Componentes, Padrão Headless UI, Open Source",
+        "impact": "Projeto open source com mais de 6.000 commits, 34+ contribuidores e 93+ releases. Em produção no Magazine Luiza, Itaú e Netshoes — organizações rodando workloads reais na rede edge global da Azion todos os dias. Implementação de novas telas reduzida a aproximadamente um dia através de componentização em blocos.",
+        "caseStudyUrl": "/llms/projects/azion-console-kit.txt",
+        "credits": [
+          { "name": "Morgana Johann", "role": "Design Manager", "url": "https://www.linkedin.com/in/morgana-johann/" },
+          { "name": "Gabriel Lisboa", "role": "Product Designer", "url": "https://www.linkedin.com/in/gabriellisboadesign/" },
+          { "name": "Eduardo César", "role": "Product Designer", "url": "https://www.linkedin.com/in/cesaroeduardo/" },
+          { "name": "Edilene Almeida", "role": "Product Designer", "url": "https://www.linkedin.com/in/edilene-almeida/" },
+          { "name": "Carolina Silveira", "role": "Product Designer", "url": "https://www.linkedin.com/in/carolina-dutra-silveira-561340187/" },
+          { "name": "Rafaela Paludo", "role": "Product Designer", "url": "https://www.linkedin.com/in/rafaelapaludo/" },
+          { "name": "Vinicius Ferreira", "role": "Engineering Manager", "url": "https://www.linkedin.com/in/vinicius-gubiani-ferreira/" },
+          { "name": "Herbert Cotta", "role": "Experience Developer", "url": "https://www.linkedin.com/in/herbertcotta/" },
+          { "name": "Robson Jr.", "role": "Experience Developer", "url": "https://www.linkedin.com/in/robsongajunior/" },
+          { "name": "Paulo Sobrinho", "role": "Experience Developer", "url": "https://www.linkedin.com/in/paulo-sobrinho-93b527185/" },
+          { "name": "Isaque Böck", "role": "Experience Developer", "url": "https://www.linkedin.com/in/isaquebock/" },
+          { "name": "Guilherme Santana", "role": "Experience Developer", "url": "https://www.linkedin.com/in/gdsantana/" },
+          { "name": "34+ contribuidores open source", "url": "https://github.com/aziontech/azion-console-kit/graphs/contributors" }
+        ],
+        "downloads": [
+          { "label": "Produto ao vivo — console.azion.com", "url": "https://console.azion.com/" },
+          { "label": "GitHub — azion-console-kit", "url": "https://github.com/aziontech/azion-console-kit" }
+        ],
+        "images": [
+          { "type": "video", "platform": "youtube", "videoId": "TneAP_BOegU", "src": "", "title": "Azion Console Kit — Visão Geral do Produto" }
+        ]
+      },
+      {
+        "title": "Azion Design System (coming soon)",
         "slug": "developer-experience",
-        "description": "Plataforma focada em melhorar a experiência de desenvolvedores usando produtos da Azion, com foco em documentação, ferramentas e workflows.",
-        "images": [
-          { "src": "/projects/developer-experience/01.png", "title": "Conceito Fintech" },
-          { "src": "/projects/developer-experience/02.png", "title": "Detalhe Planetas" }
-        ]
+        "description": "",
+        "disabled": true,
+        "images": []
       },
       {
-        "title": "Brand Experience - O Boticário",
+        "title": "Azion CLI (coming soon)",
         "slug": "brand-oboticario",
-        "description": "Experiência digital completa para uma das maiores redes de beleza do Brasil, integrando estratégia de marca com design de produto.",
-        "images": [
-          { "src": "/projects/brand-oboticario/01.png", "title": "Infografico Containers" },
-          { "src": "/projects/brand-oboticario/02.png", "title": "Edge Computing" }
-        ]
+        "description": "",
+        "disabled": true,
+        "images": []
       },
       {
-        "title": "Product Design - Petrobras",
+        "title": "Labs (coming soon)",
         "slug": "product-petrobras",
-        "description": "Produtos digitais para uma das maiores empresas de energia do mundo, focando em usabilidade e eficiência operacional.",
-        "images": [
-          { "src": "/projects/product-petrobras/01.png", "title": "Escudo de Segurança" }
-        ]
+        "description": "",
+        "disabled": true,
+        "images": []
       }
     ]
   },

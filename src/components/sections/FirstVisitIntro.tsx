@@ -194,11 +194,11 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
     <div className="relative animate-fade-in">
       {/* Header: alinhado ao box, estilo P 16px */}
       <div className="mb-2 flex items-baseline gap-2 min-h-[1.5rem] pl-6">
-        <span className="text-base font-mono text-primary">
+        <span className="text-sm font-mono text-primary">
           {headerTagline.text}
           {!headerTagline.isComplete && <span className="inline-block w-2 h-4 bg-secondary animate-blink align-middle ml-0.5" aria-hidden />}
         </span>
-        <span className="text-base font-mono text-secondary">{headerVersion.text}</span>
+        <span className="text-sm font-mono text-secondary">{headerVersion.text}</span>
       </div>
 
       {/* Box: logo (fixo) | Design Director 60% | Built for humans 40% — mesma linha */}

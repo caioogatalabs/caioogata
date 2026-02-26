@@ -13,6 +13,7 @@ interface ExpandableSectionProps {
   isExpanded?: boolean
   onToggle?: () => void
   onFocus?: () => void
+  disabled?: boolean
 }
 
 const ExpandableSection = forwardRef<HTMLButtonElement, ExpandableSectionProps>(function ExpandableSection({
@@ -24,12 +25,14 @@ const ExpandableSection = forwardRef<HTMLButtonElement, ExpandableSectionProps>(
   isExpanded: controlledExpanded,
   onToggle,
   onFocus,
+  disabled = false,
 }, ref) {
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded)
   const isControlled = controlledExpanded !== undefined
   const expanded = isControlled ? controlledExpanded : internalExpanded
 
   const handleToggle = () => {
+    if (disabled) return
     if (onToggle) {
       onToggle()
     } else {
@@ -37,7 +40,9 @@ const ExpandableSection = forwardRef<HTMLButtonElement, ExpandableSectionProps>(
     }
   }
 
-  const borderClass = 'border-secondary/10 group-hover:border-primary'
+  const borderClass = disabled
+    ? 'border-secondary/10'
+    : 'border-secondary/10 group-hover:border-primary'
 
   return (
     <div
@@ -51,27 +56,32 @@ const ExpandableSection = forwardRef<HTMLButtonElement, ExpandableSectionProps>(
         ref={ref}
         type="button"
         onClick={handleToggle}
-        onFocus={onFocus}
+        onFocus={disabled ? undefined : onFocus}
+        disabled={disabled}
         className={clsx(
           'w-full text-left py-2 font-mono text-sm transition-colors duration-150 flex items-center justify-between focus:outline-none',
-          isSelected
-            ? 'text-primary opacity-100'
-            : 'text-secondary opacity-60 group-hover:text-primary group-hover:opacity-100'
+          disabled
+            ? 'text-secondary opacity-25 cursor-default'
+            : isSelected
+              ? 'text-primary opacity-100'
+              : 'text-secondary opacity-60 group-hover:text-primary group-hover:opacity-100'
         )}
-        aria-expanded={expanded}
+        aria-expanded={disabled ? undefined : expanded}
       >
         <span className="flex items-center gap-2 min-w-0 flex-1">{title}</span>
-        <span
-          aria-hidden
-          className={clsx(
-            'shrink-0 flex items-center justify-center w-4 transition-transform duration-150',
-            expanded && 'rotate-90'
-          )}
-        >
-          <ArrowRightIcon />
-        </span>
+        {!disabled && (
+          <span
+            aria-hidden
+            className={clsx(
+              'shrink-0 flex items-center justify-center w-4 transition-transform duration-150',
+              expanded && 'rotate-90'
+            )}
+          >
+            <ArrowRightIcon />
+          </span>
+        )}
       </button>
-      {expanded && (
+      {!disabled && expanded && (
         <div className="pb-4 pt-2">
           {children}
         </div>

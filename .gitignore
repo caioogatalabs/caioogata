@@ -51,6 +51,11 @@ next-env.d.ts
 # claude
 .claude/settings.local.json
 
+# large media files (referenced via external services like YouTube)
+public/**/*.mp4
+public/**/*.mov
+public/**/*.webm
+
 # AI / IDE tools (configs, cache, skills) – não versionar
 .adal/
 .agent/

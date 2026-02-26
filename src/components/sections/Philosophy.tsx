@@ -6,21 +6,15 @@ import SectionHeading from '@/components/ui/SectionHeading'
 export default function Philosophy() {
   const { content } = useLanguage()
 
-  const menuLabel =
-    content.menu.items.find((item) => item.key === 'philosophy')?.label ?? 'philosophy'
-
   return (
     <section id="philosophy" aria-labelledby="philosophy-heading" className="text-left">
       <SectionHeading id="philosophy-heading">
         {content.philosophy.heading}
       </SectionHeading>
 
-      {/* Responsive layout: stacked on mobile, grid on md+ */}
       <div className="mt-2">
         <div className="pl-6 flex flex-col gap-2 md:grid md:grid-cols-[180px_100px_1fr] md:items-baseline md:gap-0">
-          <span className="min-w-0 truncate font-mono text-sm text-primary py-0.5">
-            /{menuLabel}
-          </span>
+          <span className="hidden md:block" aria-hidden />
           <span className="hidden md:block" aria-hidden />
           <div className="min-w-0 space-y-4 py-0.5">
             <p className="text-sm font-mono font-bold text-primary">

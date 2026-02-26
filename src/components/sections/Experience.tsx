@@ -100,12 +100,8 @@ export default function Experience() {
                             className="text-sm text-neutral-300 py-2.5 px-4 text-left font-mono border-b border-dotted border-secondary/30 last:border-b-0"
                           >
                             <div className="flex flex-col">
-                              <p className="text-sm text-neutral-300 font-mono leading-relaxed mb-2">
+                              <p className="text-sm text-neutral-300 font-mono leading-relaxed">
                                 {achievement.text}
-                              </p>
-                              <div className="border-b border-dotted border-secondary/30 mb-2"></div>
-                              <p className="text-sm text-secondary font-mono">
-                                +{((achievementIndex + 1) * 10)}%
                               </p>
                             </div>
                           </div>
@@ -123,12 +119,8 @@ export default function Experience() {
                                 className="text-sm text-neutral-300 py-2.5 px-4 text-left font-mono border-r border-dotted border-secondary/30 last:border-r-0 align-top"
                               >
                                 <div className="flex flex-col">
-                                  <p className="text-sm text-neutral-300 font-mono leading-relaxed mb-2">
+                                  <p className="text-sm text-neutral-300 font-mono leading-relaxed">
                                     {achievement.text}
-                                  </p>
-                                  <div className="border-b border-dotted border-secondary/30 mb-2"></div>
-                                  <p className="text-sm text-secondary font-mono">
-                                    +{((achievementIndex + 1) * 10)}%
                                   </p>
                                 </div>
                               </td>

@@ -46,6 +46,7 @@ export default function Projects() {
               isExpanded={isExpanded}
               onToggle={() => toggleSubItemExpanded(index)}
               onFocus={() => setSubItemIndex(index)}
+              disabled={project.disabled}
             >
               <div className="space-y-6">
                 <p className="text-sm text-neutral-300 font-mono leading-relaxed">
