@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Toaster } from 'react-hot-toast'
+import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/components/providers/LanguageProvider'
 import { NavigationProvider } from '@/components/providers/NavigationProvider'
 import '@fontsource/cascadia-mono/400.css'
@@ -105,6 +106,7 @@ export default function RootLayout({
             />
           </NavigationProvider>
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   )
