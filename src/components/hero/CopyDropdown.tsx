@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import { copyToClipboard } from '@/lib/clipboard'
 import { generateMarkdown } from '@/lib/markdown-generator'
 import { useLanguage } from '@/components/providers/LanguageProvider'
-import { AI_PLATFORMS, getMarkdownUrl, type AIPlatform } from '@/lib/ai-link-builder'
+import { AI_PLATFORMS, getMarkdownUrl, buildPromptText, type AIPlatform } from '@/lib/ai-link-builder'
 
 interface CopyDropdownProps {
   variant?: 'primary' | 'secondary' | 'inverted' | 'filled'
@@ -67,6 +67,31 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
   const handleOpenAI = async (platform: AIPlatform) => {
     setIsOpen(false)
 
+    // Clipboard fallback: copy prompt text and open plain URL (e.g. Gemini)
+    if (platform.useClipboardFallback) {
+      try {
+        const promptText = buildPromptText(language)
+        await copyToClipboard(promptText)
+      } catch {
+        // Silently continue even if clipboard fails
+      }
+      window.open(platform.buildUrl('', language), '_blank', 'noopener,noreferrer')
+      toast(
+        language === 'en'
+          ? `Prompt copied! Paste it in ${platform.name} to start.`
+          : `Prompt copiado! Cole no ${platform.name} para começar.`,
+        {
+          duration: 5000,
+          icon: 'ℹ️',
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        }
+      )
+      return
+    }
+
     // Build the URL with the markdown URL embedded in the prompt
     const markdownUrl = getMarkdownUrl(language)
     const aiUrl = platform.buildUrl(markdownUrl, language)
@@ -105,17 +130,17 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
     }
   }
 
-  const handleCopyUrl = async () => {
+  const handleCopyPrompt = async () => {
     setIsOpen(false)
 
     try {
-      const markdownUrl = getMarkdownUrl(language)
-      await copyToClipboard(markdownUrl)
+      const promptText = buildPromptText(language)
+      await copyToClipboard(promptText)
 
       toast.success(
         language === 'en'
-          ? 'URL copied! Paste it in any AI assistant.'
-          : 'URL copiada! Cole em qualquer assistente de IA.',
+          ? 'Prompt copied! Paste it in any AI assistant.'
+          : 'Prompt copiado! Cole em qualquer assistente de IA.',
         {
           duration: 4000,
           ariaProps: {
@@ -125,7 +150,7 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
         }
       )
     } catch (error) {
-      console.error('Failed to copy URL:', error)
+      console.error('Failed to copy prompt:', error)
       toast.error(content.notifications.copyError, {
         duration: 5000,
       })
@@ -188,21 +213,21 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
 
           {/* Copy options */}
           <button
+            onClick={handleCopyPrompt}
+            className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
+            role="menuitem"
+          >
+            <span aria-hidden="true" className="w-4 text-center">#</span>
+            <span>{language === 'en' ? 'Copy to your AI' : 'Copiar para sua IA'}</span>
+          </button>
+
+          <button
             onClick={handleCopy}
             className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
             role="menuitem"
           >
             <span aria-hidden="true" className="w-4 text-center">$</span>
             <span>{language === 'en' ? 'Copy Markdown' : 'Copiar Markdown'}</span>
-          </button>
-
-          <button
-            onClick={handleCopyUrl}
-            className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
-            role="menuitem"
-          >
-            <span aria-hidden="true" className="w-4 text-center">#</span>
-            <span>{language === 'en' ? 'Copy URL' : 'Copiar URL'}</span>
           </button>
         </div>
       )}

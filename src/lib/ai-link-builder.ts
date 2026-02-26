@@ -10,6 +10,8 @@ export interface AIPlatform {
   buildUrl: (markdownUrl: string, language: 'en' | 'pt-br') => string
   /** Whether this platform can fetch URLs automatically */
   canFetchUrls: boolean
+  /** Whether to use clipboard fallback (copy prompt text, open plain URL) */
+  useClipboardFallback?: boolean
 }
 
 /**
@@ -47,26 +49,6 @@ const PROMPTS = {
  */
 export const AI_PLATFORMS: AIPlatform[] = [
   {
-    id: 'perplexity',
-    name: 'Perplexity',
-    icon: '?',
-    canFetchUrls: true,
-    buildUrl: (markdownUrl, language) => {
-      const prompt = PROMPTS[language](markdownUrl)
-      return `https://www.perplexity.ai/search?q=${encodeURIComponent(prompt)}`
-    },
-  },
-  {
-    id: 'gemini',
-    name: 'Gemini',
-    icon: 'G',
-    canFetchUrls: true,
-    buildUrl: (markdownUrl, language) => {
-      const prompt = PROMPTS[language](markdownUrl)
-      return `https://gemini.google.com/app?q=${encodeURIComponent(prompt)}`
-    },
-  },
-  {
     id: 'chatgpt',
     name: 'ChatGPT',
     icon: '*',
@@ -87,6 +69,16 @@ export const AI_PLATFORMS: AIPlatform[] = [
     },
   },
   {
+    id: 'perplexity',
+    name: 'Perplexity',
+    icon: '?',
+    canFetchUrls: true,
+    buildUrl: (markdownUrl, language) => {
+      const prompt = PROMPTS[language](markdownUrl)
+      return `https://www.perplexity.ai/search?q=${encodeURIComponent(prompt)}`
+    },
+  },
+  {
     id: 'grok',
     name: 'Grok',
     icon: 'X',
@@ -97,6 +89,14 @@ export const AI_PLATFORMS: AIPlatform[] = [
     },
   },
 ]
+
+/**
+ * Build only the prompt text (for clipboard fallback platforms)
+ */
+export function buildPromptText(language: 'en' | 'pt-br'): string {
+  const markdownUrl = getMarkdownUrl(language)
+  return PROMPTS[language](markdownUrl)
+}
 
 /**
  * Build URL for a specific platform
