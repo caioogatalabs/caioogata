@@ -49,8 +49,8 @@ function useTypewriter(fullText: string, enabled = true) {
 
 export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
   const { content, language } = useLanguage()
-  const commitCount = process.env.NEXT_PUBLIC_GIT_COMMIT_COUNT
-  const version = commitCount ? `${packageJson.version}.${commitCount}` : packageJson.version
+  const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME
+  const version = buildTime ? `${packageJson.version}.${buildTime}` : packageJson.version
 
   const headerTagline = useTypewriter(content.footer.tagline)
   const headerVersion = useTypewriter(` v${version}`)

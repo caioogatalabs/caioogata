@@ -8,8 +8,8 @@ import packageJson from '../../../package.json'
 
 export default function Intro() {
   const { language, setLanguage, content } = useLanguage()
-  const commitCount = process.env.NEXT_PUBLIC_GIT_COMMIT_COUNT
-  const version = commitCount ? `${packageJson.version}.${commitCount}` : packageJson.version
+  const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME
+  const version = buildTime ? `${packageJson.version}.${buildTime}` : packageJson.version
 
   return (
     <div className="relative">
