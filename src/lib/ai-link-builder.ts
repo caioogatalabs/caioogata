@@ -31,7 +31,7 @@ export function getBaseUrl(): string {
  */
 export function getMarkdownUrl(language: 'en' | 'pt-br'): string {
   const base = getBaseUrl()
-  return language === 'en' ? `${base}/llms.txt` : `${base}/llms-pt.txt`
+  return language === 'en' ? `${base}/llms-full.txt` : `${base}/llms-pt.txt`
 }
 
 /**
@@ -39,9 +39,9 @@ export function getMarkdownUrl(language: 'en' | 'pt-br'): string {
  */
 const PROMPTS = {
   en: (url: string) =>
-    `Read this portfolio page and be ready to answer questions about Caio Ogata's professional experience, skills, and career: ${url}`,
+    `Read this full professional profile and be ready to answer questions about Caio Ogata's career, skills, projects, and background: ${url}`,
   'pt-br': (url: string) =>
-    `Leia esta página do portfólio e esteja pronto para responder perguntas sobre a experiência profissional, habilidades e carreira de Caio Ogata: ${url}`,
+    `Leia este perfil profissional completo e esteja pronto para responder perguntas sobre a carreira, habilidades, projetos e histórico de Caio Ogata: ${url}`,
 }
 
 /**
@@ -66,16 +66,6 @@ export const AI_PLATFORMS: AIPlatform[] = [
     buildUrl: (markdownUrl, language) => {
       const prompt = PROMPTS[language](markdownUrl)
       return `https://claude.ai/new?q=${encodeURIComponent(prompt)}`
-    },
-  },
-  {
-    id: 'perplexity',
-    name: 'Perplexity',
-    icon: '?',
-    canFetchUrls: true,
-    buildUrl: (markdownUrl, language) => {
-      const prompt = PROMPTS[language](markdownUrl)
-      return `https://www.perplexity.ai/search?q=${encodeURIComponent(prompt)}`
     },
   },
   {

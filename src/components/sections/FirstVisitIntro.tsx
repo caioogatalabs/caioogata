@@ -49,7 +49,7 @@ function useTypewriter(fullText: string, enabled = true) {
 }
 
 export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
-  const { content, language } = useLanguage()
+  const { content, language, setLanguage } = useLanguage()
   const version = `${packageJson.version}.${COMMIT_COUNT}`
 
   const headerTagline = useTypewriter(content.footer.tagline)
@@ -192,13 +192,33 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
 
   return (
     <div className="relative animate-fade-in">
-      {/* Header: alinhado ao box, estilo P 16px */}
-      <div className="mb-2 flex items-baseline gap-2 min-h-[1.5rem] pl-6">
-        <span className="text-sm font-mono text-primary">
-          {headerTagline.text}
-          {!headerTagline.isComplete && <span className="inline-block w-2 h-4 bg-secondary animate-blink align-middle ml-0.5" aria-hidden />}
-        </span>
-        <span className="text-sm font-mono text-secondary">{headerVersion.text}</span>
+      {/* Header: tagline + version à esquerda; seletor de idiomas à direita */}
+      <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 min-h-[1.5rem] pl-6">
+        <div className="flex items-baseline gap-2">
+          <span className="text-sm font-mono text-primary">
+            {headerTagline.text}
+            {!headerTagline.isComplete && <span className="inline-block w-2 h-4 bg-secondary animate-blink align-middle ml-0.5" aria-hidden />}
+          </span>
+          <span className="text-sm font-mono text-secondary">{headerVersion.text}</span>
+        </div>
+        <div className="flex items-center gap-3" role="group" aria-label="Language selection">
+          <button
+            onClick={() => setLanguage('en')}
+            className="font-mono text-sm transition-colors focus:outline-none text-neutral-300 hover:text-primary"
+            aria-pressed={language === 'en'}
+            aria-label="Switch to English"
+          >
+            {language === 'en' && <span className="mr-1">&gt;</span>}EN
+          </button>
+          <button
+            onClick={() => setLanguage('pt-br')}
+            className="font-mono text-sm transition-colors focus:outline-none text-neutral-300 hover:text-primary"
+            aria-pressed={language === 'pt-br'}
+            aria-label="Mudar para Portugues"
+          >
+            {language === 'pt-br' && <span className="mr-1">&gt;</span>}PT
+          </button>
+        </div>
       </div>
 
       {/* Box: logo (fixo) | Design Director 60% | Built for humans 40% — mesma linha */}
@@ -246,7 +266,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
                 }}
                 onFocus={() => setSelectedIndex(0)}
                 onMouseEnter={() => setSelectedIndex(0)}
-                className={`w-full text-left py-0.5 font-mono text-sm transition-all focus:outline-none focus:ring-0 grid grid-cols-[1rem_1fr] md:grid-cols-[1rem_180px_100px_1fr] items-center gap-0 lowercase ${
+                className={`w-full text-left py-0.5 font-mono text-sm transition-all focus:outline-none focus:ring-0 grid grid-cols-[1rem_1fr] md:grid-cols-[1rem_180px_100px_1fr] items-center gap-0 ${
                   selectedIndex === 0 && !subExpanded
                     ? 'text-primary opacity-100'
                     : 'text-secondary hover:text-primary opacity-60 hover:opacity-100'
@@ -317,7 +337,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
                 onClick={() => onContinue()}
                 onFocus={() => setSelectedIndex(1)}
                 onMouseEnter={() => setSelectedIndex(1)}
-                className={`w-full text-left py-0.5 font-mono text-sm transition-all focus:outline-none focus:ring-0 grid grid-cols-[1rem_1fr] md:grid-cols-[1rem_180px_100px_1fr] items-center gap-0 lowercase ${
+                className={`w-full text-left py-0.5 font-mono text-sm transition-all focus:outline-none focus:ring-0 grid grid-cols-[1rem_1fr] md:grid-cols-[1rem_180px_100px_1fr] items-center gap-0 ${
                   selectedIndex === 1 ? 'text-primary opacity-100' : 'text-secondary hover:text-primary opacity-60 hover:opacity-100'
                 }`}
                 aria-current={selectedIndex === 1 ? 'true' : undefined}

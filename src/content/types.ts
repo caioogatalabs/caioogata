@@ -150,6 +150,22 @@ export interface LookingForItem {
   text: string
 }
 
+export interface WorkingStyleTrait {
+  label: string
+  description: string
+}
+
+export interface WorkingStyleSection {
+  heading: string
+  traits: WorkingStyleTrait[]
+}
+
+export interface CollaborationContextSection {
+  heading: string
+  description: string
+  contexts: string[]
+}
+
 export interface Content {
   menu: Menu
   hero: {
@@ -216,6 +232,8 @@ export interface Content {
     idealRole: LookingForItem[]
     focusAreas: string
   }
+  workingStyle?: WorkingStyleSection
+  collaborationContext?: CollaborationContextSection
   contact: {
     command: string
     heading: string

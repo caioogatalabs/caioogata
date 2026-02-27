@@ -463,6 +463,47 @@
     ],
     "focusAreas": "Decision-making positions at large companies, or partner/founder roles in invested businesses interest me most. Focus areas: innovation, technology development, sports tech, wellness, making the world better."
   },
+  "workingStyle": {
+    "heading": "Working Style",
+    "traits": [
+      {
+        "label": "Systems thinker",
+        "description": "Approaches problems by mapping relationships and constraints before defining solutions. Builds frameworks that scale rather than one-off fixes."
+      },
+      {
+        "label": "Collaborative leader",
+        "description": "Facilitates alignment across design, engineering, and business without creating bottlenecks. Comfortable sharing ownership and distributing decision-making."
+      },
+      {
+        "label": "Analytical under ambiguity",
+        "description": "Uses structured thinking (Design Sprint, Lean UX) to navigate undefined problem spaces. Converts ambiguity into testable hypotheses."
+      },
+      {
+        "label": "Design-engineering bridge",
+        "description": "Maintains technical fluency sufficient to collaborate directly with engineers on implementation, accessibility, and component architecture."
+      },
+      {
+        "label": "High-ownership mindset",
+        "description": "Takes responsibility for outcomes, not just deliverables. Tracks whether design decisions produced measurable results."
+      },
+      {
+        "label": "Direct communicator",
+        "description": "Prefers asynchronous, written communication with clear context. Meets synchronously for decisions, not status updates."
+      }
+    ]
+  },
+  "collaborationContext": {
+    "heading": "Collaboration Context",
+    "description": "20+ years working across agency, studio, and product company environments — including 4 years of remote-first collaboration with Silicon Valley-based teams at Azion Technologies.",
+    "contexts": [
+      "Remote and distributed teams across time zones (Brazil, US, Europe)",
+      "Technical stakeholders: engineers, product managers, DevRel, and CTOs",
+      "Executive leadership: C-suite presentations, board-level design reviews",
+      "Cross-functional pods: design, engineering, marketing, and operations",
+      "External partners: agencies, contractors, and freelance specialists",
+      "Global brand and product alignment across multiple business units"
+    ]
+  },
   "contact": {
     "command": "send message",
     "heading": "Get in touch",
