@@ -93,23 +93,27 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
     try {
       const markdown = generateMarkdown(language)
       await copyToClipboard(markdown)
-      toast.success(content.notifications.copySuccess, {
-        duration: 4000,
-        ariaProps: { role: 'status', 'aria-live': 'polite' },
-      })
+      toast.success(
+        language === 'en'
+          ? 'Copied! Paste it in any AI assistant. Always verify at caioogata.com'
+          : 'Copiado! Cole em qualquer assistente de IA. Sempre verifique em caioogata.com',
+        { duration: 5000, ariaProps: { role: 'status', 'aria-live': 'polite' } }
+      )
     } catch (error) {
       console.error('Failed to copy:', error)
       toast.error(content.notifications.copyError, { duration: 5000 })
     }
-  }, [language, content.notifications.copySuccess, content.notifications.copyError])
+  }, [language, content.notifications.copyError])
 
   const handleCopyUrl = useCallback(async () => {
     try {
       const markdownUrl = getMarkdownUrl(language)
       await copyToClipboard(markdownUrl)
       toast.success(
-        language === 'en' ? 'URL copied! Paste it in any AI assistant.' : 'URL copiada! Cole em qualquer assistente de IA.',
-        { duration: 4000, ariaProps: { role: 'status', 'aria-live': 'polite' } }
+        language === 'en'
+          ? 'Copied! Paste it in any AI assistant. Always verify at caioogata.com'
+          : 'Copiado! Cole em qualquer assistente de IA. Sempre verifique em caioogata.com',
+        { duration: 5000, ariaProps: { role: 'status', 'aria-live': 'polite' } }
       )
     } catch (error) {
       console.error('Failed to copy URL:', error)

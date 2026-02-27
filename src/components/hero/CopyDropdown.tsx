@@ -47,13 +47,18 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
       const markdown = generateMarkdown(language)
       await copyToClipboard(markdown)
 
-      toast.success(content.notifications.copySuccess, {
-        duration: 4000,
-        ariaProps: {
-          role: 'status',
-          'aria-live': 'polite',
-        },
-      })
+      toast.success(
+        language === 'en'
+          ? 'Copied! Paste it in any AI assistant. Always verify at caioogata.com'
+          : 'Copiado! Cole em qualquer assistente de IA. Sempre verifique em caioogata.com',
+        {
+          duration: 5000,
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        }
+      )
     } catch (error) {
       console.error('Failed to copy:', error)
       toast.error(content.notifications.copyError, {
@@ -78,8 +83,8 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
       window.open(platform.buildUrl('', language), '_blank', 'noopener,noreferrer')
       toast(
         language === 'en'
-          ? `Prompt copied! Paste it in ${platform.name} to start.`
-          : `Prompt copiado! Cole no ${platform.name} para começar.`,
+          ? `Prompt copied! Paste it in ${platform.name} to start. Always verify at caioogata.com`
+          : `Prompt copiado! Cole no ${platform.name} para começar. Sempre verifique em caioogata.com`,
         {
           duration: 5000,
           icon: 'ℹ️',
