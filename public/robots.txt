@@ -1,4 +1,30 @@
 User-agent: *
 Allow: /
 
+# LLM-optimized content available at:
+# https://www.caioogata.com/llms.txt (index)
+# https://www.caioogata.com/llms-full.txt (full profile, canonical)
+
+# Explicitly allow LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 Sitemap: https://www.caioogata.com/sitemap.xml

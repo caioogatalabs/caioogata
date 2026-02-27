@@ -68,6 +68,47 @@ export const metadata: Metadata = {
   },
 }
 
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Caio Ogata',
+  jobTitle: 'Design Director',
+  url: 'https://www.caioogata.com',
+  image: 'https://www.caioogata.com/caio-ogata-profile.webp',
+  email: 'caioogata.labs@gmail.com',
+  birthDate: '1984-06',
+  nationality: 'Brazilian',
+  homeLocation: {
+    '@type': 'Place',
+    name: 'Porto Alegre, RS, Brazil',
+  },
+  sameAs: [
+    'https://www.linkedin.com/in/caioogata/',
+    'https://github.com/caioogatalabs',
+    'https://www.instagram.com/caioogata.labs',
+    'https://www.youtube.com/@caioogatalabs',
+    'https://www.azion.design',
+  ],
+  knowsAbout: [
+    'Design Systems',
+    'Developer Experience',
+    'Product Design',
+    'UI/UX Design',
+    'Brand Experience',
+    'Design Leadership',
+    'Design Operations',
+    'Edge Computing',
+    'Product-Led Growth',
+  ],
+  description:
+    'Design Director with 20+ years in Art Direction and 15+ years focused on UI/UX and product design. Led design at Azion Technologies (2021–2025), building a 14-person organization and two complete design systems.',
+  subjectOf: {
+    '@type': 'WebPage',
+    name: 'LLM-optimized portfolio (machine-readable)',
+    url: 'https://www.caioogata.com/llms-full.txt',
+  },
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -76,6 +117,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-mono bg-neutral text-neutral-200 antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <LanguageProvider>
           <NavigationProvider>
             {children}
