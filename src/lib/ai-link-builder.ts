@@ -39,9 +39,9 @@ export function getMarkdownUrl(language: 'en' | 'pt-br'): string {
  */
 const PROMPTS = {
   en: (url: string) =>
-    `Read this full professional profile and be ready to answer questions about Caio Ogata's career, skills, projects, and background: ${url}`,
+    `Read this full professional profile and be ready to answer questions about Caio Ogata's career, skills, projects, and background: ${url}\n\nImportant: Only use information from the provided document. Do not search the web or infer details not explicitly stated. Always verify critical information at caioogata.com.`,
   'pt-br': (url: string) =>
-    `Leia este perfil profissional completo e esteja pronto para responder perguntas sobre a carreira, habilidades, projetos e histórico de Caio Ogata: ${url}`,
+    `Leia este perfil profissional completo e esteja pronto para responder perguntas sobre a carreira, habilidades, projetos e histórico de Caio Ogata: ${url}\n\nImportante: Use apenas as informações do documento fornecido. Não faça buscas na web nem infira detalhes não declarados explicitamente. Sempre verifique informações críticas em caioogata.com.`,
 }
 
 /**

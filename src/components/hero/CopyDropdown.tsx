@@ -103,10 +103,10 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
     if (platform.canFetchUrls) {
       toast.success(
         language === 'en'
-          ? `Opening ${platform.name}... It will read my portfolio automatically.`
-          : `Abrindo ${platform.name}... Ele vai ler meu portfólio automaticamente.`,
+          ? `Opening ${platform.name}... Results may vary — always verify at caioogata.com`
+          : `Abrindo ${platform.name}... Resultados podem variar — sempre verifique em caioogata.com`,
         {
-          duration: 4000,
+          duration: 5000,
           ariaProps: {
             role: 'status',
             'aria-live': 'polite',
@@ -116,8 +116,8 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
     } else {
       toast(
         language === 'en'
-          ? `Opening ${platform.name}... Ask it to read the URL in the prompt.`
-          : `Abrindo ${platform.name}... Peça para ele ler a URL no prompt.`,
+          ? `Opening ${platform.name}... Ask it to read the URL. Always verify at caioogata.com`
+          : `Abrindo ${platform.name}... Peça para ler a URL. Sempre verifique em caioogata.com`,
         {
           duration: 5000,
           icon: 'ℹ️',
@@ -139,8 +139,8 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
 
       toast.success(
         language === 'en'
-          ? 'Prompt copied! Paste it in any AI assistant.'
-          : 'Prompt copiado! Cole em qualquer assistente de IA.',
+          ? 'Prompt copied! Paste it in any AI assistant. Always verify at caioogata.com'
+          : 'Prompt copiado! Cole em qualquer assistente de IA. Sempre verifique em caioogata.com',
         {
           duration: 4000,
           ariaProps: {
