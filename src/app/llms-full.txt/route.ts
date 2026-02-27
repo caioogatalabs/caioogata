@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
-import { generateLLMSIndex } from '@/lib/markdown-generator'
+import { generateMarkdown } from '@/lib/markdown-generator'
 
 export const dynamic = 'force-static'
 
 export async function GET() {
-  const markdown = generateLLMSIndex()
+  const markdown = generateMarkdown('en')
 
   return new NextResponse(markdown, {
     status: 200,
