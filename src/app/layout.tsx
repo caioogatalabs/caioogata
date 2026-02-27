@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next'
-import { Toaster } from 'react-hot-toast'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { LanguageProvider } from '@/components/providers/LanguageProvider'
 import { NavigationProvider } from '@/components/providers/NavigationProvider'
+import { ToastProvider } from '@/components/providers/ToastProvider'
 import '@fontsource/cascadia-mono/400.css'
 import '@fontsource/cascadia-mono/700.css'
 import './globals.css'
@@ -123,33 +123,9 @@ export default function RootLayout({
         />
         <LanguageProvider>
           <NavigationProvider>
-            {children}
-            <Toaster
-            position="top-center"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: 'var(--bg-neutral)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--color-neutral-teal)',
-                borderRadius: '0.25rem',
-                fontFamily: '"Cascadia Mono", monospace',
-                fontSize: '0.875rem',
-              },
-              success: {
-                iconTheme: {
-                  primary: 'var(--color-primary)',
-                  secondary: 'var(--bg-neutral)',
-                },
-              },
-              error: {
-                iconTheme: {
-                  primary: '#BC5F04',
-                  secondary: 'var(--bg-neutral)',
-                },
-              },
-            }}
-            />
+            <ToastProvider>
+              {children}
+            </ToastProvider>
           </NavigationProvider>
         </LanguageProvider>
         <Analytics />

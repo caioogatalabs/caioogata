@@ -8,6 +8,7 @@ import IntroCompact from '@/components/sections/IntroCompact'
 import FirstVisitIntro from '@/components/sections/FirstVisitIntro'
 import CLIMenu from '@/components/navigation/CLIMenu'
 import NavigationBar from '@/components/navigation/NavigationBar'
+import InlineToast from '@/components/ui/InlineToast'
 import Projects from '@/components/sections/Projects'
 import About from '@/components/sections/About'
 import Experience from '@/components/sections/Experience'
@@ -63,7 +64,10 @@ export default function MainContent() {
       <div className="animate-fade-in">
         {/* Compact Intro */}
         <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 pt-8 md:pt-12 pb-6 w-full">
-          <IntroCompact />
+          <div className="relative">
+            <InlineToast />
+            <IntroCompact />
+          </div>
         </div>
 
         {/* Section Content */}

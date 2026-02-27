@@ -1,14 +1,15 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { toast } from 'react-hot-toast'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { PixelRevealLogo } from '@/components/ui/PixelRevealLogo'
 import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
+import InlineToast from '@/components/ui/InlineToast'
 import { LOGO_PATHS } from '@/lib/logo-paths'
 import { copyToClipboard } from '@/lib/clipboard'
 import { generateMarkdown } from '@/lib/markdown-generator'
 import { AI_PLATFORMS, getMarkdownUrl, type AIPlatform } from '@/lib/ai-link-builder'
+import { useToast } from '@/components/providers/ToastProvider'
 import packageJson from '../../../package.json'
 import { COMMIT_COUNT } from '@/lib/build-info'
 
@@ -50,6 +51,7 @@ function useTypewriter(fullText: string, enabled = true) {
 
 export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
   const { content, language, setLanguage } = useLanguage()
+  const toast = useToast()
   const version = `${packageJson.version}.${COMMIT_COUNT}`
 
   const headerTagline = useTypewriter(content.footer.tagline)
@@ -75,18 +77,18 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
           language === 'en'
             ? `Opening ${platform.name}... Results may vary — always verify at caioogata.com`
             : `Abrindo ${platform.name}... Resultados podem variar — sempre verifique em caioogata.com`,
-          { duration: 5000, ariaProps: { role: 'status', 'aria-live': 'polite' } }
+          { duration: 5000 }
         )
       } else {
-        toast(
+        toast.info(
           language === 'en'
             ? `Opening ${platform.name}... Ask it to read the URL. Always verify at caioogata.com`
             : `Abrindo ${platform.name}... Peça para ler a URL. Sempre verifique em caioogata.com`,
-          { duration: 5000, icon: 'ℹ️', ariaProps: { role: 'status', 'aria-live': 'polite' } }
+          { duration: 5000 }
         )
       }
     },
-    [language]
+    [language, toast]
   )
 
   const handleCopyMarkdown = useCallback(async () => {
@@ -97,13 +99,13 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
         language === 'en'
           ? 'Copied! Paste it in any AI assistant. Always verify at caioogata.com'
           : 'Copiado! Cole em qualquer assistente de IA. Sempre verifique em caioogata.com',
-        { duration: 5000, ariaProps: { role: 'status', 'aria-live': 'polite' } }
+        { duration: 5000 }
       )
     } catch (error) {
       console.error('Failed to copy:', error)
       toast.error(content.notifications.copyError, { duration: 5000 })
     }
-  }, [language, content.notifications.copyError])
+  }, [language, content.notifications.copyError, toast])
 
   const handleCopyUrl = useCallback(async () => {
     try {
@@ -113,13 +115,13 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
         language === 'en'
           ? 'Copied! Paste it in any AI assistant. Always verify at caioogata.com'
           : 'Copiado! Cole em qualquer assistente de IA. Sempre verifique em caioogata.com',
-        { duration: 5000, ariaProps: { role: 'status', 'aria-live': 'polite' } }
+        { duration: 5000 }
       )
     } catch (error) {
       console.error('Failed to copy URL:', error)
       toast.error(content.notifications.copyError, { duration: 5000 })
     }
-  }, [language, content.notifications.copyError])
+  }, [language, content.notifications.copyError, toast])
 
   const runSubItemAction = useCallback(
     (sub: SubItemType) => {
@@ -196,6 +198,8 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
 
   return (
     <div className="relative animate-fade-in">
+      <InlineToast />
+
       {/* Header: tagline + version à esquerda; seletor de idiomas à direita */}
       <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 min-h-[1.5rem] pl-6">
         <div className="flex items-baseline gap-2">

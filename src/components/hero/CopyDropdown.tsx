@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { toast } from 'react-hot-toast'
 import { clsx } from 'clsx'
 import { copyToClipboard } from '@/lib/clipboard'
 import { generateMarkdown } from '@/lib/markdown-generator'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { AI_PLATFORMS, getMarkdownUrl, buildPromptText, type AIPlatform } from '@/lib/ai-link-builder'
+import { useToast } from '@/components/providers/ToastProvider'
 
 interface CopyDropdownProps {
   variant?: 'primary' | 'secondary' | 'inverted' | 'filled'
@@ -20,6 +20,7 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
   const [isCopying, setIsCopying] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const { content, language } = useLanguage()
+  const toast = useToast()
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -51,19 +52,11 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
         language === 'en'
           ? 'Copied! Paste it in any AI assistant. Always verify at caioogata.com'
           : 'Copiado! Cole em qualquer assistente de IA. Sempre verifique em caioogata.com',
-        {
-          duration: 5000,
-          ariaProps: {
-            role: 'status',
-            'aria-live': 'polite',
-          },
-        }
+        { duration: 5000 }
       )
     } catch (error) {
       console.error('Failed to copy:', error)
-      toast.error(content.notifications.copyError, {
-        duration: 5000,
-      })
+      toast.error(content.notifications.copyError, { duration: 5000 })
     } finally {
       setIsCopying(false)
     }
@@ -81,18 +74,11 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
         // Silently continue even if clipboard fails
       }
       window.open(platform.buildUrl('', language), '_blank', 'noopener,noreferrer')
-      toast(
+      toast.info(
         language === 'en'
           ? `Prompt copied! Paste it in ${platform.name} to start. Always verify at caioogata.com`
           : `Prompt copiado! Cole no ${platform.name} para começar. Sempre verifique em caioogata.com`,
-        {
-          duration: 5000,
-          icon: 'ℹ️',
-          ariaProps: {
-            role: 'status',
-            'aria-live': 'polite',
-          },
-        }
+        { duration: 5000 }
       )
       return
     }
@@ -110,27 +96,14 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
         language === 'en'
           ? `Opening ${platform.name}... Results may vary — always verify at caioogata.com`
           : `Abrindo ${platform.name}... Resultados podem variar — sempre verifique em caioogata.com`,
-        {
-          duration: 5000,
-          ariaProps: {
-            role: 'status',
-            'aria-live': 'polite',
-          },
-        }
+        { duration: 5000 }
       )
     } else {
-      toast(
+      toast.info(
         language === 'en'
           ? `Opening ${platform.name}... Ask it to read the URL. Always verify at caioogata.com`
           : `Abrindo ${platform.name}... Peça para ler a URL. Sempre verifique em caioogata.com`,
-        {
-          duration: 5000,
-          icon: 'ℹ️',
-          ariaProps: {
-            role: 'status',
-            'aria-live': 'polite',
-          },
-        }
+        { duration: 5000 }
       )
     }
   }
@@ -146,19 +119,11 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
         language === 'en'
           ? 'Prompt copied! Paste it in any AI assistant. Always verify at caioogata.com'
           : 'Prompt copiado! Cole em qualquer assistente de IA. Sempre verifique em caioogata.com',
-        {
-          duration: 4000,
-          ariaProps: {
-            role: 'status',
-            'aria-live': 'polite',
-          },
-        }
+        { duration: 4000 }
       )
     } catch (error) {
       console.error('Failed to copy prompt:', error)
-      toast.error(content.notifications.copyError, {
-        duration: 5000,
-      })
+      toast.error(content.notifications.copyError, { duration: 5000 })
     }
   }
 

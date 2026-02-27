@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { toast } from 'react-hot-toast'
 import { clsx } from 'clsx'
 import { copyToClipboard } from '@/lib/clipboard'
 import { generateMarkdown } from '@/lib/markdown-generator'
 import { useLanguage } from '@/components/providers/LanguageProvider'
+import { useToast } from '@/components/providers/ToastProvider'
 
 interface CopyButtonProps {
   variant?: 'primary' | 'secondary'
@@ -13,13 +13,14 @@ interface CopyButtonProps {
   className?: string
 }
 
-export default function CopyButton({ 
-  variant = 'primary', 
+export default function CopyButton({
+  variant = 'primary',
   size = 'default',
-  className = '' 
+  className = ''
 }: CopyButtonProps) {
   const [isCopying, setIsCopying] = useState(false)
   const { content, language } = useLanguage()
+  const toast = useToast()
 
   const handleCopy = async () => {
     if (isCopying) return
@@ -30,18 +31,10 @@ export default function CopyButton({
       const markdown = generateMarkdown(language)
       await copyToClipboard(markdown)
 
-      toast.success(content.notifications.copySuccess, {
-        duration: 4000,
-        ariaProps: {
-          role: 'status',
-          'aria-live': 'polite',
-        },
-      })
+      toast.success(content.notifications.copySuccess, { duration: 4000 })
     } catch (error) {
       console.error('Failed to copy:', error)
-      toast.error(content.notifications.copyError, {
-        duration: 5000,
-      })
+      toast.error(content.notifications.copyError, { duration: 5000 })
     } finally {
       setIsCopying(false)
     }

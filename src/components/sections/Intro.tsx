@@ -4,6 +4,7 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
 import CopyDropdown from '@/components/hero/CopyDropdown'
 import { PixelRevealLogo } from '@/components/ui/PixelRevealLogo'
 import { LOGO_PATHS } from '@/lib/logo-paths'
+import InlineToast from '@/components/ui/InlineToast'
 import packageJson from '../../../package.json'
 import { COMMIT_COUNT } from '@/lib/build-info'
 
@@ -13,6 +14,8 @@ export default function Intro() {
 
   return (
     <div className="relative">
+      <InlineToast />
+
       {/* Welcome + version à esquerda; seletor de idiomas à direita */}
       <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 min-h-[1.5rem] px-6">
         <div className="flex items-baseline gap-2">
