@@ -40,9 +40,9 @@
   "hero": {
     "name": "Caio Ogata",
     "welcomeTitle": "Welcome to Caio Ogata Portfolio",
-    "tagline": "Design Director specializing in design systems, brand experience, and developer-focused products",
-    "summary": "I lead design teams at the intersection of brand strategy and technical implementation. Twenty years in Art Direction—fifteen focused on UI—building digital experiences for brands like Petrobras, O Boticario, and Azion taught me that great design bridges business goals with user needs—and that the best solutions come from questioning assumptions and iterating fearlessly.",
-    "location": "Based in Porto Alegre, Brazil | 20+ years in Art Direction, 15 in UI design | Open to remote & hybrid opportunities",
+    "tagline": "Design Director · Design Systems & Developer Experience · Design Engineering",
+    "summary": "I design and build at the intersection of design systems, developer experience, and product engineering — with end-to-end ownership from concept to production. Fifteen years in UI, four years as Developer Experience Director at a global edge platform, and an open-source console used by enterprises across three countries taught me that engineering rigor and design craft aren't opposites. The best products happen when those two disciplines stop talking past each other.",
+    "location": "Based in Porto Alegre, Brazil | Open to remote, hybrid & relocation opportunities",
     "cta": {
       "copy": "Share with AI",
       "copying": "Copying...",
@@ -53,14 +53,14 @@
   "about": {
     "command": "whoami",
     "heading": "About",
-    "bio": "I'm a Design Director based in Porto Alegre, Brazil, with over 20 years in Art Direction — 15 of those specifically focused on User Interface design. My work lives at the intersection of brand strategy, product thinking, and developer tooling. That's not a common combination, and it's the one I've spent a career building toward.\n\nAt Azion Technologies I held three progressive roles over four years — Design Director, Brand Experience Director, and Developer Experience Director. Across those roles I built the design organization from scratch, established design-thinking culture and discovery practices, created Azion Design, led the company's full rebranding, and eventually took ownership of the entire user-facing engineering layer: Console, CLI, and all developer tools. The most significant project of that period was rebuilding the Azion Console from scratch as an open-source initiative — now live at console.azion.com.\n\nAt Huia, I was part of a full-service creative technology studio that grew to around 40 people before being acquired by Stefanini. The work spanned UX and design leadership, creative technology initiatives, and deliverables for some of Brazil's most demanding clients — fast-moving, broad in scope, and always at the edge of what digital production could do.\n\nThe client list across those years runs from Petrobras, O Boticário, Tramontina, and Sicredi to Mondelez brands like Lacta, Bis, and Toblerone.\n\nWhat drives me is the problem of translation — taking something technically complex and making it legible, useful, and well-crafted for the person using it. Engineering rigor and design craft aren't opposites. The best products I've been part of happened when those two disciplines stopped talking past each other.",
+    "bio": "My work bridges brand strategy, product craft, and technical implementation — designing and building at the intersection of design systems, developer experience, and product engineering, where craft and technical rigor reinforce each other rather than compete.\n\nThe most significant output of that approach is the Azion Console Kit — a complete front-end rebuild of a cloud platform's management interface, now open source and in production at Itaú, Magazine Luiza, and Netshoes. Built on Vue 3, TypeScript, and a headless component architecture, it reduced new screen implementation time from days to hours. That project is the closest thing I have to a statement of method: end-to-end ownership, from design system to shipped production code, with 6,000+ commits and 34+ contributors.\n\nAt Azion Technologies I held three progressive roles over four years — Design Director, Brand Experience Director, and Developer Experience Director. Comfortable operating at both strategic and tactical levels, I built the design organization from scratch, established design-thinking culture and discovery practices, created Azion Design, led the company's full rebranding, and eventually took ownership of the entire user-facing engineering layer: Console, CLI, developer tools, the public website, technical documentation, and marketing landing pages. The system was built around components and templates that gave each vertical team full autonomy to ship — without design becoming a bottleneck.\n\nBefore Azion, I was at Huia — a full-service creative technology studio that grew to around 40 people before being acquired by Stefanini. The work went well beyond conventional digital production: we built with WebGL, facial recognition APIs, motion and animation when video was becoming a primary medium on the web, and LLM-adjacent techniques when those were genuinely experimental. Strong creative direction skills, with the ability to be hands on when needed — the client list ran from Petrobras, O Boticário, Tramontina, and Sicredi to Mondelez brands like Lacta, Bis, and Toblerone.\n\nWhat drives me is the problem of translation — not as a bureaucratic exercise, but as a creative one. Technology is never the starting point and never the barrier. The starting point is always the idea: the desire to transform something into an experience that's memorable, well-crafted, and actually useful. Engineering rigor and design craft aren't opposites. The best products I've been part of happened when both disciplines agreed on that.",
     "expertise": [
       "Design Systems Architecture & Implementation",
-      "Developer Experience (DevEx) & Technical Product Design",
-      "Brand Strategy & Creative Direction",
-      "Design Team Leadership",
+      "Developer Experience (DevEx) & Design Engineering",
+      "End-to-end Product Ownership (concept → production)",
+      "Brand Strategy & Creative Direction — Brand + Product dual experience",
+      "Design Team Leadership & Organizational Design",
       "Cross-functional Collaboration (Design + Engineering)",
-      "PLG (Product-Led Growth) Strategy",
       "UI/UX Design & Interaction Design"
     ]
   },
@@ -198,52 +198,74 @@
       {
         "title": "Design Leadership",
         "skills": [
-          { "name": "UI/UX Design", "level": 95 },
-          { "name": "Design Systems Architecture", "level": 90 },
-          { "name": "Creative Direction", "level": 92 },
-          { "name": "Brand Strategy", "level": 88 },
-          { "name": "Team Leadership", "level": 90 },
-          { "name": "Design Operations", "level": 85 },
-          { "name": "Product Design", "level": 88 },
-          { "name": "Interaction Design", "level": 85 },
-          { "name": "Developer Experience (DevEx)", "level": 82 }
+          { "name": "UI/UX Design", "level": "Expert" },
+          { "name": "Creative Direction", "level": "Expert" },
+          { "name": "Developer Experience (DevEx)", "level": "Expert" },
+          { "name": "Product Design", "level": "Expert" },
+          { "name": "Brand Strategy", "level": "Advanced" },
+          { "name": "Team Leadership", "level": "Expert" },
+          { "name": "Design Operations", "level": "Advanced" },
+          { "name": "Interaction Design", "level": "Advanced" }
         ]
       },
       {
-        "title": "Technical Skills",
+        "title": "Design Systems",
         "skills": [
-          { "name": "Front-end Collaboration", "level": 80 },
-          { "name": "HTML/CSS", "level": 75 },
-          { "name": "JavaScript (intermediate)", "level": 55 },
-          { "name": "Design Tokens", "level": 90 },
-          { "name": "Component Architecture", "level": 85 },
-          { "name": "Git/Version Control", "level": 65 },
-          { "name": "Design-to-Code Workflows", "level": 80 }
+          { "name": "Design Systems Architecture", "level": "Expert" },
+          { "name": "Design Tokens", "level": "Expert" },
+          { "name": "Component Architecture", "level": "Expert" },
+          { "name": "Design-to-Code Workflows", "level": "Expert" },
+          { "name": "Accessibility / WCAG", "level": "Advanced" },
+          { "name": "Atomic Design", "level": "Advanced" },
+          { "name": "Figma Variables & Token Studio", "level": "Advanced" },
+          { "name": "Storybook", "level": "Proficient" }
+        ]
+      },
+      {
+        "title": "Engineering & Code",
+        "skills": [
+          { "name": "TypeScript / JavaScript", "level": "Advanced" },
+          { "name": "HTML / CSS", "level": "Advanced" },
+          { "name": "Semantic HTML", "level": "Advanced" },
+          { "name": "Vue 3", "level": "Advanced" },
+          { "name": "UI Engineering", "level": "Advanced" },
+          { "name": "Vite", "level": "Proficient" },
+          { "name": "Git / Version Control", "level": "Proficient" }
+        ]
+      },
+      {
+        "title": "AI-native Workflows",
+        "skills": [
+          { "name": "Cursor", "level": "Expert" },
+          { "name": "Claude Code", "level": "Expert" },
+          { "name": "LLM collaboration & prototyping", "level": "Advanced" },
+          { "name": "AI-assisted research & analysis", "level": "Advanced" },
+          { "name": "OKR-driven data analysis", "level": "Advanced" },
+          { "name": "AI-assisted prototyping", "level": "Advanced" }
         ]
       },
       {
         "title": "Tools & Platforms",
         "skills": [
-          { "name": "Figma", "level": 95 },
-          { "name": "Adobe Creative Suite", "level": 90 },
-          { "name": "Framer", "level": 75 },
-          { "name": "Cursor", "level": 70 },
-          { "name": "VS Code", "level": 65 },
-          { "name": "Claude AI", "level": 80 },
-          { "name": "Google AI Studio", "level": 60 },
-          { "name": "N8n", "level": 55 }
+          { "name": "Figma", "level": "Expert" },
+          { "name": "Adobe Creative Suite", "level": "Expert" },
+          { "name": "Framer", "level": "Advanced" },
+          { "name": "Google AI Studio", "level": "Advanced" },
+          { "name": "VS Code", "level": "Advanced" },
+          { "name": "Remotion", "level": "Proficient" },
+          { "name": "AI image generation", "level": "Proficient" },
+          { "name": "VEO", "level": "Familiar" },
+          { "name": "N8n", "level": "Proficient" }
         ]
       },
       {
         "title": "Methodologies",
         "skills": [
-          { "name": "Design Thinking", "level": 92 },
-          { "name": "Design Sprint", "level": 88 },
-          { "name": "Agile/Scrum/Kanban", "level": 85 },
-          { "name": "Atomic Design", "level": 90 },
-          { "name": "Product Discovery", "level": 82 },
-          { "name": "UX Research", "level": 78 },
-          { "name": "PLG Strategy", "level": 75 }
+          { "name": "Design Thinking", "level": "Expert" },
+          { "name": "Design Sprint", "level": "Expert" },
+          { "name": "Product Discovery", "level": "Advanced" },
+          { "name": "Agile / Scrum / Kanban", "level": "Advanced" },
+          { "name": "UX Research", "level": "Advanced" }
         ]
       }
     ]
@@ -302,6 +324,37 @@
     },
     "items": [
       {
+        "title": "Azion Console Kit",
+        "slug": "azion-console-kit",
+        "description": "The complete front-end rebuild of the Azion management console — the interface engineers use to deploy, secure, and observe applications at the edge. Built on Vue 3, a custom design system, and a headless architecture that decouples UI from business logic, Console Kit ships features consistently and at the speed a global edge platform demands.",
+        "role": "Developer Experience Director",
+        "technologies": "Vue 3, Vite, PrimeVue, TypeScript, Design Tokens, Component Architecture, Headless UI Pattern, Open Source",
+        "impact": "Open source project with 6,000+ commits, 34+ contributors, and 93+ releases. In production at Magazine Luiza, Itaú, and Netshoes — organizations running real workloads across Azion's global edge network every day. Reduced new screen implementation time to approximately one day through block componentization.",
+        "caseStudyUrl": "/llms/projects/azion-console-kit.txt",
+        "credits": [
+          { "name": "Morgana Johann", "role": "Design Manager", "url": "https://www.linkedin.com/in/morgana-johann/" },
+          { "name": "Gabriel Lisboa", "role": "Product Designer", "url": "https://www.linkedin.com/in/gabriellisboadesign/" },
+          { "name": "Eduardo César", "role": "Product Designer", "url": "https://www.linkedin.com/in/cesaroeduardo/" },
+          { "name": "Edilene Almeida", "role": "Product Designer", "url": "https://www.linkedin.com/in/edilene-almeida/" },
+          { "name": "Carolina Silveira", "role": "Product Designer", "url": "https://www.linkedin.com/in/carolina-dutra-silveira-561340187/" },
+          { "name": "Rafaela Paludo", "role": "Product Designer", "url": "https://www.linkedin.com/in/rafaelapaludo/" },
+          { "name": "Vinicius Ferreira", "role": "Engineering Manager", "url": "https://www.linkedin.com/in/vinicius-gubiani-ferreira/" },
+          { "name": "Herbert Cotta", "role": "Experience Developer", "url": "https://www.linkedin.com/in/herbertcotta/" },
+          { "name": "Robson Jr.", "role": "Experience Developer", "url": "https://www.linkedin.com/in/robsongajunior/" },
+          { "name": "Paulo Sobrinho", "role": "Experience Developer", "url": "https://www.linkedin.com/in/paulo-sobrinho-93b527185/" },
+          { "name": "Isaque Böck", "role": "Experience Developer", "url": "https://www.linkedin.com/in/isaquebock/" },
+          { "name": "Guilherme Santana", "role": "Experience Developer", "url": "https://www.linkedin.com/in/gdsantana/" },
+          { "name": "34+ open source contributors", "url": "https://github.com/aziontech/azion-console-kit/graphs/contributors" }
+        ],
+        "downloads": [
+          { "label": "Live product — console.azion.com", "url": "https://console.azion.com/" },
+          { "label": "GitHub — azion-console-kit", "url": "https://github.com/aziontech/azion-console-kit" }
+        ],
+        "images": [
+          { "type": "video", "platform": "youtube", "videoId": "TneAP_BOegU", "src": "", "title": "Azion Console Kit — Product Overview" }
+        ]
+      },
+      {
         "title": "Azion Brand System",
         "slug": "azion-brand-system",
         "description": "A comprehensive brand identity system designed to position Azion as a bold innovator in edge computing. Led the strategic transformation from tactical design outputs to a unified brand experience across product, marketing, and engineering touchpoints — establishing visual language, voice guidelines, and scalable design principles that express technical excellence through clarity and confidence.",
@@ -348,9 +401,9 @@
       {
         "title": "Huia, Creativity & Innovation",
         "slug": "huia",
-        "description": "Eight years leading creative technology at a digital innovation studio — from specialized production nucleus to full-service partner serving major Brazilian and international brands. Pioneered the integration of emerging technologies (facial recognition, AI, interactive experiences) into commercial digital campaigns while scaling the operation from boutique team to 40-person studio, culminating in acquisition by Stefanini.",
+        "description": "Eight years leading creative technology at a digital innovation studio — from specialized production nucleus to full-service partner serving major Brazilian and international brands. The work went well beyond conventional digital production: we built with WebGL, facial recognition APIs, and LLM-adjacent techniques when those were genuinely experimental. Strong creative direction skills with the ability to be hands on when needed — end-to-end ownership from concept to shipped experience, at the edge of what technology could do for brand and product.",
         "role": "Partner, Head of Creative Technology & Design Director",
-        "technologies": "Adobe Creative Suite, Premiere Pro, After Effects, Cinema 4D, Facial Recognition APIs, Early AI Integration, E-commerce Platforms, UX/UI Design, Video Production, Interactive Campaign Technologies, Agile Creative Methodologies",
+        "technologies": "Adobe Creative Suite, Premiere Pro, After Effects, Cinema 4D, WebGL, Facial Recognition APIs, Early LLM Integration, E-commerce Platforms, UX/UI Design, Video Production, Interactive Campaign Technologies, Agile Creative Methodologies",
         "impact": "Scaled studio from internal agency nucleus to independent 40-person operation leading to Stefanini acquisition. Delivered monthly coupon campaigns for O Boticário that increased franchise store traffic by 30% across Brazil, sustained over 3 years. Led creative direction for 40+ digital projects across major brands including Petrobras, Tramontina, Sicredi, Samsung, and Mondelez.",
         "caseStudyUrl": "/llms/projects/huia.txt",
         "images": [
@@ -365,37 +418,6 @@
           { "src": "/projects/huia/golden-circle.webp", "title": "Golden Circle — Why, How, What" },
           { "src": "/projects/huia/we-unlock-ideas.webp", "title": "We Unlock Ideas" },
           { "src": "/projects/huia/team-portraits.webp", "title": "The Huia Team" }
-        ]
-      },
-      {
-        "title": "Azion Console Kit",
-        "slug": "azion-console-kit",
-        "description": "The complete front-end rebuild of the Azion management console — the interface engineers use to deploy, secure, and observe applications at the edge. Built on Vue 3, a custom design system, and a headless architecture that decouples UI from business logic, Console Kit ships features consistently and at the speed a global edge platform demands.",
-        "role": "Developer Experience Director",
-        "technologies": "Vue 3, Vite, PrimeVue, TypeScript, Design Tokens, Component Architecture, Headless UI Pattern, Open Source",
-        "impact": "Open source project with 6,000+ commits, 34+ contributors, and 93+ releases. In production at Magazine Luiza, Itaú, and Netshoes — organizations running real workloads across Azion's global edge network every day. Reduced new screen implementation time to approximately one day through block componentization.",
-        "caseStudyUrl": "/llms/projects/azion-console-kit.txt",
-        "credits": [
-          { "name": "Morgana Johann", "role": "Design Manager", "url": "https://www.linkedin.com/in/morgana-johann/" },
-          { "name": "Gabriel Lisboa", "role": "Product Designer", "url": "https://www.linkedin.com/in/gabriellisboadesign/" },
-          { "name": "Eduardo César", "role": "Product Designer", "url": "https://www.linkedin.com/in/cesaroeduardo/" },
-          { "name": "Edilene Almeida", "role": "Product Designer", "url": "https://www.linkedin.com/in/edilene-almeida/" },
-          { "name": "Carolina Silveira", "role": "Product Designer", "url": "https://www.linkedin.com/in/carolina-dutra-silveira-561340187/" },
-          { "name": "Rafaela Paludo", "role": "Product Designer", "url": "https://www.linkedin.com/in/rafaelapaludo/" },
-          { "name": "Vinicius Ferreira", "role": "Engineering Manager", "url": "https://www.linkedin.com/in/vinicius-gubiani-ferreira/" },
-          { "name": "Herbert Cotta", "role": "Experience Developer", "url": "https://www.linkedin.com/in/herbertcotta/" },
-          { "name": "Robson Jr.", "role": "Experience Developer", "url": "https://www.linkedin.com/in/robsongajunior/" },
-          { "name": "Paulo Sobrinho", "role": "Experience Developer", "url": "https://www.linkedin.com/in/paulo-sobrinho-93b527185/" },
-          { "name": "Isaque Böck", "role": "Experience Developer", "url": "https://www.linkedin.com/in/isaquebock/" },
-          { "name": "Guilherme Santana", "role": "Experience Developer", "url": "https://www.linkedin.com/in/gdsantana/" },
-          { "name": "34+ open source contributors", "url": "https://github.com/aziontech/azion-console-kit/graphs/contributors" }
-        ],
-        "downloads": [
-          { "label": "Live product — console.azion.com", "url": "https://console.azion.com/" },
-          { "label": "GitHub — azion-console-kit", "url": "https://github.com/aziontech/azion-console-kit" }
-        ],
-        "images": [
-          { "type": "video", "platform": "youtube", "videoId": "TneAP_BOegU", "src": "", "title": "Azion Console Kit — Product Overview" }
         ]
       },
       {
@@ -570,10 +592,10 @@
   "footer": {
     "copyright": "2026 Caio Ogata. All rights reserved.",
     "tagline": "Welcome to Caio Ogata Portfolio",
-    "tech": "Powered by Next.js, Tailwind CSS, and a lot of iteration.",
-    "poweredByPrefix": "Powered by Next.js, ",
+    "tech": "Built with Next.js, Tailwind CSS, Cursor, and Claude Code.",
+    "poweredByPrefix": "Built with Next.js, ",
     "poweredByTailwindLabel": "Tailwind CSS",
-    "poweredBySuffix": ", and a lot of iteration."
+    "poweredBySuffix": ", Cursor, and Claude Code."
   },
   "notifications": {
     "copySuccess": "Content copied! Ready to paste into your AI assistant.",

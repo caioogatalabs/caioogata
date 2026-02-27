@@ -3,6 +3,13 @@
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import SectionHeading from '@/components/ui/SectionHeading'
 
+const LEVEL_WIDTH: Record<string, number> = {
+  Expert: 85,
+  Advanced: 65,
+  Proficient: 45,
+  Familiar: 25,
+}
+
 export default function Skills() {
   const { content } = useLanguage()
 
@@ -19,51 +26,54 @@ export default function Skills() {
               {category.title}
             </h3>
             <div className="flex flex-col">
-              {category.skills.map((skill, skillIndex) => (
-                <div
-                  key={skillIndex}
-                  className="relative border border-dotted border-secondary/30 -mt-px
-                             first:rounded-t-base last:rounded-b-base
-                             overflow-hidden"
-                >
+              {category.skills.map((skill, skillIndex) => {
+                const barWidth = LEVEL_WIDTH[skill.level] ?? 50
+                return (
                   <div
-                    className="absolute inset-0
-                               animate-[bar-fill_0.6s_ease-out_both]"
-                    style={{
-                      width: `${skill.level}%`,
-                      animationDelay: `${catIndex * 100 + skillIndex * 50}ms`,
-                    }}
+                    key={skillIndex}
+                    className="relative border border-dotted border-secondary/30 -mt-px
+                               first:rounded-t-base last:rounded-b-base
+                               overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-neutral-700" />
                     <div
-                      className="absolute inset-y-0 right-0 w-8"
+                      className="absolute inset-0
+                                 animate-[bar-fill_0.6s_ease-out_both]"
                       style={{
-                        background: `
-                          linear-gradient(to right, transparent 50%, var(--bg-neutral)),
-                          repeating-conic-gradient(var(--bg-neutral) 0% 25%, transparent 0% 50%) 0 0 / 4px 4px
-                        `,
-                        WebkitMaskImage: 'linear-gradient(to right, transparent, black)',
-                        maskImage: 'linear-gradient(to right, transparent, black)',
-                      }}
-                    />
-                  </div>
-                  <div className="relative flex justify-between items-center
-                                  px-2 py-1">
-                    <span className="text-sm font-mono text-neutral-300">
-                      {skill.name}
-                    </span>
-                    <span
-                      className="text-sm font-mono text-neutral-300
-                                 animate-[fade-in_0.4s_ease-out_both]"
-                      style={{
-                        animationDelay: `${catIndex * 100 + skillIndex * 50 + 300}ms`,
+                        width: `${barWidth}%`,
+                        animationDelay: `${catIndex * 100 + skillIndex * 50}ms`,
                       }}
                     >
-                      {skill.level}%
-                    </span>
+                      <div className="absolute inset-0 bg-neutral-700" />
+                      <div
+                        className="absolute inset-y-0 right-0 w-8"
+                        style={{
+                          background: `
+                            linear-gradient(to right, transparent 50%, var(--bg-neutral)),
+                            repeating-conic-gradient(var(--bg-neutral) 0% 25%, transparent 0% 50%) 0 0 / 4px 4px
+                          `,
+                          WebkitMaskImage: 'linear-gradient(to right, transparent, black)',
+                          maskImage: 'linear-gradient(to right, transparent, black)',
+                        }}
+                      />
+                    </div>
+                    <div className="relative flex justify-between items-center
+                                    px-2 py-1">
+                      <span className="text-sm font-mono text-neutral-300">
+                        {skill.name}
+                      </span>
+                      <span
+                        className="text-xs font-mono text-neutral-500
+                                   animate-[fade-in_0.4s_ease-out_both]"
+                        style={{
+                          animationDelay: `${catIndex * 100 + skillIndex * 50 + 300}ms`,
+                        }}
+                      >
+                        {skill.level}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         ))}
