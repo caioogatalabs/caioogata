@@ -1,5 +1,30 @@
 # LLM Content Strategy — Patterns & Definitions
 
+## Contexto para Novas Conversas
+
+**O que é este projeto:** Portfólio pessoal de Caio Ogata (`caioogata.com`) — Design Director, Porto Alegre, Brasil. Stack: Next.js 15 (App Router) + React 19 + Tailwind CSS + pnpm.
+
+**O que foi implementado nesta estratégia:**
+- `/llms.txt` — índice leve seguindo a spec do llmstxt.org (H1 + blockquote + links anotados + `## Optional`)
+- `/llms-full.txt` — conteúdo completo EN (fonte canônica para agentes/LLMs)
+- `/llms-pt.txt` — conteúdo completo PT-BR (mantido para leitores humanos)
+- `/llms/projects/{slug}.txt` — case studies individuais por projeto
+- `src/lib/markdown-generator.ts` — gera `llms.txt` e `llms-full.txt` dinamicamente
+- `src/lib/case-study-generator.ts` — gera os case studies individuais
+- `src/app/sitemap.ts` — sitemap dinâmico (auto-atualiza data no build, inclui todas as rotas llms)
+- `public/robots.txt` — Allow explícito para GPTBot, OAI-SearchBot, Google-Extended, anthropic-ai, ClaudeBot, PerplexityBot, CCBot
+- `src/app/layout.tsx` — Schema.org Person JSON-LD para discoverabilidade via Gemini/Google
+
+**Decisões estratégicas estabelecidas:**
+- EN-only para LLMs; PT-BR só para humanos
+- Skills: qualificadores descritivos (Expert/Advanced/Proficient/Familiar), não percentuais
+- Não criar `_ai-instructions.txt` (sem suporte nos LLMs) nem `.html.md` (redundante para SPA)
+- `llms.txt` = índice (~60 linhas), `llms-full.txt` = conteúdo completo (sem limite)
+
+**Para continuar o trabalho:** leia este arquivo + `MEMORY.md` em `.claude/projects/`.
+
+---
+
 Guia de padrões para tornar um portfólio ou site pessoal legível e interpretável por LLMs (Claude, ChatGPT, Gemini, Perplexity, etc.). Baseado na spec do [llmstxt.org](https://llmstxt.org), boas práticas do Knock.app e Resend, e validado em produção.
 
 ---
