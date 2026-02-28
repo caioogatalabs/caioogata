@@ -172,6 +172,7 @@ export interface Content {
     name: string
     welcomeTitle: string
     tagline: string
+    tagline2: string
     summary: string
     location: string
     cta: {

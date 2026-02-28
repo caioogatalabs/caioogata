@@ -19,7 +19,7 @@ export default function IntroCompact() {
           className="flex-shrink-0 focus:outline-none p-0 border-0 bg-transparent cursor-pointer"
           aria-label="Voltar ao início"
         >
-          <AsciiScrambleLogo />
+          <AsciiScrambleLogo animateOnMount={false} />
         </button>
 
         {/* Botão Ask about Caio */}

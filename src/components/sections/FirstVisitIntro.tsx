@@ -56,7 +56,12 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
 
   const headerTagline = useTypewriter(content.footer.tagline)
   const headerVersion = useTypewriter(` v${version}`)
-  const heroTagline = useScramble(content.hero.tagline)
+  const [taglineIndex, setTaglineIndex] = useState(0)
+  const taglines = [content.hero.tagline, content.hero.tagline2]
+  const heroTagline = useScramble(taglines[taglineIndex])
+  const handleLogoTrigger = useCallback(() => {
+    setTaglineIndex((i) => (i + 1) % taglines.length)
+  }, [taglines.length])
   const introTips = useTypewriter(content.intro.tips)
 
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -232,7 +237,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
       {/* Box: logo (fixo) | Design Director — mesma linha */}
       <section className="border-2 border-primary rounded-base p-6 w-full mb-6">
         <div className="grid grid-cols-1 md:grid-cols-[auto_3fr] gap-4 md:gap-6 items-start">
-          <AsciiScrambleLogo />
+          <AsciiScrambleLogo onAnimationTrigger={handleLogoTrigger} />
           <p className="text-base font-mono min-h-[1.5rem]">
             {heroTagline.chars.map((c, i) => (
               <span key={i} className={c.locked ? 'text-neutral-300' : 'text-neutral-300/25'}>

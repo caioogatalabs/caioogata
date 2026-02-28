@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useCallback } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import CopyDropdown from '@/components/hero/CopyDropdown'
 import { AsciiScrambleLogo } from '@/components/ui/AsciiScrambleLogo'
@@ -11,7 +12,12 @@ import { COMMIT_COUNT } from '@/lib/build-info'
 export default function Intro() {
   const { language, setLanguage, content } = useLanguage()
   const version = `${packageJson.version}.${COMMIT_COUNT}`
-  const tagline = useScramble(content.hero.tagline)
+  const [taglineIndex, setTaglineIndex] = useState(0)
+  const taglines = [content.hero.tagline, content.hero.tagline2]
+  const tagline = useScramble(taglines[taglineIndex])
+  const handleLogoTrigger = useCallback(() => {
+    setTaglineIndex((i) => (i + 1) % taglines.length)
+  }, [taglines.length])
 
   return (
     <div className="relative">
@@ -46,7 +52,7 @@ export default function Intro() {
       {/* Box: logo | Design Director | botão */}
       <section className="border-2 border-primary rounded-base p-6 w-full">
         <div className="grid grid-cols-1 md:grid-cols-[auto_3fr_2fr] gap-6 items-center">
-          <AsciiScrambleLogo />
+          <AsciiScrambleLogo onAnimationTrigger={handleLogoTrigger} />
           <p className="text-base font-mono min-h-[1.5rem]">
             {tagline.chars.map((c, i) => (
               <span key={i} className={c.locked ? 'text-neutral-300' : 'text-neutral-300/25'}>
