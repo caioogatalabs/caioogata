@@ -2,10 +2,10 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
-import { PixelRevealLogo } from '@/components/ui/PixelRevealLogo'
+import { AsciiScrambleLogo } from '@/components/ui/AsciiScrambleLogo'
+import { useScramble } from '@/hooks/useScramble'
 import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 import InlineToast from '@/components/ui/InlineToast'
-import { LOGO_PATHS } from '@/lib/logo-paths'
 import { copyToClipboard } from '@/lib/clipboard'
 import { generateMarkdown } from '@/lib/markdown-generator'
 import { AI_PLATFORMS, getMarkdownUrl, type AIPlatform } from '@/lib/ai-link-builder'
@@ -56,7 +56,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
 
   const headerTagline = useTypewriter(content.footer.tagline)
   const headerVersion = useTypewriter(` v${version}`)
-  const heroTagline = useTypewriter(content.hero.tagline)
+  const heroTagline = useScramble(content.hero.tagline)
   const introTips = useTypewriter(content.intro.tips)
 
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -229,33 +229,28 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
         </div>
       </div>
 
-      {/* Box: logo (fixo) | Design Director 60% | Built for humans 40% — mesma linha */}
+      {/* Box: logo (fixo) | Design Director — mesma linha */}
       <section className="border-2 border-primary rounded-base p-6 w-full mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-[120px_3fr_2fr] gap-4 md:gap-6 items-start">
-          <div className="w-[120px] h-[55px] flex-shrink-0">
-            <PixelRevealLogo
-              paths={LOGO_PATHS}
-              width={440}
-              height={200}
-              displayWidth={120}
-              displayHeight={55}
-              pixelSize={20}
-              color="var(--color-primary)"
-              animationDuration={1.5}
-            />
-          </div>
-          <p className="text-base font-mono text-neutral-300 min-h-[1.5rem]">
-            {heroTagline.text}
+        <div className="grid grid-cols-1 md:grid-cols-[auto_3fr] gap-4 md:gap-6 items-start">
+          <AsciiScrambleLogo />
+          <p className="text-base font-mono min-h-[1.5rem]">
+            {heroTagline.chars.map((c, i) => (
+              <span key={i} className={c.locked ? 'text-neutral-300' : 'text-neutral-300/25'}>
+                {c.char}
+              </span>
+            ))}
             {!heroTagline.isComplete && <span className="inline-block w-2 h-4 bg-secondary animate-blink align-middle ml-0.5" aria-hidden />}
-          </p>
-          <p className="text-base font-mono text-secondary min-h-[1.5rem]">
-            {introTips.text}
-            {!introTips.isComplete && <span className="inline-block w-2 h-4 bg-secondary animate-blink align-middle ml-0.5" aria-hidden />}
           </p>
         </div>
       </section>
 
-      {/* Fora do box: Select an option (cor secundária) + menu — alinhamento à esquerda padronizado */}
+      {/* Fora do box: texto intro (humanos + IA) e depois Select an option + menu */}
+      <div className="pl-6 mb-4">
+        <p className="text-base font-mono text-secondary min-h-[1.5rem]">
+          {introTips.text}
+          {!introTips.isComplete && <span className="inline-block w-2 h-4 bg-secondary animate-blink align-middle ml-0.5" aria-hidden />}
+        </p>
+      </div>
       <div className="pl-6">
         <p className="text-secondary text-sm font-mono mb-2">
           {language === 'en' ? 'Select an option' : 'Selecione uma opção'}
@@ -300,7 +295,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
                     const isSubSelected = subSelectedIndex === index
                     const isLast = index === SUB_ITEMS.length - 1
                     const branch = isLast ? '└── ' : '├── '
-                    const label =
+                    const labelText =
                       sub.type === 'ai'
                         ? sub.platform.name
                         : sub.type === 'copy-markdown'
@@ -328,7 +323,14 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
                           {sub.type === 'ai' && <span className="w-4 text-center shrink-0" aria-hidden>{sub.platform.icon}</span>}
                           {sub.type === 'copy-markdown' && <span className="w-4 text-center shrink-0" aria-hidden>$</span>}
                           {sub.type === 'copy-url' && <span className="w-4 text-center shrink-0" aria-hidden>#</span>}
-                          <span className="min-w-0 truncate">{label}</span>
+                          <span className="min-w-0 truncate">
+                            {labelText}
+                            {sub.type === 'ai' && sub.platform.recommended && (
+                              <span className="ml-1 text-xs">
+                                ({language === 'en' ? 'recommended' : 'recomendado'})
+                              </span>
+                            )}
+                          </span>
                         </button>
                       </li>
                     )

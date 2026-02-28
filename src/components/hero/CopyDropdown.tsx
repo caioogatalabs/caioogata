@@ -162,20 +162,22 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
           role="menu"
           aria-orientation="vertical"
         >
-          {/* AI Platforms first */}
-          <div className="px-3 py-2 text-xs text-neutral-400 font-mono">
-            {language === 'en' ? 'Interact with AI' : 'Interagir com IA'}
-          </div>
-
           {AI_PLATFORMS.map((platform) => (
             <button
               key={platform.id}
               onClick={() => handleOpenAI(platform)}
-              className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
+              className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:text-primary focus:outline-none focus-visible:text-primary transition-colors duration-150 flex items-center gap-2"
               role="menuitem"
             >
               <span aria-hidden="true" className="w-4 text-center">{platform.icon}</span>
-              <span>{platform.name}</span>
+              <span>
+                {platform.name}
+                {platform.recommended && (
+                  <span className="ml-1 text-xs">
+                    ({language === 'en' ? 'recommended' : 'recomendado'})
+                  </span>
+                )}
+              </span>
             </button>
           ))}
 
@@ -184,7 +186,7 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
           {/* Copy options */}
           <button
             onClick={handleCopyPrompt}
-            className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
+            className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:text-primary focus:outline-none focus-visible:text-primary transition-colors duration-150 flex items-center gap-2"
             role="menuitem"
           >
             <span aria-hidden="true" className="w-4 text-center">#</span>
@@ -193,7 +195,7 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
 
           <button
             onClick={handleCopy}
-            className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:bg-primary hover:text-neutral-950 focus:outline-none focus-visible:bg-primary focus-visible:text-neutral-950 transition-colors duration-150 flex items-center gap-2"
+            className="w-full text-left px-4 py-3 font-mono text-sm text-neutral-200 hover:text-primary focus:outline-none focus-visible:text-primary transition-colors duration-150 flex items-center gap-2"
             role="menuitem"
           >
             <span aria-hidden="true" className="w-4 text-center">$</span>

@@ -13,7 +13,7 @@ export interface Job {
 
 export interface Skill {
   name: string
-  level: number
+  level: string
 }
 
 export interface SkillCategory {

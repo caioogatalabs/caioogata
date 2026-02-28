@@ -12,6 +12,8 @@ export interface AIPlatform {
   canFetchUrls: boolean
   /** Whether to use clipboard fallback (copy prompt text, open plain URL) */
   useClipboardFallback?: boolean
+  /** Whether to highlight this platform as recommended */
+  recommended?: boolean
 }
 
 /**
@@ -49,6 +51,17 @@ const PROMPTS = {
  */
 export const AI_PLATFORMS: AIPlatform[] = [
   {
+    id: 'claude',
+    name: 'Claude',
+    icon: '>',
+    canFetchUrls: false, // Claude cannot fetch URLs
+    recommended: true,
+    buildUrl: (markdownUrl, language) => {
+      const prompt = PROMPTS[language](markdownUrl)
+      return `https://claude.ai/new?q=${encodeURIComponent(prompt)}`
+    },
+  },
+  {
     id: 'chatgpt',
     name: 'ChatGPT',
     icon: '*',
@@ -56,16 +69,6 @@ export const AI_PLATFORMS: AIPlatform[] = [
     buildUrl: (markdownUrl, language) => {
       const prompt = PROMPTS[language](markdownUrl)
       return `https://chat.openai.com/?q=${encodeURIComponent(prompt)}`
-    },
-  },
-  {
-    id: 'claude',
-    name: 'Claude',
-    icon: '>',
-    canFetchUrls: false, // Claude cannot fetch URLs
-    buildUrl: (markdownUrl, language) => {
-      const prompt = PROMPTS[language](markdownUrl)
-      return `https://claude.ai/new?q=${encodeURIComponent(prompt)}`
     },
   },
   {

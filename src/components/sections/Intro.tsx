@@ -2,8 +2,8 @@
 
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import CopyDropdown from '@/components/hero/CopyDropdown'
-import { PixelRevealLogo } from '@/components/ui/PixelRevealLogo'
-import { LOGO_PATHS } from '@/lib/logo-paths'
+import { AsciiScrambleLogo } from '@/components/ui/AsciiScrambleLogo'
+import { useScramble } from '@/hooks/useScramble'
 import InlineToast from '@/components/ui/InlineToast'
 import packageJson from '../../../package.json'
 import { COMMIT_COUNT } from '@/lib/build-info'
@@ -11,6 +11,7 @@ import { COMMIT_COUNT } from '@/lib/build-info'
 export default function Intro() {
   const { language, setLanguage, content } = useLanguage()
   const version = `${packageJson.version}.${COMMIT_COUNT}`
+  const tagline = useScramble(content.hero.tagline)
 
   return (
     <div className="relative">
@@ -44,21 +45,15 @@ export default function Intro() {
 
       {/* Box: logo | Design Director | botão */}
       <section className="border-2 border-primary rounded-base p-6 w-full">
-        <div className="grid grid-cols-1 md:grid-cols-[120px_3fr_2fr] gap-6 items-center">
-          <div className="w-[120px] h-[55px] flex-shrink-0">
-            <PixelRevealLogo
-              paths={LOGO_PATHS}
-              width={440}
-              height={200}
-              displayWidth={120}
-              displayHeight={55}
-              pixelSize={20}
-              color="var(--color-primary)"
-              animationDuration={1.5}
-            />
-          </div>
-          <p className="text-base font-mono text-neutral-300">
-            {content.hero.tagline}
+        <div className="grid grid-cols-1 md:grid-cols-[auto_3fr_2fr] gap-6 items-center">
+          <AsciiScrambleLogo />
+          <p className="text-base font-mono min-h-[1.5rem]">
+            {tagline.chars.map((c, i) => (
+              <span key={i} className={c.locked ? 'text-neutral-300' : 'text-neutral-300/25'}>
+                {c.char}
+              </span>
+            ))}
+            {!tagline.isComplete && <span className="inline-block w-2 h-4 bg-secondary animate-blink align-middle ml-0.5" aria-hidden />}
           </p>
           <div className="flex flex-col items-start md:items-end justify-center">
             <CopyDropdown variant="filled" buttonLabel={content.firstVisit.optionMeetAI} />
