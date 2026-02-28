@@ -479,20 +479,13 @@ function generateExperienceMarkdown(jobs: Job[], isEnglish: boolean): string[] {
   return lines
 }
 
-function levelToQualifier(level: number): string {
-  if (level >= 90) return 'Expert'
-  if (level >= 75) return 'Advanced'
-  if (level >= 60) return 'Proficient'
-  return 'Familiar'
-}
-
 function generateSkillsMarkdown(categories: SkillCategory[]): string[] {
   const lines: string[] = []
 
   categories.forEach((category) => {
     lines.push(`### ${category.title}`)
     category.skills.forEach(s => {
-      lines.push(`- **${s.name}**: ${levelToQualifier(s.level)}`)
+      lines.push(`- **${s.name}**: ${s.level}`)
     })
     lines.push('')
   })
