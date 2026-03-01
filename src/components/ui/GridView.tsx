@@ -21,6 +21,8 @@ export default function GridView({ windows, activeWindowId, onFocus, onClose }: 
   const openWindows = windows.filter(w => w.isOpen)
   const [sizeStates, setSizeStates] = useState<Record<string, SizeState>>({})
 
+  const isSingleVideo = openWindows.length === 1 && openWindows[0]?.image.type === 'video'
+
   const handleSizeChange = useCallback((id: string, state: SizeState) => {
     setSizeStates(prev => ({ ...prev, [id]: state }))
   }, [])
@@ -45,7 +47,7 @@ export default function GridView({ windows, activeWindowId, onFocus, onClose }: 
   return (
     <motion.div
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-4 pt-16 w-full"
-      style={{ gridAutoRows: 'minmax(240px, auto)' }}
+      style={isSingleVideo ? undefined : { gridAutoRows: 'minmax(240px, auto)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -55,7 +57,7 @@ export default function GridView({ windows, activeWindowId, onFocus, onClose }: 
         <motion.div
           key={window.id}
           layout
-          className={`${getColSpan(window.id, index)} ${getRowSpan(window.id, index)}`}
+          className={`${getColSpan(window.id, index)} ${isSingleVideo ? 'aspect-video' : getRowSpan(window.id, index)}`}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         >
           <ImageWindow

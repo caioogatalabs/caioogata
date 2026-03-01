@@ -227,7 +227,7 @@ function WindowHeader({
 }) {
   return (
     <div
-      className={`h-7 bg-neutral-700 relative flex items-center px-1 shrink-0 border-b border-neutral-400 ${isDraggable ? 'cursor-move' : ''}`}
+      className={`h-7 bg-neutral-700 relative flex items-center px-1 shrink-0 ${isDraggable ? 'cursor-move' : ''}`}
       onPointerDown={(e) => {
         if (isDraggable && dragControls) dragControls.start(e)
       }}
