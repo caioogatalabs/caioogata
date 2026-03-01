@@ -18,6 +18,7 @@ interface CopyDropdownProps {
 export default function CopyDropdown({ variant = 'primary', className = '', buttonLabel }: CopyDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isCopying, setIsCopying] = useState(false)
+  const [dropdownAlign, setDropdownAlign] = useState<'left' | 'right'>('right')
   const dropdownRef = useRef<HTMLDivElement>(null)
   const { content, language } = useLanguage()
   const toast = useToast()
@@ -31,6 +32,12 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
 
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside)
+      // Measure available space and choose alignment
+      if (dropdownRef.current) {
+        const rect = dropdownRef.current.getBoundingClientRect()
+        const spaceRight = window.innerWidth - rect.right
+        setDropdownAlign(spaceRight >= 240 ? 'left' : 'right')
+      }
     }
 
     return () => {
@@ -158,7 +165,7 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
 
       {isOpen && (
         <div
-          className="absolute top-full right-0 sm:right-auto sm:left-0 mt-2 min-w-[240px] max-w-[calc(100vw-2rem)] bg-neutral border-2 border-primary rounded-base shadow-lg z-50"
+          className={`absolute top-full mt-2 min-w-[240px] max-w-[calc(100vw-2rem)] bg-neutral border-2 border-primary rounded-base shadow-lg z-50 ${dropdownAlign === 'left' ? 'left-0' : 'right-0'}`}
           role="menu"
           aria-orientation="vertical"
         >

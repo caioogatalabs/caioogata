@@ -236,7 +236,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
 
       {/* Box: logo (fixo) | Design Director — mesma linha */}
       <section className="border-2 border-primary rounded-base p-6 w-full mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-[auto_3fr] gap-4 md:gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[auto_3fr_2fr] gap-4 md:gap-6 items-center">
           <AsciiScrambleLogo onAnimationTrigger={handleLogoTrigger} />
           <p className="text-base font-mono min-h-[1.5rem]">
             {heroTagline.chars.map((c, i) => (
@@ -246,6 +246,7 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
             ))}
             {!heroTagline.isComplete && <span className="inline-block w-2 h-4 bg-secondary animate-blink align-middle ml-0.5" aria-hidden />}
           </p>
+          <div />
         </div>
       </section>
 
@@ -269,8 +270,12 @@ export default function FirstVisitIntro({ onContinue }: FirstVisitIntroProps) {
                 type="button"
                 onClick={() => {
                   setSelectedIndex(0)
-                  setSubExpanded(true)
-                  setSubSelectedIndex(0)
+                  if (subExpanded) {
+                    setSubExpanded(false)
+                  } else {
+                    setSubExpanded(true)
+                    setSubSelectedIndex(0)
+                  }
                 }}
                 onFocus={() => setSelectedIndex(0)}
                 onMouseEnter={() => setSelectedIndex(0)}

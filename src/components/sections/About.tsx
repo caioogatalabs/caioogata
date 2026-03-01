@@ -31,10 +31,10 @@ export default function About() {
         </h2>
       </div>
 
-      {/* Left ~35% file icons, right ~65%: bio + Core Expertise */}
-      <div className="grid grid-cols-1 md:grid-cols-[35fr_65fr] gap-8 md:gap-12">
-        {/* Desktop: file icons horizontal, left-aligned */}
-        <div className="hidden md:flex items-start gap-4 pl-6 pt-4 min-w-0">
+      {/* File icons + bio + Core Expertise — columns match Philosophy layout */}
+      <div className="pl-6 flex flex-col gap-2 md:grid md:grid-cols-[180px_100px_1fr] md:items-start md:gap-0">
+        {/* Desktop: file icons in first column */}
+        <div className="hidden md:flex items-start gap-4 pt-4 min-w-0">
           <FileIcon
             onClick={() => setIsImageEditorOpen(true)}
             label="profile.jpg"
@@ -47,9 +47,13 @@ export default function About() {
           />
         </div>
 
+        {/* Empty middle column */}
+        <span className="hidden md:block" aria-hidden />
+
+        {/* Content column */}
         <div className="min-w-0 space-y-8">
           {/* Mobile: inline file icons above bio */}
-          <div className="md:hidden pl-6 flex gap-4">
+          <div className="md:hidden flex gap-4">
             <FileIcon
               onClick={() => setIsImageEditorOpen(true)}
               label="profile.jpg"
@@ -62,7 +66,7 @@ export default function About() {
             />
           </div>
 
-          <div className="space-y-4 pl-6">
+          <div className="space-y-4">
             {content.about.bio.split('\n\n').map((paragraph, index) => (
               <p
                 key={index}
@@ -73,7 +77,7 @@ export default function About() {
             ))}
           </div>
 
-          <div className="flex flex-col w-full min-w-0 pl-6">
+          <div className="flex flex-col w-full min-w-0">
             <h3 className="text-sm font-mono text-secondary py-2 border-t border-secondary/10 first:border-t-0 first:pt-0">
               Core Expertise
             </h3>
