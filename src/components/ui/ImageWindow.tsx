@@ -16,7 +16,6 @@ interface ImageWindowProps {
   x?: number
   y?: number
   zIndex?: number
-  isActive?: boolean
   isOpen?: boolean
   // Layout mode
   mode: 'grid' | 'free'
@@ -28,6 +27,7 @@ interface ImageWindowProps {
   onFocus?: () => void
   onDragEnd?: (x: number, y: number) => void
   onSizeStateChange?: (state: WindowSizeState) => void
+  onAspectRatioChange?: (ratio: number) => void
   dragConstraints?: React.RefObject<HTMLDivElement | null>
 }
 
@@ -42,7 +42,6 @@ export default function ImageWindow({
   x = 0,
   y = 0,
   zIndex = 1,
-  isActive = false,
   isOpen = true,
   mode,
   canvasWidth = 800,
@@ -51,15 +50,20 @@ export default function ImageWindow({
   onFocus,
   onDragEnd,
   onSizeStateChange,
+  onAspectRatioChange,
   dragConstraints
 }: ImageWindowProps) {
   const dragControls = useDragControls()
   const windowRef = useRef<HTMLDivElement>(null)
+  const draggedWhileMaximizedRef = useRef(false)
   const [imageError, setImageError] = useState(false)
   const [sizeState, setSizeState] = useState<WindowSizeState>('normal')
   const [naturalDimensions, setNaturalDimensions] = useState<{ width: number; height: number } | null>(null)
 
   const isVideo = image.type === 'video'
+  // Use a ref to avoid stale closure in the image load callback
+  const onAspectRatioChangeRef = useRef(onAspectRatioChange)
+  onAspectRatioChangeRef.current = onAspectRatioChange
 
   useEffect(() => {
     if (isVideo) {
@@ -67,7 +71,10 @@ export default function ImageWindow({
       return
     }
     const img = new window.Image()
-    img.onload = () => setNaturalDimensions({ width: img.width, height: img.height })
+    img.onload = () => {
+      setNaturalDimensions({ width: img.width, height: img.height })
+      onAspectRatioChangeRef.current?.(img.width / img.height)
+    }
     img.onerror = () => setImageError(true)
     img.src = decodeURIComponent(image.src)
   }, [image.src, isVideo])
@@ -86,10 +93,11 @@ export default function ImageWindow({
   if (!isOpen) return null
 
   const isGrid = mode === 'grid'
-  const isDraggable = mode === 'free' && sizeState !== 'maximized'
+  const isDraggable = mode === 'free'
 
   const handleMaximize = () => {
     const next: WindowSizeState = sizeState === 'maximized' ? 'normal' : 'maximized'
+    if (next === 'maximized') draggedWhileMaximizedRef.current = false
     setSizeState(next)
     onSizeStateChange?.(next)
   }
@@ -105,11 +113,11 @@ export default function ImageWindow({
     return (
       <motion.div
         layoutId={id}
-        className="flex flex-col bg-neutral-100 border border-neutral-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)] overflow-hidden"
+        className="flex flex-col bg-neutral-100 border border-neutral-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]"
         style={{ height: '100%', minHeight: 240 }}
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 30, delay: index * 0.04 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2, delay: index * 0.04 }}
         onPointerDown={onFocus}
       >
         <WindowHeader
@@ -135,7 +143,7 @@ export default function ImageWindow({
   }
 
   const getPosition = () => {
-    if (sizeState === 'maximized') return { x: 10, y: 10 }
+    if (sizeState === 'maximized' && !draggedWhileMaximizedRef.current) return { x: 10, y: 10 }
     return { x, y }
   }
 
@@ -147,7 +155,7 @@ export default function ImageWindow({
       ref={windowRef}
       layoutId={id}
       data-window-id={id}
-      className={`absolute select-none ${isActive ? 'ring-1 ring-neutral-700' : ''}`}
+      className="absolute select-none outline-none"
       style={{ zIndex, transformStyle: 'preserve-3d' }}
       initial={{ opacity: 0, scale: 0.9, y: y - 20 }}
       animate={{
@@ -171,6 +179,7 @@ export default function ImageWindow({
       dragElastic={0}
       onDragEnd={() => {
         if (isDraggable && windowRef.current && dragConstraints?.current) {
+          if (sizeState === 'maximized') draggedWhileMaximizedRef.current = true
           const canvasRect = dragConstraints.current.getBoundingClientRect()
           const windowRect = windowRef.current.getBoundingClientRect()
           onDragEnd?.(

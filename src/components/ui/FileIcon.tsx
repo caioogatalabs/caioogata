@@ -120,7 +120,6 @@ export default function FileIcon({ onClick, label = 'profile.jpg', variant = 'im
     <motion.button
       onClick={onClick}
       className={`group flex flex-col items-center gap-1.5 p-2 rounded-sm transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-primary ${className}`}
-      whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       aria-label={`Open ${variant} editor for ${label}`}
     >

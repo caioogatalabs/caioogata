@@ -6,12 +6,10 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
 import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 import FileIcon from '@/components/ui/FileIcon'
 import ImageEditorWindow from '@/components/ui/ImageEditorWindow'
-import VideoEditorWindow from '@/components/ui/VideoEditorWindow'
 
 export default function About() {
   const { content } = useLanguage()
   const [isImageEditorOpen, setIsImageEditorOpen] = useState(false)
-  const [isVideoEditorOpen, setIsVideoEditorOpen] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
 
   return (
@@ -40,11 +38,6 @@ export default function About() {
             label="profile.jpg"
             variant="image"
           />
-          <FileIcon
-            onClick={() => setIsVideoEditorOpen(true)}
-            label="intro.mp4"
-            variant="video"
-          />
         </div>
 
         {/* Empty middle column */}
@@ -58,11 +51,6 @@ export default function About() {
               onClick={() => setIsImageEditorOpen(true)}
               label="profile.jpg"
               variant="image"
-            />
-            <FileIcon
-              onClick={() => setIsVideoEditorOpen(true)}
-              label="intro.mp4"
-              variant="video"
             />
           </div>
 
@@ -100,18 +88,6 @@ export default function About() {
             imageSrc="/caio-ogata-profile.webp"
             title="profile.jpg"
             onClose={() => setIsImageEditorOpen(false)}
-            dragConstraints={sectionRef}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Video Editor Window */}
-      <AnimatePresence>
-        {isVideoEditorOpen && (
-          <VideoEditorWindow
-            videoSrc="/intro.mp4"
-            title="intro.mp4"
-            onClose={() => setIsVideoEditorOpen(false)}
             dragConstraints={sectionRef}
           />
         )}

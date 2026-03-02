@@ -71,10 +71,10 @@ export default function Projects() {
                 )}
 
                 {/* Project Details */}
-                <div className="space-y-4">
+                <div className="space-y-8">
                   {project.role && (
                     <div>
-                      <div className="flex items-center gap-2 mb-6">
+                      <div className="flex items-center gap-2 mb-2">
                         <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                           <ArrowRightIcon />
                         </span>
@@ -88,7 +88,7 @@ export default function Projects() {
 
                   {project.technologies && (
                     <div>
-                      <div className="flex items-center gap-2 mb-6">
+                      <div className="flex items-center gap-2 mb-2">
                         <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                           <ArrowRightIcon />
                         </span>
@@ -102,7 +102,7 @@ export default function Projects() {
 
                   {project.impact && (
                     <div>
-                      <div className="flex items-center gap-2 mb-6">
+                      <div className="flex items-center gap-2 mb-2">
                         <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                           <ArrowRightIcon />
                         </span>
@@ -116,7 +116,7 @@ export default function Projects() {
 
                   {project.credits && project.credits.length > 0 && (
                     <div>
-                      <div className="flex items-center gap-2 mb-6">
+                      <div className="flex items-center gap-2 mb-2">
                         <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                           <ArrowRightIcon />
                         </span>
@@ -148,7 +148,7 @@ export default function Projects() {
 
                   {project.downloads && project.downloads.length > 0 && (
                     <div>
-                      <div className="flex items-center gap-2 mb-6">
+                      <div className="flex items-center gap-2 mb-2">
                         <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                           <ArrowRightIcon />
                         </span>
@@ -161,7 +161,7 @@ export default function Projects() {
                             href={download.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block text-sm text-primary font-mono hover:underline"
+                            className="block text-sm text-secondary font-mono hover:text-primary transition-colors"
                           >
                             &gt; {download.label}
                           </a>
@@ -170,20 +170,7 @@ export default function Projects() {
                     </div>
                   )}
 
-                  {project.caseStudyUrl && (
-                    <div className="pt-2 border-t border-primary/10">
-                      <div className="flex items-center gap-4">
-                        <a
-                          href={project.caseStudyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-primary font-mono hover:underline"
-                        >
-                          &gt; View full case study
-                        </a>
-                      </div>
-                    </div>
-                  )}
+                  {/* caseStudyUrl kept in data for LLM routes — not rendered in UI */}
                 </div>
               </div>
             </ExpandableSection>

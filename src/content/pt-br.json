@@ -27,14 +27,46 @@
       }
     },
     "items": [
-      { "key": "about", "label": "sobre", "description": "Bio, expertises e trajetória." },
-      { "key": "projects", "label": "projetos", "description": "Trabalhos selecionados de design e produto." },
-      { "key": "experience", "label": "experiência", "description": "Cargos, empresas e principais conquistas." },
-      { "key": "skills", "label": "habilidades", "description": "Design systems, DevEx, UI/UX e ferramentas." },
-      { "key": "education", "label": "educação", "description": "Formação, instituições e aprendizado contínuo." },
-      { "key": "clients", "label": "clientes-notáveis", "description": "Marcas brasileiras e internacionais com que trabalhei." },
-      { "key": "philosophy", "label": "filosofia", "description": "Princípios de design e como encaro produto e times." },
-      { "key": "contact", "label": "contato", "description": "Como entrar em contato e conectar." }
+      {
+        "key": "about",
+        "label": "sobre",
+        "description": "Bio, expertises e trajetória."
+      },
+      {
+        "key": "projects",
+        "label": "projetos",
+        "description": "Trabalhos selecionados de design e produto."
+      },
+      {
+        "key": "experience",
+        "label": "experiência",
+        "description": "Cargos, empresas e principais conquistas."
+      },
+      {
+        "key": "skills",
+        "label": "habilidades",
+        "description": "Design systems, DevEx, UI/UX e ferramentas."
+      },
+      {
+        "key": "education",
+        "label": "educação",
+        "description": "Formação, instituições e aprendizado contínuo."
+      },
+      {
+        "key": "clients",
+        "label": "clientes-notáveis",
+        "description": "Marcas brasileiras e internacionais com que trabalhei."
+      },
+      {
+        "key": "philosophy",
+        "label": "filosofia",
+        "description": "Princípios de design e como encaro produto e times."
+      },
+      {
+        "key": "contact",
+        "label": "contato",
+        "description": "Como entrar em contato e conectar."
+      }
     ]
   },
   "hero": {
@@ -76,9 +108,15 @@
         "dateRange": "2024 - 2025",
         "description": "Promovido para liderar o departamento de Developer Experience sob Engenharia, sendo responsável por todas as interfaces user-facing e mantendo supervisão de estratégia de marca.",
         "achievements": [
-          { "text": "Liderou Console, CLI e todas as ferramentas de desenvolvedor como a camada user-facing completa da engenharia" },
-          { "text": "Reconstruiu o Console do zero ([Azion Console Kit](/projects/azion-console-kit)) com bibliotecas open-source e componentização em blocos, reduzindo o tempo de implementação de novas telas de dias para horas" },
-          { "text": "Gerenciou time multifuncional de desenvolvedores e designers nas frentes de produto e marca" }
+          {
+            "text": "Liderou Console, CLI e todas as ferramentas de desenvolvedor como a camada user-facing completa da engenharia"
+          },
+          {
+            "text": "Reconstruiu o Console do zero ([Azion Console Kit](/projects/azion-console-kit)) com bibliotecas open-source e componentização em blocos, reduzindo o tempo de implementação de novas telas de dias para horas"
+          },
+          {
+            "text": "Gerenciou time multifuncional de desenvolvedores e designers nas frentes de produto e marca"
+          }
         ]
       },
       {
@@ -88,9 +126,15 @@
         "dateRange": "2023 - 2024",
         "description": "Promovido para conectar estratégia de marca com experiência de produto focada em desenvolvedores, garantindo consistência visual e estratégica em todos os pontos de contato digitais.",
         "achievements": [
-          { "text": "Estabeleceu diretrizes de marca para documentação técnica, interfaces de produto e materiais de marketing" },
-          { "text": "Liderou iniciativas de rebranding e evolução da identidade visual em marketing e produto" },
-          { "text": "Liderou os visuais de lançamentos de produto e colaborou em eventos de comunidade e marca" }
+          {
+            "text": "Estabeleceu diretrizes de marca para documentação técnica, interfaces de produto e materiais de marketing"
+          },
+          {
+            "text": "Liderou iniciativas de rebranding e evolução da identidade visual em marketing e produto"
+          },
+          {
+            "text": "Liderou os visuais de lançamentos de produto e colaborou em eventos de comunidade e marca"
+          }
         ]
       },
       {
@@ -100,10 +144,18 @@
         "dateRange": "2021 - 2023",
         "description": "Liderou organização de design sob área de Produto, responsável por direção criativa (Product Marketing) e usabilidade de produto (Desenvolvimento).",
         "achievements": [
-          { "text": "Construiu uma organização de design cobrindo Product Design, Creative, Design Ops, UX Research e Design Systems" },
-          { "text": "Estabeleceu cultura de design thinking e práticas de usabilidade em um ambiente engineering-first" },
-          { "text": "Criou o Azion Design (www.azion.design), a documentação pública do design system da empresa" },
-          { "text": "Estabeleceu processos de product discovery e práticas de UX research" }
+          {
+            "text": "Construiu uma organização de design cobrindo Product Design, Creative, Design Ops, UX Research e Design Systems"
+          },
+          {
+            "text": "Estabeleceu cultura de design thinking e práticas de usabilidade em um ambiente engineering-first"
+          },
+          {
+            "text": "Criou o Azion Design (www.azion.design), a documentação pública do design system da empresa"
+          },
+          {
+            "text": "Estabeleceu processos de product discovery e práticas de UX research"
+          }
         ]
       },
       {
@@ -113,10 +165,18 @@
         "dateRange": "2015 - 2021",
         "description": "Líder de times de UX e Design, criando experiências digitais inovadoras e produtos de interface. A Huia cresceu para ~40 funcionários antes de ser adquirida pelo Stefanini Haus Group.",
         "achievements": [
-          { "text": "Tornou-se Sócio enquanto o estúdio crescia para ~40 funcionários" },
-          { "text": "Liderou times de UX e Design nos últimos 2 anos de atuação" },
-          { "text": "Melhorou a rentabilidade de projetos em +30% com técnicas de Design Sprint" },
-          { "text": "Gerenciou relacionamentos com clientes: O Boticário, Petrobras, Postos BR, Tramontina, Aché Labs (Profuse), Grendene (Ipanema), Sicredi, Takeda Labs (Neosaldina), Shure, Rocket Chat" }
+          {
+            "text": "Tornou-se Sócio enquanto o estúdio crescia para ~40 funcionários"
+          },
+          {
+            "text": "Liderou times de UX e Design nos últimos 2 anos de atuação"
+          },
+          {
+            "text": "Melhorou a rentabilidade de projetos em +30% com técnicas de Design Sprint"
+          },
+          {
+            "text": "Gerenciou relacionamentos com clientes: O Boticário, Petrobras, Postos BR, Tramontina, Aché Labs (Profuse), Grendene (Ipanema), Sicredi, Takeda Labs (Neosaldina), Shure, Rocket Chat"
+          }
         ]
       },
       {
@@ -126,8 +186,12 @@
         "dateRange": "2013 - 2021",
         "description": "Líder de squad gerenciando times de arte, motion e vídeo como supervisor criativo. Parte do Nonconformity Group.",
         "achievements": [
-          { "text": "Liderou direção criativa para mais de 40 projetos digitais em plataformas web, mobile e TV interativa" },
-          { "text": "Clientes: O Boticário, Petrobras, Tramontina, Bis, Trakinas, Sonho de Valsa, Lacta, Toblerone, Melitta Wake, Devassa, LG, Reckitt Benckiser" }
+          {
+            "text": "Liderou direção criativa para mais de 40 projetos digitais em plataformas web, mobile e TV interativa"
+          },
+          {
+            "text": "Clientes: O Boticário, Petrobras, Tramontina, Bis, Trakinas, Sonho de Valsa, Lacta, Toblerone, Melitta Wake, Devassa, LG, Reckitt Benckiser"
+          }
         ]
       },
       {
@@ -137,8 +201,12 @@
         "dateRange": "2012",
         "description": "Diretor de Arte responsável pelo núcleo de Vitrines do O Boticário. Parte do Nonconformity Group.",
         "achievements": [
-          { "text": "Dirigiu estratégia criativa para experiências de varejo do O Boticário" },
-          { "text": "Clientes: O Boticário, Bis, Belvita, Trakinas, Sonho de Valsa, Lacta, Toblerone, Petrobras, Petrobras Distribuidora, Tramontina, Try On, Fila, Alphaville" }
+          {
+            "text": "Dirigiu estratégia criativa para experiências de varejo do O Boticário"
+          },
+          {
+            "text": "Clientes: O Boticário, Bis, Belvita, Trakinas, Sonho de Valsa, Lacta, Toblerone, Petrobras, Petrobras Distribuidora, Tramontina, Try On, Fila, Alphaville"
+          }
         ]
       },
       {
@@ -148,8 +216,12 @@
         "dateRange": "2010 - 2012",
         "description": "Entrou como primeiro designer de projetos em uma startup de tecnologia com apenas 2 meses de vida. Ganhou extensa experiência em usabilidade e interface web multiplataforma. Gestor de Design em ~40 projetos.",
         "achievements": [
-          { "text": "Entregou mais de 40 projetos digitais: interfaces de software, projetos iPad/mobile, redes sociais corporativas, TV interativa, wireframes, sites e lojas virtuais" },
-          { "text": "Clientes: Grupo Inbrands, Ellus, Fundação CESP, Amir Slama, Arizona, Senior Solution, Performance Nutrition, Laser Ocular, Thelure, Elementar" }
+          {
+            "text": "Entregou mais de 40 projetos digitais: interfaces de software, projetos iPad/mobile, redes sociais corporativas, TV interativa, wireframes, sites e lojas virtuais"
+          },
+          {
+            "text": "Clientes: Grupo Inbrands, Ellus, Fundação CESP, Amir Slama, Arizona, Senior Solution, Performance Nutrition, Laser Ocular, Thelure, Elementar"
+          }
         ]
       },
       {
@@ -159,7 +231,9 @@
         "dateRange": "2007 - 2008",
         "description": "Desenvolvimento de conceitos criativos, direção de arte, design de folder e outros materiais gráficos e de ponto de venda para o mercado de saúde e escolar.",
         "achievements": [
-          { "text": "Clientes: Unimed Londrina, Sandoz, Shopping Catuaí, Drogamais" }
+          {
+            "text": "Clientes: Unimed Londrina, Sandoz, Shopping Catuaí, Drogamais"
+          }
         ]
       },
       {
@@ -199,74 +273,203 @@
       {
         "title": "Liderança de Design",
         "skills": [
-          { "name": "UI/UX Design", "level": "Expert" },
-          { "name": "Direção Criativa", "level": "Expert" },
-          { "name": "Developer Experience (DevEx)", "level": "Expert" },
-          { "name": "Product Design", "level": "Expert" },
-          { "name": "Estratégia de Marca", "level": "Advanced" },
-          { "name": "Liderança de Times", "level": "Expert" },
-          { "name": "Design Operations", "level": "Advanced" },
-          { "name": "Interaction Design", "level": "Advanced" }
+          {
+            "name": "UI/UX Design",
+            "level": "Expert"
+          },
+          {
+            "name": "Direção Criativa",
+            "level": "Expert"
+          },
+          {
+            "name": "Developer Experience (DevEx)",
+            "level": "Expert"
+          },
+          {
+            "name": "Product Design",
+            "level": "Expert"
+          },
+          {
+            "name": "Estratégia de Marca",
+            "level": "Advanced"
+          },
+          {
+            "name": "Liderança de Times",
+            "level": "Expert"
+          },
+          {
+            "name": "Design Operations",
+            "level": "Advanced"
+          },
+          {
+            "name": "Interaction Design",
+            "level": "Advanced"
+          }
         ]
       },
       {
         "title": "Design Systems",
         "skills": [
-          { "name": "Arquitetura de Design Systems", "level": "Expert" },
-          { "name": "Design Tokens", "level": "Expert" },
-          { "name": "Arquitetura de Componentes", "level": "Expert" },
-          { "name": "Workflows Design-to-Code", "level": "Expert" },
-          { "name": "Acessibilidade / WCAG", "level": "Advanced" },
-          { "name": "Atomic Design", "level": "Advanced" },
-          { "name": "Figma Variables & Token Studio", "level": "Advanced" },
-          { "name": "Storybook", "level": "Proficient" }
+          {
+            "name": "Arquitetura de Design Systems",
+            "level": "Expert"
+          },
+          {
+            "name": "Design Tokens",
+            "level": "Expert"
+          },
+          {
+            "name": "Arquitetura de Componentes",
+            "level": "Expert"
+          },
+          {
+            "name": "Workflows Design-to-Code",
+            "level": "Expert"
+          },
+          {
+            "name": "Acessibilidade / WCAG",
+            "level": "Advanced"
+          },
+          {
+            "name": "Atomic Design",
+            "level": "Advanced"
+          },
+          {
+            "name": "Figma Variables & Token Studio",
+            "level": "Advanced"
+          },
+          {
+            "name": "Storybook",
+            "level": "Proficient"
+          }
         ]
       },
       {
         "title": "Engenharia & Código",
         "skills": [
-          { "name": "TypeScript / JavaScript", "level": "Advanced" },
-          { "name": "HTML / CSS", "level": "Advanced" },
-          { "name": "Semantic HTML", "level": "Advanced" },
-          { "name": "Vue 3", "level": "Advanced" },
-          { "name": "UI Engineering", "level": "Advanced" },
-          { "name": "Vite", "level": "Proficient" },
-          { "name": "Git / Controle de Versão", "level": "Proficient" }
+          {
+            "name": "TypeScript / JavaScript",
+            "level": "Advanced"
+          },
+          {
+            "name": "HTML / CSS",
+            "level": "Advanced"
+          },
+          {
+            "name": "Semantic HTML",
+            "level": "Advanced"
+          },
+          {
+            "name": "Vue 3",
+            "level": "Advanced"
+          },
+          {
+            "name": "UI Engineering",
+            "level": "Advanced"
+          },
+          {
+            "name": "Vite",
+            "level": "Proficient"
+          },
+          {
+            "name": "Git / Controle de Versão",
+            "level": "Proficient"
+          }
         ]
       },
       {
         "title": "Workflows AI-native",
         "skills": [
-          { "name": "Cursor", "level": "Expert" },
-          { "name": "Claude Code", "level": "Expert" },
-          { "name": "Colaboração & prototipagem com LLM", "level": "Advanced" },
-          { "name": "Pesquisa & análise com IA", "level": "Advanced" },
-          { "name": "Análise de dados orientada a OKRs", "level": "Advanced" },
-          { "name": "Prototipagem assistida por IA", "level": "Advanced" }
+          {
+            "name": "Cursor",
+            "level": "Expert"
+          },
+          {
+            "name": "Claude Code",
+            "level": "Expert"
+          },
+          {
+            "name": "Colaboração & prototipagem com LLM",
+            "level": "Advanced"
+          },
+          {
+            "name": "Pesquisa & análise com IA",
+            "level": "Advanced"
+          },
+          {
+            "name": "Análise de dados orientada a OKRs",
+            "level": "Advanced"
+          },
+          {
+            "name": "Prototipagem assistida por IA",
+            "level": "Advanced"
+          }
         ]
       },
       {
         "title": "Ferramentas & Plataformas",
         "skills": [
-          { "name": "Figma", "level": "Expert" },
-          { "name": "Adobe Creative Suite", "level": "Expert" },
-          { "name": "Framer", "level": "Advanced" },
-          { "name": "Google AI Studio", "level": "Advanced" },
-          { "name": "VS Code", "level": "Advanced" },
-          { "name": "Remotion", "level": "Proficient" },
-          { "name": "Geração de imagem com IA", "level": "Proficient" },
-          { "name": "VEO", "level": "Familiar" },
-          { "name": "N8n", "level": "Proficient" }
+          {
+            "name": "Figma",
+            "level": "Expert"
+          },
+          {
+            "name": "Adobe Creative Suite",
+            "level": "Expert"
+          },
+          {
+            "name": "Framer",
+            "level": "Advanced"
+          },
+          {
+            "name": "Google AI Studio",
+            "level": "Advanced"
+          },
+          {
+            "name": "VS Code",
+            "level": "Advanced"
+          },
+          {
+            "name": "Remotion",
+            "level": "Proficient"
+          },
+          {
+            "name": "Geração de imagem com IA",
+            "level": "Proficient"
+          },
+          {
+            "name": "VEO",
+            "level": "Familiar"
+          },
+          {
+            "name": "N8n",
+            "level": "Proficient"
+          }
         ]
       },
       {
         "title": "Metodologias",
         "skills": [
-          { "name": "Design Thinking", "level": "Expert" },
-          { "name": "Design Sprint", "level": "Expert" },
-          { "name": "Product Discovery", "level": "Advanced" },
-          { "name": "Agile / Scrum / Kanban", "level": "Advanced" },
-          { "name": "UX Research", "level": "Advanced" }
+          {
+            "name": "Design Thinking",
+            "level": "Expert"
+          },
+          {
+            "name": "Design Sprint",
+            "level": "Expert"
+          },
+          {
+            "name": "Product Discovery",
+            "level": "Advanced"
+          },
+          {
+            "name": "Agile / Scrum / Kanban",
+            "level": "Advanced"
+          },
+          {
+            "name": "UX Research",
+            "level": "Advanced"
+          }
         ]
       }
     ]
@@ -333,26 +536,105 @@
         "impact": "Projeto open source com mais de 6.000 commits, 34+ contribuidores e 93+ releases. Em produção no Magazine Luiza, Itaú e Netshoes — organizações rodando workloads reais na rede edge global da Azion todos os dias. Implementação de novas telas reduzida a aproximadamente um dia através de componentização em blocos.",
         "caseStudyUrl": "/llms/projects/azion-console-kit.txt",
         "credits": [
-          { "name": "Morgana Johann", "role": "Design Manager", "url": "https://www.linkedin.com/in/morgana-johann/" },
-          { "name": "Gabriel Lisboa", "role": "Product Designer", "url": "https://www.linkedin.com/in/gabriellisboadesign/" },
-          { "name": "Eduardo César", "role": "Product Designer", "url": "https://www.linkedin.com/in/cesaroeduardo/" },
-          { "name": "Edilene Almeida", "role": "Product Designer", "url": "https://www.linkedin.com/in/edilene-almeida/" },
-          { "name": "Carolina Silveira", "role": "Product Designer", "url": "https://www.linkedin.com/in/carolina-dutra-silveira-561340187/" },
-          { "name": "Rafaela Paludo", "role": "Product Designer", "url": "https://www.linkedin.com/in/rafaelapaludo/" },
-          { "name": "Vinicius Ferreira", "role": "Engineering Manager", "url": "https://www.linkedin.com/in/vinicius-gubiani-ferreira/" },
-          { "name": "Herbert Cotta", "role": "Experience Developer", "url": "https://www.linkedin.com/in/herbertcotta/" },
-          { "name": "Robson Jr.", "role": "Experience Developer", "url": "https://www.linkedin.com/in/robsongajunior/" },
-          { "name": "Paulo Sobrinho", "role": "Experience Developer", "url": "https://www.linkedin.com/in/paulo-sobrinho-93b527185/" },
-          { "name": "Isaque Böck", "role": "Experience Developer", "url": "https://www.linkedin.com/in/isaquebock/" },
-          { "name": "Guilherme Santana", "role": "Experience Developer", "url": "https://www.linkedin.com/in/gdsantana/" },
-          { "name": "34+ contribuidores open source", "url": "https://github.com/aziontech/azion-console-kit/graphs/contributors" }
+          {
+            "name": "Morgana Johann",
+            "role": "Design Manager",
+            "url": "https://www.linkedin.com/in/morgana-johann/"
+          },
+          {
+            "name": "Gabriel Lisboa",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/gabriellisboadesign/"
+          },
+          {
+            "name": "Eduardo César",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/cesaroeduardo/"
+          },
+          {
+            "name": "Edilene Almeida",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/edilene-almeida/"
+          },
+          {
+            "name": "Carolina Silveira",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/carolina-dutra-silveira-561340187/"
+          },
+          {
+            "name": "Rafaela Paludo",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/rafaelapaludo/"
+          },
+          {
+            "name": "Vinicius Ferreira",
+            "role": "Engineering Manager",
+            "url": "https://www.linkedin.com/in/vinicius-gubiani-ferreira/"
+          },
+          {
+            "name": "Herbert Cotta",
+            "role": "Experience Developer",
+            "url": "https://www.linkedin.com/in/herbertcotta/"
+          },
+          {
+            "name": "Robson Jr.",
+            "role": "Experience Developer",
+            "url": "https://www.linkedin.com/in/robsongajunior/"
+          },
+          {
+            "name": "Paulo Sobrinho",
+            "role": "Experience Developer",
+            "url": "https://www.linkedin.com/in/paulo-sobrinho-93b527185/"
+          },
+          {
+            "name": "Isaque Böck",
+            "role": "Experience Developer",
+            "url": "https://www.linkedin.com/in/isaquebock/"
+          },
+          {
+            "name": "Guilherme Santana",
+            "role": "Experience Developer",
+            "url": "https://www.linkedin.com/in/gdsantana/"
+          },
+          {
+            "name": "34+ contribuidores open source",
+            "url": "https://github.com/aziontech/azion-console-kit/graphs/contributors"
+          }
         ],
         "downloads": [
-          { "label": "Produto ao vivo — console.azion.com", "url": "https://console.azion.com/" },
-          { "label": "GitHub — azion-console-kit", "url": "https://github.com/aziontech/azion-console-kit" }
+          {
+            "label": "Produto ao vivo — console.azion.com",
+            "url": "https://console.azion.com/"
+          },
+          {
+            "label": "GitHub — azion-console-kit",
+            "url": "https://github.com/aziontech/azion-console-kit"
+          }
         ],
         "images": [
-          { "type": "video", "platform": "youtube", "videoId": "TneAP_BOegU", "src": "", "title": "Azion Console Kit — Visão Geral do Produto" }
+          {
+            "type": "video",
+            "platform": "youtube",
+            "videoId": "TneAP_BOegU",
+            "src": "",
+            "title": "Azion Console Kit — Product Overview"
+          },
+          {
+            "src": "/projects/azion-console-kit/home-copilot.webp",
+            "title": "Home — AI Copilot"
+          },
+          {
+            "src": "/projects/azion-console-kit/drawer-double.webp",
+            "title": "Drawer — Dual Panel"
+          },
+          {
+            "src": "/projects/azion-console-kit/function.webp",
+            "title": "Edge Functions"
+          },
+          {
+            "src": "/projects/azion-console-kit/template-deploy.webp",
+            "title": "Template Deployment"
+          }
         ]
       },
       {
@@ -364,39 +646,124 @@
         "impact": "Experiência de marca unificada em mais de 100 localizações edge e 20.000+ aplicações hospedadas. Estabeleceu fundações de marca que apoiaram rodadas de investimento (Monashees, Qualcomm Ventures) e possibilitaram comunicação consistente entre pilares de produto (Build, Secure, Deploy, Observe). Criou sistema escalável adotado por times de design, marketing e engenharia.",
         "caseStudyUrl": "/llms/projects/azion-brand-system.txt",
         "credits": [
-          { "name": "Morgana Johann", "role": "Design Manager", "url": "https://www.linkedin.com/in/morgana-johann/" },
-          { "name": "Fernanda Mizzin", "role": "Brand Manager", "url": "https://www.linkedin.com/in/fernandamizzin/" },
-          { "name": "Guilherme Ganc", "url": "https://www.linkedin.com/in/guilherme-ganc-53961089/" },
-          { "name": "Danusa Araújo", "url": "https://www.linkedin.com/in/danusa-c/" },
-          { "name": "Gabriela Kuhn", "url": "https://www.linkedin.com/in/gabrielakuhn/" },
-          { "name": "Mateus Moura", "url": "https://www.linkedin.com/in/mateus-moura-536681136/" },
-          { "name": "Nathalia Oliveira", "url": "https://www.linkedin.com/in/nathaliapoliveira/" }
+          {
+            "name": "Morgana Johann",
+            "role": "Design Manager",
+            "url": "https://www.linkedin.com/in/morgana-johann/"
+          },
+          {
+            "name": "Fernanda Mizzin",
+            "role": "Brand Manager",
+            "url": "https://www.linkedin.com/in/fernandamizzin/"
+          },
+          {
+            "name": "Guilherme Ganc",
+            "url": "https://www.linkedin.com/in/guilherme-ganc-53961089/"
+          },
+          {
+            "name": "Danusa Araújo",
+            "url": "https://www.linkedin.com/in/danusa-c/"
+          },
+          {
+            "name": "Gabriela Kuhn",
+            "url": "https://www.linkedin.com/in/gabrielakuhn/"
+          },
+          {
+            "name": "Mateus Moura",
+            "url": "https://www.linkedin.com/in/mateus-moura-536681136/"
+          },
+          {
+            "name": "Nathalia Oliveira",
+            "url": "https://www.linkedin.com/in/nathaliapoliveira/"
+          }
         ],
         "downloads": [
-          { "label": "Azion Brand Book v2 (PDF)", "url": "/projects/azion-brand-system/azion-brand-book-v2.pdf" }
+          {
+            "label": "Brand Book — Azion Design Language v2",
+            "url": "https://drive.google.com/uc?export=download&id=1OyOMABjuM6I0HoA0GtcK2TPV3WVNPPzb"
+          }
         ],
         "images": [
-          { "src": "/projects/azion-brand-system/asset-welcome.webp", "title": "Boas-vindas" },
-          { "src": "/projects/azion-brand-system/asset-platform.webp", "title": "Plataforma" },
-          { "src": "/projects/azion-brand-system/edge-computing.webp", "title": "Edge Computing" },
-          { "src": "/projects/azion-brand-system/asset-101-serveless.webp", "title": "Serverless 101" },
-          { "src": "/projects/azion-brand-system/asset-serveless.webp", "title": "Serverless" },
-          { "src": "/projects/azion-brand-system/asset-application-acceleration.webp", "title": "Aceleração de Aplicações" },
-          { "src": "/projects/azion-brand-system/asset-cybersecurity.webp", "title": "Cibersegurança" },
-          { "src": "/projects/azion-brand-system/asset-zero-trust.webp", "title": "Zero Trust" },
-          { "src": "/projects/azion-brand-system/asset-ransomware.webp", "title": "Ransomware" },
-          { "src": "/projects/azion-brand-system/asset-marketplace.webp", "title": "Marketplace" },
-          { "src": "/projects/azion-brand-system/asset-open-standards.webp", "title": "Padrões Abertos" },
-          { "src": "/projects/azion-brand-system/build.webp", "title": "Build" },
-          { "src": "/projects/azion-brand-system/observe.webp", "title": "Observe" },
-          { "src": "/projects/azion-brand-system/observe-1.webp", "title": "Detalhe Observe" },
-          { "src": "/projects/azion-brand-system/orchestrate.webp", "title": "Orquestrar" },
-          { "src": "/projects/azion-brand-system/knowledgebase.webp", "title": "Base de Conhecimento" },
-          { "src": "/projects/azion-brand-system/illustrations-guides.webp", "title": "Guias" },
-          { "src": "/projects/azion-brand-system/illustrations-guides-2.webp", "title": "Guias 2" },
-          { "src": "/projects/azion-brand-system/illustrations-guides-3.webp", "title": "Guias 3" },
-          { "src": "/projects/azion-brand-system/Group%206187.webp", "title": "Grupo de Ilustração" },
-          { "src": "/projects/azion-brand-system/Azion-Careers.webp", "title": "Carreiras Azion" }
+          {
+            "src": "/projects/azion-brand-system/asset-welcome.webp",
+            "title": "Boas-vindas"
+          },
+          {
+            "src": "/projects/azion-brand-system/edge-computing.webp",
+            "title": "Edge Computing"
+          },
+          {
+            "src": "/projects/azion-brand-system/asset-101-serveless.webp",
+            "title": "Serverless 101"
+          },
+          {
+            "src": "/projects/azion-brand-system/asset-serveless.webp",
+            "title": "Serverless"
+          },
+          {
+            "src": "/projects/azion-brand-system/asset-application-acceleration.webp",
+            "title": "Aceleração de Aplicações"
+          },
+          {
+            "src": "/projects/azion-brand-system/asset-cybersecurity.webp",
+            "title": "Cibersegurança"
+          },
+          {
+            "src": "/projects/azion-brand-system/asset-zero-trust.webp",
+            "title": "Zero Trust"
+          },
+          {
+            "src": "/projects/azion-brand-system/asset-ransomware.webp",
+            "title": "Ransomware"
+          },
+          {
+            "src": "/projects/azion-brand-system/asset-marketplace.webp",
+            "title": "Marketplace"
+          },
+          {
+            "src": "/projects/azion-brand-system/asset-open-standards.webp",
+            "title": "Padrões Abertos"
+          },
+          {
+            "src": "/projects/azion-brand-system/build.webp",
+            "title": "Build"
+          },
+          {
+            "src": "/projects/azion-brand-system/observe.webp",
+            "title": "Observe"
+          },
+          {
+            "src": "/projects/azion-brand-system/observe-1.webp",
+            "title": "Detalhe Observe"
+          },
+          {
+            "src": "/projects/azion-brand-system/orchestrate.webp",
+            "title": "Orquestrar"
+          },
+          {
+            "src": "/projects/azion-brand-system/knowledgebase.webp",
+            "title": "Base de Conhecimento"
+          },
+          {
+            "src": "/projects/azion-brand-system/illustrations-guides.webp",
+            "title": "Guias"
+          },
+          {
+            "src": "/projects/azion-brand-system/illustrations-guides-2.webp",
+            "title": "Guias 2"
+          },
+          {
+            "src": "/projects/azion-brand-system/illustrations-guides-3.webp",
+            "title": "Guias 3"
+          },
+          {
+            "src": "/projects/azion-brand-system/Group%206187.webp",
+            "title": "Grupo de Ilustração"
+          },
+          {
+            "src": "/projects/azion-brand-system/Azion-Careers.webp",
+            "title": "Carreiras Azion"
+          }
         ]
       },
       {
@@ -408,17 +775,71 @@
         "impact": "Escalou o estúdio de núcleo interno de agência para operação independente de 40 pessoas, resultando em aquisição pela Stefanini. Entregou campanhas mensais de cupons para O Boticário que aumentaram tráfego em lojas franqueadas em 30% em todo Brasil, sustentadas por mais de 3 anos. Liderou direção criativa de mais de 40 projetos digitais para grandes marcas incluindo Petrobras, Tramontina, Sicredi, Samsung e Mondelez.",
         "caseStudyUrl": "/llms/projects/huia.txt",
         "images": [
-          { "type": "video", "platform": "youtube", "videoId": "d8_xTUsyQdo", "src": "", "title": "Showcase de Tecnologia Criativa" },
-          { "type": "video", "platform": "youtube", "videoId": "s-3rKGVUQiM", "src": "", "title": "Reel de Produção Digital & Inovação" },
-          { "type": "video", "platform": "vimeo", "videoId": "377557773", "src": "", "title": "Campanhas Interativas & Soluções de UX" },
-          { "type": "video", "platform": "vimeo", "videoId": "185564121", "src": "", "title": "Trabalhos Integrados Criativo & Tecnologia" },
-          { "type": "video", "platform": "youtube", "videoId": "u-bbxKjiZvk", "src": "", "title": "Destaques de Marca & Campanhas" },
-          { "type": "video", "platform": "youtube", "videoId": "1RpIxQtXwYY", "src": "", "title": "Reel de Direção Criativa" },
-          { "type": "video", "platform": "youtube", "videoId": "TnaCQZDCAmo", "src": "", "title": "Showcase de Experiência Digital" },
-          { "src": "/projects/huia/huia-bird.webp", "title": "Pássaro Huia — Mascote do Estúdio" },
-          { "src": "/projects/huia/golden-circle.webp", "title": "Golden Circle — Why, How, What" },
-          { "src": "/projects/huia/we-unlock-ideas.webp", "title": "We Unlock Ideas" },
-          { "src": "/projects/huia/team-portraits.webp", "title": "O Time Huia" }
+          {
+            "type": "video",
+            "platform": "youtube",
+            "videoId": "d8_xTUsyQdo",
+            "src": "",
+            "title": "Showcase de Tecnologia Criativa"
+          },
+          {
+            "type": "video",
+            "platform": "youtube",
+            "videoId": "s-3rKGVUQiM",
+            "src": "",
+            "title": "Reel de Produção Digital & Inovação"
+          },
+          {
+            "type": "video",
+            "platform": "vimeo",
+            "videoId": "377557773",
+            "src": "",
+            "title": "Campanhas Interativas & Soluções de UX"
+          },
+          {
+            "type": "video",
+            "platform": "vimeo",
+            "videoId": "185564121",
+            "src": "",
+            "title": "Trabalhos Integrados Criativo & Tecnologia"
+          },
+          {
+            "type": "video",
+            "platform": "youtube",
+            "videoId": "u-bbxKjiZvk",
+            "src": "",
+            "title": "Destaques de Marca & Campanhas"
+          },
+          {
+            "type": "video",
+            "platform": "youtube",
+            "videoId": "1RpIxQtXwYY",
+            "src": "",
+            "title": "Reel de Direção Criativa"
+          },
+          {
+            "type": "video",
+            "platform": "youtube",
+            "videoId": "TnaCQZDCAmo",
+            "src": "",
+            "title": "Showcase de Experiência Digital"
+          },
+          {
+            "src": "/projects/huia/huia-bird.webp",
+            "title": "Pássaro Huia — Mascote do Estúdio"
+          },
+          {
+            "src": "/projects/huia/golden-circle.webp",
+            "title": "Golden Circle — Why, How, What"
+          },
+          {
+            "src": "/projects/huia/we-unlock-ideas.webp",
+            "title": "We Unlock Ideas"
+          },
+          {
+            "src": "/projects/huia/team-portraits.webp",
+            "title": "O Time Huia"
+          }
         ]
       },
       {
@@ -448,9 +869,24 @@
     "command": "grep \"notável\" clientes.log",
     "heading": "Clientes Notáveis",
     "description": "Ao longo de duas décadas, liderei projetos de Design e Marca para algumas das empresas mais reconhecidas do Brasil—desde campeões nacionais como Petrobras e O Boticário até nomes internacionais como Mondelez. Seja construindo produtos digitais para serviços financeiros ou experiências de marca para varejo, o trabalho sempre foca em conectar objetivos de negócio com necessidades de usuários.",
-    "brazilian": ["Petrobras", "Petrobras Distribuidora", "O Boticário", "Tramontina", "Sicredi", "Aché Group", "Alphaville"],
-    "international": ["Lacta", "Bis", "Toblerone", "Belvita", "Trakinas", "Sonho de Valsa", "Oreo"],
-    "other": ["Try On", "Fila"]
+    "list": [
+      "Petrobras",
+      "O Boticário",
+      "Tramontina",
+      "Sicredi",
+      "Aché Group",
+      "Itaú",
+      "Caixa",
+      "Lacta",
+      "LG",
+      "Novartis",
+      "Fila",
+      "Netshoes",
+      "Magalu",
+      "Exame",
+      "Dafiti",
+      "RocketChat"
+    ]
   },
   "philosophy": {
     "command": "vim filosofia.md",
@@ -465,24 +901,55 @@
   "quickFacts": {
     "heading": "Fatos Rápidos",
     "facts": [
-      { "label": "Nascimento", "value": "Junho de 1984" },
-      { "label": "Atual", "value": "Porto Alegre, RS, Brasil" },
-      { "label": "MBTI", "value": "INTP (O Lógico)" },
-      { "label": "DISC", "value": "D (Dominância) primário" },
-      { "label": "Treino", "value": "10-14 horas/semana (triatlo)" },
-      { "label": "Hobbies", "value": "Triatlo, videogames (inspiração de design), cinema, fotografia" },
-      { "label": "Ex", "value": "Baixista (INFUSE), 3x vice-campeão brasileiro de baseball (categorias de base)" }
+      {
+        "label": "Nascimento",
+        "value": "Junho de 1984"
+      },
+      {
+        "label": "Atual",
+        "value": "Porto Alegre, RS, Brasil"
+      },
+      {
+        "label": "MBTI",
+        "value": "INTP (O Lógico)"
+      },
+      {
+        "label": "DISC",
+        "value": "D (Dominância) primário"
+      },
+      {
+        "label": "Treino",
+        "value": "10-14 horas/semana (triatlo)"
+      },
+      {
+        "label": "Hobbies",
+        "value": "Triatlo, videogames (inspiração de design), cinema, fotografia"
+      },
+      {
+        "label": "Ex",
+        "value": "Baixista (INFUSE), 3x vice-campeão brasileiro de baseball (categorias de base)"
+      }
     ]
   },
   "lookingFor": {
     "heading": "O Que Estou Buscando",
     "description": "Atualmente explorando oportunidades em liderança de design, desenvolvimento de produto e inovação—particularmente onde IA aumenta workflows criativos. Aberto para remoto, híbrido ou relocação para a função certa.",
     "idealRole": [
-      { "text": "Liderança de design ou cargo senior IC com trabalho hands-on" },
-      { "text": "Oportunidade de resolver problemas de negócio, mover métricas, buscar resultados" },
-      { "text": "Propósito claro, pessoas inspiradoras, oportunidade de crescimento" },
-      { "text": "Startup, big tech ou agência com cultura forte" },
-      { "text": "Aberto a CLT, PJ ou qualquer tipo de contrato para a oportunidade certa" }
+      {
+        "text": "Liderança de design ou cargo senior IC com trabalho hands-on"
+      },
+      {
+        "text": "Oportunidade de resolver problemas de negócio, mover métricas, buscar resultados"
+      },
+      {
+        "text": "Propósito claro, pessoas inspiradoras, oportunidade de crescimento"
+      },
+      {
+        "text": "Startup, big tech ou agência com cultura forte"
+      },
+      {
+        "text": "Aberto a CLT, PJ ou qualquer tipo de contrato para a oportunidade certa"
+      }
     ],
     "focusAreas": "Posições de tomada de decisão em grandes empresas, ou cargos de sócio/fundador em negócios investidos me interessam mais. Áreas de foco: inovação, desenvolvimento de tecnologia, sports tech, wellness, fazer o mundo melhor."
   },
@@ -492,11 +959,26 @@
     "description": "Atualmente explorando oportunidades em liderança de design, desenvolvimento de produto e inovação—particularmente onde IA aumenta workflows criativos. Aberto para remoto, híbrido ou relocação para a função certa.\n\nSe você está construindo algo interessante, ou só quer conversar sobre design systems, developer experience, ou a interseção entre esportes e UX, entre em contato.",
     "email": "caioogata.labs@gmail.com",
     "links": [
-      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/caioogata/" },
-      { "label": "GitHub", "url": "https://github.com/caioogatalabs" },
-      { "label": "Instagram", "url": "https://www.instagram.com/caioogata.labs" },
-      { "label": "YouTube", "url": "https://www.youtube.com/@caioogatalabs" },
-      { "label": "Discord", "url": "https://discord.gg/caioogatalabs" }
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/caioogata/"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/caioogatalabs"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/caioogata.labs"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@caioogatalabs"
+      },
+      {
+        "label": "Discord",
+        "url": "https://discord.gg/caioogatalabs"
+      }
     ],
     "form": {
       "nameLabel": "Nome",

@@ -50,7 +50,6 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
   const {
     windows,
     viewMode,
-    activeWindowId,
     canvasDimensions,
     showcaseIndex,
     showcasePaused,
@@ -176,7 +175,7 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
                 <kbd className="text-primary">Esc</kbd> exit
               </span>
             )}
-            {mode === 'mouse' && (
+            {mode === 'mouse' && viewMode !== 'showcase' && (
               <span className="hidden sm:inline">Double-click to maximize</span>
             )}
             {mode === 'touch' && (
@@ -191,7 +190,6 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
             <GridView
               key="grid"
               windows={windows}
-              activeWindowId={activeWindowId}
               onFocus={bringToFront}
               onClose={closeWindow}
             />
@@ -201,7 +199,6 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
             <FreeView
               key="free"
               windows={windows}
-              activeWindowId={activeWindowId}
               canvasWidth={canvasDimensions.width}
               canvasHeight={canvasDimensions.height}
               onFocus={bringToFront}

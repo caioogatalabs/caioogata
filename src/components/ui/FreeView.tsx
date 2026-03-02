@@ -7,7 +7,6 @@ import type { WindowState } from '@/hooks/useWindowManager'
 
 interface FreeViewProps {
   windows: WindowState[]
-  activeWindowId: string | null
   canvasWidth: number
   canvasHeight: number
   onFocus: (id: string) => void
@@ -17,7 +16,6 @@ interface FreeViewProps {
 
 export default function FreeView({
   windows,
-  activeWindowId,
   canvasWidth,
   canvasHeight,
   onFocus,
@@ -47,7 +45,7 @@ export default function FreeView({
             x={window.x}
             y={window.y}
             zIndex={window.zIndex}
-            isActive={activeWindowId === window.id}
+
             isOpen={window.isOpen}
             canvasWidth={canvasWidth}
             canvasHeight={canvasHeight}

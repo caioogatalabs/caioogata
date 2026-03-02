@@ -116,7 +116,7 @@ export default function ShowcaseView({
             {naturalSize ? (
               isVideo && currentImage.platform && currentImage.videoId ? (
                 <div style={{ width: displayW, height: displayH }}>
-                  <VideoEmbed platform={currentImage.platform} videoId={currentImage.videoId} />
+                  <VideoEmbed platform={currentImage.platform} videoId={currentImage.videoId} centeredButton />
                 </div>
               ) : (
                 <Image

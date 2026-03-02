@@ -209,9 +209,7 @@ export interface Content {
     command: string
     heading: string
     description: string
-    brazilian: string[]
-    international: string[]
-    other: string[]
+    list: string[]
   }
   philosophy: {
     command: string

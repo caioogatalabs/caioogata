@@ -6,6 +6,7 @@ interface VideoEmbedProps {
   platform: 'youtube' | 'vimeo'
   videoId: string
   className?: string
+  centeredButton?: boolean
 }
 
 const UNMUTE_EVENT = 'portfolio:video-unmuted'
@@ -45,7 +46,7 @@ function sendUnmute(iframe: HTMLIFrameElement, platform: 'youtube' | 'vimeo') {
   }
 }
 
-export default function VideoEmbed({ platform, videoId, className = '' }: VideoEmbedProps) {
+export default function VideoEmbed({ platform, videoId, className = '', centeredButton = false }: VideoEmbedProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const isMutedRef = useRef(true)
   const [isMuted, setIsMuted] = useState(true)
@@ -97,7 +98,7 @@ export default function VideoEmbed({ platform, videoId, className = '' }: VideoE
       />
       <button
         onClick={toggleMute}
-        className="absolute bottom-3 left-3 z-10 flex items-center gap-1.5 px-2 py-1 bg-black/50 border border-white/10 text-white/30 opacity-0 group-hover:opacity-100 hover:text-white/80 hover:border-white/30 hover:bg-black/70 transition-all duration-200 font-mono text-xs rounded-sm backdrop-blur-sm select-none"
+        className={`absolute z-30 flex items-center gap-1.5 px-2 py-1 bg-black/50 border border-white/10 text-white/30 opacity-0 group-hover:opacity-100 hover:text-white/80 hover:border-white/30 hover:bg-black/70 transition-all duration-200 font-mono text-xs rounded-sm backdrop-blur-sm select-none ${centeredButton ? 'bottom-4 left-1/2 -translate-x-1/2' : 'bottom-3 left-3'}`}
         aria-label={isMuted ? 'Ativar áudio' : 'Silenciar'}
         title={isMuted ? 'Ativar áudio' : 'Silenciar'}
       >
