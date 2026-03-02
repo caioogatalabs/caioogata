@@ -16,15 +16,16 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Caio Ogata - Design Director | Design Systems & DevEx',
-  description: 'Design Director with 20+ years in Art Direction and 15 in UI design. Specializing in design systems, brand experience, and developer-focused products. Based in Porto Alegre, Brazil.',
+  title: 'Caio Ogata - Design Director | Systems, DevEx & Engineering',
+  description: 'Design Director specializing in design systems, DevEx, and product engineering. 15 years in UI/UX, 4 as DevEx Director at a global edge platform. Based in Porto Alegre, Brazil.',
   keywords: [
     'Design Director',
     'Design Systems',
     'Developer Experience',
     'DevEx',
+    'Design Engineering',
+    'Product Engineering',
     'UI/UX Design',
-    'Brand Experience',
     'Porto Alegre',
     'Brazil',
   ],
@@ -35,8 +36,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     alternateLocale: ['pt_BR'],
     url: 'https://www.caioogata.com',
-    title: 'Caio Ogata - Design Director | Design Systems & DevEx',
-    description: 'Design Director with 20+ years in Art Direction and 15 in UI design. Specializing in design systems, brand experience, and developer-focused products.',
+    title: 'Caio Ogata - Design Director | Systems, DevEx & Engineering',
+    description: 'Design Director building at the intersection of design systems, developer experience, and product engineering — with end-to-end ownership from concept to production. Based in Porto Alegre, Brazil.',
     siteName: 'Caio Ogata Portfolio',
     images: [
       {
@@ -49,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Caio Ogata - Design Director | Design Systems & DevEx',
-    description: 'Design Director with 20+ years in Art Direction and 15 in UI design.',
+    title: 'Caio Ogata - Design Director | Systems, DevEx & Engineering',
+    description: 'Design Director at the intersection of design systems, developer experience, and product engineering. 15 years in UI/UX, 4 as DevEx Director.',
     images: ['https://www.caioogata.com/og-img.png'],
   },
   icons: {
@@ -92,16 +93,17 @@ const personJsonLd = {
   knowsAbout: [
     'Design Systems',
     'Developer Experience',
+    'Design Engineering',
+    'Product Engineering',
     'Product Design',
     'UI/UX Design',
-    'Brand Experience',
     'Design Leadership',
     'Design Operations',
     'Edge Computing',
     'Product-Led Growth',
   ],
   description:
-    'Design Director with 20+ years in Art Direction and 15+ years focused on UI/UX and product design. Led design at Azion Technologies (2021–2025), building a 14-person organization and two complete design systems.',
+    'Design Director with 15+ years in UI/UX and 4 years as Developer Experience Director at Azion Technologies. Specialized in design systems, product engineering, and end-to-end design execution from concept to production.',
   subjectOf: {
     '@type': 'WebPage',
     name: 'LLM-optimized portfolio (machine-readable)',
