@@ -127,10 +127,24 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
     return () => setIsCanvasActive(false)
   }, [setIsCanvasActive])
 
+  // Deactivate canvas on click outside (mousedown is more reliable than onBlur, ignores scroll/focus changes)
+  useEffect(() => {
+    const handleMouseDown = (e: MouseEvent) => {
+      if (!containerRef.current?.contains(e.target as Node)) {
+        setIsCanvasActive(false)
+      }
+    }
+    document.addEventListener('mousedown', handleMouseDown)
+    return () => document.removeEventListener('mousedown', handleMouseDown)
+  }, [setIsCanvasActive])
+
   const openWindowsCount = windows.filter(w => w.isOpen).length
 
   return (
-    <div ref={containerRef} className="relative w-full">
+    <div
+      ref={containerRef}
+      className="relative w-full"
+    >
       <div
         ref={canvasRef}
         className="relative w-full"

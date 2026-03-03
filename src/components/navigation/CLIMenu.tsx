@@ -50,6 +50,7 @@ export default function CLIMenu() {
   }, [filteredItems.length, selectedIndex, setSelectedIndex])
 
   // When selectedIndex changes via Arrow keys (not Tab), move focus to the selected menu item (keeps Tab and Arrow in sync)
+  // In keyboard mode, scroll item into view only when it approaches the top/bottom 30% of the viewport
   const prevSelectedIndexRef = useRef(selectedIndex)
   useEffect(() => {
     if (!isMenuOpen || filteredItems.length === 0) return
@@ -58,9 +59,19 @@ export default function CLIMenu() {
     if (!selectedIndexChanged) return
     const currentFocusedIsMenuItem = itemRefs.current.some(ref => ref === document.activeElement)
     if (!currentFocusedIsMenuItem) {
-      itemRefs.current[selectedIndex]?.focus()
+      itemRefs.current[selectedIndex]?.focus({ preventScroll: true })
     }
-  }, [selectedIndex, isMenuOpen, filteredItems.length])
+    if (mode === 'keyboard') {
+      const el = itemRefs.current[selectedIndex]
+      if (el) {
+        const rect = el.getBoundingClientRect()
+        const vh = window.innerHeight
+        if (rect.bottom > vh * 0.70 || rect.top < vh * 0.30) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+      }
+    }
+  }, [selectedIndex, isMenuOpen, filteredItems.length, mode])
 
   // Keep refs array length in sync with filtered items
   useEffect(() => {
@@ -83,6 +94,25 @@ export default function CLIMenu() {
     }
     document.addEventListener('click', focusInput)
     return () => document.removeEventListener('click', focusInput)
+  }, [isTouchDevice])
+
+  // Refocus input on any printable keypress, regardless of interaction mode (desktop only)
+  useEffect(() => {
+    if (isTouchDevice) return
+    const focusInputOnType = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return
+      if (e.key.length !== 1) return
+      const target = e.target as HTMLElement
+      const isOtherInput = (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target.isContentEditable
+      ) && target !== inputRef.current
+      if (isOtherInput) return
+      inputRef.current?.focus()
+    }
+    document.addEventListener('keydown', focusInputOnType)
+    return () => document.removeEventListener('keydown', focusInputOnType)
   }, [isTouchDevice])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

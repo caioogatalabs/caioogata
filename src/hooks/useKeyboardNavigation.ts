@@ -131,8 +131,19 @@ export function useKeyboardNavigation() {
         return
       }
 
-      // When canvas is active, let it handle its own navigation
+      // When canvas is active, use arrow keys for page scrolling (canvas only uses ArrowLeft/Right)
+      // ESC closes the expandable section (goBack collapses expanded sub-items)
       if (isCanvasActive) {
+        if (event.key === 'ArrowDown') {
+          event.preventDefault()
+          window.scrollBy({ top: 200, behavior: 'smooth' })
+        } else if (event.key === 'ArrowUp') {
+          event.preventDefault()
+          window.scrollBy({ top: -200, behavior: 'smooth' })
+        } else if (event.key === 'Escape') {
+          event.preventDefault()
+          goBack()
+        }
         return
       }
 

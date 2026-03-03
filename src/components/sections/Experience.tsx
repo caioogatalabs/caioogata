@@ -4,12 +4,14 @@ import { useRef, useEffect } from 'react'
 import { clsx } from 'clsx'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
+import { useInteractionMode } from '@/hooks/useInteractionMode'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ExpandableSection from '@/components/ui/ExpandableSection'
 
 export default function Experience() {
   const { content } = useLanguage()
   const { subItemIndex, setSubItemIndex, setSubItemsCount, expandedSubItems, toggleSubItemExpanded } = useNavigation()
+  const { mode } = useInteractionMode()
   const sectionRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   // Set the number of sub-items for keyboard navigation
@@ -18,12 +20,23 @@ export default function Experience() {
   }, [content.experience.jobs.length, setSubItemsCount])
 
   // When subItemIndex changes via Arrow keys, move focus to the selected section (keeps Tab and Arrow in sync)
+  // In keyboard mode, scroll item into view only when it approaches the top/bottom 30% of the viewport
   useEffect(() => {
     const currentFocusedIsSection = sectionRefs.current.some(ref => ref === document.activeElement)
     if (!currentFocusedIsSection && sectionRefs.current[subItemIndex]) {
-      sectionRefs.current[subItemIndex]?.focus()
+      sectionRefs.current[subItemIndex]?.focus({ preventScroll: true })
     }
-  }, [subItemIndex])
+    if (mode === 'keyboard') {
+      const el = sectionRefs.current[subItemIndex]
+      if (el) {
+        const rect = el.getBoundingClientRect()
+        const vh = window.innerHeight
+        if (rect.bottom > vh * 0.70 || rect.top < vh * 0.30) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+      }
+    }
+  }, [subItemIndex, mode])
 
   return (
     <section id="experience" aria-labelledby="experience-heading">

@@ -43,7 +43,7 @@ export default function Footer() {
   return (
     <footer className="bg-neutral">
       <div className="max-w-content mx-0 px-6 md:px-12 lg:px-16 py-12 md:py-16 w-full">
-        <div className="pl-6">
+        <div>
           <div
             className="font-mono text-neutral-300 text-sm mb-6 w-full overflow-hidden whitespace-nowrap"
             aria-hidden="true"
