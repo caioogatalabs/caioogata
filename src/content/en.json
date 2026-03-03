@@ -547,7 +547,7 @@
             "url": "https://www.linkedin.com/in/gabriellisboadesign/"
           },
           {
-            "name": "Eduardo César",
+            "name": "Eduardo de Cesaro",
             "role": "Product Designer",
             "url": "https://www.linkedin.com/in/cesaroeduardo/"
           },
@@ -628,12 +628,16 @@
             "title": "Drawer — Dual Panel"
           },
           {
-            "src": "/projects/azion-console-kit/function.webp",
-            "title": "Edge Functions"
-          },
-          {
             "src": "/projects/azion-console-kit/template-deploy.webp",
             "title": "Template Deployment"
+          },
+          {
+            "src": "/projects/azion-console-kit/console-mobile-login.webp",
+            "title": "Mobile — Login"
+          },
+          {
+            "src": "/projects/azion-console-kit/console-mobile-metrics.webp",
+            "title": "Mobile — Metrics"
           }
         ]
       },
