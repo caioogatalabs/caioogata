@@ -5,7 +5,7 @@ import { createContext, useContext, useState, useCallback, ReactNode } from 'rea
 export type SectionKey = 'about' | 'projects' | 'experience' | 'skills' | 'education' | 'clients' | 'philosophy' | 'contact'
 
 // Sections that have sub-items for internal navigation
-export const SECTIONS_WITH_SUBITEMS: SectionKey[] = ['projects', 'experience', 'education', 'philosophy']
+export const SECTIONS_WITH_SUBITEMS: SectionKey[] = ['projects', 'experience']
 
 interface NavigationContextType {
   // Menu navigation

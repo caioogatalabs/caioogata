@@ -131,6 +131,21 @@ export function useKeyboardNavigation() {
         return
       }
 
+      // When a section without sub-items is active (about, skills, etc.), use arrow keys for page scrolling
+      if (activeSection && !sectionHasSubItems) {
+        if (event.key === 'ArrowDown') {
+          event.preventDefault()
+          window.scrollBy({ top: 200, behavior: 'smooth' })
+        } else if (event.key === 'ArrowUp') {
+          event.preventDefault()
+          window.scrollBy({ top: -200, behavior: 'smooth' })
+        } else if (event.key === 'Escape') {
+          event.preventDefault()
+          goBack()
+        }
+        return
+      }
+
       // When canvas is active, use arrow keys for page scrolling (canvas only uses ArrowLeft/Right)
       // ESC closes the expandable section (goBack collapses expanded sub-items)
       if (isCanvasActive) {
@@ -178,7 +193,7 @@ export function useKeyboardNavigation() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [navigateUp, navigateDown, selectItem, goBack, setMenuFilter, isCanvasActive, isTouchDevice])
+  }, [navigateUp, navigateDown, selectItem, goBack, setMenuFilter, isCanvasActive, isTouchDevice, activeSection, sectionHasSubItems])
 
   return {
     navigateUp,

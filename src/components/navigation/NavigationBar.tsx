@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
+import { useNavigation, SECTIONS_WITH_SUBITEMS } from '@/components/providers/NavigationProvider'
 
 interface NavigationBarProps {
   variant?: 'primary' | 'secondary'
@@ -78,10 +79,14 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
   const { content } = useLanguage()
   const { navigateUp, navigateDown, selectItem, goBack } = useKeyboardNavigation()
   const { mode, isTouchDevice } = useInteractionMode()
+  const { activeSection } = useNavigation()
   const [activeKey, setActiveKey] = useState<ActiveKey>(null)
 
   // Get labels based on current interaction mode
   const labels = content.menu.navigation[mode]
+
+  const sectionHasSubItems = activeSection && SECTIONS_WITH_SUBITEMS.includes(activeSection)
+  const showEnter = !activeSection || !!sectionHasSubItems
 
   // Listen for keyboard events to show visual feedback (desktop only)
   useEffect(() => {
@@ -164,20 +169,24 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
           <span className="ml-0.5">{labels.navigate}</span>
         </div>
 
-        <span className="text-neutral-400" aria-hidden>·</span>
+        {showEnter && (
+          <>
+            <span className="text-neutral-400" aria-hidden>·</span>
 
-        {/* Select/Open button - Enter for keyboard, Click/Tap for mouse/touch */}
-        <button
-          type="button"
-          onClick={selectItem}
-          className={`${buttonBaseClass} ${activeKey === 'enter' ? 'text-primary' : ''}`}
-          aria-label={labels.select}
-        >
-          {mode === 'keyboard' && (
-            <span className={activeKey === 'enter' ? keyActiveClass : keyClass}>Enter</span>
-          )}
-          <span>{labels.select}</span>
-        </button>
+            {/* Select/Open button - Enter for keyboard, Click/Tap for mouse/touch */}
+            <button
+              type="button"
+              onClick={selectItem}
+              className={`${buttonBaseClass} ${activeKey === 'enter' ? 'text-primary' : ''}`}
+              aria-label={labels.select}
+            >
+              {mode === 'keyboard' && (
+                <span className={activeKey === 'enter' ? keyActiveClass : keyClass}>Enter</span>
+              )}
+              <span>{labels.select}</span>
+            </button>
+          </>
+        )}
       </div>
     </div>
   )
