@@ -3,7 +3,7 @@
     "command": "/menu",
     "legend": "Pressione ↑↓ para navegar · Enter para selecionar · Esc para voltar",
     "inputHint": {
-      "keyboard": "Tente \"/\" ou digite algo",
+      "keyboard": "Tente \"/\" ou pressione Enter",
       "mouse": "Tente \"/\" digite ou clique aqui",
       "touch": "Toque para abrir"
     },
