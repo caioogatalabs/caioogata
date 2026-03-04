@@ -307,7 +307,7 @@ linkedin: https://www.linkedin.com/in/caioogata/
 github: https://github.com/caioogatalabs
 instagram: https://www.instagram.com/caioogata.labs
 youtube: https://www.youtube.com/@caioogatalabs
-discord: https://discord.gg/caioogatalabs
+twitch: https://www.twitch.tv/caioogata
 portfolio: https://www.caioogata.com
 azion_brand_system: https://www.azion.design
 open_for_work: true

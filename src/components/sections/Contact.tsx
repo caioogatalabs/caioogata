@@ -22,7 +22,7 @@ export default function Contact() {
 
       {/* Two columns: description text (left), email + links (right) */}
       <div className="grid grid-cols-1 md:grid-cols-[4fr_1fr] gap-8 md:gap-12">
-        <div className="space-y-4 min-w-0 pl-6">
+        <div className="space-y-4 min-w-0">
           <p className="text-sm text-neutral-300 font-mono leading-relaxed">
             {content.hero.location}
           </p>
@@ -61,7 +61,7 @@ export default function Contact() {
       </div>
 
       {/* Contact Form + ASCII Smile — below description, full width */}
-      <div className="mt-8 pl-6">
+      <div className="mt-8">
         <ContactForm />
       </div>
     </section>

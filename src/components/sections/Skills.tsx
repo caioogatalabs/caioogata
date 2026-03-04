@@ -19,7 +19,7 @@ export default function Skills() {
         {content.skills.heading}
       </SectionHeading>
 
-      <div className="grid gap-4 md:grid-cols-2 pl-6">
+      <div className="grid gap-4 md:grid-cols-2">
         {content.skills.categories.map((category, catIndex) => (
           <div key={catIndex} className={`flex flex-col gap-3 ${catIndex >= 2 ? 'mt-6' : ''}`}>
             <h3 className="text-sm text-secondary font-mono leading-relaxed">

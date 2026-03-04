@@ -91,7 +91,7 @@ export default function Experience() {
               isExpanded={isExpanded}
               onToggle={() => toggleSubItemExpanded(index)}
               onFocus={() => setSubItemIndex(index)}
-              className="pl-6"
+
             >
               {job.achievements && job.achievements.length > 0 ? (
                 <div className="flex flex-col gap-6">
