@@ -56,22 +56,19 @@ export default function GridView({ windows, onFocus, onClose }: GridViewProps) {
     >
       {openWindows.map((window, index) => {
         const isVideoCell = window.image.type === 'video'
-        const useAspectVideo = isSingleVideo || (isFirstVideo && index === 0)
         const ratio = aspectRatios[window.id]
 
         // Image cells: aspect-ratio from image dimensions (minHeight while loading)
-        // Video cells (non-first): 16:9 aspect-ratio + minHeight floor for narrow columns
-        const cellStyle = useAspectVideo
+        // Video cells: no height constraint on the cell — ImageWindow drives height via aspect-video content
+        const cellStyle = isVideoCell
           ? undefined
-          : isVideoCell
-            ? { aspectRatio: '16 / 9', minHeight: '280px' }
-            : { aspectRatio: ratio ? String(ratio) : undefined, minHeight: '200px' }
+          : { aspectRatio: ratio ? String(ratio) : undefined, minHeight: '200px' }
 
         return (
           <motion.div
             key={window.id}
             layout
-            className={`${getColSpan(window.id, index)}${useAspectVideo ? ' aspect-video' : ''}`}
+            className={getColSpan(window.id, index)}
             style={cellStyle}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           >

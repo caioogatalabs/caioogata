@@ -66,24 +66,7 @@ body {
   color: var(--bg-neutral);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
 
-::-webkit-scrollbar-track {
-  background: var(--bg-neutral);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-neutral-teal);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
-}
 
 /* Skip link */
 .sr-only {

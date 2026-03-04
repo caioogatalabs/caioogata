@@ -114,7 +114,7 @@ export default function ImageWindow({
       <motion.div
         layoutId={id}
         className="flex flex-col bg-neutral-100 border border-neutral-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]"
-        style={{ height: '100%', minHeight: 240 }}
+        style={isVideo ? undefined : { height: '100%', minHeight: 240 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2, delay: index * 0.04 }}
@@ -128,9 +128,15 @@ export default function ImageWindow({
           onMaximize={handleMaximize}
           onClose={onClose}
         />
-        <div className="flex-1 relative bg-neutral overflow-hidden">
-          <WindowContent image={image} imageError={imageError} onError={() => setImageError(true)} />
-        </div>
+        {isVideo ? (
+          <div className="relative aspect-video bg-neutral overflow-hidden">
+            <WindowContent image={image} imageError={imageError} onError={() => setImageError(true)} />
+          </div>
+        ) : (
+          <div className="flex-1 relative bg-neutral overflow-hidden">
+            <WindowContent image={image} imageError={imageError} onError={() => setImageError(true)} />
+          </div>
+        )}
       </motion.div>
     )
   }
