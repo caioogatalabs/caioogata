@@ -7,6 +7,7 @@ import { generateMarkdown } from '@/lib/markdown-generator'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { AI_PLATFORMS, getMarkdownUrl, buildPromptText, type AIPlatform } from '@/lib/ai-link-builder'
 import { useToast } from '@/components/providers/ToastProvider'
+import ArrowRightIcon from '@/components/ui/ArrowRightIcon'
 
 interface CopyDropdownProps {
   variant?: 'primary' | 'secondary' | 'inverted' | 'filled'
@@ -149,7 +150,7 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <span className="mr-1">&gt;</span>
+        <ArrowRightIcon className="mr-1 shrink-0" />
         {isCopying ? content.hero.cta.copying : (buttonLabel ?? content.hero.cta.copy)}
         <span className="ml-2" aria-hidden="true">
           {isOpen ? '▲' : '▼'}

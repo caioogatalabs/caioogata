@@ -229,7 +229,7 @@ export default function ContactForm() {
               aria-busy={status === 'submitting'}
               className="inline-flex items-center justify-center px-3 py-1.5 font-mono text-sm rounded-base bg-primary text-neutral-900 hover:bg-primary/90 focus-visible:bg-primary/90 focus:outline-none transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span className="mr-1">&gt;</span>
+              <ArrowRightIcon className="mr-1 shrink-0" />
               {status === 'submitting' ? formContent.submitting : formContent.submitButton}
             </button>
           </div>
