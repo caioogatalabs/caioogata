@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react'
+import { track } from '@vercel/analytics'
 
 export type SectionKey = 'about' | 'projects' | 'experience' | 'skills' | 'education' | 'clients' | 'philosophy' | 'contact'
 
@@ -67,6 +68,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
 
   const setActiveSection = useCallback((section: SectionKey | null) => {
     setActiveSectionState(section)
+    if (section) track('section_view', { section })
     // Reset sub-navigation when changing sections
     resetSubNavigation()
   }, [resetSubNavigation])

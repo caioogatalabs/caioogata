@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
+import { track } from '@vercel/analytics'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
@@ -57,7 +58,10 @@ export default function Projects() {
               title={project.title}
               isSelected={isSelected}
               isExpanded={isExpanded}
-              onToggle={() => toggleSubItemExpanded(index)}
+              onToggle={() => {
+                if (!expandedSubItems.has(index)) track('subitem_expand', { section: 'projects', item: project.title })
+                toggleSubItemExpanded(index)
+              }}
               onFocus={() => setSubItemIndex(index)}
               disabled={project.disabled}
             >

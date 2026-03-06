@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, useRef, useCallback } from 'react'
+import { useMemo, useRef, useCallback, useEffect } from 'react'
+import { track } from '@vercel/analytics'
 import { motion, AnimatePresence } from 'motion/react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useContactForm } from '@/hooks/useContactForm'
@@ -36,6 +37,10 @@ export default function ContactForm() {
   const isEmailValid = EMAIL_REGEX.test(values.email.trim())
   const isSubjectValid = values.subject !== ''
   const isMessageValid = values.message.trim().length > 0
+
+  useEffect(() => {
+    if (status === 'success') track('contact_form_submitted', { subject: values.subject })
+  }, [status]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 

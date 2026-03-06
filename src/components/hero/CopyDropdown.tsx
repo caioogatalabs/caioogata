@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { track } from '@vercel/analytics'
 import { clsx } from 'clsx'
 import { copyToClipboard } from '@/lib/clipboard'
 import { generateMarkdown } from '@/lib/markdown-generator'
@@ -48,6 +49,7 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
     try {
       const markdown = generateMarkdown(language)
       await copyToClipboard(markdown)
+      track('ask_about_caio', { action: 'copy_markdown' })
 
       toast.success(
         language === 'en'
@@ -65,6 +67,7 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
 
   const handleOpenAI = async (platform: AIPlatform) => {
     setIsOpen(false)
+    track('ask_about_caio', { action: 'open_platform', platform: platform.name })
 
     // Clipboard fallback: copy prompt text and open plain URL (e.g. Gemini)
     if (platform.useClipboardFallback) {
@@ -115,6 +118,7 @@ export default function CopyDropdown({ variant = 'primary', className = '', butt
     try {
       const promptText = buildPromptText(language)
       await copyToClipboard(promptText)
+      track('ask_about_caio', { action: 'copy_prompt' })
 
       toast.success(
         language === 'en'

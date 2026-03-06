@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
+import { track } from '@vercel/analytics'
 import { clsx } from 'clsx'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { useNavigation } from '@/components/providers/NavigationProvider'
@@ -89,7 +90,10 @@ export default function Experience() {
               title={titleContent}
               isSelected={isSelected}
               isExpanded={isExpanded}
-              onToggle={() => toggleSubItemExpanded(index)}
+              onToggle={() => {
+                if (!expandedSubItems.has(index)) track('subitem_expand', { section: 'experience', item: job.company })
+                toggleSubItemExpanded(index)
+              }}
               onFocus={() => setSubItemIndex(index)}
 
             >
