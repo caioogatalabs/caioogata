@@ -3,8 +3,8 @@
     "command": "/menu",
     "legend": "Pressione ↑↓ para navegar · Enter para selecionar · Esc para voltar",
     "inputHint": {
-      "keyboard": "Tente \"/\" ou pressione Enter",
-      "mouse": "Tente \"/\" digite ou clique aqui",
+      "keyboard": "filtre digitando",
+      "mouse": "filtre digitando",
       "touch": "Toque para abrir"
     },
     "navigation": {
@@ -12,16 +12,19 @@
       "arrowDown": "Navegar para baixo",
       "keyboard": {
         "back": "para voltar",
+        "close": "para fechar",
         "navigate": "para navegar",
         "select": "para selecionar"
       },
       "mouse": {
         "back": "para voltar",
+        "close": "para fechar",
         "navigate": "para selecionar",
         "select": "Clique para abrir"
       },
       "touch": {
         "back": "para voltar",
+        "close": "para fechar",
         "navigate": "para selecionar",
         "select": "Toque para abrir"
       }

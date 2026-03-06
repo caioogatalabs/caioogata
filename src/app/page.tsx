@@ -1,6 +1,6 @@
 import SkipLink from '@/components/ui/SkipLink'
 import MainContent from '@/components/layout/MainContent'
-import { FirstVisitProvider, ConditionalFooter } from '@/components/providers/FirstVisitProvider'
+import Footer from '@/components/layout/Footer'
 
 export default function Home() {
   const structuredData = {
@@ -40,14 +40,12 @@ export default function Home() {
 
       <SkipLink />
 
-      <FirstVisitProvider>
-        <main id="main-content">
-          <div className="w-full">
-            <MainContent />
-          </div>
-        </main>
-        <ConditionalFooter />
-      </FirstVisitProvider>
+      <main id="main-content">
+        <div className="w-full">
+          <MainContent />
+        </div>
+      </main>
+      <Footer />
     </>
   )
 }

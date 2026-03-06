@@ -52,6 +52,11 @@ export default function Footer() {
           </div>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
             <div>
+              <p className="text-sm font-mono text-neutral-300 mb-4">
+                {language === 'en'
+                  ? 'This project is built for humans and AI assistance.'
+                  : 'Este projeto é construído para humanos e assistência de IA.'}
+              </p>
               <p className="text-sm text-neutral-400">
                 &copy; {content.footer.copyright}
               </p>

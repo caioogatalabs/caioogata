@@ -3,8 +3,8 @@
     "command": "/menu",
     "legend": "Press ↑↓ to navigate · Enter to select · Esc to go back",
     "inputHint": {
-      "keyboard": "Try \"/\" or press Enter",
-      "mouse": "Try \"/\" type or click here",
+      "keyboard": "type to filter",
+      "mouse": "type to filter",
       "touch": "Tap to open"
     },
     "navigation": {
@@ -12,16 +12,19 @@
       "arrowDown": "Navigate down",
       "keyboard": {
         "back": "to go back",
+        "close": "to close",
         "navigate": "to navigate",
         "select": "to select"
       },
       "mouse": {
         "back": "to go back",
+        "close": "to close",
         "navigate": "to select",
         "select": "Click to open"
       },
       "touch": {
         "back": "to go back",
+        "close": "to close",
         "navigate": "to select",
         "select": "Tap to open"
       }

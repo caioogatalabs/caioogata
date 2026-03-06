@@ -79,7 +79,7 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
   const { content } = useLanguage()
   const { navigateUp, navigateDown, selectItem, goBack } = useKeyboardNavigation()
   const { mode, isTouchDevice } = useInteractionMode()
-  const { activeSection } = useNavigation()
+  const { activeSection, isMenuOpen } = useNavigation()
   const [activeKey, setActiveKey] = useState<ActiveKey>(null)
 
   // Get labels based on current interaction mode
@@ -87,6 +87,7 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
 
   const sectionHasSubItems = activeSection && SECTIONS_WITH_SUBITEMS.includes(activeSection)
   const showEnter = !activeSection || !!sectionHasSubItems
+  const backLabel = isMenuOpen && !activeSection ? labels.close : labels.back
 
   // Listen for keyboard events to show visual feedback (desktop only)
   useEffect(() => {
@@ -138,12 +139,12 @@ export default function NavigationBar({ variant = 'primary' }: NavigationBarProp
           type="button"
           onClick={goBack}
           className={`${buttonBaseClass} ${activeKey === 'esc' ? 'text-primary' : ''}`}
-          aria-label={labels.back}
+          aria-label={backLabel}
         >
           <span className={activeKey === 'esc' ? keyActiveClass : keyClass}>
             {showBackAsArrow ? <ArrowLeftIcon /> : 'Esc'}
           </span>
-          <span>{labels.back}</span>
+          <span>{backLabel}</span>
         </button>
 
         <span className="text-neutral-400" aria-hidden>·</span>

@@ -47,7 +47,7 @@ const NavigationContext = createContext<NavigationContextType | undefined>(undef
 export function NavigationProvider({ children }: { children: ReactNode }) {
   const [activeSection, setActiveSectionState] = useState<SectionKey | null>(null)
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(true)
   const [menuFilter, setMenuFilter] = useState('')
   const [filteredMenuCount, setFilteredMenuCount] = useState(MENU_ITEMS_COUNT)
   const [filteredMenuKeys, setFilteredMenuKeys] = useState<string[]>([])
