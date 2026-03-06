@@ -50,17 +50,17 @@ export default function Footer() {
           >
             {'//'.repeat(200)}
           </div>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-            <div>
-              <p className="text-sm font-mono text-neutral-300 mb-4">
-                {language === 'en'
-                  ? 'This project is built for humans and AI assistance.'
-                  : 'Este projeto é construído para humanos e assistência de IA.'}
-              </p>
+          <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 md:items-start">
+            <p className="text-sm font-mono text-neutral-300">
+              {language === 'en'
+                ? 'This project is built for humans and AI assistance.'
+                : 'Este projeto é construído para humanos e assistência de IA.'}
+            </p>
+            <div className="md:text-right">
               <p className="text-sm text-neutral-400">
                 &copy; {content.footer.copyright}
               </p>
-              <p className="text-sm text-neutral-300 font-mono mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1">
+              <p className="text-sm text-neutral-300 font-mono mt-2 flex flex-wrap items-center md:justify-end gap-x-1.5 gap-y-1">
                 <span>{builtWith}</span>
                 <NextJsIcon className={iconClass} />
                 <span>Next.js,</span>
