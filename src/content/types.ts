@@ -113,6 +113,7 @@ export interface MenuItem {
 
 export interface NavigationModeLabels {
   back: string
+  close: string
   navigate: string
   select: string
 }
