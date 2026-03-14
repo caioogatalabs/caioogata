@@ -75,6 +75,7 @@ export default function Projects() {
                   <div className="relative xl:-mr-48 2xl:-mr-96 overflow-hidden">
                     <ProjectCanvas
                       images={project.images}
+                      gridLayout={project.gridLayout}
                       viewModeLabels={content.projects.viewModes}
                       onExit={() => toggleSubItemExpanded(index)}
                     />

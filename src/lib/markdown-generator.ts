@@ -37,6 +37,7 @@ Caio Ogata (born June 1984, Porto Alegre, Brazil) is actively seeking design lea
 
 ## Case Studies
 
+- [Azion Website & Brand Expansion](https://www.caioogata.com/llms/projects/azion-website.txt): Strategic brand expansion that repositioned Azion from edge computing category language to benefit-oriented platform messaging — including visual identity expansion, Sora typography, and a shared webkit component system enabling cross-team autonomy
 - [Azion Brand System](https://www.caioogata.com/llms/projects/azion-brand-system.txt): Learn about the comprehensive brand identity system built for Azion Technologies (2021–2025), covering brand strategy, visual identity, voice guidelines, and cross-functional organizational adoption
 - [Azion Console Kit](https://www.caioogata.com/llms/projects/azion-console-kit.txt): Understand the complete front-end rebuild of Azion's management console — architecture decisions, design system implementation, and measurable impact on enterprise clients at scale
 - [Huia, Creativity & Innovation](https://www.caioogata.com/llms/projects/huia.txt): Explore 8 years as Partner and Head of Creative Technology at a Brazilian digital innovation studio, from boutique team to 40-person operation acquired by Stefanini
@@ -353,6 +354,7 @@ function generateLLMIndex(isEnglish: boolean): string {
 - Portfolio index (EN): [https://www.caioogata.com/llms.txt](https://www.caioogata.com/llms.txt)
 - Full portfolio content (EN, canonical): [https://www.caioogata.com/llms-full.txt](https://www.caioogata.com/llms-full.txt)
 - Full portfolio PT-BR (for human readers): [https://www.caioogata.com/llms-pt.txt](https://www.caioogata.com/llms-pt.txt)
+- Case study — Azion Website & Brand Expansion: [https://www.caioogata.com/llms/projects/azion-website.txt](https://www.caioogata.com/llms/projects/azion-website.txt)
 - Case study — Azion Brand System: [https://www.caioogata.com/llms/projects/azion-brand-system.txt](https://www.caioogata.com/llms/projects/azion-brand-system.txt)
 - Case study — Huia: [https://www.caioogata.com/llms/projects/huia.txt](https://www.caioogata.com/llms/projects/huia.txt)
 - Case study — Azion Console Kit: [https://www.caioogata.com/llms/projects/azion-console-kit.txt](https://www.caioogata.com/llms/projects/azion-console-kit.txt)`
@@ -362,6 +364,7 @@ function generateLLMIndex(isEnglish: boolean): string {
 - Índice do portfólio (EN): [https://www.caioogata.com/llms.txt](https://www.caioogata.com/llms.txt)
 - Conteúdo completo do portfólio (EN, canônico): [https://www.caioogata.com/llms-full.txt](https://www.caioogata.com/llms-full.txt)
 - Portfólio completo PT-BR (para leitores humanos): [https://www.caioogata.com/llms-pt.txt](https://www.caioogata.com/llms-pt.txt)
+- Estudo de caso — Azion Website & Expansão de Marca: [https://www.caioogata.com/llms/projects/azion-website.txt](https://www.caioogata.com/llms/projects/azion-website.txt)
 - Estudo de caso — Azion Brand System: [https://www.caioogata.com/llms/projects/azion-brand-system.txt](https://www.caioogata.com/llms/projects/azion-brand-system.txt)
 - Estudo de caso — Huia: [https://www.caioogata.com/llms/projects/huia.txt](https://www.caioogata.com/llms/projects/huia.txt)
 - Estudo de caso — Azion Console Kit: [https://www.caioogata.com/llms/projects/azion-console-kit.txt](https://www.caioogata.com/llms/projects/azion-console-kit.txt)`

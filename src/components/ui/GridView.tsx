@@ -7,6 +7,7 @@ import type { WindowState } from '@/hooks/useWindowManager'
 
 interface GridViewProps {
   windows: WindowState[]
+  gridLayout?: 'default' | 'large-only'
   onFocus: (id: string) => void
   onClose: (id: string) => void
 }
@@ -16,7 +17,7 @@ const HIGHLIGHT_INDICES = new Set([0, 3, 7])
 
 type SizeState = 'normal' | 'maximized' | 'minimized'
 
-export default function GridView({ windows, onFocus, onClose }: GridViewProps) {
+export default function GridView({ windows, gridLayout, onFocus, onClose }: GridViewProps) {
   const openWindows = windows.filter(w => w.isOpen)
   const [sizeStates, setSizeStates] = useState<Record<string, SizeState>>({})
   const [aspectRatios, setAspectRatios] = useState<Record<string, number>>({})
@@ -39,6 +40,12 @@ export default function GridView({ windows, onFocus, onClose }: GridViewProps) {
     if (state === 'maximized') return 'col-span-1 sm:col-span-2 lg:col-span-4'
     if (state === 'minimized') return 'col-span-1'
     if (openWindows.length === 1) return 'col-span-1 sm:col-span-2 lg:col-span-4'
+    // large-only: repeating pattern of 1 full-width + 2 half-width (no small images)
+    if (gridLayout === 'large-only') {
+      const posInGroup = index % 3
+      if (posInGroup === 0) return 'col-span-1 sm:col-span-2 lg:col-span-4'
+      return 'col-span-1 sm:col-span-2'
+    }
     if (isFirstVideo && index === 0) return 'col-span-1 sm:col-span-2 lg:col-span-4'
     if (isFirstVideo) return 'col-span-1 sm:col-span-2'
     if (HIGHLIGHT_INDICES.has(index)) return 'col-span-1 sm:col-span-2'

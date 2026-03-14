@@ -531,6 +531,26 @@
     },
     "items": [
       {
+        "title": "Azion Website & Brand Expansion",
+        "slug": "azion-website",
+        "description": "A strategic brand expansion that repositioned Azion from a technical edge computing label to a platform story developers and enterprises could actually act on. Led the creative and strategic direction for a full website overhaul — new messaging architecture, an expanded visual identity, and a componentized front-end system built on Astro and Vue that gave every team across the company the tools to own their slice of the web.",
+        "role": "Design Director",
+        "technologies": "Astro, Vue.js, Webkit Component Library, Design Tokens, Sora Typography, Monospace, Brand Strategy, Copywriting Architecture",
+        "impact": "Repositioned Azion's core value proposition from technical category language to benefit-oriented platform messaging. Established a shared webkit component system consumed by the site, console, docs, and blog — enabling product teams to build and maintain their own pages without design bottlenecks. Delivered a consistent digital presence across all touchpoints as the foundation for continued platform evolution.",
+        "caseStudyUrl": "/llms/projects/azion-website.txt",
+        "credits": [],
+        "gridLayout": "large-only",
+        "images": [
+          { "src": "/projects/azion-website/home-en-hero.webp", "title": "The Web Platform — Homepage EN" },
+          { "src": "/projects/azion-website/home-pt-hero.webp", "title": "A Plataforma Web — Homepage PT-BR" },
+          { "src": "/projects/azion-website/home-reliable-zoom.webp", "title": "Most Reliable Infrastructure — Section Detail" },
+          { "src": "/projects/azion-website/home-products-menu-zoom.webp", "title": "Product Navigation — Menu Open" },
+          { "src": "/projects/azion-website/functions-hero-zoom.webp", "title": "Edge Functions — Hero Detail" },
+          { "src": "/projects/azion-website/functions-code-zoom.webp", "title": "From Code to Production — Faster" },
+          { "src": "/projects/azion-website/cache-hero.webp", "title": "Edge Cache — Product Page" }
+        ]
+      },
+      {
         "title": "Azion Console Kit",
         "slug": "azion-console-kit",
         "description": "The complete front-end rebuild of the Azion management console — the interface engineers use to deploy, secure, and observe applications at the edge. Built on Vue 3, a custom design system, and a headless architecture that decouples UI from business logic, Console Kit ships features consistently and at the speed a global edge platform demands.",

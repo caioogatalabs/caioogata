@@ -102,6 +102,7 @@ export interface ProjectItem {
   credits?: ProjectCredit[]
   downloads?: ProjectDownload[]
   images: ProjectImage[]
+  gridLayout?: 'default' | 'large-only'
   disabled?: boolean
 }
 

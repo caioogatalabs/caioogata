@@ -46,5 +46,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    {
+      url: 'https://www.caioogata.com/llms/projects/azion-website.txt',
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
   ]
 }

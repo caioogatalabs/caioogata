@@ -13,6 +13,7 @@ import type { ProjectImage } from '@/content/types'
 
 interface ProjectCanvasProps {
   images: ProjectImage[]
+  gridLayout?: 'default' | 'large-only'
   viewModeLabels: {
     grid: string
     free: string
@@ -23,7 +24,7 @@ interface ProjectCanvasProps {
 
 const SHOWCASE_INTERVAL = 5000
 
-export default function ProjectCanvas({ images, viewModeLabels, onExit }: ProjectCanvasProps) {
+export default function ProjectCanvas({ images, gridLayout, viewModeLabels, onExit }: ProjectCanvasProps) {
   const canvasRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const { mode } = useInteractionMode()
@@ -204,6 +205,7 @@ export default function ProjectCanvas({ images, viewModeLabels, onExit }: Projec
             <GridView
               key="grid"
               windows={windows}
+              gridLayout={gridLayout}
               onFocus={bringToFront}
               onClose={closeWindow}
             />
