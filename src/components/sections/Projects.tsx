@@ -164,24 +164,24 @@ export default function Projects() {
                     </div>
                   )}
 
-                  {project.downloads && project.downloads.length > 0 && (
+                  {project.links && project.links.length > 0 && (
                     <div>
                       <div className="flex items-center gap-2 mb-2">
                         <span className="w-4 shrink-0 flex items-center justify-center text-primary" aria-hidden>
                           <ArrowRightIcon />
                         </span>
-                        <h3 className="text-base font-bold text-secondary font-mono">Downloads</h3>
+                        <h3 className="text-base font-bold text-secondary font-mono">Links</h3>
                       </div>
                       <div className="ml-6 space-y-1">
-                        {project.downloads.map((download, i) => (
+                        {project.links.map((link, i) => (
                           <a
                             key={i}
-                            href={download.url}
+                            href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="block text-sm text-secondary font-mono hover:text-primary transition-colors"
                           >
-                            &gt; {download.label}
+                            &gt; {link.label}
                           </a>
                         ))}
                       </div>

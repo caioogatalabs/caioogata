@@ -555,8 +555,8 @@ function generateProjectsMarkdown(projects: ProjectItem[], isEnglish: boolean): 
         return c.role ? `${name} (${c.role})` : name
       }).join(', ')}`)
     }
-    if (project.downloads && project.downloads.length > 0) {
-      lines.push(`**Downloads:** ${project.downloads.map(d => `[${d.label}](https://www.caioogata.com${d.url})`).join(', ')}`)
+    if (project.links && project.links.length > 0) {
+      lines.push(`**Links:** ${project.links.map(l => `[${l.label}](${l.url.startsWith('http') ? l.url : 'https://www.caioogata.com' + l.url})`).join(', ')}`)
     }
     const staticImages = project.images?.filter(img => img.type !== 'video' && img.src) ?? []
     if (staticImages.length > 0) {

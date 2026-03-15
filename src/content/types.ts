@@ -86,7 +86,7 @@ export interface ProjectCredit {
   url?: string
 }
 
-export interface ProjectDownload {
+export interface ProjectLink {
   label: string
   url: string
 }
@@ -100,7 +100,7 @@ export interface ProjectItem {
   impact?: string
   caseStudyUrl?: string
   credits?: ProjectCredit[]
-  downloads?: ProjectDownload[]
+  links?: ProjectLink[]
   images: ProjectImage[]
   gridLayout?: 'default' | 'large-only'
   disabled?: boolean

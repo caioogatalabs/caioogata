@@ -533,12 +533,34 @@
       {
         "title": "Azion Website & Brand Expansion",
         "slug": "azion-website",
-        "description": "A strategic brand expansion that repositioned Azion from a technical edge computing label to a platform story developers and enterprises could actually act on. Led the creative and strategic direction for a full website overhaul — new messaging architecture, an expanded visual identity, and a componentized front-end system built on Astro and Vue that gave every team across the company the tools to own their slice of the web.",
+        "description": "A brand adaptation — not a full overhaul — that evolved Azion's digital presence while preserving the technology and structure already in production. New color tones with more saturation, new interface elements, block variants with richer layouts, and a new illustration pattern that visually represents product features and explains how they work. Led the visual and technical strategy for this expansion across the website, built on Astro and Vue with the existing webkit component library.",
         "role": "Design Director",
-        "technologies": "Astro, Vue.js, Webkit Component Library, Design Tokens, Sora Typography, Monospace, Brand Strategy, Copywriting Architecture",
-        "impact": "Repositioned Azion's core value proposition from technical category language to benefit-oriented platform messaging. Established a shared webkit component system consumed by the site, console, docs, and blog — enabling product teams to build and maintain their own pages without design bottlenecks. Delivered a consistent digital presence across all touchpoints as the foundation for continued platform evolution.",
+        "technologies": "Astro, Vue.js, Webkit Component Library, Design Tokens, Sora Typography, Monospace, Brand Adaptation, Illustration System",
+        "impact": "Expanded the visual identity without breaking the existing front-end architecture. Introduced new illustration patterns that explain product features visually, richer block variants across all pages, and a more saturated color palette that strengthened brand presence. The open-source webkit component library is a shared system powering both the website and the console — with project-specific blocks and patterns, but reusable core components across products.",
         "caseStudyUrl": "/llms/projects/azion-website.txt",
-        "credits": [],
+        "links": [
+          { "label": "Azion Website", "url": "https://www.azion.com" },
+          { "label": "Webkit Storybook", "url": "https://webkit.azion.com" },
+          { "label": "GitHub Repository", "url": "https://github.com/aziontech/webkit" }
+        ],
+        "credits": [
+          {
+            "name": "Robson Júnior",
+            "url": "https://www.linkedin.com/in/robsongajunior/"
+          },
+          {
+            "name": "Luis Igreja",
+            "url": "https://www.linkedin.com/in/luisigreja/"
+          },
+          {
+            "name": "Giovanna Bertuci",
+            "url": "https://www.linkedin.com/in/giovanna-bertuci-9ba73416a/"
+          },
+          {
+            "name": "Isaque Böck",
+            "url": "https://www.linkedin.com/in/isaquebock/"
+          }
+        ],
         "gridLayout": "large-only",
         "images": [
           { "src": "/projects/azion-website/home-en-hero.webp", "title": "The Web Platform — Homepage EN" },
@@ -547,9 +569,10 @@
           { "src": "/projects/azion-website/functions-hero-zoom.webp", "title": "Edge Functions — Hero Detail" },
           { "src": "/projects/azion-website/cache-hero.webp", "title": "Edge Cache — Product Page" },
           { "src": "/projects/azion-website/professional-services-hero.webp", "title": "Professional Services — Overview" },
-          { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
+          { "src": "/projects/azion-website/products-strip.webp", "title": "Product Pages — Image Processor, Bot Manager, Load Balancer, App Accelerator" },
           { "src": "/projects/azion-website/marketplace-hero.webp", "title": "Marketplace — Hero" },
-          { "src": "/projects/azion-website/products-strip.webp", "title": "Product Pages — Image Processor, Bot Manager, Load Balancer, App Accelerator" }
+          { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
+          { "src": "/projects/azion-website/webkit-components.webp", "title": "Webkit Component Library — Storybook (Open Source)" }
         ]
       },
       {
@@ -626,7 +649,7 @@
             "url": "https://github.com/aziontech/azion-console-kit/graphs/contributors"
           }
         ],
-        "downloads": [
+        "links": [
           {
             "label": "Live product — console.azion.com",
             "url": "https://console.azion.com/"
@@ -694,7 +717,7 @@
             "url": "https://www.linkedin.com/in/nathaliapoliveira/"
           }
         ],
-        "downloads": [
+        "links": [
           {
             "label": "Brand Book — Azion Design Language v2",
             "url": "https://drive.google.com/uc?export=download&id=1OyOMABjuM6I0HoA0GtcK2TPV3WVNPPzb"
