@@ -61,12 +61,13 @@ export default function ImageWindow({
   const [naturalDimensions, setNaturalDimensions] = useState<{ width: number; height: number } | null>(null)
 
   const isVideo = image.type === 'video'
+  const isFigma = image.type === 'figma'
   // Use a ref to avoid stale closure in the image load callback
   const onAspectRatioChangeRef = useRef(onAspectRatioChange)
   onAspectRatioChangeRef.current = onAspectRatioChange
 
   useEffect(() => {
-    if (isVideo) {
+    if (isVideo || isFigma) {
       setNaturalDimensions({ width: 560, height: 315 })
       return
     }
@@ -77,7 +78,7 @@ export default function ImageWindow({
     }
     img.onerror = () => setImageError(true)
     img.src = decodeURIComponent(image.src)
-  }, [image.src, isVideo])
+  }, [image.src, isVideo, isFigma])
 
   const imageDimensions = useMemo(() => {
     if (!naturalDimensions) return { width: MIN_WIDTH, height: MIN_HEIGHT }
@@ -114,7 +115,7 @@ export default function ImageWindow({
       <motion.div
         layoutId={id}
         className="flex flex-col bg-neutral-100 border border-neutral-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]"
-        style={isVideo ? undefined : { height: '100%', minHeight: 240 }}
+        style={isVideo || isFigma ? undefined : { height: '100%', minHeight: 240 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2, delay: index * 0.04 }}
@@ -128,7 +129,7 @@ export default function ImageWindow({
           onMaximize={handleMaximize}
           onClose={onClose}
         />
-        {isVideo ? (
+        {isVideo || isFigma ? (
           <div className="relative aspect-video bg-neutral overflow-hidden">
             <WindowContent image={image} imageError={imageError} onError={() => setImageError(true)} />
           </div>
@@ -297,6 +298,19 @@ function WindowContent({
     return (
       <div className="absolute inset-0">
         <VideoEmbed platform={image.platform} videoId={image.videoId} />
+      </div>
+    )
+  }
+
+  if (image.type === 'figma' && image.figmaEmbedUrl) {
+    return (
+      <div className="absolute inset-0">
+        <iframe
+          src={image.figmaEmbedUrl}
+          className="w-full h-full border-0"
+          allowFullScreen
+          loading="lazy"
+        />
       </div>
     )
   }

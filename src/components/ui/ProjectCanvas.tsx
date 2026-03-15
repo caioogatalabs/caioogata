@@ -72,7 +72,7 @@ export default function ProjectCanvas({ images, gridLayout, viewModeLabels, onEx
   useEffect(() => {
     if (viewMode !== 'showcase' || showcasePaused || images.length <= 1) return
     // If the current item is a video, pause so the video can play through
-    if (images[showcaseIndex]?.type === 'video') {
+    if (images[showcaseIndex]?.type === 'video' || images[showcaseIndex]?.type === 'figma') {
       setShowcasePaused(true)
       return
     }

@@ -559,6 +559,10 @@
           {
             "name": "Isaque Böck",
             "url": "https://www.linkedin.com/in/isaquebock/"
+          },
+          {
+            "name": "Eduardo de Cesaro",
+            "url": "https://www.linkedin.com/in/cesaroeduardo/"
           }
         ],
         "gridLayout": "large-only",
@@ -572,7 +576,8 @@
           { "src": "/projects/azion-website/products-strip.webp", "title": "Product Pages — Image Processor, Bot Manager, Load Balancer, App Accelerator" },
           { "src": "/projects/azion-website/marketplace-hero.webp", "title": "Marketplace — Hero" },
           { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
-          { "src": "/projects/azion-website/webkit-components.webp", "title": "Webkit Component Library — Storybook (Open Source)" }
+          { "src": "/projects/azion-website/webkit-components.webp", "title": "Webkit Component Library — Storybook (Open Source)" },
+          { "src": "", "title": "Brand Concept 2025 — Figma", "type": "figma", "figmaEmbedUrl": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share" }
         ]
       },
       {
@@ -674,6 +679,83 @@
           {
             "src": "/projects/azion-console-kit/console-mobile-metrics.webp",
             "title": "Mobile — Metrics"
+          },
+          {
+            "src": "",
+            "title": "Console Kit Blocks — Figma",
+            "type": "figma",
+            "figmaEmbedUrl": "https://embed.figma.com/design/DKr8aHcsH8yUgl4Ptz1a2E/Console-Kit-Blocks?node-id=0-1&embed-host=share"
+          },
+          {
+            "src": "",
+            "title": "Console UI — Migration Preview",
+            "type": "figma",
+            "figmaEmbedUrl": "https://embed.figma.com/design/FungJEKktn3K00HEmqhzai/Console-UI--Migration--Preview?node-id=9366-129330&embed-host=share"
+          }
+        ]
+      },
+      {
+        "title": "Azion Design System",
+        "slug": "azion-design-system",
+        "description": "O design system próprio implementado gradualmente, que permitiu à Azion melhorar a experiência e entregar com consistência sem forçar uma mudança visual abrupta nos clientes que já usavam o produto. Construído para o RTM (Real Time Manager) a partir de 2021, estabeleceu as fundações — tokens, 40+ componentes, documentação. O precursor estratégico do Console Kit.",
+        "role": "Design Director",
+        "technologies": "Figma, Design Tokens, Zeroheight, Arquitetura de Componentes, Tipografia Roboto, Sistema de Cores Semântico, Iconografia, Figma Plugins",
+        "impact": "40+ componentes documentados em uma biblioteca estruturada com fundações baseadas em tokens. Permitiu que times de produto paralelos construíssem com consistência pela primeira vez, reduzindo inconsistências entre diferentes áreas da plataforma RTM. Estabeleceu a base arquitetural — design tokens, padrões de componentes e práticas de documentação — que informou diretamente a reconstrução do Console Kit.",
+        "caseStudyUrl": "/llms/projects/azion-design-system.txt",
+        "credits": [
+          {
+            "name": "Morgana Johann",
+            "role": "Design Manager",
+            "url": "https://www.linkedin.com/in/morgana-johann/"
+          },
+          {
+            "name": "Gabriel Lisboa",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/gabriellisboadesign/"
+          },
+          {
+            "name": "Eduardo de Cesaro",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/cesaroeduardo/"
+          },
+          {
+            "name": "João Narciso",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/jotanarciso/"
+          },
+          {
+            "name": "Carolina Silveira",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/carolina-dutra-silveira-561340187/"
+          },
+          {
+            "name": "Tamara Viegas",
+            "role": "Product Designer",
+            "url": "https://www.linkedin.com/in/tamara-viegas-design/"
+          },
+          {
+            "name": "Fagner Araujo",
+            "url": "https://www.linkedin.com/in/fagner-araujo/"
+          }
+        ],
+        "links": [
+          {
+            "label": "Documentação — azion.design",
+            "url": "https://www.azion.design/6c444676a/p/14c623-azion-design-system"
+          }
+        ],
+        "images": [
+          {
+            "src": "",
+            "title": "Global Tokens — Figma",
+            "type": "figma",
+            "figmaEmbedUrl": "https://embed.figma.com/design/2TFLoJyClig14zTpnaXuxt/Global-Tokens--Copy-?node-id=0-1&embed-host=share"
+          },
+          {
+            "src": "",
+            "title": "RTM Components — Handoff",
+            "type": "figma",
+            "figmaEmbedUrl": "https://embed.figma.com/design/lCDgGUdLgjFq2odYz9GNc5/RTM-Components---Handoff--Copy-?node-id=10756-539481&embed-host=share"
           }
         ]
       },
@@ -881,13 +963,6 @@
             "title": "O Time Huia"
           }
         ]
-      },
-      {
-        "title": "Azion Design System (coming soon)",
-        "slug": "developer-experience",
-        "description": "",
-        "disabled": true,
-        "images": []
       },
       {
         "title": "Azion CLI (coming soon)",

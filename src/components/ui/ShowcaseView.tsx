@@ -32,11 +32,12 @@ export default function ShowcaseView({
   const [containerSize, setContainerSize] = useState<{ w: number; h: number }>({ w: 800, h: 800 })
 
   const isVideo = currentImage?.type === 'video'
+  const isFigma = currentImage?.type === 'figma'
 
   // Load natural dimensions when image changes
   useEffect(() => {
     if (!currentImage) return
-    if (currentImage.type === 'video') {
+    if (currentImage.type === 'video' || currentImage.type === 'figma') {
       setNaturalSize({ w: 1920, h: 1080 })
       return
     }
@@ -117,6 +118,15 @@ export default function ShowcaseView({
               isVideo && currentImage.platform && currentImage.videoId ? (
                 <div style={{ width: displayW, height: displayH }}>
                   <VideoEmbed platform={currentImage.platform} videoId={currentImage.videoId} centeredButton />
+                </div>
+              ) : isFigma && currentImage.figmaEmbedUrl ? (
+                <div style={{ width: displayW, height: displayH }}>
+                  <iframe
+                    src={currentImage.figmaEmbedUrl}
+                    className="w-full h-full border-0"
+                    allowFullScreen
+                    loading="lazy"
+                  />
                 </div>
               ) : (
                 <Image

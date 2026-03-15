@@ -22,10 +22,10 @@ export default function GridView({ windows, gridLayout, onFocus, onClose }: Grid
   const [sizeStates, setSizeStates] = useState<Record<string, SizeState>>({})
   const [aspectRatios, setAspectRatios] = useState<Record<string, number>>({})
 
-  // Single video: full-width + aspect-video class (no gridAutoRows)
-  const isSingleVideo = openWindows.length === 1 && openWindows[0]?.image.type === 'video'
-  // Mixed: video first — video gets full width, images use their own aspect-ratio
-  const isFirstVideo = !isSingleVideo && openWindows.length > 1 && openWindows[0]?.image.type === 'video'
+  // Single video/figma: full-width + aspect-video class (no gridAutoRows)
+  const isSingleVideo = openWindows.length === 1 && (openWindows[0]?.image.type === 'video' || openWindows[0]?.image.type === 'figma')
+  // Mixed: video/figma first — gets full width, images use their own aspect-ratio
+  const isFirstVideo = !isSingleVideo && openWindows.length > 1 && (openWindows[0]?.image.type === 'video' || openWindows[0]?.image.type === 'figma')
 
   const handleSizeChange = useCallback((id: string, state: SizeState) => {
     setSizeStates(prev => ({ ...prev, [id]: state }))
@@ -36,9 +36,12 @@ export default function GridView({ windows, gridLayout, onFocus, onClose }: Grid
   }, [])
 
   const getColSpan = (windowId: string, index: number): string => {
+    const window = openWindows.find(w => w.id === windowId)
     const state = sizeStates[windowId] ?? 'normal'
     if (state === 'maximized') return 'col-span-1 sm:col-span-2 lg:col-span-4'
     if (state === 'minimized') return 'col-span-1'
+    // Figma embeds always full-width
+    if (window?.image.type === 'figma') return 'col-span-1 sm:col-span-2 lg:col-span-4'
     if (openWindows.length === 1) return 'col-span-1 sm:col-span-2 lg:col-span-4'
     // large-only: repeating pattern of 1 full-width + 2 half-width (no small images)
     if (gridLayout === 'large-only') {
@@ -62,7 +65,7 @@ export default function GridView({ windows, gridLayout, onFocus, onClose }: Grid
       transition={{ duration: 0.3 }}
     >
       {openWindows.map((window, index) => {
-        const isVideoCell = window.image.type === 'video'
+        const isVideoCell = window.image.type === 'video' || window.image.type === 'figma'
         const ratio = aspectRatios[window.id]
 
         // Image cells: aspect-ratio from image dimensions (minHeight while loading)

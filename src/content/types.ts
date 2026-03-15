@@ -75,9 +75,10 @@ export interface ContactLog {
 export interface ProjectImage {
   src: string
   title: string
-  type?: 'image' | 'video'
+  type?: 'image' | 'video' | 'figma'
   platform?: 'youtube' | 'vimeo'
   videoId?: string
+  figmaEmbedUrl?: string
 }
 
 export interface ProjectCredit {
