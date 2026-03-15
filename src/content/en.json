@@ -542,12 +542,14 @@
         "gridLayout": "large-only",
         "images": [
           { "src": "/projects/azion-website/home-en-hero.webp", "title": "The Web Platform — Homepage EN" },
-          { "src": "/projects/azion-website/home-pt-hero.webp", "title": "A Plataforma Web — Homepage PT-BR" },
           { "src": "/projects/azion-website/home-reliable-zoom.webp", "title": "Most Reliable Infrastructure — Section Detail" },
           { "src": "/projects/azion-website/home-products-menu-zoom.webp", "title": "Product Navigation — Menu Open" },
           { "src": "/projects/azion-website/functions-hero-zoom.webp", "title": "Edge Functions — Hero Detail" },
-          { "src": "/projects/azion-website/functions-code-zoom.webp", "title": "From Code to Production — Faster" },
-          { "src": "/projects/azion-website/cache-hero.webp", "title": "Edge Cache — Product Page" }
+          { "src": "/projects/azion-website/cache-hero.webp", "title": "Edge Cache — Product Page" },
+          { "src": "/projects/azion-website/professional-services-hero.webp", "title": "Professional Services — Overview" },
+          { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
+          { "src": "/projects/azion-website/marketplace-hero.webp", "title": "Marketplace — Hero" },
+          { "src": "/projects/azion-website/products-strip.webp", "title": "Product Pages — Image Processor, Bot Manager, Load Balancer, App Accelerator" }
         ]
       },
       {

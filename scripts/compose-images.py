@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Compose case study images following PROJECTS-GUIDE.md patterns.
+Compose case study images following PROJECTS-GUIDE.md alignments.
 
-Two composition patterns:
-  - Overview (Pattern 1): center-top anchor, bleed bottom, BG top + sides
-  - Zoom/Detail (Pattern 2): bottom-right anchor, bleed right + bottom, BG top + left
+Three composition alignments (content-first):
+  - Center: BG top + sides, bleed bottom — "show the page"
+  - Top-left: BG top + left, bleed right + bottom — "detail on the left"
+  - Top-right: BG top + right, bleed left + bottom — "detail on the right"
 
 See PROJECTS-GUIDE.md for full documentation.
 """
@@ -13,7 +14,12 @@ from PIL import Image, ImageDraw, ImageFilter
 import os
 import random
 
-CANVAS_W, CANVAS_H = 1600, 1000
+# ---------------------------------------------------------------------------
+# Project-level variables
+# ---------------------------------------------------------------------------
+
+CANVAS_W, CANVAS_H = 1600, 1000   # Output size (16:10, MacBook Pro ratio)
+MARGIN = 120                       # BG margin: 120px fixed on all exposed sides
 CORNER_RADIUS = 12
 DARK_BASE = (8, 8, 8)  # #080808
 
@@ -154,29 +160,33 @@ def add_selective_rounded_corners(img, radius, corners=('tl', 'tr', 'bl', 'br'))
 
 
 # ---------------------------------------------------------------------------
-# Pattern 1: Overview (center-top, bleed bottom)
+# Center alignment: BG top + sides, bleed bottom — "show the page"
 # ---------------------------------------------------------------------------
 
-def compose_overview(screenshot_path, output_path, bg_variant='warm', bg_ratio=0.10,
-                     corner_radius=CORNER_RADIUS, src_crop=None, seed=42, bg=None):
+def compose_center(screenshot_path, output_path, bg_variant='warm',
+                   corner_radius=CORNER_RADIUS, src_crop=None, seed=42, bg=None,
+                   canvas_h=None):
     """
-    Pattern 1: Overview composition.
+    Center alignment composition.
 
-    - Anchor: center-top
-    - BG breathing: top (~bg_ratio) + sides (~bg_ratio * 0.7)
-    - Bleed: bottom edge
-    - Rounded corners: top-left + top-right only
+    - Margins: top + left + right (120px each)
+    - Bleeds: bottom
+    - Rounded corners: top-left + top-right
+    - Anchor: top (y = MARGIN). Bottom is the bleed edge.
 
-    src_crop: (left, top, right, bottom) relative coords to trim source before composing.
-              e.g. (0.08, 0.0, 0.92, 1.0) trims 8% from each side.
-    bg: pre-created background image. If None, creates orange BG.
+    src_crop: (left, top, right, bottom) relative coords for content selection.
+              e.g. (0.0, 0.25, 1.0, 1.0) skips top 25% (navbar area).
+    canvas_h: Override output height (P4 — last resort when src_crop makes image
+              too short to bleed at default 1000px). Width stays at CANVAS_W.
     """
+    out_h = canvas_h if canvas_h else CANVAS_H
+
     if bg is None:
-        bg = create_orange_bg(CANVAS_W, CANVAS_H, variant=bg_variant, seed=seed)
+        bg = create_orange_bg(CANVAS_W, out_h, variant=bg_variant, seed=seed)
 
     screenshot = Image.open(screenshot_path).convert('RGB')
 
-    # Pre-crop source if specified
+    # Content selection crop
     if src_crop:
         sw, sh = screenshot.size
         screenshot = screenshot.crop((
@@ -184,9 +194,8 @@ def compose_overview(screenshot_path, output_path, bg_variant='warm', bg_ratio=0
             int(src_crop[2] * sw), int(src_crop[3] * sh)
         ))
 
-    # Calculate placement
-    side_padding = int(CANVAS_W * bg_ratio * 0.7)
-    top_padding = int(CANVAS_H * bg_ratio)
+    # Calculate placement with fixed margin
+    side_padding = MARGIN
     target_w = CANVAS_W - (side_padding * 2)
 
     # Scale maintaining aspect ratio
@@ -197,34 +206,32 @@ def compose_overview(screenshot_path, output_path, bg_variant='warm', bg_ratio=0
     # Rounded corners on top only (bottom bleeds off canvas)
     screenshot_rounded = add_selective_rounded_corners(screenshot, corner_radius, corners=('tl', 'tr'))
 
-    # Place: centered horizontally, top_padding from top, bleeds bottom
+    # Place: centered horizontally, anchored to top (y = MARGIN)
     x = side_padding
-    y = top_padding
+    y = MARGIN
 
     bg_rgba = bg.convert('RGBA')
     bg_rgba.paste(screenshot_rounded, (x, y), screenshot_rounded)
 
-    result = bg_rgba.convert('RGB').crop((0, 0, CANVAS_W, CANVAS_H))
+    result = bg_rgba.convert('RGB').crop((0, 0, CANVAS_W, out_h))
     result.save(output_path, 'WEBP', quality=85)
-    _log(output_path, target_w, target_h)
+    _log(output_path, target_w, target_h, canvas_h=out_h)
 
 
 # ---------------------------------------------------------------------------
-# Pattern 2: Zoom / Detail (bottom-right anchor, bleed right + bottom)
+# Top-left alignment: BG top + left, bleed right + bottom — "detail on the left"
 # ---------------------------------------------------------------------------
 
-def compose_zoom_detail(screenshot_path, output_path, crop_box, bg_variant='warm',
-                        bg_ratio=0.15, corner_radius=CORNER_RADIUS, seed=42, bg=None):
+def compose_top_left(screenshot_path, output_path, crop_box, bg_variant='warm',
+                     corner_radius=CORNER_RADIUS, seed=42, bg=None):
     """
-    Pattern 2: Zoom/Detail composition.
+    Top-left alignment composition.
 
-    - Anchor: bottom-right
-    - BG breathing: top (~bg_ratio) + left (~bg_ratio)
-    - Bleed: right + bottom edges
+    - Margins: top + left (120px each)
+    - Bleeds: right + bottom
     - Rounded corners: top-left only
 
     crop_box: (left, top, right, bottom) relative coords for the detail region.
-    bg: pre-created background image. If None, creates orange BG.
     """
     if bg is None:
         bg = create_orange_bg(CANVAS_W, CANVAS_H, variant=bg_variant, seed=seed)
@@ -239,9 +246,9 @@ def compose_zoom_detail(screenshot_path, output_path, crop_box, bg_variant='warm
     ))
 
     # Scale: image should extend beyond canvas on right + bottom
-    left_padding = int(CANVAS_W * bg_ratio)
-    top_padding = int(CANVAS_H * bg_ratio)
-    target_w = CANVAS_W - left_padding  # fills from left_padding to right edge (and beyond)
+    left_padding = MARGIN
+    top_padding = MARGIN
+    target_w = CANVAS_W - left_padding
 
     sw, sh = screenshot.size
     target_h = int(target_w * sh / sw)
@@ -270,12 +277,148 @@ def compose_zoom_detail(screenshot_path, output_path, crop_box, bg_variant='warm
 
 
 # ---------------------------------------------------------------------------
+# Top-right alignment: BG top + right, bleed left + bottom — "detail on the right"
+# ---------------------------------------------------------------------------
+
+def compose_top_right(screenshot_path, output_path, crop_box=None, bg_variant='warm',
+                      corner_radius=CORNER_RADIUS, src_crop=None, seed=42, bg=None):
+    """
+    Top-right alignment composition.
+
+    - Margins: top + right (120px each)
+    - Bleeds: left + bottom
+    - Rounded corners: top-right only
+
+    crop_box: (left, top, right, bottom) relative coords for the detail region.
+    src_crop: (left, top, right, bottom) relative coords for content selection.
+    """
+    if bg is None:
+        bg = create_orange_bg(CANVAS_W, CANVAS_H, variant=bg_variant, seed=seed)
+
+    screenshot = Image.open(screenshot_path).convert('RGB')
+
+    # Content selection (coarse — e.g. skip navbar)
+    if src_crop:
+        sw, sh = screenshot.size
+        screenshot = screenshot.crop((
+            int(src_crop[0] * sw), int(src_crop[1] * sh),
+            int(src_crop[2] * sw), int(src_crop[3] * sh)
+        ))
+
+    # Detail region crop (fine — zoom into specific area)
+    if crop_box:
+        sw, sh = screenshot.size
+        screenshot = screenshot.crop((
+            int(crop_box[0] * sw), int(crop_box[1] * sh),
+            int(crop_box[2] * sw), int(crop_box[3] * sh)
+        ))
+
+    # Scale: fill from left edge, leave right padding for BG
+    right_padding = MARGIN
+    top_padding = MARGIN
+    target_w = CANVAS_W - right_padding
+
+    sw, sh = screenshot.size
+    target_h = int(target_w * sh / sw)
+
+    # Ensure image reaches bottom
+    min_h = CANVAS_H - top_padding
+    if target_h < min_h:
+        target_h = min_h
+        target_w = int(target_h * sw / sh)
+
+    screenshot = screenshot.resize((target_w, target_h), Image.LANCZOS)
+
+    # Rounded corner on top-right only (other corners bleed off)
+    screenshot_rounded = add_selective_rounded_corners(screenshot, corner_radius, corners=('tr',))
+
+    # Place: flush left (x=0), top_padding from top, bleeds left + bottom
+    x = 0
+    y = top_padding
+
+    bg_rgba = bg.convert('RGBA')
+    bg_rgba.paste(screenshot_rounded, (x, y), screenshot_rounded)
+
+    result = bg_rgba.convert('RGB').crop((0, 0, CANVAS_W, CANVAS_H))
+    result.save(output_path, 'WEBP', quality=85)
+    _log(output_path, target_w, target_h)
+
+
+# ---------------------------------------------------------------------------
+# Product Strip: multiple screenshots side-by-side in horizontal strip
+# ---------------------------------------------------------------------------
+
+def compose_product_strip(screenshot_paths, crop_boxes, output_path,
+                          corner_radius=CORNER_RADIUS, gap=10, pad_y=40,
+                          seed=42, bg=None):
+    """
+    Compose multiple product screenshots in a horizontal strip on a single canvas.
+
+    screenshot_paths: list of screenshot file paths
+    crop_boxes: list of (left, top, right, bottom) relative crop coords
+    gap: pixel gap between strips
+    pad_y: vertical padding (increase to make strips shorter)
+    """
+    if bg is None:
+        bg = create_undertone_bg(CANVAS_W, CANVAS_H, seed=seed)
+
+    n = len(screenshot_paths)
+    total_gap = gap * (n - 1)
+    pad_x = 40
+    strip_w = (CANVAS_W - 2 * pad_x - total_gap) // n
+    strip_h = CANVAS_H - 2 * pad_y
+
+    bg_rgba = bg.convert('RGBA')
+
+    for i, (path, crop_box) in enumerate(zip(screenshot_paths, crop_boxes)):
+        screenshot = Image.open(path).convert('RGB')
+        sw, sh = screenshot.size
+
+        # Crop to detail region
+        cropped = screenshot.crop((
+            int(crop_box[0] * sw), int(crop_box[1] * sh),
+            int(crop_box[2] * sw), int(crop_box[3] * sh)
+        ))
+
+        # Scale to fill strip slot (crop to fit aspect ratio)
+        cw, ch = cropped.size
+        target_ratio = strip_w / strip_h
+        current_ratio = cw / ch
+
+        if current_ratio > target_ratio:
+            # Too wide — crop sides
+            new_w = int(ch * target_ratio)
+            offset = (cw - new_w) // 2
+            cropped = cropped.crop((offset, 0, offset + new_w, ch))
+        else:
+            # Too tall — crop top/bottom
+            new_h = int(cw / target_ratio)
+            cropped = cropped.crop((0, 0, cw, new_h))
+
+        cropped = cropped.resize((strip_w, strip_h), Image.LANCZOS)
+
+        # Rounded corners on all 4 corners (each strip is fully visible)
+        cropped_rounded = add_selective_rounded_corners(
+            cropped, corner_radius, corners=('tl', 'tr', 'bl', 'br')
+        )
+
+        x = pad_x + i * (strip_w + gap)
+        y = pad_y
+        bg_rgba.paste(cropped_rounded, (x, y), cropped_rounded)
+
+    result = bg_rgba.convert('RGB').crop((0, 0, CANVAS_W, CANVAS_H))
+    result.save(output_path, 'WEBP', quality=85)
+    size_kb = os.path.getsize(output_path) / 1024
+    print(f'  > {os.path.basename(output_path)}: {n} strips {strip_w}x{strip_h}, {size_kb:.0f}KB')
+
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _log(output_path, w, h):
+def _log(output_path, w, h, canvas_w=CANVAS_W, canvas_h=CANVAS_H):
     size_kb = os.path.getsize(output_path) / 1024
-    print(f'  > {os.path.basename(output_path)}: {w}x{h} on {CANVAS_W}x{CANVAS_H}, {size_kb:.0f}KB')
+    print(f'  > {os.path.basename(output_path)}: {w}x{h} on {canvas_w}x{canvas_h}, {size_kb:.0f}KB')
 
 
 # ---------------------------------------------------------------------------
@@ -292,67 +435,89 @@ def main():
 
     print('\n  Composing Azion Website case study images (undertone BG)...\n')
 
-    # 1. Home EN — Overview
-    print('  1. Home EN Hero (overview)')
-    compose_overview(
+    # 1. Home EN — Center (hero + first logo row, crop bottom 27%)
+    #    canvas_h=760: P4 adjustment — src_crop shortens image to 645px,
+    #    at y=120 bottom=765, so 760 maintains bleed while keeping 120px top margin.
+    print('  1. Home EN Hero (center)')
+    compose_center(
         src('azion-home-en-raw.png'), out('home-en-hero.webp'),
-        bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=60),
-        bg_ratio=0.10,
-        src_crop=(0.08, 0.0, 0.92, 1.0),
+        bg=create_undertone_bg(CANVAS_W, 760, seed=60),
+        src_crop=(0.0, 0.0, 1.0, 0.73),
+        canvas_h=760,
     )
 
-    # 2. Home PT — Overview
-    print('  2. Home PT Hero (overview)')
-    compose_overview(
-        src('azion-home-pt-raw.png'), out('home-pt-hero.webp'),
-        bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=61),
-        bg_ratio=0.10,
-        src_crop=(0.08, 0.0, 0.92, 1.0),
-    )
+    # 2. Home PT — REMOVED (keeping raw for reference)
 
-    # 3. Reliable Infrastructure — Zoom
-    print('  3. Most Reliable Infrastructure (zoom)')
-    compose_zoom_detail(
+    # 3. Reliable Infrastructure — Center (section centered, no navbar)
+    print('  3. Most Reliable Infrastructure (center)')
+    compose_center(
         src('azion-home-reliable-raw.png'), out('home-reliable-zoom.webp'),
-        crop_box=(0.05, 0.30, 0.92, 1.0),
         bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=62),
-        bg_ratio=0.15,
     )
 
-    # 4. Products Menu — Zoom
-    print('  4. Products Menu (zoom)')
-    compose_zoom_detail(
+    # 4. Products Menu — Top-left
+    print('  4. Products Menu (top-left)')
+    compose_top_left(
         src('azion-home-products-menu-raw.png'), out('home-products-menu-zoom.webp'),
         crop_box=(0.0, 0.0, 0.65, 0.55),
         bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=63),
-        bg_ratio=0.15,
     )
 
-    # 5. Functions Hero — Overview (full page shows hero + code + metrics)
-    print('  5. Functions Hero (overview)')
-    compose_overview(
+    # 5. Functions Hero — Center (full viewport)
+    print('  5. Functions Hero (center)')
+    compose_center(
         src('azion-functions-hero-raw.png'), out('functions-hero-zoom.webp'),
         bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=64),
-        bg_ratio=0.10,
-        src_crop=(0.05, 0.0, 0.95, 1.0),
     )
 
-    # 6. Functions Code Section — Zoom
-    print('  6. Functions Code to Production (zoom)')
-    compose_zoom_detail(
-        src('azion-functions-code-raw.png'), out('functions-code-zoom.webp'),
-        crop_box=(0.08, 0.52, 0.88, 1.0),
-        bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=65),
-        bg_ratio=0.15,
-    )
-
-    # 7. Cache Hero — Overview
-    print('  7. Cache Hero (overview)')
-    compose_overview(
+    # 6. Cache Hero — Center (full viewport)
+    print('  6. Cache Hero (center)')
+    compose_center(
         src('azion-cache-hero-raw.png'), out('cache-hero.webp'),
         bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=66),
-        bg_ratio=0.10,
-        src_crop=(0.08, 0.0, 0.92, 1.0),
+    )
+
+    # 7. Professional Services — Center (title/subtitle centered in DOM)
+    print('  7. Professional Services (center)')
+    compose_center(
+        src('azion-professional-services-raw.png'), out('professional-services-hero.webp'),
+        bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=70),
+    )
+
+    # 8. Documentation Devtools — Top-left (zoom 2/3 on tool cards)
+    print('  8. Documentation Devtools (top-left)')
+    compose_top_left(
+        src('azion-devtools-raw.png'), out('devtools-zoom.webp'),
+        crop_box=(0.0, 0.0, 0.67, 0.67),
+        bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=71),
+    )
+
+    # 9. Marketplace — Center (full viewport hero)
+    print('  9. Marketplace (center)')
+    compose_center(
+        src('azion-marketplace-raw.png'), out('marketplace-hero.webp'),
+        bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=72),
+    )
+
+    # 10. Product Pages Strip — 4 products side by side
+    print('  10. Product Pages Strip (4 products)')
+    compose_product_strip(
+        screenshot_paths=[
+            src('azion-image-processor-raw.png'),
+            src('azion-bot-manager-raw.png'),
+            src('azion-load-balancer-raw.png'),
+            src('azion-app-accelerator-raw.png'),
+        ],
+        crop_boxes=[
+            (0.35, 0.05, 1.0, 0.55),  # Image Processor — hero with illustration
+            (0.35, 0.05, 1.0, 0.55),  # Bot Manager — hero with chart
+            (0.35, 0.05, 1.0, 0.55),  # Load Balancer — hero with UI
+            (0.35, 0.05, 1.0, 0.55),  # App Accelerator — hero with UI
+        ],
+        output_path=out('products-strip.webp'),
+        bg=create_undertone_bg(CANVAS_W, CANVAS_H, seed=67),
+        gap=8,
+        pad_y=280,
     )
 
     print('\n  Done!\n')

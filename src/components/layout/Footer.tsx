@@ -50,7 +50,7 @@ export default function Footer() {
           >
             {'//'.repeat(200)}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 md:items-start">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-8 md:items-start">
             <p className="text-sm font-mono text-neutral-300">
               {language === 'en'
                 ? 'This project is built for humans and AI assistance.'

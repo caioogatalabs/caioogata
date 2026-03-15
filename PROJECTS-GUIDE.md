@@ -105,7 +105,7 @@ Screenshots are captured via Playwright MCP (automated browser). This ensures co
 
 **Setup:**
 1. Close Chrome before starting (Playwright needs exclusive access)
-2. Set viewport to target resolution: `1920x1080` (desktop standard)
+2. Set viewport to target resolution: `1512x982` (MacBook Pro 14" logical resolution)
 
 **Capture workflow:**
 1. Navigate to the target URL
@@ -113,33 +113,77 @@ Screenshots are captured via Playwright MCP (automated browser). This ensures co
 3. Scroll to specific sections and capture **viewport screenshot** for detail/zoom images
 4. Save raw captures as `.png` in `scripts/` (temporary, not committed)
 
-**Viewport considerations:**
-- `1920x1080` — standard desktop, 16:9 aspect. Good for most captures.
+**Why 1512x982:**
+- Matches MacBook Pro 14" logical resolution (16:10 ratio)
+- Fits naturally within the 1600x1000 composition canvas — no side cropping needed
+- UI elements appear at natural scale, more readable in final composed images
+- `src_crop` is only needed for **content selection** (e.g., removing navbar), not for margin adjustment
+
+**Viewport tips:**
 - For pages with sticky headers or floating elements, wait for animations to settle before capture.
 - Capture the viewport (not full-page) for each section independently — this gives better control over what's included.
 
 **Example Playwright flow:**
 ```
-1. browser_resize → 1920x1080
+1. browser_resize → 1512x982
 2. browser_navigate → target URL
-3. browser_take_screenshot → hero viewport (scripts/project-hero-raw.png)
-4. browser_evaluate → scroll to section
-5. browser_take_screenshot → section viewport (scripts/project-section-raw.png)
+3. browser_evaluate → cleanup script (remove overlays)
+4. browser_take_screenshot → hero viewport (scripts/project-hero-raw.png)
+5. browser_evaluate → scroll to section
+6. browser_evaluate → cleanup script again (re-apply after scroll)
+7. browser_take_screenshot → section viewport (scripts/project-section-raw.png)
 ```
+
+### Page Cleanup Before Capture
+
+Most production sites have overlays that ruin screenshots: chat widgets, cookie banners, notification bars, dropdown menus stuck in DOM. These must be removed **before every capture**.
+
+**Cleanup pattern (JS evaluate):**
+```javascript
+// Remove overlays: chat widgets, cookie banners, notification bars
+document.querySelectorAll([
+  '[id*="hubspot"]', '[class*="HubSpot"]',
+  'iframe[title*="chat"]', '[class*="chat-widget"]',
+  '[class*="cookie"]', '[id*="cookie"]', '[class*="consent"]',
+  '[class*="notification-bar"]', '[class*="banner"]'
+].join(',')).forEach(el => el.remove());
+
+// Hide nav dropdown menus stuck in DOM
+document.querySelectorAll('nav li > div').forEach(div => {
+  if (div.querySelectorAll('ul').length >= 1) {
+    div.style.cssText = 'display:none !important';
+  }
+});
+```
+
+**Important behaviors:**
+- **Re-apply after scroll.** Some sites re-render DOM elements on scroll events. Always run the cleanup script again after scrolling to a new section.
+- **Re-apply after navigation.** Each `browser_navigate` starts fresh — previous DOM changes are lost.
+- **Navigate away between captures if needed.** If a previous page's state bleeds into the next capture (e.g., a dropdown from page A appears on page B), navigate to `about:blank` first, then navigate fresh.
+- **Adapt the selectors.** The cleanup script above covers common patterns. Inspect the specific site and add selectors as needed — this is a template, not a universal solution.
 
 ---
 
 ### Composition Layout Model
 
-Every composed image follows a **two-layer model**: a BG canvas and a screenshot placed on it. The screenshot's position relative to the canvas determines where the image crops and where the BG gradient breathes.
+Every composed image follows a **two-layer model**: a BG canvas and a screenshot placed on it.
 
-**Canvas:** `1600x1000` (16:10, MacBook Pro proportion)
+**Project-level variables:**
 
-**Core principle:** The image is ALWAYS positioned relative to the BG canvas. Crops only happen on edges where the screenshot meets the canvas border (flush edges). Exposed edges (where BG is visible) get rounded corners and breathing room.
+| Variable | Default | Description |
+|----------|---------|-------------|
+| Output size | `1600x1000` | Final image dimensions (16:10, MacBook Pro ratio) |
+| BG margin | `120px` | Fixed margin on all exposed sides (equal on every edge) |
+| Corner radius | `12px` | Rounded corners on exposed edges |
+| Capture viewport | `1512x982` | Playwright browser viewport |
+
+#### Core principle: anchor + bleed
+
+> **The alignment corner is the anchor — it never moves.** The BG margin positions the image from that corner. The opposite edges are bleed edges — content extends past the canvas and gets cropped. If the canvas size changes, the crop happens on the bleed edges. The anchor point and BG margins are stable.
 
 ```
 ┌─────────────────────────────────┐
-│  BG gradient (breathing room)   │
+│  BG gradient (margin)           │
 │                                 │
 │     ┌──────────────────────┐    │  ← exposed edges: rounded corners
 │     │                      │    │
@@ -150,99 +194,126 @@ Every composed image follows a **two-layer model**: a BG canvas and a screenshot
 └─────┴──────────────────────┘────┘
 ```
 
-**BG breathing room:** 10-17% of the canvas on exposed sides. The image (content) is always the priority — BG is complementary, never competing.
+The frame is a window over the content. Resizing the canvas only crops on bleed edges — the BG margins and alignment are stable anchors.
 
 ---
 
-### Composition Patterns
+### Composition Alignments
 
-There are two primary patterns. Decide which one to use BEFORE composing.
+There are three alignments. The decision is **content-first**: "where is the interesting content in this screenshot?"
 
-#### Pattern 1: Overview (full screen)
+#### Center — "Show the page"
 
-For hero shots, homepage views, or any image where you want to "show the product."
-
-```
-┌─────────────────────────────────┐
-│        BG (top ~10%)            │
-│  ┌─────────────────────────┐    │
-│  │  ╭─                  ─╮ │    │  ← rounded corners top only
-│  │  │   screenshot        │ │    │
-│  │  │   (nav, hero,       │ │    │
-│  │  │    main content)    │ │    │
-│  │  │                     │ │    │
-│  │  │                     │ │    │
-│  │  │                     │ │    │
-├──┤  │   bleeds here ──────┤─┤────┤  ← crops at canvas bottom
-└──┴──┴─────────────────────┴─┘────┘
-   ↑                           ↑
-   BG sides (~7-10% each)
-```
-
-**Rules:**
-- **Anchor:** center-top
-- **BG breathing:** top (~10%) + sides (~7-10% each)
-- **Bleed:** bottom edge (image extends past canvas)
-- **Rounded corners:** top-left + top-right only (exposed corners)
-- **Source crop:** trim ~8-10% from each side of the raw screenshot (`src_crop`) to make the aspect ratio taller — this ensures the image is tall enough to bleed at the bottom while preserving side padding
-- **Never crop the top** — the navbar/toolbar provides essential context
-- **Bottom bleed is natural** — the content that gets cut off suggests continuity
-
-**When to use:** Homepage hero, product page overview, dashboard view, any "first impression" image.
-
-#### Pattern 2: Zoom / Detail
-
-For close-up shots of specific features, UI details, or sections worth highlighting.
+For hero shots, homepage views, or any image where you want to show the full page/section.
 
 ```
-┌────────────────────────────────┐
-│                                │
-│  BG (top ~15%)                 │
-│                                │
-│        ╭─────────────────────── │
-│        │                        │  ← flush right edge (crops)
-│  BG    │    screenshot           │
-│  left  │    (detail/section)     │
-│ ~15%   │                         │
-│        │                         │
-│        │                   ───── │  ← flush bottom edge (crops)
-└────────┴─────────────────────────┘
-         ↑
-         rounded corner top-left only
+┌──────────────────────────────────┐
+│          BG (top 120px)          │
+│  ┌──────────────────────────┐   │
+│  │ ╭─                    ─╮ │   │   ← rounded top-left + top-right
+│  │ │                      │ │   │
+│  │ │    screenshot         │ │   │
+│  │ │    (page/section)     │ │   │
+│  │ │                      │ │   │
+│  │ │                      │ │   │
+├──┤ │  bleeds bottom ───────┤─┤───┤   ← flush bottom
+└──┴─┴──────────────────────┴─┘───┘
+   ↑  BG sides (120px each)     ↑
 ```
 
-**Rules:**
-- **Anchor:** bottom-right (default for detail crops)
-- **BG breathing:** top (~15-17%) + left (~15-17%)
-- **Bleed:** right + bottom edges (image extends past canvas)
-- **Rounded corners:** top-left only (the single exposed corner)
-- **Pre-crop the source** to ~1/3 of the original section — focus on the specific detail being highlighted
-- Crops on flush edges (right, bottom) are OK and expected — they reinforce the "zoomed in" feeling
-- The BG gradient should be more visible here than in Overview — it frames the detail
+- **Margins:** top + left + right (120px each)
+- **Bleeds:** bottom
+- **Rounded corners:** top-left + top-right
+- **Use:** Homepage hero, product page overview, dashboard view, full section
 
-**When to use:** UI component detail, code editor close-up, feature panel, modal/dialog, typography detail, specific interaction.
+#### Top-left — "Highlight a detail (left side)"
+
+For close-up shots where the interesting content is in the top-left area of the crop.
+
+```
+┌──────────────────────────────────┐
+│                                  │
+│     BG (top 120px)               │
+│                                  │
+│         ╭────────────────────────│
+│         │                        │  ← flush right
+│  BG     │   screenshot           │
+│ (left   │   (detail/section)     │
+│ 120px)  │                        │
+│         │                        │
+│         │              ──────────│  ← flush bottom
+└─────────┴────────────────────────┘
+          ↑
+          rounded top-left only
+```
+
+- **Margins:** top + left (120px each)
+- **Bleeds:** right + bottom
+- **Rounded corners:** top-left only
+- **Use:** UI component detail, code editor close-up, feature panel, modal/dialog
+
+#### Top-right — "Highlight a detail (right side)"
+
+For close-up shots where the interesting content is in the top-right area of the crop.
+
+```
+┌──────────────────────────────────┐
+│                                  │
+│          BG (top 120px)          │
+│                                  │
+│────────────────────────╮         │
+│                        │         │
+│     screenshot         │  BG     │
+│     (detail/section)   │ (right  │
+│                        │ 120px)  │
+│                        │         │
+│──────────────          │         │  ← flush bottom
+└────────────────────────┴─────────┘
+                         ↑
+                         rounded top-right only
+```
+
+- **Margins:** top + right (120px each)
+- **Bleeds:** left + bottom
+- **Rounded corners:** top-right only
+- **Use:** Detail where content focus is on the right side
 
 ---
 
 ### Composition Rules
 
-**Crop Intent (decide BEFORE composing):**
-- **"Show the product"** → Pattern 1 (Overview). Anchor center-top, bleed bottom.
-- **"Show a detail"** → Pattern 2 (Zoom). Anchor bottom-right, bleed right+bottom.
-- **"Show the result"** → Pattern 1 variant. Center crop of hero area.
-- **"Show the full picture"** → Pattern 1 with less src_crop. Match source ratio.
+**Alignment Intent (decide BEFORE composing):**
+- **"Show the page"** → Center
+- **"Show a detail (left)"** → Top-left
+- **"Show a detail (right)"** → Top-right
 
-> Always discuss crop intent before composing. "Where do we anchor?" is as important as "which screenshot do we use?"
+> Always discuss alignment intent before composing. "Where is the interesting content?" determines everything else.
 
-**General cropping rules:**
+**General rules:**
 - Never use full-page screenshots for every image — they become repetitive
-- Each crop should have a clear "subject" — the feature or decision being highlighted
-- Vary patterns across a project's gallery (mix Overview and Zoom images)
-- For Zoom crops, focus on ~1/3 of the section being highlighted
-- **Avoid content cuts and empty space:** The crop region must frame actual content tightly. If the source section has wide horizontal layouts or generous spacing on dark backgrounds, the Zoom pattern will amplify empty areas and cut text at flush edges. Before committing to Pattern 2, check:
-  - Does the content fill the crop region densely? If not, tighten the crop or switch to Pattern 1.
-  - Is important text near the right or bottom edge? It will get cut by the bleed. Reposition the crop so key content stays within the visible area (left + top).
-  - Pages with centered headings or content spread across the full viewport width often work better as Pattern 1 (Overview) than Pattern 2 (Zoom).
+- Each image should have a clear "subject" — the feature or decision being highlighted
+- Vary alignments across a project's gallery (mix Center and detail images)
+- For detail crops, focus on ~1/3 of the section being highlighted
+- **Avoid content cuts and empty space:** The crop region must frame actual content tightly. Before committing to a detail alignment, check:
+  - Does the content fill the crop region densely? If not, tighten the crop or switch to Center.
+  - Is important text near a bleed edge? It will get cut. Reposition so key content stays within the visible area.
+  - Pages with centered headings or wide layouts often work better as Center than as detail crops.
+
+**Composition priority (when constraints conflict):**
+
+| Priority | Rule | Meaning |
+|----------|------|---------|
+| 1 | **Margins** | 120px on exposed sides — never reduced or removed |
+| 2 | **Position / alignment** | The anchor point stays where the alignment defines it |
+| 3 | **Zoom of content** | Adjust `src_crop` / `crop_box` to fit content within the frame |
+| 4 | **Output size** | 1600x1000 default — reduce `canvas_h` per-image as a last resort to maintain bleed |
+
+> If the content doesn't fit well within the frame, adjust the **zoom** (crop more or less of the screenshot). Never relax margins or change the anchor position to accommodate content. Never change bleed behavior to fit content.
+
+**Content selection with `src_crop` / `crop_box`:**
+- These control the **zoom** — which part of the screenshot is visible
+- Common use: `src_crop=(0.0, 0.25, 1.0, 1.0)` to skip the navbar area
+- Do NOT use `src_crop` for margin adjustment — the fixed 120px margin handles that
 
 **Backgrounds:**
 - Start with a dark base (`#080808` or project's darkest brand color)
@@ -255,7 +326,6 @@ For close-up shots of specific features, UI details, or sections worth highlight
 - Radius: `12px` on all rounded corners (consistent, single value)
 - Only apply on exposed edges (where BG is visible)
 - Flush edges (touching canvas border) get NO rounded corners — the image just bleeds off
-- This creates the effect of the image "entering" the frame from one side
 
 **Shadows:**
 - NO drop shadows — depth comes from dark background contrast + ambient color glow
@@ -269,11 +339,54 @@ For close-up shots of specific features, UI details, or sections worth highlight
 | Property | Value |
 |----------|-------|
 | Format | `.webp` |
-| Canvas | `1600x1000` (16:10, MacBook Pro ratio) |
+| Output size | `1600x1000` (16:10, MacBook Pro ratio) |
+| Capture viewport | `1512x982` (MacBook Pro 14" logical) |
+| BG margin | `120px` fixed on all exposed sides |
+| Corner radius | `12px` |
 | Max file size | ~200KB |
 | Naming | `{descriptive-name}.webp` (kebab-case) |
 | Location | `public/projects/{slug}/` |
 | Raw captures | `scripts/` (temporary `.png`, not committed) |
+
+### Size Relationship: Capture → Output → Margins
+
+The capture viewport, output size, and margin are interdependent. Here's how the current defaults relate:
+
+**Center alignment (full viewport, no src_crop):**
+
+| Step | Calculation | Value |
+|------|-------------|-------|
+| Available width | 1600 − 2×120 | **1360px** |
+| Scale factor | 1360 / 1512 | **0.899** |
+| Scaled height | 982 × 0.899 | **883px** |
+| Image Y position | anchored to top | **y=120** (MARGIN) |
+| Bottom edge | 120 + 883 | **1003px** → bleeds 3px past canvas |
+
+With 120px fixed margins and 1512x982 capture, Center alignment bleeds at the bottom as designed — the top margin is exactly 120px (matching the side margins).
+
+**Center alignment with src_crop (shorter image):**
+
+When `src_crop` reduces the image height, the image may not reach the bottom edge at default canvas height. Per composition priority (P4), use `canvas_h` to reduce the output height so the image still bleeds:
+
+| Step | Example: src_crop 73% height | Value |
+|------|------------------------------|-------|
+| Cropped height | 982 × 0.73 | **717px** |
+| Scaled height | 717 × 0.899 | **645px** |
+| Bottom edge | 120 + 645 | **765px** |
+| canvas_h | ≤ 765 (e.g. 760) | **bleeds 5px** |
+
+**Top-left / Top-right alignment:**
+
+| Step | Calculation | Value |
+|------|-------------|-------|
+| Available width | 1600 − 120 (one side margin) | **1480px** |
+| Scale factor | 1480 / 1512 | **0.979** |
+| Scaled height | 982 × 0.979 | **961px** |
+| Bleed past output | 120 + 961 − 1000 | **81px** past bottom edge |
+
+Detail alignments bleed on both right+bottom (or left+bottom), with content extending well past the output edges.
+
+**If you change any variable**, recalculate this table to verify margins and bleeds still work as expected.
 
 ---
 
@@ -282,8 +395,9 @@ For close-up shots of specific features, UI details, or sections worth highlight
 The Python composition script is at `scripts/compose-images.py`. It uses Pillow and provides:
 - `create_orange_bg()` — gradient blur backgrounds from brand color variants
 - `add_selective_rounded_corners()` — rounded corners on specific edges only
-- `compose_overview()` — Pattern 1 composition (center-top, bleed bottom)
-- `compose_zoom_detail()` — Pattern 2 composition (bottom-right, bleed right+bottom)
+- `compose_center()` — Center alignment (BG top + sides, bleed bottom)
+- `compose_top_left()` — Top-left alignment (BG top + left, bleed right + bottom)
+- `compose_top_right()` — Top-right alignment (BG top + right, bleed left + bottom)
 
 **Usage:**
 
@@ -300,33 +414,38 @@ python3 scripts/compose-test.py
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `bg_variant` | Gradient color scheme (`warm`, `hot`, `sunset`, `contrast`, `deep`, `lavender_accent`) | `warm` |
-| `bg_ratio` | How much of canvas is BG breathing room (0.10-0.17) | `0.15` |
+| `bg` | Pre-created background image (overrides bg_variant) | `None` |
 | `corner_radius` | Rounded corner radius in pixels | `12` |
-| `src_crop` | Pre-crop source image `(left, top, right, bottom)` as relative coords 0.0-1.0 | `None` |
-| `crop_box` | Pre-crop for zoom detail `(left, top, right, bottom)` as relative coords 0.0-1.0 | Required for zoom |
+| `src_crop` | Content selection crop `(left, top, right, bottom)` as relative coords 0.0-1.0 | `None` |
+| `crop_box` | Detail region crop `(left, top, right, bottom)` as relative coords 0.0-1.0 | Required for Top-left, optional for Top-right |
 | `seed` | Random seed for reproducible BG gradients | `42` |
+| `canvas_h` | Override output height for Center (P4 — when src_crop makes image too short to bleed) | `1000` |
 
-**Pattern 1 example (Overview):**
+**Center example:**
 ```python
-compose_overview(
+compose_center(
     'scripts/hero-raw.png',
     'public/projects/slug/hero.webp',
     bg_variant='contrast',
-    bg_ratio=0.10,           # 10% BG on top, ~7-10% on sides
-    corner_radius=12,
-    src_crop=(0.08, 0.0, 0.92, 1.0),  # trim 8% from each side
 )
 ```
 
-**Pattern 2 example (Zoom/Detail):**
+**Top-left example:**
 ```python
-compose_zoom_detail(
+compose_top_left(
     'scripts/section-raw.png',
     'public/projects/slug/detail.webp',
-    crop_box=(0.1, 0.05, 0.8, 0.7),  # ~1/3 of section
-    bg_variant='warm',
-    bg_ratio=0.15,            # 15% BG on top + left
-    corner_radius=12,
+    crop_box=(0.1, 0.05, 0.8, 0.7),
+)
+```
+
+**Top-right example:**
+```python
+compose_top_right(
+    'scripts/section-raw.png',
+    'public/projects/slug/detail-right.webp',
+    crop_box=(0.2, 0.1, 0.9, 0.8),
+    src_crop=(0.0, 0.25, 1.0, 1.0),  # skip navbar
 )
 ```
 
@@ -334,9 +453,9 @@ compose_zoom_detail(
 
 1. Create a frame at `1600x1000`
 2. Add background fill using project brand colors with blur
-3. Place the screenshot following Pattern 1 or Pattern 2 anchor rules
-4. Apply rounded corners ONLY on exposed edges (not flush edges)
-5. For zoom crops: crop the screenshot to ~1/3 first, then place
+3. Place the screenshot following the chosen alignment rules
+4. Apply 12% margin on exposed sides, bleed on opposite sides
+5. Apply rounded corners (`12px`) ONLY on exposed edges
 6. Export as `.webp` at 2x then compress
 
 ---
@@ -368,8 +487,10 @@ When adding a new project:
 - [ ] Add project data to `en.json` and `pt-br.json`
 - [ ] Create case study generator function in `case-study-generator.ts`
 - [ ] Create LLM routes (EN + PT) in `src/app/llms/projects/`
-- [ ] Capture screenshots via Playwright (hero viewport + section viewports)
-- [ ] Compose images using script (Pattern 1 for overview, Pattern 2 for details)
+- [ ] Capture screenshots via Playwright at `1512x982` (hero viewport + section viewports)
+  - [ ] Run page cleanup script before each capture (remove overlays, chat widgets, dropdowns)
+  - [ ] Re-apply cleanup after scrolling to new sections
+- [ ] Compose images using script (Center for pages, Top-left/Top-right for details)
 - [ ] Add composed images to `public/projects/{slug}/`
 - [ ] Add case study link to `markdown-generator.ts`
 - [ ] Add EN route to `sitemap.ts`
