@@ -13,7 +13,7 @@ export default function Philosophy() {
       </SectionHeading>
 
       <div className="mt-2">
-        <div className="pl-6 flex flex-col gap-2 md:grid md:grid-cols-[180px_100px_1fr] md:items-baseline md:gap-0">
+        <div className="flex flex-col gap-2 md:pl-6 md:grid md:grid-cols-[180px_100px_1fr] md:items-baseline md:gap-0">
           <span className="hidden md:block" aria-hidden />
           <span className="hidden md:block" aria-hidden />
           <div className="min-w-0 space-y-4 py-0.5">

@@ -30,7 +30,7 @@ export default function About() {
       </div>
 
       {/* File icons + bio + Core Expertise — columns match Philosophy layout */}
-      <div className="pl-6 flex flex-col gap-2 md:grid md:grid-cols-[180px_100px_1fr] md:items-start md:gap-0">
+      <div className="flex flex-col gap-2 md:pl-6 md:grid md:grid-cols-[180px_100px_1fr] md:items-start md:gap-0">
         {/* Desktop: file icons in first column */}
         <div className="hidden md:flex items-start gap-4 pt-4 min-w-0">
           <FileIcon
