@@ -28,11 +28,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. The project builds successfully with Tailwind v4 and `@tailwindcss/postcss` (no v3 config remains)
   3. Design tokens from `src/tokens/` are consumed by Tailwind via `@theme` and available as CSS custom properties
   4. Fabio XM renders in the browser with variable font weight support across all intended styles
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — Preserve V1 on branch/tag, deploy at v1.caioogata.com, migrate Tailwind v3 to v4
+- [ ] 01-02-PLAN.md — Integrate design tokens via @theme, load Fabio XM variable font
 
 ### Phase 2: Home Page
 **Goal**: A visitor landing on caioogata.com sees the complete V2 Home experience -- brand intro, navigable menu, project highlights, and footer -- responsive across all breakpoints
