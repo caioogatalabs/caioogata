@@ -12,7 +12,7 @@ Transform the portfolio from V1 (CLI-inspired monospace) to V2 (Architectural Br
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Infrastructure** - Preserve V1, migrate Tailwind v4, integrate tokens, load Fabio XM
+- [x] **Phase 1: Infrastructure** - Preserve V1, migrate Tailwind v4, integrate tokens, load Fabio XM
 - [ ] **Phase 2: Home Page** - Implement the full Home V2 layout with intro, menu, projects grid, footer
 - [ ] **Phase 3: Content Sections** - Build all content sections (About, Experience, Skills, Education, Clients, Philosophy)
 - [ ] **Phase 4: Project Pages & Polish** - Dedicated project routes, animations, and interaction polish
@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Preserve V1 on branch/tag, deploy at v1.caioogata.com, migrate Tailwind v3 to v4
-- [ ] 01-02-PLAN.md — Integrate design tokens via @theme, load Fabio XM variable font
+- [x] 01-02-PLAN.md — Integrate design tokens via @theme, load Fabio XM variable font
 
 ### Phase 2: Home Page
 **Goal**: A visitor landing on caioogata.com sees the complete V2 Home experience -- brand intro, navigable menu, project highlights, and footer -- responsive across all breakpoints
@@ -94,7 +94,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Infrastructure | 0/2 | Not started | - |
+| 1. Infrastructure | 2/2 | Complete | 2026-04-02 |
 | 2. Home Page | 0/3 | Not started | - |
 | 3. Content Sections | 0/2 | Not started | - |
 | 4. Project Pages & Polish | 0/3 | Not started | - |
