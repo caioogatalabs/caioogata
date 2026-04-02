@@ -119,7 +119,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-mono bg-neutral text-neutral-200 antialiased overflow-x-hidden">
+      <body className="antialiased overflow-x-hidden">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

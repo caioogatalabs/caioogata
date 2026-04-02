@@ -1,0 +1,119 @@
+/* ═══════════════════════════════════════════════════════
+   PRIMITIVES — Raw values, no semantic meaning.
+   Never use directly in components. Map through semantic tokens.
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  /* ─── Brand Yellow ─── base #FAEA4D at 400 */
+  --primitive-brand-50:  oklch(0.98 0.03 96);
+  --primitive-brand-100: oklch(0.96 0.07 96);
+  --primitive-brand-200: oklch(0.94 0.12 96);
+  --primitive-brand-300: oklch(0.92 0.15 96);
+  --primitive-brand-400: oklch(0.91 0.17 96);
+  --primitive-brand-500: oklch(0.84 0.16 96);
+  --primitive-brand-600: oklch(0.73 0.15 93);
+  --primitive-brand-700: oklch(0.60 0.13 90);
+  --primitive-brand-800: oklch(0.47 0.10 88);
+  --primitive-brand-900: oklch(0.35 0.07 86);
+  --primitive-brand-950: oklch(0.23 0.04 85);
+
+  /* ─── Secondary Teal ─── base #618985 at 400 */
+  --primitive-secondary-50:  oklch(0.93 0.02 180);
+  --primitive-secondary-100: oklch(0.87 0.03 180);
+  --primitive-secondary-200: oklch(0.79 0.04 180);
+  --primitive-secondary-300: oklch(0.71 0.05 180);
+  --primitive-secondary-400: oklch(0.58 0.05 180);
+  --primitive-secondary-500: oklch(0.50 0.04 180);
+  --primitive-secondary-600: oklch(0.42 0.04 180);
+  --primitive-secondary-700: oklch(0.34 0.03 180);
+  --primitive-secondary-800: oklch(0.26 0.02 180);
+  --primitive-secondary-900: oklch(0.19 0.02 180);
+  --primitive-secondary-950: oklch(0.13 0.01 180);
+
+  /* ─── Accent Orange ─── base #BC5F04 at 500 */
+  --primitive-accent-50:  oklch(0.95 0.03 55);
+  --primitive-accent-100: oklch(0.88 0.07 55);
+  --primitive-accent-200: oklch(0.79 0.11 55);
+  --primitive-accent-300: oklch(0.70 0.14 55);
+  --primitive-accent-400: oklch(0.62 0.16 55);
+  --primitive-accent-500: oklch(0.55 0.16 55);
+  --primitive-accent-600: oklch(0.47 0.14 55);
+  --primitive-accent-700: oklch(0.39 0.11 55);
+  --primitive-accent-800: oklch(0.31 0.08 55);
+  --primitive-accent-900: oklch(0.24 0.06 55);
+  --primitive-accent-950: oklch(0.17 0.04 55);
+
+  /* ─── Neutral ─── base #161618 at 500 (hue-tinted H~270) */
+  --primitive-neutral-0:    oklch(1.00 0.000 0);
+  --primitive-neutral-50:   oklch(0.93 0.003 270);
+  --primitive-neutral-100:  oklch(0.78 0.003 270);
+  --primitive-neutral-200:  oklch(0.65 0.003 270);
+  --primitive-neutral-300:  oklch(0.47 0.003 270);
+  --primitive-neutral-400:  oklch(0.36 0.003 270);
+  --primitive-neutral-500:  oklch(0.17 0.005 270);
+  --primitive-neutral-600:  oklch(0.15 0.005 270);
+  --primitive-neutral-700:  oklch(0.12 0.004 270);
+  --primitive-neutral-800:  oklch(0.10 0.004 270);
+  --primitive-neutral-900:  oklch(0.08 0.003 270);
+  --primitive-neutral-950:  oklch(0.05 0.002 270);
+  --primitive-neutral-1000: oklch(0.00 0.000 0);
+
+  /* ─── Red (Danger) ─── */
+  --primitive-red-400: oklch(0.70 0.19 22);
+  --primitive-red-500: oklch(0.64 0.24 25);
+  --primitive-red-600: oklch(0.58 0.24 27);
+  --primitive-red-700: oklch(0.50 0.21 28);
+
+  /* ─── Green (Success) ─── */
+  --primitive-green-400: oklch(0.79 0.21 152);
+  --primitive-green-500: oklch(0.72 0.22 150);
+  --primitive-green-600: oklch(0.63 0.19 149);
+  --primitive-green-700: oklch(0.53 0.15 150);
+
+  /* ─── Spacing (strict 4px grid) ─── */
+  --primitive-space-0:  0;
+  --primitive-space-1:  4px;
+  --primitive-space-2:  8px;
+  --primitive-space-3:  12px;
+  --primitive-space-4:  16px;
+  --primitive-space-6:  24px;
+  --primitive-space-8:  32px;
+  --primitive-space-12: 48px;
+  --primitive-space-16: 64px;
+  --primitive-space-20: 80px;
+  --primitive-space-24: 96px;
+  --primitive-space-32: 128px;
+
+  /* ─── Radius ─── */
+  --primitive-radius-none: 0px;
+  --primitive-radius-xs:   2px;
+  --primitive-radius-sm:   4px;
+  --primitive-radius-md:   12px;
+  --primitive-radius-full: 9999px;
+
+  /* ─── Typography ─── */
+  --primitive-font-sans: 'Fabio XM', system-ui, -apple-system, sans-serif;
+  --primitive-font-mono: 'Cascadia Mono', 'Fira Code', monospace;
+
+  --primitive-text-2xs:  0.625rem;
+  --primitive-text-xs:   0.75rem;
+  --primitive-text-sm:   0.875rem;
+  --primitive-text-base: 1rem;
+  --primitive-text-lg:   1.125rem;
+  --primitive-text-xl:   1.25rem;
+  --primitive-text-2xl:  1.5rem;
+  --primitive-text-3xl:  1.875rem;
+  --primitive-text-4xl:  2.25rem;
+  --primitive-text-5xl:  3rem;
+  --primitive-text-6xl:  3.5rem;
+
+  --primitive-leading-tight:   1.15;
+  --primitive-leading-snug:    1.3;
+  --primitive-leading-normal:  1.5;
+  --primitive-leading-relaxed: 1.6;
+
+  --primitive-font-regular:  400;
+  --primitive-font-medium:   500;
+  --primitive-font-semibold: 600;
+  --primitive-font-bold:     700;
+}
