@@ -7,9 +7,9 @@
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: V1 preserved on branch `v1` with tag `v1.0.0`
-- [ ] **INFRA-02**: V1 deployed and accessible at `v1.caioogata.com`
-- [ ] **INFRA-03**: Tailwind migrated from v3 to v4 with `@tailwindcss/postcss`
+- [x] **INFRA-01**: V1 preserved on branch `v1` with tag `v1.0.0`
+- [x] **INFRA-02**: V1 deployed and accessible at `v1.caioogata.com`
+- [x] **INFRA-03**: Tailwind migrated from v3 to v4 with `@tailwindcss/postcss`
 - [ ] **INFRA-04**: Design tokens integrated via `globals.css` → `src/tokens/index.css`
 - [ ] **INFRA-05**: Fabio XM font loaded via `@font-face` with variable font support
 
@@ -79,9 +79,9 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | Pending |
-| INFRA-02 | Phase 1 | Pending |
-| INFRA-03 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete |
+| INFRA-02 | Phase 1 | Complete |
+| INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Pending |
 | INFRA-05 | Phase 1 | Pending |
 | HOME-01 | Phase 2 | Pending |
