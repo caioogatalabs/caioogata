@@ -44,13 +44,14 @@ Plans:
   3. Projects grid shows cards in 6-6 column layout with data-stamps and functional arrow buttons
   4. Footer displays tech tags, copyright, and a contact button that expands into a working email form
   5. All Home sections reflow correctly across Desktop (12col), Tablet (8col), and Mobile (4col) breakpoints
-**Plans**: TBD
+**Plans**: 4 plans
 **UI hint**: yes
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md — Animation system CSS, Grid component, PageShell, page.tsx rewrite
+- [ ] 02-02-PLAN.md — Intro section with hero layout and StickyHeader on scroll
+- [ ] 02-03-PLAN.md — Menu section with CLI input, keyboard nav, floating preview
+- [ ] 02-04-PLAN.md — Projects grid with data-stamps, Footer with expandable contact form
 
 ### Phase 3: Content Sections
 **Goal**: All portfolio content sections are implemented with the V2 design language, displaying real data from the content model
@@ -95,6 +96,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Infrastructure | 2/2 | Complete | 2026-04-02 |
-| 2. Home Page | 0/3 | Not started | - |
+| 2. Home Page | 0/4 | Not started | - |
 | 3. Content Sections | 0/2 | Not started | - |
 | 4. Project Pages & Polish | 0/3 | Not started | - |
