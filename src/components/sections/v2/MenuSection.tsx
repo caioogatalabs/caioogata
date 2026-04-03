@@ -169,7 +169,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                           ? 'var(--color-text-on-primary)'
                           : 'var(--color-text-primary)',
                       transition: isHighlighted
-                        ? 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                        ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
                         : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                     }}
                   >
@@ -180,7 +180,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                     style={{
                       transform: isHighlighted ? 'translateY(0)' : 'translateY(120%)',
                       transition: isHighlighted
-                        ? 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                        ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
                         : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                       color: 'var(--color-text-on-primary)',
                       fontSize: '1.5rem',
@@ -206,7 +206,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                           : 'var(--color-text-secondary)',
                         opacity: isDimmed ? 1 : 0.7,
                         transition: isHighlighted
-                          ? 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                          ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
                           : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                       }}
                     >
@@ -217,7 +217,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                       style={{
                         transform: isHighlighted ? 'translateY(0)' : 'translateY(120%)',
                         transition: isHighlighted
-                          ? 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                          ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
                           : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                         color: 'var(--color-text-on-primary)',
                         fontSize: '1.5rem',
