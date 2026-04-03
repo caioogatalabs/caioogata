@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 interface FloatingPreviewProps {
   imageSrc: string | null
@@ -10,14 +10,37 @@ interface FloatingPreviewProps {
   velocityX: number
 }
 
+const LERP_FACTOR = 0.12
+const EASING_ENTER = 'cubic-bezier(0.22, 0.31, 0, 1)'
+const EASING_EXIT = 'cubic-bezier(0.69, 0, 0, 1)'
+
+function lerp(current: number, target: number, factor: number) {
+  return current + (target - current) * factor
+}
+
 export function FloatingPreview({
   imageSrc,
   alt,
   mouseX,
   mouseY,
-  velocityX,
 }: FloatingPreviewProps) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+
+  // Lerped position — creates the elastic/lagging follow
+  const lerpX = useRef(0)
+  const lerpY = useRef(0)
+  // Lerped velocity for skew (delta of lerped position)
+  const prevLerpX = useRef(0)
+  const prevLerpY = useRef(0)
+  const velX = useRef(0)
+  const velY = useRef(0)
+
+  const rafRef = useRef<number>(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const isVisible = imageSrc !== null
+  // Track previous visibility to detect enter/exit
+  const wasVisible = useRef(false)
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -27,20 +50,67 @@ export function FloatingPreview({
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  const isVisible = imageSrc !== null
-  const clampedSkew = prefersReducedMotion
-    ? 0
-    : Math.max(-30, Math.min(30, velocityX * 0.1))
+  // Snap lerp position to mouse on first show (avoid flying in from 0,0)
+  useEffect(() => {
+    if (isVisible && !wasVisible.current) {
+      lerpX.current = mouseX
+      lerpY.current = mouseY
+      prevLerpX.current = mouseX
+      prevLerpY.current = mouseY
+      velX.current = 0
+      velY.current = 0
+    }
+    wasVisible.current = isVisible
+  }, [isVisible, mouseX, mouseY])
 
-  const offsetX = 20
-  const offsetY = -20
+  // Animation loop — lerp position toward mouse, compute velocity for skew
+  const animate = useCallback(() => {
+    if (prefersReducedMotion) {
+      lerpX.current = mouseX
+      lerpY.current = mouseY
+      velX.current = 0
+      velY.current = 0
+    } else {
+      lerpX.current = lerp(lerpX.current, mouseX, LERP_FACTOR)
+      lerpY.current = lerp(lerpY.current, mouseY, LERP_FACTOR)
 
-  const transitionValue = prefersReducedMotion
-    ? 'opacity 0.1s linear'
-    : 'opacity 0.2s var(--ease-smooth), transform 0.3s var(--ease-out)'
+      // Velocity = delta of lerped position (smoothed velocity, not raw)
+      velX.current = lerpX.current - prevLerpX.current
+      velY.current = lerpY.current - prevLerpY.current
+      prevLerpX.current = lerpX.current
+      prevLerpY.current = lerpY.current
+    }
+
+    const el = containerRef.current
+    if (el) {
+      const offsetX = 16
+      const offsetY = 24
+      const skewX = Math.max(-30, Math.min(30, -velX.current * 1.2))
+      const skewY = Math.max(-30, Math.min(30, -velY.current * 1.2))
+
+      // Inner image parallax (inverse of velocity)
+      const imgParallaxX = Math.max(-32, Math.min(32, velX.current * -0.4))
+      const imgParallaxY = Math.max(-32, Math.min(32, velY.current * -0.4))
+
+      el.style.transform = `translate3d(${lerpX.current + offsetX}px, ${lerpY.current + offsetY}px, 0) skew(${skewX}deg, ${skewY}deg)`
+
+      const img = el.querySelector('img') as HTMLImageElement | null
+      if (img) {
+        img.style.transform = `scale(1.25) translate3d(${imgParallaxX}px, ${imgParallaxY}px, 0)`
+      }
+    }
+
+    rafRef.current = requestAnimationFrame(animate)
+  }, [mouseX, mouseY, prefersReducedMotion])
+
+  useEffect(() => {
+    rafRef.current = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [animate])
 
   return (
     <div
+      ref={containerRef}
       className="hidden lg:block pointer-events-none fixed z-[100] overflow-hidden"
       style={{
         top: 0,
@@ -49,9 +119,13 @@ export function FloatingPreview({
         height: 300,
         borderRadius: 'var(--radius-component-md, 12px)',
         willChange: 'transform',
-        transform: `translate3d(${mouseX + offsetX}px, ${mouseY + offsetY}px, 0) skewX(${clampedSkew}deg) scale(${isVisible ? 1 : 0.8})`,
+        // Scale entry/exit — separate from position (handled by rAF)
+        scale: isVisible ? '1' : '0',
         opacity: isVisible ? 1 : 0,
-        transition: transitionValue,
+        transition: isVisible
+          ? `scale 0.3s ${EASING_ENTER}, opacity 0.3s ${EASING_ENTER}`
+          : `scale 0.3s ${EASING_EXIT}, opacity 0.3s ${EASING_EXIT}`,
+        transformOrigin: 'center center',
       }}
     >
       {imageSrc ? (
@@ -59,6 +133,10 @@ export function FloatingPreview({
           src={imageSrc}
           alt={alt}
           className="w-full h-full object-cover"
+          style={{
+            willChange: 'transform',
+            transition: 'none',
+          }}
           loading="eager"
         />
       ) : (
