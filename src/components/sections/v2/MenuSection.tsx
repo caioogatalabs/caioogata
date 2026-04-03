@@ -154,6 +154,26 @@ export function MenuSection({ content }: MenuSectionProps) {
                   }}
                 />
 
+                {/* Arrow — appears before label on highlight */}
+                <span
+                  className="relative z-10 shrink-0"
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    color: 'var(--color-text-on-primary)',
+                    fontSize: '1.5rem',
+                    fontWeight: 700,
+                    width: isHighlighted ? '1.5rem' : '0px',
+                    opacity: isHighlighted ? 1 : 0,
+                    overflow: 'hidden',
+                    transition: isHighlighted
+                      ? 'width 0.5s cubic-bezier(0.16,1,0.3,1) 0.04s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                      : 'width 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s cubic-bezier(0.16,1,0.3,1)',
+                  }}
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+
                 {/* Label — masked vertical text swap */}
                 <span
                   className="shrink-0 w-[120px] md:w-1/3 relative z-10 overflow-hidden"
@@ -229,23 +249,6 @@ export function MenuSection({ content }: MenuSectionProps) {
                   </span>
                 )}
 
-                {/* Arrow — slides in from right on highlight */}
-                <span
-                  className="relative z-10 ml-auto"
-                  style={{
-                    color: 'var(--color-text-on-primary)',
-                    fontSize: '1.5rem',
-                    fontWeight: 700,
-                    opacity: isHighlighted ? 1 : 0,
-                    transform: isHighlighted ? 'translateX(0)' : 'translateX(-12px)',
-                    transition: isHighlighted
-                      ? 'opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.08s, transform 0.5s cubic-bezier(0.16,1,0.3,1) 0.08s'
-                      : 'opacity 0.2s cubic-bezier(0.16,1,0.3,1), transform 0.3s cubic-bezier(0.16,1,0.3,1)',
-                  }}
-                  aria-hidden="true"
-                >
-                  →
-                </span>
               </div>
               {/* Row divider — hide when highlighted */}
               <div
