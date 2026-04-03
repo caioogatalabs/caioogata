@@ -176,7 +176,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                   >
                     /{item.label}
                   </span>
-                  {/* Duplicate text — slides in from below, larger + bold */}
+                  {/* Duplicate text — slides in from below, 2xl + bold */}
                   <span
                     className="block absolute top-0 left-0"
                     style={{
@@ -185,7 +185,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                         ? 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.04s'
                         : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s',
                       color: 'var(--color-text-on-primary)',
-                      fontSize: '20px',
+                      fontSize: '1.5rem',
                       fontWeight: 700,
                     }}
                   >
@@ -204,7 +204,9 @@ export function MenuSection({ content }: MenuSectionProps) {
                           ? 'var(--color-text-on-primary)'
                           : 'var(--color-text-secondary)',
                       opacity: isHighlighted ? 1 : 0.7,
-                      transition: 'color 0.3s cubic-bezier(0.22,0.31,0,1), opacity 0.3s cubic-bezier(0.22,0.31,0,1)',
+                      fontSize: isHighlighted ? '1.5rem' : undefined,
+                      fontWeight: isHighlighted ? 700 : undefined,
+                      transition: 'color 0.3s cubic-bezier(0.22,0.31,0,1), opacity 0.3s cubic-bezier(0.22,0.31,0,1), font-size 0.3s cubic-bezier(0.22,0.31,0,1), font-weight 0.3s cubic-bezier(0.22,0.31,0,1)',
                     }}
                   >
                     {item.description}
