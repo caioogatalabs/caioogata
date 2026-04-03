@@ -41,6 +41,8 @@ export function FloatingPreview({
   const isVisible = imageSrc !== null
   // Track previous visibility to detect enter/exit
   const wasVisible = useRef(false)
+  // Capture mouse position at the moment of reveal for transform-origin
+  const revealOriginRef = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -51,6 +53,7 @@ export function FloatingPreview({
   }, [])
 
   // Snap lerp position to mouse on first show (avoid flying in from 0,0)
+  // Capture reveal origin so scale expands from cursor position
   useEffect(() => {
     if (isVisible && !wasVisible.current) {
       lerpX.current = mouseX
@@ -59,6 +62,14 @@ export function FloatingPreview({
       prevLerpY.current = mouseY
       velX.current = 0
       velY.current = 0
+      // Origin relative to container: mouse is at container center (due to offset)
+      // so we compute where the cursor sits inside the 500x300 box
+      const offsetX = 16
+      const offsetY = 24
+      revealOriginRef.current = {
+        x: -offsetX,   // cursor is offsetX to the left of the container's left edge
+        y: -offsetY,   // cursor is offsetY above the container's top edge
+      }
     }
     wasVisible.current = isVisible
   }, [isVisible, mouseX, mouseY])
@@ -126,7 +137,7 @@ export function FloatingPreview({
         transition: isVisible
           ? `scale 0.3s ${EASING_ENTER}, opacity 0.3s ${EASING_ENTER}`
           : `scale 0.3s ${EASING_EXIT}, opacity 0.3s ${EASING_EXIT}`,
-        transformOrigin: 'center center',
+        transformOrigin: 'top left',
       }}
     >
       {imageSrc ? (
