@@ -13,7 +13,7 @@ Transform the portfolio from V1 (CLI-inspired monospace) to V2 (Architectural Br
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Infrastructure** - Preserve V1, migrate Tailwind v4, integrate tokens, load Fabio XM
-- [ ] **Phase 2: Home Page** - Implement the full Home V2 layout with intro, menu, projects grid, footer
+- [x] **Phase 2: Home Page** - Implement the full Home V2 layout with intro, menu, projects grid, footer (completed 2026-04-03)
 - [ ] **Phase 3: Content Sections** - Build all content sections (About, Experience, Skills, Education, Clients, Philosophy)
 - [ ] **Phase 4: Project Pages & Polish** - Dedicated project routes, animations, and interaction polish
 
@@ -50,7 +50,7 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md — Animation system CSS, Grid component, PageShell, page.tsx rewrite
 - [x] 02-02-PLAN.md — Intro section with hero layout and StickyHeader on scroll
-- [ ] 02-03-PLAN.md — Menu section with CLI input, keyboard nav, floating preview
+- [x] 02-03-PLAN.md — Menu section with CLI input, keyboard nav, floating preview
 - [x] 02-04-PLAN.md — Projects grid with data-stamps, Footer with expandable contact form
 
 ### Phase 3: Content Sections
@@ -96,6 +96,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Infrastructure | 2/2 | Complete | 2026-04-02 |
-| 2. Home Page | 2/4 | In Progress|  |
+| 2. Home Page | 4/4 | Complete   | 2026-04-03 |
 | 3. Content Sections | 0/2 | Not started | - |
 | 4. Project Pages & Polish | 0/3 | Not started | - |
