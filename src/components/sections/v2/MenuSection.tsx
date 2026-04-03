@@ -154,12 +154,11 @@ export function MenuSection({ content }: MenuSectionProps) {
                   }}
                 />
 
-                {/* Label with text swap animation */}
+                {/* Label — masked vertical text swap */}
                 <span
                   className="shrink-0 w-[120px] md:w-1/3 relative z-10 overflow-hidden"
-                  style={{ height: '1.6em' }}
+                  style={{ height: '2.4rem' }}
                 >
-                  {/* Primary text — slides up on highlight */}
                   <span
                     className="block"
                     style={{
@@ -176,7 +175,6 @@ export function MenuSection({ content }: MenuSectionProps) {
                   >
                     /{item.label}
                   </span>
-                  {/* Duplicate text — slides in from below, 2xl + bold */}
                   <span
                     className="block absolute top-0 left-0"
                     style={{
@@ -193,23 +191,41 @@ export function MenuSection({ content }: MenuSectionProps) {
                   </span>
                 </span>
 
-                {/* Description */}
+                {/* Description — same masked vertical text swap */}
                 {item.description && (
                   <span
-                    className="flex-1 relative z-10"
-                    style={{
-                      color: isDimmed
-                        ? 'var(--color-text-tertiary)'
-                        : isHighlighted
-                          ? 'var(--color-text-on-primary)'
-                          : 'var(--color-text-secondary)',
-                      opacity: isHighlighted ? 1 : 0.7,
-                      fontSize: isHighlighted ? '1.5rem' : undefined,
-                      fontWeight: isHighlighted ? 700 : undefined,
-                      transition: 'color 0.3s cubic-bezier(0.22,0.31,0,1), opacity 0.3s cubic-bezier(0.22,0.31,0,1), font-size 0.3s cubic-bezier(0.22,0.31,0,1), font-weight 0.3s cubic-bezier(0.22,0.31,0,1)',
-                    }}
+                    className="flex-1 relative z-10 overflow-hidden"
+                    style={{ height: '2.4rem' }}
                   >
-                    {item.description}
+                    <span
+                      className="block"
+                      style={{
+                        transform: isHighlighted ? 'translateY(-120%)' : 'translateY(0)',
+                        color: isDimmed
+                          ? 'var(--color-text-tertiary)'
+                          : 'var(--color-text-secondary)',
+                        opacity: isDimmed ? 1 : 0.7,
+                        transition: isHighlighted
+                          ? 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                          : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                      }}
+                    >
+                      {item.description}
+                    </span>
+                    <span
+                      className="block absolute top-0 left-0"
+                      style={{
+                        transform: isHighlighted ? 'translateY(0)' : 'translateY(120%)',
+                        transition: isHighlighted
+                          ? 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.04s'
+                          : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s',
+                        color: 'var(--color-text-on-primary)',
+                        fontSize: '1.5rem',
+                        fontWeight: 700,
+                      }}
+                    >
+                      {item.description}
+                    </span>
                   </span>
                 )}
               </div>
