@@ -148,7 +148,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                     opacity: isHighlighted ? 1 : 0,
                     transition: isHighlighted
                       ? 'transform 0.6s cubic-bezier(0.22,0.31,0,1) 0.04s, opacity 0.2s cubic-bezier(0.22,0.31,0,1) 0.04s'
-                      : 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
+                      : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
                     transformOrigin: 'left center',
                     borderRadius: '6px',
                   }}
@@ -170,7 +170,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                           : 'var(--color-text-primary)',
                       transition: isHighlighted
                         ? 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
-                        : 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                        : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                     }}
                   >
                     /{item.label}
@@ -181,7 +181,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                       transform: isHighlighted ? 'translateY(0)' : 'translateY(120%)',
                       transition: isHighlighted
                         ? 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.04s'
-                        : 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                        : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                       color: 'var(--color-text-on-primary)',
                       fontSize: '1.5rem',
                       fontWeight: 700,
@@ -207,7 +207,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                         opacity: isDimmed ? 1 : 0.7,
                         transition: isHighlighted
                           ? 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
-                          : 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                          : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                       }}
                     >
                       {item.description}
@@ -218,7 +218,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                         transform: isHighlighted ? 'translateY(0)' : 'translateY(120%)',
                         transition: isHighlighted
                           ? 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.04s'
-                          : 'transform 0.65s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                          : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                         color: 'var(--color-text-on-primary)',
                         fontSize: '1.5rem',
                         fontWeight: 700,
