@@ -119,6 +119,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.fonts.ready.then(function(){document.documentElement.classList.add('-loaded','-ready')})`,
+          }}
+        />
+      </head>
       <body className="antialiased overflow-x-hidden">
         <script
           type="application/ld+json"

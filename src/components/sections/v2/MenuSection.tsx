@@ -23,7 +23,6 @@ export function MenuSection({ content }: MenuSectionProps) {
   const router = useRouter()
   const sectionRef = useInView({ threshold: 0.1, once: true })
 
-  // Mouse tracking state
   const [mouseX, setMouseX] = useState(0)
   const [mouseY, setMouseY] = useState(0)
   const [velocityX, setVelocityX] = useState(0)
@@ -93,9 +92,7 @@ export function MenuSection({ content }: MenuSectionProps) {
 
       {/* CLI Input */}
       <div className="-entrance -fade -a-0 flex items-center gap-2 px-5 md:px-8 lg:px-16 py-3.5 text-sm overflow-hidden">
-        <span
-          className="font-mono font-bold text-text-brand shrink-0"
-        >
+        <span className="font-mono font-bold text-text-brand shrink-0">
           &gt;
         </span>
         <input
@@ -120,6 +117,7 @@ export function MenuSection({ content }: MenuSectionProps) {
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {filteredItems.map((item, index) => {
+          const isHovered = hoveredIndex === index
           const isDimmed = hoveredIndex !== null && hoveredIndex !== index
 
           return (
@@ -129,38 +127,87 @@ export function MenuSection({ content }: MenuSectionProps) {
               aria-selected={activeIndex === index}
             >
               <div
-                className={`-entrance -slide-up -a-${index + 1} flex items-center px-5 md:px-8 lg:px-16 py-3 text-lg cursor-pointer overflow-hidden transition-colors duration-300`}
+                className={`-entrance -slide-up -a-${index + 1} menu-row relative flex items-center px-5 md:px-8 lg:px-16 py-3 text-lg cursor-pointer overflow-hidden`}
                 style={{
                   fontFamily: 'var(--font-sans)',
                   lineHeight: 1.6,
-                  transitionTimingFunction: 'var(--ease-out)',
                 }}
                 onClick={() => handleSelect(item)}
                 onMouseEnter={() => setHoveredIndex(index)}
               >
+                {/* Background bar — scales in on hover */}
+                <div
+                  className="absolute inset-0 bg-bg-fill-primary pointer-events-none"
+                  style={{
+                    transform: isHovered ? 'scaleX(1) scaleY(1)' : 'scaleX(0.92) scaleY(0.5)',
+                    opacity: isHovered ? 1 : 0,
+                    transition: 'transform 0.6s cubic-bezier(0.22,0.31,0,1), opacity 0.15s cubic-bezier(0.22,0.31,0,1)',
+                    transformOrigin: 'left center',
+                    borderRadius: '4px',
+                  }}
+                />
+
+                {/* Label with text swap animation */}
                 <span
-                  className={`shrink-0 w-[120px] md:w-[202px] transition-colors duration-300 ${
-                    isDimmed
-                      ? 'text-text-tertiary'
-                      : 'text-text-primary'
-                  }`}
+                  className="shrink-0 w-[120px] md:w-[202px] relative z-10 overflow-hidden"
+                  style={{ height: '1.6em' }}
                 >
-                  /{item.label}
+                  {/* Primary text — slides up on hover */}
+                  <span
+                    className="block transition-transform duration-500"
+                    style={{
+                      transform: isHovered ? 'translateY(-120%)' : 'translateY(0)',
+                      transitionTimingFunction: 'cubic-bezier(0.22,0.31,0,1)',
+                      color: isDimmed
+                        ? 'var(--color-text-tertiary)'
+                        : isHovered
+                          ? 'var(--color-text-on-primary)'
+                          : 'var(--color-text-primary)',
+                      transition: 'transform 0.5s cubic-bezier(0.22,0.31,0,1), color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                    }}
+                  >
+                    /{item.label}
+                  </span>
+                  {/* Duplicate text — slides in from below */}
+                  <span
+                    className="block absolute top-0 left-0"
+                    style={{
+                      transform: isHovered ? 'translateY(0)' : 'translateY(120%)',
+                      transitionTimingFunction: 'cubic-bezier(0.22,0.31,0,1)',
+                      transition: 'transform 0.5s cubic-bezier(0.22,0.31,0,1)',
+                      color: 'var(--color-text-on-primary)',
+                    }}
+                  >
+                    /{item.label}
+                  </span>
                 </span>
+
+                {/* Description */}
                 {item.description && (
                   <span
-                    className={`flex-1 opacity-70 transition-colors duration-300 ${
-                      isDimmed
-                        ? 'text-text-tertiary'
-                        : 'text-text-secondary'
-                    }`}
+                    className="flex-1 relative z-10 transition-colors duration-300"
+                    style={{
+                      color: isDimmed
+                        ? 'var(--color-text-tertiary)'
+                        : isHovered
+                          ? 'var(--color-text-on-primary)'
+                          : 'var(--color-text-secondary)',
+                      opacity: isHovered ? 1 : 0.7,
+                      transitionTimingFunction: 'cubic-bezier(0.22,0.31,0,1)',
+                    }}
                   >
                     {item.description}
                   </span>
                 )}
               </div>
-              {/* Row divider */}
-              <div className="h-px w-full bg-border-primary opacity-10" />
+              {/* Row divider — hide when this or adjacent row is hovered */}
+              <div
+                className="h-px w-full bg-border-primary"
+                style={{
+                  opacity: isHovered ? 0 : 0.1,
+                  transition: 'opacity 0.3s',
+                }}
+              />
             </li>
           )
         })}
@@ -171,7 +218,7 @@ export function MenuSection({ content }: MenuSectionProps) {
 
       {/* Navigation keyboard hints */}
       <div
-        className={`-entrance -fade -a-${filteredItems.length + 1} flex items-center gap-3 px-5 md:px-8 lg:px-16 py-3 hidden lg:flex`}
+        className={`-entrance -fade -a-${filteredItems.length + 1} items-center gap-3 px-5 md:px-8 lg:px-16 py-3 hidden lg:flex`}
       >
         <div className="flex items-center gap-1.5">
           <KeyBadge>Esc</KeyBadge>
