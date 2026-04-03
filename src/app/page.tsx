@@ -1,6 +1,5 @@
 import SkipLink from '@/components/ui/SkipLink'
-import MainContent from '@/components/layout/MainContent'
-import Footer from '@/components/layout/Footer'
+import { PageShell } from '@/components/layout/PageShell'
 
 export default function Home() {
   const structuredData = {
@@ -41,11 +40,8 @@ export default function Home() {
       <SkipLink />
 
       <main id="main-content">
-        <div className="w-full">
-          <MainContent />
-        </div>
+        <PageShell />
       </main>
-      <Footer />
     </>
   )
 }
