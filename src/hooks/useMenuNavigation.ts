@@ -10,8 +10,8 @@ interface UseMenuNavigationOptions {
 }
 
 interface UseMenuNavigationReturn {
-  activeIndex: number
-  setActiveIndex: (index: number) => void
+  activeIndex: number | null
+  setActiveIndex: (index: number | null) => void
   filterText: string
   setFilterText: (text: string) => void
   filteredItems: MenuItem[]
@@ -25,7 +25,7 @@ export function useMenuNavigation({
   onSelect,
   onEscape,
 }: UseMenuNavigationOptions): UseMenuNavigationReturn {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [filterText, setFilterText] = useState('')
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -43,7 +43,7 @@ export function useMenuNavigation({
 
   // Reset activeIndex when filter changes
   useEffect(() => {
-    setActiveIndex(0)
+    setActiveIndex(filterText ? 0 : null)
   }, [filterText])
 
   // Stable onSelect callback
@@ -70,28 +70,27 @@ export function useMenuNavigation({
         case 'ArrowDown': {
           e.preventDefault()
           if (filteredItems.length > 0) {
-            setActiveIndex((prev) => (prev + 1) % filteredItems.length)
+            setActiveIndex((prev) => prev === null ? 0 : (prev + 1) % filteredItems.length)
           }
           break
         }
         case 'ArrowUp': {
           e.preventDefault()
           if (filteredItems.length > 0) {
-            setActiveIndex((prev) =>
-              (prev - 1 + filteredItems.length) % filteredItems.length
-            )
+            setActiveIndex((prev) => prev === null ? filteredItems.length - 1 : (prev - 1 + filteredItems.length) % filteredItems.length)
           }
           break
         }
         case 'Enter': {
           e.preventDefault()
-          if (filteredItems.length > 0 && filteredItems[activeIndex]) {
+          if (filteredItems.length > 0 && activeIndex !== null && filteredItems[activeIndex]) {
             handleSelect(filteredItems[activeIndex])
           }
           break
         }
         case 'Escape': {
           e.preventDefault()
+          setActiveIndex(null)
           if (filterText) {
             setFilterText('')
           }
