@@ -117,8 +117,9 @@ export function MenuSection({ content }: MenuSectionProps) {
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {filteredItems.map((item, index) => {
-          const isHovered = hoveredIndex === index
-          const isDimmed = hoveredIndex !== null && hoveredIndex !== index
+          // Highlight: mouse hover OR keyboard active (when mouse isn't hovering anything)
+          const isHighlighted = hoveredIndex === index || (hoveredIndex === null && activeIndex === index)
+          const isDimmed = (hoveredIndex !== null || activeIndex !== null) && !isHighlighted
 
           return (
             <li
@@ -135,13 +136,15 @@ export function MenuSection({ content }: MenuSectionProps) {
                 onClick={() => handleSelect(item)}
                 onMouseEnter={() => setHoveredIndex(index)}
               >
-                {/* Background bar — scales in on hover */}
+                {/* Background bar — scales in on highlight (hover or keyboard) */}
                 <div
                   className="absolute inset-0 bg-bg-fill-primary pointer-events-none"
                   style={{
-                    transform: isHovered ? 'scaleX(1) scaleY(1)' : 'scaleX(0.92) scaleY(0.5)',
-                    opacity: isHovered ? 1 : 0,
-                    transition: 'transform 0.6s cubic-bezier(0.22,0.31,0,1), opacity 0.15s cubic-bezier(0.22,0.31,0,1)',
+                    transform: isHighlighted ? 'scaleX(1) scaleY(1)' : 'scaleX(0.92) scaleY(0.5)',
+                    opacity: isHighlighted ? 1 : 0,
+                    transition: isHighlighted
+                      ? 'transform 0.6s cubic-bezier(0.22,0.31,0,1) 0.04s, opacity 0.2s cubic-bezier(0.22,0.31,0,1) 0.04s'
+                      : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
                     transformOrigin: 'left center',
                     borderRadius: '4px',
                   }}
@@ -152,18 +155,19 @@ export function MenuSection({ content }: MenuSectionProps) {
                   className="shrink-0 w-[120px] md:w-[202px] relative z-10 overflow-hidden"
                   style={{ height: '1.6em' }}
                 >
-                  {/* Primary text — slides up on hover */}
+                  {/* Primary text — slides up on highlight */}
                   <span
-                    className="block transition-transform duration-500"
+                    className="block"
                     style={{
-                      transform: isHovered ? 'translateY(-120%)' : 'translateY(0)',
-                      transitionTimingFunction: 'cubic-bezier(0.22,0.31,0,1)',
+                      transform: isHighlighted ? 'translateY(-120%)' : 'translateY(0)',
                       color: isDimmed
                         ? 'var(--color-text-tertiary)'
-                        : isHovered
+                        : isHighlighted
                           ? 'var(--color-text-on-primary)'
                           : 'var(--color-text-primary)',
-                      transition: 'transform 0.5s cubic-bezier(0.22,0.31,0,1), color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                      transition: isHighlighted
+                        ? 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                        : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                     }}
                   >
                     /{item.label}
@@ -172,9 +176,10 @@ export function MenuSection({ content }: MenuSectionProps) {
                   <span
                     className="block absolute top-0 left-0"
                     style={{
-                      transform: isHovered ? 'translateY(0)' : 'translateY(120%)',
-                      transitionTimingFunction: 'cubic-bezier(0.22,0.31,0,1)',
-                      transition: 'transform 0.5s cubic-bezier(0.22,0.31,0,1)',
+                      transform: isHighlighted ? 'translateY(0)' : 'translateY(120%)',
+                      transition: isHighlighted
+                        ? 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.04s'
+                        : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s',
                       color: 'var(--color-text-on-primary)',
                     }}
                   >
@@ -185,26 +190,26 @@ export function MenuSection({ content }: MenuSectionProps) {
                 {/* Description */}
                 {item.description && (
                   <span
-                    className="flex-1 relative z-10 transition-colors duration-300"
+                    className="flex-1 relative z-10"
                     style={{
                       color: isDimmed
                         ? 'var(--color-text-tertiary)'
-                        : isHovered
+                        : isHighlighted
                           ? 'var(--color-text-on-primary)'
                           : 'var(--color-text-secondary)',
-                      opacity: isHovered ? 1 : 0.7,
-                      transitionTimingFunction: 'cubic-bezier(0.22,0.31,0,1)',
+                      opacity: isHighlighted ? 1 : 0.7,
+                      transition: 'color 0.3s cubic-bezier(0.22,0.31,0,1), opacity 0.3s cubic-bezier(0.22,0.31,0,1)',
                     }}
                   >
                     {item.description}
                   </span>
                 )}
               </div>
-              {/* Row divider — hide when this or adjacent row is hovered */}
+              {/* Row divider — hide when highlighted */}
               <div
                 className="h-px w-full bg-border-primary"
                 style={{
-                  opacity: isHovered ? 0 : 0.1,
+                  opacity: isHighlighted ? 0 : 0.1,
                   transition: 'opacity 0.3s',
                 }}
               />
