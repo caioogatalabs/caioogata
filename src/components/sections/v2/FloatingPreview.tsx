@@ -40,7 +40,7 @@ function RevealImage({ src, alt }: { src: string; alt: string }) {
         borderRadius: '0px',
         transformOrigin: 'center center',
         scale: entered ? '1' : '0.15',
-        transition: `scale 0.5s cubic-bezier(0.16, 1, 0.3, 1)`,
+        transition: `scale 0.6s cubic-bezier(0.16, 1, 0.3, 1)`,
       }}
     >
       <img
@@ -52,7 +52,7 @@ function RevealImage({ src, alt }: { src: string; alt: string }) {
           scale: entered ? '1.25' : '3',
           opacity: entered ? 1 : 0,
           transition: entered
-            ? `scale 0.5s ${EASING_ENTER}, opacity 0.2s ${EASING_ENTER}`
+            ? `scale 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ${EASING_ENTER}`
             : 'none',
         }}
         loading="eager"
