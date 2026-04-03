@@ -15,7 +15,7 @@
 
 ### Home Page
 
-- [ ] **HOME-01**: Intro section with inverted brand bg, logo, overline, display headline
+- [x] **HOME-01**: Intro section with inverted brand bg, logo, overline, display headline
 - [ ] **HOME-02**: Menu section with CLI input, filterable command list, keyboard navbar
 - [ ] **HOME-03**: Projects grid in 6-6 layout with 4 cards, data-stamps, arrow buttons
 - [ ] **HOME-04**: Footer with tech tags, copyright, pill contact button
@@ -84,7 +84,7 @@
 | INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Complete |
-| HOME-01 | Phase 2 | Pending |
+| HOME-01 | Phase 2 | Complete |
 | HOME-02 | Phase 2 | Pending |
 | HOME-03 | Phase 2 | Pending |
 | HOME-04 | Phase 2 | Pending |

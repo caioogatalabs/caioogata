@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-04-03T17:37:27.474Z"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-04-03T17:41:18.541Z"
 last_activity: 2026-04-03
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 6
-  completed_plans: 3
+  completed_plans: 4
   percent: 100
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 ## Current Position
 
 Phase: 02 (home-page) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-03
 
@@ -54,6 +54,7 @@ Progress: [██████████] 100%
 *Updated after each plan completion*
 | Phase 01 P02 | 8min | 2 tasks | 11 files |
 | Phase 02 P01 | 2min | 3 tasks | 10 files |
+| Phase 02 P02 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,8 @@ Recent decisions affecting current work:
 - [Phase 01]: Token architecture: two-layer system (primitives + semantic @theme) for Tailwind v4 integration
 - [Phase 01]: Fabio XM loaded as single variable font @font-face covering weights 300-900
 - [Phase 02]: V2 section stubs in src/components/sections/v2/ to isolate from V1 components
+- [Phase 02]: StickyHeader rendered inside IntroSection fragment for clean DOM order
+- [Phase 02]: Reduced motion for inline styles uses useRef with window.matchMedia check
 
 ### Pending Todos
 
@@ -79,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-03T17:37:27.473Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-04-03T17:41:18.539Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
