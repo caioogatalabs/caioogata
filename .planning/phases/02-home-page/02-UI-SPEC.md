@@ -239,16 +239,71 @@ html.-loaded.-ready           -> Ready to animate (fonts confirmed)
 
 No entrance animation fires until `-ready` is present on `<html>`.
 
-### Specific Interactions
+### Specific Interactions (Implemented)
+
+#### Menu Row Hover — Fiddle-Style (reference: fiddle.digital/work)
+
+**Visual effect (3 coordinated animations):**
+1. **Background bar** — Brand yellow (`--color-bg-fill-primary`) scales in from `scaleX(0.92) scaleY(0.6)` to `scaleX(1) scaleY(1)`, origin left-center
+2. **Text swap** — Primary label slides up (`translateY(-120%)`), duplicate slides in from below (`translateY(120%)` → `translateY(0)`)
+3. **Color inversion** — Hovered row text becomes `--color-text-on-primary` (dark on yellow), non-hovered rows dim to `--color-text-tertiary`
+
+**Bar geometry:**
+- Does NOT fill full row width — `width: min(92%, 800px)`, left offset 12px
+- Bleeds vertically: `top: -5px, bottom: -5px` (overflows row bounds)
+- Border radius: 6px
+- Dividers hide on hovered row (`opacity: 0`)
+
+**Timing:**
+- Entry: `0.6s cubic-bezier(0.22,0.31,0,1)` with 40ms delay
+- Exit: `0.5s cubic-bezier(0.22,0.31,0,1)` with 60ms delay (slightly longer leave)
+- Text swap: `0.5s` same easing, synced with bar
+
+**Keyboard parity:**
+- `activeIndex` (ArrowUp/Down) triggers identical visual effect when no mouse hover active
+- `isHighlighted = hoveredIndex === index || (hoveredIndex === null && activeIndex === index)`
+
+#### Floating Preview — Elastic Cursor Follow (reference: fiddle.digital/work)
+
+**Architecture:** `position: fixed; top: 0; left: 0; z-index: 100`, positioned via `transform: translate3d()` in rAF loop. Lives inside MenuSection, desktop-only (`hidden lg:block`).
+
+**Lerp system (creates elastic "bounce"):**
+- `requestAnimationFrame` loop interpolates position: `lerp(current, target, 0.12)`
+- Target = raw `clientX/clientY` from mousemove
+- Lerped position creates natural lag — image trails cursor with elastic feel
+- On first show: snaps lerp to cursor position (avoids fly-in from origin)
+
+**Skew (velocity-based distortion):**
+- Computed from delta of lerped position (not raw mouse delta — smoother)
+- Applied on BOTH axes: `skew(skewX, skewY)`
+- Each axis: `clamp(-30°, -delta * 1.2, 30°)`
+
+**Entry animation (zoom reveal):**
+- Container: `scale: 0` → `scale: 1`, 0.3s `cubic-bezier(0.22,0.31,0,1)`
+- Inner image: `scale: 4` → `scale: 1.25`, 0.5s same easing (zoom-out reveal, slightly slower than container)
+- Opacity: `0` → `1`, 0.3s
+
+**Exit animation:**
+- Container: `scale: 1` → `scale: 0`, 0.3s `cubic-bezier(0.69,0,0,1)`
+- Inner image: `scale: 1.25` → `scale: 4`, 0.3s same easing
+- Opacity: `1` → `0`, 0.3s
+
+**Inner image parallax:**
+- Resting scale: `1.25` (via CSS `scale` property — separate from rAF `transform`)
+- rAF sets `transform: translate3d(parallaxX, parallaxY, 0)` based on inverse velocity
+- Parallax range: `clamp(-32px, velocity * -0.4, 32px)` per axis
+
+**Dimensions:** 500×300px, border-radius 12px, `overflow: hidden`
+
+**Reduced motion:** Lerp disabled (instant position), skew zeroed, parallax zeroed
+
+#### Other Interactions
 
 | Element | Interaction | Spec |
 |---------|------------|------|
-| Menu rows | Hover dim | Non-hovered rows: color -> `--color-text-tertiary`, 0.3s `--ease-out` (D-18) |
-| Floating preview | Cursor follow | `position: fixed`, CSS vars `--x`/`--y` via mousemove, `pointer-events: none`, `z-index: 100` |
-| Floating preview | Velocity skew | `skew(clamp(-30deg, var(--x-lerp), 30deg))` based on mouse velocity (D-18) |
 | Arrow buttons | Hover | Background transitions to brand yellow, icon color to on-primary, 0.3s `--ease-smooth` |
-| Contact expand | Footer grow | Height transition upward, 0.6s `--ease-out` |
-| Intro compact | Scroll | Smooth transition from full intro to sticky header, opacity crossfade |
+| Contact expand | Footer grow | max-height transition upward, 0.6s `--ease-out`, triggered by scroll-to-bottom or Contact button |
+| Intro compact | Scroll | Smooth transition from full intro to sticky header, opacity crossfade at 60% scroll |
 | Page transition | Route change | 0.6s opacity + translateY(32px), gated behind `-ready` (D-17) |
 
 ### Reduced Motion
