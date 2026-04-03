@@ -140,17 +140,16 @@ export function FloatingPreview({
         transition: isVisible ? 'none' : `opacity 0.2s ${EASING_EXIT}`,
       }}
     >
-      {/* Image wrapper — handles scale reveal from cursor origin */}
+      {/* Reveal wrapper — entire preview scales 0→1 on each show/switch */}
       <div
         className="w-full h-full overflow-hidden"
         style={{
           borderRadius: 'var(--radius-component-md, 12px)',
           transformOrigin: 'top left',
           scale: isRevealed ? '1' : '0',
-          opacity: isRevealed ? 1 : 0,
           transition: isRevealed
-            ? `scale 0.35s ${EASING_ENTER}, opacity 0.2s ${EASING_ENTER}`
-            : `scale 0.25s ${EASING_EXIT}, opacity 0.15s ${EASING_EXIT}`,
+            ? `scale 0.4s ${EASING_ENTER}`
+            : `scale 0.25s ${EASING_EXIT}`,
         }}
       >
         {imageSrc && (
@@ -160,11 +159,11 @@ export function FloatingPreview({
             className="w-full h-full object-cover"
             style={{
               willChange: 'transform',
-              // Zoom reveal: starts zoomed in, settles at 1.25x
               scale: isRevealed ? '1.25' : '3',
+              opacity: isRevealed ? 1 : 0,
               transition: isRevealed
-                ? `scale 0.5s ${EASING_ENTER}`
-                : `scale 0.2s ${EASING_EXIT}`,
+                ? `scale 0.5s ${EASING_ENTER}, opacity 0.15s ${EASING_ENTER}`
+                : `scale 0.2s ${EASING_EXIT}, opacity 0.1s ${EASING_EXIT}`,
             }}
             loading="eager"
           />
