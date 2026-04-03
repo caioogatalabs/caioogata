@@ -176,7 +176,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                   >
                     /{item.label}
                   </span>
-                  {/* Duplicate text — slides in from below */}
+                  {/* Duplicate text — slides in from below, larger + bold */}
                   <span
                     className="block absolute top-0 left-0"
                     style={{
@@ -185,6 +185,8 @@ export function MenuSection({ content }: MenuSectionProps) {
                         ? 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.04s'
                         : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s',
                       color: 'var(--color-text-on-primary)',
+                      fontSize: '20px',
+                      fontWeight: 700,
                     }}
                   >
                     /{item.label}
