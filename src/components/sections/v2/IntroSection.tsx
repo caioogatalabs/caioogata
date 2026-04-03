@@ -11,62 +11,78 @@ export function IntroSection() {
     <>
       <StickyHeader />
       <section
-      ref={sectionRef as React.RefObject<HTMLElement>}
-      aria-label="Introduction"
-      className="relative min-h-screen flex flex-col bg-bg-surface-secondary"
-    >
-      {/* Top bar */}
-      <div className="-entrance -fade -a-0 flex items-center justify-between px-5 py-6 md:px-8 lg:px-16">
-        {/* Logo */}
-        <span
-          className="text-xl font-bold text-text-primary"
-          style={{ fontFamily: 'var(--font-sans)' }}
-        >
-          CO
-        </span>
+        ref={sectionRef as React.RefObject<HTMLElement>}
+        aria-label="Introduction"
+        data-section-id="intro"
+        className="relative flex flex-col justify-between h-[600px] bg-bg-surface-secondary px-5 py-8 md:px-8 md:py-10 lg:px-16 lg:py-12 overflow-hidden"
+      >
+        {/* Top bar */}
+        <div className="-entrance -fade -a-0 flex items-center justify-between w-full">
+          {/* Logo */}
+          <span
+            className="text-3xl font-bold text-text-primary tracking-tight"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            CO
+          </span>
 
-        {/* Right side: version + tagline */}
-        <div className="flex items-center gap-3">
-          <span className="text-sm font-medium uppercase tracking-[0.08em] text-text-secondary font-mono">
-            V2.0.01
-          </span>
-          <span className="hidden md:inline text-sm font-medium text-text-secondary">
-            Built for human and AI assistance
-          </span>
+          {/* Center + Right: version + tagline */}
+          <div className="flex items-center gap-5">
+            <span
+              className="text-sm font-medium uppercase tracking-[1.12px] text-text-secondary opacity-50"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              V2.0.01
+            </span>
+            <span
+              className="hidden md:inline text-lg text-text-secondary opacity-50"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              Built for human and AI assistance
+            </span>
+          </div>
         </div>
-      </div>
 
-      {/* Hero content */}
-      <div className="flex flex-1 flex-col items-center justify-center px-5 md:px-8 lg:px-16">
-        {/* Overline */}
-        <p className="-entrance -slide-up -a-1 text-sm font-medium uppercase tracking-[0.08em] text-text-secondary mb-2 text-center">
-          {content.hero.tagline}
-        </p>
+        {/* CTA — bottom right area */}
+        <div className="-entrance -fade -a-1 flex items-center justify-end gap-0.5">
+          <a
+            href="/llms.txt"
+            className="inline-flex items-center justify-center h-12 rounded-full bg-bg-fill-primary text-text-on-primary px-8 text-base font-medium transition-colors duration-300 hover:bg-bg-fill-primary-hover"
+            style={{ fontFamily: 'var(--font-sans)', borderRadius: '999px' }}
+          >
+            ask about
+          </a>
+          <button
+            type="button"
+            className="flex items-center justify-center size-12 rounded-[12px] bg-bg-fill-primary text-text-on-primary text-lg transition-colors duration-300 hover:bg-bg-fill-primary-hover"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
 
-        {/* Display headline — Fabio XM only */}
-        <h1
-          className="-entrance -slide-up -a-2 text-text-primary text-center max-w-4xl text-balance"
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
-            fontWeight: 400,
-            lineHeight: 1.0,
-            letterSpacing: '-0.02em',
-          }}
-        >
-          {content.hero.tagline2}
-        </h1>
-
-        {/* Ask about CTA */}
-        <a
-          href="/llms.txt"
-          className="-entrance -slide-up -a-3 mt-8 inline-flex items-center justify-center rounded-full bg-bg-fill-primary text-text-on-primary px-6 py-2 text-sm font-medium transition-colors duration-300 hover:bg-bg-fill-primary-hover w-full md:w-auto"
-          style={{ borderRadius: '999px' }}
-        >
-          Ask about
-        </a>
-      </div>
-    </section>
+        {/* Bottom: overline + headline */}
+        <div className="-entrance -slide-up -a-2 flex flex-col gap-2 w-full">
+          <p
+            className="text-sm font-medium uppercase tracking-[1.12px] text-text-secondary opacity-50"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            DESIGN ENGINEERING &nbsp;/&nbsp; DESIGN SYSTEMS &nbsp;/&nbsp; PRODUCT DESIGN
+          </p>
+          <h1
+            className="text-text-primary w-full"
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
+              fontWeight: 400,
+              lineHeight: 1.15,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            {content.hero.tagline2}
+          </h1>
+        </div>
+      </section>
     </>
   )
 }

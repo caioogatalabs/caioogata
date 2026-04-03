@@ -1,7 +1,6 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
-import { Grid, GridItem } from '@/components/layout/Grid'
 import { ProjectCard } from '@/components/sections/v2/ProjectCard'
 import content from '@/content/en.json'
 
@@ -22,24 +21,34 @@ export function ProjectsGrid() {
       ref={sectionRef as React.RefObject<HTMLElement>}
       aria-label="Projects"
       data-section-id="projects"
-      className="py-16 lg:py-24"
+      className="flex flex-col gap-5 px-5 py-8 md:px-8 md:py-12 lg:px-16 lg:py-16"
     >
-      <Grid>
-        <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {projects.map((project, i) => (
-              <ProjectCard
-                key={project.slug}
-                title={project.title}
-                slug={project.slug}
-                year={yearMap[project.slug] || '2024'}
-                index={i + 1}
-                className={`-entrance -slide-up -a-${i}`}
-              />
-            ))}
-          </div>
-        </GridItem>
-      </Grid>
+      {/* Row 1 */}
+      <div className="flex flex-col md:flex-row gap-5">
+        {projects.slice(0, 2).map((project, i) => (
+          <ProjectCard
+            key={project.slug}
+            title={project.title}
+            slug={project.slug}
+            year={yearMap[project.slug] || '2024'}
+            index={i + 1}
+            className={`-entrance -slide-up -a-${i} flex-1`}
+          />
+        ))}
+      </div>
+      {/* Row 2 */}
+      <div className="flex flex-col md:flex-row gap-5">
+        {projects.slice(2, 4).map((project, i) => (
+          <ProjectCard
+            key={project.slug}
+            title={project.title}
+            slug={project.slug}
+            year={yearMap[project.slug] || '2024'}
+            index={i + 3}
+            className={`-entrance -slide-up -a-${i + 2} flex-1`}
+          />
+        ))}
+      </div>
     </section>
   )
 }

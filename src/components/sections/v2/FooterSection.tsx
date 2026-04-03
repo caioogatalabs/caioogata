@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useInView } from '@/hooks/useInView'
-import { Grid, GridItem } from '@/components/layout/Grid'
 import { ContactForm } from '@/components/sections/v2/ContactForm'
 import content from '@/content/en.json'
 
@@ -65,10 +64,8 @@ export function FooterSection() {
       }}
       aria-label="Footer"
       data-section-id="footer"
-      className="-entrance -slide-up -a-0 py-12 pb-6"
+      className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-16 py-8"
     >
-      <Grid>
-        <GridItem span={8} tabletSpan={8} mobileSpan={4} className="lg:col-start-3">
           {/* Expandable contact section */}
           <div
             id={EXPAND_CONTENT_ID}
@@ -98,35 +95,32 @@ export function FooterSection() {
             </div>
           </div>
 
-          {/* Tech tags */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {TECH_TAGS.map((tag) => (
-              <span
-                key={tag}
-                className="font-mono text-sm uppercase tracking-widest text-text-secondary bg-bg-surface-primary rounded-full px-3 py-1"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* Bottom row: copyright + contact button */}
+          {/* Bottom row: tags + copyright left, contact button right */}
           <div className="flex items-center justify-between">
-            <span className="text-base text-text-secondary">
-              &copy; 2026 Caio Ogata
-            </span>
+            <div className="flex items-center gap-3">
+              {TECH_TAGS.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5"
+                >
+                  {tag}
+                </span>
+              ))}
+              <span className="text-xs text-text-tertiary font-mono">
+                &copy; 2026 Caio Ogata
+              </span>
+            </div>
             <button
               type="button"
               onClick={toggleExpanded}
               aria-expanded={isExpanded}
               aria-controls={EXPAND_CONTENT_ID}
-              className="rounded-full bg-bg-fill-primary text-text-on-primary px-6 py-2.5 text-base font-medium transition-colors duration-300 hover:bg-bg-fill-primary-hover"
+              className="rounded-full bg-bg-fill-primary text-text-on-primary px-8 py-3.5 text-sm font-medium transition-colors duration-300 hover:bg-bg-fill-primary-hover"
+              style={{ borderRadius: '999px' }}
             >
               Contact
             </button>
           </div>
-        </GridItem>
-      </Grid>
     </footer>
   )
 }

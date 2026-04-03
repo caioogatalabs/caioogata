@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { Grid, GridItem } from '@/components/layout/Grid'
 import { useMenuNavigation } from '@/hooks/useMenuNavigation'
 import { useInView } from '@/hooks/useInView'
 import { FloatingPreview } from '@/components/sections/v2/FloatingPreview'
@@ -10,6 +9,14 @@ import type { MenuItem, Menu } from '@/content/types'
 
 interface MenuSectionProps {
   content: Menu
+}
+
+function KeyBadge({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center justify-center bg-bg-surface-primary text-text-primary text-[11px] font-medium font-mono px-[5px] py-[2px] rounded-[3px] leading-none">
+      {children}
+    </span>
+  )
 }
 
 export function MenuSection({ content }: MenuSectionProps) {
@@ -67,7 +74,6 @@ export function MenuSection({ content }: MenuSectionProps) {
     setMouseY(newY)
   }, [])
 
-  // Determine preview image for the hovered item
   const previewImageSrc =
     hoveredIndex !== null
       ? `/previews/${filteredItems[hoveredIndex]?.key}.webp`
@@ -80,100 +86,111 @@ export function MenuSection({ content }: MenuSectionProps) {
       ref={sectionRef as React.RefObject<HTMLElement>}
       aria-label="Navigation menu"
       data-section-id="menu"
-      className="py-16 lg:py-24"
       onMouseMove={handleMouseMove}
     >
-      <Grid>
-        <GridItem span={8} tabletSpan={8} mobileSpan={4} className="lg:col-start-3">
-          {/* CLI Input */}
-          <div className="-entrance -fade -a-0 flex items-center gap-2 pb-6 border-b border-[var(--color-border-primary)]">
-            <span
-              className="font-mono text-[var(--color-text-brand)] text-base select-none"
-              aria-hidden="true"
+      {/* Top divider */}
+      <div className="-entrance -fade -a-0 h-px w-full bg-border-primary opacity-30" />
+
+      {/* CLI Input */}
+      <div className="-entrance -fade -a-0 flex items-center gap-2 px-5 md:px-8 lg:px-16 py-3.5 text-sm overflow-hidden">
+        <span
+          className="font-mono font-bold text-text-brand shrink-0"
+        >
+          &gt;
+        </span>
+        <input
+          ref={inputRef}
+          type="text"
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+          placeholder='Press "Enter" to Navigate'
+          className="flex-1 bg-transparent font-mono text-sm text-text-primary placeholder:text-text-tertiary placeholder:opacity-40 caret-text-brand focus:outline-none"
+          autoComplete="off"
+          spellCheck={false}
+          data-menu-input="true"
+        />
+      </div>
+
+      {/* Divider below input */}
+      <div className="h-px w-full bg-border-primary opacity-15" />
+
+      {/* Menu Rows */}
+      <ul
+        role="listbox"
+        onMouseLeave={() => setHoveredIndex(null)}
+      >
+        {filteredItems.map((item, index) => {
+          const isDimmed = hoveredIndex !== null && hoveredIndex !== index
+
+          return (
+            <li
+              key={item.key}
+              role="option"
+              aria-selected={activeIndex === index}
             >
-              &gt;
-            </span>
-            <input
-              ref={inputRef}
-              type="text"
-              value={filterText}
-              onChange={(e) => setFilterText(e.target.value)}
-              placeholder={content.inputHint.keyboard}
-              className="flex-1 bg-transparent font-mono text-base text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] caret-[var(--color-text-brand)] focus:outline-none"
-              autoComplete="off"
-              spellCheck={false}
-              data-menu-input="true"
-            />
-          </div>
-
-          {/* Menu Rows */}
-          <ul
-            role="listbox"
-            className="mt-4"
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            {filteredItems.map((item, index) => {
-              const isActive = activeIndex === index && hoveredIndex === null
-              const isDimmed = hoveredIndex !== null && hoveredIndex !== index
-
-              return (
-                <li
-                  key={item.key}
-                  role="option"
-                  aria-selected={activeIndex === index}
-                  className={`-entrance -slide-up -a-${index + 1} min-h-[64px] flex items-center cursor-pointer py-3 transition-colors duration-300 ${
-                    isActive
-                      ? 'border-l-2 border-[var(--color-text-brand)] pl-4'
-                      : 'border-l-2 border-transparent pl-4'
+              <div
+                className={`-entrance -slide-up -a-${index + 1} flex items-center px-5 md:px-8 lg:px-16 py-3 text-lg cursor-pointer overflow-hidden transition-colors duration-300`}
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  lineHeight: 1.6,
+                  transitionTimingFunction: 'var(--ease-out)',
+                }}
+                onClick={() => handleSelect(item)}
+                onMouseEnter={() => setHoveredIndex(index)}
+              >
+                <span
+                  className={`shrink-0 w-[120px] md:w-[202px] transition-colors duration-300 ${
+                    isDimmed
+                      ? 'text-text-tertiary'
+                      : 'text-text-primary'
                   }`}
-                  style={{
-                    transitionTimingFunction: 'var(--ease-out)',
-                  }}
-                  onClick={() => handleSelect(item)}
-                  onMouseEnter={() => setHoveredIndex(index)}
                 >
-                  <div className="flex flex-col gap-0.5">
-                    <span
-                      className={`text-[30px] font-medium tracking-[-0.01em] leading-[1.15] transition-colors duration-300 ${
-                        isDimmed
-                          ? 'text-[var(--color-text-tertiary)]'
-                          : 'text-[var(--color-text-primary)]'
-                      }`}
-                      style={{ fontFamily: 'var(--font-sans)' }}
-                    >
-                      {item.label}
-                    </span>
-                    {item.description && (
-                      <span
-                        className={`text-base transition-colors duration-300 ${
-                          isDimmed
-                            ? 'text-[var(--color-text-tertiary)]'
-                            : 'text-[var(--color-text-secondary)]'
-                        }`}
-                      >
-                        {item.description}
-                      </span>
-                    )}
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
+                  /{item.label}
+                </span>
+                {item.description && (
+                  <span
+                    className={`flex-1 opacity-70 transition-colors duration-300 ${
+                      isDimmed
+                        ? 'text-text-tertiary'
+                        : 'text-text-secondary'
+                    }`}
+                  >
+                    {item.description}
+                  </span>
+                )}
+              </div>
+              {/* Row divider */}
+              <div className="h-px w-full bg-border-primary opacity-10" />
+            </li>
+          )
+        })}
+      </ul>
 
-          {/* Navigation Hints */}
-          <div
-            className={`-entrance -fade -a-${filteredItems.length + 1} mt-6 pt-2 pb-2 border-t border-[var(--color-border-primary)] font-mono text-sm uppercase tracking-[0.08em] text-[var(--color-text-tertiary)] hidden lg:block`}
-          >
-            <span>Esc {content.navigation.keyboard.back}</span>
-            <span className="mx-3">/</span>
-            <span>Arrows {content.navigation.keyboard.navigate}</span>
-            <span className="mx-3">/</span>
-            <span>Enter {content.navigation.keyboard.select}</span>
-          </div>
-        </GridItem>
-      </Grid>
+      {/* Bottom divider */}
+      <div className="h-px w-full bg-border-primary opacity-30" />
 
-      {/* FloatingPreview -- cursor-following image preview (desktop only) */}
+      {/* Navigation keyboard hints */}
+      <div
+        className={`-entrance -fade -a-${filteredItems.length + 1} flex items-center gap-3 px-5 md:px-8 lg:px-16 py-3 hidden lg:flex`}
+      >
+        <div className="flex items-center gap-1.5">
+          <KeyBadge>Esc</KeyBadge>
+          <span className="text-xs text-text-tertiary">to go back</span>
+        </div>
+        <span className="text-xs text-text-tertiary opacity-40">·</span>
+        <div className="flex items-center gap-1">
+          <KeyBadge>↑</KeyBadge>
+          <KeyBadge>↓</KeyBadge>
+          <span className="text-xs text-text-tertiary ml-0.5">to navigate</span>
+        </div>
+        <span className="text-xs text-text-tertiary opacity-40">·</span>
+        <div className="flex items-center gap-1.5">
+          <KeyBadge>Enter</KeyBadge>
+          <span className="text-xs text-text-tertiary">to select</span>
+        </div>
+      </div>
+
+      {/* FloatingPreview — cursor-following image preview (desktop only) */}
       <FloatingPreview
         imageSrc={previewImageSrc}
         alt={previewAlt}
