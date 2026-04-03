@@ -34,26 +34,18 @@ export function FooterSection() {
     return () => window.removeEventListener('open-contact', handler)
   }, [])
 
-  // Auto-expand when footer is fully in view
+  // Auto-expand when user scrolls past footer bottom (hit page end)
   useEffect(() => {
-    const el = footerRef.current
-    if (!el) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAutoExpanded.current) {
-          hasAutoExpanded.current = true
-          const timer = setTimeout(() => {
-            setIsExpanded(true)
-          }, 500)
-          return () => clearTimeout(timer)
-        }
-      },
-      { threshold: 0.9 }
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
+    const handleScroll = () => {
+      if (hasAutoExpanded.current) return
+      const atBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50
+      if (atBottom) {
+        hasAutoExpanded.current = true
+        setTimeout(() => setIsExpanded(true), 300)
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const toggleExpanded = () => {

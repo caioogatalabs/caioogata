@@ -121,7 +121,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                   key={item.key}
                   role="option"
                   aria-selected={activeIndex === index}
-                  className={`-entrance -slide-up -a-${index + 1} min-h-[64px] flex items-center justify-between cursor-pointer px-2 transition-colors duration-300 ${
+                  className={`-entrance -slide-up -a-${index + 1} min-h-[64px] flex items-center cursor-pointer py-3 transition-colors duration-300 ${
                     isActive
                       ? 'border-l-2 border-[var(--color-text-brand)] pl-4'
                       : 'border-l-2 border-transparent pl-4'
@@ -132,27 +132,29 @@ export function MenuSection({ content }: MenuSectionProps) {
                   onClick={() => handleSelect(item)}
                   onMouseEnter={() => setHoveredIndex(index)}
                 >
-                  <span
-                    className={`text-[30px] font-medium tracking-[-0.01em] leading-[1.15] transition-colors duration-300 ${
-                      isDimmed
-                        ? 'text-[var(--color-text-tertiary)]'
-                        : 'text-[var(--color-text-primary)]'
-                    }`}
-                    style={{ fontFamily: 'var(--font-sans)' }}
-                  >
-                    {item.label}
-                  </span>
-                  {item.description && (
+                  <div className="flex flex-col gap-0.5">
                     <span
-                      className={`text-base hidden md:block transition-colors duration-300 ${
+                      className={`text-[30px] font-medium tracking-[-0.01em] leading-[1.15] transition-colors duration-300 ${
                         isDimmed
                           ? 'text-[var(--color-text-tertiary)]'
-                          : 'text-[var(--color-text-secondary)]'
+                          : 'text-[var(--color-text-primary)]'
                       }`}
+                      style={{ fontFamily: 'var(--font-sans)' }}
                     >
-                      {item.description}
+                      {item.label}
                     </span>
-                  )}
+                    {item.description && (
+                      <span
+                        className={`text-base transition-colors duration-300 ${
+                          isDimmed
+                            ? 'text-[var(--color-text-tertiary)]'
+                            : 'text-[var(--color-text-secondary)]'
+                        }`}
+                      >
+                        {item.description}
+                      </span>
+                    )}
+                  </div>
                 </li>
               )
             })}

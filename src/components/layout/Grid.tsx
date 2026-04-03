@@ -14,6 +14,20 @@ interface GridItemProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode
 }
 
+// Static class maps — Tailwind needs literal strings at build time
+const MOBILE_SPAN: Record<number, string> = {
+  1: 'col-span-1', 2: 'col-span-2', 3: 'col-span-3', 4: 'col-span-4',
+}
+const TABLET_SPAN: Record<number, string> = {
+  1: 'md:col-span-1', 2: 'md:col-span-2', 3: 'md:col-span-3', 4: 'md:col-span-4',
+  5: 'md:col-span-5', 6: 'md:col-span-6', 7: 'md:col-span-7', 8: 'md:col-span-8',
+}
+const DESKTOP_SPAN: Record<number, string> = {
+  1: 'lg:col-span-1', 2: 'lg:col-span-2', 3: 'lg:col-span-3', 4: 'lg:col-span-4',
+  5: 'lg:col-span-5', 6: 'lg:col-span-6', 7: 'lg:col-span-7', 8: 'lg:col-span-8',
+  9: 'lg:col-span-9', 10: 'lg:col-span-10', 11: 'lg:col-span-11', 12: 'lg:col-span-12',
+}
+
 export const Grid = forwardRef<HTMLElement, GridProps>(function Grid(
   { as: Tag = 'div', className = '', children, ...props },
   ref
@@ -33,36 +47,17 @@ export const GridItem = forwardRef<HTMLElement, GridItemProps>(function GridItem
   { as: Tag = 'div', span, tabletSpan, mobileSpan, className = '', style, children, ...props },
   ref
 ) {
-  const gridStyle: React.CSSProperties = { ...style }
-
-  // Build responsive grid-column via CSS custom properties
-  // Desktop span applied directly; tablet/mobile handled via media queries in className
-  if (span) {
-    gridStyle.gridColumn = `span ${span}`
-  }
-
-  // For tablet and mobile spans, we use inline style with CSS that gets overridden
-  // by the responsive Tailwind classes
-  const responsiveClasses: string[] = []
-  if (mobileSpan) {
-    responsiveClasses.push(`col-span-${mobileSpan}`)
-  }
-  if (tabletSpan) {
-    responsiveClasses.push(`md:col-span-${tabletSpan}`)
-  }
-  if (span) {
-    responsiveClasses.push(`lg:col-span-${span}`)
-    // Remove the inline style when using classes
-    delete gridStyle.gridColumn
-  }
-
-  const allClasses = [...responsiveClasses, className].filter(Boolean).join(' ')
+  const classes: string[] = []
+  if (mobileSpan) classes.push(MOBILE_SPAN[mobileSpan] ?? '')
+  if (tabletSpan) classes.push(TABLET_SPAN[tabletSpan] ?? '')
+  if (span) classes.push(DESKTOP_SPAN[span] ?? '')
+  if (className) classes.push(className)
 
   return (
     <Tag
       ref={ref}
-      className={allClasses || undefined}
-      style={Object.keys(gridStyle).length > 0 ? gridStyle : style}
+      className={classes.filter(Boolean).join(' ') || undefined}
+      style={style}
       {...props}
     >
       {children}

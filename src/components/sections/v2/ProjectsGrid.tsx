@@ -22,7 +22,7 @@ export function ProjectsGrid() {
       ref={sectionRef as React.RefObject<HTMLElement>}
       aria-label="Projects"
       data-section-id="projects"
-      className="-entrance -slide-up"
+      className="py-16 lg:py-24"
     >
       <Grid>
         <GridItem span={12} tabletSpan={8} mobileSpan={4}>
