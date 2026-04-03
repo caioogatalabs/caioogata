@@ -128,7 +128,7 @@ export function MenuSection({ content }: MenuSectionProps) {
               aria-selected={activeIndex === index}
             >
               <div
-                className={`-entrance -slide-up -a-${index + 1} menu-row relative flex items-center px-5 md:px-8 lg:px-16 py-3 text-lg cursor-pointer overflow-hidden`}
+                className={`-entrance -slide-up -a-${index + 1} menu-row relative flex items-center px-5 md:px-8 lg:px-16 py-3 text-lg cursor-pointer`}
                 style={{
                   fontFamily: 'var(--font-sans)',
                   lineHeight: 1.6,
@@ -136,17 +136,21 @@ export function MenuSection({ content }: MenuSectionProps) {
                 onClick={() => handleSelect(item)}
                 onMouseEnter={() => setHoveredIndex(index)}
               >
-                {/* Background bar — scales in on highlight (hover or keyboard) */}
+                {/* Background bar — bleeds ~6px vertically, hugs text width */}
                 <div
-                  className="absolute inset-0 bg-bg-fill-primary pointer-events-none"
+                  className="absolute bg-bg-fill-primary pointer-events-none"
                   style={{
-                    transform: isHighlighted ? 'scaleX(1) scaleY(1)' : 'scaleX(0.92) scaleY(0.5)',
+                    left: '12px',
+                    top: '-5px',
+                    bottom: '-5px',
+                    width: 'min(92%, 800px)',
+                    transform: isHighlighted ? 'scaleX(1) scaleY(1)' : 'scaleX(0.92) scaleY(0.6)',
                     opacity: isHighlighted ? 1 : 0,
                     transition: isHighlighted
                       ? 'transform 0.6s cubic-bezier(0.22,0.31,0,1) 0.04s, opacity 0.2s cubic-bezier(0.22,0.31,0,1) 0.04s'
                       : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
                     transformOrigin: 'left center',
-                    borderRadius: '4px',
+                    borderRadius: '6px',
                   }}
                 />
 
