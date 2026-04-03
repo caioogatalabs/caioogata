@@ -19,7 +19,7 @@
 - [ ] **HOME-02**: Menu section with CLI input, filterable command list, keyboard navbar
 - [ ] **HOME-03**: Projects grid in 6-6 layout with 4 cards, data-stamps, arrow buttons
 - [ ] **HOME-04**: Footer with tech tags, copyright, pill contact button
-- [ ] **HOME-05**: All sections responsive across Desktop (12col) / Tablet (8col) / Mobile (4col)
+- [x] **HOME-05**: All sections responsive across Desktop (12col) / Tablet (8col) / Mobile (4col)
 
 ### Content Sections
 
@@ -88,7 +88,7 @@
 | HOME-02 | Phase 2 | Pending |
 | HOME-03 | Phase 2 | Pending |
 | HOME-04 | Phase 2 | Pending |
-| HOME-05 | Phase 2 | Pending |
+| HOME-05 | Phase 2 | Complete |
 | SECT-01 | Phase 3 | Pending |
 | SECT-02 | Phase 3 | Pending |
 | SECT-03 | Phase 3 | Pending |
