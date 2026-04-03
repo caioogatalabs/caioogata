@@ -37,10 +37,10 @@ function RevealImage({ src, alt }: { src: string; alt: string }) {
     <div
       className="w-full h-full overflow-hidden"
       style={{
-        borderRadius: 'var(--radius-component-md, 12px)',
+        borderRadius: '0px',
         transformOrigin: 'center center',
-        scale: entered ? '1' : '0',
-        transition: `scale 0.35s ${EASING_ENTER}`,
+        scale: entered ? '1' : '0.15',
+        transition: `scale 0.5s cubic-bezier(0.16, 1, 0.3, 1)`,
       }}
     >
       <img
