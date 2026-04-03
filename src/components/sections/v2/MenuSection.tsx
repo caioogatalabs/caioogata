@@ -228,6 +228,24 @@ export function MenuSection({ content }: MenuSectionProps) {
                     </span>
                   </span>
                 )}
+
+                {/* Arrow — slides in from right on highlight */}
+                <span
+                  className="relative z-10 ml-auto"
+                  style={{
+                    color: 'var(--color-text-on-primary)',
+                    fontSize: '1.5rem',
+                    fontWeight: 700,
+                    opacity: isHighlighted ? 1 : 0,
+                    transform: isHighlighted ? 'translateX(0)' : 'translateX(-12px)',
+                    transition: isHighlighted
+                      ? 'opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.08s, transform 0.5s cubic-bezier(0.16,1,0.3,1) 0.08s'
+                      : 'opacity 0.2s cubic-bezier(0.16,1,0.3,1), transform 0.3s cubic-bezier(0.16,1,0.3,1)',
+                  }}
+                  aria-hidden="true"
+                >
+                  →
+                </span>
               </div>
               {/* Row divider — hide when highlighted */}
               <div
