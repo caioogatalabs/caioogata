@@ -18,6 +18,49 @@ function lerp(current: number, target: number, factor: number) {
   return current + (target - current) * factor
 }
 
+/**
+ * Inner reveal — mounts fresh on each imageSrc change (via key).
+ * Starts at scale 0, animates to scale 1 after first paint.
+ */
+function RevealImage({ src, alt }: { src: string; alt: string }) {
+  const [entered, setEntered] = useState(false)
+
+  useEffect(() => {
+    // Force the browser to paint scale:0 first, then animate to scale:1
+    const raf = requestAnimationFrame(() => {
+      setEntered(true)
+    })
+    return () => cancelAnimationFrame(raf)
+  }, [])
+
+  return (
+    <div
+      className="w-full h-full overflow-hidden"
+      style={{
+        borderRadius: 'var(--radius-component-md, 12px)',
+        transformOrigin: 'top left',
+        scale: entered ? '1' : '0',
+        transition: `scale 0.35s ${EASING_ENTER}`,
+      }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover"
+        style={{
+          willChange: 'transform',
+          scale: entered ? '1.25' : '3',
+          opacity: entered ? 1 : 0,
+          transition: entered
+            ? `scale 0.5s ${EASING_ENTER}, opacity 0.2s ${EASING_ENTER}`
+            : 'none',
+        }}
+        loading="eager"
+      />
+    </div>
+  )
+}
+
 export function FloatingPreview({
   imageSrc,
   alt,
@@ -26,7 +69,6 @@ export function FloatingPreview({
 }: FloatingPreviewProps) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
-  // Lerped position
   const lerpX = useRef(0)
   const lerpY = useRef(0)
   const prevLerpX = useRef(0)
@@ -39,10 +81,6 @@ export function FloatingPreview({
 
   const isVisible = imageSrc !== null
   const wasVisible = useRef(false)
-  const prevSrc = useRef<string | null>(null)
-
-  // Track image reveal state: 'entering' triggers the scale-in animation
-  const [imgState, setImgState] = useState<'hidden' | 'entering' | 'visible'>('hidden')
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -52,36 +90,20 @@ export function FloatingPreview({
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  // Handle visibility and image changes
+  // Snap lerp to cursor on first show
   useEffect(() => {
     if (isVisible && !wasVisible.current) {
-      // First show — snap position to cursor
       lerpX.current = mouseX
       lerpY.current = mouseY
       prevLerpX.current = mouseX
       prevLerpY.current = mouseY
       velX.current = 0
       velY.current = 0
-      // Two-frame trick: set hidden, let browser paint, then enter
-      setImgState('hidden')
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setImgState('entering'))
-      })
-    } else if (isVisible && prevSrc.current !== imageSrc) {
-      // Switching image — reset to hidden, then re-enter after paint
-      setImgState('hidden')
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setImgState('entering'))
-      })
-    } else if (!isVisible && wasVisible.current) {
-      setImgState('hidden')
     }
-
     wasVisible.current = isVisible
-    prevSrc.current = imageSrc
-  }, [isVisible, imageSrc, mouseX, mouseY])
+  }, [isVisible, mouseX, mouseY])
 
-  // rAF loop — lerp position + skew + parallax
+  // rAF loop
   const animate = useCallback(() => {
     if (prefersReducedMotion) {
       lerpX.current = mouseX
@@ -106,11 +128,10 @@ export function FloatingPreview({
 
       el.style.transform = `translate3d(${lerpX.current + offsetX}px, ${lerpY.current + offsetY}px, 0) skew(${skewX}deg, ${skewY}deg)`
 
-      // Inner image parallax
-      const imgParallaxX = Math.max(-32, Math.min(32, velX.current * -0.4))
-      const imgParallaxY = Math.max(-32, Math.min(32, velY.current * -0.4))
       const img = el.querySelector('img') as HTMLImageElement | null
       if (img) {
+        const imgParallaxX = Math.max(-32, Math.min(32, velX.current * -0.4))
+        const imgParallaxY = Math.max(-32, Math.min(32, velY.current * -0.4))
         img.style.transform = `translate3d(${imgParallaxX}px, ${imgParallaxY}px, 0)`
       }
     }
@@ -123,8 +144,6 @@ export function FloatingPreview({
     return () => cancelAnimationFrame(rafRef.current)
   }, [animate])
 
-  const isRevealed = imgState === 'entering'
-
   return (
     <div
       ref={containerRef}
@@ -135,40 +154,13 @@ export function FloatingPreview({
         width: 500,
         height: 300,
         willChange: 'transform',
-        // Container is always "present" when visible — no scale on container
         opacity: isVisible ? 1 : 0,
-        transition: isVisible ? 'none' : `opacity 0.2s ${EASING_EXIT}`,
+        transition: isVisible ? 'none' : `opacity 0.15s ${EASING_EXIT}`,
       }}
     >
-      {/* Reveal wrapper — entire preview scales 0→1 on each show/switch */}
-      <div
-        className="w-full h-full overflow-hidden"
-        style={{
-          borderRadius: 'var(--radius-component-md, 12px)',
-          transformOrigin: 'top left',
-          scale: isRevealed ? '1' : '0',
-          transition: isRevealed
-            ? `scale 0.4s ${EASING_ENTER}`
-            : `scale 0.25s ${EASING_EXIT}`,
-        }}
-      >
-        {imageSrc && (
-          <img
-            src={imageSrc}
-            alt={alt}
-            className="w-full h-full object-cover"
-            style={{
-              willChange: 'transform',
-              scale: isRevealed ? '1.25' : '3',
-              opacity: isRevealed ? 1 : 0,
-              transition: isRevealed
-                ? `scale 0.5s ${EASING_ENTER}, opacity 0.15s ${EASING_ENTER}`
-                : `scale 0.2s ${EASING_EXIT}, opacity 0.1s ${EASING_EXIT}`,
-            }}
-            loading="eager"
-          />
-        )}
-      </div>
+      {/* key={imageSrc} forces React to unmount/remount on each image change,
+          guaranteeing a fresh scale 0→1 animation every time */}
+      {imageSrc && <RevealImage key={imageSrc} src={imageSrc} alt={alt} />}
     </div>
   )
 }
