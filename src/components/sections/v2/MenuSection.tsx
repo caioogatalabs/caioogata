@@ -143,7 +143,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                     left: '12px',
                     top: '-5px',
                     bottom: '-5px',
-                    width: 'min(92%, 800px)',
+                    width: '66.66%',
                     transform: isHighlighted ? 'scaleX(1) scaleY(1)' : 'scaleX(0.92) scaleY(0.6)',
                     opacity: isHighlighted ? 1 : 0,
                     transition: isHighlighted
