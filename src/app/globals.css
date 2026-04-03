@@ -56,7 +56,8 @@ body {
 }
 
 *:focus-visible {
-  outline: none !important;
+  outline: 2px solid var(--color-primary) !important;
+  outline-offset: 2px;
   box-shadow: none !important;
 }
 
@@ -206,3 +207,82 @@ body {
   height: 3px;
   border-radius: 1px;
 }
+
+/* ═══ V2 Animation System ═══ */
+:root {
+  --ease-out: cubic-bezier(0.22, 0.31, 0, 1);
+  --ease-in: cubic-bezier(0.69, 0, 0, 1);
+  --ease-smooth: cubic-bezier(0.5, 0, 0.3, 1);
+}
+
+/* Loading gate — blocks entrance animations until fonts confirmed */
+html:not(.-ready) .-entrance {
+  opacity: 0 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Entrance: slide up */
+.-entrance.-slide-up {
+  opacity: 0;
+  transform: translateY(4rem);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.-entrance.-slide-up.-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Entrance: scale in */
+.-entrance.-scale-in {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.-entrance.-scale-in.-inview {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Entrance: fade */
+.-entrance.-fade {
+  opacity: 0;
+  transition: opacity 0.9s linear;
+}
+.-entrance.-fade.-inview {
+  opacity: 1;
+}
+
+/* Page enter */
+.-page-enter {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.-page-enter.-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays: 70ms per index + 150ms base offset */
+.-a-0  { transition-delay: 150ms; }
+.-a-1  { transition-delay: 220ms; }
+.-a-2  { transition-delay: 290ms; }
+.-a-3  { transition-delay: 360ms; }
+.-a-4  { transition-delay: 430ms; }
+.-a-5  { transition-delay: 500ms; }
+.-a-6  { transition-delay: 570ms; }
+.-a-7  { transition-delay: 640ms; }
+.-a-8  { transition-delay: 710ms; }
+.-a-9  { transition-delay: 780ms; }
+.-a-10 { transition-delay: 850ms; }
+.-a-11 { transition-delay: 920ms; }
+.-a-12 { transition-delay: 990ms; }
+.-a-13 { transition-delay: 1060ms; }
+.-a-14 { transition-delay: 1130ms; }
+.-a-15 { transition-delay: 1200ms; }
+.-a-16 { transition-delay: 1270ms; }
+.-a-17 { transition-delay: 1340ms; }
+.-a-18 { transition-delay: 1410ms; }
+.-a-19 { transition-delay: 1480ms; }
+.-a-20 { transition-delay: 1550ms; }
