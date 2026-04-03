@@ -1,10 +1,11 @@
 'use client'
 
-import { useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { useMenuNavigation } from '@/hooks/useMenuNavigation'
 import { useInView } from '@/hooks/useInView'
+import { FloatingPreview } from '@/components/sections/v2/FloatingPreview'
 import type { MenuItem, Menu } from '@/content/types'
 
 interface MenuSectionProps {
@@ -14,6 +15,12 @@ interface MenuSectionProps {
 export function MenuSection({ content }: MenuSectionProps) {
   const router = useRouter()
   const sectionRef = useInView({ threshold: 0.1, once: true })
+
+  // Mouse tracking state
+  const [mouseX, setMouseX] = useState(0)
+  const [mouseY, setMouseY] = useState(0)
+  const [velocityX, setVelocityX] = useState(0)
+  const prevMouseXRef = useRef(0)
 
   const handleSelect = useCallback(
     (item: MenuItem) => {
@@ -51,12 +58,30 @@ export function MenuSection({ content }: MenuSectionProps) {
     onEscape: handleEscape,
   })
 
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const newX = e.clientX
+    const newY = e.clientY
+    setVelocityX(newX - prevMouseXRef.current)
+    prevMouseXRef.current = newX
+    setMouseX(newX)
+    setMouseY(newY)
+  }, [])
+
+  // Determine preview image for the hovered item
+  const previewImageSrc =
+    hoveredIndex !== null
+      ? `/previews/${filteredItems[hoveredIndex]?.key}.webp`
+      : null
+  const previewAlt =
+    hoveredIndex !== null ? filteredItems[hoveredIndex]?.label ?? '' : ''
+
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       aria-label="Navigation menu"
       data-section-id="menu"
       className="py-16 lg:py-24"
+      onMouseMove={handleMouseMove}
     >
       <Grid>
         <GridItem span={8} tabletSpan={8} mobileSpan={4} className="lg:col-start-3">
@@ -89,6 +114,8 @@ export function MenuSection({ content }: MenuSectionProps) {
           >
             {filteredItems.map((item, index) => {
               const isActive = activeIndex === index && hoveredIndex === null
+              const isDimmed = hoveredIndex !== null && hoveredIndex !== index
+
               return (
                 <li
                   key={item.key}
@@ -99,17 +126,30 @@ export function MenuSection({ content }: MenuSectionProps) {
                       ? 'border-l-2 border-[var(--color-text-brand)] pl-4'
                       : 'border-l-2 border-transparent pl-4'
                   }`}
+                  style={{
+                    transitionTimingFunction: 'var(--ease-out)',
+                  }}
                   onClick={() => handleSelect(item)}
                   onMouseEnter={() => setHoveredIndex(index)}
                 >
                   <span
-                    className="text-[30px] font-medium tracking-[-0.01em] leading-[1.15]"
+                    className={`text-[30px] font-medium tracking-[-0.01em] leading-[1.15] transition-colors duration-300 ${
+                      isDimmed
+                        ? 'text-[var(--color-text-tertiary)]'
+                        : 'text-[var(--color-text-primary)]'
+                    }`}
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {item.label}
                   </span>
                   {item.description && (
-                    <span className="text-base text-[var(--color-text-secondary)] hidden md:block">
+                    <span
+                      className={`text-base hidden md:block transition-colors duration-300 ${
+                        isDimmed
+                          ? 'text-[var(--color-text-tertiary)]'
+                          : 'text-[var(--color-text-secondary)]'
+                      }`}
+                    >
                       {item.description}
                     </span>
                   )}
@@ -128,10 +168,17 @@ export function MenuSection({ content }: MenuSectionProps) {
             <span className="mx-3">/</span>
             <span>Enter {content.navigation.keyboard.select}</span>
           </div>
-
-          {/* FloatingPreview and interaction layer added in Task 3b */}
         </GridItem>
       </Grid>
+
+      {/* FloatingPreview -- cursor-following image preview (desktop only) */}
+      <FloatingPreview
+        imageSrc={previewImageSrc}
+        alt={previewAlt}
+        mouseX={mouseX}
+        mouseY={mouseY}
+        velocityX={velocityX}
+      />
     </section>
   )
 }
