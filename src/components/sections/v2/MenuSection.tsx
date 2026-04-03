@@ -156,7 +156,7 @@ export function MenuSection({ content }: MenuSectionProps) {
 
                 {/* Label with text swap animation */}
                 <span
-                  className="shrink-0 w-[120px] md:w-[202px] relative z-10 overflow-hidden"
+                  className="shrink-0 w-[120px] md:w-1/3 relative z-10 overflow-hidden"
                   style={{ height: '1.6em' }}
                 >
                   {/* Primary text — slides up on highlight */}
