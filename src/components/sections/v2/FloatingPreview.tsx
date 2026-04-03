@@ -38,7 +38,7 @@ function RevealImage({ src, alt }: { src: string; alt: string }) {
       className="w-full h-full overflow-hidden"
       style={{
         borderRadius: 'var(--radius-component-md, 12px)',
-        transformOrigin: 'top left',
+        transformOrigin: 'center center',
         scale: entered ? '1' : '0',
         transition: `scale 0.35s ${EASING_ENTER}`,
       }}
