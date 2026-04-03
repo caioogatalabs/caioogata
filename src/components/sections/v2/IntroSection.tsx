@@ -1,13 +1,16 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
+import { StickyHeader } from './StickyHeader'
 import content from '@/content/en.json'
 
 export function IntroSection() {
   const sectionRef = useInView({ threshold: 0.1, once: true })
 
   return (
-    <section
+    <>
+      <StickyHeader />
+      <section
       ref={sectionRef as React.RefObject<HTMLElement>}
       aria-label="Introduction"
       className="relative min-h-screen flex flex-col bg-bg-surface-secondary"
@@ -64,5 +67,6 @@ export function IntroSection() {
         </a>
       </div>
     </section>
+    </>
   )
 }
