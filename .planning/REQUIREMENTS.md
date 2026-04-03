@@ -17,8 +17,8 @@
 
 - [x] **HOME-01**: Intro section with inverted brand bg, logo, overline, display headline
 - [ ] **HOME-02**: Menu section with CLI input, filterable command list, keyboard navbar
-- [ ] **HOME-03**: Projects grid in 6-6 layout with 4 cards, data-stamps, arrow buttons
-- [ ] **HOME-04**: Footer with tech tags, copyright, pill contact button
+- [x] **HOME-03**: Projects grid in 6-6 layout with 4 cards, data-stamps, arrow buttons
+- [x] **HOME-04**: Footer with tech tags, copyright, pill contact button
 - [x] **HOME-05**: All sections responsive across Desktop (12col) / Tablet (8col) / Mobile (4col)
 
 ### Content Sections
@@ -45,8 +45,8 @@
 
 ### Footer & Contact
 
-- [ ] **FOOT-01**: Expandable contact form in footer
-- [ ] **FOOT-02**: Form sends email via Resend API (existing `/api/contact`)
+- [x] **FOOT-01**: Expandable contact form in footer
+- [x] **FOOT-02**: Form sends email via Resend API (existing `/api/contact`)
 
 ## v2 Requirements
 
@@ -86,8 +86,8 @@
 | INFRA-05 | Phase 1 | Complete |
 | HOME-01 | Phase 2 | Complete |
 | HOME-02 | Phase 2 | Pending |
-| HOME-03 | Phase 2 | Pending |
-| HOME-04 | Phase 2 | Pending |
+| HOME-03 | Phase 2 | Complete |
+| HOME-04 | Phase 2 | Complete |
 | HOME-05 | Phase 2 | Complete |
 | SECT-01 | Phase 3 | Pending |
 | SECT-02 | Phase 3 | Pending |
@@ -102,8 +102,8 @@
 | ANIM-02 | Phase 4 | Pending |
 | ANIM-03 | Phase 4 | Pending |
 | ANIM-04 | Phase 4 | Pending |
-| FOOT-01 | Phase 2 | Pending |
-| FOOT-02 | Phase 2 | Pending |
+| FOOT-01 | Phase 2 | Complete |
+| FOOT-02 | Phase 2 | Complete |
 
 **Coverage:**
 - v1 requirements: 25 total
