@@ -43,6 +43,8 @@ export function FloatingPreview({
     <div
       className="hidden lg:block pointer-events-none fixed z-[100] overflow-hidden"
       style={{
+        top: 0,
+        left: 0,
         width: 500,
         height: 300,
         borderRadius: 'var(--radius-component-md, 12px)',
