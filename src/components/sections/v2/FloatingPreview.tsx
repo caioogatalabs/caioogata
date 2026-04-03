@@ -26,10 +26,9 @@ export function FloatingPreview({
 }: FloatingPreviewProps) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
-  // Lerped position — creates the elastic/lagging follow
+  // Lerped position
   const lerpX = useRef(0)
   const lerpY = useRef(0)
-  // Lerped velocity for skew (delta of lerped position)
   const prevLerpX = useRef(0)
   const prevLerpY = useRef(0)
   const velX = useRef(0)
@@ -39,10 +38,11 @@ export function FloatingPreview({
   const containerRef = useRef<HTMLDivElement>(null)
 
   const isVisible = imageSrc !== null
-  // Track previous visibility to detect enter/exit
   const wasVisible = useRef(false)
-  // Capture mouse position at the moment of reveal for transform-origin
-  const revealOriginRef = useRef({ x: 0, y: 0 })
+  const prevSrc = useRef<string | null>(null)
+
+  // Track image reveal state: 'entering' triggers the scale-in animation
+  const [imgState, setImgState] = useState<'hidden' | 'entering' | 'visible'>('hidden')
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -52,29 +52,36 @@ export function FloatingPreview({
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  // Snap lerp position to mouse on first show (avoid flying in from 0,0)
-  // Capture reveal origin so scale expands from cursor position
+  // Handle visibility and image changes
   useEffect(() => {
     if (isVisible && !wasVisible.current) {
+      // First show — snap position to cursor
       lerpX.current = mouseX
       lerpY.current = mouseY
       prevLerpX.current = mouseX
       prevLerpY.current = mouseY
       velX.current = 0
       velY.current = 0
-      // Origin relative to container: mouse is at container center (due to offset)
-      // so we compute where the cursor sits inside the 500x300 box
-      const offsetX = 16
-      const offsetY = 24
-      revealOriginRef.current = {
-        x: -offsetX,   // cursor is offsetX to the left of the container's left edge
-        y: -offsetY,   // cursor is offsetY above the container's top edge
-      }
+      // Two-frame trick: set hidden, let browser paint, then enter
+      setImgState('hidden')
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setImgState('entering'))
+      })
+    } else if (isVisible && prevSrc.current !== imageSrc) {
+      // Switching image — reset to hidden, then re-enter after paint
+      setImgState('hidden')
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setImgState('entering'))
+      })
+    } else if (!isVisible && wasVisible.current) {
+      setImgState('hidden')
     }
-    wasVisible.current = isVisible
-  }, [isVisible, mouseX, mouseY])
 
-  // Animation loop — lerp position toward mouse, compute velocity for skew
+    wasVisible.current = isVisible
+    prevSrc.current = imageSrc
+  }, [isVisible, imageSrc, mouseX, mouseY])
+
+  // rAF loop — lerp position + skew + parallax
   const animate = useCallback(() => {
     if (prefersReducedMotion) {
       lerpX.current = mouseX
@@ -84,8 +91,6 @@ export function FloatingPreview({
     } else {
       lerpX.current = lerp(lerpX.current, mouseX, LERP_FACTOR)
       lerpY.current = lerp(lerpY.current, mouseY, LERP_FACTOR)
-
-      // Velocity = delta of lerped position (smoothed velocity, not raw)
       velX.current = lerpX.current - prevLerpX.current
       velY.current = lerpY.current - prevLerpY.current
       prevLerpX.current = lerpX.current
@@ -99,13 +104,11 @@ export function FloatingPreview({
       const skewX = Math.max(-30, Math.min(30, -velX.current * 1.2))
       const skewY = Math.max(-30, Math.min(30, -velY.current * 1.2))
 
-      // Inner image parallax (inverse of velocity)
-      const imgParallaxX = Math.max(-32, Math.min(32, velX.current * -0.4))
-      const imgParallaxY = Math.max(-32, Math.min(32, velY.current * -0.4))
-
       el.style.transform = `translate3d(${lerpX.current + offsetX}px, ${lerpY.current + offsetY}px, 0) skew(${skewX}deg, ${skewY}deg)`
 
-      // Parallax only via transform — CSS `scale` property handles the zoom reveal separately
+      // Inner image parallax
+      const imgParallaxX = Math.max(-32, Math.min(32, velX.current * -0.4))
+      const imgParallaxY = Math.max(-32, Math.min(32, velY.current * -0.4))
       const img = el.querySelector('img') as HTMLImageElement | null
       if (img) {
         img.style.transform = `translate3d(${imgParallaxX}px, ${imgParallaxY}px, 0)`
@@ -120,47 +123,53 @@ export function FloatingPreview({
     return () => cancelAnimationFrame(rafRef.current)
   }, [animate])
 
+  const isRevealed = imgState === 'entering'
+
   return (
     <div
       ref={containerRef}
-      className="hidden lg:block pointer-events-none fixed z-[100] overflow-hidden"
+      className="hidden lg:block pointer-events-none fixed z-[100]"
       style={{
         top: 0,
         left: 0,
         width: 500,
         height: 300,
-        borderRadius: 'var(--radius-component-md, 12px)',
         willChange: 'transform',
-        // Scale entry/exit — separate from position (handled by rAF)
-        scale: isVisible ? '1' : '0',
+        // Container is always "present" when visible — no scale on container
         opacity: isVisible ? 1 : 0,
-        transition: isVisible
-          ? `scale 0.3s ${EASING_ENTER}, opacity 0.3s ${EASING_ENTER}`
-          : `scale 0.3s ${EASING_EXIT}, opacity 0.3s ${EASING_EXIT}`,
-        transformOrigin: 'top left',
+        transition: isVisible ? 'none' : `opacity 0.2s ${EASING_EXIT}`,
       }}
     >
-      {imageSrc ? (
-        <img
-          src={imageSrc}
-          alt={alt}
-          className="w-full h-full object-cover"
-          style={{
-            willChange: 'transform',
-            // rAF handles parallax transform — CSS handles the zoom reveal
-            scale: isVisible ? '1.25' : '4',
-            transition: isVisible
-              ? `scale 0.5s ${EASING_ENTER}`
-              : `scale 0.3s ${EASING_EXIT}`,
-          }}
-          loading="eager"
-        />
-      ) : (
-        <div
-          className="w-full h-full"
-          style={{ backgroundColor: 'var(--color-bg-surface-primary)' }}
-        />
-      )}
+      {/* Image wrapper — handles scale reveal from cursor origin */}
+      <div
+        className="w-full h-full overflow-hidden"
+        style={{
+          borderRadius: 'var(--radius-component-md, 12px)',
+          transformOrigin: 'top left',
+          scale: isRevealed ? '1' : '0',
+          opacity: isRevealed ? 1 : 0,
+          transition: isRevealed
+            ? `scale 0.35s ${EASING_ENTER}, opacity 0.2s ${EASING_ENTER}`
+            : `scale 0.25s ${EASING_EXIT}, opacity 0.15s ${EASING_EXIT}`,
+        }}
+      >
+        {imageSrc && (
+          <img
+            src={imageSrc}
+            alt={alt}
+            className="w-full h-full object-cover"
+            style={{
+              willChange: 'transform',
+              // Zoom reveal: starts zoomed in, settles at 1.25x
+              scale: isRevealed ? '1.25' : '3',
+              transition: isRevealed
+                ? `scale 0.5s ${EASING_ENTER}`
+                : `scale 0.2s ${EASING_EXIT}`,
+            }}
+            loading="eager"
+          />
+        )}
+      </div>
     </div>
   )
 }
