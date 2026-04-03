@@ -160,9 +160,11 @@ export function MenuSection({ content }: MenuSectionProps) {
                   style={{
                     fontFamily: 'var(--font-sans)',
                     color: 'var(--color-text-on-primary)',
-                    fontSize: '1.5rem',
-                    fontWeight: 700,
-                    width: isHighlighted ? '1.5rem' : '0px',
+                    fontSize: '3.5rem',
+                    fontWeight: 400,
+                    lineHeight: 1,
+                    letterSpacing: '-0.02em',
+                    width: isHighlighted ? '3rem' : '0px',
                     opacity: isHighlighted ? 1 : 0,
                     overflow: 'hidden',
                     transition: isHighlighted
