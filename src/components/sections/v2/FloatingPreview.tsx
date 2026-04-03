@@ -39,7 +39,7 @@ function RevealImage({ src, alt }: { src: string; alt: string }) {
       style={{
         borderRadius: '0px',
         transformOrigin: 'center center',
-        scale: entered ? '1' : '0.15',
+        scale: entered ? '1' : '0.5',
         transition: `scale 0.6s cubic-bezier(0.16, 1, 0.3, 1)`,
       }}
     >
