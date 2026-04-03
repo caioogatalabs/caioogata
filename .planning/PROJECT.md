@@ -26,11 +26,11 @@ The portfolio must communicate design engineering credibility through its own cr
 - [ ] Migrate Tailwind v3 → v4: `@tailwindcss/postcss`, remove `tailwind.config.ts`, CSS `@theme`
 - [ ] Integrate design tokens: `globals.css` imports `src/tokens/index.css`
 - [ ] Typography setup: Fabio XM `@font-face` + variable font
-- [ ] Implement Home V2: Intro, Menu, Projects grid, Footer
+- [x] Implement Home V2: Intro, Menu, Projects grid, Footer — Validated in Phase 02: Home Page (2026-04-03)
 - [ ] Section layouts: About, Experience, Skills, Education, Clients, Philosophy
 - [ ] Project Pages: `/projects/[slug]` dedicated routes with hero + scroll layout
-- [ ] Animations: Motion library (page transitions, scroll reveals, hover states)
-- [ ] Footer with expandable contact form
+- [x] Animations: Motion library (page transitions, scroll reveals, hover states) — Validated in Phase 02: Home Page (2026-04-03)
+- [x] Footer with expandable contact form — Validated in Phase 02: Home Page (2026-04-03)
 - [ ] Responsive: all sections work across Desktop/Tablet/Mobile grid breakpoints
 
 ### Out of Scope
