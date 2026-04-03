@@ -94,9 +94,10 @@ export function FloatingPreview({
 
       el.style.transform = `translate3d(${lerpX.current + offsetX}px, ${lerpY.current + offsetY}px, 0) skew(${skewX}deg, ${skewY}deg)`
 
+      // Parallax only via transform — CSS `scale` property handles the zoom reveal separately
       const img = el.querySelector('img') as HTMLImageElement | null
       if (img) {
-        img.style.transform = `scale(1.25) translate3d(${imgParallaxX}px, ${imgParallaxY}px, 0)`
+        img.style.transform = `translate3d(${imgParallaxX}px, ${imgParallaxY}px, 0)`
       }
     }
 
@@ -135,7 +136,11 @@ export function FloatingPreview({
           className="w-full h-full object-cover"
           style={{
             willChange: 'transform',
-            transition: 'none',
+            // rAF handles parallax transform — CSS handles the zoom reveal
+            scale: isVisible ? '1.25' : '4',
+            transition: isVisible
+              ? `scale 0.5s ${EASING_ENTER}`
+              : `scale 0.3s ${EASING_EXIT}`,
           }}
           loading="eager"
         />
