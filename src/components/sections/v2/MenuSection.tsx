@@ -132,6 +132,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                 style={{
                   fontFamily: 'var(--font-sans)',
                   lineHeight: 1.6,
+                  zIndex: isHighlighted ? 10 : 1,
                 }}
                 onClick={() => handleSelect(item)}
                 onMouseEnter={() => setHoveredIndex(index)}
@@ -141,16 +142,16 @@ export function MenuSection({ content }: MenuSectionProps) {
                   className="absolute bg-bg-fill-primary pointer-events-none"
                   style={{
                     left: '12px',
-                    top: '-5px',
-                    bottom: '-5px',
-                    width: '66.66%',
+                    right: '12px',
+                    top: '-14px',
+                    bottom: '-14px',
                     transform: isHighlighted ? 'scaleX(1) scaleY(1)' : 'scaleX(0.92) scaleY(0.6)',
                     opacity: isHighlighted ? 1 : 0,
                     transition: isHighlighted
                       ? 'transform 0.6s cubic-bezier(0.22,0.31,0,1) 0.04s, opacity 0.2s cubic-bezier(0.22,0.31,0,1) 0.04s'
-                      : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
+                      : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
                     transformOrigin: 'left center',
-                    borderRadius: '6px',
+                    borderRadius: '12px',
                   }}
                 />
 
@@ -158,7 +159,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                 <span
                   className="relative z-10 shrink-0"
                   style={{
-                    fontFamily: 'var(--font-sans)',
+                    fontFamily: "'Pexel Grotesk', var(--font-sans)",
                     color: 'var(--color-text-on-primary)',
                     fontSize: '3.5rem',
                     fontWeight: 400,
@@ -179,12 +180,12 @@ export function MenuSection({ content }: MenuSectionProps) {
                 {/* Label — masked vertical text swap */}
                 <span
                   className="shrink-0 w-[120px] md:w-1/3 relative z-10 overflow-hidden"
-                  style={{ height: '2.4rem' }}
+                  style={{ height: '2.8rem', marginTop: '-0.4rem', marginBottom: '-0.4rem' }}
                 >
                   <span
-                    className="block"
+                    className="absolute inset-0 flex items-center"
                     style={{
-                      transform: isHighlighted ? 'translateY(-120%)' : 'translateY(0)',
+                      transform: isHighlighted ? 'translateY(-100%)' : 'translateY(0)',
                       color: isDimmed
                         ? 'var(--color-text-tertiary)'
                         : isHighlighted
@@ -195,34 +196,35 @@ export function MenuSection({ content }: MenuSectionProps) {
                         : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                     }}
                   >
-                    /{item.label}
+                    <span className="block truncate">/{item.label}</span>
                   </span>
                   <span
-                    className="block absolute top-0 left-0"
+                    className="absolute inset-0 flex items-center"
                     style={{
-                      transform: isHighlighted ? 'translateY(0)' : 'translateY(120%)',
+                      transform: isHighlighted ? 'translateY(0)' : 'translateY(100%)',
                       transition: isHighlighted
                         ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
                         : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                       color: 'var(--color-text-on-primary)',
-                      fontSize: '1.5rem',
-                      fontWeight: 700,
+                      fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                      fontSize: '2.25rem',
+                      fontWeight: 400,
                     }}
                   >
-                    /{item.label}
+                    <span className="block truncate">/{item.label}</span>
                   </span>
                 </span>
 
                 {/* Description — same masked vertical text swap */}
                 {item.description && (
                   <span
-                    className="flex-1 relative z-10 overflow-hidden"
-                    style={{ height: '2.4rem' }}
+                    className="flex-1 min-w-0 relative z-10 overflow-hidden"
+                    style={{ height: '2.8rem', marginTop: '-0.4rem', marginBottom: '-0.4rem' }}
                   >
                     <span
-                      className="block"
+                      className="absolute inset-0 flex items-center"
                       style={{
-                        transform: isHighlighted ? 'translateY(-120%)' : 'translateY(0)',
+                        transform: isHighlighted ? 'translateY(-100%)' : 'translateY(0)',
                         color: isDimmed
                           ? 'var(--color-text-tertiary)'
                           : 'var(--color-text-secondary)',
@@ -232,21 +234,22 @@ export function MenuSection({ content }: MenuSectionProps) {
                           : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                       }}
                     >
-                      {item.description}
+                      <span className="block truncate">{item.description}</span>
                     </span>
                     <span
-                      className="block absolute top-0 left-0"
+                      className="absolute inset-0 flex items-center"
                       style={{
-                        transform: isHighlighted ? 'translateY(0)' : 'translateY(120%)',
+                        transform: isHighlighted ? 'translateY(0)' : 'translateY(100%)',
                         transition: isHighlighted
                           ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
                           : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                         color: 'var(--color-text-on-primary)',
-                        fontSize: '1.5rem',
-                        fontWeight: 700,
+                        fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                        fontSize: '2.25rem',
+                        fontWeight: 400,
                       }}
                     >
-                      {item.description}
+                      <span className="block truncate">{item.description}</span>
                     </span>
                   </span>
                 )}
