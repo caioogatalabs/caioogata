@@ -52,10 +52,7 @@ export function MenuSection({ content }: MenuSectionProps) {
 
   const {
     activeIndex,
-    filterText,
-    setFilterText,
     filteredItems,
-    inputRef,
     hoveredIndex,
     setHoveredIndex,
   } = useMenuNavigation({
@@ -87,30 +84,6 @@ export function MenuSection({ content }: MenuSectionProps) {
       data-section-id="menu"
       onMouseMove={handleMouseMove}
     >
-      {/* Top divider */}
-      <div className="-entrance -fade -a-0 h-px w-full bg-border-primary opacity-30" />
-
-      {/* CLI Input */}
-      <div className="-entrance -fade -a-0 flex items-center gap-2 px-5 md:px-8 lg:px-16 py-3.5 text-sm overflow-hidden">
-        <span className="font-mono font-bold text-text-brand shrink-0">
-          &gt;
-        </span>
-        <input
-          ref={inputRef}
-          type="text"
-          value={filterText}
-          onChange={(e) => setFilterText(e.target.value)}
-          placeholder='Press "Enter" to Navigate'
-          className="flex-1 bg-transparent font-mono text-sm text-text-primary placeholder:text-text-tertiary placeholder:opacity-40 caret-text-brand focus:outline-none"
-          autoComplete="off"
-          spellCheck={false}
-          data-menu-input="true"
-        />
-      </div>
-
-      {/* Divider below input */}
-      <div className="h-px w-full bg-border-primary opacity-15" />
-
       {/* Menu Rows */}
       <ul
         role="listbox"
@@ -269,7 +242,7 @@ export function MenuSection({ content }: MenuSectionProps) {
       </ul>
 
       {/* Bottom divider */}
-      <div className="h-px w-full bg-border-primary opacity-30" />
+      <div className="h-px w-full bg-border-primary opacity-10" />
 
       {/* Navigation keyboard hints */}
       <div
