@@ -44,8 +44,9 @@ Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Arc
 
 ### Interaction Patterns (reference: fiddle.digital)
 
-- **List hover**: Yellow background bar scales in (0.6s ease-out), text swap (slides up/in), color inversion. Bar bleeds vertically (-5px) and doesn't fill full width. Keyboard `activeIndex` triggers identical visual.
-- **Floating preview**: rAF lerp loop (factor 0.12) for elastic cursor follow. Skew on both axes from lerped velocity delta (±30° clamp). Entry: scale 0→1 (0.3s). Inner image: scale 4→1.25 zoom reveal (0.5s). Parallax via inverse velocity translate.
+- **Primary easing**: `cubic-bezier(0.16, 1, 0.3, 1)` — strong deceleration at end, used for text reveals and preview expand
+- **List hover**: Yellow bar (66.66% width, bleeds -5px vertical), masked text clip reveal on label AND description (1.0s ease-out), duplicate text enters at 2xl/1.5rem bold. Display-size arrow `→` (3.5rem Fabio XM) expands before label. Bar 0.6s entry, 0.5s exit.
+- **Floating preview**: rAF lerp loop (factor 0.12) for elastic cursor follow. Skew on both axes from lerped velocity delta (±30° clamp). Entry: wrapper scale 0.5→1 (0.6s), inner image scale 3→1.25 zoom reveal (0.7s). `key={imageSrc}` remounts on row switch — re-triggers expand from center. Sharp corners (0px radius). Parallax via inverse velocity translate.
 - **All interactions must have keyboard parity** — if it works on hover, it must work on arrow key navigation.
 - **`prefers-reduced-motion`**: All motion disabled — instant positions, zero skew, zero parallax.
 

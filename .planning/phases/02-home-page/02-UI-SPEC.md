@@ -243,25 +243,35 @@ No entrance animation fires until `-ready` is present on `<html>`.
 
 #### Menu Row Hover — Fiddle-Style (reference: fiddle.digital/work)
 
-**Visual effect (3 coordinated animations):**
+**Visual effect (4 coordinated animations):**
 1. **Background bar** — Brand yellow (`--color-bg-fill-primary`) scales in from `scaleX(0.92) scaleY(0.6)` to `scaleX(1) scaleY(1)`, origin left-center
-2. **Text swap** — Primary label slides up (`translateY(-120%)`), duplicate slides in from below (`translateY(120%)` → `translateY(0)`)
+2. **Text clip reveal** (masked vertical swap) — Primary text slides up (`translateY(-120%)`), duplicate (2xl/1.5rem bold) slides in from below. Applied to BOTH label and description.
 3. **Color inversion** — Hovered row text becomes `--color-text-on-primary` (dark on yellow), non-hovered rows dim to `--color-text-tertiary`
+4. **Arrow indicator** — Display-size `→` (3.5rem, Fabio XM, weight 400) expands from `width: 0` to `3rem` before the label
 
 **Bar geometry:**
-- Does NOT fill full row width — `width: min(92%, 800px)`, left offset 12px
+- Covers 4-4 columns: `width: 66.66%`, left offset 12px
 - Bleeds vertically: `top: -5px, bottom: -5px` (overflows row bounds)
 - Border radius: 6px
 - Dividers hide on hovered row (`opacity: 0`)
 
+**Layout:**
+- Label: `w-1/3` (aligns description at 4-4-4 grid second block)
+- Clip mask height: `2.4rem` (fits the 1.5rem duplicate text)
+
 **Timing:**
-- Entry: `0.6s cubic-bezier(0.22,0.31,0,1)` with 40ms delay
-- Exit: `0.5s cubic-bezier(0.22,0.31,0,1)` with 60ms delay (slightly longer leave)
-- Text swap: `0.5s` same easing, synced with bar
+- Text reveal entry: `1.0s cubic-bezier(0.16, 1, 0.3, 1)` with 40ms delay — strong deceleration at end
+- Text reveal exit: `1.0s cubic-bezier(0.16, 1, 0.3, 1)` with 60ms delay
+- Bar entry: `0.6s cubic-bezier(0.22, 0.31, 0, 1)` with 40ms delay
+- Bar exit: `0.5s cubic-bezier(0.22, 0.31, 0, 1)` with 60ms delay
+- Arrow width: `0.5s` entry with 40ms delay, `0.3s` exit
+- Color transitions: `0.3s cubic-bezier(0.22, 0.31, 0, 1)`
 
 **Keyboard parity:**
 - `activeIndex` (ArrowUp/Down) triggers identical visual effect when no mouse hover active
 - `isHighlighted = hoveredIndex === index || (hoveredIndex === null && activeIndex === index)`
+- Esc resets `activeIndex` to null (deactivates highlight)
+- Mouse leave deactivates `hoveredIndex` (existing behavior)
 
 #### Floating Preview — Elastic Cursor Follow (reference: fiddle.digital/work)
 
@@ -279,21 +289,25 @@ No entrance animation fires until `-ready` is present on `<html>`.
 - Each axis: `clamp(-30°, -delta * 1.2, 30°)`
 
 **Entry animation (zoom reveal):**
-- Container: `scale: 0` → `scale: 1`, 0.3s `cubic-bezier(0.22,0.31,0,1)`
-- Inner image: `scale: 4` → `scale: 1.25`, 0.5s same easing (zoom-out reveal, slightly slower than container)
-- Opacity: `0` → `1`, 0.3s
+- Wrapper: `scale: 0.5` → `scale: 1`, 0.6s `cubic-bezier(0.16, 1, 0.3, 1)` — starts at 50% size, strong deceleration
+- Inner image: `scale: 3` → `scale: 1.25`, 0.7s `cubic-bezier(0.16, 1, 0.3, 1)` — zoom-out reveal, slowest/most cinematic
+- Opacity: `0` → `1`, 0.2s `cubic-bezier(0.22, 0.31, 0, 1)`
+- `transformOrigin: center center` — expands from center of image
+
+**Re-open on row switch:**
+- `key={imageSrc}` forces React to unmount/remount `RevealImage` component
+- Each new image gets a fresh DOM element starting at `scale: 0.5`
+- Guarantees the expand animation replays on every row change
 
 **Exit animation:**
-- Container: `scale: 1` → `scale: 0`, 0.3s `cubic-bezier(0.69,0,0,1)`
-- Inner image: `scale: 1.25` → `scale: 4`, 0.3s same easing
-- Opacity: `1` → `0`, 0.3s
+- Container opacity: `1` → `0`, 0.15s `cubic-bezier(0.69, 0, 0, 1)` (fast fade, no scale — key remount handles cleanup)
 
 **Inner image parallax:**
 - Resting scale: `1.25` (via CSS `scale` property — separate from rAF `transform`)
 - rAF sets `transform: translate3d(parallaxX, parallaxY, 0)` based on inverse velocity
 - Parallax range: `clamp(-32px, velocity * -0.4, 32px)` per axis
 
-**Dimensions:** 500×300px, border-radius 12px, `overflow: hidden`
+**Dimensions:** 500×300px, border-radius 0px (brutalista, sharp corners), `overflow: hidden`
 
 **Reduced motion:** Lerp disabled (instant position), skew zeroed, parallax zeroed
 
