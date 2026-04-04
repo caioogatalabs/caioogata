@@ -1,12 +1,14 @@
 'use client'
 
 import { useState, useCallback, useRef } from 'react'
+import content from '@/content/en.json'
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
 
 interface FormValues {
   name: string
   email: string
+  subject: string
   message: string
 }
 
@@ -23,11 +25,14 @@ interface FormTouched {
 }
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const form = content.contact.form
+const subjectOptions = Object.entries(form.subjectOptions) as [string, string][]
 
 export function ContactForm() {
   const [values, setValues] = useState<FormValues>({
     name: '',
     email: '',
+    subject: '',
     message: '',
   })
   const [touched, setTouched] = useState<FormTouched>({
@@ -40,13 +45,13 @@ export function ContactForm() {
 
   const validate = useCallback((vals: FormValues): FormErrors => {
     const errors: FormErrors = {}
-    if (!vals.name.trim()) errors.name = 'Name is required'
+    if (!vals.name.trim()) errors.name = form.validation.nameRequired
     if (!vals.email.trim()) {
-      errors.email = 'Email is required'
+      errors.email = form.validation.emailRequired
     } else if (!EMAIL_REGEX.test(vals.email.trim())) {
-      errors.email = 'Please enter a valid email'
+      errors.email = form.validation.emailInvalid
     }
-    if (!vals.message.trim()) errors.message = 'Message is required'
+    if (!vals.message.trim()) errors.message = form.validation.messageRequired
     return errors
   }, [])
 
@@ -66,7 +71,7 @@ export function ContactForm() {
   }, [])
 
   const resetForm = useCallback(() => {
-    setValues({ name: '', email: '', message: '' })
+    setValues({ name: '', email: '', subject: '', message: '' })
     setTouched({ name: false, email: false, message: false })
     setStatus('idle')
   }, [])
@@ -88,6 +93,7 @@ export function ContactForm() {
           body: JSON.stringify({
             name: values.name.trim(),
             email: values.email.trim(),
+            subject: values.subject.trim(),
             message: values.message.trim(),
           }),
         })
@@ -110,96 +116,160 @@ export function ContactForm() {
   if (status === 'success') {
     return (
       <div className="flex flex-col gap-2 py-6">
-        <p className="text-text-success text-base font-medium">
-          Message sent. I&apos;ll get back to you soon.
+        <p className="text-text-success text-lg font-medium" style={{ fontFamily: 'var(--font-sans)' }}>
+          {form.success}
+        </p>
+        <p className="text-text-secondary text-base" style={{ fontFamily: 'var(--font-sans)' }}>
+          {form.successDetail}
         </p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
-      {/* Name */}
-      <div className="flex flex-col gap-1">
-        <label htmlFor="contact-name" className="text-base text-text-secondary font-sans">
-          Name
-        </label>
-        <input
-          id="contact-name"
-          type="text"
-          aria-required="true"
-          value={values.name}
-          onChange={(e) => handleChange('name', e.target.value)}
-          onBlur={() => handleBlur('name')}
-          placeholder="Your name"
-          className="bg-transparent border-b border-border-secondary text-text-primary placeholder:text-text-placeholder py-2 text-base outline-none transition-colors duration-300 focus:border-border-focus focus:bg-bg-fill-primary/10"
-        />
-        {visibleErrors.name && (
-          <span className="text-sm text-text-danger">{visibleErrors.name}</span>
-        )}
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col">
+      {/* Name + Email grouped block */}
+      <div className="flex flex-col">
+        {/* Name row */}
+        <div className="flex">
+          <div className="shrink-0 w-[100px] border border-border-primary rounded-tl-[12px] flex items-center justify-center p-4">
+            <label
+              htmlFor="contact-name"
+              className="text-lg text-text-primary whitespace-nowrap"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              {form.nameLabel.toLowerCase()}
+            </label>
+          </div>
+          <div className="flex-1 border border-border-primary border-l-0 rounded-tr-[12px] p-4">
+            <input
+              id="contact-name"
+              type="text"
+              aria-required="true"
+              value={values.name}
+              onChange={(e) => handleChange('name', e.target.value)}
+              onBlur={() => handleBlur('name')}
+              placeholder={form.namePlaceholder}
+              className="w-full bg-transparent text-lg text-text-primary placeholder:text-text-placeholder outline-none"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            />
+            {visibleErrors.name && (
+              <span className="text-sm text-text-danger mt-1 block">{visibleErrors.name}</span>
+            )}
+          </div>
+        </div>
+
+        {/* Email row */}
+        <div className="flex">
+          <div className="shrink-0 w-[100px] border border-border-primary border-t-0 rounded-bl-[12px] flex items-center justify-center p-4">
+            <label
+              htmlFor="contact-email"
+              className="text-lg text-text-primary whitespace-nowrap"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              {form.emailLabel.toLowerCase()}
+            </label>
+          </div>
+          <div className="flex-1 border border-border-primary border-l-0 border-t-0 rounded-br-[12px] p-4">
+            <input
+              id="contact-email"
+              type="email"
+              aria-required="true"
+              value={values.email}
+              onChange={(e) => handleChange('email', e.target.value)}
+              onBlur={() => handleBlur('email')}
+              placeholder={form.emailPlaceholder}
+              className="w-full bg-transparent text-lg text-text-primary placeholder:text-text-placeholder outline-none"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            />
+            {visibleErrors.email && (
+              <span className="text-sm text-text-danger mt-1 block">{visibleErrors.email}</span>
+            )}
+          </div>
+        </div>
       </div>
 
-      {/* Email */}
-      <div className="flex flex-col gap-1">
-        <label htmlFor="contact-email" className="text-base text-text-secondary font-sans">
-          Email
-        </label>
-        <input
-          id="contact-email"
-          type="email"
-          aria-required="true"
-          value={values.email}
-          onChange={(e) => handleChange('email', e.target.value)}
-          onBlur={() => handleBlur('email')}
-          placeholder="your@email.com"
-          className="bg-transparent border-b border-border-secondary text-text-primary placeholder:text-text-placeholder py-2 text-base outline-none transition-colors duration-300 focus:border-border-focus focus:bg-bg-fill-primary/10"
-        />
-        {visibleErrors.email && (
-          <span className="text-sm text-text-danger">{visibleErrors.email}</span>
-        )}
+      {/* Subject row — pill radius, dropdown */}
+      <div className="flex">
+        <div className="shrink-0 w-[100px] border border-border-primary rounded-l-full flex items-center justify-center p-4">
+          <label
+            htmlFor="contact-subject"
+            className="text-lg text-text-primary whitespace-nowrap"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            {form.subjectLabel.toLowerCase()}
+          </label>
+        </div>
+        <div className="flex-1 border border-border-primary border-l-0 rounded-r-full p-4">
+          <select
+            id="contact-subject"
+            value={values.subject}
+            onChange={(e) => handleChange('subject', e.target.value)}
+            className="w-full bg-transparent text-lg text-text-primary outline-none appearance-none cursor-pointer"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            <option value="" disabled className="bg-bg text-text-placeholder">
+              {form.subjectPlaceholder}
+            </option>
+            {subjectOptions.map(([key, label]) => (
+              <option key={key} value={key} className="bg-bg text-text-primary">
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      {/* Message */}
-      <div className="flex flex-col gap-1">
-        <label htmlFor="contact-message" className="text-base text-text-secondary font-sans">
-          Message
-        </label>
+      {/* Message — full width textarea */}
+      <div className="border border-border-primary rounded-[12px] p-4">
         <textarea
           id="contact-message"
           aria-required="true"
           value={values.message}
           onChange={(e) => handleChange('message', e.target.value)}
           onBlur={() => handleBlur('message')}
-          placeholder="Write your message here..."
-          rows={4}
-          className="bg-transparent border-b border-border-secondary text-text-primary placeholder:text-text-placeholder py-2 text-base outline-none transition-colors duration-300 resize-y min-h-[120px] focus:border-border-focus focus:bg-bg-fill-primary/10"
+          placeholder={form.messagePlaceholder}
+          rows={6}
+          className="w-full bg-transparent text-lg text-text-primary placeholder:text-text-placeholder outline-none resize-y min-h-[200px]"
+          style={{ fontFamily: 'var(--font-sans)' }}
         />
         {visibleErrors.message && (
-          <span className="text-sm text-text-danger">{visibleErrors.message}</span>
+          <span className="text-sm text-text-danger mt-1 block">{visibleErrors.message}</span>
         )}
       </div>
 
       {/* Error state */}
       {status === 'error' && (
-        <div className="text-sm text-text-danger">
-          Failed to send. Please try emailing me at{' '}
+        <div className="text-sm text-text-danger mt-4" style={{ fontFamily: 'var(--font-sans)' }}>
+          {form.error}{' '}
           <a
-            href="mailto:caioogata.labs@gmail.com"
+            href={`mailto:${content.contact.email}`}
             className="underline hover:text-text-brand"
           >
-            caioogata.labs@gmail.com
+            {content.contact.email}
           </a>
         </div>
       )}
 
-      {/* Submit */}
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        className="self-start rounded-full bg-bg-fill-primary text-text-on-primary px-8 py-3 text-base font-medium transition-colors duration-300 hover:bg-bg-fill-primary-hover disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {status === 'submitting' ? 'Sending...' : 'Send message'}
-      </button>
+      {/* Buttons row — aligned right */}
+      <div className="flex items-center justify-end">
+        <button
+          type="button"
+          onClick={resetForm}
+          className="h-12 px-8 border border-border-primary rounded-[12px] text-text-secondary text-base font-medium transition-colors duration-300 hover:text-text-primary hover:border-border-focus"
+          style={{ fontFamily: 'var(--font-sans)', width: 208 }}
+        >
+          Clear
+        </button>
+        <button
+          type="submit"
+          disabled={status === 'submitting'}
+          className="h-12 px-8 border border-border-primary rounded-full text-text-secondary text-base font-medium transition-colors duration-300 hover:bg-bg-fill-primary hover:text-text-on-primary hover:border-bg-fill-primary disabled:opacity-60 disabled:cursor-not-allowed"
+          style={{ fontFamily: 'var(--font-sans)', width: 208 }}
+        >
+          {status === 'submitting' ? form.submitting : form.submitButton}
+        </button>
+      </div>
     </form>
   )
 }
