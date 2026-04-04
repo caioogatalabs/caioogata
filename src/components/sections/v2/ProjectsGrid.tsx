@@ -32,7 +32,7 @@ export function ProjectsGrid() {
             slug={project.slug}
             year={yearMap[project.slug] || '2024'}
             index={i + 1}
-            className={`-entrance -slide-up -a-${i} flex-1`}
+            className={`-entrance -expand -a-${i} flex-1`}
           />
         ))}
       </div>
@@ -45,7 +45,7 @@ export function ProjectsGrid() {
             slug={project.slug}
             year={yearMap[project.slug] || '2024'}
             index={i + 3}
-            className={`-entrance -slide-up -a-${i + 2} flex-1`}
+            className={`-entrance -expand -a-${i + 2} flex-1`}
           />
         ))}
       </div>
