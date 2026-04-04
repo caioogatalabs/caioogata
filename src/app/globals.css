@@ -241,17 +241,6 @@ html:not(.-ready) .-entrance {
   opacity: 1;
 }
 
-/* Entrance: expand — vertical clip-path reveal from center */
-.-entrance.-expand {
-  clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
-  transition: clip-path 0.7s var(--ease-out);
-}
-.-entrance.-expand.-inview,
-.-inview > .-entrance.-expand,
-.-inview .-entrance.-expand {
-  clip-path: polygon(0 -1%, 100% -1%, 100% 101%, 0 101%);
-}
-
 /* Page enter */
 .-page-enter {
   opacity: 0;

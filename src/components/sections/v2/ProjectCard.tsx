@@ -1,5 +1,7 @@
 'use client'
 
+import { useScrollReveal } from '@/hooks/useScrollReveal'
+
 interface ProjectCardProps {
   title: string
   slug: string
@@ -9,9 +11,13 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ title, slug, year, index, className = '' }: ProjectCardProps) {
+  const { ref, clipPath } = useScrollReveal()
+
   return (
     <article
+      ref={ref as React.RefObject<HTMLElement>}
       className={`relative flex flex-col h-[280px] md:h-[320px] lg:h-[420px] p-6 bg-bg-surface-primary rounded-[var(--radius-component-md,12px)] overflow-hidden ${className}`.trim()}
+      style={{ clipPath }}
     >
       {/* Top: title + data-stamp */}
       <div className="flex items-center justify-between w-full whitespace-nowrap">

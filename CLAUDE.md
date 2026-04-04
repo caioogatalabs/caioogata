@@ -48,6 +48,7 @@ Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Arc
 - **List hover**: Yellow bar (66.66% width, bleeds -5px vertical), masked text clip reveal on label AND description (1.0s ease-out), duplicate text enters at 2xl/1.5rem bold. Display-size arrow `→` (3.5rem Fabio XM) expands before label. Bar 0.6s entry, 0.5s exit.
 - **Floating preview**: rAF lerp loop (factor 0.12) for elastic cursor follow. Skew on both axes from lerped velocity delta (±30° clamp). Entry: wrapper scale 0.5→1 (0.6s), inner image scale 3→1.25 zoom reveal (0.7s). `key={imageSrc}` remounts on row switch — re-triggers expand from center. Sharp corners (0px radius). Parallax via inverse velocity translate.
 - **All interactions must have keyboard parity** — if it works on hover, it must work on arrow key navigation.
+- **Scroll-linked reveal** (`useScrollReveal` hook): `clip-path: inset()` with `round 12px` driven by scroll position via rAF. Reveals top→bottom as element scrolls into view. `startFraction` (0.85) = viewport Y where reveal begins, `endFraction` (0.3) = where it completes. Returns `{ ref, clipPath }` as React state — clipPath applied via `style` prop. Used by `ProjectCard`. Reference: fiddle.digital canvas section.
 - **`prefers-reduced-motion`**: All motion disabled — instant positions, zero skew, zero parallax.
 
 ### Component Patterns
@@ -73,13 +74,14 @@ src/components/sections/v2/
   MenuSection.tsx                     → CLI menu with fiddle-style hover + FloatingPreview
   FloatingPreview.tsx                 → Elastic cursor-follow image (rAF lerp)
   ProjectsGrid.tsx                    → 2x2 flex grid with ProjectCard
-  ProjectCard.tsx                     → Card with data-stamp + arrow button
+  ProjectCard.tsx                     → Card with data-stamp + arrow button + scroll-linked reveal
   FooterSection.tsx                   → Expandable contact + tech tags
   ContactForm.tsx                     → Underline-input form with validation
 src/hooks/
   useInView.ts                        → IntersectionObserver → adds -inview class
   useFontReady.ts                     → document.fonts.ready → -loaded/-ready (backup, layout.tsx has inline script)
   useMenuNavigation.ts                → Keyboard nav (arrows/enter/esc) + type-to-filter
+  useScrollReveal.ts                  → Scroll-linked clip-path reveal (rAF + React state)
 src/tokens/
   primitives.css                      → Raw OKLCH values (:root)
   semantic.css                        → Purpose-driven tokens (@theme for Tailwind v4)
