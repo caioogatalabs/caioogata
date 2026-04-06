@@ -39,24 +39,37 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
 
   return (
     <section className="py-24">
-      <div className="space-y-24">
+      <div className="space-y-16">
         {features.map((feature, index) => (
           <Grid key={index}>
-            <GridItem span={3} tabletSpan={8} mobileSpan={4}>
-              <p className="font-mono text-xs uppercase tracking-wider text-text-tertiary">
-                {feature.name}
-              </p>
+            <GridItem span={4} tabletSpan={8} mobileSpan={4}>
+              <div className="flex flex-col justify-center h-full">
+                <p className="font-mono text-xs uppercase tracking-wider text-text-tertiary mb-4">
+                  {feature.name}
+                </p>
+                <h3
+                  className="text-[2rem] font-bold leading-[1.2] text-text-primary"
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  {feature.name}
+                </h3>
+              </div>
             </GridItem>
-            <GridItem span={6} tabletSpan={8} mobileSpan={4}>
+            <GridItem span={5} tabletSpan={8} mobileSpan={4}>
               <ParallaxRevealImage
                 src={feature.image.src}
                 alt={feature.image.title}
               />
             </GridItem>
             <GridItem span={3} tabletSpan={8} mobileSpan={4}>
-              <p className="text-sm text-text-secondary">
-                {feature.description}
-              </p>
+              <div className="flex items-center h-full">
+                <p
+                  className="text-base text-text-secondary leading-relaxed"
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  {feature.description}
+                </p>
+              </div>
             </GridItem>
           </Grid>
         ))}

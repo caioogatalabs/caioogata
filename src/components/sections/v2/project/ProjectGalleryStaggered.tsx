@@ -26,6 +26,14 @@ function RevealImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
+// Staggered column offsets: cycles through left(1), center(5), right(9)
+const STAGGER_OFFSETS = [
+  'lg:col-start-2',   // left-ish
+  'lg:col-start-5',   // center
+  'lg:col-start-9',   // right
+  'lg:col-start-5',   // center
+]
+
 export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProps) {
   // Flatten all images from rows into a single list
   const allImages = (section.rows || []).flatMap(row => row.images)
@@ -34,18 +42,20 @@ export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProp
 
   return (
     <section className="py-24">
-      <Grid className="gap-5">
+      <div className="space-y-6">
         {allImages.map((imageSrc, i) => (
-          <GridItem
-            key={i}
-            span={4}
-            tabletSpan={4}
-            mobileSpan={4}
-          >
-            <RevealImage src={imageSrc} alt="" />
-          </GridItem>
+          <Grid key={i}>
+            <GridItem
+              span={4}
+              tabletSpan={4}
+              mobileSpan={4}
+              className={STAGGER_OFFSETS[i % STAGGER_OFFSETS.length]}
+            >
+              <RevealImage src={imageSrc} alt="" />
+            </GridItem>
+          </Grid>
         ))}
-      </Grid>
+      </div>
     </section>
   )
 }

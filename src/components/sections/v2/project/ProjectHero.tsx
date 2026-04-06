@@ -12,8 +12,7 @@ interface ProjectHeroProps {
 
 export function ProjectHero({ project, section, index }: ProjectHeroProps) {
   const sectionRef = useInView()
-  const heroImages = project.images.slice(0, 2)
-  const hasTwoImages = heroImages.length >= 2
+  const heroImage = project.images[0]
 
   return (
     <section
@@ -27,25 +26,25 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
             PRJ_{project.year} // {String(index + 1).padStart(3, '0')}
           </span>
           <h1
-            className="text-[3.5rem] font-bold leading-[1.15] text-text-primary -entrance -slide-up -a-0"
+            className="text-[3.5rem] font-bold leading-[1.15] text-text-primary mb-8 -entrance -slide-up -a-0"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             {project.title}
           </h1>
-          {project.role && (
-            <p className="text-base text-text-secondary mt-3 -entrance -fade -a-1"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {project.role}
-            </p>
-          )}
+        </GridItem>
+
+        {/* Technologies left + description right */}
+        <GridItem span={4} tabletSpan={8} mobileSpan={4}>
           {project.technologies && (
-            <p className="font-mono text-xs text-text-tertiary uppercase tracking-wider mt-2 -entrance -fade -a-1">
+            <p className="font-mono text-xs text-text-tertiary uppercase tracking-wider -entrance -fade -a-1">
               {project.technologies}
             </p>
           )}
+        </GridItem>
+        <GridItem span={8} tabletSpan={8} mobileSpan={4}>
           {section.body && (
-            <p className="text-base text-text-secondary leading-relaxed mt-4 -entrance -fade -a-1"
+            <p
+              className="text-[1.5rem] leading-[1.4] text-text-secondary -entrance -fade -a-1"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {section.body}
@@ -54,44 +53,19 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
         </GridItem>
       </Grid>
 
-      {/* Hero image(s) */}
-      {heroImages.length > 0 && (
+      {/* Hero image — full width 12-col */}
+      {heroImage && (
         <Grid>
-          {hasTwoImages ? (
-            <>
-              <GridItem span={6} tabletSpan={4} mobileSpan={4} className="-entrance -scale-in -a-2">
-                <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
-                  <img
-                    src={heroImages[0].src}
-                    alt={heroImages[0].title}
-                    loading="eager"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </GridItem>
-              <GridItem span={6} tabletSpan={4} mobileSpan={4} className="-entrance -scale-in -a-3">
-                <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
-                  <img
-                    src={heroImages[1].src}
-                    alt={heroImages[1].title}
-                    loading="eager"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </GridItem>
-            </>
-          ) : (
-            <GridItem span={12} tabletSpan={8} mobileSpan={4} className="-entrance -scale-in -a-2">
-              <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
-                <img
-                  src={heroImages[0].src}
-                  alt={heroImages[0].title}
-                  loading="eager"
-                  className="w-full h-auto"
-                />
-              </div>
-            </GridItem>
-          )}
+          <GridItem span={12} tabletSpan={8} mobileSpan={4} className="-entrance -scale-in -a-2">
+            <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+              <img
+                src={heroImage.src}
+                alt={heroImage.title}
+                loading="eager"
+                className="w-full h-auto"
+              />
+            </div>
+          </GridItem>
         </Grid>
       )}
     </section>

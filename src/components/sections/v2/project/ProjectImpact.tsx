@@ -29,6 +29,16 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
       ref={sectionRef as React.RefObject<HTMLElement>}
       className="py-16"
     >
+      {/* Results label */}
+      <Grid className="mb-6">
+        <GridItem span={12} tabletSpan={8} mobileSpan={4}>
+          <span className="font-mono text-xs uppercase tracking-wider text-text-tertiary -entrance -fade -a-0">
+            Results
+          </span>
+        </GridItem>
+      </Grid>
+
+      {/* Stats — number + description side by side */}
       <Grid>
         {stats.map((stat, i) => (
           <GridItem
@@ -36,17 +46,22 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
             span={spanPerStat}
             tabletSpan={4}
             mobileSpan={4}
-            className={`-entrance -slide-up -a-${i}`}
+            className={`-entrance -slide-up -a-${i + 1}`}
           >
-            <p
-              className="text-[3.5rem] font-bold leading-[1.15] text-text-brand"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {stat.value}
-            </p>
-            <p className="font-mono text-base text-text-secondary mt-2">
-              {stat.label}
-            </p>
+            <div className="flex items-baseline gap-4">
+              <p
+                className="text-[3.5rem] font-bold leading-none text-text-secondary shrink-0"
+                style={{ fontFamily: 'var(--font-sans)' }}
+              >
+                {stat.value}
+              </p>
+              <p
+                className="text-sm text-text-tertiary uppercase tracking-wider"
+                style={{ fontFamily: 'var(--font-sans)' }}
+              >
+                {stat.label}
+              </p>
+            </div>
           </GridItem>
         ))}
       </Grid>
