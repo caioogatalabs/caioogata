@@ -92,6 +92,36 @@ export interface ProjectLink {
   url: string
 }
 
+export interface GalleryRow {
+  spans: number[]
+  images: string[]
+}
+
+export interface ProjectSectionImage {
+  src: string
+  title: string
+  description?: string
+  featureName?: string
+}
+
+export interface ProjectSection {
+  type: 'hero' | 'challenge' | 'impact' | 'gallery-staggered' | 'gallery-feature-list' | 'gallery-full-detail'
+  heading?: string
+  body?: string
+  challenge?: string
+  solution?: string
+  stats?: Array<{ value: string; label: string }>
+  rows?: GalleryRow[]
+  features?: Array<{
+    name: string
+    image: ProjectImage
+    description: string
+  }>
+  image?: ProjectImage
+  description?: string
+  layout?: '4-8' | '8-4'
+}
+
 export interface ProjectItem {
   title: string
   slug: string
@@ -105,6 +135,8 @@ export interface ProjectItem {
   images: ProjectImage[]
   gridLayout?: 'default' | 'large-only'
   disabled?: boolean
+  sections?: ProjectSection[]
+  year?: string
 }
 
 export interface MenuItem {

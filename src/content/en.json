@@ -533,6 +533,7 @@
       {
         "title": "Azion Website & Brand Expansion",
         "slug": "azion-website",
+        "year": "2022",
         "description": "A brand adaptation — not a full overhaul — that evolved Azion's digital presence while preserving the technology and structure already in production. New color tones with more saturation, new interface elements, block variants with richer layouts, and a new illustration pattern that visually represents product features and explains how they work. Led the visual and technical strategy for this expansion across the website, built on Astro and Vue with the existing webkit component library.",
         "role": "Design Director",
         "technologies": "Astro, Vue.js, Webkit Component Library, Design Tokens, Sora Typography, Monospace, Brand Adaptation, Illustration System",
@@ -565,6 +566,52 @@
             "url": "https://www.linkedin.com/in/cesaroeduardo/"
           }
         ],
+        "sections": [
+          {
+            "type": "hero",
+            "body": "A brand adaptation that evolved Azion's digital presence while preserving the technology already in production."
+          },
+          {
+            "type": "challenge",
+            "challenge": "Azion needed to expand its visual identity without breaking the existing front-end architecture built on Astro and Vue.",
+            "solution": "We evolved the existing system by introducing new color tones, richer block variants, and an illustration pattern that visually represents product features."
+          },
+          {
+            "type": "impact",
+            "stats": [
+              { "value": "Open Source", "label": "Webkit component library" },
+              { "value": "10+", "label": "Product pages redesigned" }
+            ]
+          },
+          {
+            "type": "gallery-staggered",
+            "rows": [
+              { "spans": [12], "images": ["/projects/azion-website/home-en-hero.webp"] },
+              { "spans": [6, 6], "images": ["/projects/azion-website/home-reliable-zoom.webp", "/projects/azion-website/home-products-menu-zoom.webp"] },
+              { "spans": [4, 4, 4], "images": ["/projects/azion-website/functions-hero-zoom.webp", "/projects/azion-website/cache-hero.webp", "/projects/azion-website/marketplace-hero.webp"] }
+            ]
+          },
+          {
+            "type": "gallery-feature-list",
+            "features": [
+              {
+                "name": "Product Navigation",
+                "image": { "src": "/projects/azion-website/home-products-menu-zoom.webp", "title": "Product Navigation Menu" },
+                "description": "Mega-menu revealing product categories with hover interaction."
+              },
+              {
+                "name": "Developer Tools",
+                "image": { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
+                "description": "Developer-facing documentation and tooling resources."
+              },
+              {
+                "name": "Component Library",
+                "image": { "src": "/projects/azion-website/webkit-components.webp", "title": "Webkit Component Library" },
+                "description": "Open-source webkit component library powering both website and console."
+              }
+            ]
+          }
+        ],
         "gridLayout": "large-only",
         "images": [
           { "src": "/projects/azion-website/home-en-hero.webp", "title": "The Web Platform — Homepage EN" },
@@ -583,6 +630,7 @@
       {
         "title": "Azion Console Kit",
         "slug": "azion-console-kit",
+        "year": "2023",
         "description": "The complete front-end rebuild of the Azion management console — the interface engineers use to deploy, secure, and observe applications at the edge. Built on Vue 3, a custom design system, and a headless architecture that decouples UI from business logic, Console Kit ships features consistently and at the speed a global edge platform demands.",
         "role": "Developer Experience Director",
         "technologies": "Vue 3, Vite, PrimeVue, TypeScript, Design Tokens, Component Architecture, Headless UI Pattern, Open Source",
@@ -664,6 +712,31 @@
             "url": "https://github.com/aziontech/azion-console-kit"
           }
         ],
+        "sections": [
+          {
+            "type": "hero",
+            "body": "The complete front-end rebuild of Azion's management console — the interface engineers use daily to deploy, secure, and observe applications at the edge."
+          },
+          {
+            "type": "challenge",
+            "challenge": "The legacy console was a monolithic application that slowed feature delivery and created inconsistent experiences across product surfaces.",
+            "solution": "Built a headless architecture on Vue 3 that decouples UI from business logic, with block componentization that reduced new screen implementation time to approximately one day."
+          },
+          {
+            "type": "impact",
+            "stats": [
+              { "value": "6,000+", "label": "Commits" },
+              { "value": "34+", "label": "Contributors" },
+              { "value": "93+", "label": "Releases" }
+            ]
+          },
+          {
+            "type": "gallery-staggered",
+            "rows": [
+              { "spans": [6, 6], "images": ["/projects/azion-console-kit/drawer-double.webp", "/projects/azion-console-kit/console-mobile-metrics.webp"] }
+            ]
+          }
+        ],
         "images": [
           {
             "type": "video",
@@ -697,6 +770,7 @@
       {
         "title": "Azion Design System",
         "slug": "azion-design-system",
+        "year": "2021",
         "description": "A custom design system implemented gradually, allowing Azion to improve the experience and ship consistently without forcing a jarring visual break on customers already using the product. Built for the RTM (Real Time Manager) starting in 2021, it established the foundations — tokens, 40+ components, documentation. The strategic precursor to Console Kit.",
         "role": "Design Director",
         "technologies": "Figma, Design Tokens, Zeroheight, Component Architecture, Roboto Typography, Semantic Color System, Iconography, Figma Plugins",
@@ -744,6 +818,24 @@
             "url": "https://www.azion.design/6c444676a/p/14c623-azion-design-system"
           }
         ],
+        "sections": [
+          {
+            "type": "hero",
+            "body": "A custom design system implemented gradually — enabling Azion to ship consistently without forcing a jarring visual break on existing customers."
+          },
+          {
+            "type": "challenge",
+            "challenge": "Multiple product teams were building inconsistent UI patterns across the RTM platform, with no shared design language or component library.",
+            "solution": "Established token-based foundations with 40+ documented components, creating the architectural groundwork that directly informed the Console Kit rebuild."
+          },
+          {
+            "type": "impact",
+            "stats": [
+              { "value": "40+", "label": "Documented components" },
+              { "value": "Token-based", "label": "Semantic design foundations" }
+            ]
+          }
+        ],
         "images": [
           {
             "src": "",
@@ -762,6 +854,7 @@
       {
         "title": "Azion Brand System",
         "slug": "azion-brand-system",
+        "year": "2020",
         "description": "A comprehensive brand identity system designed to position Azion as a bold innovator in edge computing. Led the strategic transformation from tactical design outputs to a unified brand experience across product, marketing, and engineering touchpoints — establishing visual language, voice guidelines, and scalable design principles that express technical excellence through clarity and confidence.",
         "role": "Design Director, Brand Experience",
         "technologies": "Figma, Brand Strategy, Design Systems, Visual Identity, Voice & Tone Design, Illustration System, Iconography",
@@ -803,6 +896,48 @@
           {
             "label": "Brand Book — Azion Design Language v2",
             "url": "https://drive.google.com/uc?export=download&id=1OyOMABjuM6I0HoA0GtcK2TPV3WVNPPzb"
+          }
+        ],
+        "sections": [
+          {
+            "type": "hero",
+            "body": "A comprehensive brand identity system positioning Azion as a bold innovator in edge computing — from tactical design outputs to a unified brand experience."
+          },
+          {
+            "type": "challenge",
+            "challenge": "Azion lacked a unified visual language, leading to fragmented brand communication across product, marketing, and engineering touchpoints.",
+            "solution": "Led the strategic transformation by establishing visual language, voice guidelines, and scalable design principles that express technical excellence through clarity and confidence."
+          },
+          {
+            "type": "impact",
+            "stats": [
+              { "value": "100+", "label": "Edge locations branded" },
+              { "value": "20,000+", "label": "Hosted applications" }
+            ]
+          },
+          {
+            "type": "gallery-staggered",
+            "rows": [
+              { "spans": [12], "images": ["/projects/azion-brand-system/asset-welcome.webp"] },
+              { "spans": [6, 6], "images": ["/projects/azion-brand-system/edge-computing.webp", "/projects/azion-brand-system/asset-cybersecurity.webp"] },
+              { "spans": [4, 4, 4], "images": ["/projects/azion-brand-system/build.webp", "/projects/azion-brand-system/observe.webp", "/projects/azion-brand-system/orchestrate.webp"] },
+              { "spans": [6, 6], "images": ["/projects/azion-brand-system/asset-101-serveless.webp", "/projects/azion-brand-system/asset-application-acceleration.webp"] }
+            ]
+          },
+          {
+            "type": "gallery-feature-list",
+            "features": [
+              {
+                "name": "Illustration System",
+                "image": { "src": "/projects/azion-brand-system/Group%206187.webp", "title": "Illustration Group" },
+                "description": "Scalable illustration patterns that explain technical concepts visually across product pillars."
+              },
+              {
+                "name": "Knowledge Base",
+                "image": { "src": "/projects/azion-brand-system/knowledgebase.webp", "title": "Knowledge Base" },
+                "description": "Branded documentation and knowledge resources for the edge computing platform."
+              }
+            ]
           }
         ],
         "images": [
@@ -891,11 +1026,38 @@
       {
         "title": "Huia, Creativity & Innovation",
         "slug": "huia",
+        "year": "2013",
         "description": "Eight years leading creative technology at a digital innovation studio — from specialized production nucleus to full-service partner serving major Brazilian and international brands. The work went well beyond conventional digital production: we built with WebGL, facial recognition APIs, and LLM-adjacent techniques when those were genuinely experimental. Strong creative direction skills with the ability to be hands on when needed — end-to-end ownership from concept to shipped experience, at the edge of what technology could do for brand and product.",
         "role": "Partner, Head of Creative Technology & Design Director",
         "technologies": "Adobe Creative Suite, Premiere Pro, After Effects, Cinema 4D, WebGL, Facial Recognition APIs, Early LLM Integration, E-commerce Platforms, UX/UI Design, Video Production, Interactive Campaign Technologies, Agile Creative Methodologies",
         "impact": "Scaled studio from internal agency nucleus to independent 40-person operation leading to Stefanini acquisition. Delivered monthly coupon campaigns for O Boticário that increased franchise store traffic by 30% across Brazil, sustained over 3 years. Led creative direction for 40+ digital projects across major brands including Petrobras, Tramontina, Sicredi, Samsung, and Mondelez.",
         "caseStudyUrl": "/llms/projects/huia.txt",
+        "sections": [
+          {
+            "type": "hero",
+            "body": "Eight years leading creative technology at a digital innovation studio — from specialized production nucleus to full-service partner for major brands."
+          },
+          {
+            "type": "challenge",
+            "challenge": "Huia started as a small production nucleus within a larger agency, needing to establish itself as an independent creative technology partner.",
+            "solution": "Scaled the studio from internal agency nucleus to independent 40-person operation, delivering innovative digital experiences using WebGL, facial recognition APIs, and experimental technologies."
+          },
+          {
+            "type": "impact",
+            "stats": [
+              { "value": "40+", "label": "Digital projects delivered" },
+              { "value": "30%", "label": "Store traffic increase for O Boticario" },
+              { "value": "40", "label": "Team members at peak" }
+            ]
+          },
+          {
+            "type": "gallery-staggered",
+            "rows": [
+              { "spans": [6, 6], "images": ["/projects/huia/huia-bird.webp", "/projects/huia/golden-circle.webp"] },
+              { "spans": [6, 6], "images": ["/projects/huia/we-unlock-ideas.webp", "/projects/huia/team-portraits.webp"] }
+            ]
+          }
+        ],
         "images": [
           {
             "type": "video",
