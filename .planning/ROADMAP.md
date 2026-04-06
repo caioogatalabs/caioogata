@@ -14,8 +14,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Infrastructure** - Preserve V1, migrate Tailwind v4, integrate tokens, load Fabio XM
 - [x] **Phase 2: Home Page** - Implement the full Home V2 layout with intro, menu, projects grid, footer (completed 2026-04-03)
-- [ ] **Phase 3: Content Sections** - Build all content sections (About, Experience, Skills, Education, Clients, Philosophy)
-- [ ] **Phase 4: Project Pages & Polish** - Dedicated project routes, animations, and interaction polish
+- [ ] **Phase 3: Project Pages** - Dedicated project routes at `/projects/[slug]` with hero, content grid, navigation
+- [ ] **Phase 4: Content Sections & Polish** - All content sections (About, Experience, Skills, etc.) + animations and interaction polish
 
 ## Phase Details
 
@@ -53,33 +53,36 @@ Plans:
 - [x] 02-03-PLAN.md — Menu section with CLI input, keyboard nav, floating preview
 - [x] 02-04-PLAN.md — Projects grid with data-stamps, Footer with expandable contact form
 
-### Phase 3: Content Sections
-**Goal**: All portfolio content sections are implemented with the V2 design language, displaying real data from the content model
+### Phase 3: Project Pages
+**Goal**: Each project has a dedicated page with rich visual content, rendered from existing data model
 **Depends on**: Phase 2
-**Requirements**: SECT-01, SECT-02, SECT-03, SECT-04, SECT-05, SECT-06
+**Requirements**: PROJ-01, PROJ-02, PROJ-03
+**Success Criteria** (what must be TRUE):
+  1. Navigating to `/projects/[slug]` loads a dedicated page with hero image and scrollable content rendered from `en.json`
+  2. Project pages display image galleries in responsive grid layouts
+  3. Inter-project navigation (next/prev) works between project pages
+  4. Per-project OG metadata generates correctly for social sharing
+**Plans**: 3 plans
+**UI hint**: yes
+
+Plans:
+- [ ] 03-01-PLAN.md — Data model extension (types + en.json sections), dynamic route, ProjectPageShell orchestrator
+- [ ] 03-02-PLAN.md — Hero, Challenge, Impact, InfoBlock, Credits block components
+- [ ] 03-03-PLAN.md — Three gallery types, useScrollParallax hook, inter-project navigation
+
+### Phase 4: Content Sections & Polish
+**Goal**: All portfolio content sections are implemented and the entire site feels alive with purposeful motion
+**Depends on**: Phase 3
+**Requirements**: SECT-01, SECT-02, SECT-03, SECT-04, SECT-05, SECT-06, ANIM-01, ANIM-02, ANIM-03, ANIM-04
 **Success Criteria** (what must be TRUE):
   1. About section renders bio, expertise areas, and background using V2 typography and grid
   2. Experience section displays roles with expandable detail panels
   3. Skills section shows proficiency data with a visual treatment (not plain text lists)
   4. Clients section renders a logo grid and Education section displays cleanly
   5. Philosophy section reads as an article-style layout with proper typographic hierarchy
-**Plans**: TBD
-**UI hint**: yes
-
-Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
-
-### Phase 4: Project Pages & Polish
-**Goal**: Each project has a dedicated page with rich visual content, and the entire site feels alive with purposeful motion
-**Depends on**: Phase 3
-**Requirements**: PROJ-01, PROJ-02, PROJ-03, ANIM-01, ANIM-02, ANIM-03, ANIM-04
-**Success Criteria** (what must be TRUE):
-  1. Navigating to `/projects/[slug]` loads a dedicated page with hero image and scrollable content rendered from `en.json`
-  2. Project pages display image galleries in responsive grid layouts
-  3. Page transitions animate smoothly between sections using Motion library
-  4. Content blocks reveal on scroll, and interactive elements (buttons, cards, menu items) have hover states
-  5. All animations are suppressed when `prefers-reduced-motion` is enabled
+  6. Page transitions animate smoothly between sections
+  7. Content blocks reveal on scroll, interactive elements have hover states
+  8. All animations are suppressed when `prefers-reduced-motion` is enabled
 **Plans**: TBD
 **UI hint**: yes
 
@@ -97,5 +100,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. Infrastructure | 2/2 | Complete | 2026-04-02 |
 | 2. Home Page | 4/4 | Complete   | 2026-04-03 |
-| 3. Content Sections | 0/2 | Not started | - |
-| 4. Project Pages & Polish | 0/3 | Not started | - |
+| 3. Project Pages | 0/3 | Planned | - |
+| 4. Content Sections & Polish | 0/3 | Not started | - |
