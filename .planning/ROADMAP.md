@@ -66,7 +66,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 03-01-PLAN.md — Data model extension (types + en.json sections), dynamic route, ProjectPageShell orchestrator
+- [x] 03-01-PLAN.md — Data model extension (types + en.json sections), dynamic route, ProjectPageShell orchestrator
 - [ ] 03-02-PLAN.md — Hero, Challenge, Impact, InfoBlock, Credits block components
 - [ ] 03-03-PLAN.md — Three gallery types, useScrollParallax hook, inter-project navigation
 

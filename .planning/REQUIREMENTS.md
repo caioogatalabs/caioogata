@@ -32,8 +32,8 @@
 
 ### Project Pages
 
-- [ ] **PROJ-01**: Dedicated routes at `/projects/[slug]` with hero image and scroll layout
-- [ ] **PROJ-02**: Project content rendered from existing `en.json` data model
+- [x] **PROJ-01**: Dedicated routes at `/projects/[slug]` with hero image and scroll layout
+- [x] **PROJ-02**: Project content rendered from existing `en.json` data model
 - [ ] **PROJ-03**: Image gallery with responsive grid layout (no canvas viewer)
 
 ### Interaction & Animation
@@ -89,15 +89,15 @@
 | HOME-03 | Phase 2 | Complete |
 | HOME-04 | Phase 2 | Complete |
 | HOME-05 | Phase 2 | Complete |
-| SECT-01 | Phase 3 | Pending |
-| SECT-02 | Phase 3 | Pending |
-| SECT-03 | Phase 3 | Pending |
-| SECT-04 | Phase 3 | Pending |
-| SECT-05 | Phase 3 | Pending |
-| SECT-06 | Phase 3 | Pending |
-| PROJ-01 | Phase 4 | Pending |
-| PROJ-02 | Phase 4 | Pending |
-| PROJ-03 | Phase 4 | Pending |
+| PROJ-01 | Phase 3 | Complete |
+| PROJ-02 | Phase 3 | Complete |
+| PROJ-03 | Phase 3 | Pending |
+| SECT-01 | Phase 4 | Pending |
+| SECT-02 | Phase 4 | Pending |
+| SECT-03 | Phase 4 | Pending |
+| SECT-04 | Phase 4 | Pending |
+| SECT-05 | Phase 4 | Pending |
+| SECT-06 | Phase 4 | Pending |
 | ANIM-01 | Phase 4 | Pending |
 | ANIM-02 | Phase 4 | Pending |
 | ANIM-03 | Phase 4 | Pending |
