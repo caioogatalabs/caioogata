@@ -5,6 +5,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { LanguageProvider } from '@/components/providers/LanguageProvider'
 import { NavigationProvider } from '@/components/providers/NavigationProvider'
 import { ToastProvider } from '@/components/providers/ToastProvider'
+import { FooterSection } from '@/components/sections/v2/FooterSection'
 import '@fontsource/cascadia-mono/400.css'
 import '@fontsource/cascadia-mono/700.css'
 import './globals.css'
@@ -135,6 +136,7 @@ export default function RootLayout({
           <NavigationProvider>
             <ToastProvider>
               {children}
+              <FooterSection />
             </ToastProvider>
           </NavigationProvider>
         </LanguageProvider>

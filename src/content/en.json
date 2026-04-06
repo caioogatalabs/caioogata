@@ -541,7 +541,7 @@
         "caseStudyUrl": "/llms/projects/azion-website.txt",
         "links": [
           { "label": "Azion Website", "url": "https://www.azion.com" },
-          { "label": "Webkit Storybook", "url": "https://webkit.azion.com" },
+          { "label": "Webkit Storybook", "url": "https://webkit.azion.app/" },
           { "label": "GitHub Repository", "url": "https://github.com/aziontech/webkit" }
         ],
         "credits": [
@@ -589,7 +589,8 @@
             "rows": [
               { "spans": [12], "images": ["/projects/azion-website/home-en-hero.webp"] },
               { "spans": [6, 6], "images": ["/projects/azion-website/home-reliable-zoom.webp", "/projects/azion-website/home-products-menu-zoom.webp"] },
-              { "spans": [4, 4, 4], "images": ["/projects/azion-website/functions-hero-zoom.webp", "/projects/azion-website/cache-hero.webp", "/projects/azion-website/marketplace-hero.webp"] }
+              { "spans": [4, 4, 4], "images": ["/projects/azion-website/functions-hero-zoom.webp", "/projects/azion-website/cache-hero.webp", "/projects/azion-website/marketplace-hero.webp"] },
+              { "spans": [6, 6], "images": ["/projects/azion-website/products-strip.webp", "/projects/azion-website/professional-services-hero.webp"] }
             ]
           },
           {
@@ -598,17 +599,20 @@
               {
                 "name": "Product Navigation",
                 "image": { "src": "/projects/azion-website/home-products-menu-zoom.webp", "title": "Product Navigation Menu" },
-                "description": "Mega-menu revealing product categories with hover interaction."
+                "description": "Mega-menu revealing product categories with hover interaction.",
+                "figmaEmbed": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
               },
               {
                 "name": "Developer Tools",
                 "image": { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
-                "description": "Developer-facing documentation and tooling resources."
+                "description": "Developer-facing documentation and tooling resources.",
+                "figmaEmbed": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
               },
               {
                 "name": "Component Library",
                 "image": { "src": "/projects/azion-website/webkit-components.webp", "title": "Webkit Component Library" },
-                "description": "Open-source webkit component library powering both website and console."
+                "description": "Open-source webkit component library powering both website and console.",
+                "figmaEmbed": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
               }
             ]
           }
