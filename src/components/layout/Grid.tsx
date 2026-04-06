@@ -35,7 +35,7 @@ export const Grid = forwardRef<HTMLElement, GridProps>(function Grid(
   return (
     <Tag
       ref={ref}
-      className={`mx-auto max-w-[1200px] grid grid-cols-4 gap-4 px-5 md:grid-cols-8 md:gap-5 md:px-8 lg:grid-cols-12 lg:px-16 ${className}`.trim()}
+      className={`grid grid-cols-4 gap-4 px-5 md:grid-cols-8 md:gap-5 md:px-8 lg:grid-cols-12 lg:px-16 ${className}`.trim()}
       {...props}
     >
       {children}
