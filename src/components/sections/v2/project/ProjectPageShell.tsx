@@ -1,45 +1,46 @@
 'use client'
 
 import type { ProjectItem, ProjectSection } from '@/content/types'
+import type { Content } from '@/content/types'
+import content from '@/content/en.json'
+import { ProjectHero } from './ProjectHero'
+import { ProjectChallenge } from './ProjectChallenge'
+import { ProjectImpact } from './ProjectImpact'
+import { ProjectInfoBlock } from './ProjectInfoBlock'
+import { ProjectCredits } from './ProjectCredits'
+
+const typedContent = content as unknown as Content
+const enabledProjects = typedContent.projects.items.filter(p => !p.disabled)
 
 interface ProjectPageShellProps {
   project: ProjectItem
 }
 
-function SectionBlock({ section, index }: { section: ProjectSection; index: number }) {
+function SectionBlock({
+  section,
+  index,
+  project,
+  projectIndex,
+}: {
+  section: ProjectSection
+  index: number
+  project: ProjectItem
+  projectIndex: number
+}) {
   switch (section.type) {
     case 'hero':
       return (
-        <section key={index} className="py-16" data-block="hero">
-          <div className="px-5 md:px-8 lg:px-16">
-            <p className="font-mono text-xs text-text-tertiary uppercase tracking-[0.88px]">
-              {section.type}
-            </p>
-            <p className="text-text-secondary mt-2">{section.body || 'Hero block'}</p>
-          </div>
-        </section>
+        <ProjectHero
+          key={index}
+          project={project}
+          section={section}
+          index={projectIndex}
+        />
       )
     case 'challenge':
-      return (
-        <section key={index} className="py-16" data-block="challenge">
-          <div className="px-5 md:px-8 lg:px-16">
-            <p className="font-mono text-xs text-text-tertiary uppercase tracking-[0.88px]">
-              {section.type}
-            </p>
-            <p className="text-text-secondary mt-2">{section.challenge || ''}</p>
-          </div>
-        </section>
-      )
+      return <ProjectChallenge key={index} section={section} />
     case 'impact':
-      return (
-        <section key={index} className="py-16" data-block="impact">
-          <div className="px-5 md:px-8 lg:px-16">
-            <p className="font-mono text-xs text-text-tertiary uppercase tracking-[0.88px]">
-              {section.type}
-            </p>
-          </div>
-        </section>
-      )
+      return <ProjectImpact key={index} section={section} />
     case 'gallery-staggered':
       return (
         <section key={index} className="py-16" data-block="gallery-staggered">
@@ -77,41 +78,26 @@ function SectionBlock({ section, index }: { section: ProjectSection; index: numb
 
 export function ProjectPageShell({ project }: ProjectPageShellProps) {
   const sections = project.sections || []
+  const projectIndex = enabledProjects.findIndex(p => p.slug === project.slug)
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Project title for immediate feedback */}
-      <div className="px-5 md:px-8 lg:px-16 pt-20 pb-8">
-        <h1
-          className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-text-primary leading-[1.15]"
-          style={{ fontFamily: 'var(--font-sans)' }}
-        >
-          {project.title}
-        </h1>
-      </div>
-
       {/* Composed sections from data model (per D-01) */}
       {sections.map((section, i) => (
-        <SectionBlock key={i} section={section} index={i} />
+        <SectionBlock
+          key={i}
+          section={section}
+          index={i}
+          project={project}
+          projectIndex={projectIndex}
+        />
       ))}
 
-      {/* Info block, credits, and navigation are always present (not configurable per project) */}
-      <section className="py-16 bg-bg-surface-secondary" data-block="info">
-        <div className="px-5 md:px-8 lg:px-16">
-          <p className="font-mono text-xs text-text-tertiary uppercase tracking-[0.88px]">
-            Info Block (Plan 02)
-          </p>
-        </div>
-      </section>
+      {/* Info block and credits are always present (not configurable per project) */}
+      <ProjectInfoBlock project={project} />
+      <ProjectCredits project={project} />
 
-      <section className="py-12" data-block="credits">
-        <div className="px-5 md:px-8 lg:px-16">
-          <p className="font-mono text-xs text-text-tertiary uppercase tracking-[0.88px]">
-            Credits (Plan 02)
-          </p>
-        </div>
-      </section>
-
+      {/* Navigation placeholder (Plan 03) */}
       <nav className="border-t border-border-primary py-6 px-5 md:px-8 lg:px-16" data-block="navigation" aria-label="Project navigation">
         <p className="font-mono text-xs text-text-tertiary uppercase tracking-[0.88px]">
           Navigation (Plan 03)
