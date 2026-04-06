@@ -579,8 +579,9 @@
           {
             "type": "impact",
             "stats": [
-              { "value": "Open Source", "label": "Webkit component library" },
-              { "value": "10+", "label": "Product pages redesigned" }
+              { "value": "+40", "label": "Vue components ready to use" },
+              { "value": "+20", "label": "Pages redesigned" },
+              { "value": "+30", "label": "New product images redesigned" }
             ]
           },
           {

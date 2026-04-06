@@ -30,7 +30,10 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
         {/* Technologies left (4-col) + description right (8-col) */}
         <GridItem span={4} tabletSpan={8} mobileSpan={4}>
           {project.technologies && (
-            <p className="font-mono text-xs text-text-tertiary uppercase tracking-wider -entrance -fade -a-1">
+            <p
+              className="text-[14px] font-medium leading-[1.5] uppercase tracking-[1.12px] text-text-tertiary -entrance -fade -a-1"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
               {project.technologies}
             </p>
           )}
@@ -38,7 +41,7 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
         <GridItem span={8} tabletSpan={8} mobileSpan={4}>
           {section.body && (
             <p
-              className="text-[1.5rem] leading-[1.4] text-text-secondary -entrance -fade -a-1"
+              className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary -entrance -fade -a-1"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {section.body}
@@ -52,11 +55,12 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
 
 /** Hero image rendered separately — shell places navbar between text and image */
 export function ProjectHeroImage({ project }: { project: ProjectItem }) {
+  const imageRef = useInView()
   const heroImage = project.images[0]
   if (!heroImage) return null
 
   return (
-    <section className="pb-16">
+    <section ref={imageRef as React.RefObject<HTMLElement>} className="pb-16">
       <Grid>
         <GridItem span={12} tabletSpan={8} mobileSpan={4} className="-entrance -scale-in -a-2">
           <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">

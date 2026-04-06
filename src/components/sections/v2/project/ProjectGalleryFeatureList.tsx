@@ -43,16 +43,17 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
         {features.map((feature, index) => (
           <Grid key={index}>
             <GridItem span={4} tabletSpan={8} mobileSpan={4}>
-              <div className="flex flex-col justify-center h-full">
-                <p className="font-mono text-xs uppercase tracking-wider text-text-tertiary mb-4">
+              <div className="flex flex-col justify-between h-[410px]">
+                <p className="font-mono text-xs uppercase tracking-[0.6px] text-text-tertiary">
                   {feature.name}
                 </p>
-                <h3
-                  className="text-[2rem] font-bold leading-[1.2] text-text-primary"
+                <p
+                  className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-tertiary"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   {feature.name}
-                </h3>
+                </p>
+                <div className="h-4" />
               </div>
             </GridItem>
             <GridItem span={5} tabletSpan={8} mobileSpan={4}>
@@ -62,9 +63,9 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
               />
             </GridItem>
             <GridItem span={3} tabletSpan={8} mobileSpan={4}>
-              <div className="flex items-center h-full">
+              <div className="flex items-start h-full">
                 <p
-                  className="text-base text-text-secondary leading-relaxed"
+                  className="text-[18px] leading-[1.6] text-text-secondary"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   {feature.description}

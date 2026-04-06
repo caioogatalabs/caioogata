@@ -8,12 +8,11 @@ interface ProjectImpactProps {
   section: ProjectSection
 }
 
-function getSpanForCount(count: number): number {
-  if (count === 2) return 6
-  if (count === 3) return 4
-  if (count === 4) return 3
-  // fallback: divide 12 evenly
-  return Math.floor(12 / count)
+/** After a 3-col left spacer, distribute 9 remaining cols among stats */
+function getStatSpan(count: number): number {
+  if (count <= 2) return 4
+  if (count === 3) return 3
+  return Math.floor(9 / count)
 }
 
 export function ProjectImpact({ section }: ProjectImpactProps) {
@@ -22,7 +21,7 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
 
   if (!stats || stats.length === 0) return null
 
-  const spanPerStat = getSpanForCount(stats.length)
+  const spanPerStat = getStatSpan(stats.length)
 
   return (
     <section
@@ -30,31 +29,34 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
       className="py-16"
     >
       <Grid>
-        {/* Results label in first 3 cols */}
-        <GridItem span={3} tabletSpan={8} mobileSpan={4}>
-          <span className="font-mono text-xs uppercase tracking-wider text-text-tertiary -entrance -fade -a-0">
+        {/* Results label — full row */}
+        <GridItem span={12} tabletSpan={8} mobileSpan={4}>
+          <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-4 -entrance -fade -a-0">
             Results
           </span>
         </GridItem>
 
-        {/* Stats — 3 cols each, starting from col 4 */}
+        {/* Left spacer (3 cols) */}
+        <GridItem span={3} tabletSpan={0} mobileSpan={0} className="hidden lg:block" />
+
+        {/* Stats */}
         {stats.map((stat, i) => (
           <GridItem
             key={i}
-            span={3}
+            span={spanPerStat}
             tabletSpan={4}
             mobileSpan={4}
             className={`-entrance -slide-up -a-${i + 1}`}
           >
-            <div className="flex items-baseline gap-4">
+            <div className="flex flex-wrap items-start gap-5">
               <p
-                className="text-[3.5rem] font-bold leading-none text-text-secondary shrink-0"
+                className="text-[72px] leading-[1.15] tracking-[-1.44px] text-text-primary"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {stat.value}
               </p>
               <p
-                className="text-sm text-text-tertiary uppercase tracking-wider"
+                className="text-[14px] font-medium leading-[1.5] uppercase tracking-[1.12px] text-text-tertiary pt-2 max-w-[224px]"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {stat.label}

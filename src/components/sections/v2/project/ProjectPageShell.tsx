@@ -7,7 +7,6 @@ import { ProjectHero, ProjectHeroImage } from './ProjectHero'
 import { ProjectChallenge } from './ProjectChallenge'
 import { ProjectImpact } from './ProjectImpact'
 import { ProjectInfoBlock } from './ProjectInfoBlock'
-import { ProjectCredits } from './ProjectCredits'
 import { ProjectGalleryStaggered } from './ProjectGalleryStaggered'
 import { ProjectGalleryFeatureList } from './ProjectGalleryFeatureList'
 import { ProjectGalleryFullDetail } from './ProjectGalleryFullDetail'
@@ -42,7 +41,7 @@ function SectionBlock({
         />
       )
     case 'challenge':
-      return <ProjectChallenge key={index} section={section} />
+      return <ProjectChallenge key={index} section={section} project={project} projectIndex={projectIndex} />
     case 'impact':
       return <ProjectImpact key={index} section={section} />
     case 'gallery-staggered':
@@ -85,9 +84,8 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
         </>
       )}
 
-      {/* Info block and credits are always present (not configurable per project) */}
+      {/* Unified info block: project details + credits + links */}
       <ProjectInfoBlock project={project} />
-      <ProjectCredits project={project} />
 
       {/* Bottom navigation */}
       <ProjectNavigation currentSlug={project.slug} position="bottom" />

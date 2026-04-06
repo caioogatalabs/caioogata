@@ -1,7 +1,6 @@
 'use client'
 
 import type { ProjectSection } from '@/content/types'
-import { Grid, GridItem } from '@/components/layout/Grid'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 interface ProjectGalleryStaggeredProps {
@@ -13,48 +12,52 @@ function RevealImage({ src, alt }: { src: string; alt: string }) {
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="overflow-hidden rounded-[var(--radius-component-md,12px)]"
+      className="overflow-hidden rounded-[var(--radius-component-md,12px)] h-full"
       style={{ clipPath }}
     >
       <img
         src={src}
         alt={alt}
         loading="lazy"
-        className="w-full h-auto block"
+        className="w-full h-full object-cover block"
       />
     </div>
   )
 }
 
-// Staggered column offsets: cycles through left(1), center(5), right(9)
-const STAGGER_OFFSETS = [
-  'lg:col-start-2',   // left-ish
-  'lg:col-start-5',   // center
-  'lg:col-start-9',   // right
-  'lg:col-start-5',   // center
-]
+/**
+ * Stagger positions within a 12-col grid (3 slots of 4 cols each).
+ * Each image occupies one slot; the other two are empty.
+ * Pattern: center → right → center → center (matches Figma reference).
+ * col-start values: slot-left=1, slot-center=5, slot-right=9
+ */
+const STAGGER_COLS = [5, 9, 5, 1] as const
 
 export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProps) {
-  // Flatten all images from rows into a single list
+  // Flatten all images from all rows into a single staggered list
   const allImages = (section.rows || []).flatMap(row => row.images)
 
   if (allImages.length === 0) return null
 
   return (
     <section className="py-24">
-      <div className="space-y-6">
-        {allImages.map((imageSrc, i) => (
-          <Grid key={i}>
-            <GridItem
-              span={4}
-              tabletSpan={4}
-              mobileSpan={4}
-              className={STAGGER_OFFSETS[i % STAGGER_OFFSETS.length]}
+      <div className="flex flex-col gap-6">
+        {allImages.map((imageSrc, i) => {
+          const colStart = STAGGER_COLS[i % STAGGER_COLS.length]
+          return (
+            <div
+              key={i}
+              className="grid grid-cols-12 gap-5 px-5 md:px-8 lg:px-16"
             >
-              <RevealImage src={imageSrc} alt="" />
-            </GridItem>
-          </Grid>
-        ))}
+              <div
+                className="col-span-4 h-[340px]"
+                style={{ gridColumnStart: colStart }}
+              >
+                <RevealImage src={imageSrc} alt="" />
+              </div>
+            </div>
+          )
+        })}
       </div>
     </section>
   )
