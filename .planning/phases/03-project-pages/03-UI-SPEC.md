@@ -40,12 +40,12 @@ Declared values (strict 4px grid, already in `primitives.css`):
 | xl | 32px (`--primitive-space-8`) | Gallery row vertical gap, section internal padding |
 | 2xl | 48px (`--primitive-space-12`) | Between content blocks (challenge -> gallery) |
 | 3xl | 64px (`--primitive-space-16`) | Page-level section breaks (hero -> content, content -> info block) |
-| 4xl | 80px (`--primitive-space-20`) | Hero top padding (below sticky nav) |
-| 5xl | 96px (`--primitive-space-24`) | Gallery section vertical padding |
 
 Exceptions:
-- Touch target minimum: 44px for navigation prev/next buttons and back-to-home link (accessibility)
-- Gallery image gap: 8px on mobile, 16px on tablet, 24px on desktop (responsive scale)
+- **80px** (`--primitive-space-20`): Hero top padding below sticky nav. Justified: hero needs extra breathing room beneath the sticky header to avoid content crowding the glassmorphism bar. Token exists in primitives.css.
+- **96px** (`--primitive-space-24`): Gallery section vertical padding. Justified: galleries are dense visual blocks that need generous vertical separation to let each composition breathe. Token exists in primitives.css.
+- **44px**: Touch target minimum for navigation prev/next buttons and back-to-home link (accessibility requirement, not a spacing token).
+- Gallery image gap: 8px on mobile, 16px on tablet, 24px on desktop (responsive scale, all within the standard set).
 
 **Source:** primitives.css spacing tokens. Scale confirmed from existing Phase 2 usage.
 
@@ -56,18 +56,24 @@ Exceptions:
 | Role | Size | Weight | Line Height | Font | Usage |
 |------|------|--------|-------------|------|-------|
 | Display | 3.5rem (56px) | 700 (bold) | 1.15 | Fabio XM | Project title on hero |
-| Heading | 1.875rem (30px) | 600 (semibold) | 1.2 | Fabio XM | Challenge/solution headings, gallery section titles |
+| Heading | 1.875rem (30px) | 700 (bold) | 1.2 | Fabio XM | Challenge/solution headings, gallery section titles |
 | Body | 1rem (16px) | 400 (regular) | 1.5 | Fabio XM | Challenge/solution body text, gallery descriptions, credits text |
-| Label | 0.75rem (12px) | 500 (medium) | 1.3 | Cascadia Mono | Data-stamp, technology tags, navigation labels, info block column headers |
+| Label | 0.75rem (12px) | 400 (regular) | 1.3 | Cascadia Mono | Data-stamp, technology tags, navigation labels, info block column headers |
 
-Additional type treatments (not new sizes -- combinations of the above):
+**Weight budget: 2 weights only -- 400 (regular) and 700 (bold).** Heading uses 700 instead of 600; Label uses 400 instead of 500. The two-weight constraint keeps the type system tight. Differentiation between roles comes from size, font family, and casing -- not intermediate weight steps.
+
+Additional type treatments (combinations of the 4 sizes above, no new sizes):
 
 | Treatment | Specification | Usage |
 |-----------|---------------|-------|
-| Impact number | 3.5rem / 700 / 1.15 Fabio XM | Big stat values (e.g. "100+") |
-| Impact label | 0.875rem / 400 / 1.5 Cascadia Mono | Stat description below number |
-| Feature name | 0.875rem / 500 / 1.3 Cascadia Mono, uppercase, `tracking-wider` | Gallery 2 left-column feature name |
-| Nav link | 0.875rem / 500 / 1.3 Cascadia Mono | Prev/Next project names |
+| Impact number | 3.5rem / 700 / 1.15 Fabio XM | Big stat values (e.g. "100+") — reuses Display slot |
+| Impact label | 1rem / 400 / 1.5 Cascadia Mono | Stat description below number — reuses Body size at mono font |
+| Feature name | 0.75rem / 400 / 1.3 Cascadia Mono, uppercase, `tracking-wider` | Gallery 2 left-column feature name — reuses Label slot |
+| Nav link | 0.75rem / 400 / 1.3 Cascadia Mono | Prev/Next project names — reuses Label slot |
+
+**Consolidation notes:**
+- Impact label promoted from 0.875rem (14px) to 1rem (16px / Body size). At mono font under stat numbers, the 16px size provides better readability and maintains visual hierarchy through font family contrast rather than a fifth size.
+- Feature name and Nav link demoted from 0.875rem (14px) to 0.75rem (12px / Label size). These are functional UI labels where the mono font + uppercase treatment (feature name) or contextual placement (nav link) already provides sufficient distinction. Keeps the 4-size budget intact.
 
 **Source:** primitives.css type scale + CLAUDE.md conventions. Display at 3.5rem matches `--primitive-text-6xl`. Label at mono matches Phase 2 data-stamp pattern from ProjectCard.
 
@@ -144,7 +150,7 @@ Destructive color: Not applicable. Phase 3 has no destructive actions.
 ### Hero Section
 - **Entrance:** `-entrance -slide-up -a-0` on title, `-entrance -fade -a-1` on metadata, `-entrance -scale-in -a-2` on hero image(s). Gated behind `html.-loaded.-ready`.
 - **Hero image:** Full-width (`12-col`) or split (`6-6`). 12px border radius. `overflow-hidden` on container. No hover state on hero images.
-- **Data-stamp:** `PRJ_{year} // {index}` in Cascadia Mono 11px uppercase `tracking-[0.88px]` -- matches ProjectCard pattern exactly.
+- **Data-stamp:** `PRJ_{year} // {index}` in Cascadia Mono 12px uppercase `tracking-[0.88px]` -- matches ProjectCard pattern exactly.
 
 ### Gallery 1 -- Staggered Grid
 - **Image reveal:** Each image uses `useScrollReveal` -- `clip-path: inset()` with `round 12px` expands as image scrolls into view. `startFraction: 0.85`, `endFraction: 0.3` (same defaults as ProjectCard).
@@ -168,8 +174,8 @@ Destructive color: Not applicable. Phase 3 has no destructive actions.
 ### Inter-Project Navigation
 - **Position:** Rendered below hero (sticky at top on scroll) AND at bottom of content (static).
 - **Layout:** `flex justify-between`, full-width with page padding (`px-5 md:px-8 lg:px-16`).
-- **Prev link (left):** `<- {previous project title}` in Cascadia Mono 14px. If no prev, show `<- Back to Home`.
-- **Next link (right):** `{next project title} ->` in Cascadia Mono 14px. If no next, show `Back to Home ->`.
+- **Prev link (left):** `<- {previous project title}` in Cascadia Mono 12px. If no prev, show `<- Back to Home`.
+- **Next link (right):** `{next project title} ->` in Cascadia Mono 12px. If no next, show `Back to Home ->`.
 - **Hover state:** `text-text-secondary` default -> `text-text-primary` on hover. Transition: `transition-colors duration-300`.
 - **Keyboard:** Left arrow = prev, Right arrow = next, Escape = back to Home. Focus ring uses `border-focus` token.
 - **Top border:** `border-t border-border-primary` on both instances.
