@@ -12,28 +12,22 @@ interface ProjectHeroProps {
 
 export function ProjectHero({ project, section, index }: ProjectHeroProps) {
   const sectionRef = useInView()
-  const heroImage = project.images[0]
 
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
-      className="pt-20 pb-16"
+      className="pt-20 pb-8"
     >
-      {/* Title + metadata */}
-      <Grid className="mb-8">
+      <h1 className="sr-only">{project.title}</h1>
+
+      <Grid>
         <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-          <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-4 -entrance -fade -a-0">
+          <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-6 -entrance -fade -a-0">
             PRJ_{project.year} // {String(index + 1).padStart(3, '0')}
           </span>
-          <h1
-            className="text-[3.5rem] font-bold leading-[1.15] text-text-primary mb-8 -entrance -slide-up -a-0"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            {project.title}
-          </h1>
         </GridItem>
 
-        {/* Technologies left + description right */}
+        {/* Technologies left (4-col) + description right (8-col) */}
         <GridItem span={4} tabletSpan={8} mobileSpan={4}>
           {project.technologies && (
             <p className="font-mono text-xs text-text-tertiary uppercase tracking-wider -entrance -fade -a-1">
@@ -52,22 +46,29 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
           )}
         </GridItem>
       </Grid>
+    </section>
+  )
+}
 
-      {/* Hero image — full width 12-col */}
-      {heroImage && (
-        <Grid>
-          <GridItem span={12} tabletSpan={8} mobileSpan={4} className="-entrance -scale-in -a-2">
-            <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
-              <img
-                src={heroImage.src}
-                alt={heroImage.title}
-                loading="eager"
-                className="w-full h-auto"
-              />
-            </div>
-          </GridItem>
-        </Grid>
-      )}
+/** Hero image rendered separately — shell places navbar between text and image */
+export function ProjectHeroImage({ project }: { project: ProjectItem }) {
+  const heroImage = project.images[0]
+  if (!heroImage) return null
+
+  return (
+    <section className="pb-16">
+      <Grid>
+        <GridItem span={12} tabletSpan={8} mobileSpan={4} className="-entrance -scale-in -a-2">
+          <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+            <img
+              src={heroImage.src}
+              alt={heroImage.title}
+              loading="eager"
+              className="w-full h-auto"
+            />
+          </div>
+        </GridItem>
+      </Grid>
     </section>
   )
 }

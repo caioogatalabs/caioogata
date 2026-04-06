@@ -29,21 +29,19 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
       ref={sectionRef as React.RefObject<HTMLElement>}
       className="py-16"
     >
-      {/* Results label */}
-      <Grid className="mb-6">
-        <GridItem span={12} tabletSpan={8} mobileSpan={4}>
+      <Grid>
+        {/* Results label in first 3 cols */}
+        <GridItem span={3} tabletSpan={8} mobileSpan={4}>
           <span className="font-mono text-xs uppercase tracking-wider text-text-tertiary -entrance -fade -a-0">
             Results
           </span>
         </GridItem>
-      </Grid>
 
-      {/* Stats — number + description side by side */}
-      <Grid>
+        {/* Stats — 3 cols each, starting from col 4 */}
         {stats.map((stat, i) => (
           <GridItem
             key={i}
-            span={spanPerStat}
+            span={3}
             tabletSpan={4}
             mobileSpan={4}
             className={`-entrance -slide-up -a-${i + 1}`}

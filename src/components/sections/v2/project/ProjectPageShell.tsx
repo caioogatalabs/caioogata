@@ -3,7 +3,7 @@
 import type { ProjectItem, ProjectSection } from '@/content/types'
 import type { Content } from '@/content/types'
 import content from '@/content/en.json'
-import { ProjectHero } from './ProjectHero'
+import { ProjectHero, ProjectHeroImage } from './ProjectHero'
 import { ProjectChallenge } from './ProjectChallenge'
 import { ProjectImpact } from './ProjectImpact'
 import { ProjectInfoBlock } from './ProjectInfoBlock'
@@ -62,7 +62,7 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Composed sections: hero first, then top navigation, then remaining sections */}
+      {/* Hero text → Navbar → Hero image → remaining sections */}
       {sections.length > 0 && (
         <>
           <SectionBlock
@@ -72,6 +72,7 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
             projectIndex={projectIndex}
           />
           <ProjectNavigation currentSlug={project.slug} position="top" />
+          <ProjectHeroImage project={project} />
           {sections.slice(1).map((section, i) => (
             <SectionBlock
               key={i + 1}

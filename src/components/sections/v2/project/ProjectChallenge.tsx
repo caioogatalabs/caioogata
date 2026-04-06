@@ -17,9 +17,9 @@ export function ProjectChallenge({ section }: ProjectChallengeProps) {
       className="py-16"
     >
       <Grid>
-        {/* Challenge column */}
+        {/* Challenge column (cols 1-4) */}
         {section.challenge && (
-          <GridItem span={6} tabletSpan={8} mobileSpan={4}>
+          <GridItem span={4} tabletSpan={4} mobileSpan={4}>
             <div className="-entrance -fade -a-0">
               <h2
                 className="text-[2rem] font-bold leading-[1.2] text-text-primary mb-6"
@@ -37,9 +37,9 @@ export function ProjectChallenge({ section }: ProjectChallengeProps) {
           </GridItem>
         )}
 
-        {/* Solution column */}
+        {/* Solution column (cols 5-8) */}
         {section.solution && (
-          <GridItem span={6} tabletSpan={8} mobileSpan={4}>
+          <GridItem span={4} tabletSpan={4} mobileSpan={4}>
             <div className="-entrance -fade -a-1">
               <h2
                 className="text-[2rem] font-bold leading-[1.2] text-text-primary mb-6"
@@ -56,6 +56,7 @@ export function ProjectChallenge({ section }: ProjectChallengeProps) {
             </div>
           </GridItem>
         )}
+        {/* cols 9-12 intentionally empty */}
       </Grid>
     </section>
   )
