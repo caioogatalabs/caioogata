@@ -26,47 +26,26 @@ function RevealImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
-// Maps desktop span to tablet/mobile spans
-function getResponsiveSpans(span: number) {
-  switch (span) {
-    case 12:
-      return { tabletSpan: 8, mobileSpan: 4 }
-    case 6:
-      return { tabletSpan: 4, mobileSpan: 4 }
-    case 4:
-      return { tabletSpan: 8, mobileSpan: 4 }
-    default:
-      return { tabletSpan: 8, mobileSpan: 4 }
-  }
-}
-
 export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProps) {
-  const rows = section.rows || []
+  // Flatten all images from rows into a single list
+  const allImages = (section.rows || []).flatMap(row => row.images)
 
-  if (rows.length === 0) return null
+  if (allImages.length === 0) return null
 
   return (
     <section className="py-24">
-      <div className="space-y-6 md:space-y-4 lg:space-y-6">
-        {rows.map((row, rowIndex) => (
-          <Grid key={rowIndex} className="gap-6 md:gap-4 lg:gap-6">
-            {row.images.map((imageSrc, imgIndex) => {
-              const span = row.spans[imgIndex] ?? 12
-              const { tabletSpan, mobileSpan } = getResponsiveSpans(span)
-              return (
-                <GridItem
-                  key={imgIndex}
-                  span={span}
-                  tabletSpan={tabletSpan}
-                  mobileSpan={mobileSpan}
-                >
-                  <RevealImage src={imageSrc} alt="" />
-                </GridItem>
-              )
-            })}
-          </Grid>
+      <Grid className="gap-5">
+        {allImages.map((imageSrc, i) => (
+          <GridItem
+            key={i}
+            span={4}
+            tabletSpan={4}
+            mobileSpan={4}
+          >
+            <RevealImage src={imageSrc} alt="" />
+          </GridItem>
         ))}
-      </div>
+      </Grid>
     </section>
   )
 }
