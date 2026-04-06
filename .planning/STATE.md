@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-04-06T15:05:26.883Z"
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-04-06T15:05:29.565Z"
 last_activity: 2026-04-06
 progress:
   total_phases: 4
@@ -81,6 +81,7 @@ Recent decisions affecting current work:
 - [Phase 03]: Content model extension: additive sections array alongside existing images for backward compat
 - [Phase 03]: Block composition: project.sections.map() with switch on section.type in ProjectPageShell
 - [Phase 03]: Info block uses 3-2-3-2-2 grid spans for 5-column metadata layout
+- [Phase 03]: Sub-component pattern for hooks-in-loops: RevealImage/ParallaxRevealImage call hooks individually per image
 
 ### Pending Todos
 
@@ -92,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-06T15:05:21.664Z
-Stopped at: Completed 03-02-PLAN.md
+Last session: 2026-04-06T15:05:29.563Z
+Stopped at: Completed 03-03-PLAN.md
 Resume file: None
