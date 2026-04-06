@@ -67,8 +67,8 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — Data model extension (types + en.json sections), dynamic route, ProjectPageShell orchestrator
-- [ ] 03-02-PLAN.md — Hero, Challenge, Impact, InfoBlock, Credits block components
-- [ ] 03-03-PLAN.md — Three gallery types, useScrollParallax hook, inter-project navigation
+- [x] 03-02-PLAN.md — Hero, Challenge, Impact, InfoBlock, Credits block components
+- [x] 03-03-PLAN.md — Three gallery types, useScrollParallax hook, inter-project navigation
 
 ### Phase 4: Content Sections & Polish
 **Goal**: All portfolio content sections are implemented and the entire site feels alive with purposeful motion
