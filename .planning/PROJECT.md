@@ -28,7 +28,7 @@ The portfolio must communicate design engineering credibility through its own cr
 - [ ] Typography setup: Fabio XM `@font-face` + variable font
 - [x] Implement Home V2: Intro, Menu, Projects grid, Footer — Validated in Phase 02: Home Page (2026-04-03)
 - [ ] Section layouts: About, Experience, Skills, Education, Clients, Philosophy
-- [ ] Project Pages: `/projects/[slug]` dedicated routes with hero + scroll layout
+- [x] Project Pages: `/projects/[slug]` dedicated routes with hero + scroll layout — Validated in Phase 03: Project Pages (2026-04-06)
 - [x] Animations: Motion library (page transitions, scroll reveals, hover states) — Validated in Phase 02: Home Page (2026-04-03)
 - [x] Footer with expandable contact form — Validated in Phase 02: Home Page (2026-04-03)
 - [ ] Responsive: all sections work across Desktop/Tablet/Mobile grid breakpoints
