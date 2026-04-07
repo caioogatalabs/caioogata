@@ -599,20 +599,22 @@
               {
                 "name": "Product Navigation",
                 "image": { "src": "/projects/azion-website/home-products-menu-zoom.webp", "title": "Product Navigation Menu" },
-                "description": "Mega-menu revealing product categories with hover interaction.",
-                "figmaEmbed": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
+                "description": "Mega-menu revealing product categories with hover interaction."
               },
               {
                 "name": "Developer Tools",
                 "image": { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
-                "description": "Developer-facing documentation and tooling resources.",
-                "figmaEmbed": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
+                "description": "Developer-facing documentation and tooling resources."
               },
               {
                 "name": "Component Library",
                 "image": { "src": "/projects/azion-website/webkit-components.webp", "title": "Webkit Component Library" },
-                "description": "Open-source webkit component library powering both website and console.",
-                "figmaEmbed": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
+                "description": "Open-source webkit component library powering both website and console."
+              },
+              {
+                "name": "Brand Concept",
+                "image": { "src": "", "title": "Brand Concept 2025/26 — Figma", "type": "figma", "figmaEmbedUrl": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share" },
+                "description": "Visual identity evolution — color, illustration, and typography explorations for the 2025/26 brand cycle."
               }
             ]
           }

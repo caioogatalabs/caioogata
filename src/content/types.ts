@@ -116,7 +116,6 @@ export interface ProjectSection {
     name: string
     image: ProjectImage
     description: string
-    figmaEmbed?: string
   }>
   image?: ProjectImage
   description?: string

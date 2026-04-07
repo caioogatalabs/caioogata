@@ -1,6 +1,6 @@
 'use client'
 
-import type { ProjectSection } from '@/content/types'
+import type { ProjectSection, ProjectImage } from '@/content/types'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useScrollParallax } from '@/hooks/useScrollParallax'
@@ -32,18 +32,23 @@ function ParallaxRevealImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
-function FigmaEmbed({ url }: { url: string }) {
-  return (
-    <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
-      <iframe
-        src={url}
-        className="w-full border-0"
-        style={{ height: '450px' }}
-        loading="lazy"
-        allowFullScreen
-      />
-    </div>
-  )
+function FeatureMedia({ image }: { image: ProjectImage }) {
+  if (image.type === 'figma' && image.figmaEmbedUrl) {
+    return (
+      <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+        <iframe
+          src={image.figmaEmbedUrl}
+          title={image.title}
+          className="w-full border-0"
+          style={{ height: '450px' }}
+          loading="lazy"
+          allowFullScreen
+        />
+      </div>
+    )
+  }
+
+  return <ParallaxRevealImage src={image.src} alt={image.title} />
 }
 
 export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureListProps) {
@@ -55,47 +60,35 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
     <section className="py-24">
       <div className="space-y-16">
         {features.map((feature, index) => (
-          <div key={index} className="space-y-6">
-            <Grid>
-              <GridItem span={4} tabletSpan={8} mobileSpan={4}>
-                <div className="flex flex-col justify-between h-[410px]">
-                  <p className="font-mono text-xs uppercase tracking-[0.6px] text-text-tertiary">
-                    {feature.name}
-                  </p>
-                  <p
-                    className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-tertiary"
-                    style={{ fontFamily: 'var(--font-sans)' }}
-                  >
-                    {feature.name}
-                  </p>
-                  <div className="h-4" />
-                </div>
-              </GridItem>
-              <GridItem span={5} tabletSpan={8} mobileSpan={4}>
-                <ParallaxRevealImage
-                  src={feature.image.src}
-                  alt={feature.image.title}
-                />
-              </GridItem>
-              <GridItem span={3} tabletSpan={8} mobileSpan={4}>
-                <div className="flex items-start h-full">
-                  <p
-                    className="text-[18px] leading-[1.6] text-text-secondary"
-                    style={{ fontFamily: 'var(--font-sans)' }}
-                  >
-                    {feature.description}
-                  </p>
-                </div>
-              </GridItem>
-            </Grid>
-            {feature.figmaEmbed && (
-              <Grid>
-                <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-                  <FigmaEmbed url={feature.figmaEmbed} />
-                </GridItem>
-              </Grid>
-            )}
-          </div>
+          <Grid key={index}>
+            <GridItem span={4} tabletSpan={8} mobileSpan={4}>
+              <div className="flex flex-col justify-between h-[410px]">
+                <p className="font-mono text-xs uppercase tracking-[0.6px] text-text-tertiary">
+                  {feature.name}
+                </p>
+                <p
+                  className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-tertiary"
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  {feature.name}
+                </p>
+                <div className="h-4" />
+              </div>
+            </GridItem>
+            <GridItem span={5} tabletSpan={8} mobileSpan={4}>
+              <FeatureMedia image={feature.image} />
+            </GridItem>
+            <GridItem span={3} tabletSpan={8} mobileSpan={4}>
+              <div className="flex items-start h-full">
+                <p
+                  className="text-[18px] leading-[1.6] text-text-secondary"
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  {feature.description}
+                </p>
+              </div>
+            </GridItem>
+          </Grid>
         ))}
       </div>
     </section>
