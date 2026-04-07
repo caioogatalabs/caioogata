@@ -137,6 +137,7 @@ export interface ProjectItem {
   disabled?: boolean
   sections?: ProjectSection[]
   year?: string
+  colors?: [string, string, string]
 }
 
 export interface MenuItem {

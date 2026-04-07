@@ -534,6 +534,7 @@
         "title": "Azion Website & Brand Expansion",
         "slug": "azion-website",
         "year": "2022",
+        "colors": ["#F3652B", "#1E1E1E", "#FF8A5C"],
         "description": "A brand adaptation — not a full overhaul — that evolved Azion's digital presence while preserving the technology and structure already in production. New color tones with more saturation, new interface elements, block variants with richer layouts, and a new illustration pattern that visually represents product features and explains how they work. Led the visual and technical strategy for this expansion across the website, built on Astro and Vue with the existing webkit component library.",
         "role": "Design Director",
         "technologies": "Astro, Vue.js, Webkit Component Library, Design Tokens, Sora Typography, Monospace, Brand Adaptation, Illustration System",
