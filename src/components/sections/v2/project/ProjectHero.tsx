@@ -1,8 +1,15 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
+import { useScrollExpand } from '@/hooks/useScrollExpand'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import type { ProjectItem, ProjectSection } from '@/content/types'
+import dynamic from 'next/dynamic'
+
+const NoiseGradientCanvas = dynamic(
+  () => import('@/components/three/NoiseGradientCanvas').then(mod => ({ default: mod.NoiseGradientCanvas })),
+  { ssr: false }
+)
 
 interface ProjectHeroProps {
   project: ProjectItem
@@ -56,21 +63,49 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
 /** Hero image rendered separately — shell places navbar between text and image */
 export function ProjectHeroImage({ project }: { project: ProjectItem }) {
   const imageRef = useInView()
+  const { ref: expandRef, clipPath, opacity } = useScrollExpand()
   const heroImage = project.images[0]
   if (!heroImage) return null
+
+  const hasGradient = !!project.colors
 
   return (
     <section ref={imageRef as React.RefObject<HTMLElement>} className="pb-16">
       <Grid>
         <GridItem span={12} tabletSpan={8} mobileSpan={4} className="-entrance -scale-in -a-2">
-          <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
-            <img
-              src={heroImage.src}
-              alt={heroImage.title}
-              loading="eager"
-              className="w-full h-auto"
-            />
-          </div>
+          {hasGradient ? (
+            <div
+              ref={expandRef as React.RefObject<HTMLDivElement>}
+              className="relative overflow-hidden rounded-[var(--radius-component-md,12px)]"
+            >
+              {/* Noise gradient background — scroll-expand via clip-path */}
+              <NoiseGradientCanvas
+                colors={project.colors!}
+                className="absolute inset-0 z-0"
+                style={{ clipPath, opacity }}
+              />
+              {/* Hero image — 9/12 cols centered */}
+              <div className="relative z-10 mx-auto w-[75%] py-[4%]">
+                <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+                  <img
+                    src={heroImage.src}
+                    alt={heroImage.title}
+                    loading="eager"
+                    className="w-full h-auto"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+              <img
+                src={heroImage.src}
+                alt={heroImage.title}
+                loading="eager"
+                className="w-full h-auto"
+              />
+            </div>
+          )}
         </GridItem>
       </Grid>
     </section>
