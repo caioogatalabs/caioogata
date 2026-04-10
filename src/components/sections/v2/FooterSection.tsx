@@ -197,34 +197,132 @@ export function FooterSection() {
       data-section-id="footer"
       className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-16 py-8"
     >
-      {/* Expandable 6-6 grid: social links (left, dark) + grey form card (right) */}
-      <div
-        id={EXPAND_CONTENT_ID}
-        style={{
-          maxHeight: isExpanded ? contentRef.current?.scrollHeight ?? 2000 : 0,
-          transition: `max-height ${transitionDuration}`,
-          overflow: 'hidden',
-        }}
-      >
-        <div ref={contentRef} className="grid grid-cols-12 gap-4 md:gap-5 pb-8">
-          {/* Left col: social links on dark bg */}
-          <div className="col-span-12 md:col-span-6 flex flex-col gap-1">
+      {/* Main 6-6 grid — always rendered. Left: social links bottom-aligned. Right: grey card with form + CTA. */}
+      <div className="grid grid-cols-12 gap-4 md:gap-5 pb-8">
+        {/* Left col: social links bottom-aligned, fade in only when expanded */}
+        <div className="col-span-12 md:col-span-6 flex flex-col justify-end gap-1">
+          <div
+            style={{
+              opacity: isExpanded ? 1 : 0,
+              transition: `opacity ${transitionDuration}`,
+              pointerEvents: isExpanded ? 'auto' : 'none',
+            }}
+          >
             {content.contact.links.map((link) => (
               <SocialLink key={link.label} label={link.label} url={link.url} />
             ))}
           </div>
-          {/* Right col: grey form card (light theme), rounded-12 all 4 corners */}
+        </div>
+
+        {/* Right col: grey card containing form (top, collapsible) + CTA group (bottom, always visible) */}
+        <div
+          className="col-span-12 md:col-span-6 bg-bg-surface-tertiary rounded-[12px] p-5 md:p-8 flex flex-col gap-5"
+          data-theme="light"
+        >
+          {/* Form wrapper — max-height animates upward from the button */}
           <div
-            className="col-span-12 md:col-span-6 bg-bg-surface-tertiary rounded-[12px] p-5 md:p-8"
-            data-theme="light"
+            id={EXPAND_CONTENT_ID}
+            ref={contentRef}
+            style={{
+              maxHeight: isExpanded ? contentRef.current?.scrollHeight ?? 2000 : 0,
+              opacity: isExpanded ? 1 : 0,
+              overflow: 'hidden',
+              transition: `max-height ${transitionDuration}, opacity ${transitionDuration}`,
+            }}
           >
             <ContactForm />
+          </div>
+
+          {/* Grouped Contact pill + square icon — pinned at bottom of card, right-aligned */}
+          <div
+            className="flex items-center gap-0.5 self-end"
+            onMouseEnter={() => setGroupHovered(true)}
+            onMouseLeave={() => setGroupHovered(false)}
+          >
+            {/* Pill */}
+            <button
+              type="button"
+              onClick={toggleExpanded}
+              aria-expanded={isExpanded}
+              aria-controls={EXPAND_CONTENT_ID}
+              className="relative inline-flex items-center justify-center h-12 rounded-full bg-bg-fill-primary text-text-on-primary px-8 overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
+            >
+              {/* Default — Fabio XM */}
+              <span
+                className="block text-base font-medium"
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
+                  opacity: groupHovered ? 0 : 1,
+                  transition: groupHovered
+                    ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
+                    : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                }}
+              >
+                {isExpanded ? 'Close' : 'Contact'}
+              </span>
+              {/* Hover — Pexel Grotesk */}
+              <span
+                className="absolute inset-0 flex items-center justify-center font-normal"
+                style={{
+                  fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                  fontSize: '1.5rem',
+                  transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
+                  opacity: groupHovered ? 1 : 0,
+                  transition: groupHovered
+                    ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
+                    : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                }}
+              >
+                {isExpanded ? 'Close' : 'Contact'}
+              </span>
+            </button>
+
+            {/* Square icon — also toggles expand */}
+            <button
+              type="button"
+              onClick={toggleExpanded}
+              aria-label={isExpanded ? 'Close contact form' : 'Open contact form'}
+              aria-expanded={isExpanded}
+              aria-controls={EXPAND_CONTENT_ID}
+              className="relative flex items-center justify-center size-12 rounded-[12px] bg-bg-fill-primary text-text-on-primary overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
+            >
+              {/* Default — Fabio XM */}
+              <span
+                className="block text-lg"
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
+                  opacity: groupHovered ? 0 : 1,
+                  transition: groupHovered
+                    ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.1s'
+                    : 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)',
+                }}
+              >
+                {isExpanded ? '×' : '+'}
+              </span>
+              {/* Hover — Pexel Grotesk */}
+              <span
+                className="absolute inset-0 flex items-center justify-center"
+                style={{
+                  fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                  fontSize: '1.5rem',
+                  transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
+                  opacity: groupHovered ? 1 : 0,
+                  transition: groupHovered
+                    ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.1s'
+                    : 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)',
+                }}
+              >
+                {isExpanded ? '×' : '+'}
+              </span>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Bottom row — full width on dark bg, tags + copyright left, grouped CTA right */}
-      <div className="flex items-center justify-between pt-2">
+      {/* Bottom row — tags + copyright only */}
+      <div className="flex items-center pt-2">
         <div className="flex items-center gap-3">
           {TECH_TAGS.map((tag) => (
             <span
@@ -237,92 +335,6 @@ export function FooterSection() {
           <span className="text-xs text-text-tertiary font-mono">
             &copy; 2026 Caio Ogata
           </span>
-        </div>
-
-        {/* Grouped Contact pill + square icon — matches IntroSection pattern */}
-        <div
-          className="flex items-center gap-0.5"
-          onMouseEnter={() => setGroupHovered(true)}
-          onMouseLeave={() => setGroupHovered(false)}
-        >
-          {/* Pill */}
-          <button
-            type="button"
-            onClick={toggleExpanded}
-            aria-expanded={isExpanded}
-            aria-controls={EXPAND_CONTENT_ID}
-            className="relative inline-flex items-center justify-center h-12 rounded-full bg-bg-fill-primary text-text-on-primary px-8 overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
-          >
-            {/* Default — Fabio XM */}
-            <span
-              className="block text-base font-medium"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
-                opacity: groupHovered ? 0 : 1,
-                transition: groupHovered
-                  ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
-                  : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
-              }}
-            >
-              {isExpanded ? 'Close' : 'Contact'}
-            </span>
-            {/* Hover — Pexel Grotesk */}
-            <span
-              className="absolute inset-0 flex items-center justify-center font-normal"
-              style={{
-                fontFamily: "'Pexel Grotesk', var(--font-sans)",
-                fontSize: '1.5rem',
-                transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
-                opacity: groupHovered ? 1 : 0,
-                transition: groupHovered
-                  ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
-                  : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
-              }}
-            >
-              {isExpanded ? 'Close' : 'Contact'}
-            </span>
-          </button>
-
-          {/* Square icon — also toggles expand */}
-          <button
-            type="button"
-            onClick={toggleExpanded}
-            aria-label={isExpanded ? 'Close contact form' : 'Open contact form'}
-            aria-expanded={isExpanded}
-            aria-controls={EXPAND_CONTENT_ID}
-            className="relative flex items-center justify-center size-12 rounded-[12px] bg-bg-fill-primary text-text-on-primary overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
-          >
-            {/* Default — Fabio XM */}
-            <span
-              className="block text-lg"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
-                opacity: groupHovered ? 0 : 1,
-                transition: groupHovered
-                  ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.1s'
-                  : 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)',
-              }}
-            >
-              {isExpanded ? '×' : '+'}
-            </span>
-            {/* Hover — Pexel Grotesk */}
-            <span
-              className="absolute inset-0 flex items-center justify-center"
-              style={{
-                fontFamily: "'Pexel Grotesk', var(--font-sans)",
-                fontSize: '1.5rem',
-                transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
-                opacity: groupHovered ? 1 : 0,
-                transition: groupHovered
-                  ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.1s'
-                  : 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)',
-              }}
-            >
-              {isExpanded ? '×' : '+'}
-            </span>
-          </button>
         </div>
       </div>
     </footer>
