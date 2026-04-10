@@ -144,7 +144,7 @@ function SocialLink({ label, url }: { label: string; url: string }) {
 
 export function FooterSection() {
   const [isExpanded, setIsExpanded] = useState(false)
-  const [contactHovered, setContactHovered] = useState(false)
+  const [groupHovered, setGroupHovered] = useState(false)
   const contentRef = useRef<HTMLDivElement>(null)
   const footerRef = useRef<HTMLElement>(null)
   const hasAutoExpanded = useRef(false)
@@ -197,86 +197,132 @@ export function FooterSection() {
       data-section-id="footer"
       className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-16 py-8"
     >
-      <div className="bg-bg-surface-tertiary rounded-[12px]" data-theme="light">
-        {/* Expandable contact section */}
-        <div
-          id={EXPAND_CONTENT_ID}
-          style={{
-            maxHeight: isExpanded ? contentRef.current?.scrollHeight ?? 2000 : 0,
-            transition: `max-height ${transitionDuration}`,
-            overflow: 'hidden',
-          }}
-        >
+      {/* Expandable 6-6 grid: social links (left, dark) + grey form card (right) */}
+      <div
+        id={EXPAND_CONTENT_ID}
+        style={{
+          maxHeight: isExpanded ? contentRef.current?.scrollHeight ?? 2000 : 0,
+          transition: `max-height ${transitionDuration}`,
+          overflow: 'hidden',
+        }}
+      >
+        <div ref={contentRef} className="grid grid-cols-12 gap-4 md:gap-5 pb-8">
+          {/* Left col: social links on dark bg */}
+          <div className="col-span-12 md:col-span-6 flex flex-col gap-1">
+            {content.contact.links.map((link) => (
+              <SocialLink key={link.label} label={link.label} url={link.url} />
+            ))}
+          </div>
+          {/* Right col: grey form card (light theme), rounded-12 all 4 corners */}
           <div
-            ref={contentRef}
-            className="p-5 md:p-8 grid grid-cols-4 gap-4 md:grid-cols-8 md:gap-5 lg:grid-cols-12"
+            className="col-span-12 md:col-span-6 bg-bg-surface-tertiary rounded-[12px] p-5 md:p-8"
+            data-theme="light"
           >
-            {/* Social links (3 cols) */}
-            <div className="col-span-4 md:col-span-2 lg:col-span-3 flex flex-col gap-1">
-              {content.contact.links.map((link) => (
-                <SocialLink key={link.label} label={link.label} url={link.url} />
-              ))}
-            </div>
-
-            {/* Contact form + FormLog (9 cols = 6 form + 3 log) */}
             <ContactForm />
           </div>
         </div>
+      </div>
 
-        {/* Bottom row: tags + copyright left, contact button right */}
-        <div className="px-5 md:px-8 py-5 md:py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              {TECH_TAGS.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5 rounded-[12px]"
-                >
-                  {tag}
-                </span>
-              ))}
-              <span className="text-xs text-text-tertiary font-mono">
-                &copy; 2026 Caio Ogata
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={toggleExpanded}
-              aria-expanded={isExpanded}
-              aria-controls={EXPAND_CONTENT_ID}
-              className="relative inline-flex items-center justify-center h-12 rounded-full bg-bg-fill-primary text-text-on-primary px-8 overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
-              onMouseEnter={() => setContactHovered(true)}
-              onMouseLeave={() => setContactHovered(false)}
+      {/* Bottom row — full width on dark bg, tags + copyright left, grouped CTA right */}
+      <div className="flex items-center justify-between pt-2">
+        <div className="flex items-center gap-3">
+          {TECH_TAGS.map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5 rounded-[12px]"
             >
-              <span
-                className="block text-sm font-medium"
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  transform: contactHovered ? 'translateY(-100%)' : 'translateY(0)',
-                  opacity: contactHovered ? 0 : 1,
-                  transition: contactHovered
-                    ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
-                    : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
-                }}
-              >
-                {isExpanded ? 'Close' : 'Contact'}
-              </span>
-              <span
-                className="absolute inset-0 flex items-center justify-center font-normal"
-                style={{
-                  fontFamily: "'Pexel Grotesk', var(--font-sans)",
-                  fontSize: '1.5rem',
-                  transform: contactHovered ? 'translateY(0)' : 'translateY(100%)',
-                  opacity: contactHovered ? 1 : 0,
-                  transition: contactHovered
-                    ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
-                    : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
-                }}
-              >
-                {isExpanded ? 'Close' : 'Contact'}
-              </span>
-            </button>
-          </div>
+              {tag}
+            </span>
+          ))}
+          <span className="text-xs text-text-tertiary font-mono">
+            &copy; 2026 Caio Ogata
+          </span>
+        </div>
+
+        {/* Grouped Contact pill + square icon — matches IntroSection pattern */}
+        <div
+          className="flex items-center gap-0.5"
+          onMouseEnter={() => setGroupHovered(true)}
+          onMouseLeave={() => setGroupHovered(false)}
+        >
+          {/* Pill */}
+          <button
+            type="button"
+            onClick={toggleExpanded}
+            aria-expanded={isExpanded}
+            aria-controls={EXPAND_CONTENT_ID}
+            className="relative inline-flex items-center justify-center h-12 rounded-full bg-bg-fill-primary text-text-on-primary px-8 overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
+          >
+            {/* Default — Fabio XM */}
+            <span
+              className="block text-base font-medium"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
+                opacity: groupHovered ? 0 : 1,
+                transition: groupHovered
+                  ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
+                  : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
+              }}
+            >
+              {isExpanded ? 'Close' : 'Contact'}
+            </span>
+            {/* Hover — Pexel Grotesk */}
+            <span
+              className="absolute inset-0 flex items-center justify-center font-normal"
+              style={{
+                fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                fontSize: '1.5rem',
+                transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
+                opacity: groupHovered ? 1 : 0,
+                transition: groupHovered
+                  ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
+                  : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
+              }}
+            >
+              {isExpanded ? 'Close' : 'Contact'}
+            </span>
+          </button>
+
+          {/* Square icon — also toggles expand */}
+          <button
+            type="button"
+            onClick={toggleExpanded}
+            aria-label={isExpanded ? 'Close contact form' : 'Open contact form'}
+            aria-expanded={isExpanded}
+            aria-controls={EXPAND_CONTENT_ID}
+            className="relative flex items-center justify-center size-12 rounded-[12px] bg-bg-fill-primary text-text-on-primary overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
+          >
+            {/* Default — Fabio XM */}
+            <span
+              className="block text-lg"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
+                opacity: groupHovered ? 0 : 1,
+                transition: groupHovered
+                  ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.1s'
+                  : 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)',
+              }}
+            >
+              {isExpanded ? '×' : '+'}
+            </span>
+            {/* Hover — Pexel Grotesk */}
+            <span
+              className="absolute inset-0 flex items-center justify-center"
+              style={{
+                fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                fontSize: '1.5rem',
+                transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
+                opacity: groupHovered ? 1 : 0,
+                transition: groupHovered
+                  ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.1s'
+                  : 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)',
+              }}
+            >
+              {isExpanded ? '×' : '+'}
+            </span>
+          </button>
         </div>
       </div>
     </footer>
