@@ -97,6 +97,7 @@ None yet.
 |---|-------------|------|--------|-----------|
 | 260410-llm | Refine FooterSection layout: 6-6 grid with grey card only on form, contact button as pill+icon pair | 2026-04-10 | eabb8c2 | [260410-llm-refine-footersection-layout-6-6-grid-wit](./quick/260410-llm-refine-footersection-layout-6-6-grid-wit/) |
 | 260410-mcf | Footer second pass: relocate CTA into grey card, form expands upward, social links bottom-aligned | 2026-04-10 | 0e578b9 | [260410-mcf-footer-second-pass-social-bottom-aligned](./quick/260410-mcf-footer-second-pass-social-bottom-aligned/) |
+| 260410-mqc | Footer collapsed height fix: remove phantom gap-5 between form and CTA | 2026-04-10 | (pending) | [260410-mqc-footer-collapsed-height-fix-remove-phant](./quick/260410-mqc-footer-collapsed-height-fix-remove-phant/) |
 
 ## Session Continuity
 

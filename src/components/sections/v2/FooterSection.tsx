@@ -216,18 +216,19 @@ export function FooterSection() {
 
         {/* Right col: grey card containing form (top, collapsible) + CTA group (bottom, always visible) */}
         <div
-          className="col-span-12 md:col-span-6 bg-bg-surface-tertiary rounded-[12px] p-5 md:p-8 flex flex-col gap-5"
+          className="col-span-12 md:col-span-6 bg-bg-surface-tertiary rounded-[12px] p-5 md:p-8 flex flex-col"
           data-theme="light"
         >
-          {/* Form wrapper — max-height animates upward from the button */}
+          {/* Form wrapper — max-height animates upward from the button; margin-bottom animates so collapsed state has no phantom gap */}
           <div
             id={EXPAND_CONTENT_ID}
             ref={contentRef}
             style={{
               maxHeight: isExpanded ? contentRef.current?.scrollHeight ?? 2000 : 0,
+              marginBottom: isExpanded ? 20 : 0,
               opacity: isExpanded ? 1 : 0,
               overflow: 'hidden',
-              transition: `max-height ${transitionDuration}, opacity ${transitionDuration}`,
+              transition: `max-height ${transitionDuration}, margin-bottom ${transitionDuration}, opacity ${transitionDuration}`,
             }}
           >
             <ContactForm />
