@@ -4,8 +4,8 @@ milestone: v1.0
 milestone_name: milestone
 status: verifying
 stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-04-06T15:10:17.761Z"
-last_activity: 2026-04-06
+last_updated: "2026-04-10T19:08:08Z"
+last_activity: 2026-04-10
 progress:
   total_phases: 4
   completed_phases: 3
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 Phase: 4
 Plan: Not started
 Status: Phase complete — ready for verification
-Last activity: 2026-04-10 - Completed quick task 260410-llm: Refine FooterSection layout
+Last activity: 2026-04-10 - Completed quick task 260410-mcf: Footer second pass — relocate CTA into grey card
 
 Progress: [██████████] 100%
 
@@ -96,6 +96,7 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260410-llm | Refine FooterSection layout: 6-6 grid with grey card only on form, contact button as pill+icon pair | 2026-04-10 | eabb8c2 | [260410-llm-refine-footersection-layout-6-6-grid-wit](./quick/260410-llm-refine-footersection-layout-6-6-grid-wit/) |
+| 260410-mcf | Footer second pass: relocate CTA into grey card, form expands upward, social links bottom-aligned | 2026-04-10 | 0e578b9 | [260410-mcf-footer-second-pass-social-bottom-aligned](./quick/260410-mcf-footer-second-pass-social-bottom-aligned/) |
 
 ## Session Continuity
 
