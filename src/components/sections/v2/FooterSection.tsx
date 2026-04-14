@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { ContactForm } from '@/components/sections/v2/ContactForm'
 import content from '@/content/en.json'
@@ -42,6 +42,7 @@ const SOCIAL_ICONS: Record<string, React.ReactNode> = {
 }
 
 const EASE = 'cubic-bezier(0.16,1,0.3,1)'
+const EASE_OUT = 'cubic-bezier(0.22,0.31,0,1)'
 
 function SecondaryFill({ active, radius = '12px', delay = 0 }: { active: boolean; radius?: string; delay?: number }) {
   return (
@@ -73,7 +74,6 @@ function SocialLink({ label, url }: { label: string; url: string }) {
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
     >
-      {/* Text button */}
       <div
         className="relative flex-1 inline-flex items-center justify-center h-12 border border-border-primary rounded-[12px] overflow-hidden"
         style={{ color: h ? 'var(--color-text-on-outline-hover)' : 'var(--color-text-secondary)', transition: 'color 0.15s' }}
@@ -107,7 +107,6 @@ function SocialLink({ label, url }: { label: string; url: string }) {
           {label}
         </span>
       </div>
-      {/* Icon button */}
       <div
         className="relative flex items-center justify-center size-12 shrink-0 border border-border-primary rounded-[12px] overflow-hidden"
         style={{ color: h ? 'var(--color-text-on-outline-hover)' : 'var(--color-text-secondary)', transition: 'color 0.15s' }}
@@ -143,9 +142,10 @@ function SocialLink({ label, url }: { label: string; url: string }) {
 }
 
 export function FooterSection() {
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)      // mounted in DOM
+  const [isExpanded, setIsExpanded] = useState(false) // triggers scale transition
+  const [showContent, setShowContent] = useState(false)
   const [groupHovered, setGroupHovered] = useState(false)
-  const contentRef = useRef<HTMLDivElement>(null)
   const footerRef = useRef<HTMLElement>(null)
   const hasAutoExpanded = useRef(false)
   const prefersReducedMotion = useRef(false)
@@ -157,42 +157,76 @@ export function FooterSection() {
     ).matches
   }, [])
 
-  useEffect(() => {
-    const handler = () => {
-      setIsExpanded(true)
-      footerRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }
-    window.addEventListener('open-contact', handler)
-    return () => window.removeEventListener('open-contact', handler)
+  const reduced = prefersReducedMotion.current
+
+  const openDrawer = useCallback(() => {
+    setIsOpen(true)
+    // Next frame: trigger scale transition (needs initial collapsed frame first)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setIsExpanded(true)
+      })
+    })
+    // Stage 2: fade in content after card finishes expanding
+    const delay = prefersReducedMotion.current ? 10 : 500
+    setTimeout(() => setShowContent(true), delay)
   }, [])
 
+  const closeDrawer = useCallback(() => {
+    setShowContent(false)
+    // After content fades, collapse card
+    const fadeDelay = prefersReducedMotion.current ? 10 : 150
+    setTimeout(() => setIsExpanded(false), fadeDelay)
+    // After card collapses, unmount
+    const totalDelay = prefersReducedMotion.current ? 20 : 600
+    setTimeout(() => setIsOpen(false), totalDelay)
+  }, [])
+
+  const toggleDrawer = useCallback(() => {
+    if (isOpen) closeDrawer()
+    else openDrawer()
+  }, [isOpen, openDrawer, closeDrawer])
+
+  // open-contact event
+  useEffect(() => {
+    const handler = () => openDrawer()
+    window.addEventListener('open-contact', handler)
+    return () => window.removeEventListener('open-contact', handler)
+  }, [openDrawer])
+
+  // auto-expand on scroll to bottom
   useEffect(() => {
     const handleScroll = () => {
       if (hasAutoExpanded.current) return
       const atBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50
       if (atBottom) {
         hasAutoExpanded.current = true
-        setTimeout(() => setIsExpanded(true), 300)
+        setTimeout(() => openDrawer(), 300)
       }
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [openDrawer])
 
-  const toggleExpanded = () => {
-    setIsExpanded((prev) => {
-      const opening = !prev
-      if (opening) {
-        // Wait for max-height transition to start, then scroll footer bottom into view
-        requestAnimationFrame(() => {
-          footerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
-        })
-      }
-      return opening
-    })
-  }
+  // Escape key
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeDrawer()
+    }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [isOpen, closeDrawer])
 
-  const transitionDuration = prefersReducedMotion.current ? '0.01s' : '0.6s var(--ease-out)'
+  // Body scroll lock
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [isOpen])
 
   const ctaGroup = (
     <div
@@ -202,8 +236,8 @@ export function FooterSection() {
     >
       <button
         type="button"
-        onClick={toggleExpanded}
-        aria-expanded={isExpanded}
+        onClick={toggleDrawer}
+        aria-expanded={isOpen}
         aria-controls={EXPAND_CONTENT_ID}
         className="relative inline-flex items-center justify-center h-12 rounded-full bg-bg-fill-primary text-text-on-primary px-8 overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
       >
@@ -214,11 +248,11 @@ export function FooterSection() {
             transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
             opacity: groupHovered ? 0 : 1,
             transition: groupHovered
-              ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
-              : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
+              ? `transform 1s ${EASE}, opacity 0.3s ${EASE}`
+              : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
           }}
         >
-          {isExpanded ? 'Close' : 'Contact'}
+          {isOpen ? 'Close' : 'Contact'}
         </span>
         <span
           className="absolute inset-0 flex items-center justify-center font-normal"
@@ -228,18 +262,18 @@ export function FooterSection() {
             transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
             opacity: groupHovered ? 1 : 0,
             transition: groupHovered
-              ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
-              : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
+              ? `transform 1s ${EASE}, opacity 0.3s ${EASE}`
+              : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
           }}
         >
-          {isExpanded ? 'Close' : 'Contact'}
+          {isOpen ? 'Close' : 'Contact'}
         </span>
       </button>
       <button
         type="button"
-        onClick={toggleExpanded}
-        aria-label={isExpanded ? 'Close contact form' : 'Open contact form'}
-        aria-expanded={isExpanded}
+        onClick={toggleDrawer}
+        aria-label={isOpen ? 'Close contact form' : 'Open contact form'}
+        aria-expanded={isOpen}
         aria-controls={EXPAND_CONTENT_ID}
         className="relative flex items-center justify-center size-12 rounded-[12px] bg-bg-fill-primary text-text-on-primary overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
       >
@@ -250,11 +284,11 @@ export function FooterSection() {
             transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
             opacity: groupHovered ? 0 : 1,
             transition: groupHovered
-              ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.1s'
-              : 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)',
+              ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s`
+              : `transform 1s ${EASE}, opacity 0.3s ${EASE}`,
           }}
         >
-          {isExpanded ? '×' : '+'}
+          {isOpen ? '×' : '+'}
         </span>
         <span
           className="absolute inset-0 flex items-center justify-center"
@@ -264,91 +298,127 @@ export function FooterSection() {
             transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
             opacity: groupHovered ? 1 : 0,
             transition: groupHovered
-              ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.1s'
-              : 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)',
+              ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s`
+              : `transform 1s ${EASE}, opacity 0.3s ${EASE}`,
           }}
         >
-          {isExpanded ? '×' : '+'}
+          {isOpen ? '×' : '+'}
         </span>
       </button>
     </div>
   )
 
   return (
-    <footer
-      ref={(node) => {
-        footerRef.current = node
-        if (sectionRef && 'current' in sectionRef) {
-          (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node
-        }
-      }}
-      aria-label="Footer"
-      data-section-id="footer"
-      className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-16 py-8"
-    >
-      {/* Footer line: left info ↔ right grey card */}
-      <div className="flex items-end justify-between gap-4">
-        {/* Left container: social links (expand) + tags/copyright */}
-        <div className="flex flex-col justify-end gap-4 min-w-0">
-          {/* Social links — fade in when expanded */}
-          <div
-            style={{
-              maxHeight: isExpanded ? 400 : 0,
-              opacity: isExpanded ? 1 : 0,
-              overflow: 'hidden',
-              pointerEvents: isExpanded ? 'auto' : 'none',
-              transition: `max-height ${transitionDuration}, opacity ${transitionDuration}`,
-            }}
-          >
-            <div className="flex flex-col gap-1 pb-2">
-              {content.contact.links.map((link) => (
-                <SocialLink key={link.label} label={link.label} url={link.url} />
-              ))}
-            </div>
-          </div>
-
-          {/* Tags + copyright */}
-          <div className="flex items-center gap-3 flex-wrap">
-          {TECH_TAGS.map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5 rounded-[12px]"
-            >
-              {tag}
+    <>
+      {/* Footer — always visible */}
+      <footer
+        ref={(node) => {
+          footerRef.current = node
+          if (sectionRef && 'current' in sectionRef) {
+            (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node
+          }
+        }}
+        aria-label="Footer"
+        data-section-id="footer"
+        className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-16 pt-[400px] pb-8"
+      >
+        <div className="flex items-center gap-4">
+          {/* Left half: tags + copyright */}
+          <div className="w-1/2 flex items-center gap-3 flex-wrap">
+            {TECH_TAGS.map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5 rounded-[12px]"
+              >
+                {tag}
+              </span>
+            ))}
+            <span className="text-xs text-text-tertiary font-mono">
+              &copy; 2026 Caio Ogata
             </span>
-          ))}
-          <span className="text-xs text-text-tertiary font-mono">
-            &copy; 2026 Caio Ogata
-          </span>
+          </div>
+
+          {/* Right half: CTA — always in place, z-[60] stays above overlay */}
+          <div className="w-1/2 relative z-[60]">
+            {ctaGroup}
           </div>
         </div>
+      </footer>
 
-        {/* Grey card — collapses to just the CTA button, expands upward with form */}
+      {/* Overlay — fixed, anchored to bottom, card scales up from button position */}
+      {isOpen && (
         <div
-          className="bg-bg-surface-tertiary rounded-[12px] p-1.5 flex flex-col shrink-0 w-full md:w-1/2"
-          data-theme="light"
+          className="fixed inset-0 z-50 flex flex-col justify-end"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Contact"
+          id={EXPAND_CONTENT_ID}
         >
-          {/* Form wrapper — grows upward from button */}
+          {/* Backdrop */}
           <div
-            id={EXPAND_CONTENT_ID}
-            ref={contentRef}
+            className="absolute inset-0 bg-black/60"
             style={{
-              maxHeight: isExpanded ? contentRef.current?.scrollHeight ?? 2000 : 0,
-              marginBottom: isExpanded ? 6 : 0,
               opacity: isExpanded ? 1 : 0,
-              overflow: 'hidden',
-              transition: `max-height ${transitionDuration}, margin-bottom ${transitionDuration}, opacity ${transitionDuration}`,
+              transition: reduced ? 'none' : `opacity 0.5s ${EASE_OUT}`,
             }}
-          >
-            <div className="p-4 md:p-6">
-              <ContactForm actionSlot={isExpanded ? ctaGroup : undefined} />
+            onClick={closeDrawer}
+          />
+
+          {/* Panel — same px as footer, pinned to bottom */}
+          <div className="relative z-10 px-5 md:px-8 lg:px-16 pb-8 pt-8">
+            <div className="flex items-end gap-4 md:gap-5">
+              {/* Left: social links — fade in after card */}
+              <div
+                className="hidden md:flex flex-col gap-1 w-1/4 pb-16"
+                style={{
+                  opacity: showContent ? 1 : 0,
+                  transition: reduced ? 'none' : `opacity 0.3s ${EASE} 0.15s`,
+                  pointerEvents: showContent ? 'auto' : 'none',
+                }}
+              >
+                {content.contact.links.map((link) => (
+                  <SocialLink key={link.label} label={link.label} url={link.url} />
+                ))}
+              </div>
+
+              {/* Right: grey card — scales from bottom-left (button anchor) */}
+              <div
+                className="w-full md:w-1/2 ml-auto bg-bg-surface-tertiary rounded-[12px] overflow-hidden"
+                data-theme="light"
+                style={{
+                  transformOrigin: 'bottom left',
+                  transform: isExpanded ? 'scale(1)' : 'scale(0.3, 0.05)',
+                  opacity: isExpanded ? 1 : 0,
+                  transition: reduced
+                    ? 'none'
+                    : isExpanded
+                      ? `transform 0.6s ${EASE_OUT} 0.04s, opacity 0.2s ${EASE_OUT} 0.04s`
+                      : `transform 0.5s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
+                }}
+              >
+                {/* Content — fades in after card expand */}
+                <div
+                  className="p-4 md:p-6 flex flex-col gap-2"
+                  style={{
+                    opacity: showContent ? 1 : 0,
+                    transition: reduced ? 'none' : `opacity 0.3s ${EASE}`,
+                    pointerEvents: showContent ? 'auto' : 'none',
+                  }}
+                >
+                  <ContactForm actionSlot={ctaGroup} />
+
+                  {/* Mobile social links */}
+                  <div className="flex md:hidden flex-col gap-1 mt-2" data-theme="">
+                    {content.contact.links.map((link) => (
+                      <SocialLink key={link.label} label={link.label} url={link.url} />
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* CTA standalone when collapsed — left-aligned */}
-          {!isExpanded && ctaGroup}
         </div>
-      </div>
-    </footer>
+      )}
+    </>
   )
 }
