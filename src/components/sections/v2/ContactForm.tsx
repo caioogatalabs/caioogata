@@ -90,7 +90,11 @@ function SubjectChip({ label, selected, onClick }: { label: string; selected: bo
   )
 }
 
-export function ContactForm({ actionSlot }: { actionSlot?: React.ReactNode }) {
+export function ContactForm({ actionSlot, expanded = true, fieldsRef }: {
+  actionSlot?: React.ReactNode
+  expanded?: boolean
+  fieldsRef?: React.RefObject<HTMLDivElement | null>
+}) {
   const {
     values,
     errors,
@@ -108,8 +112,23 @@ export function ContactForm({ actionSlot }: { actionSlot?: React.ReactNode }) {
   const [clearHovered, setClearHovered] = useState(false)
   const [submitHovered, setSubmitHovered] = useState(false)
 
+  const EASE_OUT = 'cubic-bezier(0.22,0.31,0,1)'
+
   return (
     <form onSubmit={handleSubmit} noValidate className="col-span-4 md:col-span-6 lg:col-span-9 flex flex-col gap-2">
+        {/* Fields wrapper — collapsible when expanded prop is false */}
+        <div
+          ref={fieldsRef}
+          style={{
+            maxHeight: expanded ? (fieldsRef?.current?.scrollHeight ?? 2000) : 0,
+            opacity: expanded ? 1 : 0,
+            overflow: 'hidden',
+            transition: expanded
+              ? `max-height 0.6s ${EASE_OUT}, opacity 0.3s ${EASE} 0.3s`
+              : `max-height 0.5s ${EASE} 0.1s, opacity 0.15s ${EASE}`,
+          }}
+        >
+        <div className="flex flex-col gap-2">
         {/* Name + Email grouped block */}
         <div className="flex flex-col">
           <div className="flex">
@@ -210,13 +229,22 @@ export function ContactForm({ actionSlot }: { actionSlot?: React.ReactNode }) {
             />
           </div>
         </div>
+        </div>
+        </div>
 
-        {/* Buttons row */}
+        {/* Buttons row — always visible */}
         <div className="flex items-center justify-between">
           {/* Left: action slot (Contact/Close CTA when expanded) */}
           <div>{actionSlot}</div>
-          {/* Right: Clear + Submit */}
-          <div className="flex items-center">
+          {/* Right: Clear + Submit — only visible when expanded */}
+          <div
+            className="flex items-center"
+            style={{
+              opacity: expanded ? 1 : 0,
+              pointerEvents: expanded ? 'auto' : 'none',
+              transition: `opacity 0.3s ${EASE}`,
+            }}
+          >
           <button
             type="button"
             onClick={resetForm}

@@ -147,6 +147,7 @@ export function FooterSection() {
   const [showContent, setShowContent] = useState(false)
   const [groupHovered, setGroupHovered] = useState(false)
   const footerRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const hasAutoExpanded = useRef(false)
   const prefersReducedMotion = useRef(false)
   const sectionRef = useInView({ threshold: 0.1 })
@@ -218,14 +219,11 @@ export function FooterSection() {
     return () => document.removeEventListener('keydown', handleKey)
   }, [isOpen, closeDrawer])
 
-  // Body scroll lock
+  // Scroll to footer when opening
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
+    if (isOpen && footerRef.current) {
+      footerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
-    return () => { document.body.style.overflow = '' }
   }, [isOpen])
 
   // Each button has 2 labels. The active one sits at translateY(0).
@@ -386,112 +384,59 @@ export function FooterSection() {
         data-section-id="footer"
         className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-16 pt-[400px] pb-8"
       >
-        <div className="flex items-center gap-4">
-          {/* Left half: tags + copyright */}
-          <div className="w-1/2 flex items-center gap-3 flex-wrap">
-            {TECH_TAGS.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5 rounded-[12px]"
-              >
-                {tag}
-              </span>
-            ))}
-            <span className="text-xs text-text-tertiary font-mono">
-              &copy; 2026 Caio Ogata
-            </span>
-          </div>
+        <div className="flex items-end gap-4">
+          {/* Left half: social links (expand) + tags/copyright (always) */}
+          <div className="w-1/2 flex flex-col justify-end">
+            {/* Social links — expand when open, above the tags */}
+            <div
+              className="flex flex-col gap-1 w-3/4 md:w-1/2"
+              style={{
+                maxHeight: showContent ? 400 : 0,
+                opacity: showContent ? 1 : 0,
+                overflow: 'hidden',
+                marginBottom: showContent ? 16 : 0,
+                pointerEvents: showContent ? 'auto' : 'none',
+                transition: reduced ? 'none' : `max-height 0.5s ${EASE_OUT}, opacity 0.3s ${EASE} 0.15s, margin-bottom 0.3s ${EASE}`,
+              }}
+            >
+              {content.contact.links.map((link) => (
+                <SocialLink key={link.label} label={link.label} url={link.url} />
+              ))}
+            </div>
 
-          {/* Right half: CTA — always visible, z-[60] above overlay */}
-          <div className="w-1/2 relative z-[60]">
-            {ctaGroup}
-          </div>
-        </div>
-      </footer>
-
-      {/* Overlay — fixed, card expands upward from button */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-50 flex flex-col justify-end"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Contact"
-          id={EXPAND_CONTENT_ID}
-          style={{ pointerEvents: 'none' }}
-        >
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/60"
-            style={{
-              opacity: isExpanded ? 1 : 0,
-              transition: reduced ? 'none' : `opacity 0.5s ${EASE_OUT}`,
-              pointerEvents: isExpanded ? 'auto' : 'none',
-            }}
-            onClick={closeDrawer}
-          />
-
-          {/* Panel — flex-col-reverse: CTA renders at bottom (same as footer), card grows upward */}
-          <div
-            className="relative z-10 px-5 md:px-8 lg:px-16 pb-20"
-            style={{ pointerEvents: 'none' }}
-          >
-            <div className="flex items-end gap-4">
-              {/* Left: social links — fade in after card */}
-              <div
-                className="hidden md:flex flex-col justify-end gap-1 w-1/4 pb-16"
-                style={{
-                  opacity: showContent ? 1 : 0,
-                  transition: reduced ? 'none' : `opacity 0.3s ${EASE} 0.15s`,
-                  pointerEvents: showContent ? 'auto' : 'none',
-                }}
-              >
-                {content.contact.links.map((link) => (
-                  <SocialLink key={link.label} label={link.label} url={link.url} />
-                ))}
-              </div>
-
-              {/* Right: grey card expands upward, bottom margin clears the footer CTA */}
-              <div
-                className="w-full md:w-1/2 ml-auto"
-                style={{ pointerEvents: 'auto' }}
-              >
-                <div
-                  className="bg-bg-surface-tertiary rounded-[12px] overflow-hidden"
-                  data-theme="light"
-                  style={{
-                    transformOrigin: 'bottom left',
-                    transform: isExpanded ? 'scaleY(1)' : 'scaleY(0)',
-                    opacity: isExpanded ? 1 : 0,
-                    transition: reduced
-                      ? 'none'
-                      : isExpanded
-                        ? `transform 0.6s ${EASE_OUT} 0.04s, opacity 0.2s ${EASE_OUT} 0.04s`
-                        : `transform 0.5s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
-                  }}
+            {/* Tags + copyright */}
+            <div className="flex items-center gap-3 flex-wrap">
+              {TECH_TAGS.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5 rounded-[12px]"
                 >
-                  <div
-                    className="p-4 md:p-6 flex flex-col gap-2"
-                    style={{
-                      opacity: showContent ? 1 : 0,
-                      transition: reduced ? 'none' : `opacity 0.3s ${EASE}`,
-                      pointerEvents: showContent ? 'auto' : 'none',
-                    }}
-                  >
-                    <ContactForm />
+                  {tag}
+                </span>
+              ))}
+              <span className="text-xs text-text-tertiary font-mono">
+                &copy; 2026 Caio Ogata
+              </span>
+            </div>
+          </div>
 
-                    {/* Mobile social links */}
-                    <div className="flex md:hidden flex-col gap-1 mt-2" data-theme="">
-                      {content.contact.links.map((link) => (
-                        <SocialLink key={link.label} label={link.label} url={link.url} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
+          {/* Right half: grey box with CTA + expandable form */}
+          <div className="w-1/2 relative z-[60]">
+            <div className="bg-bg-surface-tertiary rounded-[12px] p-1.5 flex flex-col" data-theme="light">
+              {/* ContactForm — fields collapse internally, buttons row always visible */}
+              <div className="p-4 md:p-6" id={EXPAND_CONTENT_ID}>
+                <ContactForm
+                  actionSlot={ctaGroup}
+                  expanded={isExpanded}
+                  fieldsRef={contentRef}
+                />
               </div>
             </div>
           </div>
         </div>
-      )}
+      </footer>
+
+      {/* Backdrop — no longer needed since form is inline */}
     </>
   )
 }
