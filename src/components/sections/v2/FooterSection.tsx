@@ -228,12 +228,22 @@ export function FooterSection() {
     return () => { document.body.style.overflow = '' }
   }, [isOpen])
 
+  // Each button has 2 labels. The active one sits at translateY(0).
+  // On state change: active exits UP (-100%), new enters from BELOW (100% → 0).
+  // Hover: within the active label, default exits up, Pexel enters from below.
+  // We use a simple approach: the "outgoing" label gets -100%, the "incoming" gets 0,
+  // and the truly hidden one stays at 100%.
+
+  const t = `1s ${EASE}`
+  const tFast = `0.3s ${EASE}`
+
   const ctaGroup = (
     <div
       className="flex items-center gap-0.5"
       onMouseEnter={() => setGroupHovered(true)}
       onMouseLeave={() => setGroupHovered(false)}
     >
+      {/* Pill button */}
       <button
         type="button"
         onClick={toggleDrawer}
@@ -241,34 +251,63 @@ export function FooterSection() {
         aria-controls={EXPAND_CONTENT_ID}
         className="relative inline-flex items-center justify-center h-12 rounded-full bg-bg-fill-primary text-text-on-primary px-8 overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
       >
+        {/* Invisible spacer — locks pill width to the widest label */}
+        <span className="invisible text-base font-medium" style={{ fontFamily: 'var(--font-sans)' }} aria-hidden="true">
+          Contact
+        </span>
+        {/* "Contact" default — visible when !isOpen && !hovered */}
         <span
-          className="block text-base font-medium"
+          className="absolute inset-0 flex items-center justify-center text-base font-medium"
           style={{
             fontFamily: 'var(--font-sans)',
-            transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
-            opacity: groupHovered ? 0 : 1,
-            transition: groupHovered
-              ? `transform 1s ${EASE}, opacity 0.3s ${EASE}`
-              : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
+            transform: isOpen ? 'translateY(-100%)' : groupHovered ? 'translateY(-100%)' : 'translateY(0)',
+            opacity: isOpen ? 0 : groupHovered ? 0 : 1,
+            transition: `transform ${t}, opacity ${tFast}`,
           }}
         >
-          {isOpen ? 'Close' : 'Contact'}
+          Contact
         </span>
+        {/* "Contact" hover — visible when !isOpen && hovered */}
         <span
           className="absolute inset-0 flex items-center justify-center font-normal"
           style={{
             fontFamily: "'Pexel Grotesk', var(--font-sans)",
             fontSize: '1.5rem',
-            transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
-            opacity: groupHovered ? 1 : 0,
-            transition: groupHovered
-              ? `transform 1s ${EASE}, opacity 0.3s ${EASE}`
-              : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
+            transform: isOpen ? 'translateY(-100%)' : groupHovered ? 'translateY(0)' : 'translateY(100%)',
+            opacity: isOpen ? 0 : groupHovered ? 1 : 0,
+            transition: `transform ${t}, opacity ${tFast}`,
           }}
         >
-          {isOpen ? 'Close' : 'Contact'}
+          Contact
+        </span>
+        {/* "Close" default — visible when isOpen && !hovered */}
+        <span
+          className="absolute inset-0 flex items-center justify-center text-base font-medium"
+          style={{
+            fontFamily: 'var(--font-sans)',
+            transform: !isOpen ? 'translateY(100%)' : groupHovered ? 'translateY(-100%)' : 'translateY(0)',
+            opacity: !isOpen ? 0 : groupHovered ? 0 : 1,
+            transition: `transform ${t}, opacity ${tFast}`,
+          }}
+        >
+          Close
+        </span>
+        {/* "Close" hover — visible when isOpen && hovered */}
+        <span
+          className="absolute inset-0 flex items-center justify-center font-normal"
+          style={{
+            fontFamily: "'Pexel Grotesk', var(--font-sans)",
+            fontSize: '1.5rem',
+            transform: !isOpen ? 'translateY(100%)' : groupHovered ? 'translateY(0)' : 'translateY(100%)',
+            opacity: !isOpen ? 0 : groupHovered ? 1 : 0,
+            transition: `transform ${t}, opacity ${tFast}`,
+          }}
+        >
+          Close
         </span>
       </button>
+
+      {/* Square icon button */}
       <button
         type="button"
         onClick={toggleDrawer}
@@ -277,32 +316,57 @@ export function FooterSection() {
         aria-controls={EXPAND_CONTENT_ID}
         className="relative flex items-center justify-center size-12 rounded-[12px] bg-bg-fill-primary text-text-on-primary overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
       >
+        {/* Invisible spacer */}
+        <span className="invisible text-lg" style={{ fontFamily: 'var(--font-sans)' }} aria-hidden="true">+</span>
+        {/* "+" default */}
         <span
-          className="block text-lg"
+          className="absolute inset-0 flex items-center justify-center text-lg"
           style={{
             fontFamily: 'var(--font-sans)',
-            transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
-            opacity: groupHovered ? 0 : 1,
-            transition: groupHovered
-              ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s`
-              : `transform 1s ${EASE}, opacity 0.3s ${EASE}`,
+            transform: isOpen ? 'translateY(-100%)' : groupHovered ? 'translateY(-100%)' : 'translateY(0)',
+            opacity: isOpen ? 0 : groupHovered ? 0 : 1,
+            transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
           }}
         >
-          {isOpen ? '×' : '+'}
+          +
         </span>
+        {/* "+" hover */}
         <span
           className="absolute inset-0 flex items-center justify-center"
           style={{
             fontFamily: "'Pexel Grotesk', var(--font-sans)",
             fontSize: '1.5rem',
-            transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
-            opacity: groupHovered ? 1 : 0,
-            transition: groupHovered
-              ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s`
-              : `transform 1s ${EASE}, opacity 0.3s ${EASE}`,
+            transform: isOpen ? 'translateY(-100%)' : groupHovered ? 'translateY(0)' : 'translateY(100%)',
+            opacity: isOpen ? 0 : groupHovered ? 1 : 0,
+            transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
           }}
         >
-          {isOpen ? '×' : '+'}
+          +
+        </span>
+        {/* "×" default */}
+        <span
+          className="absolute inset-0 flex items-center justify-center text-lg"
+          style={{
+            fontFamily: 'var(--font-sans)',
+            transform: !isOpen ? 'translateY(100%)' : groupHovered ? 'translateY(-100%)' : 'translateY(0)',
+            opacity: !isOpen ? 0 : groupHovered ? 0 : 1,
+            transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
+          }}
+        >
+          ×
+        </span>
+        {/* "×" hover */}
+        <span
+          className="absolute inset-0 flex items-center justify-center"
+          style={{
+            fontFamily: "'Pexel Grotesk', var(--font-sans)",
+            fontSize: '1.5rem',
+            transform: !isOpen ? 'translateY(100%)' : groupHovered ? 'translateY(0)' : 'translateY(100%)',
+            opacity: !isOpen ? 0 : groupHovered ? 1 : 0,
+            transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
+          }}
+        >
+          ×
         </span>
       </button>
     </div>
@@ -338,14 +402,14 @@ export function FooterSection() {
             </span>
           </div>
 
-          {/* Right half: CTA — always in place, z-[60] stays above overlay */}
+          {/* Right half: CTA — always visible, z-[60] above overlay */}
           <div className="w-1/2 relative z-[60]">
             {ctaGroup}
           </div>
         </div>
       </footer>
 
-      {/* Overlay — fixed, anchored to bottom, card scales up from button position */}
+      {/* Overlay — fixed, card expands upward from button */}
       {isOpen && (
         <div
           className="fixed inset-0 z-50 flex flex-col justify-end"
@@ -353,6 +417,7 @@ export function FooterSection() {
           aria-modal="true"
           aria-label="Contact"
           id={EXPAND_CONTENT_ID}
+          style={{ pointerEvents: 'none' }}
         >
           {/* Backdrop */}
           <div
@@ -360,16 +425,20 @@ export function FooterSection() {
             style={{
               opacity: isExpanded ? 1 : 0,
               transition: reduced ? 'none' : `opacity 0.5s ${EASE_OUT}`,
+              pointerEvents: isExpanded ? 'auto' : 'none',
             }}
             onClick={closeDrawer}
           />
 
-          {/* Panel — same px as footer, pinned to bottom */}
-          <div className="relative z-10 px-5 md:px-8 lg:px-16 pb-8 pt-8">
-            <div className="flex items-end gap-4 md:gap-5">
+          {/* Panel — flex-col-reverse: CTA renders at bottom (same as footer), card grows upward */}
+          <div
+            className="relative z-10 px-5 md:px-8 lg:px-16 pb-20"
+            style={{ pointerEvents: 'none' }}
+          >
+            <div className="flex items-end gap-4">
               {/* Left: social links — fade in after card */}
               <div
-                className="hidden md:flex flex-col gap-1 w-1/4 pb-16"
+                className="hidden md:flex flex-col justify-end gap-1 w-1/4 pb-16"
                 style={{
                   opacity: showContent ? 1 : 0,
                   transition: reduced ? 'none' : `opacity 0.3s ${EASE} 0.15s`,
@@ -381,37 +450,41 @@ export function FooterSection() {
                 ))}
               </div>
 
-              {/* Right: grey card — scales from bottom-left (button anchor) */}
+              {/* Right: grey card expands upward, bottom margin clears the footer CTA */}
               <div
-                className="w-full md:w-1/2 ml-auto bg-bg-surface-tertiary rounded-[12px] overflow-hidden"
-                data-theme="light"
-                style={{
-                  transformOrigin: 'bottom left',
-                  transform: isExpanded ? 'scale(1)' : 'scale(0.3, 0.05)',
-                  opacity: isExpanded ? 1 : 0,
-                  transition: reduced
-                    ? 'none'
-                    : isExpanded
-                      ? `transform 0.6s ${EASE_OUT} 0.04s, opacity 0.2s ${EASE_OUT} 0.04s`
-                      : `transform 0.5s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
-                }}
+                className="w-full md:w-1/2 ml-auto"
+                style={{ pointerEvents: 'auto' }}
               >
-                {/* Content — fades in after card expand */}
                 <div
-                  className="p-4 md:p-6 flex flex-col gap-2"
+                  className="bg-bg-surface-tertiary rounded-[12px] overflow-hidden"
+                  data-theme="light"
                   style={{
-                    opacity: showContent ? 1 : 0,
-                    transition: reduced ? 'none' : `opacity 0.3s ${EASE}`,
-                    pointerEvents: showContent ? 'auto' : 'none',
+                    transformOrigin: 'bottom left',
+                    transform: isExpanded ? 'scaleY(1)' : 'scaleY(0)',
+                    opacity: isExpanded ? 1 : 0,
+                    transition: reduced
+                      ? 'none'
+                      : isExpanded
+                        ? `transform 0.6s ${EASE_OUT} 0.04s, opacity 0.2s ${EASE_OUT} 0.04s`
+                        : `transform 0.5s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
                   }}
                 >
-                  <ContactForm actionSlot={ctaGroup} />
+                  <div
+                    className="p-4 md:p-6 flex flex-col gap-2"
+                    style={{
+                      opacity: showContent ? 1 : 0,
+                      transition: reduced ? 'none' : `opacity 0.3s ${EASE}`,
+                      pointerEvents: showContent ? 'auto' : 'none',
+                    }}
+                  >
+                    <ContactForm />
 
-                  {/* Mobile social links */}
-                  <div className="flex md:hidden flex-col gap-1 mt-2" data-theme="">
-                    {content.contact.links.map((link) => (
-                      <SocialLink key={link.label} label={link.label} url={link.url} />
-                    ))}
+                    {/* Mobile social links */}
+                    <div className="flex md:hidden flex-col gap-1 mt-2" data-theme="">
+                      {content.contact.links.map((link) => (
+                        <SocialLink key={link.label} label={link.label} url={link.url} />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
