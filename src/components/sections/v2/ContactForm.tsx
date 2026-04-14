@@ -10,7 +10,87 @@ const log = content.contact.log
 const subjectOptions = Object.entries(form.subjectOptions) as [string, string][]
 const EASE = 'cubic-bezier(0.16,1,0.3,1)'
 
-export function ContactForm() {
+function SubjectChip({ label, selected, onClick }: { label: string; selected: boolean; onClick: () => void }) {
+  const [h, setH] = useState(false)
+  const active = selected || h
+
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={selected}
+      onClick={onClick}
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      onFocus={() => setH(true)}
+      onBlur={() => setH(false)}
+      className={`relative h-10 px-5 rounded-full border text-sm overflow-hidden inline-flex items-center gap-2 ${
+        selected
+          ? 'border-bg-fill-primary bg-bg-fill-primary text-text-on-primary'
+          : 'border-border-primary'
+      }`}
+      style={{
+        color: selected
+          ? undefined
+          : h ? 'var(--color-text-on-outline-hover)' : 'var(--color-text-secondary)',
+        transition: 'color 0.15s',
+      }}
+    >
+      {/* Secondary fill — only when not selected */}
+      {!selected && (
+        <div
+          className="absolute inset-0 bg-bg-fill-outline-hover pointer-events-none"
+          style={{
+            borderRadius: '999px',
+            transform: h ? 'translateY(0)' : 'translateY(100%)',
+            transition: h
+              ? `transform 0.2s ${EASE}`
+              : `transform 0.2s ${EASE} 0.04s`,
+          }}
+        />
+      )}
+      {/* Dot indicator */}
+      <span
+        className={`relative z-10 size-2 rounded-full shrink-0 transition-colors duration-200 ${
+          selected ? 'bg-text-on-primary' : h ? 'bg-current' : 'bg-border-primary'
+        }`}
+      />
+      {/* Default label */}
+      <span
+        className="relative z-10 block font-medium"
+        style={{
+          fontFamily: 'var(--font-sans)',
+          transform: !selected && h ? 'translateY(-100%)' : 'translateY(0)',
+          opacity: !selected && h ? 0 : 1,
+          transition: !selected && h
+            ? `transform 0.4s ${EASE} 0.05s, opacity 0.2s ${EASE} 0.05s`
+            : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
+        }}
+      >
+        {label}
+      </span>
+      {/* Hover label — font swap */}
+      {!selected && (
+        <span
+          className="absolute inset-0 z-10 flex items-center justify-center font-normal"
+          style={{
+            fontFamily: "'Pexel Grotesk', var(--font-sans)",
+            fontSize: '1rem',
+            transform: h ? 'translateY(0)' : 'translateY(100%)',
+            opacity: h ? 1 : 0,
+            transition: h
+              ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s`
+              : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
+          }}
+        >
+          {label}
+        </span>
+      )}
+    </button>
+  )
+}
+
+export function ContactForm({ actionSlot }: { actionSlot?: React.ReactNode }) {
   const {
     values,
     errors,
@@ -29,7 +109,7 @@ export function ContactForm() {
   const [submitHovered, setSubmitHovered] = useState(false)
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="col-span-4 md:col-span-6 lg:col-span-9 flex flex-col gap-4 md:gap-5">
+    <form onSubmit={handleSubmit} noValidate className="col-span-4 md:col-span-6 lg:col-span-9 flex flex-col gap-2">
         {/* Name + Email grouped block */}
         <div className="flex flex-col">
           <div className="flex">
@@ -78,25 +158,16 @@ export function ContactForm() {
         </div>
 
         {/* Subject — chip group */}
-        <fieldset className="flex flex-wrap gap-1.5 py-2" role="radiogroup" aria-label={form.subjectLabel}>
+        <fieldset className="flex flex-wrap gap-1 py-2" role="radiogroup" aria-label={form.subjectLabel}>
           {subjectOptions.map(([key, label]) => {
             const selected = values.subject === key
             return (
-              <button
+              <SubjectChip
                 key={key}
-                type="button"
-                role="radio"
-                aria-checked={selected}
+                label={label}
+                selected={selected}
                 onClick={() => handleChange('subject', selected ? '' : key)}
-                className={`relative h-10 px-5 rounded-full border text-sm font-medium overflow-hidden transition-colors duration-200 ${
-                  selected
-                    ? 'border-bg-fill-primary bg-bg-fill-primary text-text-on-primary'
-                    : 'border-border-primary text-text-secondary hover:text-text-primary'
-                }`}
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                {label}
-              </button>
+              />
             )
           })}
         </fieldset>
@@ -141,7 +212,11 @@ export function ContactForm() {
         </div>
 
         {/* Buttons row */}
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-between">
+          {/* Left: action slot (Contact/Close CTA when expanded) */}
+          <div>{actionSlot}</div>
+          {/* Right: Clear + Submit */}
+          <div className="flex items-center">
           <button
             type="button"
             onClick={resetForm}
@@ -174,6 +249,7 @@ export function ContactForm() {
               {status === 'submitting' ? form.submitting : form.submitButton}
             </span>
           </button>
+          </div>
         </div>
     </form>
   )
