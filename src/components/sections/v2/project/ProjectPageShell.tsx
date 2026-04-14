@@ -3,7 +3,8 @@
 import type { ProjectItem, ProjectSection } from '@/content/types'
 import type { Content } from '@/content/types'
 import content from '@/content/en.json'
-import { ProjectHero, ProjectHeroImage } from './ProjectHero'
+import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
+import { ProjectHero } from './ProjectHero'
 import { ProjectChallenge } from './ProjectChallenge'
 import { ProjectImpact } from './ProjectImpact'
 import { ProjectInfoBlock } from './ProjectInfoBlock'
@@ -50,6 +51,8 @@ function SectionBlock({
       return <ProjectGalleryFeatureList key={index} section={section} />
     case 'gallery-full-detail':
       return <ProjectGalleryFullDetail key={index} section={section} />
+    case 'info':
+      return <ProjectInfoBlock key={index} project={project} />
     default:
       return null
   }
@@ -61,33 +64,20 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Hero text → Navbar → Hero image → remaining sections */}
-      {sections.length > 0 && (
-        <>
-          <SectionBlock
-            section={sections[0]}
-            index={0}
-            project={project}
-            projectIndex={projectIndex}
-          />
-          <ProjectNavigation currentSlug={project.slug} position="top" />
-          <ProjectHeroImage project={project} />
-          {sections.slice(1).map((section, i) => (
-            <SectionBlock
-              key={i + 1}
-              section={section}
-              index={i + 1}
-              project={project}
-              projectIndex={projectIndex}
-            />
-          ))}
-        </>
-      )}
+      {/* Sticky logo + CTA — first child for full-page sticky */}
+      <StickyLogoBar />
 
-      {/* Unified info block: project details + credits + links */}
-      <ProjectInfoBlock project={project} />
+      {sections.map((section, i) => (
+        <SectionBlock
+          key={i}
+          section={section}
+          index={i}
+          project={project}
+          projectIndex={projectIndex}
+        />
+      ))}
 
-      {/* Bottom navigation */}
+      {/* Bottom navigation — fixed infrastructure */}
       <ProjectNavigation currentSlug={project.slug} position="bottom" />
     </div>
   )
