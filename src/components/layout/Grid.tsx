@@ -1,17 +1,15 @@
 'use client'
-import { forwardRef, type ElementType, type ReactNode, type HTMLAttributes } from 'react'
+import { forwardRef, type ReactNode, type HTMLAttributes } from 'react'
 
-interface GridProps extends HTMLAttributes<HTMLElement> {
-  as?: ElementType
-  children: ReactNode
+interface GridProps extends HTMLAttributes<HTMLDivElement> {
+  children?: ReactNode
 }
 
-interface GridItemProps extends HTMLAttributes<HTMLElement> {
-  as?: ElementType
+interface GridItemProps extends HTMLAttributes<HTMLDivElement> {
   span?: number       // desktop span (out of 12)
   tabletSpan?: number // tablet span (out of 8)
   mobileSpan?: number // mobile span (out of 4)
-  children: ReactNode
+  children?: ReactNode
 }
 
 // Static class maps — Tailwind needs literal strings at build time
@@ -28,23 +26,23 @@ const DESKTOP_SPAN: Record<number, string> = {
   9: 'lg:col-span-9', 10: 'lg:col-span-10', 11: 'lg:col-span-11', 12: 'lg:col-span-12',
 }
 
-export const Grid = forwardRef<HTMLElement, GridProps>(function Grid(
-  { as: Tag = 'div', className = '', children, ...props },
+export const Grid = forwardRef<HTMLDivElement, GridProps>(function Grid(
+  { className = '', children, ...props },
   ref
 ) {
   return (
-    <Tag
+    <div
       ref={ref}
       className={`grid grid-cols-4 gap-4 px-5 md:grid-cols-8 md:gap-5 md:px-8 lg:grid-cols-12 lg:px-16 ${className}`.trim()}
       {...props}
     >
       {children}
-    </Tag>
+    </div>
   )
 })
 
-export const GridItem = forwardRef<HTMLElement, GridItemProps>(function GridItem(
-  { as: Tag = 'div', span, tabletSpan, mobileSpan, className = '', style, children, ...props },
+export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem(
+  { span, tabletSpan, mobileSpan, className = '', style, children, ...props },
   ref
 ) {
   const classes: string[] = []
@@ -54,13 +52,13 @@ export const GridItem = forwardRef<HTMLElement, GridItemProps>(function GridItem
   if (className) classes.push(className)
 
   return (
-    <Tag
+    <div
       ref={ref}
       className={classes.filter(Boolean).join(' ') || undefined}
       style={style}
       {...props}
     >
       {children}
-    </Tag>
+    </div>
   )
 })
