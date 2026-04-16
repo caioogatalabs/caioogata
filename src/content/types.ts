@@ -94,7 +94,7 @@ export interface ProjectLink {
 
 export interface GalleryRow {
   spans: number[]
-  images: string[]
+  images: (string | ProjectImage)[]
 }
 
 export interface ProjectSectionImage {
@@ -105,10 +105,11 @@ export interface ProjectSectionImage {
 }
 
 export interface ProjectSection {
-  type: 'hero' | 'challenge' | 'impact' | 'gallery-staggered' | 'gallery-feature-list' | 'gallery-full-detail'
+  type: 'hero' | 'challenge' | 'impact' | 'gallery-staggered' | 'gallery-feature-list' | 'gallery-full-detail' | 'info'
   heading?: string
   body?: string
   challenge?: string
+  solutionHeading?: string
   solution?: string
   stats?: Array<{ value: string; label: string }>
   rows?: GalleryRow[]

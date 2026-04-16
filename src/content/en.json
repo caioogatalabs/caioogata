@@ -534,16 +534,29 @@
         "title": "Azion Website & Brand Expansion",
         "slug": "azion-website",
         "year": "2022",
-        "colors": ["#F3652B", "#1E1E1E", "#FF8A5C"],
+        "colors": [
+          "#F3652B",
+          "#8B2500",
+          "#FF8A5C"
+        ],
         "description": "A brand adaptation — not a full overhaul — that evolved Azion's digital presence while preserving the technology and structure already in production. New color tones with more saturation, new interface elements, block variants with richer layouts, and a new illustration pattern that visually represents product features and explains how they work. Led the visual and technical strategy for this expansion across the website, built on Astro and Vue with the existing webkit component library.",
         "role": "Design Director",
         "technologies": "Astro, Vue.js, Webkit Component Library, Design Tokens, Sora Typography, Monospace, Brand Adaptation, Illustration System",
         "impact": "Expanded the visual identity without breaking the existing front-end architecture. Introduced new illustration patterns that explain product features visually, richer block variants across all pages, and a more saturated color palette that strengthened brand presence. The open-source webkit component library is a shared system powering both the website and the console — with project-specific blocks and patterns, but reusable core components across products.",
         "caseStudyUrl": "/llms/projects/azion-website.txt",
         "links": [
-          { "label": "Azion Website", "url": "https://www.azion.com" },
-          { "label": "Webkit Storybook", "url": "https://webkit.azion.app/" },
-          { "label": "GitHub Repository", "url": "https://github.com/aziontech/webkit" }
+          {
+            "label": "Azion Website",
+            "url": "https://www.azion.com"
+          },
+          {
+            "label": "Webkit Storybook",
+            "url": "https://webkit.azion.app/"
+          },
+          {
+            "label": "GitHub Repository",
+            "url": "https://github.com/aziontech/webkit"
+          }
         ],
         "credits": [
           {
@@ -580,18 +593,63 @@
           {
             "type": "impact",
             "stats": [
-              { "value": "+40", "label": "Vue components ready to use" },
-              { "value": "+20", "label": "Pages redesigned" },
-              { "value": "+30", "label": "New product images redesigned" }
+              {
+                "value": "+40",
+                "label": "Vue components ready to use"
+              },
+              {
+                "value": "+20",
+                "label": "Pages redesigned"
+              },
+              {
+                "value": "+30",
+                "label": "New product images redesigned"
+              }
             ]
           },
           {
             "type": "gallery-staggered",
             "rows": [
-              { "spans": [12], "images": ["/projects/azion-website/home-en-hero.webp"] },
-              { "spans": [6, 6], "images": ["/projects/azion-website/home-reliable-zoom.webp", "/projects/azion-website/home-products-menu-zoom.webp"] },
-              { "spans": [4, 4, 4], "images": ["/projects/azion-website/functions-hero-zoom.webp", "/projects/azion-website/cache-hero.webp", "/projects/azion-website/marketplace-hero.webp"] },
-              { "spans": [6, 6], "images": ["/projects/azion-website/products-strip.webp", "/projects/azion-website/professional-services-hero.webp"] }
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-website/home-en-hero.webp"
+                ]
+              },
+              {
+                "spans": [
+                  6,
+                  6
+                ],
+                "images": [
+                  "/projects/azion-website/home-reliable-zoom.webp",
+                  "/projects/azion-website/home-products-menu-zoom.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4,
+                  4,
+                  4
+                ],
+                "images": [
+                  "/projects/azion-website/functions-hero-zoom.webp",
+                  "/projects/azion-website/cache-hero.webp",
+                  "/projects/azion-website/marketplace-hero.webp"
+                ]
+              },
+              {
+                "spans": [
+                  6,
+                  6
+                ],
+                "images": [
+                  "/projects/azion-website/products-strip.webp",
+                  "/projects/azion-website/professional-services-hero.webp"
+                ]
+              }
             ]
           },
           {
@@ -599,40 +657,92 @@
             "features": [
               {
                 "name": "Product Navigation",
-                "image": { "src": "/projects/azion-website/home-products-menu-zoom.webp", "title": "Product Navigation Menu" },
+                "image": {
+                  "src": "/projects/azion-website/home-products-menu-zoom.webp",
+                  "title": "Product Navigation Menu"
+                },
                 "description": "Mega-menu revealing product categories with hover interaction."
               },
               {
                 "name": "Developer Tools",
-                "image": { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
+                "image": {
+                  "src": "/projects/azion-website/devtools-zoom.webp",
+                  "title": "Documentation — DevTools"
+                },
                 "description": "Developer-facing documentation and tooling resources."
               },
               {
                 "name": "Component Library",
-                "image": { "src": "/projects/azion-website/webkit-components.webp", "title": "Webkit Component Library" },
+                "image": {
+                  "src": "/projects/azion-website/webkit-components.webp",
+                  "title": "Webkit Component Library"
+                },
                 "description": "Open-source webkit component library powering both website and console."
               },
               {
                 "name": "Brand Concept",
-                "image": { "src": "", "title": "Brand Concept 2025/26 — Figma", "type": "figma", "figmaEmbedUrl": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share" },
+                "image": {
+                  "src": "",
+                  "title": "Brand Concept 2025/26 — Figma",
+                  "type": "figma",
+                  "figmaEmbedUrl": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
+                },
                 "description": "Visual identity evolution — color, illustration, and typography explorations for the 2025/26 brand cycle."
               }
             ]
+          },
+          {
+            "type": "info"
           }
         ],
         "gridLayout": "large-only",
         "images": [
-          { "src": "/projects/azion-website/home-en-hero.webp", "title": "The Web Platform — Homepage EN" },
-          { "src": "/projects/azion-website/home-reliable-zoom.webp", "title": "Most Reliable Infrastructure — Section Detail" },
-          { "src": "/projects/azion-website/home-products-menu-zoom.webp", "title": "Product Navigation — Menu Open" },
-          { "src": "/projects/azion-website/functions-hero-zoom.webp", "title": "Edge Functions — Hero Detail" },
-          { "src": "/projects/azion-website/cache-hero.webp", "title": "Edge Cache — Product Page" },
-          { "src": "/projects/azion-website/professional-services-hero.webp", "title": "Professional Services — Overview" },
-          { "src": "/projects/azion-website/products-strip.webp", "title": "Product Pages — Image Processor, Bot Manager, Load Balancer, App Accelerator" },
-          { "src": "/projects/azion-website/marketplace-hero.webp", "title": "Marketplace — Hero" },
-          { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
-          { "src": "/projects/azion-website/webkit-components.webp", "title": "Webkit Component Library — Storybook (Open Source)" },
-          { "src": "", "title": "Brand Concept 2025 — Figma", "type": "figma", "figmaEmbedUrl": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share" }
+          {
+            "src": "/projects/azion-website/home-en-hero.webp",
+            "title": "The Web Platform — Homepage EN"
+          },
+          {
+            "src": "/projects/azion-website/home-reliable-zoom.webp",
+            "title": "Most Reliable Infrastructure — Section Detail"
+          },
+          {
+            "src": "/projects/azion-website/home-products-menu-zoom.webp",
+            "title": "Product Navigation — Menu Open"
+          },
+          {
+            "src": "/projects/azion-website/functions-hero-zoom.webp",
+            "title": "Edge Functions — Hero Detail"
+          },
+          {
+            "src": "/projects/azion-website/cache-hero.webp",
+            "title": "Edge Cache — Product Page"
+          },
+          {
+            "src": "/projects/azion-website/professional-services-hero.webp",
+            "title": "Professional Services — Overview"
+          },
+          {
+            "src": "/projects/azion-website/products-strip.webp",
+            "title": "Product Pages — Image Processor, Bot Manager, Load Balancer, App Accelerator"
+          },
+          {
+            "src": "/projects/azion-website/marketplace-hero.webp",
+            "title": "Marketplace — Hero"
+          },
+          {
+            "src": "/projects/azion-website/devtools-zoom.webp",
+            "title": "Documentation — DevTools"
+          },
+          {
+            "src": "/projects/azion-website/webkit-components.webp",
+            "title": "Webkit Component Library — Storybook (Open Source)"
+          },
+          {
+            "src": "",
+            "title": "Brand Concept 2025 — Figma",
+            "type": "figma",
+            "figmaEmbedUrl": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
+          }
         ]
       },
       {
@@ -733,16 +843,62 @@
           {
             "type": "impact",
             "stats": [
-              { "value": "6,000+", "label": "Commits" },
-              { "value": "34+", "label": "Contributors" },
-              { "value": "93+", "label": "Releases" }
+              {
+                "value": "6,000+",
+                "label": "Commits"
+              },
+              {
+                "value": "34+",
+                "label": "Contributors"
+              },
+              {
+                "value": "93+",
+                "label": "Releases"
+              }
             ]
           },
           {
             "type": "gallery-staggered",
             "rows": [
-              { "spans": [6, 6], "images": ["/projects/azion-console-kit/drawer-double.webp", "/projects/azion-console-kit/console-mobile-metrics.webp"] }
+              {
+                "spans": [
+                  6,
+                  6
+                ],
+                "images": [
+                  "/projects/azion-console-kit/drawer-double.webp",
+                  "/projects/azion-console-kit/console-mobile-metrics.webp"
+                ]
+              }
             ]
+          },
+          {
+            "type": "gallery-feature-list",
+            "features": [
+              {
+                "name": "Console Kit Blocks — Figma",
+                "image": {
+                  "src": "",
+                  "title": "Console Kit Blocks — Figma",
+                  "type": "figma",
+                  "figmaEmbedUrl": "https://embed.figma.com/design/DKr8aHcsH8yUgl4Ptz1a2E/Console-Kit-Blocks?node-id=0-1&embed-host=share"
+                },
+                "description": "Console Kit Blocks — Figma"
+              },
+              {
+                "name": "Console UI — Migration Preview",
+                "image": {
+                  "src": "",
+                  "title": "Console UI — Migration Preview",
+                  "type": "figma",
+                  "figmaEmbedUrl": "https://embed.figma.com/design/FungJEKktn3K00HEmqhzai/Console-UI--Migration--Preview?node-id=9366-129330&embed-host=share"
+                },
+                "description": "Console UI — Migration Preview"
+              }
+            ]
+          },
+          {
+            "type": "info"
           }
         ],
         "images": [
@@ -839,9 +995,43 @@
           {
             "type": "impact",
             "stats": [
-              { "value": "40+", "label": "Documented components" },
-              { "value": "Token-based", "label": "Semantic design foundations" }
+              {
+                "value": "40+",
+                "label": "Documented components"
+              },
+              {
+                "value": "Token-based",
+                "label": "Semantic design foundations"
+              }
             ]
+          },
+          {
+            "type": "gallery-feature-list",
+            "features": [
+              {
+                "name": "Global Tokens — Figma",
+                "image": {
+                  "src": "",
+                  "title": "Global Tokens — Figma",
+                  "type": "figma",
+                  "figmaEmbedUrl": "https://embed.figma.com/design/2TFLoJyClig14zTpnaXuxt/Global-Tokens--Copy-?node-id=0-1&embed-host=share"
+                },
+                "description": "Global Tokens — Figma"
+              },
+              {
+                "name": "RTM Components — Handoff",
+                "image": {
+                  "src": "",
+                  "title": "RTM Components — Handoff",
+                  "type": "figma",
+                  "figmaEmbedUrl": "https://embed.figma.com/design/lCDgGUdLgjFq2odYz9GNc5/RTM-Components---Handoff--Copy-?node-id=10756-539481&embed-host=share"
+                },
+                "description": "RTM Components — Handoff"
+              }
+            ]
+          },
+          {
+            "type": "info"
           }
         ],
         "images": [
@@ -919,17 +1109,103 @@
           {
             "type": "impact",
             "stats": [
-              { "value": "100+", "label": "Edge locations branded" },
-              { "value": "20,000+", "label": "Hosted applications" }
+              {
+                "value": "100+",
+                "label": "Edge locations branded"
+              },
+              {
+                "value": "20,000+",
+                "label": "Hosted applications"
+              }
             ]
           },
           {
             "type": "gallery-staggered",
             "rows": [
-              { "spans": [12], "images": ["/projects/azion-brand-system/asset-welcome.webp"] },
-              { "spans": [6, 6], "images": ["/projects/azion-brand-system/edge-computing.webp", "/projects/azion-brand-system/asset-cybersecurity.webp"] },
-              { "spans": [4, 4, 4], "images": ["/projects/azion-brand-system/build.webp", "/projects/azion-brand-system/observe.webp", "/projects/azion-brand-system/orchestrate.webp"] },
-              { "spans": [6, 6], "images": ["/projects/azion-brand-system/asset-101-serveless.webp", "/projects/azion-brand-system/asset-application-acceleration.webp"] }
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-welcome.webp"
+                ]
+              },
+              {
+                "spans": [
+                  6,
+                  6
+                ],
+                "images": [
+                  "/projects/azion-brand-system/edge-computing.webp",
+                  "/projects/azion-brand-system/asset-cybersecurity.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4,
+                  4,
+                  4
+                ],
+                "images": [
+                  "/projects/azion-brand-system/build.webp",
+                  "/projects/azion-brand-system/observe.webp",
+                  "/projects/azion-brand-system/orchestrate.webp"
+                ]
+              },
+              {
+                "spans": [
+                  6,
+                  6
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-101-serveless.webp",
+                  "/projects/azion-brand-system/asset-application-acceleration.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4,
+                  4
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-serveless.webp",
+                  "/projects/azion-brand-system/asset-zero-trust.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4,
+                  4,
+                  4
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-ransomware.webp",
+                  "/projects/azion-brand-system/asset-marketplace.webp",
+                  "/projects/azion-brand-system/asset-open-standards.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4,
+                  4
+                ],
+                "images": [
+                  "/projects/azion-brand-system/observe-1.webp",
+                  "/projects/azion-brand-system/illustrations-guides.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4,
+                  4,
+                  4
+                ],
+                "images": [
+                  "/projects/azion-brand-system/illustrations-guides-2.webp",
+                  "/projects/azion-brand-system/illustrations-guides-3.webp",
+                  "/projects/azion-brand-system/Azion-Careers.webp"
+                ]
+              }
             ]
           },
           {
@@ -937,15 +1213,24 @@
             "features": [
               {
                 "name": "Illustration System",
-                "image": { "src": "/projects/azion-brand-system/Group%206187.webp", "title": "Illustration Group" },
+                "image": {
+                  "src": "/projects/azion-brand-system/Group%206187.webp",
+                  "title": "Illustration Group"
+                },
                 "description": "Scalable illustration patterns that explain technical concepts visually across product pillars."
               },
               {
                 "name": "Knowledge Base",
-                "image": { "src": "/projects/azion-brand-system/knowledgebase.webp", "title": "Knowledge Base" },
+                "image": {
+                  "src": "/projects/azion-brand-system/knowledgebase.webp",
+                  "title": "Knowledge Base"
+                },
                 "description": "Branded documentation and knowledge resources for the edge computing platform."
               }
             ]
+          },
+          {
+            "type": "info"
           }
         ],
         "images": [
@@ -1053,17 +1338,144 @@
           {
             "type": "impact",
             "stats": [
-              { "value": "40+", "label": "Digital projects delivered" },
-              { "value": "30%", "label": "Store traffic increase for O Boticario" },
-              { "value": "40", "label": "Team members at peak" }
+              {
+                "value": "40+",
+                "label": "Digital projects delivered"
+              },
+              {
+                "value": "30%",
+                "label": "Store traffic increase for O Boticario"
+              },
+              {
+                "value": "40",
+                "label": "Team members at peak"
+              }
             ]
           },
           {
             "type": "gallery-staggered",
             "rows": [
-              { "spans": [6, 6], "images": ["/projects/huia/huia-bird.webp", "/projects/huia/golden-circle.webp"] },
-              { "spans": [6, 6], "images": ["/projects/huia/we-unlock-ideas.webp", "/projects/huia/team-portraits.webp"] }
+              {
+                "spans": [
+                  6,
+                  6
+                ],
+                "images": [
+                  "/projects/huia/huia-bird.webp",
+                  "/projects/huia/golden-circle.webp"
+                ]
+              },
+              {
+                "spans": [
+                  6,
+                  6
+                ],
+                "images": [
+                  "/projects/huia/we-unlock-ideas.webp",
+                  "/projects/huia/team-portraits.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "",
+                    "title": "Creative Technology Showcase",
+                    "type": "video",
+                    "platform": "youtube",
+                    "videoId": "d8_xTUsyQdo"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "",
+                    "title": "Digital Production & Innovation Reel",
+                    "type": "video",
+                    "platform": "youtube",
+                    "videoId": "s-3rKGVUQiM"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "",
+                    "title": "Brand & Campaign Highlights",
+                    "type": "video",
+                    "platform": "youtube",
+                    "videoId": "u-bbxKjiZvk"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "",
+                    "title": "Creative Direction Reel",
+                    "type": "video",
+                    "platform": "youtube",
+                    "videoId": "1RpIxQtXwYY"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "",
+                    "title": "Digital Experience Showcase",
+                    "type": "video",
+                    "platform": "youtube",
+                    "videoId": "TnaCQZDCAmo"
+                  }
+                ]
+              }
             ]
+          },
+          {
+            "type": "gallery-feature-list",
+            "features": [
+              {
+                "name": "Interactive Campaigns & UX Solutions",
+                "image": {
+                  "src": "",
+                  "title": "Interactive Campaigns & UX Solutions",
+                  "type": "video",
+                  "platform": "vimeo",
+                  "videoId": "377557773"
+                },
+                "description": "Interactive Campaigns & UX Solutions"
+              },
+              {
+                "name": "Integrated Creative & Technology Work",
+                "image": {
+                  "src": "",
+                  "title": "Integrated Creative & Technology Work",
+                  "type": "video",
+                  "platform": "vimeo",
+                  "videoId": "185564121"
+                },
+                "description": "Integrated Creative & Technology Work"
+              }
+            ]
+          },
+          {
+            "type": "info"
           }
         ],
         "images": [
