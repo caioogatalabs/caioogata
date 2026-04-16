@@ -234,9 +234,7 @@ export function ContactForm({ actionSlot, expanded = true, fieldsRef }: {
 
         {/* Buttons row — always visible */}
         <div className="flex items-center justify-between">
-          {/* Left: action slot (Contact/Close CTA when expanded) */}
-          <div>{actionSlot}</div>
-          {/* Right: Clear + Submit — only visible when expanded */}
+          {/* Left: Clear + Submit — only visible when expanded */}
           <div
             className="flex items-center"
             style={{
@@ -245,22 +243,6 @@ export function ContactForm({ actionSlot, expanded = true, fieldsRef }: {
               transition: `opacity 0.3s ${EASE}`,
             }}
           >
-          <button
-            type="button"
-            onClick={resetForm}
-            className="relative inline-flex items-center justify-center h-12 px-8 border border-border-primary rounded-[12px] overflow-hidden"
-            style={{ width: 208, color: clearHovered ? 'var(--color-text-on-outline-hover)' : 'var(--color-text-secondary)', transition: 'color 0.15s' }}
-            onMouseEnter={() => setClearHovered(true)}
-            onMouseLeave={() => setClearHovered(false)}
-          >
-            <div className="absolute inset-0 bg-bg-fill-outline-hover pointer-events-none" style={{ borderRadius: '12px', transform: clearHovered ? 'translateY(0)' : 'translateY(100%)', transition: clearHovered ? `transform 0.2s ${EASE}` : `transform 0.2s ${EASE} 0.04s` }} />
-            <span className="relative z-10 block text-base font-medium overflow-hidden" style={{ fontFamily: 'var(--font-sans)', transform: clearHovered ? 'translateY(-100%)' : 'translateY(0)', opacity: clearHovered ? 0 : 1, transition: clearHovered ? `transform 0.4s ${EASE} 0.05s, opacity 0.2s ${EASE} 0.05s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
-              Clear
-            </span>
-            <span className="absolute inset-0 z-10 flex items-center justify-center font-normal overflow-hidden" style={{ fontFamily: "'Pexel Grotesk', var(--font-sans)", fontSize: '1.5rem', transform: clearHovered ? 'translateY(0)' : 'translateY(100%)', opacity: clearHovered ? 1 : 0, transition: clearHovered ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
-              Clear
-            </span>
-          </button>
           <button
             type="submit"
             disabled={status === 'submitting'}
@@ -277,7 +259,25 @@ export function ContactForm({ actionSlot, expanded = true, fieldsRef }: {
               {status === 'submitting' ? form.submitting : form.submitButton}
             </span>
           </button>
+          <button
+            type="button"
+            onClick={resetForm}
+            className="relative inline-flex items-center justify-center h-12 px-8 border border-border-primary rounded-[12px] overflow-hidden"
+            style={{ width: 208, color: clearHovered ? 'var(--color-text-on-outline-hover)' : 'var(--color-text-secondary)', transition: 'color 0.15s' }}
+            onMouseEnter={() => setClearHovered(true)}
+            onMouseLeave={() => setClearHovered(false)}
+          >
+            <div className="absolute inset-0 bg-bg-fill-outline-hover pointer-events-none" style={{ borderRadius: '12px', transform: clearHovered ? 'translateY(0)' : 'translateY(100%)', transition: clearHovered ? `transform 0.2s ${EASE}` : `transform 0.2s ${EASE} 0.04s` }} />
+            <span className="relative z-10 block text-base font-medium overflow-hidden" style={{ fontFamily: 'var(--font-sans)', transform: clearHovered ? 'translateY(-100%)' : 'translateY(0)', opacity: clearHovered ? 0 : 1, transition: clearHovered ? `transform 0.4s ${EASE} 0.05s, opacity 0.2s ${EASE} 0.05s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
+              Clear
+            </span>
+            <span className="absolute inset-0 z-10 flex items-center justify-center font-normal overflow-hidden" style={{ fontFamily: "'Pexel Grotesk', var(--font-sans)", fontSize: '1.5rem', transform: clearHovered ? 'translateY(0)' : 'translateY(100%)', opacity: clearHovered ? 1 : 0, transition: clearHovered ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
+              Clear
+            </span>
+          </button>
           </div>
+          {/* Right: action slot (Contact/Close CTA) */}
+          <div>{actionSlot}</div>
         </div>
     </form>
   )

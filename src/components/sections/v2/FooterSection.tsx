@@ -148,7 +148,7 @@ export function FooterSection() {
   const [groupHovered, setGroupHovered] = useState(false)
   const footerRef = useRef<HTMLElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
-  const hasAutoExpanded = useRef(false)
+
   const prefersReducedMotion = useRef(false)
   const sectionRef = useInView({ threshold: 0.1 })
 
@@ -193,20 +193,6 @@ export function FooterSection() {
     const handler = () => openDrawer()
     window.addEventListener('open-contact', handler)
     return () => window.removeEventListener('open-contact', handler)
-  }, [openDrawer])
-
-  // auto-expand on scroll to bottom
-  useEffect(() => {
-    const handleScroll = () => {
-      if (hasAutoExpanded.current) return
-      const atBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50
-      if (atBottom) {
-        hasAutoExpanded.current = true
-        setTimeout(() => openDrawer(), 300)
-      }
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
   }, [openDrawer])
 
   // Escape key

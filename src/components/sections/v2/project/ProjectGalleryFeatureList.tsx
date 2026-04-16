@@ -4,6 +4,7 @@ import type { ProjectSection, ProjectImage } from '@/content/types'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useScrollParallax } from '@/hooks/useScrollParallax'
+import VideoEmbed from '@/components/ui/VideoEmbed'
 
 interface ProjectGalleryFeatureListProps {
   section: ProjectSection
@@ -33,6 +34,18 @@ function ParallaxRevealImage({ src, alt }: { src: string; alt: string }) {
 }
 
 function FeatureMedia({ image }: { image: ProjectImage }) {
+  if (image.type === 'video' && image.videoId && image.platform) {
+    return (
+      <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+          <div className="absolute inset-0">
+            <VideoEmbed platform={image.platform} videoId={image.videoId} centeredButton />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (image.type === 'figma' && image.figmaEmbedUrl) {
     return (
       <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">

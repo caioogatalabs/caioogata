@@ -85,7 +85,7 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
       {/* Hero text */}
       <section
         ref={sectionRef as React.RefObject<HTMLElement>}
-        className="pt-8 pb-8"
+        className="flex flex-col justify-end pt-32 pb-8 md:pt-40 md:pb-10 lg:pt-48 lg:pb-12"
       >
         <h1 className="sr-only">{project.title}</h1>
 
@@ -120,29 +120,28 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
         </Grid>
       </section>
 
-      {/* Hero media — unified wrapper: 75% width centered with animated noise gradient background */}
+      {/* Hero media — noise gradient fills entire section, image centered */}
       {heroImage && (
-        <section ref={imageRef as React.RefObject<HTMLElement>} className="pt-24 pb-16">
-          <Grid>
+        <section
+          ref={imageRef as React.RefObject<HTMLElement>}
+          className="relative pt-24 pb-16 bg-bg"
+        >
+          {/* Noise gradient background — full bleed, scroll-reveal via clip-path */}
+          <div
+            ref={expandRef as React.RefObject<HTMLDivElement>}
+            className="absolute inset-0 z-0"
+            style={{ clipPath, opacity }}
+          >
+            <ClientNoiseGradient
+              colors={gradientColors}
+              className="z-0"
+            />
+          </div>
+          {/* Media — 75% centered, above gradient */}
+          <Grid className="relative z-10">
             <GridItem span={12} tabletSpan={8} mobileSpan={4} className="-entrance -scale-in -a-2">
-              <div
-                ref={expandRef as React.RefObject<HTMLDivElement>}
-                className="relative"
-              >
-                {/* Noise gradient background — scroll-reveal via clip-path */}
-                <div
-                  className="absolute inset-0 z-0"
-                  style={{ clipPath, opacity }}
-                >
-                  <ClientNoiseGradient
-                    colors={gradientColors}
-                    className="z-0"
-                  />
-                </div>
-                {/* Media — 75% centered, always visible above the gradient */}
-                <div className="relative z-10 mx-auto w-[75%] py-[12%]">
-                  <HeroMedia media={heroImage} />
-                </div>
+              <div className="mx-auto w-[75%] py-[12%]">
+                <HeroMedia media={heroImage} />
               </div>
             </GridItem>
           </Grid>

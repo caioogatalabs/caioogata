@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import type { ProjectItem, ProjectSection } from '@/content/types'
 import type { Content } from '@/content/types'
 import content from '@/content/en.json'
@@ -62,12 +63,30 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
   const sections = project.sections || []
   const projectIndex = enabledProjects.findIndex(p => p.slug === project.slug)
 
+  const heroSection = sections.find(s => s.type === 'hero')
+  const heroIndex = sections.findIndex(s => s.type === 'hero')
+  const restSections = sections.filter(s => s.type !== 'hero')
+
   return (
     <div className="min-h-screen bg-bg">
-      {/* Sticky logo + CTA — first child for full-page sticky */}
-      <StickyLogoBar />
+      {/* Hero zone — bg wrapper provides continuous background for sticky bar */}
+      <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12">
+        <StickyLogoBar />
+        {heroSection && (
+          <SectionBlock
+            section={heroSection}
+            index={heroIndex}
+            project={project}
+            projectIndex={projectIndex}
+          />
+        )}
+      </div>
 
-      {sections.map((section, i) => (
+      {/* Project navigation — below hero */}
+      <ProjectNavigation currentSlug={project.slug} position="top" />
+
+      {/* Remaining sections */}
+      {restSections.map((section, i) => (
         <SectionBlock
           key={i}
           section={section}
@@ -77,7 +96,7 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
         />
       ))}
 
-      {/* Bottom navigation — fixed infrastructure */}
+      {/* Bottom navigation */}
       <ProjectNavigation currentSlug={project.slug} position="bottom" />
     </div>
   )

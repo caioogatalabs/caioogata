@@ -34,7 +34,7 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
                 className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
-                Challenge
+                {section.heading || 'Challenge'}
               </h2>
               <p
                 className="text-[18px] leading-[1.6] text-text-tertiary"
@@ -54,7 +54,7 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
                 className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
-                Solution
+                {section.solutionHeading || 'Solution'}
               </h2>
               <p
                 className="text-[18px] leading-[1.6] text-text-tertiary"

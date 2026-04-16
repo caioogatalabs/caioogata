@@ -9,14 +9,16 @@ export function StickyLogoBar() {
   return (
     <div className="sticky top-0 z-50 px-5 py-4 md:px-8 lg:px-16">
       <div className="flex items-center justify-between w-full">
-        <Image
-          src="/logo-co.svg"
-          alt="Caio Ogata — CO"
-          width={105}
-          height={48}
-          priority
-          className="h-10 w-auto md:h-12"
-        />
+        <a href="/">
+          <Image
+            src="/logo-co.svg"
+            alt="Caio Ogata — CO"
+            width={105}
+            height={48}
+            priority
+            className="h-10 w-auto md:h-12"
+          />
+        </a>
 
         <div
           className="flex items-center gap-0.5"

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 interface ProjectCardProps {
@@ -12,6 +13,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ title, slug, year, index, className = '' }: ProjectCardProps) {
   const { ref, clipPath } = useScrollReveal()
+  const [arrowHovered, setArrowHovered] = useState(false)
 
   return (
     <article
@@ -36,11 +38,38 @@ export function ProjectCard({ title, slug, year, index, className = '' }: Projec
       <div className="flex items-center justify-end w-full">
         <a
           href={`/projects/${slug}`}
-          className="flex items-center justify-center size-12 rounded-full bg-bg-fill-primary text-text-on-primary text-2xl font-bold font-mono transition-colors duration-300 hover:bg-bg-fill-primary-hover"
+          className="relative flex items-center justify-center size-12 rounded-full bg-bg-fill-primary text-text-on-primary overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
           aria-label={`View ${title} project`}
           style={{ borderRadius: '999px' }}
+          onMouseEnter={() => setArrowHovered(true)}
+          onMouseLeave={() => setArrowHovered(false)}
         >
-          →
+          <span
+            className="block text-2xl font-bold font-mono"
+            style={{
+              transform: arrowHovered ? 'translateY(-100%)' : 'translateY(0)',
+              opacity: arrowHovered ? 0 : 1,
+              transition: arrowHovered
+                ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
+                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
+            }}
+          >
+            →
+          </span>
+          <span
+            className="absolute inset-0 flex items-center justify-center"
+            style={{
+              fontFamily: "'Pexel Grotesk', var(--font-sans)",
+              fontSize: '1.5rem',
+              transform: arrowHovered ? 'translateY(0)' : 'translateY(100%)',
+              opacity: arrowHovered ? 1 : 0,
+              transition: arrowHovered
+                ? 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)'
+                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
+            }}
+          >
+            →
+          </span>
         </a>
       </div>
     </article>
