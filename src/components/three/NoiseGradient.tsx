@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useMemo } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { vertexShader, fragmentShader } from './shaders/noise.glsl'
 
@@ -20,6 +20,8 @@ function hexToRgb(hex: string): [number, number, number] {
 
 export function NoiseGradient({ colors, speed = 0.15, paused = false }: NoiseGradientProps) {
   const materialRef = useRef<THREE.ShaderMaterial>(null)
+  const meshRef = useRef<THREE.Mesh>(null)
+  const { viewport } = useThree()
 
   const uniforms = useMemo(() => {
     const [c1, c2, c3] = colors.map(hexToRgb)
@@ -39,8 +41,11 @@ export function NoiseGradient({ colors, speed = 0.15, paused = false }: NoiseGra
     }
   })
 
+  // Scale mesh to cover the entire viewport (use max to avoid gaps)
+  const scale = Math.max(viewport.width / 10, viewport.height / 6)
+
   return (
-    <mesh>
+    <mesh ref={meshRef} scale={[scale, scale, 1]}>
       <planeGeometry args={[10, 6, 48, 48]} />
       <shaderMaterial
         ref={materialRef}
