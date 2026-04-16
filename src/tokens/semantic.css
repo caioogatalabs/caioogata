@@ -7,8 +7,9 @@
 @theme {
   /* ─── Background ─── */
   --color-bg:                         var(--primitive-neutral-500);
-  --color-bg-surface-primary:         var(--primitive-neutral-400);
+  --color-bg-surface-primary:         var(--primitive-neutral-450);
   --color-bg-surface-secondary:       var(--primitive-neutral-600);
+  --color-bg-surface-tertiary:        var(--primitive-neutral-400);
   --color-bg-surface-secondary-hover: var(--primitive-neutral-300);
   --color-bg-fill-primary:            var(--primitive-brand-400);
   --color-bg-fill-primary-hover:      var(--primitive-brand-300);
@@ -22,6 +23,8 @@
   --color-bg-fill-danger-hover:       var(--primitive-red-700);
   --color-bg-fill-success:            var(--primitive-green-600);
   --color-bg-fill-warning:            var(--primitive-brand-500);
+  --color-bg-fill-outline-hover:      var(--primitive-neutral-100);
+  --color-text-on-outline-hover:      var(--primitive-neutral-800);
 
   /* ─── Text ─── */
   --color-text-primary:               var(--primitive-neutral-100);
@@ -44,6 +47,7 @@
   --color-border-tertiary-default:    var(--primitive-neutral-400);
   --color-border-brand:               var(--primitive-brand-400);
   --color-border-focus:               var(--primitive-brand-400);
+  --color-border-inverse:             var(--primitive-neutral-700);
   --color-border-danger:              var(--primitive-red-500);
 
   /* ─── Icon ─── */
@@ -78,61 +82,77 @@
   --font-mono: var(--primitive-font-mono);
 }
 
-/* ─── Light theme ─── */
+/* ─── Light theme (grey-based, for sections over neutral-200 bg) ─── */
 [data-theme="light"] {
-  --color-bg:                         var(--primitive-neutral-0);
-  --color-bg-surface-primary:         var(--primitive-neutral-50);
-  --color-bg-surface-secondary:       var(--primitive-neutral-100);
-  --color-bg-surface-secondary-hover: var(--primitive-neutral-200);
-  --color-bg-fill-primary-disabled:   var(--primitive-neutral-200);
+  --color-bg:                         var(--primitive-neutral-200);
+  --color-bg-surface-primary:         var(--primitive-neutral-100);
+  --color-bg-surface-secondary:       var(--primitive-neutral-300);
+  --color-bg-surface-tertiary:        var(--primitive-neutral-200);
+  --color-bg-surface-secondary-hover: var(--primitive-neutral-50);
+  --color-bg-fill-primary-disabled:   var(--primitive-neutral-400);
+  --color-bg-fill-outline-hover:      var(--primitive-neutral-800);
+  --color-text-on-outline-hover:      var(--primitive-neutral-100);
 
   --color-text-primary:               var(--primitive-neutral-800);
-  --color-text-secondary:             var(--primitive-neutral-300);
-  --color-text-tertiary:              var(--primitive-neutral-400);
-  --color-text-primary-disabled:      var(--primitive-neutral-200);
-  --color-text-inverse:               var(--primitive-neutral-0);
+  --color-text-secondary:             var(--primitive-neutral-600);
+  --color-text-tertiary:              var(--primitive-neutral-500);
+  --color-text-primary-disabled:      var(--primitive-neutral-400);
+  --color-text-inverse:               var(--primitive-neutral-100);
   --color-text-brand:                 var(--primitive-brand-700);
   --color-text-secondary-accent:      var(--primitive-secondary-600);
   --color-text-accent:                var(--primitive-accent-600);
-  --color-text-danger:                var(--primitive-red-600);
+  --color-text-danger:                var(--primitive-red-700);
   --color-text-success:               var(--primitive-green-600);
-  --color-text-placeholder:           var(--primitive-neutral-400);
+  --color-text-placeholder:           var(--primitive-neutral-500);
 
-  --color-border-primary:             var(--primitive-neutral-200);
-  --color-border-secondary:           var(--primitive-neutral-300);
-  --color-border-tertiary-default:    var(--primitive-neutral-100);
-  --color-border-brand:               var(--primitive-brand-500);
-  --color-border-focus:               var(--primitive-brand-500);
+  --color-border-primary:             var(--primitive-neutral-600);
+  --color-border-secondary:           var(--primitive-neutral-500);
+  --color-border-tertiary-default:    var(--primitive-neutral-400);
+  --color-border-inverse:             var(--primitive-neutral-100);
+  --color-border-brand:               var(--primitive-brand-700);
+  --color-border-focus:               var(--primitive-brand-700);
 
   --color-icon-primary:               var(--primitive-neutral-800);
-  --color-icon-secondary:             var(--primitive-neutral-400);
-  --color-icon-secondary-hover:       var(--primitive-neutral-300);
-  --color-icon-tertiary:              var(--primitive-neutral-400);
-  --color-icon-inverse:               var(--primitive-neutral-0);
-  --color-icon-brand:                 var(--primitive-brand-600);
+  --color-icon-secondary:             var(--primitive-neutral-600);
+  --color-icon-secondary-hover:       var(--primitive-neutral-700);
+  --color-icon-tertiary:              var(--primitive-neutral-500);
+  --color-icon-inverse:               var(--primitive-neutral-100);
+  --color-icon-brand:                 var(--primitive-brand-700);
 }
 
-/* ─── Inverse theme (components on brand yellow bg) ─── */
+/* ─── Inverse theme (components on brand yellow bg — dark tones prioritized) ─── */
 [data-theme="inverse"] {
   --color-bg:                         var(--primitive-brand-400);
   --color-bg-surface-primary:         var(--primitive-brand-300);
   --color-bg-surface-secondary:       var(--primitive-brand-500);
+  --color-bg-surface-tertiary:        var(--primitive-brand-200);
+  --color-bg-surface-secondary-hover: var(--primitive-brand-100);
   --color-bg-fill-primary:            var(--primitive-brand-950);
   --color-bg-fill-primary-hover:      var(--primitive-brand-900);
+  --color-bg-fill-primary-disabled:   var(--primitive-brand-600);
+  --color-bg-fill-outline-hover:      var(--primitive-brand-100);
+  --color-text-on-outline-hover:      var(--primitive-brand-950);
 
   --color-text-primary:               var(--primitive-brand-950);
   --color-text-secondary:             var(--primitive-brand-800);
   --color-text-tertiary:              var(--primitive-brand-700);
-  --color-text-inverse:               var(--primitive-brand-50);
+  --color-text-primary-disabled:      var(--primitive-brand-600);
+  --color-text-inverse:               var(--primitive-brand-100);
   --color-text-brand:                 var(--primitive-brand-950);
   --color-text-on-primary:            var(--primitive-brand-400);
   --color-text-placeholder:           var(--primitive-brand-700);
 
-  --color-border-primary:             var(--primitive-brand-700);
-  --color-border-brand:               var(--primitive-brand-900);
+  --color-border-primary:             var(--primitive-brand-800);
+  --color-border-secondary:           var(--primitive-brand-700);
+  --color-border-tertiary-default:    var(--primitive-brand-600);
+  --color-border-inverse:             var(--primitive-brand-200);
+  --color-border-brand:               var(--primitive-brand-950);
   --color-border-focus:               var(--primitive-brand-950);
 
   --color-icon-primary:               var(--primitive-brand-950);
+  --color-icon-secondary:             var(--primitive-brand-800);
+  --color-icon-secondary-hover:       var(--primitive-brand-900);
+  --color-icon-tertiary:              var(--primitive-brand-700);
+  --color-icon-inverse:               var(--primitive-brand-100);
   --color-icon-brand:                 var(--primitive-brand-950);
-  --color-icon-inverse:               var(--primitive-brand-50);
 }
