@@ -1,10 +1,14 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
+import { useScrollVideo } from '@/hooks/useScrollVideo'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
 import content from '@/content/en.json'
+import type { Content } from '@/content/types'
 
-const PULL_QUOTE_AFTER_PARAGRAPH = 0 // Insert pull quote after the first paragraph
+const typedContent = content as unknown as Content
+const about = typedContent.about
 
 const PULL_QUOTES = [
   'My work bridges brand strategy, product craft, and technical implementation — designing and building at the intersection of design systems, developer experience, and product engineering.',
@@ -12,89 +16,114 @@ const PULL_QUOTES = [
 ]
 
 export function AboutSection() {
-  const leftRef = useInView({ threshold: 0.1, once: true })
-  const rightRef = useInView({ threshold: 0.1, once: true })
+  const { containerRef, canvasRef, progress } = useScrollVideo()
+  const contentRef = useInView({ threshold: 0.1, once: true })
 
-  const paragraphs = content.about.bio.split('\n\n')
+  const paragraphs = about.bio.split('\n\n')
 
   return (
-    <section
-      id="about"
-      aria-label="About"
-      className="py-20 md:py-28 lg:py-36"
-    >
-      <Grid>
-        {/* ── Left column: heading + expertise ── */}
-        <GridItem
-          span={4}
-          tabletSpan={4}
-          mobileSpan={4}
-          ref={leftRef as React.RefObject<HTMLDivElement>}
+    <div className="min-h-screen bg-bg">
+      {/* Hero zone */}
+      <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12">
+        <StickyLogoBar />
+
+        {/* Scroll-driven video hero */}
+        <div
+          ref={containerRef}
+          style={{ height: '400vh' }}
         >
-          <h2
-            className="-entrance -slide-up -a-0 text-lg font-semibold uppercase tracking-[1.2px] text-text-primary mb-8"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            {content.about.heading}
-          </h2>
+          <div className="sticky top-0 h-screen w-full overflow-hidden">
+            {/* Canvas — fills viewport */}
+            <canvas
+              ref={canvasRef}
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectFit: 'cover' }}
+            />
 
-          <ul className="space-y-3">
-            {content.about.expertise.map((item, i) => (
-              <li
-                key={item}
-                className={`-entrance -fade -a-${i} text-xs uppercase tracking-[1px] text-text-secondary font-medium`}
+            {/* Overlaid headline + expertise tags */}
+            <div className="absolute inset-0 flex flex-col justify-end px-5 pb-12 md:px-8 md:pb-16 lg:px-16 lg:pb-20">
+              <h1
+                className="text-4xl md:text-6xl lg:text-7xl font-light text-text-primary mb-6 max-w-4xl leading-tight"
+                style={{ fontFamily: 'var(--font-sans)' }}
               >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </GridItem>
-
-        {/* ── Right column: bio + pull quotes ── */}
-        <GridItem
-          span={8}
-          tabletSpan={4}
-          mobileSpan={4}
-          ref={rightRef as React.RefObject<HTMLDivElement>}
-        >
-          {paragraphs.map((paragraph, i) => (
-            <div key={i}>
-              <p
-                className="-entrance -slide-up -a-1 text-base leading-relaxed text-text-secondary mb-6"
-                style={{ fontFamily: 'var(--font-sans)', fontWeight: 300 }}
-              >
-                {paragraph}
-              </p>
-
-              {i === PULL_QUOTE_AFTER_PARAGRAPH && (
-                <blockquote
-                  className="-entrance -scale-in -a-2 bg-bg-surface-secondary rounded-[12px] p-6 md:p-8 my-8"
-                >
-                  <p
-                    className="text-xl md:text-2xl font-light leading-snug text-text-primary"
-                    style={{ fontFamily: 'var(--font-sans)', fontWeight: 300 }}
+                Bridging brand strategy, product craft, and technical implementation
+              </h1>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                {about.expertise.map((item, i) => (
+                  <span
+                    key={item}
+                    className="font-mono text-sm text-text-secondary"
                   >
-                    {PULL_QUOTES[0]}
-                  </p>
-                </blockquote>
-              )}
-
-              {i === paragraphs.length - 2 && PULL_QUOTES[1] && (
-                <blockquote
-                  className="-entrance -scale-in -a-3 bg-bg-surface-secondary rounded-[12px] p-6 md:p-8 my-8"
-                >
-                  <p
-                    className="text-xl md:text-2xl font-light leading-snug text-text-primary"
-                    style={{ fontFamily: 'var(--font-sans)', fontWeight: 300 }}
-                  >
-                    {PULL_QUOTES[1]}
-                  </p>
-                </blockquote>
-              )}
+                    {item}
+                    {i < about.expertise.length - 1 && (
+                      <span className="ml-2 text-text-tertiary">/</span>
+                    )}
+                  </span>
+                ))}
+              </div>
             </div>
-          ))}
-        </GridItem>
-      </Grid>
-    </section>
+          </div>
+        </div>
+      </div>
+
+      {/* Editorial content zone */}
+      <div className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32">
+        <Grid className="!px-0">
+          {/* Left column: empty for asymmetric editorial feel */}
+          <GridItem
+            span={6}
+            tabletSpan={2}
+            mobileSpan={4}
+          />
+
+          {/* Right column: bio + pull quotes */}
+          <GridItem
+            span={6}
+            tabletSpan={6}
+            mobileSpan={4}
+            ref={contentRef as React.RefObject<HTMLDivElement>}
+          >
+            {paragraphs.map((paragraph, i) => (
+              <div key={i}>
+                <p
+                  className={`-entrance -slide-up -a-${i} text-base md:text-lg text-text-primary leading-relaxed mb-6`}
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  {paragraph}
+                </p>
+
+                {/* Pull quote after first paragraph */}
+                {i === 0 && (
+                  <blockquote
+                    className="-entrance -scale-in -a-1 bg-bg-surface-secondary rounded-xl p-6 md:p-8 my-8 md:my-12"
+                  >
+                    <p
+                      className="text-xl md:text-2xl lg:text-3xl font-light text-text-primary leading-snug"
+                      style={{ fontFamily: 'var(--font-sans)', fontWeight: 300 }}
+                    >
+                      {PULL_QUOTES[0]}
+                    </p>
+                  </blockquote>
+                )}
+
+                {/* Pull quote before last paragraph */}
+                {i === paragraphs.length - 2 && PULL_QUOTES[1] && (
+                  <blockquote
+                    className="-entrance -scale-in -a-3 bg-bg-surface-secondary rounded-xl p-6 md:p-8 my-8 md:my-12"
+                  >
+                    <p
+                      className="text-xl md:text-2xl lg:text-3xl font-light text-text-primary leading-snug"
+                      style={{ fontFamily: 'var(--font-sans)', fontWeight: 300 }}
+                    >
+                      {PULL_QUOTES[1]}
+                    </p>
+                  </blockquote>
+                )}
+              </div>
+            ))}
+          </GridItem>
+        </Grid>
+      </div>
+    </div>
   )
 }
