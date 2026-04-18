@@ -85,9 +85,9 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 04-01-PLAN.md — About section: scroll-driven video hero (canvas + WebP frames), 6-6 editorial bio layout
-- [ ] 04-02-PLAN.md — Experience section: menu-style hover rows, CSS grid accordion expand, keyboard nav
-- [ ] 04-03-PLAN.md — Skills section: SVG relationship map, bidirectional hover, progress bar levels
+- [x] 04-01-PLAN.md — About section: scroll-driven video hero (canvas + WebP frames), 6-6 editorial bio layout
+- [x] 04-02-PLAN.md — Experience section: menu-style hover rows, CSS grid accordion expand, keyboard nav
+- [x] 04-03-PLAN.md — Skills section: SVG relationship map, bidirectional hover, progress bar levels
 
 ### Phase 5: Secondary Sections & Polish
 **Goal**: All remaining content sections are complete, menu links scroll to sections, and the full site is responsive and polished

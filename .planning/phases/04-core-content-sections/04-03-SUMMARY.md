@@ -2,77 +2,101 @@
 phase: 04-core-content-sections
 plan: 03
 subsystem: ui
-tags: [react, tailwind, skills, grid, design-system]
+tags: [react, skills, svg, data-visualization, interactive, accessibility]
 
 requires:
-  - phase: 04-01
-    provides: AboutSection component and PageShell integration
-  - phase: 04-02
-    provides: ExperienceSection component with light theme
+  - phase: 02-home-page
+    provides: StickyLogoBar, Grid/GridItem, useInView, entrance animation system
+  - phase: 03-project-pages
+    provides: Project data model with slugs, dedicated route pattern
 provides:
-  - SkillsSection with 4-4-4 grid and dot-based skill level indicators
-  - All 3 content sections wired into PageShell in correct order
-affects: [05-polish, footer-integration]
+  - Skills page at /skills with hero, relationship map, and progress bars
+  - Extended Skill type with projectSlugs for cross-referencing
+  - SVG relationship visualization between skills and projects
+  - Bidirectional hover highlighting pattern
+affects: [future-phases, about-page, experience-page]
 
 tech-stack:
   added: []
-  patterns: [dot-indicator-component, level-mapping-constant]
+  patterns: [svg-relationship-map, bidirectional-hover, progress-bar-levels, skill-project-mapping]
 
 key-files:
   created:
-    - src/components/sections/v2/SkillsSection.tsx
+    - src/app/skills/page.tsx
   modified:
-    - src/components/layout/PageShell.tsx
+    - src/content/types.ts
+    - src/content/en.json
+    - src/components/sections/v2/SkillsSection.tsx
 
 key-decisions:
-  - "Used inline style backgroundColor with CSS custom properties for dot colors instead of bg-text-* Tailwind classes for reliability"
-  - "Section wrapper has no padding — Grid component provides px-5/md:px-8/lg:px-16 (consistent with AboutSection pattern)"
+  - "Combined Tasks 2a and 2b into single implementation since SVG lines and hover logic are interleaved with layout in same file"
+  - "Mapped 23 skills to projects based on genuine portfolio connections"
+  - "Used CSS.escape for data attribute selectors to handle skill names with special characters"
 
 patterns-established:
-  - "DotIndicator: reusable inline component mapping Expert=4/Advanced=3/Proficient=2/Familiar=1 to filled/empty dots"
+  - "SVG relationship map: position-based bezier curves between DOM elements with getBoundingClientRect"
+  - "Bidirectional hover: shared highlight state with reverse-lookup maps for both directions"
+  - "Progress bar levels: percentage-width bars over divider lines with text labels"
 
 requirements-completed: [SECT-03]
 
-duration: 1min
+duration: 3min
 completed: 2026-04-18
 ---
 
-# Phase 04 Plan 03: Skills Section Summary
+# Phase 04 Plan 03: Skills Page Summary
 
-**SkillsSection with 6 categories in 4-4-4 grid, dot-based proficiency indicators, and full PageShell wiring of About/Experience/Skills**
+**Skills page with SVG relationship map connecting 23 skills to 5 case studies via bidirectional hover highlighting and progress bar level indicators**
 
 ## Performance
 
-- **Duration:** 1 min
-- **Started:** 2026-04-18T20:35:39Z
-- **Completed:** 2026-04-18T20:37:05Z
-- **Tasks:** 2
-- **Files modified:** 2
+- **Duration:** 3 min
+- **Started:** 2026-04-18T23:12:52Z
+- **Completed:** 2026-04-18T23:16:05Z
+- **Tasks:** 3 (2a+2b combined into 1 commit)
+- **Files modified:** 4
 
 ## Accomplishments
-- SkillsSection renders 6 skill categories (43 total skills) in a 3-per-row grid with dot level indicators
-- DotIndicator component maps Expert/Advanced/Proficient/Familiar to 4/3/2/1 filled dots out of 4
-- PageShell now renders all 3 content sections: About > Experience > Skills
-- Tonal rhythm complete: dark (Intro) > dark (Menu) > dark (Projects) > dark (About) > light (Experience) > dark (Skills)
+- Extended Skill data model with optional projectSlugs for skill-to-project mapping (23 skills mapped)
+- Built Skills page with display heading hero, StickyLogoBar, and stats row
+- Implemented 6-6 SVG relationship map with cubic bezier connecting lines and bidirectional hover
+- Progress bar indicators show distinct widths per proficiency level (Expert 95%, Advanced 75%, Proficient 55%, Familiar 35%)
+- Full prefers-reduced-motion support: instant transitions, no stroke animations
 
 ## Task Commits
 
 Each task was committed atomically:
 
-1. **Task 1: Create SkillsSection component with dot indicators** - `a56762e` (feat)
-2. **Task 2: Wire all 3 sections into PageShell** - `a130bb3` (feat)
+1. **Task 1: Data model extension + route page** - `d58cc5a` (feat)
+2. **Task 2a+2b: SkillsSection with SVG lines and hover** - `a58d976` (feat)
 
 ## Files Created/Modified
-- `src/components/sections/v2/SkillsSection.tsx` - Skills section with 4-4-4 grid, DotIndicator, entrance animations
-- `src/components/layout/PageShell.tsx` - Added ExperienceSection and SkillsSection imports and render
+- `src/content/types.ts` - Added projectSlugs?: string[] to Skill interface
+- `src/content/en.json` - Added projectSlugs arrays to 23 skills across 6 categories
+- `src/app/skills/page.tsx` - Thin route page importing SkillsSection
+- `src/components/sections/v2/SkillsSection.tsx` - Full skills page with hero, relationship map, SVG lines, hover highlighting, progress bars
 
 ## Decisions Made
-- Used `backgroundColor: 'var(--color-text-primary)'` inline styles for dot colors instead of `bg-text-primary` Tailwind classes, ensuring correct color resolution regardless of Tailwind class generation
-- Followed AboutSection pattern: no px padding on section wrapper since Grid component already provides responsive padding
+- Combined Tasks 2a and 2b into single implementation since SVG connecting lines and hover logic are deeply interleaved with the layout DOM structure in the same file
+- Mapped 23 skills (out of 43) to project slugs based on genuine portfolio connections, leaving general skills unmapped
+- Used CSS.escape() for data attribute selectors to safely handle skill names containing special characters (e.g., slashes)
 
 ## Deviations from Plan
 
-None - plan executed exactly as written.
+### Auto-fixed Issues
+
+**1. [Rule 3 - Blocking] Combined Tasks 2a and 2b into single commit**
+- **Found during:** Task 2a implementation
+- **Issue:** Tasks 2a (layout) and 2b (SVG+hover) modify the same file and the hover state logic is interleaved with the layout rendering
+- **Fix:** Implemented both tasks together in a single coherent component
+- **Files modified:** src/components/sections/v2/SkillsSection.tsx
+- **Verification:** All acceptance criteria from both tasks verified
+- **Committed in:** a58d976
+
+---
+
+**Total deviations:** 1 auto-fixed (1 blocking)
+**Impact on plan:** Task merge was necessary for code coherence. No scope creep.
 
 ## Issues Encountered
 None
@@ -81,8 +105,9 @@ None
 None - no external service configuration required.
 
 ## Next Phase Readiness
-- All Phase 04 content sections complete (About, Experience, Skills)
-- Ready for Phase 05 polish and integration work
+- Skills page complete and ready for visual verification
+- Skill-to-project mapping data model established for potential reuse in other pages
+- StickyLogoBar pattern consistent with project pages
 
 ---
 *Phase: 04-core-content-sections*
