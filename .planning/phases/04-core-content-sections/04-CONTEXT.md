@@ -2,14 +2,18 @@
 
 **Gathered:** 2026-04-18
 **Updated:** 2026-04-18
-**Status:** Ready for planning (revised — previous implementation reverted)
+**Status:** Ready for planning (revised — routing architecture updated)
 
 <domain>
 ## Phase Boundary
 
-Three high-impact portfolio content sections — About, Experience, Skills — implemented as V2 sections rendered inside PageShell between ProjectsGrid and Footer. Each section has a **hero zone** (display heading + stats or immersive scroll) followed by its **content zone**. Major upgrade from initial context: sections now feature richer interaction patterns (menu-style hover, scroll-driven video, SVG relationship mapping) that match the V2 quality bar.
+Three high-impact portfolio content sections — About, Experience, Skills — each as a **dedicated page with its own route** (`/about`, `/experience`, `/skills`). Users navigate to these pages via the Menu (`router.push('/${item.key}')`). Each page follows the same shell pattern as project pages: `StickyLogoBar` in the hero zone + content below.
 
-Content sourced from existing `en.json` data — no content rewrite. Skills section requires a new data extension: skill-to-project mapping. These are the sections a hiring manager or design director reads to evaluate the candidate.
+Each page has a **hero zone** (display heading + stats or immersive scroll) followed by its **content zone**. Major upgrade from initial context: sections now feature richer interaction patterns (menu-style hover, scroll-driven video, SVG relationship mapping) that match the V2 quality bar.
+
+Content sourced from existing `en.json` data — no content rewrite. Skills section requires a new data extension: skill-to-project mapping. These are the pages a hiring manager or design director reads to evaluate the candidate.
+
+**NOT home page sections** — these are standalone pages. PageShell is NOT modified. The Menu already routes to `/${key}` via `router.push`.
 
 </domain>
 
@@ -66,13 +70,15 @@ Content sourced from existing `en.json` data — no content rewrite. Skills sect
 #### Data Model Extension
 - **D-30:** Skills-to-projects mapping requires a new data structure in `en.json` or a separate mapping file. Each skill needs an array of project slugs it connects to. This is NEW data not currently in the content model.
 
-### Section Integration
-- **D-31:** Section order in PageShell: Intro → Menu → ProjectsGrid → About → Experience → Skills → (Footer stays in layout.tsx)
-- **D-32:** Each section is a separate component file in `src/components/sections/v2/`: `AboutSection.tsx`, `ExperienceSection.tsx`, `SkillsSection.tsx`
-- **D-33:** Each section has its own `id` attribute for future scroll-to-section functionality (Phase 5): `id="about"`, `id="experience"`, `id="skills"`
-- **D-34:** Each section uses full-width padding pattern: `px-5 md:px-8 lg:px-16` (consistent with existing sections)
-- **D-35:** Section spacing: generous vertical padding between sections (80px+ for section separation)
-- **D-36:** All three sections now have hero zones — consistent pattern across About, Experience, Skills
+### Page Architecture (Routing)
+- **D-31:** Each content section is a **separate page** with its own Next.js route: `src/app/about/page.tsx`, `src/app/experience/page.tsx`, `src/app/skills/page.tsx`. NOT sections inside PageShell.
+- **D-32:** Each page follows the **project page shell pattern** from `ProjectPageShell.tsx`: a wrapper div with `min-h-screen bg-bg`, a hero zone wrapped in `bg-bg-surface-secondary` containing `StickyLogoBar` + hero content, then content sections below.
+- **D-33:** `StickyLogoBar` component (already exists at `src/components/sections/v2/StickyLogoBar.tsx`) is reused as-is — provides sticky logo + "ask about" CTA, links back to `/` via logo.
+- **D-34:** Each page component lives in `src/components/sections/v2/`: `AboutSection.tsx`, `ExperienceSection.tsx`, `SkillsSection.tsx`. The route `page.tsx` files are thin wrappers that import and render the component (same pattern as project pages).
+- **D-35:** Each page uses full-width padding pattern: `px-5 md:px-8 lg:px-16` (consistent with existing sections)
+- **D-36:** All three pages have hero zones — consistent pattern across About, Experience, Skills. Hero zone sits inside the `bg-bg-surface-secondary` wrapper below `StickyLogoBar`.
+- **D-37:** PageShell is **NOT modified** — the home page stays as-is (Intro → Menu → ProjectsGrid). Menu items already navigate to `/${key}` via `router.push`.
+- **D-38:** Static export compatibility: pages use `force-static` or are statically renderable (no server-side features). Same constraint as project pages.
 
 ### Claude's Discretion
 - Exact pull quote selection from bio text (which 1-2 sentences to extract)
@@ -122,7 +128,9 @@ Content sourced from existing `en.json` data — no content rewrite. Skills sect
 - `src/components/layout/Grid.tsx` — 12-col grid with GridItem (static class maps)
 - `src/hooks/useInView.ts` — IntersectionObserver entrance trigger
 - `src/app/globals.css` — Entrance animation CSS classes (`-entrance -slide-up`, `-fade`, `-scale-in`, stagger `-a-N`)
-- `src/components/layout/PageShell.tsx` — Section orchestrator (where new sections are added)
+- `src/components/sections/v2/StickyLogoBar.tsx` — Sticky logo + CTA bar (reused on all content pages)
+- `src/components/sections/v2/project/ProjectPageShell.tsx` — **PRIMARY REFERENCE** for page shell pattern (StickyLogoBar + hero zone + content). Content pages must follow this same structure.
+- `src/app/projects/[slug]/page.tsx` — **REFERENCE** for route page.tsx pattern (thin wrapper with generateStaticParams + metadata + main > Shell)
 
 ### Prior Phase Context
 - `.planning/phases/02-home-page/02-CONTEXT.md` — Animation system decisions, section theming approach
@@ -152,10 +160,13 @@ Content sourced from existing `en.json` data — no content rewrite. Skills sect
 - Client-only dynamic imports for heavy dependencies (Three.js pattern in `NoiseGradientCanvas`)
 
 ### Integration Points
-- `PageShell.tsx` — Add 3 new section imports and render between `<ProjectsGrid />` and end of fragment
+- `src/app/about/page.tsx` — New route page (thin wrapper importing AboutSection)
+- `src/app/experience/page.tsx` — New route page (thin wrapper importing ExperienceSection)
+- `src/app/skills/page.tsx` — New route page (thin wrapper importing SkillsSection)
 - `en.json` — Content exists for About and Experience. **Skills needs new skill-to-project mapping data.**
 - `types.ts` — Needs extension for skill-to-project mapping type
 - `public/about-frames/` — New directory for extracted WebP frame sequence (build-time asset)
+- `PageShell.tsx` — **NOT modified**. Home page stays as-is.
 
 </code_context>
 
@@ -174,10 +185,9 @@ Content sourced from existing `en.json` data — no content rewrite. Skills sect
 <deferred>
 ## Deferred Ideas
 
-- Menu scroll-to-section integration (clicking "about" in menu scrolls to About section) — Phase 5
-- Light mode support for all sections — deferred post-launch
-- i18n (PT-BR) for all sections — deferred post-launch
-- Per-section OG metadata — not needed for home page sections
+- Light mode support for all pages — deferred post-launch
+- i18n (PT-BR) for all pages — deferred post-launch
+- Per-page OG metadata (title/description for /about, /experience, /skills) — could add in this phase or defer
 - Clickable project links in Skills relationship map (navigate to project page) — could be Phase 5 or post-launch
 
 </deferred>
