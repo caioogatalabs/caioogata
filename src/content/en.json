@@ -278,27 +278,53 @@
         "skills": [
           {
             "name": "UI/UX Design",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-website",
+              "azion-console-kit",
+              "azion-design-system",
+              "huia"
+            ]
           },
           {
             "name": "Creative Direction",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-brand-system",
+              "azion-website",
+              "huia"
+            ]
           },
           {
             "name": "Developer Experience (DevEx)",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-console-kit",
+              "azion-design-system"
+            ]
           },
           {
             "name": "Product Design",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-console-kit",
+              "azion-website"
+            ]
           },
           {
             "name": "Brand Strategy",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-brand-system"
+            ]
           },
           {
             "name": "Team Leadership",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-design-system",
+              "huia"
+            ]
           },
           {
             "name": "Design Operations",
@@ -306,7 +332,11 @@
           },
           {
             "name": "Interaction Design",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-website",
+              "azion-console-kit"
+            ]
           }
         ]
       },
@@ -315,31 +345,57 @@
         "skills": [
           {
             "name": "Design Systems Architecture",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-design-system",
+              "azion-console-kit"
+            ]
           },
           {
             "name": "Design Tokens",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-design-system"
+            ]
           },
           {
             "name": "Component Architecture",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-design-system",
+              "azion-console-kit"
+            ]
           },
           {
             "name": "Design-to-Code Workflows",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-design-system",
+              "azion-console-kit"
+            ]
           },
           {
             "name": "Accessibility / WCAG",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-design-system",
+              "azion-console-kit"
+            ]
           },
           {
             "name": "Atomic Design",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-design-system"
+            ]
           },
           {
             "name": "Figma Variables & Token Studio",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-design-system",
+              "azion-brand-system"
+            ]
           },
           {
             "name": "Storybook",
@@ -352,11 +408,20 @@
         "skills": [
           {
             "name": "TypeScript / JavaScript",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-website",
+              "azion-console-kit"
+            ]
           },
           {
             "name": "HTML / CSS",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-website",
+              "azion-console-kit",
+              "huia"
+            ]
           },
           {
             "name": "Semantic HTML",
@@ -364,11 +429,19 @@
           },
           {
             "name": "Vue 3",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-console-kit"
+            ]
           },
           {
             "name": "UI Engineering",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-website",
+              "azion-console-kit",
+              "huia"
+            ]
           },
           {
             "name": "Vite",
@@ -414,15 +487,27 @@
         "skills": [
           {
             "name": "Figma",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-design-system",
+              "azion-brand-system",
+              "azion-console-kit"
+            ]
           },
           {
             "name": "Adobe Creative Suite",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-brand-system",
+              "huia"
+            ]
           },
           {
             "name": "Framer",
-            "level": "Advanced"
+            "level": "Advanced",
+            "projectSlugs": [
+              "azion-website"
+            ]
           },
           {
             "name": "Google AI Studio",
@@ -455,11 +540,18 @@
         "skills": [
           {
             "name": "Design Thinking",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-console-kit",
+              "huia"
+            ]
           },
           {
             "name": "Design Sprint",
-            "level": "Expert"
+            "level": "Expert",
+            "projectSlugs": [
+              "azion-console-kit"
+            ]
           },
           {
             "name": "Product Discovery",

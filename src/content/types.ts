@@ -14,6 +14,7 @@ export interface Job {
 export interface Skill {
   name: string
   level: string
+  projectSlugs?: string[]
 }
 
 export interface SkillCategory {
