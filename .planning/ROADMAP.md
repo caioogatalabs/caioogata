@@ -86,7 +86,7 @@ Plans:
 
 Plans:
 - [ ] 04-01-PLAN.md — About section: 4-8 grid, pull quotes, expertise tags
-- [ ] 04-02-PLAN.md — Experience section: accordion list with CSS-only expand, career progression
+- [x] 04-02-PLAN.md — Experience section: accordion list with CSS-only expand, career progression
 - [ ] 04-03-PLAN.md — Skills section: 4-4-4 category grid with level indicators
 
 ### Phase 5: Secondary Sections & Polish
