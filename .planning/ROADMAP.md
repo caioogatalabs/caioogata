@@ -72,22 +72,22 @@ Plans:
 - [x] 03-03-PLAN.md — Three gallery types, useScrollParallax hook, inter-project navigation
 
 ### Phase 4: Core Content Sections
-**Goal**: The 3 highest-impact portfolio sections are live — a visitor can read About, browse Experience, and scan Skills with rich visual treatments that match V2 quality
+**Goal**: The 3 highest-impact portfolio sections are live — About with scroll-driven video hero, Experience with menu-style hover rows, Skills with SVG relationship map — matching V2 craft quality
 **Depends on**: Phase 3
 **Requirements**: SECT-01, SECT-02, SECT-03
 **Success Criteria** (what must be TRUE):
-  1. About section renders bio in 4-8 grid with pull quotes and expertise tags using V2 typography
-  2. Experience section displays 12 roles with CSS-only accordion expand for detailed jobs (Azion, Huia) and compact rows for earlier roles
-  3. Skills section shows 6 categories in 4-4-4 grid with dot/label level indicators (not plain text lists)
+  1. About section renders scroll-driven frame-by-frame video hero with "Bridging" headline overlay, followed by 6-6 editorial layout (empty left, bio + pull quotes right)
+  2. Experience section displays 12 roles with MenuSection-identical hover pattern (yellow bar, masked text swap, arrow) in 3-3-3-3 grid, CSS grid accordion expand, keyboard navigation
+  3. Skills section shows 6-6 SVG relationship map connecting skills to projects with bidirectional hover highlighting and progress bar level indicators
   4. Each section uses appropriate `data-theme` for tonal rhythm (dark → light → dark)
   5. All sections animate with `useInView` entrances and respect `prefers-reduced-motion`
 **Plans**: 3 plans
 **UI hint**: yes
 
 Plans:
-- [x] 04-01-PLAN.md — About section: 4-8 grid, pull quotes, expertise tags
-- [x] 04-02-PLAN.md — Experience section: accordion list with CSS-only expand, career progression
-- [x] 04-03-PLAN.md — Skills section: 4-4-4 category grid with level indicators
+- [ ] 04-01-PLAN.md — About section: scroll-driven video hero (canvas + WebP frames), 6-6 editorial bio layout
+- [ ] 04-02-PLAN.md — Experience section: menu-style hover rows, CSS grid accordion expand, keyboard nav
+- [ ] 04-03-PLAN.md — Skills section: SVG relationship map, bidirectional hover, progress bar levels
 
 ### Phase 5: Secondary Sections & Polish
 **Goal**: All remaining content sections are complete, menu links scroll to sections, and the full site is responsive and polished
