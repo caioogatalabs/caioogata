@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: discussing
-stopped_at: Phase 4 context updated — revised About/Experience/Skills
-last_updated: "2026-04-18T21:39:20.402Z"
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-04-18T23:17:31.018Z"
 last_activity: 2026-04-18
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 12
-  completed_plans: 9
+  completed_plans: 12
   percent: 75
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 ## Current Position
 
 Phase: 04 (core-content-sections) -- EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Executing Phase 04
-Last activity: 2026-04-18 -- Completed 04-01 About page
+Last activity: 2026-04-18 -- Completed 04-01, 04-02 plans
 
 Progress: [███████░░░] 75%
 
@@ -61,6 +61,7 @@ Progress: [███████░░░] 75%
 | Phase 03 P02 | 2min | 2 tasks | 6 files |
 | Phase 03 P03 | 3min | 2 tasks | 6 files |
 | Phase 04 P01 | 4min | 2 tasks | 6 files |
+| Phase 04 P02 | 3min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -86,6 +87,8 @@ Recent decisions affecting current work:
 - [Phase 04]: Implementation reverted — plans exist but need user discussion before re-execution
 - [Phase 04]: JPEG frames instead of WebP due to ffmpeg lacking libwebp encoder
 - [Phase 04]: About page frames gitignored (10MB), extraction script as source of truth
+- [Phase 04]: Replicated MenuSection hover pattern exactly for experience rows — visual consistency
+- [Phase 04]: CSS grid-template-rows 0fr/1fr for accordion — natural content sizing
 
 ### Pending Todos
 
@@ -106,6 +109,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-18T23:16:24Z
-Stopped at: Completed 04-01-PLAN.md (About page with video hero)
-Resume file: .planning/phases/04-core-content-sections/04-02-PLAN.md
+Last session: 2026-04-18T23:17:31.014Z
+Stopped at: Completed 04-01, 04-02 plans
+Resume file: .planning/phases/04-core-content-sections/04-03-PLAN.md

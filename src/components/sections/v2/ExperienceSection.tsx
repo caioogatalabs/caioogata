@@ -1,324 +1,500 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
+import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
+import { useExperienceNavigation } from '@/hooks/useExperienceNavigation'
 import { useInView } from '@/hooks/useInView'
-import { Grid, GridItem } from '@/components/layout/Grid'
 import content from '@/content/en.json'
-import type { Job } from '@/content/types'
+import type { Content } from '@/content/types'
 
-const jobs = content.experience.jobs as Job[]
-const DETAILED_JOBS = jobs.slice(0, 7)
-const MINOR_JOBS = jobs.slice(7)
-
-const AZION_COMPANY = 'Azion Technologies'
-
-function isAzionJob(job: Job): boolean {
-  return job.company === AZION_COMPANY
-}
+const typedContent = content as unknown as Content
+const jobs = typedContent.experience.jobs
 
 export function ExperienceSection() {
+  const heroRef = useInView({ threshold: 0.1, once: true })
+  const rowsRef = useInView({ threshold: 0.05, once: true })
+  const containerRef = useRef<HTMLDivElement>(null)
+
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
-  const headingRef = useInView({ threshold: 0.1, once: true })
-  const rolesRef = useInView({ threshold: 0.05, once: true })
-  const minorRef = useInView({ threshold: 0.1, once: true })
+  const [reducedMotion, setReducedMotion] = useState(false)
 
-  const toggle = (index: number) =>
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReducedMotion(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
+  const toggle = useCallback((index: number) => {
     setExpandedIndex((prev) => (prev === index ? null : index))
+  }, [])
 
-  // Group Azion jobs (indices 0-2)
-  const azionJobs = DETAILED_JOBS.filter((_j, i) => i <= 2)
-  const otherDetailedJobs = DETAILED_JOBS.filter((_j, i) => i > 2)
+  const handleExpand = useCallback((index: number) => {
+    setExpandedIndex(index)
+  }, [])
+
+  const handleCollapse = useCallback((index: number) => {
+    if (index === -1) {
+      setExpandedIndex(null)
+    } else {
+      setExpandedIndex((prev) => (prev === index ? null : prev))
+    }
+  }, [])
+
+  const {
+    activeIndex,
+    hoveredIndex,
+    highlightedIndex,
+    setHoveredIndex,
+    handleKeyDown,
+    isDimmed,
+  } = useExperienceNavigation({
+    itemCount: jobs.length,
+    onExpand: handleExpand,
+    onCollapse: handleCollapse,
+    containerRef,
+  })
+
+  const instantStyle = reducedMotion
+    ? { transitionDuration: '0s' }
+    : undefined
 
   return (
-    <section
-      id="experience"
-      aria-label="Experience"
-      data-theme="light"
-      className="py-20 md:py-28 lg:py-36"
-    >
-      {/* Section heading */}
-      <div ref={headingRef as React.RefObject<HTMLDivElement>}>
-        <Grid>
-          <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-            <h2
-              className="-entrance -slide-up -a-0 text-lg font-semibold uppercase tracking-[1.2px] text-text-primary mb-12 md:mb-16"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              Experience
-            </h2>
-          </GridItem>
-        </Grid>
-      </div>
+    <div className="min-h-screen bg-bg" data-theme="light">
+      {/* Hero zone */}
+      <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12">
+        <StickyLogoBar />
 
-      {/* Roles list */}
-      <div ref={rolesRef as React.RefObject<HTMLDivElement>}>
-        {/* Azion career progression group */}
-        <Grid className="mb-2">
-          <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-            <div className="border-l-2 border-border-primary pl-4 md:pl-6">
-              <span
-                className="-entrance -slide-up -a-0 block text-xs uppercase tracking-[1px] text-text-tertiary font-medium mb-4"
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                Azion Technologies — Career Progression
-              </span>
-
-              {azionJobs.map((job, i) => (
-                <ExpandableRole
-                  key={i}
-                  job={job}
-                  index={i}
-                  isExpanded={expandedIndex === i}
-                  onToggle={toggle}
-                  staggerIndex={i}
-                  isLast={i === azionJobs.length - 1}
-                />
-              ))}
-            </div>
-          </GridItem>
-        </Grid>
-
-        {/* Other detailed roles */}
-        {otherDetailedJobs.map((job, i) => {
-          const globalIndex = i + 3 // offset by Azion count
-          return (
-            <ExpandableRole
-              key={globalIndex}
-              job={job}
-              index={globalIndex}
-              isExpanded={expandedIndex === globalIndex}
-              onToggle={toggle}
-              staggerIndex={globalIndex}
-              isLast={i === otherDetailedJobs.length - 1}
-              useGrid
-            />
-          )
-        })}
-      </div>
-
-      {/* Minor roles */}
-      <div ref={minorRef as React.RefObject<HTMLDivElement>}>
-        <Grid className="mt-8 md:mt-12">
-          <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-            <span
-              className="-entrance -slide-up -a-0 block text-xs uppercase tracking-[1px] text-text-tertiary font-medium mb-4"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              Earlier roles
-            </span>
-          </GridItem>
-        </Grid>
-
-        {MINOR_JOBS.map((job, i) => (
-          <MinorRole
-            key={i}
-            job={job}
-            staggerIndex={i}
-            isLast={i === MINOR_JOBS.length - 1}
-          />
-        ))}
-      </div>
-    </section>
-  )
-}
-
-/* ── Expandable role row (indices 0-6) ── */
-
-interface ExpandableRoleProps {
-  job: Job
-  index: number
-  isExpanded: boolean
-  onToggle: (index: number) => void
-  staggerIndex: number
-  isLast: boolean
-  useGrid?: boolean
-}
-
-function ExpandableRole({
-  job,
-  index,
-  isExpanded,
-  onToggle,
-  staggerIndex,
-  isLast,
-  useGrid = false,
-}: ExpandableRoleProps) {
-  const detailId = `exp-detail-${index}`
-  const staggerClass = `-a-${Math.min(staggerIndex, 20)}`
-
-  const rowContent = (
-    <div className={`${!isLast ? 'border-b border-border-primary' : ''}`}>
-      <button
-        onClick={() => onToggle(index)}
-        aria-expanded={isExpanded}
-        aria-controls={detailId}
-        className={`-entrance -slide-up ${staggerClass} w-full text-left py-3`}
-      >
-        <Grid className="!px-0">
-          <GridItem span={3} tabletSpan={2} mobileSpan={4}>
-            <span
-              className="text-xs uppercase tracking-[1px] text-text-tertiary font-medium"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {job.dateRange}
-            </span>
-          </GridItem>
-          <GridItem span={6} tabletSpan={4} mobileSpan={4}>
-            <span
-              className="text-base font-semibold text-text-primary"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {job.company}
-            </span>
-            <span
-              className="text-base text-text-secondary ml-2 hidden md:inline"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {job.title}
-            </span>
-            <span
-              className="text-sm text-text-secondary block md:hidden mt-0.5"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {job.title}
-            </span>
-          </GridItem>
-          <GridItem
-            span={3}
-            tabletSpan={2}
-            mobileSpan={4}
-            className="flex justify-end items-center"
+        <div
+          ref={heroRef as React.RefObject<HTMLDivElement>}
+          className="px-5 md:px-8 lg:px-16 pb-16 md:pb-24"
+        >
+          <h1
+            className="-entrance -slide-up -a-0 text-5xl md:text-7xl lg:text-8xl text-text-primary font-semibold"
+            style={{ fontFamily: 'var(--font-sans)' }}
           >
-            <span
-              className={`transition-transform duration-300 text-text-tertiary text-xs ${
-                isExpanded ? 'rotate-180' : ''
-              }`}
-              style={{
-                transitionTimingFunction: 'cubic-bezier(0.5,0,0.3,1)',
-              }}
-            >
-              &#x25BC;
-            </span>
-          </GridItem>
-        </Grid>
-      </button>
+            Experience
+          </h1>
+          <div className="-entrance -slide-up -a-1 flex items-center gap-3 mt-4 font-mono text-sm text-text-secondary">
+            <span>12+ years</span>
+            <span className="text-text-tertiary">·</span>
+            <span>6 companies</span>
+            <span className="text-text-tertiary">·</span>
+            <span>3 director roles</span>
+          </div>
+        </div>
+      </div>
 
-      {/* Expandable detail — CSS grid-template-rows transition */}
+      {/* Experience rows */}
       <div
-        id={detailId}
-        aria-hidden={!isExpanded}
-        className="overflow-hidden"
-        style={{
-          display: 'grid',
-          gridTemplateRows: isExpanded ? '1fr' : '0fr',
-          transition: 'grid-template-rows 0.4s cubic-bezier(0.5,0,0.3,1)',
-        }}
+        ref={rowsRef as React.RefObject<HTMLDivElement>}
+        className="px-5 md:px-8 lg:px-16 py-8 md:py-12"
+        onKeyDown={handleKeyDown}
+        onMouseLeave={() => setHoveredIndex(-1)}
+        role="list"
+        aria-label="Experience roles"
       >
-        <div className="min-h-0">
-          <Grid className="!px-0 pt-4 pb-6">
-            <GridItem span={3} tabletSpan={2} mobileSpan={0}>
-              {/* spacer */}
-            </GridItem>
-            <GridItem span={9} tabletSpan={6} mobileSpan={4}>
-              {job.description && (
-                <p
-                  className="text-sm text-text-secondary mb-4 leading-relaxed"
+        <div ref={containerRef}>
+          {jobs.map((job, index) => {
+            const isHighlighted =
+              highlightedIndex === index
+            const isExpanded = expandedIndex === index
+            const dimmed = isDimmed(index)
+            const isKeyboardFocused =
+              activeIndex === index && hoveredIndex < 0
+            const staggerClass = `-a-${Math.min(index, 20)}`
+
+            return (
+              <div
+                key={index}
+                data-experience-row
+                role="listitem"
+                className={`-entrance -slide-up ${staggerClass}`}
+              >
+                {/* Row button */}
+                <div
+                  className="relative cursor-pointer"
                   style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontWeight: 300,
+                    zIndex: isHighlighted || isExpanded ? 10 : 1,
+                  }}
+                  onClick={() => toggle(index)}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  tabIndex={0}
+                  role="button"
+                  aria-expanded={isExpanded}
+                  aria-label={`${job.company} — ${job.title}, ${job.dateRange}`}
+                >
+                  {/* Yellow background bar */}
+                  <div
+                    className="absolute bg-bg-fill-primary pointer-events-none"
+                    style={{
+                      left: '-12px',
+                      right: '-12px',
+                      top: '-5px',
+                      bottom: '-5px',
+                      transform:
+                        isHighlighted || isExpanded
+                          ? 'scaleX(1) scaleY(1)'
+                          : 'scaleX(0.92) scaleY(0.6)',
+                      opacity: isHighlighted || isExpanded ? 1 : 0,
+                      transition:
+                        isHighlighted || isExpanded
+                          ? 'transform 0.6s cubic-bezier(0.22,0.31,0,1) 0.04s, opacity 0.2s cubic-bezier(0.22,0.31,0,1) 0.04s'
+                          : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
+                      transformOrigin: 'left center',
+                      borderRadius: '12px',
+                      ...instantStyle,
+                    }}
+                  />
+
+                  {/* Row content — 12-col grid: 3-3-3-3 */}
+                  <div className="relative z-10 grid grid-cols-12 items-center py-3 gap-x-4">
+                    {/* Arrow — display size, expands before label */}
+                    <div className="col-span-12 md:col-span-1 flex items-center">
+                      <span
+                        className="shrink-0"
+                        style={{
+                          fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                          color:
+                            isHighlighted || isExpanded
+                              ? 'var(--color-text-on-primary)'
+                              : 'transparent',
+                          fontSize: '3.5rem',
+                          fontWeight: 400,
+                          lineHeight: 1,
+                          letterSpacing: '-0.02em',
+                          width:
+                            isHighlighted || isExpanded ? '3rem' : '0px',
+                          opacity: isHighlighted || isExpanded ? 1 : 0,
+                          overflow: 'hidden',
+                          transition:
+                            isHighlighted || isExpanded
+                              ? 'width 0.5s cubic-bezier(0.16,1,0.3,1) 0.04s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                              : 'width 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s cubic-bezier(0.16,1,0.3,1)',
+                          ...instantStyle,
+                        }}
+                        aria-hidden="true"
+                      >
+                        →
+                      </span>
+                    </div>
+
+                    {/* Date range */}
+                    <div className="hidden md:flex col-span-2 items-center">
+                      <span
+                        className="font-mono text-sm"
+                        style={{
+                          color:
+                            isHighlighted || isExpanded
+                              ? 'var(--color-text-on-primary)'
+                              : dimmed
+                                ? 'var(--color-text-tertiary)'
+                                : 'var(--color-text-secondary)',
+                          opacity: dimmed ? 0.3 : 1,
+                          transition: 'color 0.3s, opacity 0.3s',
+                          ...instantStyle,
+                        }}
+                      >
+                        {job.dateRange}
+                      </span>
+                    </div>
+
+                    {/* Company — masked text swap */}
+                    <div className="col-span-8 md:col-span-4">
+                      <span
+                        className="relative block overflow-hidden"
+                        style={{
+                          height: '2.8rem',
+                          marginTop: '-0.4rem',
+                          marginBottom: '-0.4rem',
+                        }}
+                      >
+                        {/* Default text */}
+                        <span
+                          className="absolute inset-0 flex items-center"
+                          style={{
+                            transform:
+                              isHighlighted || isExpanded
+                                ? 'translateY(-100%)'
+                                : 'translateY(0)',
+                            color: dimmed
+                              ? 'var(--color-text-tertiary)'
+                              : isHighlighted || isExpanded
+                                ? 'var(--color-text-on-primary)'
+                                : 'var(--color-text-primary)',
+                            fontFamily: 'var(--font-sans)',
+                            fontWeight: 600,
+                            transition:
+                              isHighlighted || isExpanded
+                                ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                            opacity: dimmed ? 0.3 : 1,
+                            ...instantStyle,
+                          }}
+                        >
+                          <span className="block truncate">{job.company}</span>
+                        </span>
+                        {/* Hover text */}
+                        <span
+                          className="absolute inset-0 flex items-center"
+                          style={{
+                            transform:
+                              isHighlighted || isExpanded
+                                ? 'translateY(0)'
+                                : 'translateY(100%)',
+                            transition:
+                              isHighlighted || isExpanded
+                                ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                            color: 'var(--color-text-on-primary)',
+                            fontFamily:
+                              "'Pexel Grotesk', var(--font-sans)",
+                            fontSize: '1.5rem',
+                            fontWeight: 700,
+                            ...instantStyle,
+                          }}
+                        >
+                          <span className="block truncate">{job.company}</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    {/* Title — masked text swap */}
+                    <div className="col-span-4 md:col-span-4 hidden md:block">
+                      <span
+                        className="relative block overflow-hidden"
+                        style={{
+                          height: '2.8rem',
+                          marginTop: '-0.4rem',
+                          marginBottom: '-0.4rem',
+                        }}
+                      >
+                        {/* Default text */}
+                        <span
+                          className="absolute inset-0 flex items-center"
+                          style={{
+                            transform:
+                              isHighlighted || isExpanded
+                                ? 'translateY(-100%)'
+                                : 'translateY(0)',
+                            color: dimmed
+                              ? 'var(--color-text-tertiary)'
+                              : 'var(--color-text-secondary)',
+                            fontFamily: 'var(--font-sans)',
+                            transition:
+                              isHighlighted || isExpanded
+                                ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                            opacity: dimmed ? 0.3 : 1,
+                            ...instantStyle,
+                          }}
+                        >
+                          <span className="block truncate">{job.title}</span>
+                        </span>
+                        {/* Hover text */}
+                        <span
+                          className="absolute inset-0 flex items-center"
+                          style={{
+                            transform:
+                              isHighlighted || isExpanded
+                                ? 'translateY(0)'
+                                : 'translateY(100%)',
+                            transition:
+                              isHighlighted || isExpanded
+                                ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                            color: 'var(--color-text-on-primary)',
+                            fontFamily:
+                              "'Pexel Grotesk', var(--font-sans)",
+                            fontSize: '1.5rem',
+                            fontWeight: 700,
+                            ...instantStyle,
+                          }}
+                        >
+                          <span className="block truncate">{job.title}</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    {/* Mobile: title below company */}
+                    <div className="col-span-12 md:hidden mt-0.5">
+                      <span
+                        className="text-sm"
+                        style={{
+                          fontFamily: 'var(--font-sans)',
+                          color:
+                            isHighlighted || isExpanded
+                              ? 'var(--color-text-on-primary)'
+                              : 'var(--color-text-secondary)',
+                          opacity: dimmed ? 0.3 : 1,
+                          transition: 'color 0.3s, opacity 0.3s',
+                          ...instantStyle,
+                        }}
+                      >
+                        {job.title}
+                      </span>
+                      <span
+                        className="font-mono text-xs mt-1 block"
+                        style={{
+                          color:
+                            isHighlighted || isExpanded
+                              ? 'var(--color-text-on-primary)'
+                              : 'var(--color-text-tertiary)',
+                          opacity: dimmed ? 0.3 : 1,
+                          transition: 'color 0.3s, opacity 0.3s',
+                          ...instantStyle,
+                        }}
+                      >
+                        {job.dateRange}
+                      </span>
+                    </div>
+
+                    {/* Keyboard focus indicator */}
+                    {isKeyboardFocused && (
+                      <div
+                        className="absolute inset-0 rounded-[12px] pointer-events-none"
+                        style={{
+                          outline: '2px solid var(--color-text-primary)',
+                          outlineOffset: '2px',
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                {/* Accordion expand — CSS grid-template-rows transition */}
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateRows: isExpanded ? '1fr' : '0fr',
+                    transition: reducedMotion
+                      ? 'none'
+                      : 'grid-template-rows 0.4s var(--ease-smooth)',
+                    position: 'relative',
+                    zIndex: isExpanded ? 10 : 1,
                   }}
                 >
-                  {job.description}
-                </p>
-              )}
-              {job.achievements && job.achievements.length > 0 && (
-                <ul className="space-y-2">
-                  {job.achievements.map((a, i) => (
-                    <li
-                      key={i}
-                      className="text-sm text-text-secondary leading-relaxed flex gap-2"
+                  <div className="overflow-hidden min-h-0">
+                    <div
+                      className="py-4 md:py-6"
                       style={{
-                        fontFamily: 'var(--font-sans)',
-                        fontWeight: 300,
+                        backgroundColor: isExpanded
+                          ? 'var(--color-bg-fill-primary)'
+                          : 'transparent',
+                        borderRadius: '0 0 12px 12px',
+                        marginLeft: '-12px',
+                        marginRight: '-12px',
+                        paddingLeft: '12px',
+                        paddingRight: '12px',
                       }}
                     >
-                      <span className="text-text-tertiary mt-1 shrink-0">
-                        -
-                      </span>
-                      <span>{a.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </GridItem>
-          </Grid>
+                      {/* 6-6 grid: description left, achievements right */}
+                      <div className="grid grid-cols-12 gap-x-4 gap-y-4">
+                        {/* Description + location */}
+                        <div className="col-span-12 md:col-span-6">
+                          {job.location && (
+                            <p
+                              className="text-xs font-mono mb-2"
+                              style={{
+                                color: 'var(--color-text-on-primary)',
+                                opacity: 0.7,
+                              }}
+                            >
+                              {job.location}
+                            </p>
+                          )}
+                          {job.description && (
+                            <p
+                              className="text-base leading-relaxed"
+                              style={{
+                                color: 'var(--color-text-on-primary)',
+                                fontFamily: 'var(--font-sans)',
+                              }}
+                            >
+                              {job.description}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Achievements */}
+                        {job.achievements &&
+                          job.achievements.length > 0 && (
+                            <div className="col-span-12 md:col-span-6">
+                              <ul className="space-y-2">
+                                {job.achievements.map((a, i) => (
+                                  <li
+                                    key={i}
+                                    className="text-base leading-relaxed flex gap-2"
+                                    style={{
+                                      color:
+                                        'var(--color-text-on-primary)',
+                                      fontFamily: 'var(--font-sans)',
+                                    }}
+                                  >
+                                    <span
+                                      className="shrink-0 mt-1"
+                                      style={{ opacity: 0.6 }}
+                                    >
+                                      -
+                                    </span>
+                                    <span>{a.text}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Row divider */}
+                <div
+                  className="h-px w-full bg-border-primary"
+                  style={{
+                    opacity:
+                      isHighlighted || isExpanded ? 0 : 0.1,
+                    transition: 'opacity 0.3s',
+                    ...instantStyle,
+                  }}
+                />
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Keyboard hints */}
+        <div className="-entrance -fade -a-13 items-center gap-3 py-4 hidden lg:flex">
+          <div className="flex items-center gap-1">
+            <KeyBadge>↑</KeyBadge>
+            <KeyBadge>↓</KeyBadge>
+            <span className="text-xs text-text-tertiary ml-0.5">
+              to navigate
+            </span>
+          </div>
+          <span className="text-xs text-text-tertiary opacity-40">·</span>
+          <div className="flex items-center gap-1.5">
+            <KeyBadge>Enter</KeyBadge>
+            <span className="text-xs text-text-tertiary">to expand</span>
+          </div>
+          <span className="text-xs text-text-tertiary opacity-40">·</span>
+          <div className="flex items-center gap-1.5">
+            <KeyBadge>Esc</KeyBadge>
+            <span className="text-xs text-text-tertiary">
+              to collapse all
+            </span>
+          </div>
         </div>
       </div>
     </div>
   )
-
-  if (useGrid) {
-    return (
-      <Grid>
-        <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-          {rowContent}
-        </GridItem>
-      </Grid>
-    )
-  }
-
-  return rowContent
 }
 
-/* ── Minor role row (indices 7-11) ── */
-
-interface MinorRoleProps {
-  job: Job
-  staggerIndex: number
-  isLast: boolean
-}
-
-function MinorRole({ job, staggerIndex, isLast }: MinorRoleProps) {
-  const staggerClass = `-a-${Math.min(staggerIndex, 20)}`
-
+function KeyBadge({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      className={`-entrance -slide-up ${staggerClass} ${
-        !isLast ? 'border-b border-border-primary' : ''
-      }`}
-    >
-      <Grid className="py-2">
-        <GridItem span={3} tabletSpan={2} mobileSpan={4}>
-          <span
-            className="text-xs uppercase tracking-[1px] text-text-tertiary font-medium"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            {job.dateRange}
-          </span>
-        </GridItem>
-        <GridItem span={6} tabletSpan={4} mobileSpan={4}>
-          <span
-            className="text-xs text-text-secondary"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            {job.company}
-          </span>
-          <span
-            className="text-xs text-text-tertiary ml-2"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            {job.title}
-          </span>
-        </GridItem>
-        <GridItem span={3} tabletSpan={2} mobileSpan={4}>
-          <span
-            className="text-xs text-text-tertiary"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            {job.location}
-          </span>
-        </GridItem>
-      </Grid>
-    </div>
+    <span className="inline-flex items-center justify-center bg-bg-surface-primary text-text-primary text-[11px] font-medium font-mono px-[5px] py-[2px] rounded-[3px] leading-none">
+      {children}
+    </span>
   )
 }
