@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 
 ## Current Position
 
-Phase: 4
-Plan: 3 plans ready, not executed
-Status: Discussing implementation details
-Last activity: 2026-04-18
+Phase: 04 (core-content-sections) -- EXECUTING
+Plan: 2 of 3
+Status: Executing Phase 04
+Last activity: 2026-04-18 -- Completed 04-01 About page
 
 Progress: [███████░░░] 75%
 
@@ -60,6 +60,7 @@ Progress: [███████░░░] 75%
 | Phase 03 P01 | 5min | 3 tasks | 4 files |
 | Phase 03 P02 | 2min | 2 tasks | 6 files |
 | Phase 03 P03 | 3min | 2 tasks | 6 files |
+| Phase 04 P01 | 4min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,8 @@ Recent decisions affecting current work:
 - [Phase 03]: Info block uses 3-2-3-2-2 grid spans for 5-column metadata layout
 - [Phase 03]: Sub-component pattern for hooks-in-loops: RevealImage/ParallaxRevealImage call hooks individually per image
 - [Phase 04]: Implementation reverted — plans exist but need user discussion before re-execution
+- [Phase 04]: JPEG frames instead of WebP due to ffmpeg lacking libwebp encoder
+- [Phase 04]: About page frames gitignored (10MB), extraction script as source of truth
 
 ### Pending Todos
 
@@ -103,6 +106,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-18T21:39:20.399Z
-Stopped at: Phase 4 context updated — revised About/Experience/Skills
-Resume file: .planning/phases/04-core-content-sections/04-CONTEXT.md
+Last session: 2026-04-18T23:16:24Z
+Stopped at: Completed 04-01-PLAN.md (About page with video hero)
+Resume file: .planning/phases/04-core-content-sections/04-02-PLAN.md

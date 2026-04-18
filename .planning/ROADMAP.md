@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Infrastructure** - Preserve V1, migrate Tailwind v4, integrate tokens, load Fabio XM
 - [x] **Phase 2: Home Page** - Implement the full Home V2 layout with intro, menu, projects grid, footer (completed 2026-04-03)
 - [x] **Phase 3: Project Pages** - Dedicated project routes at `/projects/[slug]` with hero, content grid, navigation (completed 2026-04-06)
-- [ ] **Phase 4: Core Content Sections** - About, Experience, Skills — the 3 high-impact portfolio sections
+- [x] **Phase 4: Core Content Sections** - About, Experience, Skills — the 3 high-impact portfolio sections (completed 2026-04-18)
 - [ ] **Phase 5: Secondary Sections & Polish** - Education, Clients, Philosophy + menu scroll integration + responsive audit
 
 ## Phase Details
@@ -85,9 +85,9 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 04-01-PLAN.md — About section: scroll-driven video hero (canvas + WebP frames), 6-6 editorial bio layout
-- [ ] 04-02-PLAN.md — Experience section: menu-style hover rows, CSS grid accordion expand, keyboard nav
-- [ ] 04-03-PLAN.md — Skills section: SVG relationship map, bidirectional hover, progress bar levels
+- [x] 04-01-PLAN.md — About section: scroll-driven video hero (canvas + WebP frames), 6-6 editorial bio layout
+- [x] 04-02-PLAN.md — Experience section: menu-style hover rows, CSS grid accordion expand, keyboard nav
+- [x] 04-03-PLAN.md — Skills section: SVG relationship map, bidirectional hover, progress bar levels
 
 ### Phase 5: Secondary Sections & Polish
 **Goal**: All remaining content sections are complete, menu links scroll to sections, and the full site is responsive and polished
@@ -120,5 +120,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 1. Infrastructure | 2/2 | Complete | 2026-04-02 |
 | 2. Home Page | 4/4 | Complete | 2026-04-03 |
 | 3. Project Pages | 3/3 | Complete | 2026-04-06 |
-| 4. Core Content Sections | 0/3 | Not started | - |
+| 4. Core Content Sections | 3/3 | Complete   | 2026-04-18 |
 | 5. Secondary Sections & Polish | 0/4 | Not started | - |
