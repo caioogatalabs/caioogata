@@ -27,7 +27,7 @@ The portfolio must communicate design engineering credibility through its own cr
 - [ ] Integrate design tokens: `globals.css` imports `src/tokens/index.css`
 - [ ] Typography setup: Fabio XM `@font-face` + variable font
 - [x] Implement Home V2: Intro, Menu, Projects grid, Footer — Validated in Phase 02: Home Page (2026-04-03)
-- [x] Core section layouts: About, Experience, Skills — Validated in Phase 04: Core Content Sections (2026-04-18)
+- [ ] Core section layouts: About, Experience, Skills
 - [ ] Secondary section layouts: Education, Clients, Philosophy
 - [x] Project Pages: `/projects/[slug]` dedicated routes with hero + scroll layout — Validated in Phase 03: Project Pages (2026-04-06)
 - [x] Animations: Motion library (page transitions, scroll reveals, hover states) — Validated in Phase 02: Home Page (2026-04-03)
@@ -95,4 +95,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-18 after Phase 04 completion*
+*Last updated: 2026-04-18 — Phase 04 reverted to planning stage*

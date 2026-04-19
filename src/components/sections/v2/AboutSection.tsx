@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { useScrollVideo } from '@/hooks/useScrollVideo'
 import { Grid, GridItem } from '@/components/layout/Grid'
@@ -10,60 +11,124 @@ import type { Content } from '@/content/types'
 const typedContent = content as unknown as Content
 const about = typedContent.about
 
-const PULL_QUOTES = [
-  'My work bridges brand strategy, product craft, and technical implementation — designing and building at the intersection of design systems, developer experience, and product engineering.',
-  'Engineering rigor and design craft aren\u2019t opposites. The products I\u2019m proudest of happened when both disciplines were solving the same problem.',
-]
+/**
+ * Scroll-driven transitions synced to video progress.
+ * Headline exits at 45–55%. Core Expertise enters at 50–60% (overlaps with headline exit).
+ */
+function useScrollTransitions(progress: number) {
+  return useMemo(() => {
+    const headlineT = Math.max(0, Math.min(1, (progress - 0.45) / 0.10))
+
+    // Tags: fade in 50–60%, visible 60–85%, fade out 85–95%
+    const tagsIn = Math.max(0, Math.min(1, (progress - 0.50) / 0.10))
+    const tagsOut = Math.max(0, Math.min(1, (progress - 0.85) / 0.10))
+    const tagsOpacity = tagsIn - tagsOut
+
+    return {
+      headline: {
+        opacity: 1 - headlineT,
+        transform: `translateY(${-headlineT * 40}px)`,
+        pointerEvents: (headlineT === 1 ? 'none' : 'auto') as React.CSSProperties['pointerEvents'],
+      },
+      tags: {
+        opacity: tagsOpacity,
+        transform: `translateY(${(1 - tagsIn) * 20}px)`,
+        pointerEvents: (tagsOpacity === 0 ? 'none' : 'auto') as React.CSSProperties['pointerEvents'],
+      },
+    }
+  }, [progress])
+}
 
 export function AboutSection() {
   const { containerRef, canvasRef, progress } = useScrollVideo()
   const contentRef = useInView({ threshold: 0.1, once: true })
+  const { headline: headlineStyle, tags: tagsStyle } = useScrollTransitions(progress)
 
   const paragraphs = about.bio.split('\n\n')
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Hero zone */}
-      <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12">
-        <StickyLogoBar />
+      {/* Hero block — video bg + sticky overlay content */}
+      <div
+        ref={containerRef}
+        style={{ height: '200vh' }}
+      >
+        <div className="sticky top-0 w-full overflow-hidden relative">
+          {/* Video canvas — absolute, fills entire sticky hero */}
+          <canvas
+            ref={canvasRef}
+            className="absolute inset-0 w-full h-full"
+            style={{ objectFit: 'cover', objectPosition: 'center bottom' }}
+          />
 
-        {/* Scroll-driven video hero */}
-        <div
-          ref={containerRef}
-          style={{ height: '400vh' }}
-        >
-          <div className="sticky top-0 h-screen w-full overflow-hidden">
-            {/* Canvas — fills viewport */}
-            <canvas
-              ref={canvasRef}
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectFit: 'cover' }}
-            />
+          {/* BG overlay — 70% opacity for text readability */}
+          <div
+            className="absolute inset-0 bg-bg"
+            style={{ opacity: 0.7 }}
+          />
 
-            {/* Overlaid headline + expertise tags */}
-            <div className="absolute inset-0 flex flex-col justify-end px-5 pb-12 md:px-8 md:pb-16 lg:px-16 lg:pb-20">
-              <h1
-                className="text-4xl md:text-6xl lg:text-7xl font-light text-text-primary mb-6 max-w-4xl leading-tight"
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                Bridging brand strategy, product craft, and technical implementation
-              </h1>
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                {about.expertise.map((item, i) => (
-                  <span
-                    key={item}
-                    className="font-mono text-sm text-text-secondary"
-                  >
-                    {item}
-                    {i < about.expertise.length - 1 && (
-                      <span className="ml-2 text-text-tertiary">/</span>
-                    )}
+          {/* Hero content — same structure as ProjectPageShell + ProjectHero */}
+          <div className="relative z-10">
+            {/* StickyLogoBar — transparent, same position as projects */}
+            <div className="pt-8 md:pt-10 lg:pt-12">
+              <StickyLogoBar />
+            </div>
+
+            {/* Hero text — same padding as ProjectHero text section */}
+            <div className="flex flex-col justify-end pt-32 pb-8 md:pt-40 md:pb-10 lg:pt-48 lg:pb-12">
+              <Grid>
+                <GridItem span={12} tabletSpan={8} mobileSpan={4}>
+                  <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-6 -entrance -fade -a-0">
+                    ABT_2026 // ABOUT
                   </span>
-                ))}
-              </div>
+                </GridItem>
+
+                <GridItem span={4} tabletSpan={8} mobileSpan={4} />
+
+                <GridItem span={8} tabletSpan={8} mobileSpan={4}>
+                  {/* Headline — slides up and out synced to video scroll */}
+                  <div style={headlineStyle}>
+                    <h1
+                      className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
+                      style={{ fontFamily: 'var(--font-sans)' }}
+                    >
+                      Bridging brand strategy, product craft, and technical implementation
+                    </h1>
+                  </div>
+                </GridItem>
+              </Grid>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Core Expertise — fixed in dark area below hero, synced to video scroll */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-30 px-5 md:px-8 lg:px-16 pb-8 md:pb-12 lg:pb-16"
+        style={tagsStyle}
+      >
+        <Grid className="!px-0">
+          <GridItem span={6} tabletSpan={2} mobileSpan={4} />
+          <GridItem span={6} tabletSpan={6} mobileSpan={4}>
+            <div className="flex flex-col w-full">
+              <span
+                className="text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
+                style={{ fontFamily: 'var(--font-sans)' }}
+              >
+                Core Expertise
+              </span>
+              {about.expertise.map((item) => (
+                <p
+                  key={item}
+                  className="text-base text-text-primary py-3 border-t border-border-secondary"
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  {item}
+                </p>
+              ))}
+            </div>
+          </GridItem>
+        </Grid>
       </div>
 
       {/* Editorial content zone */}
@@ -76,7 +141,7 @@ export function AboutSection() {
             mobileSpan={4}
           />
 
-          {/* Right column: bio + pull quotes */}
+          {/* Right column: bio */}
           <GridItem
             span={6}
             tabletSpan={6}
@@ -84,42 +149,13 @@ export function AboutSection() {
             ref={contentRef as React.RefObject<HTMLDivElement>}
           >
             {paragraphs.map((paragraph, i) => (
-              <div key={i}>
-                <p
-                  className={`-entrance -slide-up -a-${i} text-base md:text-lg text-text-primary leading-relaxed mb-6`}
-                  style={{ fontFamily: 'var(--font-sans)' }}
-                >
-                  {paragraph}
-                </p>
-
-                {/* Pull quote after first paragraph */}
-                {i === 0 && (
-                  <blockquote
-                    className="-entrance -scale-in -a-1 bg-bg-surface-secondary rounded-xl p-6 md:p-8 my-8 md:my-12"
-                  >
-                    <p
-                      className="text-xl md:text-2xl lg:text-3xl font-light text-text-primary leading-snug"
-                      style={{ fontFamily: 'var(--font-sans)', fontWeight: 300 }}
-                    >
-                      {PULL_QUOTES[0]}
-                    </p>
-                  </blockquote>
-                )}
-
-                {/* Pull quote before last paragraph */}
-                {i === paragraphs.length - 2 && PULL_QUOTES[1] && (
-                  <blockquote
-                    className="-entrance -scale-in -a-3 bg-bg-surface-secondary rounded-xl p-6 md:p-8 my-8 md:my-12"
-                  >
-                    <p
-                      className="text-xl md:text-2xl lg:text-3xl font-light text-text-primary leading-snug"
-                      style={{ fontFamily: 'var(--font-sans)', fontWeight: 300 }}
-                    >
-                      {PULL_QUOTES[1]}
-                    </p>
-                  </blockquote>
-                )}
-              </div>
+              <p
+                key={i}
+                className={`-entrance -slide-up -a-${i} text-base md:text-lg text-text-primary leading-relaxed mb-6`}
+                style={{ fontFamily: 'var(--font-sans)' }}
+              >
+                {paragraph}
+              </p>
             ))}
           </GridItem>
         </Grid>

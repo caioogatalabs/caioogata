@@ -3,9 +3,6 @@ import { useFontReady } from '@/hooks/useFontReady'
 import { IntroSection } from '@/components/sections/v2/IntroSection'
 import { MenuSection } from '@/components/sections/v2/MenuSection'
 import { ProjectsGrid } from '@/components/sections/v2/ProjectsGrid'
-import { AboutSection } from '@/components/sections/v2/AboutSection'
-import { ExperienceSection } from '@/components/sections/v2/ExperienceSection'
-import { SkillsSection } from '@/components/sections/v2/SkillsSection'
 import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
@@ -18,9 +15,6 @@ export function PageShell() {
       <IntroSection />
       <MenuSection content={typedContent.menu} />
       <ProjectsGrid />
-      <AboutSection />
-      <ExperienceSection />
-      <SkillsSection />
     </>
   )
 }

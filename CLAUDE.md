@@ -87,6 +87,21 @@ div.relative (expandRef — measures scroll position)
 - `src/components/three/NoiseGradientCanvas.tsx` — Canvas wrapper with reduced-motion
 - `src/hooks/useScrollExpand.ts` — Scroll-linked polygon expand
 
+### Video Background Overlay Pattern
+
+When using video (or any media) as a hero background with text overlaid, always add a `bg-bg` overlay div between the canvas/media and the text content, set to **70% opacity**. This ensures text readability across all frames while preserving the video atmosphere.
+
+```
+canvas/media (absolute inset-0)
+├── div.absolute.inset-0.bg-bg  style={{ opacity: 0.7 }}   ← overlay
+└── div.relative.z-10 (text content)
+```
+
+- **Token**: `bg-bg` — adapts automatically to dark/light/inverse themes
+- **Opacity**: `0.7` (70%) — validated value; lower values compromise readability
+- **Position**: absolute inset-0, between media and content (no z-index needed, DOM order suffices)
+- **Never use `overflow-hidden` on the overlay** — it's sized by `inset-0`, not overflow
+
 ### Intro / Hero Section
 
 Three-fragment structure inside a single `bg-bg-surface-secondary` wrapper div:
