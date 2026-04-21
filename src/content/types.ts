@@ -106,7 +106,7 @@ export interface ProjectSectionImage {
 }
 
 export interface ProjectSection {
-  type: 'hero' | 'challenge' | 'impact' | 'gallery-staggered' | 'gallery-feature-list' | 'gallery-full-detail' | 'info'
+  type: 'hero' | 'challenge' | 'impact' | 'gallery-staggered' | 'gallery-feature-list' | 'gallery-full-detail' | 'info' | 'gallery-full-bleed' | 'gallery-stick'
   heading?: string
   body?: string
   challenge?: string
@@ -122,6 +122,10 @@ export interface ProjectSection {
   image?: ProjectImage
   description?: string
   layout?: '4-8' | '8-4'
+  bgImage?: string
+  fgImage?: string
+  bgAlt?: string
+  fgAlt?: string
 }
 
 export interface ProjectItem {
