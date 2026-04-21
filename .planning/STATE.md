@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Phase 04.1 context gathered
-last_updated: "2026-04-21T16:18:28.211Z"
-last_activity: 2026-04-18 -- Completed 04-01, 04-02, 04-03 plans
+status: executing
+stopped_at: Completed 04.1-01-PLAN.md
+last_updated: "2026-04-21T17:46:00.581Z"
+last_activity: 2026-04-21
 progress:
   total_phases: 6
   completed_phases: 4
-  total_plans: 12
-  completed_plans: 12
+  total_plans: 14
+  completed_plans: 13
   percent: 80
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-02)
 
 **Core value:** The portfolio must communicate design engineering credibility through its own craft -- the UI itself is the strongest portfolio piece.
-**Current focus:** Phase 04 — core-content-sections
+**Current focus:** Phase 04.1 — project-gallery-blocks
 
 ## Current Position
 
-Phase: 04 (core-content-sections) -- EXECUTING
-Plan: 3 of 3 (all complete)
-Status: All plans executed, pending verification
-Last activity: 2026-04-18 -- Completed 04-01, 04-02, 04-03 plans
+Phase: 04.1 (project-gallery-blocks) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-04-21
 
 Progress: [████████░░] 80%
 
@@ -63,6 +63,7 @@ Progress: [████████░░] 80%
 | Phase 04 P01 | 4min | 2 tasks | 6 files |
 | Phase 04 P02 | 3min | 2 tasks | 3 files |
 | Phase 04 P03 | 3min | 3 tasks | 4 files |
+| Phase 04.1 P01 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -92,6 +93,7 @@ Recent decisions affecting current work:
 - [Phase 04]: CSS grid-template-rows 0fr/1fr for accordion — natural content sizing
 - [Phase 04]: Combined Tasks 2a and 2b into single SkillsSection implementation since SVG lines and hover logic are interleaved with layout
 - [Phase 04]: Extended Skill type with optional projectSlugs field for skill-to-project mapping (23 of 43 skills mapped)
+- [Phase 04.1]: Stagger reveal via startFraction offset (0.03 per image) in useScrollReveal rather than CSS animation-delay
 
 ### Roadmap Evolution
 
@@ -116,6 +118,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-21T16:18:28.208Z
-Stopped at: Phase 04.1 context gathered
-Resume file: .planning/phases/04.1-project-gallery-blocks/04.1-CONTEXT.md
+Last session: 2026-04-21T17:46:00.578Z
+Stopped at: Completed 04.1-01-PLAN.md
+Resume file: None

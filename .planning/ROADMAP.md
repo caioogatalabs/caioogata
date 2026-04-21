@@ -105,7 +105,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 04.1-01-PLAN.md — Type model extension + staggered gallery rewrite (span-aware row grid)
+- [x] 04.1-01-PLAN.md — Type model extension + staggered gallery rewrite (span-aware row grid)
 - [ ] 04.1-02-PLAN.md — Full-bleed layered composition + sticky scroll-pinned gallery + ProjectPageShell wiring
 
 ### Phase 5: Secondary Sections & Polish
