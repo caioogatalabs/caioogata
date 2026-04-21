@@ -16,6 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Home Page** - Implement the full Home V2 layout with intro, menu, projects grid, footer (completed 2026-04-03)
 - [x] **Phase 3: Project Pages** - Dedicated project routes at `/projects/[slug]` with hero, content grid, navigation (completed 2026-04-06)
 - [x] **Phase 4: Core Content Sections** - About, Experience, Skills — the 3 high-impact portfolio sections (completed 2026-04-18)
+- [ ] **Phase 4.1: Project Gallery Blocks** (INSERTED) - Fix span-aware staggered grid, add full-bleed + scroll-pinned sticky galleries
 - [ ] **Phase 5: Secondary Sections & Polish** - Education, Clients, Philosophy + menu scroll integration + responsive audit
 
 ## Phase Details
@@ -89,6 +90,24 @@ Plans:
 - [x] 04-02-PLAN.md — Experience section: menu-style hover rows, CSS grid accordion expand, keyboard nav
 - [x] 04-03-PLAN.md — Skills section: SVG relationship map, bidirectional hover, progress bar levels
 
+### Phase 04.1: Project Gallery Blocks (INSERTED)
+
+**Goal**: Project pages support 5 gallery layout types — span-aware grid rows, full-bleed images, and scroll-pinned sticky galleries — replacing the broken zigzag staggered with a flexible system driven by existing JSON data
+**Depends on**: Phase 4
+**Requirements**: GAL-01 (fix gallery-staggered spans), GAL-02 (gallery-full-bleed), GAL-03 (gallery-stick)
+**Success Criteria** (what must be TRUE):
+  1. `gallery-staggered` renders rows respecting `spans[]` from JSON (12, 6-6, 4-4-4, 8-4) with natural aspect ratios instead of fixed 340px zigzag
+  2. `gallery-full-bleed` renders edge-to-edge images (no padding, no radius) as a new section type
+  3. `gallery-stick` renders a scroll-pinned gallery where content stays fixed while slides swap based on scroll position
+  4. All gallery types include scroll-reveal entrance animation and respect `prefers-reduced-motion`
+  5. Existing project content in en.json renders correctly with the fixed staggered component (no data migration needed)
+**Plans**: 2 plans
+**UI hint**: yes
+
+Plans:
+- [ ] 04.1-01-PLAN.md — Type model extension + staggered gallery rewrite (span-aware row grid)
+- [ ] 04.1-02-PLAN.md — Full-bleed layered composition + sticky scroll-pinned gallery + ProjectPageShell wiring
+
 ### Phase 5: Secondary Sections & Polish
 **Goal**: All remaining content sections are complete, menu links scroll to sections, and the full site is responsive and polished
 **Depends on**: Phase 4
@@ -121,4 +140,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 2. Home Page | 4/4 | Complete | 2026-04-03 |
 | 3. Project Pages | 3/3 | Complete | 2026-04-06 |
 | 4. Core Content Sections | 3/3 | Complete   | 2026-04-18 |
+| 4.1 Project Gallery Blocks | 0/2 | Not started | - |
 | 5. Secondary Sections & Polish | 0/4 | Not started | - |
