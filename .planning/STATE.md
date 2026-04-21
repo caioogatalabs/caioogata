@@ -2,12 +2,12 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed all phase 04 plans
-last_updated: "2026-04-18T23:18:12.091Z"
-last_activity: 2026-04-18
+status: verifying
+stopped_at: Phase 04.1 context gathered
+last_updated: "2026-04-21T16:18:28.211Z"
+last_activity: 2026-04-18 -- Completed 04-01, 04-02, 04-03 plans
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 4
   total_plans: 12
   completed_plans: 12
@@ -93,6 +93,10 @@ Recent decisions affecting current work:
 - [Phase 04]: Combined Tasks 2a and 2b into single SkillsSection implementation since SVG lines and hover logic are interleaved with layout
 - [Phase 04]: Extended Skill type with optional projectSlugs field for skill-to-project mapping (23 of 43 skills mapped)
 
+### Roadmap Evolution
+
+- Phase 04.1 inserted after Phase 4: Project Gallery Blocks — fix span-aware staggered, add full-bleed + scroll-pinned sticky galleries (2026-04-21)
+
 ### Pending Todos
 
 None yet.
@@ -112,6 +116,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-18T23:18:12.088Z
-Stopped at: Completed all phase 04 plans
-Resume file: None — pending verification
+Last session: 2026-04-21T16:18:28.208Z
+Stopped at: Phase 04.1 context gathered
+Resume file: .planning/phases/04.1-project-gallery-blocks/04.1-CONTEXT.md
