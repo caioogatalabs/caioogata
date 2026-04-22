@@ -52,7 +52,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
         className="relative"
         style={{ height: `${slidesSrc.length * 100}vh` }}
       >
-        <div className="sticky top-0 h-screen overflow-hidden">
+        <div className="sticky top-0 h-[800px] overflow-hidden">
           {slidesSrc.map((src, i) => {
             const state = slides[i]
             if (!state) return null
@@ -72,7 +72,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
                   src={src}
                   alt=""
                   loading={i === 0 ? 'eager' : 'lazy'}
-                  className="max-w-full max-h-[85vh] object-contain block"
+                  className="max-w-full max-h-[720px] object-contain block"
                 />
               </div>
             )
