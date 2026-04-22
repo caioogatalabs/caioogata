@@ -87,6 +87,34 @@ div.relative (expandRef — measures scroll position)
 - `src/components/three/NoiseGradientCanvas.tsx` — Canvas wrapper with reduced-motion
 - `src/hooks/useScrollExpand.ts` — Scroll-linked polygon expand
 
+### Gallery Staggered Pattern
+
+Span-aware row grid for project image galleries. Each row is a 12-col CSS grid; `spans[]` controls column widths. The design goal is **breathing room** — avoid filling every row to 12 columns.
+
+**Data model** (`GalleryRow` in `src/content/types.ts`):
+```typescript
+{ spans: number[], images: (string | ProjectImage)[], colStart?: number }
+```
+
+**Span rules — when adding/editing gallery rows in en.json:**
+- **Asymmetric pairs** over symmetric: prefer `[8,4]` or `[4,8]` over `[6,6]`. Alternating asymmetry creates visual rhythm.
+- **Partial rows for air**: `[4,4]` (8/12), `[8]` (8/12), `[6]` (6/12) leave empty grid space. At least 30% of rows in a gallery should be partial.
+- **Never three consecutive full rows**: If row N and N+1 both sum to 12, row N+2 must be partial.
+- **Single-image rows**: Use `[4]` with `colStart` to position in one of three columns — `1` (left), `5` (center), `9` (right). Prioritize columns 2 and 3 for scattered feel.
+- **`colStart` field**: Optional 1-based column start for single-image rows. Only applies to the first image in the row, desktop only (mobile stacks full-width). Values: `1`, `5`, `9` for thirds.
+- **Hero images stay `[12]`**: Full-width single images at the top of a gallery are fine.
+- **Videos in pairs**: Group videos into `[6,6]` rows, not individual `[4]` rows (too small).
+
+**Sizing:**
+- Images: `w-full max-h-[500px] min-h-[200px] object-cover` — natural aspect within bounds
+- Sharp corners (0px radius) on all gallery images
+- Gaps: `gap-x-[4px]` within rows, `gap-y-[8px]` between rows
+
+**Stagger animation:** Each image in a multi-image row gets `startFraction: 0.85 + staggerIndex * 0.03` for left-to-right scroll-reveal wave.
+
+**Component:** `src/components/sections/v2/project/ProjectGalleryStaggered.tsx`
+**Static class maps:** `DESKTOP_SPAN`, `TABLET_SPAN`, `MOBILE_SPAN`, `COL_START` — never use dynamic template literals.
+
 ### Video Background Overlay Pattern
 
 When using video (or any media) as a hero background with text overlaid, always add a `bg-bg` overlay div between the canvas/media and the text content, set to **70% opacity**. This ensures text readability across all frames while preserving the video atmosphere.
