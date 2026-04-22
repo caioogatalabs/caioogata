@@ -2,15 +2,32 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 
+export interface SlideState {
+  /** 0 = fully visible position, 100 = off-screen below */
+  translateY: number
+  /** 1 = full size, 0.95 = released/covered */
+  scale: number
+  /** 1 = fully visible, 0.6 = released/covered */
+  opacity: number
+}
+
 /**
- * Scroll-linked opacity driver for sticky gallery.
- * Maps scroll position to an array of opacities, one per slide.
- * Container ref must wrap the tall scroll-zone container (slideCount * 100vh).
+ * Scroll-linked slide-stack driver for sticky gallery.
+ *
+ * First image stays fixed. Subsequent images slide up from below (translateY 100%→0%)
+ * covering the previous one. When an image is being covered, it shrinks (scale→0.95)
+ * and fades (opacity→0.6) — the "release" effect.
+ *
+ * Container ref must wrap the tall scroll-zone (slideCount * 100vh).
  */
 export function useScrollStick(slideCount: number) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [opacities, setOpacities] = useState<number[]>(() =>
-    Array.from({ length: slideCount }, (_, i) => (i === 0 ? 1 : 0))
+  const [slides, setSlides] = useState<SlideState[]>(() =>
+    Array.from({ length: slideCount }, (_, i) => ({
+      translateY: i === 0 ? 0 : 100,
+      scale: 1,
+      opacity: 1,
+    }))
   )
   const tickingRef = useRef(false)
 
@@ -24,35 +41,49 @@ export function useScrollStick(slideCount: number) {
     const scrolled = -rect.top
     const progress = Math.max(0, Math.min(1, scrolled / totalScroll))
 
-    const crossfadeZone = 0.2 / slideCount
+    const newSlides = Array.from({ length: slideCount }, (_, i) => {
+      // Each slide transition occupies an equal slice of scroll progress
+      // Slide i begins entering at progress = i / slideCount
+      // and is fully in place at progress = (i + 1) / slideCount
+      const transitionStart = i / slideCount
+      const transitionEnd = (i + 1) / slideCount
+      const transitionRange = transitionEnd - transitionStart
 
-    const newOpacities = Array.from({ length: slideCount }, (_, i) => {
-      const slideStart = i / slideCount
-      const slideEnd = (i + 1) / slideCount
-
-      // Fully visible in the core zone
-      if (progress >= slideStart + crossfadeZone && progress <= slideEnd - crossfadeZone) return 1
-
-      // Fade in zone (entering from previous slide)
-      if (progress >= slideStart - crossfadeZone && progress < slideStart + crossfadeZone) {
-        if (i === 0 && progress <= slideStart) return 1 // first slide starts visible
-        return Math.max(0, Math.min(1, (progress - (slideStart - crossfadeZone)) / (crossfadeZone * 2)))
+      // --- translateY: how far from final position ---
+      let translateY: number
+      if (i === 0) {
+        // First slide is always in place
+        translateY = 0
+      } else if (progress <= transitionStart) {
+        // Haven't reached this slide yet — off-screen below
+        translateY = 100
+      } else if (progress >= transitionEnd) {
+        // Past this slide's transition — fully in place
+        translateY = 0
+      } else {
+        // Sliding in: 100% → 0% over the transition zone
+        const t = (progress - transitionStart) / transitionRange
+        translateY = 100 * (1 - t)
       }
 
-      // Fade out zone (leaving to next slide)
-      if (progress > slideEnd - crossfadeZone && progress <= slideEnd + crossfadeZone) {
-        if (i === slideCount - 1 && progress >= slideEnd) return 1 // last slide stays visible
-        return Math.max(0, Math.min(1, 1 - (progress - (slideEnd - crossfadeZone)) / (crossfadeZone * 2)))
+      // --- scale + opacity: "release" effect when being covered ---
+      // When slide i+1 is sliding in, slide i gets covered
+      const nextStart = (i + 1) / slideCount
+      const nextEnd = (i + 2) / slideCount
+      let scale = 1
+      let opacity = 1
+
+      if (i < slideCount - 1 && progress > nextStart) {
+        // Next slide is covering this one
+        const coverProgress = Math.min(1, (progress - nextStart) / (nextEnd - nextStart))
+        scale = 1 - 0.05 * coverProgress     // 1 → 0.95
+        opacity = 1 - 0.4 * coverProgress     // 1 → 0.6
       }
 
-      // Outside range
-      if (progress < slideStart - crossfadeZone) return i === 0 ? 1 : 0
-      if (progress > slideEnd + crossfadeZone) return i === slideCount - 1 ? 1 : 0
-
-      return 0
+      return { translateY, scale, opacity }
     })
 
-    setOpacities(newOpacities)
+    setSlides(newSlides)
     tickingRef.current = false
   }, [slideCount])
 
@@ -62,8 +93,11 @@ export function useScrollStick(slideCount: number) {
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) {
-      // All slides visible stacked — no crossfade
-      setOpacities(Array.from({ length: slideCount }, () => 1))
+      setSlides(Array.from({ length: slideCount }, () => ({
+        translateY: 0,
+        scale: 1,
+        opacity: 1,
+      })))
       return
     }
 
@@ -84,5 +118,5 @@ export function useScrollStick(slideCount: number) {
     }
   }, [update, slideCount])
 
-  return { containerRef, opacities }
+  return { containerRef, slides }
 }
