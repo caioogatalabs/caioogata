@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 Phase: 5
 Plan: Not started
 Status: Phase complete — ready for verification
-Last activity: 2026-04-21
+Last activity: 2026-04-22 -- Quick task 260422-kby: gallery density + Huia videos
 
 Progress: [████████░░] 80%
 
@@ -113,6 +113,7 @@ None yet.
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
+| 260422-kby | Fix gallery-staggered density and Huia video layout | 2026-04-22 | abce2c4 | [260422-kby-fix-gallery-staggered-density-and-huia-v](./quick/260422-kby-fix-gallery-staggered-density-and-huia-v/) |
 | 260415-qcl | Fix Grid polymorphic type error for React 19 — unblock v2 Vercel preview | 2026-04-15 | 197a08f | [260415-qcl-fix-grid-polymorphic-type-error-react-19](./quick/260415-qcl-fix-grid-polymorphic-type-error-react-19/) |
 | 260410-llm | Refine FooterSection layout: 6-6 grid with grey card only on form, contact button as pill+icon pair | 2026-04-10 | eabb8c2 | [260410-llm-refine-footersection-layout-6-6-grid-wit](./quick/260410-llm-refine-footersection-layout-6-6-grid-wit/) |
 | 260410-mcf | Footer second pass: relocate CTA into grey card, form expands upward, social links bottom-aligned | 2026-04-10 | 0e578b9 | [260410-mcf-footer-second-pass-social-bottom-aligned](./quick/260410-mcf-footer-second-pass-social-bottom-aligned/) |
