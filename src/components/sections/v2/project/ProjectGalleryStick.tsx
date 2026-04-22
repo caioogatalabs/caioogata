@@ -60,7 +60,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
             return (
               <div
                 key={i}
-                className="absolute inset-0 flex items-center justify-center"
+                className="absolute inset-0 bg-bg flex items-center justify-center"
                 style={{
                   transform: `translateY(${state.translateY}%) scale(${state.scale})`,
                   opacity: state.opacity,
