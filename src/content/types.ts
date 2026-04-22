@@ -96,6 +96,7 @@ export interface ProjectLink {
 export interface GalleryRow {
   spans: number[]
   images: (string | ProjectImage)[]
+  colStart?: number // 1-based column start in 12-col grid (e.g. 1, 5, 9 for 3-column layout)
 }
 
 export interface ProjectSectionImage {

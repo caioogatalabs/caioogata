@@ -74,7 +74,7 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
   const restSections = sections.filter(s => s.type !== 'hero')
 
   return (
-    <div className="min-h-screen bg-bg overflow-x-hidden">
+    <div className="min-h-screen bg-bg overflow-x-clip">
       {/* Hero zone — bg wrapper provides continuous background for sticky bar */}
       <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12">
         <StickyLogoBar />

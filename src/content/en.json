@@ -1222,38 +1222,47 @@
             "rows": [
               {
                 "spans": [4],
+                "colStart": 5,
                 "images": ["/projects/azion-brand-system/build.webp"]
               },
               {
                 "spans": [4],
+                "colStart": 9,
                 "images": ["/projects/azion-brand-system/observe.webp"]
               },
               {
                 "spans": [4],
+                "colStart": 5,
                 "images": ["/projects/azion-brand-system/orchestrate.webp"]
               },
               {
                 "spans": [4],
+                "colStart": 1,
                 "images": ["/projects/azion-brand-system/edge-computing.webp"]
               },
               {
                 "spans": [4],
+                "colStart": 9,
                 "images": ["/projects/azion-brand-system/observe-1.webp"]
               },
               {
                 "spans": [4],
+                "colStart": 5,
                 "images": ["/projects/azion-brand-system/Azion-Careers.webp"]
               },
               {
                 "spans": [4],
+                "colStart": 9,
                 "images": ["/projects/azion-brand-system/illustrations-guides.webp"]
               },
               {
                 "spans": [4],
+                "colStart": 1,
                 "images": ["/projects/azion-brand-system/illustrations-guides-2.webp"]
               },
               {
                 "spans": [4],
+                "colStart": 5,
                 "images": ["/projects/azion-brand-system/illustrations-guides-3.webp"]
               }
             ]

@@ -29,6 +29,13 @@ const MOBILE_SPAN: Record<number, string> = {
   9: 'col-span-12', 10: 'col-span-12', 11: 'col-span-12', 12: 'col-span-12',
 }
 
+// Column start offset (desktop only — mobile always starts at 1)
+const COL_START: Record<number, string> = {
+  1: 'lg:col-start-1', 2: 'lg:col-start-2', 3: 'lg:col-start-3', 4: 'lg:col-start-4',
+  5: 'lg:col-start-5', 6: 'lg:col-start-6', 7: 'lg:col-start-7', 8: 'lg:col-start-8',
+  9: 'lg:col-start-9', 10: 'lg:col-start-10', 11: 'lg:col-start-11', 12: 'lg:col-start-12',
+}
+
 function RevealImage({ src, alt, staggerIndex = 0 }: { src: string; alt: string; staggerIndex?: number }) {
   const { ref, clipPath } = useScrollReveal({
     startFraction: 0.85 + staggerIndex * 0.03,
@@ -128,7 +135,9 @@ export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProp
                   MOBILE_SPAN[span] || 'col-span-12',
                   TABLET_SPAN[span] || 'md:col-span-6',
                   DESKTOP_SPAN[span] || 'lg:col-span-12',
-                ].join(' ')
+                  // Apply column start offset if set on row (first image only)
+                  imgIdx === 0 && row.colStart ? (COL_START[row.colStart] || '') : '',
+                ].filter(Boolean).join(' ')
 
                 return (
                   <div key={imgIdx} className={spanClasses}>
