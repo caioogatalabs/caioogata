@@ -37,7 +37,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
       <section className="py-24">
         <div className="flex flex-col gap-4">
           {slides.map((src, i) => (
-            <img key={i} src={src} alt="" loading="lazy" className="w-full object-cover block" />
+            <img key={i} src={src} alt="" loading="lazy" className="w-full block" />
           ))}
         </div>
       </section>
@@ -59,7 +59,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
               src={src}
               alt=""
               loading={i === 0 ? 'eager' : 'lazy'}
-              className="absolute inset-0 w-full h-full object-cover block"
+              className="absolute inset-0 w-full h-full object-contain block"
               style={{ opacity: opacities[i] ?? 0 }}
             />
           ))}
