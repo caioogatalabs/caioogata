@@ -712,8 +712,8 @@
               },
               {
                 "spans": [
-                  6,
-                  6
+                  8,
+                  4
                 ],
                 "images": [
                   "/projects/azion-website/home-reliable-zoom.webp",
@@ -723,19 +723,25 @@
               {
                 "spans": [
                   4,
-                  4,
                   4
                 ],
                 "images": [
                   "/projects/azion-website/functions-hero-zoom.webp",
-                  "/projects/azion-website/cache-hero.webp",
+                  "/projects/azion-website/cache-hero.webp"
+                ]
+              },
+              {
+                "spans": [
+                  8
+                ],
+                "images": [
                   "/projects/azion-website/marketplace-hero.webp"
                 ]
               },
               {
                 "spans": [
-                  6,
-                  6
+                  4,
+                  8
                 ],
                 "images": [
                   "/projects/azion-website/products-strip.webp",
@@ -1224,8 +1230,8 @@
               },
               {
                 "spans": [
-                  6,
-                  6
+                  8,
+                  4
                 ],
                 "images": [
                   "/projects/azion-brand-system/edge-computing.webp",
@@ -1246,8 +1252,8 @@
               },
               {
                 "spans": [
-                  6,
-                  6
+                  4,
+                  8
                 ],
                 "images": [
                   "/projects/azion-brand-system/asset-101-serveless.webp",
@@ -1256,7 +1262,7 @@
               },
               {
                 "spans": [
-                  4,
+                  6,
                   4
                 ],
                 "images": [
@@ -1267,18 +1273,24 @@
               {
                 "spans": [
                   4,
-                  4,
                   4
                 ],
                 "images": [
                   "/projects/azion-brand-system/asset-ransomware.webp",
-                  "/projects/azion-brand-system/asset-marketplace.webp",
+                  "/projects/azion-brand-system/asset-marketplace.webp"
+                ]
+              },
+              {
+                "spans": [
+                  8
+                ],
+                "images": [
                   "/projects/azion-brand-system/asset-open-standards.webp"
                 ]
               },
               {
                 "spans": [
-                  4,
+                  6,
                   4
                 ],
                 "images": [
@@ -1449,8 +1461,8 @@
             "rows": [
               {
                 "spans": [
-                  6,
-                  6
+                  8,
+                  4
                 ],
                 "images": [
                   "/projects/huia/huia-bird.webp",
@@ -1459,8 +1471,8 @@
               },
               {
                 "spans": [
-                  6,
-                  6
+                  4,
+                  8
                 ],
                 "images": [
                   "/projects/huia/we-unlock-ideas.webp",
@@ -1469,7 +1481,8 @@
               },
               {
                 "spans": [
-                  4
+                  6,
+                  6
                 ],
                 "images": [
                   {
@@ -1478,14 +1491,7 @@
                     "type": "video",
                     "platform": "youtube",
                     "videoId": "d8_xTUsyQdo"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "images": [
+                  },
                   {
                     "src": "",
                     "title": "Digital Production & Innovation Reel",
@@ -1497,7 +1503,8 @@
               },
               {
                 "spans": [
-                  4
+                  6,
+                  6
                 ],
                 "images": [
                   {
@@ -1506,14 +1513,7 @@
                     "type": "video",
                     "platform": "youtube",
                     "videoId": "u-bbxKjiZvk"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "images": [
+                  },
                   {
                     "src": "",
                     "title": "Creative Direction Reel",
@@ -1525,7 +1525,7 @@
               },
               {
                 "spans": [
-                  4
+                  6
                 ],
                 "images": [
                   {
