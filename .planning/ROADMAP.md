@@ -95,11 +95,11 @@ Plans:
 **Goal:** Consolidate `/skills` route + Notable Clients + Education content as subsections of `/about` so the single page becomes a richer, editorial-style biography. Delete `/skills` route and `SkillsSection.tsx`. V2 only.
 **Requirements**: ABT-01 (subsection dividers), ABT-02 (skills block simplified), ABT-03 (clients grid), ABT-04 (education timeline)
 **Depends on:** Phase 4
-**Plans:** 1/6 plans executed
+**Plans:** 2/6 plans executed
 
 Plans:
 - [x] 04.2-01-PLAN.md — SectionDivider atom + menu trim + clients.shortDescription content (ABT-01, ABT-05)
-- [ ] 04.2-02-PLAN.md — BioBlock (1.1) extracted from AboutSection (ABT-01)
+- [x] 04.2-02-PLAN.md — BioBlock (1.1) extracted from AboutSection (ABT-01)
 - [ ] 04.2-03-PLAN.md — SkillsBlock (1.2) simplified, no SVG (ABT-02)
 - [ ] 04.2-04-PLAN.md — ClientsBlock (1.3) 4-col grid with table dividers (ABT-03)
 - [ ] 04.2-05-PLAN.md — EducationBlock (1.4) chronological timeline (ABT-04)
