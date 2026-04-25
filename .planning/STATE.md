@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04.2-06-PLAN.md
-last_updated: "2026-04-25T20:44:17.698Z"
+stopped_at: Completed quick task 260425-p77
+last_updated: "2026-04-25T21:17:44.699Z"
 last_activity: 2026-04-25
 progress:
   total_phases: 7
@@ -71,6 +71,7 @@ Progress: [████████░░] 80%
 | Phase 04.2 P05 | 1min | 1 tasks | 1 files |
 | Phase 04.2 P04 | 1.5min | 1 tasks | 1 files |
 | Phase 04.2 P06 | 18 min | 4 tasks | 3 files |
+| Phase 260425-p77 Pquick | 4 min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -110,6 +111,7 @@ Recent decisions affecting current work:
 - [Phase 04.2]: ClientsBlock uses mixed grid composition (Grid+GridItem span=6 for description; full-width grid-cols-2 lg:grid-cols-4 for logo wall) and a static CELL_BORDERS 16-entry lookup for table dividers
 - [Phase 04.2]: AboutSection orchestrates 4 about blocks (BioBlock, SkillsBlock, ClientsBlock, EducationBlock) under the existing video hero; /skills route and V2 SkillsSection.tsx deleted; consolidation plan 04.2-06 closes phase 04.2
 - [Phase 04.2]: Build verification done via build-log route table inspection (28 static pages, /about present, /skills absent), not via static-export directory checks — next.config.mjs does not currently set output: 'export'
+- [Phase 260425-p77]: [Quick 260425-p77]: /about hero restructured — sticky vertical video in cols 9-12 (aspect-3/4) inside 400vh scroll zone, full-width headline mirrors home IntroSection typography 1:1 (clamp 2.25-4.5rem, weight 400, -0.02em), IntersectionObserver-driven slide-up entry passes behind headline (z-10 video, z-20 headline). ABT_2026 caption + Core Expertise floating panel removed. Build/dev verification blocked by pre-existing .next/cache/webpack corruption (HTTP 500 on every dev route, WasmHash._updateWithBuffer crash on build) — surfaced not auto-fixed per Task 2's explicit instruction.
 
 ### Roadmap Evolution
 
@@ -136,6 +138,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-25T20:44:10.403Z
-Stopped at: Completed 04.2-06-PLAN.md
+Last session: 2026-04-25T21:17:44.696Z
+Stopped at: Completed quick task 260425-p77
 Resume file: None
