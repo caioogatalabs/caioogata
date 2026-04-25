@@ -252,6 +252,7 @@ export interface Content {
     command: string
     heading: string
     description: string
+    shortDescription?: string
     list: string[]
   }
   philosophy: {

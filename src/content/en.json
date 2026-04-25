@@ -46,21 +46,6 @@
         "description": "Roles, companies, and key achievements."
       },
       {
-        "key": "skills",
-        "label": "skills",
-        "description": "Design systems, DevEx, UI/UX, and tools."
-      },
-      {
-        "key": "education",
-        "label": "education",
-        "description": "Degrees, institutions, and continuing learning."
-      },
-      {
-        "key": "clients",
-        "label": "notable-clients",
-        "description": "Brazilian and international brands I've worked with."
-      },
-      {
         "key": "philosophy",
         "label": "philosophy",
         "description": "Design principles and how I approach product and teams."
@@ -700,53 +685,58 @@
             ]
           },
           {
+            "type": "gallery-stick",
+            "rows": [
+              {
+                "spans": [12],
+                "images": ["/projects/azion-website/home-pt-hero.webp"]
+              },
+              {
+                "spans": [12],
+                "images": ["/projects/azion-website/marketplace-hero.webp"]
+              },
+              {
+                "spans": [12],
+                "images": ["/projects/azion-website/cache-hero.webp"]
+              },
+              {
+                "spans": [12],
+                "images": ["/projects/azion-website/professional-services-hero.webp"]
+              }
+            ]
+          },
+          {
             "type": "gallery-staggered",
             "rows": [
               {
-                "spans": [
-                  12
-                ],
-                "images": [
-                  "/projects/azion-website/home-en-hero.webp"
-                ]
+                "spans": [4],
+                "colStart": 9,
+                "images": ["/projects/azion-website/home-reliable-zoom.webp"]
               },
               {
-                "spans": [
-                  8,
-                  4
-                ],
-                "images": [
-                  "/projects/azion-website/home-reliable-zoom.webp",
-                  "/projects/azion-website/home-products-menu-zoom.webp"
-                ]
+                "spans": [4],
+                "colStart": 1,
+                "images": ["/projects/azion-website/card-image-optimization.webp"]
               },
               {
-                "spans": [
-                  4,
-                  4
-                ],
-                "images": [
-                  "/projects/azion-website/functions-hero-zoom.webp",
-                  "/projects/azion-website/cache-hero.webp"
-                ]
+                "spans": [4],
+                "colStart": 5,
+                "images": ["/projects/azion-website/card-bot-traffic.webp"]
               },
               {
-                "spans": [
-                  8
-                ],
-                "images": [
-                  "/projects/azion-website/marketplace-hero.webp"
-                ]
+                "spans": [4],
+                "colStart": 9,
+                "images": ["/projects/azion-website/card-connector-type.webp"]
               },
               {
-                "spans": [
-                  4,
-                  8
-                ],
-                "images": [
-                  "/projects/azion-website/products-strip.webp",
-                  "/projects/azion-website/professional-services-hero.webp"
-                ]
+                "spans": [4],
+                "colStart": 5,
+                "images": ["/projects/azion-website/card-application-accelerator.webp"]
+              },
+              {
+                "spans": [4],
+                "colStart": 9,
+                "images": ["/projects/azion-website/functions-hero-zoom.webp"]
               }
             ]
           },
@@ -820,8 +810,20 @@
             "title": "Professional Services — Overview"
           },
           {
-            "src": "/projects/azion-website/products-strip.webp",
-            "title": "Product Pages — Image Processor, Bot Manager, Load Balancer, App Accelerator"
+            "src": "/projects/azion-website/card-image-optimization.webp",
+            "title": "Product Card — Image Processor"
+          },
+          {
+            "src": "/projects/azion-website/card-bot-traffic.webp",
+            "title": "Product Card — Bot Manager"
+          },
+          {
+            "src": "/projects/azion-website/card-connector-type.webp",
+            "title": "Product Card — Load Balancer"
+          },
+          {
+            "src": "/projects/azion-website/card-application-accelerator.webp",
+            "title": "Product Card — Application Accelerator"
           },
           {
             "src": "/projects/azion-website/marketplace-hero.webp",
@@ -1223,7 +1225,7 @@
               {
                 "spans": [4],
                 "colStart": 5,
-                "images": ["/projects/azion-brand-system/build.webp"]
+                "images": ["/projects/azion-brand-system/developer.webp"]
               },
               {
                 "spans": [4],
@@ -1276,6 +1278,10 @@
               },
               {
                 "spans": [12],
+                "images": ["/projects/azion-brand-system/asset-serveless.webp"]
+              },
+              {
+                "spans": [12],
                 "images": ["/projects/azion-brand-system/asset-cybersecurity.webp"]
               },
               {
@@ -1285,10 +1291,6 @@
               {
                 "spans": [12],
                 "images": ["/projects/azion-brand-system/asset-application-acceleration.webp"]
-              },
-              {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-serveless.webp"]
               },
               {
                 "spans": [12],
@@ -1314,8 +1316,11 @@
               {
                 "name": "Illustration System",
                 "image": {
-                  "src": "/projects/azion-brand-system/Group%206187.webp",
-                  "title": "Illustration Group"
+                  "src": "",
+                  "title": "Illustration System — Motion Reel",
+                  "type": "video",
+                  "platform": "youtube",
+                  "videoId": "rk4apN50IpU"
                 },
                 "description": "Scalable illustration patterns that explain technical concepts visually across product pillars."
               },
@@ -1334,6 +1339,10 @@
           }
         ],
         "images": [
+          {
+            "src": "/projects/azion-brand-system/build.webp",
+            "title": "Build"
+          },
           {
             "src": "/projects/azion-brand-system/asset-welcome.webp",
             "title": "Welcome"
@@ -1375,10 +1384,6 @@
             "title": "Open Standards"
           },
           {
-            "src": "/projects/azion-brand-system/build.webp",
-            "title": "Build"
-          },
-          {
             "src": "/projects/azion-brand-system/observe.webp",
             "title": "Observe"
           },
@@ -1407,8 +1412,8 @@
             "title": "Guides 3"
           },
           {
-            "src": "/projects/azion-brand-system/Group%206187.webp",
-            "title": "Illustration Group"
+            "src": "/projects/azion-brand-system/developer.webp",
+            "title": "Developer"
           },
           {
             "src": "/projects/azion-brand-system/Azion-Careers.webp",
@@ -1456,30 +1461,18 @@
             "type": "gallery-staggered",
             "rows": [
               {
-                "spans": [
-                  8,
-                  4
-                ],
-                "images": [
-                  "/projects/huia/huia-bird.webp",
-                  "/projects/huia/golden-circle.webp"
-                ]
+                "spans": [4],
+                "colStart": 5,
+                "images": ["/projects/huia/huia-bird.webp"]
               },
               {
-                "spans": [
-                  4,
-                  8
-                ],
-                "images": [
-                  "/projects/huia/we-unlock-ideas.webp",
-                  "/projects/huia/team-portraits.webp"
-                ]
+                "spans": [4],
+                "colStart": 9,
+                "images": ["/projects/huia/golden-circle.webp"]
               },
               {
-                "spans": [
-                  6,
-                  6
-                ],
+                "spans": [4],
+                "colStart": 1,
                 "images": [
                   {
                     "src": "",
@@ -1487,7 +1480,13 @@
                     "type": "video",
                     "platform": "youtube",
                     "videoId": "d8_xTUsyQdo"
-                  },
+                  }
+                ]
+              },
+              {
+                "spans": [4],
+                "colStart": 9,
+                "images": [
                   {
                     "src": "",
                     "title": "Digital Production & Innovation Reel",
@@ -1498,10 +1497,44 @@
                 ]
               },
               {
-                "spans": [
-                  6,
-                  6
-                ],
+                "spans": [4],
+                "colStart": 5,
+                "images": ["/projects/huia/we-unlock-ideas.webp"]
+              },
+              {
+                "spans": [4],
+                "colStart": 9,
+                "images": ["/projects/huia/team-portraits.webp"]
+              },
+              {
+                "spans": [4],
+                "colStart": 5,
+                "images": [
+                  {
+                    "src": "",
+                    "title": "Interactive Campaigns & UX Solutions",
+                    "type": "video",
+                    "platform": "vimeo",
+                    "videoId": "377557773"
+                  }
+                ]
+              },
+              {
+                "spans": [4],
+                "colStart": 9,
+                "images": [
+                  {
+                    "src": "",
+                    "title": "Integrated Creative & Tech Works",
+                    "type": "video",
+                    "platform": "vimeo",
+                    "videoId": "185564121"
+                  }
+                ]
+              },
+              {
+                "spans": [4],
+                "colStart": 1,
                 "images": [
                   {
                     "src": "",
@@ -1509,7 +1542,13 @@
                     "type": "video",
                     "platform": "youtube",
                     "videoId": "u-bbxKjiZvk"
-                  },
+                  }
+                ]
+              },
+              {
+                "spans": [4],
+                "colStart": 5,
+                "images": [
                   {
                     "src": "",
                     "title": "Creative Direction Reel",
@@ -1520,9 +1559,8 @@
                 ]
               },
               {
-                "spans": [
-                  6
-                ],
+                "spans": [4],
+                "colStart": 9,
                 "images": [
                   {
                     "src": "",
@@ -1654,6 +1692,7 @@
     "command": "grep \"notable\" clients.log",
     "heading": "Notable Clients",
     "description": "Over two decades, I've led Design and Brand projects for some of Brazil's most recognizable companies—from national champions like Petrobras and O Boticario to international names like Mondelez. Whether building digital products for financial services or brand experiences for retail, the work always focuses on connecting business goals with user needs.",
+    "shortDescription": "Two decades of work for brands across Brazil and beyond.",
     "list": [
       "Petrobras",
       "O Boticário",

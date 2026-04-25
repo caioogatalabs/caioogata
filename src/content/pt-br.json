@@ -46,21 +46,6 @@
         "description": "Cargos, empresas e principais conquistas."
       },
       {
-        "key": "skills",
-        "label": "habilidades",
-        "description": "Design systems, DevEx, UI/UX e ferramentas."
-      },
-      {
-        "key": "education",
-        "label": "educação",
-        "description": "Formação, instituições e aprendizado contínuo."
-      },
-      {
-        "key": "clients",
-        "label": "clientes-notáveis",
-        "description": "Marcas brasileiras e internacionais com que trabalhei."
-      },
-      {
         "key": "philosophy",
         "label": "filosofia",
         "description": "Princípios de design e como encaro produto e times."
@@ -573,7 +558,10 @@
           { "src": "/projects/azion-website/functions-hero-zoom.webp", "title": "Edge Functions — Hero Detail" },
           { "src": "/projects/azion-website/cache-hero.webp", "title": "Edge Cache — Product Page" },
           { "src": "/projects/azion-website/professional-services-hero.webp", "title": "Professional Services — Overview" },
-          { "src": "/projects/azion-website/products-strip.webp", "title": "Product Pages — Image Processor, Bot Manager, Load Balancer, App Accelerator" },
+          { "src": "/projects/azion-website/card-image-optimization.webp", "title": "Product Card — Image Processor" },
+          { "src": "/projects/azion-website/card-bot-traffic.webp", "title": "Product Card — Bot Manager" },
+          { "src": "/projects/azion-website/card-connector-type.webp", "title": "Product Card — Load Balancer" },
+          { "src": "/projects/azion-website/card-application-accelerator.webp", "title": "Product Card — Application Accelerator" },
           { "src": "/projects/azion-website/marketplace-hero.webp", "title": "Marketplace — Hero" },
           { "src": "/projects/azion-website/devtools-zoom.webp", "title": "Documentation — DevTools" },
           { "src": "/projects/azion-website/webkit-components.webp", "title": "Webkit Component Library — Storybook (Open Source)" },
@@ -879,8 +867,8 @@
             "title": "Guias 3"
           },
           {
-            "src": "/projects/azion-brand-system/Group%206187.webp",
-            "title": "Grupo de Ilustração"
+            "src": "/projects/azion-brand-system/developer.webp",
+            "title": "Developer"
           },
           {
             "src": "/projects/azion-brand-system/Azion-Careers.webp",
@@ -984,6 +972,7 @@
     "command": "grep \"notável\" clientes.log",
     "heading": "Clientes Notáveis",
     "description": "Ao longo de duas décadas, liderei projetos de Design e Marca para algumas das empresas mais reconhecidas do Brasil—desde campeões nacionais como Petrobras e O Boticário até nomes internacionais como Mondelez. Seja construindo produtos digitais para serviços financeiros ou experiências de marca para varejo, o trabalho sempre foca em conectar objetivos de negócio com necessidades de usuários.",
+    "shortDescription": "Duas décadas de trabalho para marcas no Brasil e em diversos países.",
     "list": [
       "Petrobras",
       "O Boticário",
