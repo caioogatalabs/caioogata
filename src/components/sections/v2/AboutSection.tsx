@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useInView } from '@/hooks/useInView'
 import { useScrollVideo } from '@/hooks/useScrollVideo'
 import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
 import { BioBlock } from '@/components/sections/v2/about/BioBlock'
@@ -10,6 +11,7 @@ import { EducationBlock } from '@/components/sections/v2/about/EducationBlock'
 
 export function AboutSection() {
   const { containerRef, canvasRef } = useScrollVideo()
+  const headlineRef = useInView({ threshold: 0.1, once: true })
   const [entered, setEntered] = useState(false)
   const reducedMotionRef = useRef(false)
 
@@ -48,28 +50,31 @@ export function AboutSection() {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Header — StickyLogoBar + headline in home pattern (normal flow, full-width). */}
-      <div className="pt-8 md:pt-10 lg:pt-12">
+      {/* Hero zone — mirrors home IntroSection: 85svh hero with sticky logo bar at top
+          and headline anchored to the bottom via flex-1 spacer. */}
+      <div className="bg-bg-surface-secondary flex flex-col min-h-[var(--height-hero)]">
         <StickyLogoBar />
-      </div>
-
-      <div className="px-5 pb-8 md:px-8 md:pb-10 lg:px-16 lg:pb-12">
-        <h1
-          className="text-text-primary"
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
-            fontWeight: 400,
-            lineHeight: 1.15,
-            letterSpacing: '-0.02em',
-          }}
+        <div className="flex-1" aria-hidden />
+        <div
+          ref={headlineRef as React.RefObject<HTMLDivElement>}
+          className="-entrance -slide-up -a-2 px-5 pb-8 md:px-8 md:pb-10 lg:px-16 lg:pb-12"
         >
-          Bridging brand strategy, product craft and technical workflow
-        </h1>
+          <h1
+            className="text-text-primary"
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
+              fontWeight: 400,
+              lineHeight: 1.15,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Bridging brand strategy, product craft and technical workflow
+          </h1>
+        </div>
       </div>
 
-      {/* Video pin zone — its own scroll zone below the headline.
-          Slide-up entry brings the vertical container into view, then useScrollVideo scrubs the frames. */}
+      {/* Video pin zone — slides up from below, pins, then scrubs the 241 frames. */}
       <div ref={containerRef} style={{ height: '400vh' }} className="relative">
         <div className="sticky top-0 h-screen flex items-center px-5 md:px-8 lg:px-16">
           <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 w-full">
