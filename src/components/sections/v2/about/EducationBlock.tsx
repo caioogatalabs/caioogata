@@ -1,0 +1,109 @@
+'use client'
+
+import { useMemo } from 'react'
+import { useInView } from '@/hooks/useInView'
+import { Grid, GridItem } from '@/components/layout/Grid'
+import { SectionDivider } from './SectionDivider'
+import content from '@/content/en.json'
+import type { Content, EducationItem } from '@/content/types'
+
+const typedContent = content as unknown as Content
+const educationData = typedContent.education
+
+/**
+ * Extract latest year from year string. Adapted from V1 Education.tsx.
+ * Examples: "2001 - 2005" -> 2005; "2009" -> 2009; "2026 (in progress)" -> 2026.
+ */
+function getSortYear(yearStr: string): number {
+  const match = yearStr.match(/\b(19|20)\d{2}\b/g)
+  if (!match || match.length === 0) return 0
+  return Math.max(...match.map(Number))
+}
+
+/** Display year = the latest year only (D-22). */
+function getDisplayYear(yearStr: string): string {
+  const sortYear = getSortYear(yearStr)
+  return sortYear > 0 ? String(sortYear) : yearStr
+}
+
+export function EducationBlock() {
+  const blockRef = useInView({ threshold: 0.1, once: true })
+
+  const allEducation: EducationItem[] = useMemo(() => {
+    const formal = educationData.items
+    const additional = educationData.additional || []
+    return [...formal, ...additional].sort(
+      (a, b) => getSortYear(b.year) - getSortYear(a.year)
+    )
+  }, [])
+
+  return (
+    <div>
+      <SectionDivider code="1.4" label="Education" />
+
+      <div
+        ref={blockRef as React.RefObject<HTMLDivElement>}
+        className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
+      >
+        <Grid className="!px-0">
+          {/* Left column: intentionally empty (D-19) */}
+          <GridItem span={6} tabletSpan={2} mobileSpan={4} />
+
+          {/* Right column: timeline */}
+          <GridItem span={6} tabletSpan={6} mobileSpan={4}>
+            <div className="flex flex-col">
+              {allEducation.map((edu, index) => {
+                const stagger = Math.min(index, 19)
+                return (
+                  <div
+                    key={`${edu.institution}-${edu.year}-${index}`}
+                    className={`-entrance -slide-up -a-${stagger} border-t border-border-secondary`}
+                  >
+                    <Grid className="!px-0 py-6 md:py-8">
+                      {/* Inner 2-col: year stamp */}
+                      <GridItem span={2} tabletSpan={2} mobileSpan={4}>
+                        <span className="font-mono text-sm text-text-tertiary">
+                          {getDisplayYear(edu.year)}
+                        </span>
+                      </GridItem>
+
+                      {/* Inner 10-col: info stack */}
+                      <GridItem span={10} tabletSpan={6} mobileSpan={4}>
+                        <div className="flex flex-col gap-1">
+                          {/* Institution first (Claude discretion: institution before degree — institution is the recognizable anchor) */}
+                          <h3
+                            className="text-lg md:text-xl text-text-primary"
+                            style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}
+                          >
+                            {edu.institution}
+                          </h3>
+                          <p
+                            className="text-base text-text-secondary"
+                            style={{ fontFamily: 'var(--font-sans)' }}
+                          >
+                            {edu.degree}
+                          </p>
+                          <p className="font-mono text-xs text-text-tertiary">
+                            {edu.location}
+                          </p>
+                          {edu.note && (
+                            <p
+                              className="text-sm text-text-secondary mt-2"
+                              style={{ fontFamily: 'var(--font-sans)' }}
+                            >
+                              {edu.note}
+                            </p>
+                          )}
+                        </div>
+                      </GridItem>
+                    </Grid>
+                  </div>
+                )
+              })}
+            </div>
+          </GridItem>
+        </Grid>
+      </div>
+    </div>
+  )
+}
