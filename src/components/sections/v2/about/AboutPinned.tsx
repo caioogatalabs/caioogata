@@ -7,10 +7,14 @@ import type { Content } from '@/content/types'
 
 // Scroll-progress milestones (0..1 across the 400vh container).
 const IMAGE_ENTRY_END = 0.10 // image slides up + fades in over the first 10% of pin scroll
-const IMAGE_TRANSLATE_START = 80 // start translateY (% of own height, below anchor)
+const IMAGE_TRANSLATE_START = 60 // start translateY (% of own height, below anchor) — softer entry
 const IMAGE_MAX_OPACITY = 0.7 // image stays slightly muted so the text overlay reads cleanly
 const PARA_FADE_START = 0.10 // paragraph fade begins when image lands (~frame 47 of scrub)
 const PARA_FADE_END = 0.20 // paragraph fully visible by 20% scroll progress (~frame 69)
+// Exit phase — image rises out, text holds then fades by the time BioBlock reaches viewport.
+const EXIT_START = 0.85 // image starts rising up + paragraph starts fading
+const EXIT_END = 1.0 // image fully off-top, paragraph invisible exactly when pin releases
+const IMAGE_TRANSLATE_EXIT = -110 // end translateY at exit (% of own height, above anchor)
 
 const typedContent = content as unknown as Content
 
@@ -40,18 +44,41 @@ export function AboutPinned() {
 
   const firstParagraph = typedContent.about.bio.split('\n\n')[0]
 
-  // Image entry progress: 0 → IMAGE_ENTRY_END drives both translateY and opacity.
-  const imageEntryProgress = reducedMotion ? 1 : Math.min(progress / IMAGE_ENTRY_END, 1)
-  const imageTranslateY = (1 - imageEntryProgress) * IMAGE_TRANSLATE_START
-  const imageOpacity = imageEntryProgress * IMAGE_MAX_OPACITY
+  // Image translateY: enters from below, holds at 0, exits upward.
+  // Entry: progress 0 → IMAGE_ENTRY_END maps IMAGE_TRANSLATE_START → 0.
+  // Hold: IMAGE_ENTRY_END → EXIT_START stays at 0.
+  // Exit: EXIT_START → EXIT_END maps 0 → IMAGE_TRANSLATE_EXIT.
+  let imageTranslateY = 0
+  if (!reducedMotion) {
+    if (progress < IMAGE_ENTRY_END) {
+      imageTranslateY = (1 - progress / IMAGE_ENTRY_END) * IMAGE_TRANSLATE_START
+    } else if (progress > EXIT_START) {
+      const exitT = (progress - EXIT_START) / (EXIT_END - EXIT_START)
+      imageTranslateY = exitT * IMAGE_TRANSLATE_EXIT
+    }
+  }
 
-  // Paragraph fade: 0.10 → 0.20 maps opacity 0 → 1. Reduced motion = visible immediately.
-  const paragraphOpacity = reducedMotion
-    ? 1
-    : Math.max(
+  // Image opacity: ramps in over entry, holds at max for the pin, no fade-out
+  // (the upward motion is the exit cue — user wants the image to "rise out").
+  const imageOpacity = reducedMotion
+    ? IMAGE_MAX_OPACITY
+    : Math.min(progress / IMAGE_ENTRY_END, 1) * IMAGE_MAX_OPACITY
+
+  // Paragraph opacity: fade-in (PARA_FADE_START → PARA_FADE_END), hold, then
+  // fade-out at EXIT_START → EXIT_END so the text feels pinned past the image
+  // and is fully invisible the moment BioBlock reaches the viewport.
+  let paragraphOpacity = 1
+  if (!reducedMotion) {
+    if (progress < PARA_FADE_END) {
+      paragraphOpacity = Math.max(
         0,
         Math.min(1, (progress - PARA_FADE_START) / (PARA_FADE_END - PARA_FADE_START))
       )
+    } else if (progress > EXIT_START) {
+      const exitT = (progress - EXIT_START) / (EXIT_END - EXIT_START)
+      paragraphOpacity = Math.max(0, 1 - exitT)
+    }
+  }
 
   return (
     <div ref={containerRef} style={{ height: '400vh' }} className="relative">
