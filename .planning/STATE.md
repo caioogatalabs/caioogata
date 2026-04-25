@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 04.1-02-PLAN.md
-last_updated: "2026-04-21T17:54:05.634Z"
-last_activity: 2026-04-21
+status: executing
+stopped_at: Completed 04.2-01-PLAN.md
+last_updated: "2026-04-25T16:22:28.063Z"
+last_activity: 2026-04-25
 progress:
-  total_phases: 6
+  total_phases: 7
   completed_phases: 5
-  total_plans: 14
-  completed_plans: 14
+  total_plans: 20
+  completed_plans: 15
   percent: 80
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-02)
 
 **Core value:** The portfolio must communicate design engineering credibility through its own craft -- the UI itself is the strongest portfolio piece.
-**Current focus:** Phase 04.1 — project-gallery-blocks
+**Current focus:** Phase 04.2 — about-consolidation
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
-Status: Phase complete — ready for verification
-Last activity: 2026-04-22 -- Quick task 260422-kby: gallery density + Huia videos
+Phase: 04.2 (about-consolidation) — EXECUTING
+Plan: 2 of 6
+Status: Ready to execute
+Last activity: 2026-04-25
 
 Progress: [████████░░] 80%
 
@@ -65,6 +65,7 @@ Progress: [████████░░] 80%
 | Phase 04 P03 | 3min | 3 tasks | 4 files |
 | Phase 04.1 P01 | 2min | 2 tasks | 2 files |
 | Phase 04.1 P02 | 2min | 2 tasks | 4 files |
+| Phase 04.2 P01 | 3min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -96,10 +97,13 @@ Recent decisions affecting current work:
 - [Phase 04]: Extended Skill type with optional projectSlugs field for skill-to-project mapping (23 of 43 skills mapped)
 - [Phase 04.1]: Stagger reveal via startFraction offset (0.03 per image) in useScrollReveal rather than CSS animation-delay
 - [Phase 04.1]: Crossfade zone = 0.2/slideCount for proportional transition bands in sticky gallery
+- [Phase 04.2]: SectionDivider atom uses Welcome Bar typography mirror (font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary) for structural mono labels
+- [Phase 04.2]: clients.shortDescription typed as optional (?:) for tolerance, but Wave 2 plans can rely on field presence in both locales
 
 ### Roadmap Evolution
 
 - Phase 04.1 inserted after Phase 4: Project Gallery Blocks — fix span-aware staggered, add full-bleed + scroll-pinned sticky galleries (2026-04-21)
+- Phase 04.2 inserted after Phase 4: About Consolidation — merge Skills + Notable Clients + Education into /about as numbered subsections; delete /skills route (2026-04-25) (URGENT)
 
 ### Pending Todos
 
@@ -121,6 +125,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-21T17:50:43.661Z
-Stopped at: Completed 04.1-02-PLAN.md
+Last session: 2026-04-25T16:22:28.061Z
+Stopped at: Completed 04.2-01-PLAN.md
 Resume file: None
