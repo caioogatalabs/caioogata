@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04.2-04-PLAN.md
-last_updated: "2026-04-25T16:27:31.563Z"
+stopped_at: Completed 04.2-06-PLAN.md
+last_updated: "2026-04-25T20:44:17.698Z"
 last_activity: 2026-04-25
 progress:
   total_phases: 7
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 20
-  completed_plans: 19
+  completed_plans: 20
   percent: 80
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 ## Current Position
 
 Phase: 04.2 (about-consolidation) — EXECUTING
-Plan: 3 of 6
+Plan: 4 of 6
 Status: Ready to execute
 Last activity: 2026-04-25
 
@@ -70,6 +70,7 @@ Progress: [████████░░] 80%
 | Phase 04.2 P03 | 2min | 1 tasks | 1 files |
 | Phase 04.2 P05 | 1min | 1 tasks | 1 files |
 | Phase 04.2 P04 | 1.5min | 1 tasks | 1 files |
+| Phase 04.2 P06 | 18 min | 4 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -107,6 +108,8 @@ Recent decisions affecting current work:
 - [Phase 04.2]: [Phase 04.2]: SkillsBlock duplicates LEVEL_WIDTH locally (not imported) so Wave 3 can delete SkillsSection.tsx safely; bar styling switched to Tailwind classes (bg-border-secondary track, bg-text-primary fill) per V2 Component Patterns
 - [Phase 04.2]: EducationBlock duplicates getSortYear locally (does not import from V1) to keep V1 untouched and decouple V2 timeline component
 - [Phase 04.2]: ClientsBlock uses mixed grid composition (Grid+GridItem span=6 for description; full-width grid-cols-2 lg:grid-cols-4 for logo wall) and a static CELL_BORDERS 16-entry lookup for table dividers
+- [Phase 04.2]: AboutSection orchestrates 4 about blocks (BioBlock, SkillsBlock, ClientsBlock, EducationBlock) under the existing video hero; /skills route and V2 SkillsSection.tsx deleted; consolidation plan 04.2-06 closes phase 04.2
+- [Phase 04.2]: Build verification done via build-log route table inspection (28 static pages, /about present, /skills absent), not via static-export directory checks — next.config.mjs does not currently set output: 'export'
 
 ### Roadmap Evolution
 
@@ -133,6 +136,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-25T16:27:31.561Z
-Stopped at: Completed 04.2-04-PLAN.md
+Last session: 2026-04-25T20:44:10.403Z
+Stopped at: Completed 04.2-06-PLAN.md
 Resume file: None

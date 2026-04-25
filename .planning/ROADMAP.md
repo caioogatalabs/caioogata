@@ -95,7 +95,7 @@ Plans:
 **Goal:** Consolidate `/skills` route + Notable Clients + Education content as subsections of `/about` so the single page becomes a richer, editorial-style biography. Delete `/skills` route and `SkillsSection.tsx`. V2 only.
 **Requirements**: ABT-01 (subsection dividers), ABT-02 (skills block simplified), ABT-03 (clients grid), ABT-04 (education timeline)
 **Depends on:** Phase 4
-**Plans:** 5/6 plans executed
+**Plans:** 6/6 plans complete
 
 Plans:
 - [x] 04.2-01-PLAN.md — SectionDivider atom + menu trim + clients.shortDescription content (ABT-01, ABT-05)
@@ -103,7 +103,7 @@ Plans:
 - [x] 04.2-03-PLAN.md — SkillsBlock (1.2) simplified, no SVG (ABT-02)
 - [x] 04.2-04-PLAN.md — ClientsBlock (1.3) 4-col grid with table dividers (ABT-03)
 - [x] 04.2-05-PLAN.md — EducationBlock (1.4) chronological timeline (ABT-04)
-- [ ] 04.2-06-PLAN.md — Wire blocks into AboutSection, delete /skills route, build validation (ABT-01..ABT-04)
+- [x] 04.2-06-PLAN.md — Wire blocks into AboutSection, delete /skills route, build validation (ABT-01..ABT-04)
 
 ### Phase 04.1: Project Gallery Blocks (INSERTED)
 
@@ -155,5 +155,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 2. Home Page | 4/4 | Complete | 2026-04-03 |
 | 3. Project Pages | 3/3 | Complete | 2026-04-06 |
 | 4. Core Content Sections | 3/3 | Complete   | 2026-04-18 |
-| 4.1 Project Gallery Blocks | 0/2 | Not started | - |
+| 4.1 Project Gallery Blocks | 2/2 | Complete | 2026-04-22 |
+| 4.2 About Consolidation | 6/6 | Complete | 2026-04-25 |
 | 5. Secondary Sections & Polish | 0/4 | Not started | - |
