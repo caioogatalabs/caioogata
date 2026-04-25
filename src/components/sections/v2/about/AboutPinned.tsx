@@ -8,6 +8,8 @@ import type { Content } from '@/content/types'
 // Scroll-progress milestones (0..1 across the 400vh container).
 const PARA_FADE_START = 0 // paragraph begins fading in at the very start of the pin
 const PARA_FADE_END = 0.15 // paragraph fully visible by 15% scroll progress
+const IMAGE_FADE_END = 0.15 // image reaches max opacity when paragraph does
+const IMAGE_MAX_OPACITY = 0.7 // image stays slightly muted so the text overlay reads cleanly
 
 const typedContent = content as unknown as Content
 
@@ -45,6 +47,12 @@ export function AboutPinned() {
         Math.min(1, (progress - PARA_FADE_START) / (PARA_FADE_END - PARA_FADE_START))
       )
 
+  // Image fade: 0 → 0.15 ramps from 0 to IMAGE_MAX_OPACITY (0.7) and holds.
+  // Reduced motion = locked at max from the start.
+  const imageOpacity = reducedMotion
+    ? IMAGE_MAX_OPACITY
+    : Math.min(progress / IMAGE_FADE_END, 1) * IMAGE_MAX_OPACITY
+
   return (
     <div ref={containerRef} style={{ height: '400vh' }} className="relative">
       <div className="sticky top-0 h-screen overflow-hidden bg-bg flex items-center">
@@ -52,7 +60,13 @@ export function AboutPinned() {
           <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 items-center">
             {/* Image — cols 5-8 desktop (4 cols centered). z-10 so paragraph layers on top. */}
             <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-4 lg:col-start-5 lg:row-start-1 z-10">
-              <div className="w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary">
+              <div
+                className="w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
+                style={{
+                  opacity: imageOpacity,
+                  transition: reducedMotion ? 'none' : 'opacity 60ms linear',
+                }}
+              >
                 <canvas
                   ref={canvasRef}
                   className="block w-full h-full"
@@ -61,8 +75,8 @@ export function AboutPinned() {
               </div>
             </div>
 
-            {/* Paragraph — cols 1-6 desktop. z-20 so it sits above the image overlap. */}
-            <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-6 lg:col-start-1 lg:row-start-1 z-20">
+            {/* Paragraph — full 12 cols (testing). z-20 so it sits above the image overlap. */}
+            <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 z-20">
               <p
                 className="text-text-primary"
                 style={{
