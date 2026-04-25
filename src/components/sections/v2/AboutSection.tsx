@@ -50,45 +50,53 @@ export function AboutSection() {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Hero zone — mirrors home IntroSection: 85svh hero with sticky logo bar at top
-          and headline anchored to the bottom via flex-1 spacer. */}
-      <div className="bg-bg-surface-secondary flex flex-col min-h-[var(--height-hero)]">
-        <StickyLogoBar />
-        <div className="flex-1" aria-hidden />
-        <div
-          ref={headlineRef as React.RefObject<HTMLDivElement>}
-          className="-entrance -slide-up -a-2 px-5 pb-8 md:px-8 md:pb-10 lg:px-16 lg:pb-12"
-        >
-          <h1
-            className="text-text-primary"
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
-              fontWeight: 400,
-              lineHeight: 1.15,
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Bridging brand strategy, product craft and technical workflow
-          </h1>
-        </div>
-      </div>
-
-      {/* Video pin zone — slides up from below, pins, then scrubs the 241 frames. */}
+      {/* Hero pin zone — the entire Hero composition (logo + spacer + headline) is sticky
+          while the user scrolls through the 400vh zone. The video slides up from below
+          and scrubs frames within this same pinned viewport. */}
       <div ref={containerRef} style={{ height: '400vh' }} className="relative">
-        <div className="sticky top-0 h-screen flex items-center px-5 md:px-8 lg:px-16">
-          <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 w-full">
-            <div className="col-span-4 md:col-span-8 lg:col-span-4 lg:col-start-9">
-              <div
-                className="w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
-                style={slideStyle}
-              >
-                <canvas
-                  ref={canvasRef}
-                  className="block w-full h-full"
-                  style={{ objectFit: 'cover' }}
-                />
+        <div className="bg-bg-surface-secondary sticky top-0 h-screen overflow-hidden">
+          <div className="relative flex flex-col h-full">
+            {/* Logo at top */}
+            <StickyLogoBar />
+
+            {/* Spacer absorbs middle (with the video positioned inside, behind the headline) */}
+            <div className="flex-1" aria-hidden />
+
+            {/* Video container — absolute, cols 9-12, slide-up entry. z-10 (behind headline). */}
+            <div className="absolute inset-0 z-10 pointer-events-none px-5 md:px-8 lg:px-16">
+              <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 h-full">
+                <div className="col-span-4 md:col-span-8 lg:col-span-4 lg:col-start-9 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
+                  <div
+                    className="w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
+                    style={slideStyle}
+                  >
+                    <canvas
+                      ref={canvasRef}
+                      className="block w-full h-full"
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </div>
+                </div>
               </div>
+            </div>
+
+            {/* Headline at bottom — full-width, home typography 1:1. z-20 (above video). */}
+            <div
+              ref={headlineRef as React.RefObject<HTMLDivElement>}
+              className="-entrance -slide-up -a-2 relative z-20 px-5 pb-8 md:px-8 md:pb-10 lg:px-16 lg:pb-12"
+            >
+              <h1
+                className="text-text-primary"
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
+                  fontWeight: 400,
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                Bridging brand strategy, product craft and technical workflow
+              </h1>
             </div>
           </div>
         </div>
