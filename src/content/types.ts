@@ -228,6 +228,7 @@ export interface Content {
   about: {
     command: string
     heading: string
+    headline?: string
     bio: string
     expertise: string[]
   }
