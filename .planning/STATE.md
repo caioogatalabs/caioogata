@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04.2-02-PLAN.md
-last_updated: "2026-04-25T16:26:28.580Z"
+stopped_at: Completed 04.2-05-PLAN.md
+last_updated: "2026-04-25T16:27:09.630Z"
 last_activity: 2026-04-25
 progress:
   total_phases: 7
   completed_phases: 5
   total_plans: 20
-  completed_plans: 16
+  completed_plans: 18
   percent: 80
 ---
 
@@ -67,6 +67,8 @@ Progress: [████████░░] 80%
 | Phase 04.1 P02 | 2min | 2 tasks | 4 files |
 | Phase 04.2 P01 | 3min | 2 tasks | 4 files |
 | Phase 04.2 P02 | 1min | 1 tasks | 1 files |
+| Phase 04.2 P03 | 2min | 1 tasks | 1 files |
+| Phase 04.2 P05 | 1min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -101,6 +103,8 @@ Recent decisions affecting current work:
 - [Phase 04.2]: SectionDivider atom uses Welcome Bar typography mirror (font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary) for structural mono labels
 - [Phase 04.2]: clients.shortDescription typed as optional (?:) for tolerance, but Wave 2 plans can rely on field presence in both locales
 - [Phase 04.2]: BioBlock owns its own SectionDivider — each numbered subsection block is self-contained for trivial AboutSection composition
+- [Phase 04.2]: [Phase 04.2]: SkillsBlock duplicates LEVEL_WIDTH locally (not imported) so Wave 3 can delete SkillsSection.tsx safely; bar styling switched to Tailwind classes (bg-border-secondary track, bg-text-primary fill) per V2 Component Patterns
+- [Phase 04.2]: EducationBlock duplicates getSortYear locally (does not import from V1) to keep V1 untouched and decouple V2 timeline component
 
 ### Roadmap Evolution
 
@@ -127,6 +131,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-25T16:26:28.577Z
-Stopped at: Completed 04.2-02-PLAN.md
+Last session: 2026-04-25T16:27:09.627Z
+Stopped at: Completed 04.2-05-PLAN.md
 Resume file: None
