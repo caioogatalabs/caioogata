@@ -6,23 +6,26 @@ import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
 // Scroll-progress milestones (0..1 across the 400vh container).
-const ENTRY_END = 0.2 // image slide-up completes at 20% scroll progress
-const PARA_FADE_START = 0.2 // paragraph begins fading in immediately after image lands
-const PARA_FADE_END = 0.4 // paragraph fully visible by 40% scroll progress
+const PARA_FADE_START = 0 // paragraph begins fading in at the very start of the pin
+const PARA_FADE_END = 0.15 // paragraph fully visible by 15% scroll progress
 
 const typedContent = content as unknown as Content
 
 /**
  * AboutPinned — image-pin + paragraph-reveal section for /about.
  *
- * Layout: paragraph in cols 1-6, vertical image in cols 9-12.
- * Behaviour: image slides up from below during the first 20% of scroll,
- * pins inside the sticky viewport, scrubs 241 frames through the rest of
- * the 400vh zone. The first bio paragraph fades in between 20% and 40%
- * scroll progress.
+ * Layout: vertical image centered in cols 5-8 (z-10), paragraph in cols 1-6
+ * overlapping the image's left edge (z-20). Image is visible from the
+ * moment the pin engages — no slide-up entry, so there's no empty viewport
+ * between the Hero and the pinned image.
  *
- * `prefers-reduced-motion`: image translateY locks at 0, paragraph opacity
- * locks at 1, frames freeze at the last frame (handled inside useScrollVideo).
+ * Behaviour: 400vh outer scroll → sticky inner pins at top:0. The image
+ * holds steady while useScrollVideo scrubs 241 frames across the full
+ * 0→1 progress range. The first bio paragraph fades in between 0% and
+ * 15% scroll progress.
+ *
+ * `prefers-reduced-motion`: paragraph opacity locks at 1, frames freeze
+ * at the last frame (handled inside useScrollVideo).
  */
 export function AboutPinned() {
   const { containerRef, canvasRef, progress } = useScrollVideo()
@@ -34,13 +37,7 @@ export function AboutPinned() {
 
   const firstParagraph = typedContent.about.bio.split('\n\n')[0]
 
-  // Image entry: 0 → ENTRY_END maps translateY 100% → 0%. Reduced motion = always 0.
-  const entryProgress = reducedMotion ? 1 : Math.min(progress / ENTRY_END, 1)
-  const imageStyle: React.CSSProperties = {
-    transform: `translateY(${(1 - entryProgress) * 100}%)`,
-  }
-
-  // Paragraph fade: 0.2 → 0.4 maps opacity 0 → 1. Reduced motion = visible immediately.
+  // Paragraph fade: 0 → 0.15 maps opacity 0 → 1. Reduced motion = visible immediately.
   const paragraphOpacity = reducedMotion
     ? 1
     : Math.max(
@@ -53,8 +50,19 @@ export function AboutPinned() {
       <div className="sticky top-0 h-screen overflow-hidden bg-bg flex items-center">
         <div className="w-full px-5 md:px-8 lg:px-16">
           <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 items-center">
-            {/* Paragraph — cols 1-6 desktop */}
-            <div className="col-span-4 md:col-span-8 lg:col-span-6">
+            {/* Image — cols 5-8 desktop (4 cols centered). z-10 so paragraph layers on top. */}
+            <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-4 lg:col-start-5 lg:row-start-1 z-10">
+              <div className="w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary">
+                <canvas
+                  ref={canvasRef}
+                  className="block w-full h-full"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+            </div>
+
+            {/* Paragraph — cols 1-6 desktop. z-20 so it sits above the image overlap. */}
+            <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-6 lg:col-start-1 lg:row-start-1 z-20">
               <p
                 className="text-text-primary"
                 style={{
@@ -68,20 +76,6 @@ export function AboutPinned() {
               >
                 {firstParagraph}
               </p>
-            </div>
-
-            {/* Image — cols 9-12 desktop, vertical aspect */}
-            <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-4 lg:col-start-9">
-              <div
-                className="w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
-                style={imageStyle}
-              >
-                <canvas
-                  ref={canvasRef}
-                  className="block w-full h-full"
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
             </div>
           </div>
         </div>
