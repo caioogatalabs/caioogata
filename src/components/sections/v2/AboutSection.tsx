@@ -50,22 +50,53 @@ export function AboutSection() {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Hero pin zone — the entire Hero composition (logo + spacer + headline) is sticky
-          while the user scrolls through the 400vh zone. The video slides up from below
-          and scrubs frames within this same pinned viewport. */}
+      {/* Hero pin zone — full Hero composition (welcome bar + logo + spacer + headline)
+          mirrors the home Intro 1:1, sized at var(--height-hero) ≈ 85svh. The whole hero
+          is sticky during the 400vh outer scroll; the video slides up from below and pins
+          inside the same viewport, behind the headline. */}
       <div ref={containerRef} style={{ height: '400vh' }} className="relative">
-        <div className="bg-bg-surface-secondary sticky top-0 h-screen overflow-hidden">
-          <div className="relative flex flex-col h-full">
-            {/* Logo at top */}
-            <StickyLogoBar />
+        <div className="bg-bg-surface-secondary sticky top-0 flex flex-col min-h-[var(--height-hero)] overflow-hidden">
+          {/* ── Welcome bar (top) ── */}
+          <section
+            aria-label="About"
+            className="relative z-30 px-5 pt-8 md:px-8 md:pt-10 lg:px-16 lg:pt-12"
+          >
+            <div
+              className="flex items-start justify-between w-full text-text-primary opacity-50 uppercase tracking-[1.2px]"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '12px',
+                fontWeight: 600,
+                lineHeight: 1.2,
+              }}
+            >
+              <div className="flex gap-5">
+                <span className="hidden md:inline">
+                  About
+                  <br />
+                  the work
+                </span>
+                <span className="hidden md:inline">caioogata</span>
+                <span className="hidden lg:inline">profile &amp; experience</span>
+              </div>
+              <span className="text-right">
+                Section
+                <br />
+                01
+              </span>
+              <span className="hidden lg:inline text-right">
+                Built for human
+                <br />
+                and AI assistance
+              </span>
+            </div>
+          </section>
 
-            {/* Spacer absorbs middle (with the video positioned inside, behind the headline) */}
-            <div className="flex-1" aria-hidden />
-
-            {/* Video container — absolute, cols 9-12, slide-up entry. z-10 (behind headline). */}
+          {/* ── Spacer (absorbs hero min-height) — video lives here, absolutely positioned ── */}
+          <div className="flex-1 relative">
             <div className="absolute inset-0 z-10 pointer-events-none px-5 md:px-8 lg:px-16">
               <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 h-full">
-                <div className="col-span-4 md:col-span-8 lg:col-span-4 lg:col-start-9 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
+                <div className="col-span-4 md:col-span-8 lg:col-span-4 lg:col-start-9 h-full flex items-end">
                   <div
                     className="w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
                     style={slideStyle}
@@ -79,25 +110,30 @@ export function AboutSection() {
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Headline at bottom — full-width, home typography 1:1. z-20 (above video). */}
-            <div
-              ref={headlineRef as React.RefObject<HTMLDivElement>}
-              className="-entrance -slide-up -a-2 relative z-20 px-5 pb-8 md:px-8 md:pb-10 lg:px-16 lg:pb-12"
+          {/* ── Logo + CTA bar ── */}
+          <div className="relative z-30">
+            <StickyLogoBar />
+          </div>
+
+          {/* ── Headline (bottom) ── */}
+          <div
+            ref={headlineRef as React.RefObject<HTMLDivElement>}
+            className="-entrance -slide-up -a-2 relative z-20 px-5 pb-8 md:px-8 md:pb-10 lg:px-16 lg:pb-12"
+          >
+            <h1
+              className="text-text-primary"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
+                fontWeight: 400,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
             >
-              <h1
-                className="text-text-primary"
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
-                  fontWeight: 400,
-                  lineHeight: 1.15,
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                Bridging brand strategy, product craft and technical workflow
-              </h1>
-            </div>
+              Bridging brand strategy, product craft and technical workflow
+            </h1>
           </div>
         </div>
       </div>
