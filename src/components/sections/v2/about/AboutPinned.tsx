@@ -6,10 +6,11 @@ import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
 // Scroll-progress milestones (0..1 across the 400vh container).
-const PARA_FADE_START = 0 // paragraph begins fading in at the very start of the pin
-const PARA_FADE_END = 0.15 // paragraph fully visible by 15% scroll progress
-const IMAGE_FADE_END = 0.15 // image reaches max opacity when paragraph does
+const IMAGE_ENTRY_END = 0.10 // image slides up + fades in over the first 10% of pin scroll
+const IMAGE_TRANSLATE_START = 80 // start translateY (% of own height, below anchor)
 const IMAGE_MAX_OPACITY = 0.7 // image stays slightly muted so the text overlay reads cleanly
+const PARA_FADE_START = 0.10 // paragraph fade begins when image lands (~frame 47 of scrub)
+const PARA_FADE_END = 0.20 // paragraph fully visible by 20% scroll progress (~frame 69)
 
 const typedContent = content as unknown as Content
 
@@ -39,19 +40,18 @@ export function AboutPinned() {
 
   const firstParagraph = typedContent.about.bio.split('\n\n')[0]
 
-  // Paragraph fade: 0 → 0.15 maps opacity 0 → 1. Reduced motion = visible immediately.
+  // Image entry progress: 0 → IMAGE_ENTRY_END drives both translateY and opacity.
+  const imageEntryProgress = reducedMotion ? 1 : Math.min(progress / IMAGE_ENTRY_END, 1)
+  const imageTranslateY = (1 - imageEntryProgress) * IMAGE_TRANSLATE_START
+  const imageOpacity = imageEntryProgress * IMAGE_MAX_OPACITY
+
+  // Paragraph fade: 0.10 → 0.20 maps opacity 0 → 1. Reduced motion = visible immediately.
   const paragraphOpacity = reducedMotion
     ? 1
     : Math.max(
         0,
         Math.min(1, (progress - PARA_FADE_START) / (PARA_FADE_END - PARA_FADE_START))
       )
-
-  // Image fade: 0 → 0.15 ramps from 0 to IMAGE_MAX_OPACITY (0.7) and holds.
-  // Reduced motion = locked at max from the start.
-  const imageOpacity = reducedMotion
-    ? IMAGE_MAX_OPACITY
-    : Math.min(progress / IMAGE_FADE_END, 1) * IMAGE_MAX_OPACITY
 
   return (
     <div ref={containerRef} style={{ height: '400vh' }} className="relative">
@@ -64,7 +64,8 @@ export function AboutPinned() {
                 className="w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
                 style={{
                   opacity: imageOpacity,
-                  transition: reducedMotion ? 'none' : 'opacity 60ms linear',
+                  transform: `translateY(${imageTranslateY}%)`,
+                  transition: reducedMotion ? 'none' : 'opacity 60ms linear, transform 60ms linear',
                 }}
               >
                 <canvas
