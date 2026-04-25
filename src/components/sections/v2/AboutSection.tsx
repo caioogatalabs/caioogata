@@ -1,10 +1,13 @@
 'use client'
 
 import { useMemo } from 'react'
-import { useInView } from '@/hooks/useInView'
 import { useScrollVideo } from '@/hooks/useScrollVideo'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
+import { BioBlock } from '@/components/sections/v2/about/BioBlock'
+import { SkillsBlock } from '@/components/sections/v2/about/SkillsBlock'
+import { ClientsBlock } from '@/components/sections/v2/about/ClientsBlock'
+import { EducationBlock } from '@/components/sections/v2/about/EducationBlock'
 import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
@@ -41,10 +44,7 @@ function useScrollTransitions(progress: number) {
 
 export function AboutSection() {
   const { containerRef, canvasRef, progress } = useScrollVideo()
-  const contentRef = useInView({ threshold: 0.1, once: true })
   const { headline: headlineStyle, tags: tagsStyle } = useScrollTransitions(progress)
-
-  const paragraphs = about.bio.split('\n\n')
 
   return (
     <div className="min-h-screen bg-bg">
@@ -131,35 +131,11 @@ export function AboutSection() {
         </Grid>
       </div>
 
-      {/* Editorial content zone */}
-      <div className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32">
-        <Grid className="!px-0">
-          {/* Left column: empty for asymmetric editorial feel */}
-          <GridItem
-            span={6}
-            tabletSpan={2}
-            mobileSpan={4}
-          />
-
-          {/* Right column: bio */}
-          <GridItem
-            span={6}
-            tabletSpan={6}
-            mobileSpan={4}
-            ref={contentRef as React.RefObject<HTMLDivElement>}
-          >
-            {paragraphs.map((paragraph, i) => (
-              <p
-                key={i}
-                className={`-entrance -slide-up -a-${i} text-base md:text-lg text-text-primary leading-relaxed mb-6`}
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                {paragraph}
-              </p>
-            ))}
-          </GridItem>
-        </Grid>
-      </div>
+      {/* About subsections — 1.1 Bio → 1.2 Skills → 1.3 Notable Clients → 1.4 Education */}
+      <BioBlock />
+      <SkillsBlock />
+      <ClientsBlock />
+      <EducationBlock />
     </div>
   )
 }
