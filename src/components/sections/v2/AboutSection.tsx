@@ -1,137 +1,101 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useScrollVideo } from '@/hooks/useScrollVideo'
-import { Grid, GridItem } from '@/components/layout/Grid'
 import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
 import { BioBlock } from '@/components/sections/v2/about/BioBlock'
 import { SkillsBlock } from '@/components/sections/v2/about/SkillsBlock'
 import { ClientsBlock } from '@/components/sections/v2/about/ClientsBlock'
 import { EducationBlock } from '@/components/sections/v2/about/EducationBlock'
-import content from '@/content/en.json'
-import type { Content } from '@/content/types'
-
-const typedContent = content as unknown as Content
-const about = typedContent.about
-
-/**
- * Scroll-driven transitions synced to video progress.
- * Headline exits at 45–55%. Core Expertise enters at 50–60% (overlaps with headline exit).
- */
-function useScrollTransitions(progress: number) {
-  return useMemo(() => {
-    const headlineT = Math.max(0, Math.min(1, (progress - 0.45) / 0.10))
-
-    // Tags: fade in 50–60%, visible 60–85%, fade out 85–95%
-    const tagsIn = Math.max(0, Math.min(1, (progress - 0.50) / 0.10))
-    const tagsOut = Math.max(0, Math.min(1, (progress - 0.85) / 0.10))
-    const tagsOpacity = tagsIn - tagsOut
-
-    return {
-      headline: {
-        opacity: 1 - headlineT,
-        transform: `translateY(${-headlineT * 40}px)`,
-        pointerEvents: (headlineT === 1 ? 'none' : 'auto') as React.CSSProperties['pointerEvents'],
-      },
-      tags: {
-        opacity: tagsOpacity,
-        transform: `translateY(${(1 - tagsIn) * 20}px)`,
-        pointerEvents: (tagsOpacity === 0 ? 'none' : 'auto') as React.CSSProperties['pointerEvents'],
-      },
-    }
-  }, [progress])
-}
 
 export function AboutSection() {
-  const { containerRef, canvasRef, progress } = useScrollVideo()
-  const { headline: headlineStyle, tags: tagsStyle } = useScrollTransitions(progress)
+  const { containerRef, canvasRef } = useScrollVideo()
+  const [entered, setEntered] = useState(false)
+  const reducedMotionRef = useRef(false)
+
+  // Trigger slide-up entry once the hero container enters the viewport.
+  // We watch the container itself so the entry plays as soon as the section starts entering.
+  useEffect(() => {
+    const node = containerRef.current
+    if (!node) return
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    reducedMotionRef.current = prefersReduced
+    if (prefersReduced) {
+      setEntered(true)
+      return
+    }
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setEntered(true)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.05 }
+    )
+    obs.observe(node)
+    return () => obs.disconnect()
+  }, [containerRef])
+
+  // After the entry slide-up completes, video is in its sticky anchor and scrub takes over via progress.
+  // Slide transform: hidden = translateY(100%), visible = translateY(0).
+  const slideStyle: React.CSSProperties = {
+    transform: entered ? 'translateY(0)' : 'translateY(100%)',
+    transition: reducedMotionRef.current
+      ? 'none'
+      : 'transform 1s cubic-bezier(0.16, 1, 0.3, 1)',
+  }
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Hero block — video bg + sticky overlay content */}
-      <div
-        ref={containerRef}
-        style={{ height: '200vh' }}
-      >
-        <div className="sticky top-0 w-full overflow-hidden relative">
-          {/* Video canvas — absolute, fills entire sticky hero */}
-          <canvas
-            ref={canvasRef}
-            className="absolute inset-0 w-full h-full"
-            style={{ objectFit: 'cover', objectPosition: 'center bottom' }}
-          />
+      {/* Hero scroll zone — drives both the sticky headline and the scroll-scrubbed video. */}
+      <div ref={containerRef} style={{ height: '400vh' }} className="relative">
+        {/* StickyLogoBar lives at the top of the hero zone (matches projects/home). */}
+        <div className="pt-8 md:pt-10 lg:pt-12">
+          <StickyLogoBar />
+        </div>
 
-          {/* BG overlay — 70% opacity for text readability */}
-          <div
-            className="absolute inset-0 bg-bg"
-            style={{ opacity: 0.7 }}
-          />
-
-          {/* Hero content — same structure as ProjectPageShell + ProjectHero */}
-          <div className="relative z-10">
-            {/* StickyLogoBar — transparent, same position as projects */}
-            <div className="pt-8 md:pt-10 lg:pt-12">
-              <StickyLogoBar />
+        {/* Sticky vertical video — cols 9-12 on desktop, full-width on mobile/tablet.
+            z-10 (below headline). Sticks at top:0 once it reaches the viewport top. */}
+        <div className="sticky top-0 h-screen w-full pointer-events-none z-10">
+          <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 px-5 md:px-8 lg:px-16 h-full">
+            <div className="col-span-4 md:col-span-8 lg:col-span-4 lg:col-start-9 h-full flex items-center">
+              <div
+                className="w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
+                style={slideStyle}
+              >
+                <canvas
+                  ref={canvasRef}
+                  className="block w-full h-full"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
             </div>
+          </div>
+        </div>
 
-            {/* Hero text — same padding as ProjectHero text section */}
-            <div className="flex flex-col justify-end pt-32 pb-8 md:pt-40 md:pb-10 lg:pt-48 lg:pb-12">
-              <Grid>
-                <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-                  <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-6 -entrance -fade -a-0">
-                    ABT_2026 // ABOUT
-                  </span>
-                </GridItem>
-
-                <GridItem span={4} tabletSpan={8} mobileSpan={4} />
-
-                <GridItem span={8} tabletSpan={8} mobileSpan={4}>
-                  {/* Headline — slides up and out synced to video scroll */}
-                  <div style={headlineStyle}>
-                    <h1
-                      className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
-                      style={{ fontFamily: 'var(--font-sans)' }}
-                    >
-                      Bridging brand strategy, product craft, and technical implementation
-                    </h1>
-                  </div>
-                </GridItem>
-              </Grid>
-            </div>
+        {/* Sticky headline — full-width, home IntroSection typography 1:1.
+            z-20 (above video). Sticks at top:0; while in the sticky zone the video slides up behind it. */}
+        <div className="sticky top-0 z-20 pointer-events-none">
+          <div className="min-h-screen flex items-end px-5 pb-8 md:px-8 md:pb-10 lg:px-16 lg:pb-12">
+            <h1
+              className="text-text-primary"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
+                fontWeight: 400,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+                maxWidth: '66%',
+              }}
+            >
+              Bridging brand strategy, product craft and technical workflow
+            </h1>
           </div>
         </div>
       </div>
 
-      {/* Core Expertise — fixed in dark area below hero, synced to video scroll */}
-      <div
-        className="fixed bottom-0 left-0 right-0 z-30 px-5 md:px-8 lg:px-16 pb-8 md:pb-12 lg:pb-16"
-        style={tagsStyle}
-      >
-        <Grid className="!px-0">
-          <GridItem span={6} tabletSpan={2} mobileSpan={4} />
-          <GridItem span={6} tabletSpan={6} mobileSpan={4}>
-            <div className="flex flex-col w-full">
-              <span
-                className="text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                Core Expertise
-              </span>
-              {about.expertise.map((item) => (
-                <p
-                  key={item}
-                  className="text-base text-text-primary py-3 border-t border-border-secondary"
-                  style={{ fontFamily: 'var(--font-sans)' }}
-                >
-                  {item}
-                </p>
-              ))}
-            </div>
-          </GridItem>
-        </Grid>
-      </div>
-
-      {/* About subsections — 1.1 Bio → 1.2 Skills → 1.3 Notable Clients → 1.4 Education */}
+      {/* About subsections — UNCHANGED. */}
       <BioBlock />
       <SkillsBlock />
       <ClientsBlock />
