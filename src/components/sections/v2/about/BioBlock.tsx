@@ -21,7 +21,9 @@ const about = typedContent.about
  */
 export function BioBlock() {
   const contentRef = useInView({ threshold: 0.1, once: true })
-  const paragraphs = about.bio.split('\n\n')
+  // First paragraph lives in <AboutPinned/> (revealed during the image pin).
+  // BioBlock renders the remaining narrative paragraphs.
+  const paragraphs = about.bio.split('\n\n').slice(1)
 
   return (
     <div>
