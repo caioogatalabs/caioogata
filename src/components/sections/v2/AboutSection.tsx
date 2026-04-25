@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { useScrollVideo } from '@/hooks/useScrollVideo'
 import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
@@ -9,43 +9,25 @@ import { SkillsBlock } from '@/components/sections/v2/about/SkillsBlock'
 import { ClientsBlock } from '@/components/sections/v2/about/ClientsBlock'
 import { EducationBlock } from '@/components/sections/v2/about/EducationBlock'
 
+// Scroll progress (0 → ENTRY_END) drives the video's slide-up entry.
+// After ENTRY_END the video sits at translateY(0) and useScrollVideo
+// keeps scrubbing frames through the rest of the 400vh zone.
+const ENTRY_END = 0.2
+
 export function AboutSection() {
-  const { containerRef, canvasRef } = useScrollVideo()
+  const { containerRef, canvasRef, progress } = useScrollVideo()
   const headlineRef = useInView({ threshold: 0.1, once: true })
-  const [entered, setEntered] = useState(false)
-  const reducedMotionRef = useRef(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
 
-  // Trigger slide-up entry once the hero container enters the viewport.
-  // We watch the container itself so the entry plays as soon as the section starts entering.
   useEffect(() => {
-    const node = containerRef.current
-    if (!node) return
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    reducedMotionRef.current = prefersReduced
-    if (prefersReduced) {
-      setEntered(true)
-      return
-    }
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setEntered(true)
-          obs.disconnect()
-        }
-      },
-      { threshold: 0.05 }
-    )
-    obs.observe(node)
-    return () => obs.disconnect()
-  }, [containerRef])
+    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
 
-  // After the entry slide-up completes, video is in its sticky anchor and scrub takes over via progress.
-  // Slide transform: hidden = translateY(100%), visible = translateY(0).
+  // Map the first ENTRY_END of scroll progress to translateY 100% → 0%.
+  // Reduced motion: skip the slide-up entirely.
+  const entryProgress = reducedMotion ? 1 : Math.min(progress / ENTRY_END, 1)
   const slideStyle: React.CSSProperties = {
-    transform: entered ? 'translateY(0)' : 'translateY(100%)',
-    transition: reducedMotionRef.current
-      ? 'none'
-      : 'transform 1s cubic-bezier(0.16, 1, 0.3, 1)',
+    transform: `translateY(${(1 - entryProgress) * 100}%)`,
   }
 
   return (
