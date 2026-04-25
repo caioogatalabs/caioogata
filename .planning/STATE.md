@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 Phase: 04.2 (about-consolidation) — EXECUTING
 Plan: 4 of 6
 Status: Ready to execute
-Last activity: 2026-04-25
+Last activity: 2026-04-25 - Completed quick task 260425-p77: Restructure /about hero — vertical sticky video in cols 9-12, headline matching home
 
 Progress: [████████░░] 80%
 
@@ -130,6 +130,7 @@ None yet.
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
+| 260425-p77 | Restructure /about hero — vertical sticky video in cols 9-12, headline matching home | 2026-04-25 | cdee6ce | [260425-p77-reestruturar-hero-do-about-v-deo-vertica](./quick/260425-p77-reestruturar-hero-do-about-v-deo-vertica/) |
 | 260422-kby | Fix gallery-staggered density and Huia video layout | 2026-04-22 | abce2c4 | [260422-kby-fix-gallery-staggered-density-and-huia-v](./quick/260422-kby-fix-gallery-staggered-density-and-huia-v/) |
 | 260415-qcl | Fix Grid polymorphic type error for React 19 — unblock v2 Vercel preview | 2026-04-15 | 197a08f | [260415-qcl-fix-grid-polymorphic-type-error-react-19](./quick/260415-qcl-fix-grid-polymorphic-type-error-react-19/) |
 | 260410-llm | Refine FooterSection layout: 6-6 grid with grey card only on form, contact button as pill+icon pair | 2026-04-10 | eabb8c2 | [260410-llm-refine-footersection-layout-6-6-grid-wit](./quick/260410-llm-refine-footersection-layout-6-6-grid-wit/) |
