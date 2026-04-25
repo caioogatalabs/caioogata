@@ -1,5 +1,6 @@
 'use client'
 
+import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
 
 interface HeroProps {
@@ -15,14 +16,17 @@ interface HeroProps {
  *  - With `technologies`: renders kicker (12-col) + technologies (4-col) + headline (8-col).
  *  - Without `technologies`: renders kicker (12-col) + full-width headline (12-col).
  *
- * Entrance animation is one-shot CSS via `-entrance -fade -a-N`. The consumer is
- * responsible for placing this inside an ancestor that gets the `-inview` class
- * (or relying on the page-level `-loaded -ready` gate set by the inline script
- * in <head>). No `useInView` here — keeps the primitive composable.
+ * Entrance: one-shot CSS via `-entrance -fade -a-N` triggered by the section
+ * receiving the `-inview` class via its own IntersectionObserver. The class
+ * propagates to descendants — no consumer wiring required.
  */
 export function Hero({ kicker, technologies, headline }: HeroProps) {
+  const sectionRef = useInView()
   return (
-    <section className="flex flex-col justify-end min-h-[var(--height-hero)] pb-8 md:pb-10 lg:pb-12">
+    <section
+      ref={sectionRef as React.RefObject<HTMLElement>}
+      className="flex flex-col justify-end min-h-[var(--height-hero)] pb-8 md:pb-10 lg:pb-12"
+    >
       <Grid>
         <GridItem span={12} tabletSpan={8} mobileSpan={4}>
           <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-6 -entrance -fade -a-0">
