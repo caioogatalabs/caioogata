@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed quick task 260425-p77
-last_updated: "2026-04-25T21:17:44.699Z"
-last_activity: 2026-04-25
+stopped_at: Completed quick task 260425-rcw
+last_updated: "2026-04-25T22:56:08.450Z"
+last_activity: "2026-04-25 - Completed quick task 260425-p77: Restructure /about hero — vertical sticky video in cols 9-12, headline matching home"
 progress:
   total_phases: 7
   completed_phases: 6
@@ -72,6 +72,7 @@ Progress: [████████░░] 80%
 | Phase 04.2 P04 | 1.5min | 1 tasks | 1 files |
 | Phase 04.2 P06 | 18 min | 4 tasks | 3 files |
 | Phase 260425-p77 Pquick | 4 min | 1 tasks | 1 files |
+| Phase 260425-rcw Pquick | 7min | 6 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -112,6 +113,7 @@ Recent decisions affecting current work:
 - [Phase 04.2]: AboutSection orchestrates 4 about blocks (BioBlock, SkillsBlock, ClientsBlock, EducationBlock) under the existing video hero; /skills route and V2 SkillsSection.tsx deleted; consolidation plan 04.2-06 closes phase 04.2
 - [Phase 04.2]: Build verification done via build-log route table inspection (28 static pages, /about present, /skills absent), not via static-export directory checks — next.config.mjs does not currently set output: 'export'
 - [Phase 260425-p77]: [Quick 260425-p77]: /about hero restructured — sticky vertical video in cols 9-12 (aspect-3/4) inside 400vh scroll zone, full-width headline mirrors home IntroSection typography 1:1 (clamp 2.25-4.5rem, weight 400, -0.02em), IntersectionObserver-driven slide-up entry passes behind headline (z-10 video, z-20 headline). ABT_2026 caption + Core Expertise floating panel removed. Build/dev verification blocked by pre-existing .next/cache/webpack corruption (HTTP 500 on every dev route, WasmHash._updateWithBuffer crash on build) — surfaced not auto-fixed per Task 2's explicit instruction.
+- [Phase 260425-rcw]: [Quick 260425-rcw]: Decoupled /about hero — extracted shared <Hero> primitive (text-only, kicker + optional technologies + headline) reused on /projects/* and /about; introduced <AboutPinned> (400vh scroll zone, image cols 9-12 slide-up + first-paragraph reveal in cols 1-6 between 20–40% scroll); first bio paragraph migrated from BioBlock to AboutPinned; AboutSection reduced 130→51 lines as pure orchestrator. about.headline added to types + EN/PT-BR. pnpm tsc --noEmit exits 0; pnpm build still hits the pre-existing WasmHash _updateWithBuffer cache corruption from 260425-p77 (surfaced not auto-fixed per Task 6 instruction).
 
 ### Roadmap Evolution
 
@@ -139,6 +141,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-25T21:17:44.696Z
-Stopped at: Completed quick task 260425-p77
+Last session: 2026-04-25T22:56:08.445Z
+Stopped at: Completed quick task 260425-rcw
 Resume file: None
