@@ -90,6 +90,21 @@ Plans:
 - [x] 04-02-PLAN.md — Experience section: menu-style hover rows, CSS grid accordion expand, keyboard nav
 - [x] 04-03-PLAN.md — Skills section: SVG relationship map, bidirectional hover, progress bar levels
 
+### Phase 04.2: About Consolidation (INSERTED)
+
+**Goal:** Consolidate `/skills` route + Notable Clients + Education content as subsections of `/about` so the single page becomes a richer, editorial-style biography. Delete `/skills` route and `SkillsSection.tsx`. V2 only.
+**Requirements**: ABT-01 (subsection dividers), ABT-02 (skills block simplified), ABT-03 (clients grid), ABT-04 (education timeline)
+**Depends on:** Phase 4
+**Plans:** 6 plans
+
+Plans:
+- [ ] 04.2-01-PLAN.md — SectionDivider atom + menu trim + clients.shortDescription content (ABT-01, ABT-05)
+- [ ] 04.2-02-PLAN.md — BioBlock (1.1) extracted from AboutSection (ABT-01)
+- [ ] 04.2-03-PLAN.md — SkillsBlock (1.2) simplified, no SVG (ABT-02)
+- [ ] 04.2-04-PLAN.md — ClientsBlock (1.3) 4-col grid with table dividers (ABT-03)
+- [ ] 04.2-05-PLAN.md — EducationBlock (1.4) chronological timeline (ABT-04)
+- [ ] 04.2-06-PLAN.md — Wire blocks into AboutSection, delete /skills route, build validation (ABT-01..ABT-04)
+
 ### Phase 04.1: Project Gallery Blocks (INSERTED)
 
 **Goal**: Project pages support 5 gallery layout types — span-aware grid rows, full-bleed images, and scroll-pinned sticky galleries — replacing the broken zigzag staggered with a flexible system driven by existing JSON data
