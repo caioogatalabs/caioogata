@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed quick task 260425-rcw
-last_updated: "2026-04-25T22:56:08.450Z"
-last_activity: "2026-04-25 - Completed quick task 260425-p77: Restructure /about hero — vertical sticky video in cols 9-12, headline matching home"
+stopped_at: Completed quick task 260426-sjr
+last_updated: "2026-04-26T23:42:58Z"
+last_activity: "2026-04-26 - Completed quick task 260426-sjr: Refine /about page V2 to match Figma 701:303 (7 files, single commit 58fed2b)"
 progress:
   total_phases: 7
   completed_phases: 6
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 Phase: 04.2 (about-consolidation) — EXECUTING
 Plan: 4 of 6
 Status: Ready to execute
-Last activity: 2026-04-25 - Completed quick task 260425-p77: Restructure /about hero — vertical sticky video in cols 9-12, headline matching home
+Last activity: 2026-04-26 - Completed quick task 260426-sjr: Refine /about page V2 to match Figma 701:303 (7 files, single commit 58fed2b)
 
 Progress: [████████░░] 80%
 
@@ -73,6 +73,7 @@ Progress: [████████░░] 80%
 | Phase 04.2 P06 | 18 min | 4 tasks | 3 files |
 | Phase 260425-p77 Pquick | 4 min | 1 tasks | 1 files |
 | Phase 260425-rcw Pquick | 7min | 6 tasks | 8 files |
+| Phase 260426-sjr Pquick | 25min | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -114,6 +115,7 @@ Recent decisions affecting current work:
 - [Phase 04.2]: Build verification done via build-log route table inspection (28 static pages, /about present, /skills absent), not via static-export directory checks — next.config.mjs does not currently set output: 'export'
 - [Phase 260425-p77]: [Quick 260425-p77]: /about hero restructured — sticky vertical video in cols 9-12 (aspect-3/4) inside 400vh scroll zone, full-width headline mirrors home IntroSection typography 1:1 (clamp 2.25-4.5rem, weight 400, -0.02em), IntersectionObserver-driven slide-up entry passes behind headline (z-10 video, z-20 headline). ABT_2026 caption + Core Expertise floating panel removed. Build/dev verification blocked by pre-existing .next/cache/webpack corruption (HTTP 500 on every dev route, WasmHash._updateWithBuffer crash on build) — surfaced not auto-fixed per Task 2's explicit instruction.
 - [Phase 260425-rcw]: [Quick 260425-rcw]: Decoupled /about hero — extracted shared <Hero> primitive (text-only, kicker + optional technologies + headline) reused on /projects/* and /about; introduced <AboutPinned> (400vh scroll zone, image cols 9-12 slide-up + first-paragraph reveal in cols 1-6 between 20–40% scroll); first bio paragraph migrated from BioBlock to AboutPinned; AboutSection reduced 130→51 lines as pure orchestrator. about.headline added to types + EN/PT-BR. pnpm tsc --noEmit exits 0; pnpm build still hits the pre-existing WasmHash _updateWithBuffer cache corruption from 260425-p77 (surfaced not auto-fixed per Task 6 instruction).
+- [Phase 260426-sjr]: [Quick 260426-sjr]: Refined /about page V2 to match Figma 701:303 — dropped Hero+welcome bar from /about (only sticky pills row remains); new ProjectNavigation atom (`← Back to Home` mono strip); AboutPinned first paragraph retyped to Fabio XM 48px/400/1.15/-0.96px; BioBlock reorganized as 4-spacer + 8-content with full-width 48px final-quote block; EducationBlock standardized as flat flex row (w-[100px] year + flex-1 info), no inner Grid; ClientsBlock description retyped to Fabio XM Bold 36px and CELL_BORDERS removed (borderless logo grid); SkillsBlock fully rewritten as exclusive hover/focus accordion with grid-rows-[0fr↔1fr] panel transition + per-row level-mapped yellow bar reveal (LEVEL_WIDTH_CLASS static map: Expert 95% / Advanced 75% / Proficient 55% / Familiar 35%) and text-text-inverse on hover. Single commit 58fed2b covers all 7 files. pnpm tsc --noEmit exits 0; pnpm build still hits the pre-existing WasmHash cache corruption (surfaced not auto-fixed; cache-clean step blocked by sandbox permissions, as documented in plan precedent).
 
 ### Roadmap Evolution
 
@@ -132,6 +134,7 @@ None yet.
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
+| 260426-sjr | Refine /about page V2 to match Figma 701:303 (drop welcome bar/Hero, new ProjectNavigation, retype AboutPinned/BioBlock/Clients/Education, accordion SkillsBlock) | 2026-04-26 | 58fed2b | [260426-sjr-refine-about-page-v2-to-match-figma-701-](./quick/260426-sjr-refine-about-page-v2-to-match-figma-701-/) |
 | 260425-rcw | Restructure /about with shared Hero + AboutPinned section; refactor ProjectHero to reuse Hero | 2026-04-25 | 90fcbd5 | [260425-rcw-reestruturar-about-com-hero-compartilhad](./quick/260425-rcw-reestruturar-about-com-hero-compartilhad/) |
 | 260425-p77 | Restructure /about hero — vertical sticky video in cols 9-12, headline matching home | 2026-04-25 | cdee6ce | [260425-p77-reestruturar-hero-do-about-v-deo-vertica](./quick/260425-p77-reestruturar-hero-do-about-v-deo-vertica/) |
 | 260422-kby | Fix gallery-staggered density and Huia video layout | 2026-04-22 | abce2c4 | [260422-kby-fix-gallery-staggered-density-and-huia-v](./quick/260422-kby-fix-gallery-staggered-density-and-huia-v/) |
@@ -142,6 +145,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-25T22:56:08.445Z
-Stopped at: Completed quick task 260425-rcw
+Last session: 2026-04-26T23:42:58Z
+Stopped at: Completed quick task 260426-sjr
 Resume file: None
