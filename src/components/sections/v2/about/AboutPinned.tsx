@@ -109,9 +109,10 @@ export function AboutPinned() {
                 className="text-text-primary"
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: 'clamp(1.75rem, 3.2vw, 2.5rem)',
-                  lineHeight: 1.4,
-                  fontWeight: 500,
+                  fontSize: '3rem',
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.96px',
+                  fontWeight: 400,
                   opacity: paragraphOpacity,
                   transition: reducedMotion ? 'none' : 'opacity 60ms linear',
                 }}

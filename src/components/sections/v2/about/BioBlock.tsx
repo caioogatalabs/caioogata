@@ -10,33 +10,47 @@ const typedContent = content as unknown as Content
 const about = typedContent.about
 
 /**
- * Editorial bio + Core Expertise content zone for /about page.
- * Renders the SectionDivider "1.1 / Bio" above a 6-6 grid:
- *   - Left column: Core Expertise list with thin dividers
- *   - Right column: bio paragraphs (split on \n\n) with -entrance -slide-up stagger
+ * 1.1 / Bio block. Layout per Figma 701:303:
+ *   - Spacer GridItem in cols 1-4 (empty)
+ *   - Content GridItem in cols 5-12: Core Expertise list, then a 64px gap, then bio paragraphs
+ *   - Below the column area: full-width final quote (Fabio XM 48px text-text-secondary)
  *
- * The hero (video canvas, sticky overlay, scroll-driven transitions) is intentionally
- * NOT rendered here — it remains in AboutSection. Wave 3 will compose AboutSection
- * to render <Hero/> + <BioBlock/> + <SectionDivider/SkillsBlock/> + …
+ * Source paragraphs come from `about.bio.split('\n\n')`:
+ *   index 0       → first paragraph (rendered inside <AboutPinned/>, NOT here)
+ *   indices 1..n-2 → middle paragraphs (rendered in cols 5-12 stack)
+ *   last index    → final quote (rendered full-width below column area)
+ *
+ * If there are fewer than 3 paragraphs total, the final-quote slot reuses the last
+ * available middle paragraph (defensive — copy may shrink).
  */
 export function BioBlock() {
   const contentRef = useInView({ threshold: 0.1, once: true })
-  // First paragraph lives in <AboutPinned/> (revealed during the image pin).
-  // BioBlock renders the remaining narrative paragraphs.
-  const paragraphs = about.bio.split('\n\n').slice(1)
+  const allParagraphs = about.bio.split('\n\n')
+  // First paragraph lives in <AboutPinned/>. We work with the rest.
+  const remaining = allParagraphs.slice(1)
+  const middleParagraphs = remaining.length > 1 ? remaining.slice(0, -1) : []
+  const finalQuote = remaining.length > 0 ? remaining[remaining.length - 1] : ''
 
   return (
     <div>
       <SectionDivider code="1.1" label="Bio" />
 
-      <div className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32">
+      <div
+        ref={contentRef as React.RefObject<HTMLDivElement>}
+        className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
+      >
         <Grid className="!px-0">
-          {/* Left column: Core Expertise */}
+          {/* Spacer cols 1-4 (mobile collapses) */}
+          <GridItem span={4} tabletSpan={2} mobileSpan={4} />
+
+          {/* Content cols 5-12 */}
           <GridItem
-            span={6}
-            tabletSpan={2}
+            span={8}
+            tabletSpan={6}
             mobileSpan={4}
+            className="lg:col-start-5"
           >
+            {/* Core Expertise — same internal markup as today */}
             <div className="flex flex-col w-full">
               <span
                 className="text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
@@ -54,26 +68,39 @@ export function BioBlock() {
                 </p>
               ))}
             </div>
-          </GridItem>
 
-          {/* Right column: bio paragraphs */}
-          <GridItem
-            span={6}
-            tabletSpan={6}
-            mobileSpan={4}
-            ref={contentRef as React.RefObject<HTMLDivElement>}
-          >
-            {paragraphs.map((paragraph, i) => (
-              <p
-                key={i}
-                className={`-entrance -slide-up -a-${i} text-[24px] font-semibold leading-[1.3] text-text-secondary mb-6`}
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                {paragraph}
-              </p>
-            ))}
+            {/* 64px gap between Core Expertise and bio paragraph stack */}
+            <div className="mt-16">
+              <div className="flex flex-col gap-6">
+                {middleParagraphs.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className={`-entrance -slide-up -a-${Math.min(i, 19)} text-[24px] font-semibold leading-[1.3] text-text-secondary`}
+                    style={{ fontFamily: 'var(--font-sans)' }}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
           </GridItem>
         </Grid>
+
+        {/* Final quote — full 12 cols, below the column area */}
+        {finalQuote && (
+          <p
+            className={`-entrance -slide-up -a-${Math.min(middleParagraphs.length, 19)} mt-16 md:mt-20 text-text-secondary`}
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '3rem',
+              lineHeight: 1.15,
+              letterSpacing: '-0.96px',
+              fontWeight: 400,
+            }}
+          >
+            {finalQuote}
+          </p>
+        )}
       </div>
     </div>
   )

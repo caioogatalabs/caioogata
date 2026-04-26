@@ -46,57 +46,55 @@ export function EducationBlock() {
         className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
       >
         <Grid className="!px-0">
-          {/* Left column: intentionally empty (D-19) */}
-          <GridItem span={6} tabletSpan={2} mobileSpan={4} />
+          {/* Spacer cols 1-4 */}
+          <GridItem span={4} tabletSpan={2} mobileSpan={4} />
 
-          {/* Right column: timeline */}
-          <GridItem span={6} tabletSpan={6} mobileSpan={4}>
+          {/* Content cols 5-12 */}
+          <GridItem
+            span={8}
+            tabletSpan={6}
+            mobileSpan={4}
+            className="lg:col-start-5"
+          >
             <div className="flex flex-col">
               {allEducation.map((edu, index) => {
                 const stagger = Math.min(index, 19)
                 return (
                   <div
                     key={`${edu.institution}-${edu.year}-${index}`}
-                    className={`-entrance -slide-up -a-${stagger} border-t border-border-secondary`}
+                    className={`-entrance -slide-up -a-${stagger} flex gap-5 md:gap-8 border-t border-border-secondary py-6 md:py-8`}
                   >
-                    <Grid className="!px-0 py-6 md:py-8">
-                      {/* Inner 2-col: year stamp */}
-                      <GridItem span={2} tabletSpan={2} mobileSpan={4}>
-                        <span className="font-mono text-sm text-text-tertiary">
-                          {getDisplayYear(edu.year)}
-                        </span>
-                      </GridItem>
+                    {/* Year stamp — fixed width */}
+                    <span className="font-mono text-sm text-text-tertiary w-[100px] shrink-0">
+                      {getDisplayYear(edu.year)}
+                    </span>
 
-                      {/* Inner 10-col: info stack */}
-                      <GridItem span={10} tabletSpan={6} mobileSpan={4}>
-                        <div className="flex flex-col gap-1">
-                          {/* Institution first (Claude discretion: institution before degree — institution is the recognizable anchor) */}
-                          <h3
-                            className="text-lg md:text-xl text-text-primary"
-                            style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}
-                          >
-                            {edu.institution}
-                          </h3>
-                          <p
-                            className="text-base text-text-secondary"
-                            style={{ fontFamily: 'var(--font-sans)' }}
-                          >
-                            {edu.degree}
-                          </p>
-                          <p className="font-mono text-xs text-text-tertiary">
-                            {edu.location}
-                          </p>
-                          {edu.note && (
-                            <p
-                              className="text-sm text-text-secondary mt-2"
-                              style={{ fontFamily: 'var(--font-sans)' }}
-                            >
-                              {edu.note}
-                            </p>
-                          )}
-                        </div>
-                      </GridItem>
-                    </Grid>
+                    {/* Info stack — flex-1 */}
+                    <div className="flex flex-col gap-1 flex-1">
+                      <h3
+                        className="text-lg md:text-xl text-text-primary"
+                        style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}
+                      >
+                        {edu.institution}
+                      </h3>
+                      <p
+                        className="text-base text-text-secondary"
+                        style={{ fontFamily: 'var(--font-sans)' }}
+                      >
+                        {edu.degree}
+                      </p>
+                      <p className="font-mono text-xs text-text-tertiary">
+                        {edu.location}
+                      </p>
+                      {edu.note && (
+                        <p
+                          className="text-sm text-text-secondary mt-2"
+                          style={{ fontFamily: 'var(--font-sans)' }}
+                        >
+                          {edu.note}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 )
               })}
