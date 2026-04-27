@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed quick task 260426-u5d
-last_updated: "2026-04-27T00:42:27Z"
-last_activity: "2026-04-27 - Completed quick task 260426-u5d: Move section labels into left spacers, indent display paragraphs, enlarge header band (6 files, single commit f4ca2a9)"
+stopped_at: Completed quick task 260427-b3y
+last_updated: "2026-04-27T11:07:01.239Z"
+last_activity: "2026-04-27 - Completed quick task 260427-b3y: Unified PageNavigation across V2 (home, /about, /experience, /projects/[slug]); deleted 2 legacy nav files; single commit e6bfa12"
 progress:
   total_phases: 7
   completed_phases: 6
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 Phase: 04.2 (about-consolidation) — EXECUTING
 Plan: 4 of 6
 Status: Ready to execute
-Last activity: 2026-04-27 - Completed quick task 260426-u5d: Move section labels into left spacers, indent display paragraphs, enlarge header band (6 files, single commit f4ca2a9)
+Last activity: 2026-04-27 - Completed quick task 260427-b3y: Unified PageNavigation across V2 (home, /about, /experience, /projects/[slug]); deleted 2 legacy nav files; single commit e6bfa12
 
 Progress: [████████░░] 80%
 
@@ -74,6 +74,7 @@ Progress: [████████░░] 80%
 | Phase 260425-p77 Pquick | 4 min | 1 tasks | 1 files |
 | Phase 260425-rcw Pquick | 7min | 6 tasks | 8 files |
 | Phase 260426-sjr Pquick | 25min | 3 tasks | 7 files |
+| Phase 260427-b3y Pquick | 7min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -116,6 +117,7 @@ Recent decisions affecting current work:
 - [Phase 260425-p77]: [Quick 260425-p77]: /about hero restructured — sticky vertical video in cols 9-12 (aspect-3/4) inside 400vh scroll zone, full-width headline mirrors home IntroSection typography 1:1 (clamp 2.25-4.5rem, weight 400, -0.02em), IntersectionObserver-driven slide-up entry passes behind headline (z-10 video, z-20 headline). ABT_2026 caption + Core Expertise floating panel removed. Build/dev verification blocked by pre-existing .next/cache/webpack corruption (HTTP 500 on every dev route, WasmHash._updateWithBuffer crash on build) — surfaced not auto-fixed per Task 2's explicit instruction.
 - [Phase 260425-rcw]: [Quick 260425-rcw]: Decoupled /about hero — extracted shared <Hero> primitive (text-only, kicker + optional technologies + headline) reused on /projects/* and /about; introduced <AboutPinned> (400vh scroll zone, image cols 9-12 slide-up + first-paragraph reveal in cols 1-6 between 20–40% scroll); first bio paragraph migrated from BioBlock to AboutPinned; AboutSection reduced 130→51 lines as pure orchestrator. about.headline added to types + EN/PT-BR. pnpm tsc --noEmit exits 0; pnpm build still hits the pre-existing WasmHash _updateWithBuffer cache corruption from 260425-p77 (surfaced not auto-fixed per Task 6 instruction).
 - [Phase 260426-sjr]: [Quick 260426-sjr]: Refined /about page V2 to match Figma 701:303 — dropped Hero+welcome bar from /about (only sticky pills row remains); new ProjectNavigation atom (`← Back to Home` mono strip); AboutPinned first paragraph retyped to Fabio XM 48px/400/1.15/-0.96px; BioBlock reorganized as 4-spacer + 8-content with full-width 48px final-quote block; EducationBlock standardized as flat flex row (w-[100px] year + flex-1 info), no inner Grid; ClientsBlock description retyped to Fabio XM Bold 36px and CELL_BORDERS removed (borderless logo grid); SkillsBlock fully rewritten as exclusive hover/focus accordion with grid-rows-[0fr↔1fr] panel transition + per-row level-mapped yellow bar reveal (LEVEL_WIDTH_CLASS static map: Expert 95% / Advanced 75% / Proficient 55% / Familiar 35%) and text-text-inverse on hover. Single commit 58fed2b covers all 7 files. pnpm tsc --noEmit exits 0; pnpm build still hits the pre-existing WasmHash cache corruption (surfaced not auto-fixed; cache-clean step blocked by sandbox permissions, as documented in plan precedent).
+- [Phase 260427-b3y]: [Quick 260427-b3y]: Unified V2 page navigation — created `PageNavigation` (sticky-top, all-controls-left-aligned, mono small) with optional `back` + `lateral` props and a single window keydown listener (←/→ lateral via router.push, Esc back/home, INPUT/TEXTAREA/SELECT/contentEditable guard). Created `MAIN_NAVIGATION` constant (Home/About/Experience/Philosophy) as canonical category circuit. Wired into 4 call-sites: home (PageShell — between IntroSection and MenuSection), /about (AboutSection — replaces old ProjectNavigation atom), /experience (ExperienceSection — Case A, between hero band and rows), /projects/[slug] (ProjectPageShell — single instance, bottom instance dropped, prev/next over enabled projects). Deleted legacy `about/ProjectNavigation.tsx` and `project/ProjectNavigation.tsx` (117 lines removed, 117 added — net wash, broader feature set). Single commit e6bfa12 covers 8 files. pnpm tsc --noEmit exits 0.
 
 ### Roadmap Evolution
 
@@ -134,6 +136,7 @@ None yet.
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
+| 260427-b3y | Unify page navigation across V2 — single PageNavigation component with keyboard parity (←/→/Esc); deletes 2 legacy nav files; wires home/about/experience/projects | 2026-04-27 | e6bfa12 | [260427-b3y-unify-page-navigation-across-v2-single-p](./quick/260427-b3y-unify-page-navigation-across-v2-single-p/) |
 | 260426-u5d | Move section labels into left spacers, indent display paragraphs (text-indent 8em), enlarge header band | 2026-04-27 | f4ca2a9 | [260426-u5d-move-section-labels-into-left-spacers-in](./quick/260426-u5d-move-section-labels-into-left-spacers-in/) |
 | 260426-sjr | Refine /about page V2 to match Figma 701:303 (drop welcome bar/Hero, new ProjectNavigation, retype AboutPinned/BioBlock/Clients/Education, accordion SkillsBlock) | 2026-04-26 | 58fed2b | [260426-sjr-refine-about-page-v2-to-match-figma-701-](./quick/260426-sjr-refine-about-page-v2-to-match-figma-701-/) |
 | 260425-rcw | Restructure /about with shared Hero + AboutPinned section; refactor ProjectHero to reuse Hero | 2026-04-25 | 90fcbd5 | [260425-rcw-reestruturar-about-com-hero-compartilhad](./quick/260425-rcw-reestruturar-about-com-hero-compartilhad/) |
@@ -146,6 +149,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-26T23:42:58Z
-Stopped at: Completed quick task 260426-sjr
+Last session: 2026-04-27T11:07:01.236Z
+Stopped at: Completed quick task 260427-b3y
 Resume file: None
