@@ -9,9 +9,11 @@ import { useEffect, useRef, useState, useCallback } from 'react'
  */
 export function useScrollVideo({
   frameCount = 241,
+  startFrame = 26, // skip first 25 frames
   framePath = '/about-frames/frame-',
   frameExtension = '.jpg',
   scrollHeight = 400, // vh units — total scroll zone height (applied via style)
+  scrubEnd = 1.0, // progress (0..1) at which the scrub reaches the last frame; remaining scroll is free for caller-driven exit phases
 } = {}): {
   containerRef: React.RefObject<HTMLDivElement | null>
   canvasRef: React.RefObject<HTMLCanvasElement | null>
@@ -26,14 +28,14 @@ export function useScrollVideo({
   // Preload all frame images
   useEffect(() => {
     const images: HTMLImageElement[] = []
-    for (let i = 1; i <= frameCount; i++) {
+    for (let i = startFrame; i <= frameCount; i++) {
       const img = new Image()
       const padded = String(i).padStart(3, '0')
       img.src = `${framePath}${padded}${frameExtension}`
       images.push(img)
     }
     imagesRef.current = images
-  }, [frameCount, framePath, frameExtension])
+  }, [frameCount, startFrame, framePath, frameExtension])
 
   const drawFrame = useCallback((index: number) => {
     const canvas = canvasRef.current
@@ -68,13 +70,16 @@ export function useScrollVideo({
 
     setProgress(p)
 
+    // Map raw progress through scrubEnd so the last frame lands at p === scrubEnd.
+    // Caller still receives the raw `p` (translate/opacity logic depends on it).
+    const scrubProgress = Math.min(p / scrubEnd, 1)
     const frameIndex = Math.min(
-      Math.floor(p * (imagesRef.current.length - 1)),
+      Math.floor(scrubProgress * (imagesRef.current.length - 1)),
       imagesRef.current.length - 1
     )
     drawFrame(frameIndex)
     tickingRef.current = false
-  }, [drawFrame])
+  }, [drawFrame, scrubEnd])
 
   useEffect(() => {
     const container = containerRef.current

@@ -84,10 +84,14 @@ export function SkillsBlock() {
                       onClick={toggle}
                       onFocus={open}
                       aria-expanded={isOpen}
-                      className="flex items-center justify-between w-full py-5 text-left"
+                      className="group flex items-center justify-between w-full py-5 text-left"
                     >
                       <span
-                        className="text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary"
+                        className={`text-sm font-medium uppercase tracking-[1.12px] transition-colors duration-300 ${
+                          isOpen
+                            ? 'text-text-primary'
+                            : 'text-text-tertiary group-hover:text-text-primary'
+                        }`}
                         style={{ fontFamily: 'var(--font-sans)' }}
                       >
                         {category.title}
@@ -125,7 +129,7 @@ export function SkillsBlock() {
                                 {/* Bar (z-0) — width driven by inline style for reliability across Tailwind builds */}
                                 <span
                                   aria-hidden="true"
-                                  className={`absolute inset-y-0 left-0 bg-fill-primary ${
+                                  className={`absolute inset-y-0 left-0 bg-bg-fill-primary ${
                                     reducedMotion
                                       ? ''
                                       : 'transition-all duration-500 ease-[cubic-bezier(0.5,0,0.3,1)]'

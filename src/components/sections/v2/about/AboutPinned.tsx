@@ -34,7 +34,8 @@ const typedContent = content as unknown as Content
  * at the last frame (handled inside useScrollVideo).
  */
 export function AboutPinned() {
-  const { containerRef, canvasRef, progress } = useScrollVideo()
+  // scrubEnd matches EXIT_START so the video reaches its last frame just before the exit phase begins.
+  const { containerRef, canvasRef, progress } = useScrollVideo({ scrubEnd: EXIT_START })
   const [reducedMotion, setReducedMotion] = useState(false)
 
   useEffect(() => {
