@@ -3,7 +3,6 @@
 import { useMemo } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { SectionDivider } from './SectionDivider'
 import content from '@/content/en.json'
 import type { Content, EducationItem } from '@/content/types'
 
@@ -39,15 +38,17 @@ export function EducationBlock() {
 
   return (
     <div>
-      <SectionDivider code="1.4" label="Education" />
-
       <div
         ref={blockRef as React.RefObject<HTMLDivElement>}
         className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
       >
         <Grid className="!px-0">
-          {/* Spacer cols 1-4 */}
-          <GridItem span={4} tabletSpan={2} mobileSpan={4} />
+          {/* Spacer cols 1-4 — hosts the section label */}
+          <GridItem span={4} tabletSpan={2} mobileSpan={4}>
+            <span className="font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
+              1.4 / Education
+            </span>
+          </GridItem>
 
           {/* Content cols 5-12 */}
           <GridItem

@@ -105,6 +105,7 @@ export function AboutPinned() {
                   lineHeight: 1.15,
                   letterSpacing: '-0.96px',
                   fontWeight: 400,
+                  textIndent: '8em',
                   opacity: paragraphOpacity,
                   transition: reducedMotion ? 'none' : 'opacity 60ms linear',
                 }}

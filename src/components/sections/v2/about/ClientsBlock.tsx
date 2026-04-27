@@ -4,7 +4,6 @@ import Image from 'next/image'
 import type { RefObject } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { SectionDivider } from './SectionDivider'
 import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
@@ -45,15 +44,18 @@ export function ClientsBlock() {
 
   return (
     <div>
-      <SectionDivider code="1.3" label="Notable Clients" />
-
       <div
         ref={blockRef as RefObject<HTMLDivElement>}
         className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
       >
         {/* Description in right 6-col only (W5: deliberate — the logo grid below spans full width) */}
         <Grid className="!px-0 mb-12 md:mb-16">
-          <GridItem span={6} tabletSpan={2} mobileSpan={4} />
+          {/* Spacer cols 1-6 — hosts the section label */}
+          <GridItem span={6} tabletSpan={2} mobileSpan={4}>
+            <span className="font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
+              1.3 / Notable Clients
+            </span>
+          </GridItem>
           <GridItem span={6} tabletSpan={6} mobileSpan={4}>
             <p
               className="-entrance -slide-up -a-0 text-text-secondary"

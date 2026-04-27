@@ -26,7 +26,7 @@ export function AboutSection() {
       {/* Hero band — same wrapper shape (bg + top padding) as the home,
           but ONLY the sticky pills row is rendered inside.
           No welcome bar, no Hero. */}
-      <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12">
+      <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12 pb-16 md:pb-24 lg:pb-32">
         <StickyLogoBar />
       </div>
 
