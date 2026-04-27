@@ -2,6 +2,8 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
+import { PageNavigation } from '@/components/sections/v2/PageNavigation'
+import { MAIN_NAVIGATION } from '@/content/main-navigation'
 import { useExperienceNavigation } from '@/hooks/useExperienceNavigation'
 import { useInView } from '@/hooks/useInView'
 import content from '@/content/en.json'
@@ -85,6 +87,11 @@ export function ExperienceSection() {
           </div>
         </div>
       </div>
+
+      {/* Unified page navigation — categories circuit */}
+      <PageNavigation
+        lateral={{ items: MAIN_NAVIGATION, currentIndex: 2, scope: 'categories' }}
+      />
 
       {/* Experience rows */}
       <div

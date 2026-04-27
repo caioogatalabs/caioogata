@@ -14,10 +14,14 @@ import { ProjectGalleryFeatureList } from './ProjectGalleryFeatureList'
 import { ProjectGalleryFullDetail } from './ProjectGalleryFullDetail'
 import { ProjectGalleryFullBleed } from './ProjectGalleryFullBleed'
 import { ProjectGalleryStick } from './ProjectGalleryStick'
-import { ProjectNavigation } from './ProjectNavigation'
+import { PageNavigation } from '@/components/sections/v2/PageNavigation'
 
 const typedContent = content as unknown as Content
 const enabledProjects = typedContent.projects.items.filter(p => !p.disabled)
+const lateralItems = enabledProjects.map(p => ({
+  href: `/projects/${p.slug}`,
+  title: p.title,
+}))
 
 interface ProjectPageShellProps {
   project: ProjectItem
@@ -88,8 +92,11 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
         )}
       </div>
 
-      {/* Project navigation — below hero */}
-      <ProjectNavigation currentSlug={project.slug} position="top" />
+      {/* Unified page navigation — below hero (single instance) */}
+      <PageNavigation
+        back={{ href: '/', label: 'Back to Home' }}
+        lateral={{ items: lateralItems, currentIndex: projectIndex, scope: 'projects' }}
+      />
 
       {/* Remaining sections */}
       {restSections.map((section, i) => (
@@ -101,9 +108,6 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
           projectIndex={projectIndex}
         />
       ))}
-
-      {/* Bottom navigation */}
-      <ProjectNavigation currentSlug={project.slug} position="bottom" />
     </div>
   )
 }

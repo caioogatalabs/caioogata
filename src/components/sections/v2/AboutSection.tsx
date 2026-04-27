@@ -1,7 +1,8 @@
 'use client'
 
 import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
-import { ProjectNavigation } from '@/components/sections/v2/about/ProjectNavigation'
+import { PageNavigation } from '@/components/sections/v2/PageNavigation'
+import { MAIN_NAVIGATION } from '@/content/main-navigation'
 import { AboutPinned } from '@/components/sections/v2/about/AboutPinned'
 import { BioBlock } from '@/components/sections/v2/about/BioBlock'
 import { SkillsBlock } from '@/components/sections/v2/about/SkillsBlock'
@@ -14,7 +15,7 @@ import { EducationBlock } from '@/components/sections/v2/about/EducationBlock'
  * Sequence (Figma 701:303):
  *   bg-bg-surface-secondary band → <StickyLogoBar/>          ← only the pills row (no welcome bar, no headline)
  *   <AboutPinned/>                                             ← image-pin + first-paragraph reveal
- *   <ProjectNavigation/>                                       ← `← Back to Home` mono strip
+ *   <PageNavigation/>                                          ← unified mono strip (lateral categories)
  *   <BioBlock/> + <SkillsBlock/> + <ClientsBlock/> + <EducationBlock/>
  *
  * The home (/) IntroSection still composes welcome bar + StickyLogoBar + headline; only this page
@@ -33,8 +34,10 @@ export function AboutSection() {
       {/* Image pin + first-paragraph reveal */}
       <AboutPinned />
 
-      {/* Mono nav strip below the scrub section */}
-      <ProjectNavigation />
+      {/* Mono nav strip below the scrub section — categories circuit */}
+      <PageNavigation
+        lateral={{ items: MAIN_NAVIGATION, currentIndex: 1, scope: 'categories' }}
+      />
 
       {/* Numbered subsections */}
       <BioBlock />
