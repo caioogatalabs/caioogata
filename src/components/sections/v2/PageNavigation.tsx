@@ -10,13 +10,18 @@
  * Keyboard: ←/→ lateral, Esc home (or back.href when provided). Active key
  * gets a yellow flash via `activeKey` state, matching the V1 feedback.
  *
+ * Navigation is delegated to <Link> components — keyboard handlers dispatch
+ * a click on the corresponding Link via ref so SPA soft-nav stays consistent
+ * with the click path. (next/navigation's `router.push` was unreliable in
+ * this setup; clicking <Link> programmatically is the robust path.)
+ *
  * TODO: review keyboard navigation flow including Enter (descend into selected
  * item) when /projects becomes a real index page and category pages need
  * 'enter' semantics. Currently 'Enter' is unhandled here.
  */
 
-import { useEffect, useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
 
 export interface PageNavigationLateralItem {
@@ -52,36 +57,49 @@ function ArrowRightIcon() {
 const KEYBADGE_BASE =
   'inline-flex items-center justify-center bg-bg-surface-primary text-text-primary text-[11px] font-medium font-mono px-[5px] py-[2px] rounded-[3px] leading-none'
 
-function KeyBadge({
-  children,
-  onClick,
-  disabled,
+function KeyBadgeLink({
+  href,
   ariaLabel,
   isActive,
+  forwardRef,
+  children,
 }: {
-  children: React.ReactNode
-  onClick?: () => void
-  disabled?: boolean
-  ariaLabel?: string
+  href: string
+  ariaLabel: string
   isActive?: boolean
+  forwardRef: React.RefObject<HTMLAnchorElement | null>
+  children: React.ReactNode
 }) {
-  if (onClick && !disabled) {
-    const activeClass = isActive ? 'bg-bg-fill-primary text-text-on-primary' : ''
-    return (
-      <button
-        type="button"
-        onClick={onClick}
-        aria-label={ariaLabel}
-        className={`${KEYBADGE_BASE} ${activeClass} hover:opacity-80 cursor-pointer transition-colors duration-200`}
-      >
-        {children}
-      </button>
-    )
-  }
+  // Native <a> instead of next/link Link — Link's programmatic .click() (used by
+  // the keyboard handler) doesn't reliably trigger SPA navigation in this setup,
+  // so all PageNavigation links use native anchors (hard reload). The trade-off
+  // is acceptable: pages are mostly static and React state doesn't need to persist
+  // across these transitions.
+  const activeClass = isActive ? 'bg-bg-fill-primary text-text-on-primary' : ''
+  return (
+    <a
+      href={href}
+      ref={forwardRef}
+      aria-label={ariaLabel}
+      className={`${KEYBADGE_BASE} ${activeClass} hover:opacity-80 cursor-pointer transition-colors duration-200`}
+    >
+      {children}
+    </a>
+  )
+}
+
+function KeyBadgeDisabled({
+  ariaLabel,
+  children,
+}: {
+  ariaLabel: string
+  children: React.ReactNode
+}) {
   return (
     <span
-      aria-disabled={disabled || undefined}
-      className={`${KEYBADGE_BASE} ${disabled ? 'opacity-30' : ''}`}
+      aria-label={ariaLabel}
+      aria-disabled="true"
+      className={`${KEYBADGE_BASE} opacity-30`}
     >
       {children}
     </span>
@@ -89,10 +107,13 @@ function KeyBadge({
 }
 
 export function PageNavigation({ back, lateral }: PageNavigationProps) {
-  const router = useRouter()
   const pathname = usePathname()
   const { mode } = useInteractionMode()
   const [activeKey, setActiveKey] = useState<'esc' | 'left' | 'right' | null>(null)
+
+  const escLinkRef = useRef<HTMLAnchorElement | null>(null)
+  const prevLinkRef = useRef<HTMLAnchorElement | null>(null)
+  const nextLinkRef = useRef<HTMLAnchorElement | null>(null)
 
   const prev = lateral && lateral.currentIndex > 0
     ? lateral.items[lateral.currentIndex - 1]
@@ -104,14 +125,6 @@ export function PageNavigation({ back, lateral }: PageNavigationProps) {
   // Show Esc hint on any non-home page, or whenever an explicit back override is given.
   // On '/', leave Escape free for MenuSection's own filter-clear handler.
   const showEsc = pathname !== '/' || !!back
-
-  // Stabilize listener deps with primitive-derived values so parent re-renders
-  // (object literal `back={{ ... }}` recreated each render) don't thrash the
-  // keydown listener registration. Without this, HMR fast-refresh on project
-  // pages can unmount the listener mid-keypress and the Escape navigation
-  // silently fails.
-  const prevHref = prev?.href
-  const nextHref = next?.href
   const backHref = back?.href ?? '/'
 
   useEffect(() => {
@@ -122,18 +135,18 @@ export function PageNavigation({ back, lateral }: PageNavigationProps) {
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
       if (target.isContentEditable) return
 
-      if (e.key === 'ArrowLeft' && prevHref) {
+      if (e.key === 'ArrowLeft' && prevLinkRef.current) {
         e.preventDefault()
         setActiveKey('left')
-        router.push(prevHref)
-      } else if (e.key === 'ArrowRight' && nextHref) {
+        prevLinkRef.current.click()
+      } else if (e.key === 'ArrowRight' && nextLinkRef.current) {
         e.preventDefault()
         setActiveKey('right')
-        router.push(nextHref)
-      } else if (e.key === 'Escape' && showEsc) {
+        nextLinkRef.current.click()
+      } else if (e.key === 'Escape' && showEsc && escLinkRef.current) {
         e.preventDefault()
         setActiveKey('esc')
-        router.push(backHref)
+        escLinkRef.current.click()
       }
     }
 
@@ -147,7 +160,7 @@ export function PageNavigation({ back, lateral }: PageNavigationProps) {
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keyup', handleKeyUp)
     }
-  }, [prevHref, nextHref, backHref, showEsc, router])
+  }, [showEsc])
 
   // Adaptive Esc keycap: arrow icon for mouse/touch, literal "Esc" text for keyboard.
   const showBackAsArrow = mode === 'mouse' || mode === 'touch'
@@ -161,13 +174,14 @@ export function PageNavigation({ back, lateral }: PageNavigationProps) {
         {showEsc && (
           <>
             <div className="flex items-center gap-1.5">
-              <KeyBadge
-                onClick={() => router.push(backHref)}
+              <KeyBadgeLink
+                href={backHref}
+                forwardRef={escLinkRef}
                 isActive={activeKey === 'esc'}
                 ariaLabel={back?.label ?? 'Back to home'}
               >
                 {showBackAsArrow ? <ArrowLeftIcon /> : 'Esc'}
-              </KeyBadge>
+              </KeyBadgeLink>
               <span className="text-xs text-text-tertiary">
                 {back?.label ?? 'back to home'}
               </span>
@@ -180,22 +194,34 @@ export function PageNavigation({ back, lateral }: PageNavigationProps) {
 
         {lateral && (
           <div className="flex items-center gap-1">
-            <KeyBadge
-              onClick={prev ? () => router.push(prev.href) : undefined}
-              disabled={!prev}
-              isActive={activeKey === 'left'}
-              ariaLabel={prev ? `Previous: ${prev.title}` : 'Previous (disabled)'}
-            >
-              <ArrowLeftIcon />
-            </KeyBadge>
-            <KeyBadge
-              onClick={next ? () => router.push(next.href) : undefined}
-              disabled={!next}
-              isActive={activeKey === 'right'}
-              ariaLabel={next ? `Next: ${next.title}` : 'Next (disabled)'}
-            >
-              <ArrowRightIcon />
-            </KeyBadge>
+            {prev ? (
+              <KeyBadgeLink
+                href={prev.href}
+                forwardRef={prevLinkRef}
+                isActive={activeKey === 'left'}
+                ariaLabel={`Previous: ${prev.title}`}
+              >
+                <ArrowLeftIcon />
+              </KeyBadgeLink>
+            ) : (
+              <KeyBadgeDisabled ariaLabel="Previous (disabled)">
+                <ArrowLeftIcon />
+              </KeyBadgeDisabled>
+            )}
+            {next ? (
+              <KeyBadgeLink
+                href={next.href}
+                forwardRef={nextLinkRef}
+                isActive={activeKey === 'right'}
+                ariaLabel={`Next: ${next.title}`}
+              >
+                <ArrowRightIcon />
+              </KeyBadgeLink>
+            ) : (
+              <KeyBadgeDisabled ariaLabel="Next (disabled)">
+                <ArrowRightIcon />
+              </KeyBadgeDisabled>
+            )}
             <span className="text-xs text-text-tertiary ml-0.5">
               to navigate {lateral.scope}
             </span>
