@@ -57,7 +57,9 @@ public/**/*.mov
 public/**/*.webm
 
 # Generated video frames (run scripts/extract-frames.sh to regenerate)
-public/about-frames/*.jpg
+# Frames committed for production deploys (Vercel doesn't see gitignored assets).
+# Extraction script in scripts/extract-frames.sh remains the source of truth.
+# public/about-frames/*.jpg
 
 # AI / IDE tools (configs, cache, skills) – não versionar
 .adal/
