@@ -3,7 +3,10 @@
 /**
  * PageNavigation — unified sticky nav strip for V2 pages.
  *
- * Visual: all controls left-aligned, mono small (matches home menu typography).
+ * Visual: keyboard-keycap pattern (matches the bottom legend in MenuSection).
+ * Each [Esc] / [←] / [→] is a small KeyBadge keycap, clickable for mouse users
+ * AND triggered by the matching keyboard shortcut.
+ *
  * Keyboard: ←/→ lateral, Esc home (or back.href when provided).
  *
  * TODO: review keyboard navigation flow including Enter (descend into selected
@@ -12,7 +15,6 @@
  */
 
 import { useEffect } from 'react'
-import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 
 export interface PageNavigationLateralItem {
@@ -29,6 +31,42 @@ export interface PageNavigationProps {
   }
 }
 
+const KEYBADGE_BASE =
+  'inline-flex items-center justify-center bg-bg-surface-primary text-text-primary text-[11px] font-medium font-mono px-[5px] py-[2px] rounded-[3px] leading-none'
+
+function KeyBadge({
+  children,
+  onClick,
+  disabled,
+  ariaLabel,
+}: {
+  children: React.ReactNode
+  onClick?: () => void
+  disabled?: boolean
+  ariaLabel?: string
+}) {
+  if (onClick && !disabled) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        aria-label={ariaLabel}
+        className={`${KEYBADGE_BASE} hover:opacity-80 cursor-pointer transition-opacity duration-200`}
+      >
+        {children}
+      </button>
+    )
+  }
+  return (
+    <span
+      aria-disabled={disabled || undefined}
+      className={`${KEYBADGE_BASE} ${disabled ? 'opacity-30' : ''}`}
+    >
+      {children}
+    </span>
+  )
+}
+
 export function PageNavigation({ back, lateral }: PageNavigationProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -39,6 +77,10 @@ export function PageNavigation({ back, lateral }: PageNavigationProps) {
   const next = lateral && lateral.currentIndex < lateral.items.length - 1
     ? lateral.items[lateral.currentIndex + 1]
     : null
+
+  // Show Esc hint on any non-home page, or whenever an explicit back override is given.
+  // On '/', leave Escape free for MenuSection's own filter-clear handler.
+  const showEsc = pathname !== '/' || !!back
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -54,62 +96,61 @@ export function PageNavigation({ back, lateral }: PageNavigationProps) {
       } else if (e.key === 'ArrowRight' && next) {
         e.preventDefault()
         router.push(next.href)
-      } else if (e.key === 'Escape') {
-        if (back) {
-          e.preventDefault()
-          router.push(back.href)
-        } else if (pathname !== '/') {
-          e.preventDefault()
-          router.push('/')
-        }
-        // else: on '/' with no back → do nothing (allow MenuSection's Escape to handle filter clear)
+      } else if (e.key === 'Escape' && showEsc) {
+        e.preventDefault()
+        router.push(back?.href ?? '/')
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [prev, next, back, router, pathname])
-
-  const baseLink =
-    'font-mono text-xs uppercase tracking-[1.12px] text-text-tertiary hover:text-text-primary transition-colors duration-300'
-  const disabledLink = 'opacity-30 pointer-events-none'
+  }, [prev, next, back, router, showEsc])
 
   return (
     <nav
       aria-label="Page navigation"
-      className="sticky top-0 z-40 bg-bg backdrop-blur-xl border-t border-border-secondary px-5 md:px-8 lg:px-16 py-5"
+      className="sticky top-0 z-40 bg-bg backdrop-blur-xl border-t border-border-secondary px-5 md:px-8 lg:px-16 py-3"
     >
-      <div className="flex items-center gap-8 font-mono text-xs uppercase tracking-[1.12px] text-text-tertiary">
-        {back && (
-          <Link href={back.href} className={baseLink}>
-            <span aria-hidden="true">← </span>{back.label}
-          </Link>
+      <div className="flex items-center gap-3">
+        {showEsc && (
+          <>
+            <div className="flex items-center gap-1.5">
+              <KeyBadge
+                onClick={() => router.push(back?.href ?? '/')}
+                ariaLabel={back?.label ?? 'Back to home'}
+              >
+                Esc
+              </KeyBadge>
+              <span className="text-xs text-text-tertiary">
+                {back?.label ?? 'back to home'}
+              </span>
+            </div>
+            {lateral && (
+              <span className="text-xs text-text-tertiary opacity-40">·</span>
+            )}
+          </>
         )}
 
         {lateral && (
-          <>
-            {prev ? (
-              <Link href={prev.href} className={baseLink}>
-                <span aria-hidden="true">← </span>{prev.title}
-              </Link>
-            ) : (
-              <span className={`${baseLink} ${disabledLink}`} aria-disabled="true" tabIndex={-1}>
-                <span aria-hidden="true">← </span>{lateral.items[0]?.title ?? ''}
-              </span>
-            )}
-
-            {next ? (
-              <Link href={next.href} className={baseLink}>
-                {next.title}<span aria-hidden="true"> →</span>
-              </Link>
-            ) : (
-              <span className={`${baseLink} ${disabledLink}`} aria-disabled="true" tabIndex={-1}>
-                {lateral.items[lateral.items.length - 1]?.title ?? ''}<span aria-hidden="true"> →</span>
-              </span>
-            )}
-
-            <span className="opacity-60">to navigate {lateral.scope}</span>
-          </>
+          <div className="flex items-center gap-1">
+            <KeyBadge
+              onClick={prev ? () => router.push(prev.href) : undefined}
+              disabled={!prev}
+              ariaLabel={prev ? `Previous: ${prev.title}` : 'Previous (disabled)'}
+            >
+              ←
+            </KeyBadge>
+            <KeyBadge
+              onClick={next ? () => router.push(next.href) : undefined}
+              disabled={!next}
+              ariaLabel={next ? `Next: ${next.title}` : 'Next (disabled)'}
+            >
+              →
+            </KeyBadge>
+            <span className="text-xs text-text-tertiary ml-0.5">
+              to navigate {lateral.scope}
+            </span>
+          </div>
         )}
       </div>
     </nav>
