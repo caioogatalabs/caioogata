@@ -13,8 +13,8 @@ import { EducationBlock } from '@/components/sections/v2/about/EducationBlock'
  *
  * Sequence (Figma 701:303):
  *   bg-bg-surface-secondary band → <StickyLogoBar/>          ← only the pills row (no welcome bar, no headline)
- *   <ProjectNavigation/>                                       ← `← Back to Home` mono strip
  *   <AboutPinned/>                                             ← image-pin + first-paragraph reveal
+ *   <ProjectNavigation/>                                       ← `← Back to Home` mono strip
  *   <BioBlock/> + <SkillsBlock/> + <ClientsBlock/> + <EducationBlock/>
  *
  * The home (/) IntroSection still composes welcome bar + StickyLogoBar + headline; only this page
@@ -30,11 +30,11 @@ export function AboutSection() {
         <StickyLogoBar />
       </div>
 
-      {/* Mono nav strip below the pills */}
-      <ProjectNavigation />
-
       {/* Image pin + first-paragraph reveal */}
       <AboutPinned />
+
+      {/* Mono nav strip below the scrub section */}
+      <ProjectNavigation />
 
       {/* Numbered subsections */}
       <BioBlock />

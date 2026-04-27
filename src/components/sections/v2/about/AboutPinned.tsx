@@ -6,11 +6,8 @@ import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
 // Scroll-progress milestones (0..1 across the 400vh container).
-const IMAGE_ENTRY_END = 0.10 // image slides up + fades in over the first 10% of pin scroll
-const IMAGE_TRANSLATE_START = 60 // start translateY (% of own height, below anchor) — softer entry
+const IMAGE_ENTRY_END = 0.10 // image fades in over the first 10% of pin scroll (no slide, in-place behind the text)
 const IMAGE_MAX_OPACITY = 0.7 // image stays slightly muted so the text overlay reads cleanly
-const PARA_FADE_START = 0.10 // paragraph fade begins when image lands (~frame 47 of scrub)
-const PARA_FADE_END = 0.20 // paragraph fully visible by 20% scroll progress (~frame 69)
 // Exit phase — image rises out, text holds then fades by the time BioBlock reaches viewport.
 const EXIT_START = 0.85 // image starts rising up + paragraph starts fading
 const EXIT_END = 1.0 // image fully off-top, paragraph invisible exactly when pin releases
@@ -28,8 +25,9 @@ const typedContent = content as unknown as Content
  *
  * Behaviour: 400vh outer scroll → sticky inner pins at top:0. The image
  * holds steady while useScrollVideo scrubs 241 frames across the full
- * 0→1 progress range. The first bio paragraph fades in between 0% and
- * 15% scroll progress.
+ * 0→1 progress range. The text is mounted on page load (opacity 1 from
+ * progress 0); the image fades in in-place behind it over the first 10%
+ * of scroll. Both fade out at exit.
  *
  * `prefers-reduced-motion`: paragraph opacity locks at 1, frames freeze
  * at the last frame (handled inside useScrollVideo).
@@ -44,18 +42,14 @@ export function AboutPinned() {
 
   const firstParagraph = typedContent.about.bio.split('\n\n')[0]
 
-  // Image translateY: enters from below, holds at 0, exits upward.
-  // Entry: progress 0 → IMAGE_ENTRY_END maps IMAGE_TRANSLATE_START → 0.
+  // Image translateY: stays at 0 during entry/hold, exits upward.
+  // Entry: IMAGE_TRANSLATE_START is 0 — no slide, image fades in in-place behind the text.
   // Hold: IMAGE_ENTRY_END → EXIT_START stays at 0.
   // Exit: EXIT_START → EXIT_END maps 0 → IMAGE_TRANSLATE_EXIT.
   let imageTranslateY = 0
-  if (!reducedMotion) {
-    if (progress < IMAGE_ENTRY_END) {
-      imageTranslateY = (1 - progress / IMAGE_ENTRY_END) * IMAGE_TRANSLATE_START
-    } else if (progress > EXIT_START) {
-      const exitT = (progress - EXIT_START) / (EXIT_END - EXIT_START)
-      imageTranslateY = exitT * IMAGE_TRANSLATE_EXIT
-    }
+  if (!reducedMotion && progress > EXIT_START) {
+    const exitT = (progress - EXIT_START) / (EXIT_END - EXIT_START)
+    imageTranslateY = exitT * IMAGE_TRANSLATE_EXIT
   }
 
   // Image opacity: ramps in over entry, holds at max for the pin, no fade-out
@@ -64,20 +58,13 @@ export function AboutPinned() {
     ? IMAGE_MAX_OPACITY
     : Math.min(progress / IMAGE_ENTRY_END, 1) * IMAGE_MAX_OPACITY
 
-  // Paragraph opacity: fade-in (PARA_FADE_START → PARA_FADE_END), hold, then
-  // fade-out at EXIT_START → EXIT_END so the text feels pinned past the image
-  // and is fully invisible the moment BioBlock reaches the viewport.
+  // Paragraph opacity: mounted at full opacity from page load (no fade-in).
+  // Only the exit fade survives — text fades out as the pin releases so it's
+  // invisible by the time BioBlock reaches the viewport.
   let paragraphOpacity = 1
-  if (!reducedMotion) {
-    if (progress < PARA_FADE_END) {
-      paragraphOpacity = Math.max(
-        0,
-        Math.min(1, (progress - PARA_FADE_START) / (PARA_FADE_END - PARA_FADE_START))
-      )
-    } else if (progress > EXIT_START) {
-      const exitT = (progress - EXIT_START) / (EXIT_END - EXIT_START)
-      paragraphOpacity = Math.max(0, 1 - exitT)
-    }
+  if (!reducedMotion && progress > EXIT_START) {
+    const exitT = (progress - EXIT_START) / (EXIT_END - EXIT_START)
+    paragraphOpacity = Math.max(0, 1 - exitT)
   }
 
   return (
