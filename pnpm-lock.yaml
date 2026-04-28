@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@fontsource/cascadia-mono':
-        specifier: ^5.2.3
-        version: 5.2.3
       '@react-three/fiber':
         specifier: ^9.5.0
         version: 9.5.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.183.2)
@@ -135,9 +132,6 @@ packages:
   '@eslint/plugin-kit@0.4.1':
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@fontsource/cascadia-mono@5.2.3':
-    resolution: {integrity: sha512-x7+4yi0tct8zGJJdDjm734Bv8tHQrZKX/xMErGFBlVPotlTAfAnkGh95zeVp8d5Vol5hADr57kRQ2IZtVvFctg==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2110,8 +2104,6 @@ snapshots:
     dependencies:
       '@eslint/core': 0.17.0
       levn: 0.4.1
-
-  '@fontsource/cascadia-mono@5.2.3': {}
 
   '@humanfs/core@0.19.1': {}
 
