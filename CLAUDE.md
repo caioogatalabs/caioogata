@@ -3,7 +3,7 @@
 
 **Portfolio V2 — Caio Ogata**
 
-Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Architectural Brutalism). Same content, same tone, but with refined typography (Fabio XM), brutalista/minimalist aesthetic, rich micro-interactions, dedicated project pages, and a token-first design system. Target: design directors, engineering managers, and recruiters evaluating senior design/engineering leadership.
+Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Architectural Brutalism). Same content, same tone, but with refined typography (Switzer), brutalista/minimalist aesthetic, rich micro-interactions, dedicated project pages, and a token-first design system. Target: design directors, engineering managers, and recruiters evaluating senior design/engineering leadership.
 
 **Core Value:** The portfolio must communicate design engineering credibility through its own craft — the UI itself is the strongest portfolio piece.
 
@@ -12,7 +12,7 @@ Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Arc
 - **Stack**: Next.js 15 (App Router) + React 19 + Tailwind v4 + pnpm + Vercel
 - **Export**: Static export in production (`output: 'export'`) — no server-side features in pages
 - **Performance**: CSS/JS animations only, `prefers-reduced-motion` respected. Exception: R3F WebGL for project hero noise gradient (lazy-loaded, client-only, `dpr=1`)
-- **Font**: Fabio XM is trial version — display use only, verify license before production
+- **Font**: Switzer + JetBrains Mono (self-hosted woff2 variable). Verify license before production.
 - **Grid**: 12-column system, all layouts use column spans (6-6, 4-4-4, 3-6-3, 2-8-2)
 - **Radius**: 12px default for components, 999px for pill buttons, 0px eliminated
 - **Shadows**: None — depth via tonal stacking only (Design.md rule)
@@ -24,7 +24,7 @@ Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Arc
 
 - **Framework**: Next.js 15 (App Router) + React 19
 - **Styling**: Tailwind CSS v4 with `@theme` (semantic tokens in `src/tokens/`)
-- **Fonts**: Fabio XM (variable, 300-900) as `--font-sans`, Cascadia Mono as `--font-mono`
+- **Fonts**: Switzer (variable, 100-900) as `--font-sans`, JetBrains Mono (variable, 100-800) as `--font-mono`
 - **Package manager**: pnpm
 - **Hosting**: Vercel (static export in production)
 - **Animation**: CSS-first (no runtime library) — `requestAnimationFrame` for cursor-follow and scroll-linked reveals. Three.js/R3F for project hero noise gradient (client-only lazy load)
@@ -45,7 +45,7 @@ Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Arc
 ### Interaction Patterns (reference: fiddle.digital)
 
 - **Primary easing**: `cubic-bezier(0.16, 1, 0.3, 1)` — strong deceleration at end, used for text reveals and preview expand
-- **List hover**: Yellow bar (66.66% width, bleeds -5px vertical), masked text clip reveal on label AND description (1.0s ease-out), duplicate text enters at 2xl/1.5rem bold. Display-size arrow `→` (3.5rem Fabio XM) expands before label. Bar 0.6s entry, 0.5s exit.
+- **List hover**: Yellow bar (66.66% width, bleeds -5px vertical), masked text clip reveal on label AND description (1.0s ease-out), duplicate text enters at 2xl/1.5rem bold. Display-size arrow `→` (3.5rem JetBrains Mono) expands before label. Bar 0.6s entry, 0.5s exit.
 - **Floating preview**: rAF lerp loop (factor 0.12) for elastic cursor follow. Skew on both axes from lerped velocity delta (±30° clamp). Entry: wrapper scale 0.5→1 (0.6s), inner image scale 3→1.25 zoom reveal (0.7s). `key={imageSrc}` remounts on row switch — re-triggers expand from center. Sharp corners (0px radius). Parallax via inverse velocity translate.
 - **All interactions must have keyboard parity** — if it works on hover, it must work on arrow key navigation.
 - **Scroll-linked reveal** (`useScrollReveal` hook): `clip-path: inset()` with `round 12px` driven by scroll position via rAF. Reveals top→bottom as element scrolls into view. `startFraction` (0.85) = viewport Y where reveal begins, `endFraction` (0.3) = where it completes. Returns `{ ref, clipPath }` as React state — clipPath applied via `style` prop. Used by `ProjectCard`. Reference: fiddle.digital canvas section.
@@ -154,11 +154,11 @@ div.bg-bg-surface-secondary          ← continuous background
 - **No `overflow-hidden` on wrapper**: Breaks `position: sticky`.
 - **Separate `useInView` per fragment**: Each fragment needs its own `useInView` ref for entrance animations, since `-inview` only propagates to *descendants* of the observed element, not siblings.
 - **No glassmorphism header**: The old `StickyHeader` component (glassmorphism backdrop-blur bar) is replaced by the inline sticky logo+CTA row. `StickyHeader.tsx` still exists but is NOT imported.
-- **Welcome bar text**: Split into separate word groups with `<br/>` line breaks matching Figma layout: "Welcome/to", "caioogata", "portfolio & website" (left), "V2./0.12" (center), "Built for human/and AI assistance" (right). Font: Fabio XM Semibold 12px, line-height 1.2, opacity 50%.
+- **Welcome bar text**: Split into separate word groups with `<br/>` line breaks matching Figma layout: "Welcome/to", "caioogata", "portfolio & website" (left), "V2./0.12" (center), "Built for human/and AI assistance" (right). Font: Switzer Semibold 12px, line-height 1.2, opacity 50%.
 
 ### Button Hover Patterns
 
-Two distinct hover patterns, both using masked vertical text swap (Fabio XM → Pexel Grotesk 1.5rem):
+Two distinct hover patterns, both using masked vertical text swap (Switzer → JetBrains Mono via .type-overlay-hover):
 
 **Primary** (font swap only):
 - Default text exits up: `transform 1s ease, opacity 0.3s ease`. No delay.
@@ -178,7 +178,7 @@ Two distinct hover patterns, both using masked vertical text swap (Fabio XM → 
 - **Full-width sections**: Use direct `px-5 md:px-8 lg:px-16` padding (64px desktop). Grid component (`Grid`/`GridItem`) only where 12-col alignment is needed.
 - **GridItem**: Uses static Tailwind class maps (not dynamic template literals) — `MOBILE_SPAN`, `TABLET_SPAN`, `DESKTOP_SPAN` lookup objects.
 - **Semantic tokens**: Always use `text-text-primary`, `bg-bg-surface-primary` etc. Never raw hex or oklch in components.
-- **Font family**: `style={{ fontFamily: 'var(--font-sans)' }}` for Fabio XM display text, `font-mono` class for Cascadia Mono.
+- **Font family**: `style={{ fontFamily: 'var(--font-sans)' }}` for Switzer display text, `font-mono` class for JetBrains Mono. For the masked vertical text-swap on button hover, use the `.type-overlay-hover` utility class instead of inline `fontFamily`.
 <!-- GSD:conventions-end -->
 
 <!-- GSD:architecture-start source:ARCHITECTURE.md -->
