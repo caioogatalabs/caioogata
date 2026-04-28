@@ -21,10 +21,12 @@ const INITIAL_Y_VH = [30, 50, 70]
 const ALIGNMENT_Y_VH = -25
 const EXIT_Y_VH = -65
 
-// Phase boundaries (must mirror spec table)
+// Phase boundaries.
+// Hold phase removed — exit fires immediately after convergence so the
+// cards never freeze on screen and the next-section content pulls in
+// continuously instead of waiting for ~405px of stuck pin.
 const ENTRY_END = 0.6
 const CONVERGE_END = 0.7
-const HOLD_END = 0.85
 const EXIT_END = 1.0
 
 // Static class maps — NEVER dynamic Tailwind template literals.
@@ -60,10 +62,11 @@ function easeOutCubic(t: number): number {
  *
  * Phases:
  *   Entry        (0     → 0.6)  : linear, covers 6/7 of trip toward 15vh.
- *   Convergence  (0.6   → 0.7)  : eased final 1/7 — locks at 15vh.
- *   Hold         (0.7   → 0.85) : stays at 15vh, opacity 1.
- *   Exit         (0.85  → 1.0)  : translates to -30vh, opacity 1 → 0
- *                                  (all three cards together).
+ *   Convergence  (0.6   → 0.7)  : eased final 1/7 — lands at 15vh.
+ *   Exit         (0.7   → 1.0)  : translates to -65vh, opacity 1 → 0.
+ *                                  No hold phase: convergence flows
+ *                                  straight into exit so the cards never
+ *                                  freeze on screen.
  */
 function computeCardState(
   progress: number,
@@ -91,14 +94,9 @@ function computeCardState(
     return { y: startY + (ALIGNMENT_Y_VH - startY) * eased, opacity: 1 }
   }
 
-  if (progress < HOLD_END) {
-    // Hold: locked at alignment
-    return { y: ALIGNMENT_Y_VH, opacity: 1 }
-  }
-
   if (progress < EXIT_END) {
-    // Exit: 15vh → -30vh, opacity 1 → 0
-    const t = (progress - HOLD_END) / (EXIT_END - HOLD_END)
+    // Exit: alignment → off-screen, opacity 1 → 0
+    const t = (progress - CONVERGE_END) / (EXIT_END - CONVERGE_END)
     return {
       y: ALIGNMENT_Y_VH + (EXIT_Y_VH - ALIGNMENT_Y_VH) * t,
       opacity: 1 - t,

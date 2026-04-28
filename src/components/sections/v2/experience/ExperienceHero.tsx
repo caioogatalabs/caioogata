@@ -10,16 +10,17 @@ interface ExperienceHeroProps {
   stats: { value: string; label: string }[]
 }
 
-const HOLD_END = 0.85
-const EXIT_END = 1.0
+// Headline fade window — mirrors StatsCards.exitWindow so the headline
+// fades together with the cards once convergence completes.
+const FADE_START = 0.7
+const FADE_END = 1.0
 
-// Reduced-motion resolution: the spec says "progress locked at 1 (final
+// Reduced-motion resolution: spec says "progress locked at 1 (final
 // state — cards aligned, content faded)" but the verification checklist
-// says "cards at final aligned state on load, no scroll-driven motion,
-// no entrance animation" — implying VISIBLE. Resolve in favor of the
-// checklist by remapping progress to the hold-phase value (0.75) when
-// reduced motion is on, so cards land aligned AND fully visible.
-const REDUCED_MOTION_PROGRESS = 0.75
+// wants cards visible at the aligned position. Map reduced motion to
+// the convergence point (0.7) so cards land aligned and fully visible
+// with no exit fade.
+const REDUCED_MOTION_PROGRESS = 0.7
 
 /**
  * /experience hero — 400vh outer + sticky 100vh inner pin.
@@ -55,11 +56,12 @@ export function ExperienceHero({ headline, stats }: ExperienceHeroProps) {
   // so cards remain visible at the aligned position.
   const progress = reducedMotion ? REDUCED_MOTION_PROGRESS : rawProgress
 
-  // Headline opacity: full opacity through 0.85, linear fade to 0 by 1.0.
-  // On mobile and reduced motion, no exit fade — headline stays visible.
+  // Headline opacity: full opacity through 0.7, linear fade to 0 by 1.0
+  // — fades together with the card exit so the next section pulls in
+  // continuously. On mobile and reduced motion, no fade.
   let headlineOpacity = 1
-  if (!reducedMotion && !isMobile && progress > HOLD_END) {
-    const t = (progress - HOLD_END) / (EXIT_END - HOLD_END)
+  if (!reducedMotion && !isMobile && progress > FADE_START) {
+    const t = (progress - FADE_START) / (FADE_END - FADE_START)
     headlineOpacity = Math.max(0, 1 - t)
   }
 
