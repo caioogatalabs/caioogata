@@ -67,14 +67,14 @@ export function ExperienceHero({ headline, stats }: ExperienceHeroProps) {
     <div
       ref={outerRef}
       style={{ height: isMobile ? 'auto' : '400vh' }}
-      className="relative bg-bg-surface-secondary"
+      className="relative"
     >
       <div
         ref={mobileInViewRef as React.RefObject<HTMLDivElement>}
         className={
           isMobile
-            ? 'py-12'
-            : 'sticky top-0 h-screen overflow-hidden flex items-center'
+            ? 'py-12 bg-bg'
+            : 'sticky top-0 h-screen overflow-hidden bg-bg flex items-center'
         }
       >
         <div className="w-full px-5 md:px-8 lg:px-16">

@@ -22,7 +22,7 @@ export function StatsCard({ value, label, ariaLabel }: StatsCardProps) {
     <div
       role="group"
       aria-label={ariaLabel}
-      className="border border-border-secondary rounded-[8px] p-5 bg-bg-surface-secondary"
+      className="border border-border-secondary rounded-[8px] p-5"
     >
       <p
         className="text-text-primary"
