@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed quick task 260427-b3y
-last_updated: "2026-04-27T11:07:01.239Z"
-last_activity: "2026-04-27 - Completed quick task 260427-b3y: Unified PageNavigation across V2 (home, /about, /experience, /projects/[slug]); deleted 2 legacy nav files; single commit e6bfa12"
+stopped_at: Completed quick task 260427-uge (awaiting human-verify)
+last_updated: "2026-04-28T10:24:48.656Z"
+last_activity: "2026-04-28 - Completed quick task 260427-uge: /experience redesign — converging-cards hero (400vh pin) + 12-col aligned rows + neutral expanded state; commits c87c7d3, afc3b1c, c136cc1 (awaiting human-verify)"
 progress:
   total_phases: 7
   completed_phases: 6
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 Phase: 04.2 (about-consolidation) — EXECUTING
 Plan: 4 of 6
 Status: Ready to execute
-Last activity: 2026-04-27 - Completed quick task 260427-b3y: Unified PageNavigation across V2 (home, /about, /experience, /projects/[slug]); deleted 2 legacy nav files; single commit e6bfa12
+Last activity: 2026-04-28 - Completed quick task 260427-uge: /experience redesign — converging-cards hero (400vh pin) + 12-col aligned rows + neutral expanded state; commits c87c7d3, afc3b1c, c136cc1 (awaiting human-verify)
 
 Progress: [████████░░] 80%
 
@@ -75,6 +75,7 @@ Progress: [████████░░] 80%
 | Phase 260425-rcw Pquick | 7min | 6 tasks | 8 files |
 | Phase 260426-sjr Pquick | 25min | 3 tasks | 7 files |
 | Phase 260427-b3y Pquick | 7min | 2 tasks | 8 files |
+| Phase 260427-uge Pquick | 8min | 3 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -118,6 +119,7 @@ Recent decisions affecting current work:
 - [Phase 260425-rcw]: [Quick 260425-rcw]: Decoupled /about hero — extracted shared <Hero> primitive (text-only, kicker + optional technologies + headline) reused on /projects/* and /about; introduced <AboutPinned> (400vh scroll zone, image cols 9-12 slide-up + first-paragraph reveal in cols 1-6 between 20–40% scroll); first bio paragraph migrated from BioBlock to AboutPinned; AboutSection reduced 130→51 lines as pure orchestrator. about.headline added to types + EN/PT-BR. pnpm tsc --noEmit exits 0; pnpm build still hits the pre-existing WasmHash _updateWithBuffer cache corruption from 260425-p77 (surfaced not auto-fixed per Task 6 instruction).
 - [Phase 260426-sjr]: [Quick 260426-sjr]: Refined /about page V2 to match Figma 701:303 — dropped Hero+welcome bar from /about (only sticky pills row remains); new ProjectNavigation atom (`← Back to Home` mono strip); AboutPinned first paragraph retyped to Fabio XM 48px/400/1.15/-0.96px; BioBlock reorganized as 4-spacer + 8-content with full-width 48px final-quote block; EducationBlock standardized as flat flex row (w-[100px] year + flex-1 info), no inner Grid; ClientsBlock description retyped to Fabio XM Bold 36px and CELL_BORDERS removed (borderless logo grid); SkillsBlock fully rewritten as exclusive hover/focus accordion with grid-rows-[0fr↔1fr] panel transition + per-row level-mapped yellow bar reveal (LEVEL_WIDTH_CLASS static map: Expert 95% / Advanced 75% / Proficient 55% / Familiar 35%) and text-text-inverse on hover. Single commit 58fed2b covers all 7 files. pnpm tsc --noEmit exits 0; pnpm build still hits the pre-existing WasmHash cache corruption (surfaced not auto-fixed; cache-clean step blocked by sandbox permissions, as documented in plan precedent).
 - [Phase 260427-b3y]: [Quick 260427-b3y]: Unified V2 page navigation — created `PageNavigation` (sticky-top, all-controls-left-aligned, mono small) with optional `back` + `lateral` props and a single window keydown listener (←/→ lateral via router.push, Esc back/home, INPUT/TEXTAREA/SELECT/contentEditable guard). Created `MAIN_NAVIGATION` constant (Home/About/Experience/Philosophy) as canonical category circuit. Wired into 4 call-sites: home (PageShell — between IntroSection and MenuSection), /about (AboutSection — replaces old ProjectNavigation atom), /experience (ExperienceSection — Case A, between hero band and rows), /projects/[slug] (ProjectPageShell — single instance, bottom instance dropped, prev/next over enabled projects). Deleted legacy `about/ProjectNavigation.tsx` and `project/ProjectNavigation.tsx` (117 lines removed, 117 added — net wash, broader feature set). Single commit e6bfa12 covers 8 files. pnpm tsc --noEmit exits 0.
+- [Phase 260427-uge]: [Quick 260427-uge]: /experience page redesign — new converging-cards hero matching /about's 400vh pin pattern + strict 12-col row alignment + neutral expanded state. Added `useExperienceHero` hook (rAF + ticking-flag, mirrors useScrollVideo; reduced-motion + mobile <768px bypass at init); 3 components in `experience/` (StatsCard, StatsCards, ExperienceHero). 4-phase per-card trajectory (entry 0–0.6 linear 6/7, convergence 0.6–0.7 cubic ease-out 1/7, hold 0.7–0.85, exit 0.85–1.0 with opacity fade); cubic-bezier(0.16,1,0.3,1) approximated as 1-(1-t)^3 over the short converge segment. Headline at z-20 + cards at z-10 share `lg:row-start-1` so cards translate UP THROUGH the headline. Reduced-motion path remaps progress to 0.75 (hold phase — cards aligned + visible) — resolves spec ambiguity in favor of the verification checklist. ExperienceSection refactored: rows on strict 12-col grid (col 1 arrow / 2-3 date / 4-6 company / 7-12 title), expanded panel transparent (no yellow bg), bottom grid description(1-4)+spacer(5-6)+achievements(7-8/9-10/11-12), yellow bar shows only on highlight && !expanded. StatsCard uses `bg-bg-surface-secondary` to occlude the headline cleanly during convergence (Rule 2 auto-add). Three commits (c87c7d3, afc3b1c, c136cc1) covering 9 files; pnpm tsc --noEmit exits 0; Task 4 visual verification awaiting user.
 
 ### Roadmap Evolution
 
@@ -136,6 +138,7 @@ None yet.
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
+| 260427-uge | /experience redesign — converging-cards hero (400vh pin) + 12-col aligned rows + neutral expanded state; 4-phase per-card trajectory with cubic ease-out convergence; reduced-motion + mobile bypass | 2026-04-28 | c87c7d3, afc3b1c, c136cc1 | [260427-uge-implement-the-experience-page-redesign-p](./quick/260427-uge-implement-the-experience-page-redesign-p/) |
 | 260427-b3y | Unify page navigation across V2 — single PageNavigation component with keyboard parity (←/→/Esc); deletes 2 legacy nav files; wires home/about/experience/projects | 2026-04-27 | e6bfa12 | [260427-b3y-unify-page-navigation-across-v2-single-p](./quick/260427-b3y-unify-page-navigation-across-v2-single-p/) |
 | 260426-u5d | Move section labels into left spacers, indent display paragraphs (text-indent 8em), enlarge header band | 2026-04-27 | f4ca2a9 | [260426-u5d-move-section-labels-into-left-spacers-in](./quick/260426-u5d-move-section-labels-into-left-spacers-in/) |
 | 260426-sjr | Refine /about page V2 to match Figma 701:303 (drop welcome bar/Hero, new ProjectNavigation, retype AboutPinned/BioBlock/Clients/Education, accordion SkillsBlock) | 2026-04-26 | 58fed2b | [260426-sjr-refine-about-page-v2-to-match-figma-701-](./quick/260426-sjr-refine-about-page-v2-to-match-figma-701-/) |
@@ -149,6 +152,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-27T11:07:01.236Z
-Stopped at: Completed quick task 260427-b3y
+Last session: 2026-04-28T10:24:48.651Z
+Stopped at: Completed quick task 260427-uge (awaiting human-verify)
 Resume file: None
