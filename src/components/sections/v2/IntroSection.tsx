@@ -14,13 +14,13 @@ export function IntroSection() {
   const headlineRef = useInView({ threshold: 0.1, once: true })
 
   return (
-    <div className="bg-bg-surface-secondary">
+    <div className="bg-bg-surface-secondary flex flex-col min-h-[var(--height-hero)]">
       {/* ── Welcome bar ── */}
       <section
         ref={welcomeRef as React.RefObject<HTMLElement>}
         aria-label="Introduction"
         data-section-id="intro"
-        className="relative px-5 pt-8 pb-32 md:px-8 md:pt-10 md:pb-40 lg:px-16 lg:pt-12 lg:pb-48"
+        className="relative px-5 pt-8 md:px-8 md:pt-10 lg:px-16 lg:pt-12"
       >
         <div
           className="-entrance -fade -a-0 flex items-start justify-between w-full text-text-primary opacity-50 uppercase tracking-[1.2px]"
@@ -31,27 +31,24 @@ export function IntroSection() {
             lineHeight: 1.2,
           }}
         >
-          <div className="flex gap-5">
-            <span className="hidden md:inline">
-              Welcome
-              <br />
-              to
-            </span>
-            <span className="hidden md:inline">caioogata</span>
-            <span className="hidden lg:inline">portfolio &amp; website</span>
-          </div>
+          <p className="hidden md:block w-[232px]">
+            Welcome to caioogata portfolio &amp; website
+          </p>
           <span className="text-right">
             V2.
             <br />
             0.12
           </span>
-          <span className="hidden lg:inline text-right">
+          <p className="hidden lg:block w-[322px] text-right">
             Built for human
             <br />
             and AI assistance
-          </span>
+          </p>
         </div>
       </section>
+
+      {/* ── Variable spacer — absorbs hero min-height ── */}
+      <div className="flex-1" aria-hidden />
 
       {/* ── Logo + CTA — sticky bar ── */}
       <StickyLogoBar />

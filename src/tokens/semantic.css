@@ -77,9 +77,28 @@
   --radius-component-md:   var(--primitive-radius-md);  /* 12px — default for buttons, cards */
   --radius-component-full: var(--primitive-radius-full); /* pill buttons only */
 
+  /* ─── Layout heights ─── */
+  --height-hero: clamp(40rem, 85svh, 56rem); /* 640–896px — applied to all page heroes */
+
   /* ─── Typography ─── */
   --font-sans: var(--primitive-font-sans);
   --font-mono: var(--primitive-font-mono);
+
+  /* ─── Type Scale (Figma text styles → CSS) ─── */
+  /* Display */
+  --text-display-lg:           var(--primitive-text-6xl);   /* 72px — Fabio XM Regular, lh 1.15, tracking -2% */
+  --text-display-md:           var(--primitive-text-5xl);   /* 48px — Fabio XM Regular, lh 1.15, tracking -2% */
+  /* Heading */
+  --text-heading-lg:           var(--primitive-text-4xl);   /* 36px — Fabio XM Bold, lh 1.25, tracking -1% */
+  --text-heading-md:           var(--primitive-text-2xl);   /* 24px — Fabio XM Semibold, lh 1.3, tracking 0 */
+  --text-heading-sm:           var(--primitive-text-xl);    /* 20px — Fabio XM Semibold, lh 1.3, tracking 0 */
+  /* Body */
+  --text-body-lg:              var(--primitive-text-lg);    /* 18px — Fabio XM Regular, lh 1.6, tracking 0 */
+  --text-body-md:              var(--primitive-text-base);  /* 16px — Fabio XM Regular, lh 1.5, tracking 0 */
+  --text-body-sm:              var(--primitive-text-sm);    /* 14px — Fabio XM Regular, lh 1.5, tracking 0 */
+  /* Label */
+  --text-label-lg:             var(--primitive-text-sm);    /* 14px — Fabio XM Medium, lh 1.5, tracking 8% */
+  --text-label-sm:             var(--primitive-text-xs);    /* 12px — Fabio XM Semibold, lh 1.2, tracking 0 */
 }
 
 /* ─── Light theme (grey-based, for sections over neutral-200 bg) ─── */
