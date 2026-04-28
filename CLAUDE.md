@@ -96,14 +96,21 @@ Span-aware row grid for project image galleries. Each row is a 12-col CSS grid; 
 { spans: number[], images: (string | ProjectImage)[], colStart?: number }
 ```
 
-**Span rules — when adding/editing gallery rows in en.json:**
+**Default pattern — scattered single-image rows (Brand System pattern):**
+The DEFAULT staggered layout is single-image rows of `[4]` with `colStart` cycling across `1`, `5`, `9` to scatter content across the three zones of the 12-col grid (cols 1-4, 5-8, 9-12). Reference: `azion-brand-system` gallery — 9 illustrations each in a `[4]` row with rotating `colStart`. Prioritize zones 2 and 3 (`colStart: 5` and `colStart: 9`) for the scattered, randomic feel.
+
+Multi-image rows (`[6,6]`, `[8,4]`, `[4,8]`, `[4,4]`) and full-width rows (`[12]`) are EXCEPTIONS and require explicit justification:
+- **Image pair belongs together** (e.g., before/after, two views of same artifact) → `[8,4]` or `[4,8]`
+- **Hero shot at top of gallery** → `[12]`
+- **Wide horizontal asset** (banners, strips) → `[12]` or `[8]`
+- **Explicit user request** for a specific layout
+
+**Span rules when justified — for non-default rows:**
 - **Asymmetric pairs** over symmetric: prefer `[8,4]` or `[4,8]` over `[6,6]`. Alternating asymmetry creates visual rhythm.
 - **Partial rows for air**: `[4,4]` (8/12), `[8]` (8/12), `[6]` (6/12) leave empty grid space. At least 30% of rows in a gallery should be partial.
 - **Never three consecutive full rows**: If row N and N+1 both sum to 12, row N+2 must be partial.
-- **Single-image rows**: Use `[4]` with `colStart` to position in one of three columns — `1` (left), `5` (center), `9` (right). Prioritize columns 2 and 3 for scattered feel.
-- **`colStart` field**: Optional 1-based column start for single-image rows. Only applies to the first image in the row, desktop only (mobile stacks full-width). Values: `1`, `5`, `9` for thirds.
-- **Hero images stay `[12]`**: Full-width single images at the top of a gallery are fine.
-- **Videos in pairs**: Group videos into `[6,6]` rows, not individual `[4]` rows (too small).
+- **`colStart` field**: Optional 1-based column start for first image only, desktop only (mobile stacks full-width). Values: `1`, `5`, `9` for thirds.
+- **Videos**: Pair into `[6,6]` rows (default `[4]` is too small for video). For solo hero videos, use `[8]` with `colStart: 5` to focus on zones 2-3.
 
 **Sizing:**
 - Images: `w-full max-h-[500px] min-h-[200px] object-cover` — natural aspect within bounds

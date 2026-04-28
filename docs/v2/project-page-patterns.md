@@ -6,14 +6,20 @@ Reference for all project page sections. Follow these patterns exactly when edit
 
 ## Typography Tokens (Figma source of truth)
 
-| Token | Font | Size | Weight | Line-height | Tracking | Usage |
-|-------|------|------|--------|-------------|----------|-------|
-| **Display/LG** | Fabio XM | 72px | 400 (regular) | 1.15 | -1.44px | Impact numbers |
-| **Display/MD** | Fabio XM | 48px | 400 (regular) | 1.15 | -0.96px | Hero body, section headings, feature names |
-| **Body/LG** | Fabio XM | 18px | 400 (regular) | 1.6 | 0 | Paragraphs, descriptions, values |
-| **Label/LG** | Fabio XM | 14px | 500 (medium) | 1.5 | 1.12px | Technology tags, stat labels (uppercase) |
-| **Data stamp** | Cascadia Mono | 12px | 400 | 16px | 0.88px | `PRJ_2022 // 001` identifiers (uppercase) |
-| **Nav/Label** | Cascadia Mono | 12px | 400 | 16px | 0.6px | Feature labels, section labels (uppercase) |
+| Token | CSS var | Font | Size | Weight | Line-height | Tracking | Usage |
+|-------|---------|------|------|--------|-------------|----------|-------|
+| **Display/LG** | `--text-display-lg` | Fabio XM | 72px | 400 (regular) | 1.15 | -2% (-1.44px) | Impact numbers |
+| **Display/MD** | `--text-display-md` | Fabio XM | 48px | 400 (regular) | 1.15 | -2% (-0.96px) | Hero body, section headings, feature names |
+| **Heading/LG** | `--text-heading-lg` | Fabio XM | 36px | 700 (bold) | 1.25 | -1% | Section titles |
+| **Heading/MD** | `--text-heading-md` | Fabio XM | 24px | 600 (semibold) | 1.3 | 0 | Sub-headings, editorial bio |
+| **Heading/SM** | `--text-heading-sm` | Fabio XM | 20px | 600 (semibold) | 1.3 | 0 | Small headings |
+| **Body/LG** | `--text-body-lg` | Fabio XM | 18px | 400 (regular) | 1.6 | 0 | Paragraphs, descriptions, values |
+| **Body/MD** | `--text-body-md` | Fabio XM | 16px | 400 (regular) | 1.5 | 0 | Standard body copy |
+| **Body/SM** | `--text-body-sm` | Fabio XM | 14px | 400 (regular) | 1.5 | 0 | Small body text |
+| **Label/LG** | `--text-label-lg` | Fabio XM | 14px | 500 (medium) | 1.5 | 8% (1.12px) | Technology tags, stat labels (uppercase) |
+| **Label/SM** | `--text-label-sm` | Fabio XM | 12px | 600 (semibold) | 1.2 | 0 | Badges, small labels |
+| **Data stamp** | — | Cascadia Mono | 12px | 400 | 1.33 (16px) | 0.88px | `PRJ_2022 // 001` identifiers (uppercase) |
+| **Nav/Label** | — | Cascadia Mono | 12px | 400 | 1.33 (16px) | 0.6px | Feature labels, section labels (uppercase) |
 
 ### Color mapping
 
