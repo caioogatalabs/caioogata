@@ -235,6 +235,10 @@ export interface Content {
   experience: {
     command: string
     heading: string
+    hero: {
+      headline: string
+      stats: { value: string; label: string }[]
+    }
     jobs: Job[]
   }
   skills: {

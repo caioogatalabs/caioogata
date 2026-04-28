@@ -89,6 +89,14 @@
   "experience": {
     "command": "cat experiência.txt",
     "heading": "Experiência",
+    "hero": {
+      "headline": "Design Engineering as a practice: where brand rigor, product thinking, and shipped code occupy the same role.",
+      "stats": [
+        { "value": "15+", "label": "anos" },
+        { "value": "6", "label": "empresas" },
+        { "value": "2", "label": "cargos executivos" }
+      ]
+    },
     "jobs": [
       {
         "company": "Azion Technologies",
