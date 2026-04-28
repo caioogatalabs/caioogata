@@ -72,9 +72,9 @@ function SubjectChip({ label, selected, onClick }: { label: string; selected: bo
       {/* Hover label — font swap */}
       {!selected && (
         <span
-          className="absolute inset-0 z-10 flex items-center justify-center font-normal"
+          className="absolute inset-0 z-10 flex items-center justify-center type-overlay-hover"
           style={{
-            fontFamily: "'Pexel Grotesk', var(--font-sans)",
+            // Override .type-overlay-hover default size (1.5rem) → 1rem for compact subject chip
             fontSize: '1rem',
             transform: h ? 'translateY(0)' : 'translateY(100%)',
             opacity: h ? 1 : 0,
@@ -255,7 +255,7 @@ export function ContactForm({ actionSlot, expanded = true, fieldsRef }: {
             <span className="relative z-10 block text-base font-medium overflow-hidden" style={{ fontFamily: 'var(--font-sans)', transform: submitHovered ? 'translateY(-100%)' : 'translateY(0)', opacity: submitHovered ? 0 : 1, transition: submitHovered ? `transform 0.4s ${EASE} 0.05s, opacity 0.2s ${EASE} 0.05s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
               {status === 'submitting' ? form.submitting : form.submitButton}
             </span>
-            <span className="absolute inset-0 z-10 flex items-center justify-center font-normal overflow-hidden" style={{ fontFamily: "'Pexel Grotesk', var(--font-sans)", fontSize: '1.5rem', transform: submitHovered ? 'translateY(0)' : 'translateY(100%)', opacity: submitHovered ? 1 : 0, transition: submitHovered ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
+            <span className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden type-overlay-hover" style={{ transform: submitHovered ? 'translateY(0)' : 'translateY(100%)', opacity: submitHovered ? 1 : 0, transition: submitHovered ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
               {status === 'submitting' ? form.submitting : form.submitButton}
             </span>
           </button>
@@ -271,7 +271,7 @@ export function ContactForm({ actionSlot, expanded = true, fieldsRef }: {
             <span className="relative z-10 block text-base font-medium overflow-hidden" style={{ fontFamily: 'var(--font-sans)', transform: clearHovered ? 'translateY(-100%)' : 'translateY(0)', opacity: clearHovered ? 0 : 1, transition: clearHovered ? `transform 0.4s ${EASE} 0.05s, opacity 0.2s ${EASE} 0.05s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
               Clear
             </span>
-            <span className="absolute inset-0 z-10 flex items-center justify-center font-normal overflow-hidden" style={{ fontFamily: "'Pexel Grotesk', var(--font-sans)", fontSize: '1.5rem', transform: clearHovered ? 'translateY(0)' : 'translateY(100%)', opacity: clearHovered ? 1 : 0, transition: clearHovered ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
+            <span className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden type-overlay-hover" style={{ transform: clearHovered ? 'translateY(0)' : 'translateY(100%)', opacity: clearHovered ? 1 : 0, transition: clearHovered ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
               Clear
             </span>
           </button>

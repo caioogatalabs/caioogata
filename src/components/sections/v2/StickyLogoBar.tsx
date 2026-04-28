@@ -43,10 +43,8 @@ export function StickyLogoBar() {
               ask about
             </span>
             <span
-              className="absolute inset-0 flex items-center justify-center font-normal"
+              className="absolute inset-0 flex items-center justify-center type-overlay-hover"
               style={{
-                fontFamily: "'Pexel Grotesk', var(--font-sans)",
-                fontSize: '1.5rem',
                 transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
                 opacity: groupHovered ? 1 : 0,
                 transition: groupHovered
@@ -76,10 +74,8 @@ export function StickyLogoBar() {
               ×
             </span>
             <span
-              className="absolute inset-0 flex items-center justify-center"
+              className="absolute inset-0 flex items-center justify-center type-overlay-hover"
               style={{
-                fontFamily: "'Pexel Grotesk', var(--font-sans)",
-                fontSize: '1.5rem',
                 transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
                 opacity: groupHovered ? 1 : 0,
                 transition: groupHovered

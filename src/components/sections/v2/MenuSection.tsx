@@ -132,7 +132,8 @@ export function MenuSection({ content }: MenuSectionProps) {
                 <span
                   className="relative z-10 shrink-0"
                   style={{
-                    fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                    // Display-size arrow — not masked vertical text-swap; uses --font-mono (JetBrains Mono) at 3.5rem
+                    fontFamily: 'var(--font-mono)',
                     color: 'var(--color-text-on-primary)',
                     fontSize: '3.5rem',
                     fontWeight: 400,
@@ -172,16 +173,15 @@ export function MenuSection({ content }: MenuSectionProps) {
                     <span className="block truncate">/{item.label}</span>
                   </span>
                   <span
-                    className="absolute inset-0 flex items-center"
+                    className="absolute inset-0 flex items-center type-overlay-hover"
                     style={{
                       transform: isHighlighted ? 'translateY(0)' : 'translateY(100%)',
                       transition: isHighlighted
                         ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
                         : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                       color: 'var(--color-text-on-primary)',
-                      fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                      // Override .type-overlay-hover default size (1.5rem) → 2.25rem for menu label emphasis
                       fontSize: '2.25rem',
-                      fontWeight: 400,
                     }}
                   >
                     <span className="block truncate">/{item.label}</span>
@@ -210,16 +210,15 @@ export function MenuSection({ content }: MenuSectionProps) {
                       <span className="block truncate">{item.description}</span>
                     </span>
                     <span
-                      className="absolute inset-0 flex items-center"
+                      className="absolute inset-0 flex items-center type-overlay-hover"
                       style={{
                         transform: isHighlighted ? 'translateY(0)' : 'translateY(100%)',
                         transition: isHighlighted
                           ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
                           : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                         color: 'var(--color-text-on-primary)',
-                        fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                        // Override .type-overlay-hover default size (1.5rem) → 2.25rem for menu description emphasis
                         fontSize: '2.25rem',
-                        fontWeight: 400,
                       }}
                     >
                       <span className="block truncate">{item.description}</span>

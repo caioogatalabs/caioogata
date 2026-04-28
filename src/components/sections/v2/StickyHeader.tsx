@@ -76,9 +76,9 @@ export function StickyHeader() {
               ask about
             </span>
             <span
-              className="absolute inset-0 flex items-center justify-center font-normal"
+              className="absolute inset-0 flex items-center justify-center type-overlay-hover"
               style={{
-                fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                // Legacy compact header — overrides .type-overlay-hover default 1.5rem with 0.875rem
                 fontSize: '0.875rem',
                 transform: btnHovered ? 'translateY(0)' : 'translateY(100%)',
                 opacity: btnHovered ? 1 : 0,
@@ -110,9 +110,9 @@ export function StickyHeader() {
               ×
             </span>
             <span
-              className="absolute inset-0 flex items-center justify-center"
+              className="absolute inset-0 flex items-center justify-center type-overlay-hover"
               style={{
-                fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                // Legacy compact header — overrides .type-overlay-hover default 1.5rem with 0.875rem
                 fontSize: '0.875rem',
                 transform: btnHovered ? 'translateY(0)' : 'translateY(100%)',
                 opacity: btnHovered ? 1 : 0,

@@ -109,7 +109,7 @@ export function ExperienceSection() {
             // the row sits on the neutral page surface (spec).
             const showYellowBar = isHighlighted && !isExpanded
             // Larger highlighted typography: shows on highlight OR expand
-            // (both states get the bigger Pexel Grotesk variant).
+            // (both states get the bigger JetBrains Mono via .type-overlay-hover variant).
             const showLargeText = isHighlighted || isExpanded
             // Top-divider only above the very first row; subsequent rows
             // use their predecessor's bottom divider.
@@ -177,7 +177,8 @@ export function ExperienceSection() {
                       <span
                         className="shrink-0"
                         style={{
-                          fontFamily: "'Pexel Grotesk', var(--font-sans)",
+                          // Display-size arrow — not masked vertical text-swap; uses --font-mono (JetBrains Mono) at 3.5rem
+                          fontFamily: 'var(--font-mono)',
                           color: showYellowBar
                             ? 'var(--color-text-on-primary)'
                             : isExpanded
@@ -257,7 +258,7 @@ export function ExperienceSection() {
                         </span>
                         {/* Hover text */}
                         <span
-                          className="absolute inset-0 flex items-center"
+                          className="absolute inset-0 flex items-center type-overlay-hover"
                           style={{
                             transform: showLargeText
                               ? 'translateY(0)'
@@ -268,9 +269,7 @@ export function ExperienceSection() {
                             color: showYellowBar
                               ? 'var(--color-text-on-primary)'
                               : 'var(--color-text-primary)',
-                            fontFamily:
-                              "'Pexel Grotesk', var(--font-sans)",
-                            fontSize: '1.5rem',
+                            // Override .type-overlay-hover default weight (400) → 700 for company name emphasis
                             fontWeight: 700,
                             ...instantStyle,
                           }}
@@ -314,7 +313,7 @@ export function ExperienceSection() {
                         </span>
                         {/* Hover text */}
                         <span
-                          className="absolute inset-0 flex items-center"
+                          className="absolute inset-0 flex items-center type-overlay-hover"
                           style={{
                             transform: showLargeText
                               ? 'translateY(0)'
@@ -325,9 +324,7 @@ export function ExperienceSection() {
                             color: showYellowBar
                               ? 'var(--color-text-on-primary)'
                               : 'var(--color-text-primary)',
-                            fontFamily:
-                              "'Pexel Grotesk', var(--font-sans)",
-                            fontSize: '1.5rem',
+                            // Override .type-overlay-hover default weight (400) → 700 for title emphasis
                             fontWeight: 700,
                             ...instantStyle,
                           }}

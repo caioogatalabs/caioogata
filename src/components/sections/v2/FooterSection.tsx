@@ -93,10 +93,8 @@ function SocialLink({ label, url }: { label: string; url: string }) {
           {label}
         </span>
         <span
-          className="absolute inset-0 z-10 flex items-center justify-center font-normal overflow-hidden"
+          className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden type-overlay-hover"
           style={{
-            fontFamily: "'Pexel Grotesk', var(--font-sans)",
-            fontSize: '1.5rem',
             transform: h ? 'translateY(0)' : 'translateY(100%)',
             opacity: h ? 1 : 0,
             transition: h
@@ -253,10 +251,8 @@ export function FooterSection() {
         </span>
         {/* "Contact" hover — visible when !isOpen && hovered */}
         <span
-          className="absolute inset-0 flex items-center justify-center font-normal"
+          className="absolute inset-0 flex items-center justify-center type-overlay-hover"
           style={{
-            fontFamily: "'Pexel Grotesk', var(--font-sans)",
-            fontSize: '1.5rem',
             transform: isOpen ? 'translateY(-100%)' : groupHovered ? 'translateY(0)' : 'translateY(100%)',
             opacity: isOpen ? 0 : groupHovered ? 1 : 0,
             transition: `transform ${t}, opacity ${tFast}`,
@@ -278,10 +274,8 @@ export function FooterSection() {
         </span>
         {/* "Close" hover — visible when isOpen && hovered */}
         <span
-          className="absolute inset-0 flex items-center justify-center font-normal"
+          className="absolute inset-0 flex items-center justify-center type-overlay-hover"
           style={{
-            fontFamily: "'Pexel Grotesk', var(--font-sans)",
-            fontSize: '1.5rem',
             transform: !isOpen ? 'translateY(100%)' : groupHovered ? 'translateY(0)' : 'translateY(100%)',
             opacity: !isOpen ? 0 : groupHovered ? 1 : 0,
             transition: `transform ${t}, opacity ${tFast}`,
@@ -316,10 +310,8 @@ export function FooterSection() {
         </span>
         {/* "+" hover */}
         <span
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center type-overlay-hover"
           style={{
-            fontFamily: "'Pexel Grotesk', var(--font-sans)",
-            fontSize: '1.5rem',
             transform: isOpen ? 'translateY(-100%)' : groupHovered ? 'translateY(0)' : 'translateY(100%)',
             opacity: isOpen ? 0 : groupHovered ? 1 : 0,
             transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
@@ -341,10 +333,8 @@ export function FooterSection() {
         </span>
         {/* "×" hover */}
         <span
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center type-overlay-hover"
           style={{
-            fontFamily: "'Pexel Grotesk', var(--font-sans)",
-            fontSize: '1.5rem',
             transform: !isOpen ? 'translateY(100%)' : groupHovered ? 'translateY(0)' : 'translateY(100%)',
             opacity: !isOpen ? 0 : groupHovered ? 1 : 0,
             transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
