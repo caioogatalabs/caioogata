@@ -37,7 +37,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
       <section className="py-24">
         <div className="flex flex-col gap-4">
           {slidesSrc.map((src, i) => (
-            <img key={i} src={src} alt="" loading="lazy" className="w-full block" />
+            <img key={i} src={src} alt="" loading="lazy" className="w-full block rounded-xl" />
           ))}
         </div>
       </section>
@@ -52,31 +52,35 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
         className="relative"
         style={{ height: `${slidesSrc.length * 100}vh` }}
       >
-        <div className="sticky top-0 h-[800px] overflow-hidden">
-          {slidesSrc.map((src, i) => {
-            const state = slides[i]
-            if (!state) return null
+        <div className="sticky top-0 h-screen flex items-center justify-center">
+          <div className="relative w-full h-[min(800px,80vh)] overflow-hidden rounded-xl">
+            {/* Static bg sheet — catches any gap behind released slides */}
+            <div className="absolute inset-0 bg-bg" aria-hidden />
+            {slidesSrc.map((src, i) => {
+              const state = slides[i]
+              if (!state) return null
 
-            return (
-              <div
-                key={i}
-                className="absolute inset-0 bg-bg flex items-center justify-center"
-                style={{
-                  transform: `translateY(${state.translateY}%) scale(${state.scale})`,
-                  opacity: state.opacity,
-                  zIndex: i,
-                  willChange: 'transform, opacity',
-                }}
-              >
-                <img
-                  src={src}
-                  alt=""
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  className="max-w-full max-h-[720px] object-contain block"
-                />
-              </div>
-            )
-          })}
+              return (
+                <div
+                  key={i}
+                  className="absolute inset-0 bg-bg flex items-center justify-center"
+                  style={{
+                    transform: `translateY(${state.translateY}%) scale(${state.scale})`,
+                    opacity: state.opacity,
+                    zIndex: i,
+                    willChange: 'transform, opacity',
+                  }}
+                >
+                  <img
+                    src={src}
+                    alt=""
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    className="max-w-full max-h-full object-contain block"
+                  />
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>

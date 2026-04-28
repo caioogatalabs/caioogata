@@ -14,9 +14,14 @@ export interface SlideState {
 /**
  * Scroll-linked slide-stack driver for sticky gallery.
  *
- * First image stays fixed. Subsequent images slide up from below (translateY 100%→0%)
- * covering the previous one. When an image is being covered, it shrinks (scale→0.95)
- * and fades (opacity→0.6) — the "release" effect.
+ * Subsequent images slide up from below (translateY 100%→0%) covering the previous one.
+ * The current slide's release runs IN SYNC with the next slide's entry — as the next
+ * slide rises, the current one shrinks (scale→0.95) and fades (opacity→0). This gives
+ * the perception of the whole container "moving back" while the new one advances.
+ *
+ * Because previous slides fade to fully transparent (not 0.6), wrapper-level opacity
+ * is safe — there's nothing visible underneath to leak through. A bg-bg sheet on the
+ * sticky container catches anything beneath the lowest slide.
  *
  * Container ref must wrap the tall scroll-zone (slideCount * 100vh).
  */
@@ -66,18 +71,18 @@ export function useScrollStick(slideCount: number) {
         translateY = 100 * (1 - t)
       }
 
-      // --- scale + opacity: "release" effect when being covered ---
-      // When slide i+1 is sliding in, slide i gets covered
+      // --- scale + opacity: "release" effect, synced with next slide's entry ---
+      // Slide i releases during slide i+1's slide-in window — so the user actually
+      // SEES this slide receding (top of viewport) while the next one advances (bottom).
       const nextStart = (i + 1) / slideCount
       const nextEnd = (i + 2) / slideCount
       let scale = 1
       let opacity = 1
 
       if (i < slideCount - 1 && progress > nextStart) {
-        // Next slide is covering this one
-        const coverProgress = Math.min(1, (progress - nextStart) / (nextEnd - nextStart))
-        scale = 1 - 0.05 * coverProgress     // 1 → 0.95
-        opacity = 1 - 0.4 * coverProgress     // 1 → 0.6
+        const releaseProgress = Math.min(1, (progress - nextStart) / (nextEnd - nextStart))
+        scale = 1 - 0.08 * releaseProgress     // 1 → 0.92
+        opacity = 1 - releaseProgress           // 1 → 0
       }
 
       return { translateY, scale, opacity }

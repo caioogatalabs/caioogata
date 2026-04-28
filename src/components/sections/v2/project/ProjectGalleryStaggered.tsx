@@ -68,7 +68,11 @@ function RevealVideo({ media, staggerIndex = 0 }: { media: ProjectImage; stagger
       className="overflow-hidden"
       style={{ clipPath }}
     >
-      <VideoEmbed platform={media.platform} videoId={media.videoId} centeredButton />
+      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+        <div className="absolute inset-0">
+          <VideoEmbed platform={media.platform} videoId={media.videoId} centeredButton />
+        </div>
+      </div>
     </div>
   )
 }
