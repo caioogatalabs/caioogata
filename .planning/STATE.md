@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 Phase: 04.2 (about-consolidation) — EXECUTING
 Plan: 4 of 6
 Status: Ready to execute
-Last activity: 2026-04-28 - Completed quick task 260427-uge: /experience redesign — converging-cards hero (400vh pin) + 12-col aligned rows + neutral expanded state; commits c87c7d3, afc3b1c, c136cc1 (awaiting human-verify)
+Last activity: 2026-04-28 - Completed quick task 260428-fmr: V2 typography swap — Fabio XM/Pexel Grotesk/Cascadia Mono → Switzer/JetBrains Mono via tokens (5 commits, build passes)
 
 Progress: [████████░░] 80%
 
@@ -132,12 +132,13 @@ None yet.
 
 ### Blockers/Concerns
 
-- Fabio XM is trial version -- verify license before production deployment
+- Switzer trial license — verify before production deployment (Fabio XM concern superseded by 260428-fmr swap; JetBrains Mono is OFL/safe)
 
 ### Quick Tasks Completed
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
+| 260428-fmr | V2 typography swap — Fabio XM + Pexel Grotesk + Cascadia Mono → Switzer + JetBrains Mono via tokens; new --text-overlay-hover token + .type-overlay-hover utility class; ~26 hardcoded fontFamily inline styles refactored; @fontsource/cascadia-mono removed | 2026-04-28 | 4562e44, 9814493, 8b2b8cf, 49794c8, d5298af | [260428-fmr-swap-v2-typography-from-fabio-xm-pexel-g](./quick/260428-fmr-swap-v2-typography-from-fabio-xm-pexel-g/) |
 | 260427-uge | /experience redesign — converging-cards hero (400vh pin) + 12-col aligned rows + neutral expanded state; 4-phase per-card trajectory with cubic ease-out convergence; reduced-motion + mobile bypass | 2026-04-28 | c87c7d3, afc3b1c, c136cc1 | [260427-uge-implement-the-experience-page-redesign-p](./quick/260427-uge-implement-the-experience-page-redesign-p/) |
 | 260427-b3y | Unify page navigation across V2 — single PageNavigation component with keyboard parity (←/→/Esc); deletes 2 legacy nav files; wires home/about/experience/projects | 2026-04-27 | e6bfa12 | [260427-b3y-unify-page-navigation-across-v2-single-p](./quick/260427-b3y-unify-page-navigation-across-v2-single-p/) |
 | 260426-u5d | Move section labels into left spacers, indent display paragraphs (text-indent 8em), enlarge header band | 2026-04-27 | f4ca2a9 | [260426-u5d-move-section-labels-into-left-spacers-in](./quick/260426-u5d-move-section-labels-into-left-spacers-in/) |
