@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useExperienceHero } from '@/hooks/useExperienceHero'
+import { useInView } from '@/hooks/useInView'
 import { StatsCards } from './StatsCards'
 
 interface ExperienceHeroProps {
@@ -41,6 +42,10 @@ const REDUCED_MOTION_PROGRESS = 0.75
 export function ExperienceHero({ headline, stats }: ExperienceHeroProps) {
   const { outerRef, progress: rawProgress, reducedMotion } = useExperienceHero()
   const [isMobile, setIsMobile] = useState(false)
+  // Mobile container ref — drives the `-inview` propagation so that the
+  // mobile StatsCards trio (which uses `-entrance -slide-up` classes)
+  // receives the visibility cue. The hook short-circuits on first sight.
+  const mobileInViewRef = useInView({ threshold: 0.1, once: true })
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768)
@@ -51,8 +56,9 @@ export function ExperienceHero({ headline, stats }: ExperienceHeroProps) {
   const progress = reducedMotion ? REDUCED_MOTION_PROGRESS : rawProgress
 
   // Headline opacity: full opacity through 0.85, linear fade to 0 by 1.0.
+  // On mobile and reduced motion, no exit fade — headline stays visible.
   let headlineOpacity = 1
-  if (!reducedMotion && progress > HOLD_END) {
+  if (!reducedMotion && !isMobile && progress > HOLD_END) {
     const t = (progress - HOLD_END) / (EXIT_END - HOLD_END)
     headlineOpacity = Math.max(0, 1 - t)
   }
@@ -64,6 +70,7 @@ export function ExperienceHero({ headline, stats }: ExperienceHeroProps) {
       className="relative bg-bg-surface-secondary"
     >
       <div
+        ref={mobileInViewRef as React.RefObject<HTMLDivElement>}
         className={
           isMobile
             ? 'py-12'
@@ -74,7 +81,7 @@ export function ExperienceHero({ headline, stats }: ExperienceHeroProps) {
           <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5">
             {/* Headline — full row, z-20 */}
             <h1
-              className="col-span-4 md:col-span-8 lg:col-span-12 lg:row-start-1 z-20 text-text-primary"
+              className="relative col-start-1 col-span-4 md:col-start-1 md:col-span-8 lg:col-start-1 lg:col-span-12 lg:row-start-1 z-20 text-text-primary"
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 'clamp(2rem, 5vw, 3rem)',

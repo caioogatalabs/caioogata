@@ -8,12 +8,18 @@ interface StatsCardsProps {
   isMobile: boolean
 }
 
-// Per-card initial Y in vh from sticky-container top
+// translateY values in vh, RELATIVE to the card's natural grid position
+// (the grid is vertically centered inside the 100vh sticky pin, so the
+// natural top of the card sits around ~40vh from viewport top).
+//
+// INITIAL_Y_VH: stagger below natural — cards appear in/just below viewport.
+// ALIGNMENT_Y_VH: -25vh from natural lands the card top at ~15vh from
+//                 viewport top, satisfying the "align ~15% above viewport
+//                 top, above the headline" requirement.
+// EXIT_Y_VH: deep negative pushes cards off-screen above by progress=1.
 const INITIAL_Y_VH = [30, 50, 70]
-// All cards converge to this Y at progress = 0.7
-const ALIGNMENT_Y_VH = 15
-// Exit translate target
-const EXIT_Y_VH = -30
+const ALIGNMENT_Y_VH = -25
+const EXIT_Y_VH = -65
 
 // Phase boundaries (must mirror spec table)
 const ENTRY_END = 0.6
@@ -118,7 +124,7 @@ export function StatsCards({ progress, stats, isMobile }: StatsCardsProps) {
         {stats.map((stat, i) => (
           <div
             key={i}
-            className={`${COL_CLASSES[i]} z-10 -entrance -slide-up ${STAGGER_CLASSES[i]}`}
+            className={`relative ${COL_CLASSES[i]} z-10 -entrance -slide-up ${STAGGER_CLASSES[i]}`}
           >
             <StatsCard
               value={stat.value}
@@ -141,7 +147,7 @@ export function StatsCards({ progress, stats, isMobile }: StatsCardsProps) {
         return (
           <div
             key={i}
-            className={`${COL_CLASSES[i]} lg:row-start-1 z-10`}
+            className={`relative ${COL_CLASSES[i]} lg:row-start-1 z-10`}
             style={{
               transform: `translateY(${y}vh)`,
               opacity,
