@@ -248,11 +248,6 @@ export function MenuSection({ content }: MenuSectionProps) {
       <div
         className={`-entrance -fade -a-${filteredItems.length + 1} items-center gap-3 px-5 md:px-8 lg:px-16 py-3 hidden lg:flex`}
       >
-        <div className="flex items-center gap-1.5">
-          <KeyBadge>Esc</KeyBadge>
-          <span className="text-xs text-text-tertiary">to go back</span>
-        </div>
-        <span className="text-xs text-text-tertiary opacity-40">·</span>
         <div className="flex items-center gap-1">
           <KeyBadge>↑</KeyBadge>
           <KeyBadge>↓</KeyBadge>
