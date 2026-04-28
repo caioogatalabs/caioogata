@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
 import { PageNavigation } from '@/components/sections/v2/PageNavigation'
+import { ExperienceHero } from '@/components/sections/v2/experience/ExperienceHero'
 import { MAIN_NAVIGATION } from '@/content/main-navigation'
 import { useExperienceNavigation } from '@/hooks/useExperienceNavigation'
 import { useInView } from '@/hooks/useInView'
@@ -13,7 +14,6 @@ const typedContent = content as unknown as Content
 const jobs = typedContent.experience.jobs
 
 export function ExperienceSection() {
-  const heroRef = useInView({ threshold: 0.1, once: true })
   const rowsRef = useInView({ threshold: 0.05, once: true })
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -64,29 +64,14 @@ export function ExperienceSection() {
 
   return (
     <div className="min-h-screen bg-bg" data-theme="light">
-      {/* Hero zone */}
-      <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12">
-        <StickyLogoBar />
+      {/* Sticky logo bar — sibling of the 400vh pin (matches AboutPinned pattern). */}
+      <StickyLogoBar />
 
-        <div
-          ref={heroRef as React.RefObject<HTMLDivElement>}
-          className="px-5 md:px-8 lg:px-16 pb-16 md:pb-24"
-        >
-          <h1
-            className="-entrance -slide-up -a-0 text-5xl md:text-7xl lg:text-8xl text-text-primary font-semibold"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            Experience
-          </h1>
-          <div className="-entrance -slide-up -a-1 flex items-center gap-3 mt-4 font-mono text-sm text-text-secondary">
-            <span>12+ years</span>
-            <span className="text-text-tertiary">·</span>
-            <span>6 companies</span>
-            <span className="text-text-tertiary">·</span>
-            <span>3 director roles</span>
-          </div>
-        </div>
-      </div>
+      {/* Hero — 400vh pinned converging-cards section */}
+      <ExperienceHero
+        headline={typedContent.experience.hero.headline}
+        stats={typedContent.experience.hero.stats}
+      />
 
       {/* Unified page navigation — categories circuit */}
       <PageNavigation
@@ -104,13 +89,24 @@ export function ExperienceSection() {
       >
         <div ref={containerRef}>
           {jobs.map((job, index) => {
-            const isHighlighted =
-              highlightedIndex === index
+            const isHighlighted = highlightedIndex === index
             const isExpanded = expandedIndex === index
             const dimmed = isDimmed(index)
             const isKeyboardFocused =
               activeIndex === index && hoveredIndex < 0
             const staggerClass = `-a-${Math.min(index, 20)}`
+            // Yellow bar visibility: only on hover/focus (highlighted) of
+            // a NON-expanded row. When expanded, the bar disappears so
+            // the row sits on the neutral page surface (spec).
+            const showYellowBar = isHighlighted && !isExpanded
+            // Larger highlighted typography: shows on highlight OR expand
+            // (both states get the bigger Pexel Grotesk variant).
+            const showLargeText = isHighlighted || isExpanded
+            // Top-divider only above the very first row; subsequent rows
+            // use their predecessor's bottom divider.
+            const showTopDivider = index === 0
+            // Achievement slice — render at most 3 in cols 7-8/9-10/11-12.
+            const achievements = (job.achievements ?? []).slice(0, 3)
 
             return (
               <div
@@ -119,11 +115,23 @@ export function ExperienceSection() {
                 role="listitem"
                 className={`-entrance -slide-up ${staggerClass}`}
               >
+                {/* Top divider (only above index 0) */}
+                {showTopDivider && (
+                  <div
+                    className="h-px w-full bg-border-primary"
+                    style={{
+                      opacity: showYellowBar || isExpanded ? 0 : 0.1,
+                      transition: 'opacity 0.3s',
+                      ...instantStyle,
+                    }}
+                  />
+                )}
+
                 {/* Row button */}
                 <div
                   className="relative cursor-pointer"
                   style={{
-                    zIndex: isHighlighted || isExpanded ? 10 : 1,
+                    zIndex: showYellowBar ? 10 : 1,
                   }}
                   onClick={() => toggle(index)}
                   onMouseEnter={() => setHoveredIndex(index)}
@@ -132,7 +140,7 @@ export function ExperienceSection() {
                   aria-expanded={isExpanded}
                   aria-label={`${job.company} — ${job.title}, ${job.dateRange}`}
                 >
-                  {/* Yellow background bar */}
+                  {/* Yellow background bar — hover/focus only (hidden on expand) */}
                   <div
                     className="absolute bg-bg-fill-primary pointer-events-none"
                     style={{
@@ -140,45 +148,42 @@ export function ExperienceSection() {
                       right: '-12px',
                       top: '-5px',
                       bottom: '-5px',
-                      transform:
-                        isHighlighted || isExpanded
-                          ? 'scaleX(1) scaleY(1)'
-                          : 'scaleX(0.92) scaleY(0.6)',
-                      opacity: isHighlighted || isExpanded ? 1 : 0,
-                      transition:
-                        isHighlighted || isExpanded
-                          ? 'transform 0.6s cubic-bezier(0.22,0.31,0,1) 0.04s, opacity 0.2s cubic-bezier(0.22,0.31,0,1) 0.04s'
-                          : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
+                      transform: showYellowBar
+                        ? 'scaleX(1) scaleY(1)'
+                        : 'scaleX(0.92) scaleY(0.6)',
+                      opacity: showYellowBar ? 1 : 0,
+                      transition: showYellowBar
+                        ? 'transform 0.6s cubic-bezier(0.22,0.31,0,1) 0.04s, opacity 0.2s cubic-bezier(0.22,0.31,0,1) 0.04s'
+                        : 'transform 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
                       transformOrigin: 'left center',
                       borderRadius: '12px',
                       ...instantStyle,
                     }}
                   />
 
-                  {/* Row content — 12-col grid: 3-3-3-3 */}
-                  <div className="relative z-10 grid grid-cols-12 items-center py-3 gap-x-4">
-                    {/* Arrow — display size, expands before label */}
+                  {/* Row content — strict 12-col grid: arrow(1) date(2-3) company(4-6) title(7-12) */}
+                  <div className="relative z-10 grid grid-cols-12 items-center px-3 py-3 gap-x-4">
+                    {/* Arrow — col 1 */}
                     <div className="col-span-12 md:col-span-1 flex items-center">
                       <span
                         className="shrink-0"
                         style={{
                           fontFamily: "'Pexel Grotesk', var(--font-sans)",
-                          color:
-                            isHighlighted || isExpanded
-                              ? 'var(--color-text-on-primary)'
+                          color: showYellowBar
+                            ? 'var(--color-text-on-primary)'
+                            : isExpanded
+                              ? 'var(--color-text-primary)'
                               : 'transparent',
                           fontSize: '3.5rem',
                           fontWeight: 400,
                           lineHeight: 1,
                           letterSpacing: '-0.02em',
-                          width:
-                            isHighlighted || isExpanded ? '3rem' : '0px',
-                          opacity: isHighlighted || isExpanded ? 1 : 0,
+                          width: showLargeText ? '3rem' : '0px',
+                          opacity: showLargeText ? 1 : 0,
                           overflow: 'hidden',
-                          transition:
-                            isHighlighted || isExpanded
-                              ? 'width 0.5s cubic-bezier(0.16,1,0.3,1) 0.04s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.04s'
-                              : 'width 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s cubic-bezier(0.16,1,0.3,1)',
+                          transition: showLargeText
+                            ? 'width 0.5s cubic-bezier(0.16,1,0.3,1) 0.04s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                            : 'width 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s cubic-bezier(0.16,1,0.3,1)',
                           ...instantStyle,
                         }}
                         aria-hidden="true"
@@ -187,18 +192,19 @@ export function ExperienceSection() {
                       </span>
                     </div>
 
-                    {/* Date range */}
-                    <div className="hidden md:flex col-span-2 items-center">
+                    {/* Date — col 2-3 */}
+                    <div className="hidden md:flex md:col-span-2 items-center">
                       <span
                         className="font-mono text-sm"
                         style={{
-                          color:
-                            isHighlighted || isExpanded
-                              ? 'var(--color-text-on-primary)'
+                          color: showYellowBar
+                            ? 'var(--color-text-on-primary)'
+                            : isExpanded
+                              ? 'var(--color-text-secondary)'
                               : dimmed
                                 ? 'var(--color-text-tertiary)'
                                 : 'var(--color-text-secondary)',
-                          opacity: dimmed ? 0.3 : 1,
+                          opacity: dimmed && !isExpanded ? 0.3 : 1,
                           transition: 'color 0.3s, opacity 0.3s',
                           ...instantStyle,
                         }}
@@ -207,8 +213,8 @@ export function ExperienceSection() {
                       </span>
                     </div>
 
-                    {/* Company — masked text swap */}
-                    <div className="col-span-8 md:col-span-4">
+                    {/* Company — col 4-6 — masked text swap */}
+                    <div className="col-span-8 md:col-span-3">
                       <span
                         className="relative block overflow-hidden"
                         style={{
@@ -221,21 +227,19 @@ export function ExperienceSection() {
                         <span
                           className="absolute inset-0 flex items-center"
                           style={{
-                            transform:
-                              isHighlighted || isExpanded
-                                ? 'translateY(-100%)'
-                                : 'translateY(0)',
+                            transform: showLargeText
+                              ? 'translateY(-100%)'
+                              : 'translateY(0)',
                             color: dimmed
                               ? 'var(--color-text-tertiary)'
-                              : isHighlighted || isExpanded
+                              : showYellowBar
                                 ? 'var(--color-text-on-primary)'
                                 : 'var(--color-text-primary)',
                             fontFamily: 'var(--font-sans)',
                             fontWeight: 600,
-                            transition:
-                              isHighlighted || isExpanded
-                                ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
-                                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                            transition: showLargeText
+                              ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                              : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                             opacity: dimmed ? 0.3 : 1,
                             ...instantStyle,
                           }}
@@ -246,15 +250,15 @@ export function ExperienceSection() {
                         <span
                           className="absolute inset-0 flex items-center"
                           style={{
-                            transform:
-                              isHighlighted || isExpanded
-                                ? 'translateY(0)'
-                                : 'translateY(100%)',
-                            transition:
-                              isHighlighted || isExpanded
-                                ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
-                                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
-                            color: 'var(--color-text-on-primary)',
+                            transform: showLargeText
+                              ? 'translateY(0)'
+                              : 'translateY(100%)',
+                            transition: showLargeText
+                              ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                              : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                            color: showYellowBar
+                              ? 'var(--color-text-on-primary)'
+                              : 'var(--color-text-primary)',
                             fontFamily:
                               "'Pexel Grotesk', var(--font-sans)",
                             fontSize: '1.5rem',
@@ -267,8 +271,8 @@ export function ExperienceSection() {
                       </span>
                     </div>
 
-                    {/* Title — masked text swap */}
-                    <div className="col-span-4 md:col-span-4 hidden md:block">
+                    {/* Title — col 7-12 — masked text swap */}
+                    <div className="col-span-4 md:col-span-6 hidden md:block">
                       <span
                         className="relative block overflow-hidden"
                         style={{
@@ -281,18 +285,18 @@ export function ExperienceSection() {
                         <span
                           className="absolute inset-0 flex items-center"
                           style={{
-                            transform:
-                              isHighlighted || isExpanded
-                                ? 'translateY(-100%)'
-                                : 'translateY(0)',
+                            transform: showLargeText
+                              ? 'translateY(-100%)'
+                              : 'translateY(0)',
                             color: dimmed
                               ? 'var(--color-text-tertiary)'
-                              : 'var(--color-text-secondary)',
+                              : showYellowBar
+                                ? 'var(--color-text-on-primary)'
+                                : 'var(--color-text-secondary)',
                             fontFamily: 'var(--font-sans)',
-                            transition:
-                              isHighlighted || isExpanded
-                                ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
-                                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                            transition: showLargeText
+                              ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                              : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                             opacity: dimmed ? 0.3 : 1,
                             ...instantStyle,
                           }}
@@ -303,15 +307,15 @@ export function ExperienceSection() {
                         <span
                           className="absolute inset-0 flex items-center"
                           style={{
-                            transform:
-                              isHighlighted || isExpanded
-                                ? 'translateY(0)'
-                                : 'translateY(100%)',
-                            transition:
-                              isHighlighted || isExpanded
-                                ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
-                                : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
-                            color: 'var(--color-text-on-primary)',
+                            transform: showLargeText
+                              ? 'translateY(0)'
+                              : 'translateY(100%)',
+                            transition: showLargeText
+                              ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                              : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                            color: showYellowBar
+                              ? 'var(--color-text-on-primary)'
+                              : 'var(--color-text-primary)',
                             fontFamily:
                               "'Pexel Grotesk', var(--font-sans)",
                             fontSize: '1.5rem',
@@ -324,17 +328,18 @@ export function ExperienceSection() {
                       </span>
                     </div>
 
-                    {/* Mobile: title below company */}
+                    {/* Mobile: title + date stacked below company */}
                     <div className="col-span-12 md:hidden mt-0.5">
                       <span
                         className="text-sm"
                         style={{
                           fontFamily: 'var(--font-sans)',
-                          color:
-                            isHighlighted || isExpanded
-                              ? 'var(--color-text-on-primary)'
+                          color: showYellowBar
+                            ? 'var(--color-text-on-primary)'
+                            : isExpanded
+                              ? 'var(--color-text-secondary)'
                               : 'var(--color-text-secondary)',
-                          opacity: dimmed ? 0.3 : 1,
+                          opacity: dimmed && !isExpanded ? 0.3 : 1,
                           transition: 'color 0.3s, opacity 0.3s',
                           ...instantStyle,
                         }}
@@ -344,11 +349,12 @@ export function ExperienceSection() {
                       <span
                         className="font-mono text-xs mt-1 block"
                         style={{
-                          color:
-                            isHighlighted || isExpanded
-                              ? 'var(--color-text-on-primary)'
+                          color: showYellowBar
+                            ? 'var(--color-text-on-primary)'
+                            : isExpanded
+                              ? 'var(--color-text-tertiary)'
                               : 'var(--color-text-tertiary)',
-                          opacity: dimmed ? 0.3 : 1,
+                          opacity: dimmed && !isExpanded ? 0.3 : 1,
                           transition: 'color 0.3s, opacity 0.3s',
                           ...instantStyle,
                         }}
@@ -370,7 +376,7 @@ export function ExperienceSection() {
                   </div>
                 </div>
 
-                {/* Accordion expand — CSS grid-template-rows transition */}
+                {/* Accordion expand — neutral background, 12-col grid bottom */}
                 <div
                   style={{
                     display: 'grid',
@@ -383,29 +389,18 @@ export function ExperienceSection() {
                   }}
                 >
                   <div className="overflow-hidden min-h-0">
-                    <div
-                      className="py-4 md:py-6"
-                      style={{
-                        backgroundColor: isExpanded
-                          ? 'var(--color-bg-fill-primary)'
-                          : 'transparent',
-                        borderRadius: '0 0 12px 12px',
-                        marginLeft: '-12px',
-                        marginRight: '-12px',
-                        paddingLeft: '12px',
-                        paddingRight: '12px',
-                      }}
-                    >
-                      {/* 6-6 grid: description left, achievements right */}
+                    <div className="px-3 py-3 md:py-4">
+                      {/* Strict 12-col grid:
+                            description (col 1-4) | spacer (col 5-6)
+                            achievement 1 (col 7-8) | achievement 2 (col 9-10) | achievement 3 (col 11-12) */}
                       <div className="grid grid-cols-12 gap-x-4 gap-y-4">
-                        {/* Description + location */}
-                        <div className="col-span-12 md:col-span-6">
+                        {/* Description block — col 1-4 */}
+                        <div className="col-span-12 md:col-span-4">
                           {job.location && (
                             <p
                               className="text-xs font-mono mb-2"
                               style={{
-                                color: 'var(--color-text-on-primary)',
-                                opacity: 0.7,
+                                color: 'var(--color-text-secondary)',
                               }}
                             >
                               {job.location}
@@ -413,9 +408,8 @@ export function ExperienceSection() {
                           )}
                           {job.description && (
                             <p
-                              className="text-base leading-relaxed"
+                              className="text-base leading-relaxed text-text-primary"
                               style={{
-                                color: 'var(--color-text-on-primary)',
                                 fontFamily: 'var(--font-sans)',
                               }}
                             >
@@ -424,44 +418,35 @@ export function ExperienceSection() {
                           )}
                         </div>
 
-                        {/* Achievements */}
-                        {job.achievements &&
-                          job.achievements.length > 0 && (
-                            <div className="col-span-12 md:col-span-6">
-                              <ul className="space-y-2">
-                                {job.achievements.map((a, i) => (
-                                  <li
-                                    key={i}
-                                    className="text-base leading-relaxed flex gap-2"
-                                    style={{
-                                      color:
-                                        'var(--color-text-on-primary)',
-                                      fontFamily: 'var(--font-sans)',
-                                    }}
-                                  >
-                                    <span
-                                      className="shrink-0 mt-1"
-                                      style={{ opacity: 0.6 }}
-                                    >
-                                      -
-                                    </span>
-                                    <span>{a.text}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
+                        {/* Spacer — col 5-6 (desktop only) */}
+                        <div className="hidden md:block md:col-span-2" />
+
+                        {/* Achievement slots — each col 7-8 / 9-10 / 11-12 (col-span-2 each) */}
+                        {achievements.map((a, i) => (
+                          <div
+                            key={i}
+                            className="col-span-12 md:col-span-2"
+                          >
+                            <p
+                              className="text-base leading-relaxed text-text-primary"
+                              style={{
+                                fontFamily: 'var(--font-sans)',
+                              }}
+                            >
+                              {a.text}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Row divider */}
+                {/* Bottom divider — hidden when row is highlighted or expanded */}
                 <div
                   className="h-px w-full bg-border-primary"
                   style={{
-                    opacity:
-                      isHighlighted || isExpanded ? 0 : 0.1,
+                    opacity: showYellowBar || isExpanded ? 0 : 0.1,
                     transition: 'opacity 0.3s',
                     ...instantStyle,
                   }}
