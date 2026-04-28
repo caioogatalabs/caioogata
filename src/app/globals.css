@@ -2,18 +2,34 @@
 @import "../tokens/index.css";
 
 @font-face {
-  font-family: 'Fabio XM';
-  src: url('../fonts/FabioXM-Variable.ttf') format('truetype');
-  font-weight: 300 900;
+  font-family: 'Switzer';
+  src: url('../fonts/Switzer-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Pexel Grotesk';
-  src: url('../fonts/PexelGrotesk-Regular.otf') format('opentype');
-  font-weight: 400;
+  font-family: 'Switzer';
+  src: url('../fonts/Switzer-VariableItalic.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-Variable.woff2') format('woff2-variations');
+  font-weight: 100 800;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-VariableItalic.woff2') format('woff2-variations');
+  font-weight: 100 800;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -276,3 +292,11 @@ html:not(.-ready) .-entrance {
 .-a-18 { transition-delay: 1410ms; }
 .-a-19 { transition-delay: 1480ms; }
 .-a-20 { transition-delay: 1550ms; }
+
+/* Button hover overlay (masked vertical text-swap) — collapses font-family + size + weight + line-height */
+.type-overlay-hover {
+  font-family: var(--font-mono);
+  font-size: var(--text-overlay-hover);
+  font-weight: var(--primitive-font-regular);
+  line-height: 1;
+}
