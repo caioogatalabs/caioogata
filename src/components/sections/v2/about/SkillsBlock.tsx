@@ -122,38 +122,104 @@ export function SkillsBlock() {
                             return (
                               <div
                                 key={skill.name}
-                                className="relative overflow-hidden p-2 cursor-default"
+                                className="relative p-2 cursor-default"
                                 onMouseEnter={() => setHoveredSkill(skill.name)}
                                 onMouseLeave={() => setHoveredSkill(null)}
                               >
-                                {/* Bar (z-0) — width driven by inline style for reliability across Tailwind builds */}
+                                {/* Bar (z-0) — 12px radius + -3px V bleed.
+                                    Width carries the level semantic (Expert 95%, Familiar 35%) and replaces
+                                    Experience's scaleX while keeping the same ease-out timing tokens. */}
                                 <span
                                   aria-hidden="true"
-                                  className={`absolute inset-y-0 left-0 bg-bg-fill-primary ${
-                                    reducedMotion
-                                      ? ''
-                                      : 'transition-all duration-500 ease-[cubic-bezier(0.5,0,0.3,1)]'
-                                  }`}
+                                  className="absolute left-0 bg-bg-fill-primary pointer-events-none"
                                   style={{
+                                    top: '-3px',
+                                    bottom: '-3px',
                                     width: isHovered ? LEVEL_WIDTH[skill.level] : '0%',
+                                    opacity: isHovered ? 1 : 0,
+                                    borderRadius: '12px',
+                                    transformOrigin: 'left center',
+                                    transition: reducedMotion
+                                      ? 'none'
+                                      : isHovered
+                                        ? 'width 0.6s cubic-bezier(0.22,0.31,0,1) 0.04s, opacity 0.2s cubic-bezier(0.22,0.31,0,1) 0.04s'
+                                        : 'width 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
                                   }}
                                 />
                                 {/* Text row (z-10) */}
                                 <div className="relative z-10 flex items-center justify-between">
+                                  {/* Skill name — masked vertical sans → mono 1.25rem swap (mirrors Experience) */}
                                   <span
-                                    className={`text-base ${
-                                      isHovered ? 'text-text-inverse' : 'text-text-primary'
-                                    } ${reducedMotion ? '' : 'transition-colors duration-300'}`}
-                                    style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
+                                    className="relative block overflow-hidden flex-1 min-w-0"
+                                    style={{
+                                      height: '2rem',
+                                      marginTop: '-0.25rem',
+                                      marginBottom: '-0.25rem',
+                                    }}
                                   >
-                                    {skill.name}
+                                    {/* Default text — sans, text-base */}
+                                    <span
+                                      className="absolute inset-0 flex items-center"
+                                      style={{
+                                        transform: isHovered ? 'translateY(-100%)' : 'translateY(0)',
+                                        color: 'var(--color-text-primary)',
+                                        fontFamily: 'var(--font-sans)',
+                                        fontSize: '1rem',
+                                        fontWeight: 400,
+                                        transition: reducedMotion
+                                          ? 'none'
+                                          : isHovered
+                                            ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                                            : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                                      }}
+                                    >
+                                      <span className="block truncate">{skill.name}</span>
+                                    </span>
+                                    {/* Hover text — mono via .type-overlay-hover, 1.25rem override (denser row) */}
+                                    <span
+                                      className="absolute inset-0 flex items-center type-overlay-hover"
+                                      style={{
+                                        transform: isHovered ? 'translateY(0)' : 'translateY(100%)',
+                                        color: 'var(--color-text-on-primary)',
+                                        fontSize: '1.25rem',
+                                        transition: reducedMotion
+                                          ? 'none'
+                                          : isHovered
+                                            ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                                            : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                                      }}
+                                    >
+                                      <span className="block truncate">{skill.name}</span>
+                                    </span>
                                   </span>
+
+                                  {/* Level label — hidden by default, swap-in on hover at right edge.
+                                      aria-hidden because level is decorative-on-hover; the skill name carries semantics. */}
                                   <span
-                                    className={`font-mono text-xs ${
-                                      isHovered ? 'text-text-inverse' : 'text-text-tertiary'
-                                    } ${reducedMotion ? '' : 'transition-colors duration-300'}`}
+                                    className="relative block overflow-hidden shrink-0"
+                                    style={{
+                                      height: '2rem',
+                                      marginTop: '-0.25rem',
+                                      marginBottom: '-0.25rem',
+                                      minWidth: '6rem',
+                                    }}
+                                    aria-hidden="true"
                                   >
-                                    {skill.level}
+                                    <span
+                                      className="absolute inset-0 flex items-center justify-end type-overlay-hover"
+                                      style={{
+                                        transform: isHovered ? 'translateY(0)' : 'translateY(100%)',
+                                        color: 'var(--color-text-on-primary)',
+                                        fontSize: '1.25rem',
+                                        transition: reducedMotion
+                                          ? 'none'
+                                          : isHovered
+                                            ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                                            : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                                      }}
+                                    >
+                                      {skill.level}
+                                    </span>
                                   </span>
                                 </div>
                               </div>
