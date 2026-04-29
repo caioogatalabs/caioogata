@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed quick task 260429-edp (Hover Cell pattern unification — Menu/Skills converged on Experience canonical)
-last_updated: "2026-04-29T13:27:36Z"
-last_activity: "2026-04-29 - Completed quick task 260429-edp: unified Hover Cell pattern — Menu drops 2.25rem overlay overrides (now 1.5rem default), SkillsBlock gains 12px-radius bar + -3px V bleed + masked vertical sans→mono 1.25rem swap on name + hidden→swap-in level label; ExperienceSection canonical zero-diff; commits b712781, e2c42fb"
+stopped_at: Completed quick task 260429-ruy Tasks 1-2 (StickyLogoBar relocated inside 400vh pin containers; Task 3 awaiting human-verify)
+last_updated: "2026-04-29T23:11:12.720Z"
+last_activity: "2026-04-29 - Completed quick task 260429-edp: unified Hover Cell pattern across V2 (Menu/Skills converged on Experience canonical; 2 commits, tsc passes, Experience zero-diff)"
 progress:
   total_phases: 7
   completed_phases: 6
@@ -121,6 +121,7 @@ Recent decisions affecting current work:
 - [Phase 260427-b3y]: [Quick 260427-b3y]: Unified V2 page navigation — created `PageNavigation` (sticky-top, all-controls-left-aligned, mono small) with optional `back` + `lateral` props and a single window keydown listener (←/→ lateral via router.push, Esc back/home, INPUT/TEXTAREA/SELECT/contentEditable guard). Created `MAIN_NAVIGATION` constant (Home/About/Experience/Philosophy) as canonical category circuit. Wired into 4 call-sites: home (PageShell — between IntroSection and MenuSection), /about (AboutSection — replaces old ProjectNavigation atom), /experience (ExperienceSection — Case A, between hero band and rows), /projects/[slug] (ProjectPageShell — single instance, bottom instance dropped, prev/next over enabled projects). Deleted legacy `about/ProjectNavigation.tsx` and `project/ProjectNavigation.tsx` (117 lines removed, 117 added — net wash, broader feature set). Single commit e6bfa12 covers 8 files. pnpm tsc --noEmit exits 0.
 - [Phase 260429-edp]: [Quick 260429-edp]: Hover Cell pattern unification — Menu's two inline `fontSize: '2.25rem'` overlay overrides removed (now uses `.type-overlay-hover` default 1.5rem matching Experience). SkillsBlock per-row template restructured: bar gains `borderRadius: 12px`, `top/bottom: -3px` V bleed, ease-out cubic-bezier(0.22,0.31,0,1) at 0.6s entry / 0.5s exit + opacity in tandem (width still carries level semantic via LEVEL_WIDTH — Expert 95% / Advanced 75% / Proficient 55% / Familiar 35%); skill name now masked vertical sans→mono 1.25rem swap (.type-overlay-hover + inline fontSize override mirroring Menu's now-removed symmetry); level label hidden by default and swap-in on hover at row right edge (mono 1.25rem on-primary, justify-end, fixed minWidth 6rem to prevent reflow, aria-hidden as decorative-on-hover). ExperienceSection.tsx is the canonical reference and verified zero-diff across both commits. Row `overflow-hidden` removed so V bleed reads (accordion outer clip preserved upstream — known consequence at first/last row top/bottom of panel, accepted per spec since -3px is small enough to be perceptually intact). reducedMotion guard collapses bar + name + level label transitions to `'none'`. 2 commits (b712781 refactor:Menu, e2c42fb feat:Skills); pnpm tsc --noEmit exits 0.
 - [Phase 260427-uge]: [Quick 260427-uge]: /experience page redesign — new converging-cards hero matching /about's 400vh pin pattern + strict 12-col row alignment + neutral expanded state. Added `useExperienceHero` hook (rAF + ticking-flag, mirrors useScrollVideo; reduced-motion + mobile <768px bypass at init); 3 components in `experience/` (StatsCard, StatsCards, ExperienceHero). 4-phase per-card trajectory (entry 0–0.6 linear 6/7, convergence 0.6–0.7 cubic ease-out 1/7, hold 0.7–0.85, exit 0.85–1.0 with opacity fade); cubic-bezier(0.16,1,0.3,1) approximated as 1-(1-t)^3 over the short converge segment. Headline at z-20 + cards at z-10 share `lg:row-start-1` so cards translate UP THROUGH the headline. Reduced-motion path remaps progress to 0.75 (hold phase — cards aligned + visible) — resolves spec ambiguity in favor of the verification checklist. ExperienceSection refactored: rows on strict 12-col grid (col 1 arrow / 2-3 date / 4-6 company / 7-12 title), expanded panel transparent (no yellow bg), bottom grid description(1-4)+spacer(5-6)+achievements(7-8/9-10/11-12), yellow bar shows only on highlight && !expanded. StatsCard uses `bg-bg-surface-secondary` to occlude the headline cleanly during convergence (Rule 2 auto-add). Three commits (c87c7d3, afc3b1c, c136cc1) covering 9 files; pnpm tsc --noEmit exits 0; Task 4 visual verification awaiting user.
+- [Phase 260429-ruy]: [Quick 260429-ruy]: Moved StickyLogoBar from short bg-bg-surface-secondary orchestrator wrapper into FIRST child of the 400vh pin containers (AboutPinned, ExperienceHero) so its sticky context spans the full pin scroll. Orchestrators (AboutSection, ExperienceSection) drop the wrapper + import. Mobile branch (ExperienceHero auto-height) falls back to natural-flow sticky — logo appears at top of hero region. Home (IntroSection) intentionally untouched. 4 files modified. Commits 2a98e30 (feat: mount), 1d2e2fc (refactor: drop wrapper). pnpm tsc --noEmit exits 0. Task 3 (manual scroll verification) awaiting human-verify.
 
 ### Roadmap Evolution
 
@@ -139,6 +140,7 @@ None yet.
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
+| 260429-ruy | Move StickyLogoBar inside AboutPinned + ExperienceHero (first child of 400vh pin); drop short bg-bg-surface-secondary wrapper from About + Experience orchestrators; home (IntroSection) untouched. Tasks 1-2 done; Task 3 (manual scroll verify) awaiting human | 2026-04-29 | 2a98e30, 1d2e2fc | [260429-ruy-move-stickylogobar-inside-aboutpinned-an](./quick/260429-ruy-move-stickylogobar-inside-aboutpinned-an/) |
 | 260429-edp | Hover Cell pattern unification — Menu drops 2.25rem overlay overrides (now 1.5rem default); SkillsBlock gains 12px-radius bar + -3px V bleed + masked vertical sans→mono 1.25rem name swap + hidden→swap-in level label; ExperienceSection canonical zero-diff | 2026-04-29 | b712781, e2c42fb | [260429-edp-implement-hover-cell-pattern-unification](./quick/260429-edp-implement-hover-cell-pattern-unification/) |
 | 260428-trs | V2 sans typography swap — Switzer → Epilogue via --primitive-font-sans token; 2 woff2 added; JetBrains Mono + .type-overlay-hover untouched; Switzer files preserved | 2026-04-28 | 20a7e98, 79361e0, 508c828 | [260428-trs-swap-v2-sans-typography-from-switzer-to-](./quick/260428-trs-swap-v2-sans-typography-from-switzer-to-/) |
 | 260428-fmr | V2 typography swap — Fabio XM + Pexel Grotesk + Cascadia Mono → Switzer + JetBrains Mono via tokens; new --text-overlay-hover token + .type-overlay-hover utility class; ~26 hardcoded fontFamily inline styles refactored; @fontsource/cascadia-mono removed | 2026-04-28 | 4562e44, 9814493, 8b2b8cf, 49794c8, d5298af | [260428-fmr-swap-v2-typography-from-fabio-xm-pexel-g](./quick/260428-fmr-swap-v2-typography-from-fabio-xm-pexel-g/) |
@@ -156,6 +158,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-29T13:27:36Z
-Stopped at: Completed quick task 260429-edp (Hover Cell pattern unification — Menu/Skills converged on Experience canonical)
+Last session: 2026-04-29T23:11:07.385Z
+Stopped at: Completed quick task 260429-ruy Tasks 1-2 (StickyLogoBar relocated inside 400vh pin containers; Task 3 awaiting human-verify)
 Resume file: None
