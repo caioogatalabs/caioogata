@@ -45,8 +45,6 @@ export function ExperienceSection() {
   }, [])
 
   const {
-    activeIndex,
-    hoveredIndex,
     highlightedIndex,
     setHoveredIndex,
     isDimmed,
@@ -102,8 +100,6 @@ export function ExperienceSection() {
             const isHighlighted = highlightedIndex === index
             const isExpanded = expandedIndex === index
             const dimmed = isDimmed(index)
-            const isKeyboardFocused =
-              activeIndex === index && hoveredIndex < 0
             const staggerClass = `-a-${Math.min(index, 20)}`
             // Yellow bar visibility: only on hover/focus (highlighted) of
             // a NON-expanded row. When expanded, the bar disappears so
@@ -381,16 +377,6 @@ export function ExperienceSection() {
                       </span>
                     </div>
 
-                    {/* Keyboard focus indicator */}
-                    {isKeyboardFocused && (
-                      <div
-                        className="absolute inset-0 rounded-[12px] pointer-events-none"
-                        style={{
-                          outline: '2px solid var(--color-text-primary)',
-                          outlineOffset: '2px',
-                        }}
-                      />
-                    )}
                   </div>
                 </div>
 
