@@ -180,8 +180,6 @@ export function MenuSection({ content }: MenuSectionProps) {
                         ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
                         : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                       color: 'var(--color-text-on-primary)',
-                      // Override .type-overlay-hover default size (1.5rem) → 2.25rem for menu label emphasis
-                      fontSize: '2.25rem',
                     }}
                   >
                     <span className="block truncate">/{item.label}</span>
@@ -217,8 +215,6 @@ export function MenuSection({ content }: MenuSectionProps) {
                           ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
                           : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                         color: 'var(--color-text-on-primary)',
-                        // Override .type-overlay-hover default size (1.5rem) → 2.25rem for menu description emphasis
-                        fontSize: '2.25rem',
                       }}
                     >
                       <span className="block truncate">{item.description}</span>
