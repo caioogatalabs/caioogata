@@ -146,11 +146,10 @@ export function SkillsBlock() {
                                         : 'width 0.5s cubic-bezier(0.22,0.31,0,1) 0.06s, opacity 0.3s cubic-bezier(0.22,0.31,0,1) 0.06s',
                                   }}
                                 />
-                                {/* Text row (z-10) */}
-                                <div className="relative z-10 flex items-center justify-between">
-                                  {/* Skill name — masked vertical sans → mono 1.25rem swap (mirrors Experience) */}
+                                {/* Skill name (z-10) — masked vertical sans → mono 1.25rem swap (mirrors Experience) */}
+                                <div className="relative z-10">
                                   <span
-                                    className="relative block overflow-hidden flex-1 min-w-0"
+                                    className="relative block overflow-hidden"
                                     style={{
                                       height: '2rem',
                                       marginTop: '-0.25rem',
@@ -192,36 +191,44 @@ export function SkillsBlock() {
                                       <span className="block truncate">{skill.name}</span>
                                     </span>
                                   </span>
-
-                                  {/* Level label — hidden by default, swap-in on hover at right edge.
-                                      aria-hidden because level is decorative-on-hover; the skill name carries semantics. */}
-                                  <span
-                                    className="relative block overflow-hidden shrink-0"
-                                    style={{
-                                      height: '2rem',
-                                      marginTop: '-0.25rem',
-                                      marginBottom: '-0.25rem',
-                                      minWidth: '6rem',
-                                    }}
-                                    aria-hidden="true"
-                                  >
-                                    <span
-                                      className="absolute inset-0 flex items-center justify-end type-overlay-hover"
-                                      style={{
-                                        transform: isHovered ? 'translateY(0)' : 'translateY(100%)',
-                                        color: 'var(--color-text-on-primary)',
-                                        fontSize: '1.25rem',
-                                        transition: reducedMotion
-                                          ? 'none'
-                                          : isHovered
-                                            ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
-                                            : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
-                                      }}
-                                    >
-                                      {skill.level}
-                                    </span>
-                                  </span>
                                 </div>
+
+                                {/* Level label — hidden by default, swap-in on hover at the RIGHT END OF THE
+                                    YELLOW BAR (not the row). `right: calc(100% - LEVEL_WIDTH)` anchors the
+                                    label's right edge to the bar's right edge, so it always sits inside the
+                                    yellow regardless of level (Expert 95% → near row edge, Familiar 35% → mid-row).
+                                    Outer is `overflow-hidden` and inner is `absolute inset-0` — required so
+                                    `translateY(100%)` translates by the OUTER's height (full row), fully clipping
+                                    the text when not hovered. Inner-only translate would move by text height only
+                                    and leak the top half through.
+                                    aria-hidden because level is decorative-on-hover; skill name carries semantics. */}
+                                <span
+                                  className="absolute z-10 overflow-hidden pointer-events-none"
+                                  style={{
+                                    top: 0,
+                                    bottom: 0,
+                                    left: 0,
+                                    right: `calc(100% - ${LEVEL_WIDTH[skill.level]})`,
+                                  }}
+                                  aria-hidden="true"
+                                >
+                                  <span
+                                    className="absolute inset-0 flex items-center justify-end type-overlay-hover whitespace-nowrap"
+                                    style={{
+                                      paddingRight: '0.75rem',
+                                      transform: isHovered ? 'translateY(0)' : 'translateY(100%)',
+                                      color: 'var(--color-text-on-primary)',
+                                      fontSize: '1.25rem',
+                                      transition: reducedMotion
+                                        ? 'none'
+                                        : isHovered
+                                          ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                                          : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                                    }}
+                                  >
+                                    {skill.level}
+                                  </span>
+                                </span>
                               </div>
                             )
                           })}
