@@ -93,7 +93,7 @@
   --primitive-radius-full: 9999px;
 
   /* ─── Typography ─── */
-  --primitive-font-sans: 'Switzer', system-ui, -apple-system, sans-serif;
+  --primitive-font-sans: 'Epilogue', system-ui, -apple-system, sans-serif;
   --primitive-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   --primitive-text-2xs:  0.625rem;
