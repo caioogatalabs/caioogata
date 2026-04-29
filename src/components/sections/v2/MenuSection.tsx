@@ -4,6 +4,7 @@ import { useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useMenuNavigation } from '@/hooks/useMenuNavigation'
 import { useInView } from '@/hooks/useInView'
+import { useInteractionMode } from '@/hooks/useInteractionMode'
 import { FloatingPreview } from '@/components/sections/v2/FloatingPreview'
 import type { MenuItem, Menu } from '@/content/types'
 
@@ -61,6 +62,13 @@ export function MenuSection({ content }: MenuSectionProps) {
     onEscape: handleEscape,
   })
 
+  // When the user is keyboard-navigating (mode === 'keyboard' AND activeIndex
+  // is set), ignore hover so a stationary mouse doesn't lock the highlight.
+  // The mouse must physically move to flip mode back to 'mouse'. Same logic
+  // mirrored on /experience via useExperienceNavigation.
+  const { mode: interactionMode } = useInteractionMode()
+  const keyboardSticky = interactionMode === 'keyboard' && activeIndex !== null
+
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const newX = e.clientX
     const newY = e.clientY
@@ -90,8 +98,12 @@ export function MenuSection({ content }: MenuSectionProps) {
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {filteredItems.map((item, index) => {
-          // Highlight: mouse hover OR keyboard active (when mouse isn't hovering anything)
-          const isHighlighted = hoveredIndex === index || (hoveredIndex === null && activeIndex === index)
+          // Highlight resolution:
+          // - keyboardSticky=true → activeIndex wins (ignore stationary mouse)
+          // - keyboardSticky=false → hover wins, fall through to activeIndex
+          const isHighlighted = keyboardSticky
+            ? activeIndex === index
+            : hoveredIndex === index || (hoveredIndex === null && activeIndex === index)
           const isDimmed = (hoveredIndex !== null || activeIndex !== null) && !isHighlighted
 
           return (

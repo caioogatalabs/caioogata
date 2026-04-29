@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useInteractionMode } from './useInteractionMode'
 
 interface UseExperienceNavigationOptions {
   itemCount: number
@@ -39,6 +40,7 @@ export function useExperienceNavigation({
   onCollapse,
   containerRef,
 }: UseExperienceNavigationOptions): UseExperienceNavigationReturn {
+  const { mode } = useInteractionMode()
   const [activeIndex, setActiveIndex] = useState<number>(-1)
   const [hoveredIndex, setHoveredIndex] = useState<number>(-1)
   // expandedSet is kept in sync with the parent's expandedIndex via onExpand/
@@ -46,8 +48,23 @@ export function useExperienceNavigation({
   // owns the truth of which row is open.
   const [expandedSet, setExpandedSet] = useState<Set<number>>(new Set())
 
-  // Hover takes precedence over keyboard
-  const highlightedIndex = hoveredIndex >= 0 ? hoveredIndex : activeIndex
+  // Mode-aware highlight resolution.
+  //
+  // When the user is keyboard-navigating (mode === 'keyboard' AND activeIndex
+  // has been set by a prior arrow key), hover is IGNORED — the active row
+  // wins regardless of where the stationary mouse is sitting. The mouse must
+  // physically move to flip mode back to 'mouse', at which point hover takes
+  // precedence again.
+  //
+  // Without this, a stationary mouse over row N "locks" the highlight on N
+  // and arrow keys appear to do nothing (they update activeIndex but the
+  // visual stays on the hovered row).
+  const isKeyboardSticky = mode === 'keyboard' && activeIndex >= 0
+  const highlightedIndex = isKeyboardSticky
+    ? activeIndex
+    : hoveredIndex >= 0
+      ? hoveredIndex
+      : activeIndex
 
   const isDimmed = useCallback(
     (index: number): boolean => {
