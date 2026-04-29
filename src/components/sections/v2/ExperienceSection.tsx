@@ -63,7 +63,7 @@ export function ExperienceSection() {
     : undefined
 
   return (
-    <div className="min-h-screen bg-bg" data-theme="light">
+    <div className="min-h-screen bg-bg">
       {/* Hero band — short bg-bg-surface-secondary container around the
           StickyLogoBar. Matches /about exactly: same pt/pb values, same
           single-child shape. The short container is what releases the

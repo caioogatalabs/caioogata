@@ -110,14 +110,16 @@ export function MenuSection({ content }: MenuSectionProps) {
                 onClick={() => handleSelect(item)}
                 onMouseEnter={() => setHoveredIndex(index)}
               >
-                {/* Background bar — bleeds ~6px vertically, hugs text width */}
+                {/* Background bar — V bleed matches Experience (-5px) so row expansion is unified
+                    across both lists. Horizontal stays inset (hugs text width) — that's the menu's
+                    own thing, distinct from Experience's outward bleed. */}
                 <div
                   className="absolute bg-bg-fill-primary pointer-events-none"
                   style={{
                     left: '12px',
                     right: '12px',
-                    top: '-14px',
-                    bottom: '-14px',
+                    top: '-5px',
+                    bottom: '-5px',
                     transform: isHighlighted ? 'scaleX(1) scaleY(1)' : 'scaleX(0.92) scaleY(0.6)',
                     opacity: isHighlighted ? 1 : 0,
                     transition: isHighlighted
