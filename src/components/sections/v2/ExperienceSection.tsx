@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
 import { PageNavigation } from '@/components/sections/v2/PageNavigation'
 import { ExperienceHero } from '@/components/sections/v2/experience/ExperienceHero'
 import { MAIN_NAVIGATION } from '@/content/main-navigation'
@@ -61,19 +60,9 @@ export function ExperienceSection() {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Hero band — short bg-bg-surface-secondary container around the
-          StickyLogoBar. Matches /about exactly: same pt/pb values, same
-          single-child shape. The short container is what releases the
-          sticky logo: when its bottom scrolls into the viewport top, the
-          PageNavigation (further down) takes over as the top-stuck element
-          and visually pushes the logo off-screen. */}
-      <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12 pb-16 md:pb-24 lg:pb-32">
-        <StickyLogoBar />
-      </div>
-
-      {/* Hero — 400vh pinned converging-cards section. Mirrors
-          <AboutPinned/> rhythm: bg-bg on the inner sticky, headline pinned
-          centred with the same fontSize/textIndent values. */}
+      {/* ExperienceHero hosts the sticky logo+CTA bar internally — sticky
+          through the full 400vh pin (mobile: through the auto-height block),
+          then the sticky PageNavigation below takes over. */}
       <ExperienceHero
         headline={typedContent.experience.hero.headline}
         stats={typedContent.experience.hero.stats}
