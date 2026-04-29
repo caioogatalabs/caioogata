@@ -21,13 +21,14 @@ decisions:
   - "Skills bar uses width transition (level semantic — Expert 95% → Familiar 35%) instead of Experience's scaleX, while keeping the same ease-out cubic-bezier(0.22,0.31,0,1) tokens and 0.6s/0.5s durations + opacity in tandem"
   - "Skills hover overlays use inline fontSize: '1.25rem' override (denser row), mirroring Menu's now-removed 2.25rem override symmetry; no new utility class introduced"
   - "Level label is aria-hidden because the swapped-in chip is decorative-on-hover; the skill name remains the semantic content for screen readers"
-  - "Always-on-primary color for level label; not color-conditional on fill width — keeps implementation simple and motion consistent across levels (Familiar 35% bar + label still on-primary)"
+  - "Level label is anchored to the BAR's right edge (right: calc(100% - LEVEL_WIDTH)), not the row's right edge — visual review revealed Expert (95% fill) caused dark on-primary text to bleed past the yellow tip into the dark background, becoming unreadable. Bar-anchored placement keeps the label inside the yellow at every level."
+  - "Translate-clip uses `absolute inset-0` on the inner span so translateY(100%) moves by full container height (else inline text only translates by its own ~20px and leaks the top half through the overflow clip onto neighbouring rows)"
 metrics:
-  duration: "2 min"
+  duration: "5 min (2 min initial + 3 min visual fix)"
   completed: "2026-04-29"
   tasks: 2
-  files_modified: 2
-  commits: 2
+  files_modified: 3
+  commits: 4
 ---
 
 # Quick 260429-edp: Hover Cell Pattern Unification Summary
@@ -50,8 +51,19 @@ Convergence of V2's three hover cells (Menu, Experience, Skills) on a single des
 |---|------|------|---------|
 | 1 | `b712781` | refactor | Remove Menu hover overlay 2.25rem overrides |
 | 2 | `e2c42fb` | feat | Apply unified Hover Cell pattern to SkillsBlock |
+| 3 | `a91a1d3` | docs | Record Hover Cell unification in STATE.md + SUMMARY |
+| 4 | `255ea35` | fix | Anchor Skills level label to bar right edge (visual fix from Playwright review + spec update) |
 
 (Each commit also bumps `src/lib/build-info.ts` COMMIT_COUNT via the project's pre-commit hook — this is established project tooling, not a deviation.)
+
+## Visual review follow-up
+
+After the initial implementation landed (commits 1-2), Playwright-driven visual review at `/about` revealed two issues with the level label that had been called "acceptable" in the original spec:
+
+1. **Expert (95% fill) bled past the yellow tip.** The label was right-aligned to the row, but `Expert` mono text width (~70px) is larger than the un-filled 5% portion of typical row widths. Half of the label rendered on the dark background where dark on-primary text becomes invisible.
+2. **Translate clip leaked across rows.** With inline text inside `overflow-hidden` outer, `translateY(100%)` only moves by the text's own height (~20px), leaving the top half visible. Non-hovered rows showed faint level labels through the clip.
+
+Commit 4 (`255ea35`) anchors the label container to the bar's right edge via `right: calc(100% - LEVEL_WIDTH)` and uses `absolute inset-0` on the inner span so `translateY(100%)` moves by full container height. Spec updated in the same commit to reflect the bar-anchored decision (replacing the earlier "always-on-primary, accept the bleed" call).
 
 ## Verification Status
 
