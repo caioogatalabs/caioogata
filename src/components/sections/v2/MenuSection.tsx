@@ -128,27 +128,35 @@ export function MenuSection({ content }: MenuSectionProps) {
                   }}
                 />
 
-                {/* Arrow — appears before label on highlight */}
+                {/* Arrow — appears before label on highlight.
+                    Uses the SAME masked vertical text-swap as the label/description (mono 1.5rem,
+                    cubic-bezier(0.16,1,0.3,1)) — so the arrow enters in unison with the typography.
+                    Outer span animates `width` (column shift) + `overflow-hidden`; inner span
+                    translateY(100%→0) on highlight. */}
                 <span
-                  className="relative z-10 shrink-0"
+                  className="relative z-10 shrink-0 overflow-hidden block"
                   style={{
-                    // Display-size arrow — not masked vertical text-swap; uses --font-mono (JetBrains Mono) at 3.5rem
-                    fontFamily: 'var(--font-mono)',
-                    color: 'var(--color-text-on-primary)',
-                    fontSize: '3.5rem',
-                    fontWeight: 400,
-                    lineHeight: 1,
-                    letterSpacing: '-0.02em',
-                    width: isHighlighted ? '3rem' : '0px',
-                    opacity: isHighlighted ? 1 : 0,
-                    overflow: 'hidden',
+                    width: isHighlighted ? '2rem' : '0px',
+                    height: '2.8rem',
                     transition: isHighlighted
-                      ? 'width 0.5s cubic-bezier(0.16,1,0.3,1) 0.04s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.04s'
-                      : 'width 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s cubic-bezier(0.16,1,0.3,1)',
+                      ? 'width 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                      : 'width 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                   }}
                   aria-hidden="true"
                 >
-                  →
+                  <span
+                    className="block flex items-center type-overlay-hover"
+                    style={{
+                      color: 'var(--color-text-on-primary)',
+                      height: '2.8rem',
+                      transform: isHighlighted ? 'translateY(0)' : 'translateY(100%)',
+                      transition: isHighlighted
+                        ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                        : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                    }}
+                  >
+                    →
+                  </span>
                 </span>
 
                 {/* Label — masked vertical text swap */}

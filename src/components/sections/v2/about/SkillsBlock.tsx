@@ -116,7 +116,10 @@ export function SkillsBlock() {
                       }`}
                     >
                       <div className="overflow-hidden">
-                        <div className="flex flex-col pb-5">
+                        {/* pt-[3px] reserves space for the first skill row's −3px V bleed; without
+                            it the bleed lands above the accordion's overflow-hidden clip and the
+                            top of the yellow bar appears cut on the first row. */}
+                        <div className="flex flex-col pt-[3px] pb-5">
                           {category.skills.map((skill) => {
                             const isHovered = hoveredSkill === skill.name
                             return (
@@ -201,6 +204,10 @@ export function SkillsBlock() {
                                     `translateY(100%)` translates by the OUTER's height (full row), fully clipping
                                     the text when not hovered. Inner-only translate would move by text height only
                                     and leak the top half through.
+                                    Timing: entry delay 0.45s ensures the label only reveals AFTER the bar has
+                                    filled to cover its position (bar takes 0.6s); exit has zero delay + short
+                                    duration so the label is gone before the bar contracts past its anchor (else
+                                    the label would briefly appear on the dark background — what the user called out).
                                     aria-hidden because level is decorative-on-hover; skill name carries semantics. */}
                                 <span
                                   className="absolute z-10 overflow-hidden pointer-events-none"
@@ -222,8 +229,8 @@ export function SkillsBlock() {
                                       transition: reducedMotion
                                         ? 'none'
                                         : isHovered
-                                          ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
-                                          : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
+                                          ? 'transform 0.4s cubic-bezier(0.16,1,0.3,1) 0.45s'
+                                          : 'transform 0.2s cubic-bezier(0.5,0,0.75,0) 0s',
                                     }}
                                   >
                                     {skill.level}

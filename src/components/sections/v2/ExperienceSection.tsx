@@ -172,33 +172,44 @@ export function ExperienceSection() {
 
                   {/* Row content — strict 12-col grid: arrow(1) date(2-3) company(4-6) title(7-12) */}
                   <div className="relative z-10 grid grid-cols-12 items-center px-3 py-3 gap-x-4">
-                    {/* Arrow — col 1 */}
+                    {/* Arrow — col 1.
+                        Uses the SAME masked vertical text-swap as the company/title overlays
+                        (mono 1.5rem via .type-overlay-hover, cubic-bezier(0.16,1,0.3,1)). Outer
+                        span animates `width` (column shift) + `overflow-hidden`; inner span
+                        translateY(100%→0) when showLargeText fires. Color flips between
+                        on-primary (hover) and text-primary (expanded, no bar) — transparent when
+                        neither, so the row collapses cleanly at rest. */}
                     <div className="col-span-12 md:col-span-1 flex items-center">
                       <span
-                        className="shrink-0"
+                        className="shrink-0 overflow-hidden block"
                         style={{
-                          // Display-size arrow — not masked vertical text-swap; uses --font-mono (JetBrains Mono) at 3.5rem
-                          fontFamily: 'var(--font-mono)',
-                          color: showYellowBar
-                            ? 'var(--color-text-on-primary)'
-                            : isExpanded
-                              ? 'var(--color-text-primary)'
-                              : 'transparent',
-                          fontSize: '3.5rem',
-                          fontWeight: 400,
-                          lineHeight: 1,
-                          letterSpacing: '-0.02em',
-                          width: showLargeText ? '3rem' : '0px',
-                          opacity: showLargeText ? 1 : 0,
-                          overflow: 'hidden',
+                          width: showLargeText ? '2rem' : '0px',
+                          height: '2.8rem',
                           transition: showLargeText
-                            ? 'width 0.5s cubic-bezier(0.16,1,0.3,1) 0.04s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.04s'
-                            : 'width 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s cubic-bezier(0.16,1,0.3,1)',
+                            ? 'width 1s cubic-bezier(0.16,1,0.3,1) 0.04s'
+                            : 'width 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                           ...instantStyle,
                         }}
                         aria-hidden="true"
                       >
-                        →
+                        <span
+                          className="block flex items-center type-overlay-hover"
+                          style={{
+                            color: showYellowBar
+                              ? 'var(--color-text-on-primary)'
+                              : isExpanded
+                                ? 'var(--color-text-primary)'
+                                : 'transparent',
+                            height: '2.8rem',
+                            transform: showLargeText ? 'translateY(0)' : 'translateY(100%)',
+                            transition: showLargeText
+                              ? 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.04s, color 0.3s cubic-bezier(0.22,0.31,0,1)'
+                              : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
+                            ...instantStyle,
+                          }}
+                        >
+                          →
+                        </span>
                       </span>
                     </div>
 
