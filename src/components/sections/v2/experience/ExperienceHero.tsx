@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useExperienceHero } from '@/hooks/useExperienceHero'
 import { useInView } from '@/hooks/useInView'
+import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
 import { StatsCards } from './StatsCards'
 
 interface ExperienceHeroProps {
@@ -71,6 +72,7 @@ export function ExperienceHero({ headline, stats }: ExperienceHeroProps) {
       style={{ height: isMobile ? 'auto' : '400vh' }}
       className="relative"
     >
+      <StickyLogoBar />
       <div
         ref={mobileInViewRef as React.RefObject<HTMLDivElement>}
         className={
