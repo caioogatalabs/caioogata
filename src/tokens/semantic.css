@@ -86,19 +86,19 @@
 
   /* ─── Type Scale (Figma text styles → CSS) ─── */
   /* Display */
-  --text-display-lg:           var(--primitive-text-6xl);   /* 72px — Switzer Regular, lh 1.15, tracking -2% */
-  --text-display-md:           var(--primitive-text-5xl);   /* 48px — Switzer Regular, lh 1.15, tracking -2% */
+  --text-display-lg:           var(--primitive-text-6xl);   /* 72px — Epilogue Regular, lh 1.15, tracking -2% */
+  --text-display-md:           var(--primitive-text-5xl);   /* 48px — Epilogue Regular, lh 1.15, tracking -2% */
   /* Heading */
-  --text-heading-lg:           var(--primitive-text-4xl);   /* 36px — Switzer Bold, lh 1.25, tracking -1% */
-  --text-heading-md:           var(--primitive-text-2xl);   /* 24px — Switzer Semibold, lh 1.3, tracking 0 */
-  --text-heading-sm:           var(--primitive-text-xl);    /* 20px — Switzer Semibold, lh 1.3, tracking 0 */
+  --text-heading-lg:           var(--primitive-text-4xl);   /* 36px — Epilogue Bold, lh 1.25, tracking -1% */
+  --text-heading-md:           var(--primitive-text-2xl);   /* 24px — Epilogue Semibold, lh 1.3, tracking 0 */
+  --text-heading-sm:           var(--primitive-text-xl);    /* 20px — Epilogue Semibold, lh 1.3, tracking 0 */
   /* Body */
-  --text-body-lg:              var(--primitive-text-lg);    /* 18px — Switzer Regular, lh 1.6, tracking 0 */
-  --text-body-md:              var(--primitive-text-base);  /* 16px — Switzer Regular, lh 1.5, tracking 0 */
-  --text-body-sm:              var(--primitive-text-sm);    /* 14px — Switzer Regular, lh 1.5, tracking 0 */
+  --text-body-lg:              var(--primitive-text-lg);    /* 18px — Epilogue Regular, lh 1.6, tracking 0 */
+  --text-body-md:              var(--primitive-text-base);  /* 16px — Epilogue Regular, lh 1.5, tracking 0 */
+  --text-body-sm:              var(--primitive-text-sm);    /* 14px — Epilogue Regular, lh 1.5, tracking 0 */
   /* Label */
-  --text-label-lg:             var(--primitive-text-sm);    /* 14px — Switzer Medium, lh 1.5, tracking 8% */
-  --text-label-sm:             var(--primitive-text-xs);    /* 12px — Switzer Semibold, lh 1.2, tracking 0 */
+  --text-label-lg:             var(--primitive-text-sm);    /* 14px — Epilogue Medium, lh 1.5, tracking 8% */
+  --text-label-sm:             var(--primitive-text-xs);    /* 12px — Epilogue Semibold, lh 1.2, tracking 0 */
   /* Overlay (button hover masked vertical text-swap) */
   --text-overlay-hover:        var(--primitive-text-2xl);   /* 24px — button hover overlay (masked vertical text-swap) */
 }

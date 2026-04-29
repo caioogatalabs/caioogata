@@ -9,8 +9,8 @@ interface StatsCardProps {
 /**
  * Single big-number card for the /experience hero.
  *
- * 72px display value (Switzer, regular) over a 1px divider over a
- * 36px bold label (Switzer, bold). Width auto — fills its column span
+ * 72px display value (Epilogue, regular) over a 1px divider over a
+ * 36px bold label (Epilogue, bold). Width auto — fills its column span
  * via the parent grid.
  *
  * Tokens only: `border-border-secondary`, `text-text-primary`,

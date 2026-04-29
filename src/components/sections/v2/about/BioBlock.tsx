@@ -12,7 +12,7 @@ const about = typedContent.about
  * 1.1 / Bio block. Layout per Figma 701:303:
  *   - Spacer GridItem in cols 1-4 (empty)
  *   - Content GridItem in cols 5-12: Core Expertise list, then a 64px gap, then bio paragraphs
- *   - Below the column area: full-width final quote (Switzer 48px text-text-secondary)
+ *   - Below the column area: full-width final quote (Epilogue 48px text-text-secondary)
  *
  * Source paragraphs come from `about.bio.split('\n\n')`:
  *   index 0       → first paragraph (rendered inside <AboutPinned/>, NOT here)
