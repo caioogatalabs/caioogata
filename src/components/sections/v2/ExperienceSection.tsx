@@ -49,7 +49,6 @@ export function ExperienceSection() {
     hoveredIndex,
     highlightedIndex,
     setHoveredIndex,
-    handleKeyDown,
     isDimmed,
   } = useExperienceNavigation({
     itemCount: jobs.length,
@@ -82,16 +81,18 @@ export function ExperienceSection() {
         stats={typedContent.experience.hero.stats}
       />
 
-      {/* Unified page navigation — categories circuit */}
+      {/* Unified page navigation — top sticky. Same set of commands as the
+          bottom navbar (back / categories / up-down / enter), so keyboard
+          users can read all the controls in either position. */}
       <PageNavigation
         lateral={{ items: MAIN_NAVIGATION, currentIndex: 2, scope: 'categories' }}
+        items={{ label: 'to navigate', enterLabel: 'to expand' }}
       />
 
       {/* Experience rows */}
       <div
         ref={rowsRef as React.RefObject<HTMLDivElement>}
         className="px-5 md:px-8 lg:px-16 py-8 md:py-12"
-        onKeyDown={handleKeyDown}
         onMouseLeave={() => setHoveredIndex(-1)}
         role="list"
         aria-label="Experience roles"
@@ -473,37 +474,16 @@ export function ExperienceSection() {
           })}
         </div>
 
-        {/* Keyboard hints */}
-        <div className="-entrance -fade -a-13 items-center gap-3 py-4 hidden lg:flex">
-          <div className="flex items-center gap-1">
-            <KeyBadge>↑</KeyBadge>
-            <KeyBadge>↓</KeyBadge>
-            <span className="text-xs text-text-tertiary ml-0.5">
-              to navigate
-            </span>
-          </div>
-          <span className="text-xs text-text-tertiary opacity-40">·</span>
-          <div className="flex items-center gap-1.5">
-            <KeyBadge>Enter</KeyBadge>
-            <span className="text-xs text-text-tertiary">to expand</span>
-          </div>
-          <span className="text-xs text-text-tertiary opacity-40">·</span>
-          <div className="flex items-center gap-1.5">
-            <KeyBadge>Esc</KeyBadge>
-            <span className="text-xs text-text-tertiary">
-              to collapse all
-            </span>
-          </div>
-        </div>
       </div>
-    </div>
-  )
-}
 
-function KeyBadge({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center justify-center bg-bg-surface-primary text-text-primary text-[11px] font-medium font-mono px-[5px] py-[2px] rounded-[3px] leading-none">
-      {children}
-    </span>
+      {/* Bottom navigation — mirrors the sticky top navbar (same commands).
+          Non-sticky inline placement after the rows. Keeps the keyboard
+          legend reachable without scrolling back to the top. */}
+      <PageNavigation
+        sticky={false}
+        lateral={{ items: MAIN_NAVIGATION, currentIndex: 2, scope: 'categories' }}
+        items={{ label: 'to navigate', enterLabel: 'to expand' }}
+      />
+    </div>
   )
 }

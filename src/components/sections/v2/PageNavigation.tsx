@@ -36,6 +36,20 @@ export interface PageNavigationProps {
     currentIndex: number
     scope: string  // 'categories' | 'projects'
   }
+  /**
+   * Render up/down/enter hints for in-page item navigation. Visual-only —
+   * keyboard handling lives in the consumer's own hook (e.g. useExperienceNavigation).
+   * `enterLabel` defaults to "to expand" but can be overridden ("to select", etc).
+   */
+  items?: {
+    label?: string  // e.g. "to navigate" — defaults to "to navigate"
+    enterLabel?: string  // e.g. "to expand" — defaults to "to expand"
+  }
+  /**
+   * When false, the nav renders inline (no sticky positioning, no backdrop blur).
+   * Used for the bottom navbar on Experience. Defaults to true (sticky top).
+   */
+  sticky?: boolean
 }
 
 function ArrowLeftIcon() {
@@ -106,7 +120,7 @@ function KeyBadgeDisabled({
   )
 }
 
-export function PageNavigation({ back, lateral }: PageNavigationProps) {
+export function PageNavigation({ back, lateral, items, sticky = true }: PageNavigationProps) {
   const pathname = usePathname()
   const { mode } = useInteractionMode()
   const [activeKey, setActiveKey] = useState<'esc' | 'left' | 'right' | null>(null)
@@ -165,12 +179,16 @@ export function PageNavigation({ back, lateral }: PageNavigationProps) {
   // Adaptive Esc keycap: arrow icon for mouse/touch, literal "Esc" text for keyboard.
   const showBackAsArrow = mode === 'mouse' || mode === 'touch'
 
+  const navClassName = sticky
+    ? 'sticky top-0 z-40 bg-bg backdrop-blur-xl border-t border-border-secondary px-5 md:px-8 lg:px-16 py-3'
+    : 'bg-bg border-t border-border-secondary px-5 md:px-8 lg:px-16 py-3'
+
   return (
     <nav
       aria-label="Page navigation"
-      className="sticky top-0 z-40 bg-bg backdrop-blur-xl border-t border-border-secondary px-5 md:px-8 lg:px-16 py-3"
+      className={navClassName}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 flex-wrap">
         {showEsc && (
           <>
             <div className="flex items-center gap-1.5">
@@ -226,6 +244,29 @@ export function PageNavigation({ back, lateral }: PageNavigationProps) {
               to navigate {lateral.scope}
             </span>
           </div>
+        )}
+
+        {items && (
+          <>
+            {(showEsc || lateral) && (
+              <span className="text-xs text-text-tertiary opacity-40">·</span>
+            )}
+            {/* Up/Down — visual only; keyboard handled by useExperienceNavigation. */}
+            <div className="flex items-center gap-1">
+              <span className={KEYBADGE_BASE} aria-label="Up">↑</span>
+              <span className={KEYBADGE_BASE} aria-label="Down">↓</span>
+              <span className="text-xs text-text-tertiary ml-0.5">
+                {items.label ?? 'to navigate'}
+              </span>
+            </div>
+            <span className="text-xs text-text-tertiary opacity-40">·</span>
+            <div className="flex items-center gap-1.5">
+              <span className={KEYBADGE_BASE} aria-label="Enter">Enter</span>
+              <span className="text-xs text-text-tertiary">
+                {items.enterLabel ?? 'to expand'}
+              </span>
+            </div>
+          </>
         )}
       </div>
     </nav>
