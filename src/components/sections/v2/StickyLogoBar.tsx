@@ -27,6 +27,7 @@ export function StickyLogoBar() {
         >
           <a
             href="/llms.txt"
+            data-share-with-ai
             className="relative inline-flex items-center justify-center h-12 rounded-full bg-bg-fill-primary text-text-on-primary px-8 overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
           >
             <span
