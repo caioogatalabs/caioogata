@@ -211,6 +211,7 @@ body {
   --ease-out: cubic-bezier(0.22, 0.31, 0, 1);
   --ease-in: cubic-bezier(0.69, 0, 0, 1);
   --ease-smooth: cubic-bezier(0.5, 0, 0.3, 1);
+  --ease-fiddle: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Loading gate — blocks entrance animations until fonts confirmed */
@@ -257,6 +258,45 @@ html:not(.-ready) .-entrance {
   opacity: 1;
 }
 
+/* Entrance: mask down — clip-path top→bottom reveal + small lift. Used for body paragraphs / titles. */
+.-entrance.-mask-down {
+  opacity: 1;
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(6px);
+  transition: clip-path 0.9s var(--ease-fiddle), transform 0.9s var(--ease-fiddle);
+}
+.-entrance.-mask-down.-inview,
+.-inview > .-entrance.-mask-down,
+.-inview .-entrance.-mask-down {
+  clip-path: inset(0);
+  transform: translateY(0);
+}
+
+/* Entrance: mask right — clip-path left→right reveal. Used for numerals / kickers. */
+.-entrance.-mask-right {
+  opacity: 1;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.6s var(--ease-fiddle);
+}
+.-entrance.-mask-right.-inview,
+.-inview > .-entrance.-mask-right,
+.-inview .-entrance.-mask-right {
+  clip-path: inset(0);
+}
+
+/* Entrance: scaleX line — for top-section divider rules (transform-origin: left). */
+.-entrance.-line-x {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s var(--ease-fiddle);
+}
+.-entrance.-line-x.-inview,
+.-inview > .-entrance.-line-x,
+.-inview .-entrance.-line-x {
+  transform: scaleX(1);
+}
+
 /* Page enter */
 .-page-enter {
   opacity: 0;
@@ -292,6 +332,33 @@ html:not(.-ready) .-entrance {
 .-a-18 { transition-delay: 1410ms; }
 .-a-19 { transition-delay: 1480ms; }
 .-a-20 { transition-delay: 1550ms; }
+
+/* Reading-flow stagger override — replaces 70ms grid cadence with reading pace.
+   Apply `.-flow` to a parent of `.-entrance` body content (e.g. wrapper around <p> stack).
+   Descendants with `-a-N` get reading-paced delays (~150–180ms increments) instead of the global 70ms. */
+.-flow > .-entrance.-a-0,  .-flow .-entrance.-a-0  { transition-delay: 0ms; }
+.-flow > .-entrance.-a-1,  .-flow .-entrance.-a-1  { transition-delay: 180ms; }
+.-flow > .-entrance.-a-2,  .-flow .-entrance.-a-2  { transition-delay: 350ms; }
+.-flow > .-entrance.-a-3,  .-flow .-entrance.-a-3  { transition-delay: 510ms; }
+.-flow > .-entrance.-a-4,  .-flow .-entrance.-a-4  { transition-delay: 660ms; }
+.-flow > .-entrance.-a-5,  .-flow .-entrance.-a-5  { transition-delay: 800ms; }
+.-flow > .-entrance.-a-6,  .-flow .-entrance.-a-6  { transition-delay: 930ms; }
+.-flow > .-entrance.-a-7,  .-flow .-entrance.-a-7  { transition-delay: 1050ms; }
+.-flow > .-entrance.-a-8,  .-flow .-entrance.-a-8  { transition-delay: 1160ms; }
+.-flow > .-entrance.-a-9,  .-flow .-entrance.-a-9  { transition-delay: 1260ms; }
+.-flow > .-entrance.-a-10, .-flow .-entrance.-a-10 { transition-delay: 1350ms; }
+
+/* Defensive reduced-motion: force final-state on clip-path/transform variants.
+   The global rule at line ~94 already collapses transition-duration to 0.01ms;
+   this override ensures no clip-path or transform residue is observable. */
+@media (prefers-reduced-motion: reduce) {
+  .-entrance.-mask-down,
+  .-entrance.-mask-right,
+  .-entrance.-line-x {
+    clip-path: inset(0) !important;
+    transform: none !important;
+  }
+}
 
 /* Button hover overlay (masked vertical text-swap) — collapses font-family + size + weight + line-height */
 .type-overlay-hover {
