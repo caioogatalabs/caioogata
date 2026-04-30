@@ -88,13 +88,19 @@ export function FloatingContactButton() {
   const squareLabel = isOpen ? '×' : '+'
   const ariaLabel = isOpen ? 'Close contact form' : 'Open contact form'
 
+  // Visibility rule: visible when scroll-past-`ask about` OR when overlay is
+  // open. The open-state override is critical — if the user scrolls back up
+  // while the overlay is open, the IntersectionObserver would otherwise hide
+  // the FAB and leave the overlay with no way to close.
+  const shown = visible || isOpen
+
   return (
     <div
       className="fixed bottom-5 right-5 md:bottom-8 md:right-8 lg:bottom-16 lg:right-16 z-[90] flex items-center gap-0.5"
       style={{
-        transform: visible ? 'translateY(0)' : 'translateY(120%)',
-        opacity: visible ? 1 : 0,
-        pointerEvents: visible ? 'auto' : 'none',
+        transform: shown ? 'translateY(0)' : 'translateY(120%)',
+        opacity: shown ? 1 : 0,
+        pointerEvents: shown ? 'auto' : 'none',
         transition: reduced
           ? 'none'
           : `transform 0.5s ${EASE_OUT}, opacity 0.3s ${EASE}`,
