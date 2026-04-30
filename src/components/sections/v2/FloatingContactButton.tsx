@@ -1,22 +1,41 @@
 'use client'
 
-import { useState } from 'react'
-import { useInView } from '@/hooks/useInView'
+import { useEffect, useRef, useState } from 'react'
 
-const TECH_TAGS = ['Next.js', 'React', 'Tailwind', 'Vercel']
 const EASE = 'cubic-bezier(0.16,1,0.3,1)'
+const EASE_OUT = 'cubic-bezier(0.22,0.31,0,1)'
 
 /**
- * FooterSection (slim) — bottom-of-page bar:
- * - Left: tech tag pills + © stamp
- * - Right: Contact pill + `+` square (dispatches `open-contact`)
- *
- * The contact form is now rendered by ContactOverlay (mounted at PageShell
- * level). This footer no longer expands and no longer owns form state.
+ * FloatingContactButton — surfaces only when the StickyLogoBar's `ask about`
+ * CTA (marked `data-share-with-ai`) leaves the viewport. Click dispatches
+ * `open-contact` to open ContactOverlay.
  */
-export function FooterSection() {
+export function FloatingContactButton() {
+  const [visible, setVisible] = useState(false)
   const [groupHovered, setGroupHovered] = useState(false)
-  const sectionRef = useInView({ threshold: 0.1 })
+  const prefersReducedMotion = useRef(false)
+
+  useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+  }, [])
+
+  const reduced = prefersReducedMotion.current
+
+  useEffect(() => {
+    const target = document.querySelector('[data-share-with-ai]')
+    if (!target) return
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        // Visible iff the target is NOT intersecting (out of viewport)
+        setVisible(!entry.isIntersecting)
+      },
+      { threshold: 0, rootMargin: '0px 0px -10% 0px' }
+    )
+    obs.observe(target)
+    return () => obs.disconnect()
+  }, [])
 
   const open = () => {
     window.dispatchEvent(new CustomEvent('open-contact'))
@@ -25,9 +44,17 @@ export function FooterSection() {
   const t = `1s ${EASE}`
   const tFast = `0.3s ${EASE}`
 
-  const ctaGroup = (
+  return (
     <div
-      className="flex items-center gap-0.5"
+      className="fixed bottom-4 right-4 lg:bottom-6 lg:right-6 z-[70] flex items-center gap-0.5"
+      style={{
+        transform: visible ? 'translateY(0)' : 'translateY(120%)',
+        opacity: visible ? 1 : 0,
+        pointerEvents: visible ? 'auto' : 'none',
+        transition: reduced
+          ? 'none'
+          : `transform 0.5s ${EASE_OUT}, opacity 0.3s ${EASE}`,
+      }}
       onMouseEnter={() => setGroupHovered(true)}
       onMouseLeave={() => setGroupHovered(false)}
     >
@@ -92,34 +119,5 @@ export function FooterSection() {
         </span>
       </button>
     </div>
-  )
-
-  return (
-    <footer
-      ref={sectionRef as React.RefObject<HTMLElement>}
-      aria-label="Footer"
-      data-section-id="footer"
-      className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-16 pt-32 md:pt-40 pb-8"
-    >
-      <div className="flex items-center justify-between gap-4 flex-wrap">
-        {/* Left: tags + © */}
-        <div className="flex items-center gap-3 flex-wrap">
-          {TECH_TAGS.map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5 rounded-[12px]"
-            >
-              {tag}
-            </span>
-          ))}
-          <span className="text-xs text-text-tertiary font-mono">
-            &copy; 2026 Caio Ogata
-          </span>
-        </div>
-
-        {/* Right: Contact CTA */}
-        {ctaGroup}
-      </div>
-    </footer>
   )
 }
