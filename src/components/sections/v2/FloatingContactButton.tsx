@@ -96,7 +96,7 @@ export function FloatingContactButton() {
 
   return (
     <div
-      className="fixed bottom-5 right-5 md:bottom-8 md:right-8 lg:bottom-16 lg:right-16 z-[90] flex items-center gap-0.5"
+      className="fixed bottom-8 right-8 md:bottom-12 md:right-12 lg:bottom-20 lg:right-20 z-[90] flex items-center gap-0.5"
       style={{
         transform: shown ? 'translateY(0)' : 'translateY(120%)',
         opacity: shown ? 1 : 0,
