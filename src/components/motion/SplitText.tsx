@@ -117,32 +117,29 @@ function SplitLines({
       const el = ref.current
       if (!el || !el.parentElement) return
 
-      // Measurement clone: same width + typography, hidden from layout.
-      const measurer = document.createElement('p')
-      const cs = window.getComputedStyle(el)
-      measurer.style.cssText = `
-        position: absolute;
-        visibility: hidden;
-        pointer-events: none;
-        top: 0; left: 0;
-        width: ${el.offsetWidth}px;
-        font: ${cs.font};
-        font-family: ${cs.fontFamily};
-        font-size: ${cs.fontSize};
-        font-weight: ${cs.fontWeight};
-        line-height: ${cs.lineHeight};
-        letter-spacing: ${cs.letterSpacing};
-        text-indent: ${cs.textIndent};
-        white-space: ${cs.whiteSpace};
-        word-spacing: ${cs.wordSpacing};
-      `
+      // Clone the rendered element shallow — inherits class + inline style, so all
+      // CSS rules (font-feature-settings, font-variation-settings, etc) match exactly.
+      // Re-apply the ORIGINAL `textIndent` from the prop, since the rendered element
+      // may have had it stripped (we move first-line indent to padding-left below).
+      const measurer = el.cloneNode(false) as HTMLElement
+      measurer.style.position = 'absolute'
+      measurer.style.visibility = 'hidden'
+      measurer.style.pointerEvents = 'none'
+      measurer.style.top = '0'
+      measurer.style.left = '0'
+      measurer.style.width = `${el.offsetWidth}px`
+      measurer.style.opacity = '1'
+      if (style?.textIndent !== undefined) {
+        measurer.style.textIndent = String(style.textIndent)
+      }
 
       const words = text.split(/\s+/).filter(Boolean)
       const wordSpans: HTMLSpanElement[] = []
       words.forEach((word, i) => {
         const span = document.createElement('span')
         span.textContent = word
-        span.style.display = 'inline-block'
+        // Use natural inline (no inline-block) so wrap behaviour matches the
+        // original `<p>` flow exactly — no inline-block whitespace quirks.
         measurer.appendChild(span)
         wordSpans.push(span)
         if (i < words.length - 1) {
@@ -152,16 +149,23 @@ function SplitLines({
 
       el.parentElement.appendChild(measurer)
 
-      const lineMap = new Map<number, string[]>()
+      // Group consecutive words by offsetTop, tolerating sub-pixel rounding.
+      // Using DOM order (not sorted by top) preserves natural reading order
+      // even if a word crosses a line and the layout engine rounds differently.
+      const detected: string[] = []
+      let currentLine: string[] = []
+      let currentTop = Number.NEGATIVE_INFINITY
+      const TOLERANCE_PX = 4
       wordSpans.forEach((span) => {
         const top = span.offsetTop
-        if (!lineMap.has(top)) lineMap.set(top, [])
-        lineMap.get(top)!.push(span.textContent || '')
+        if (Math.abs(top - currentTop) > TOLERANCE_PX) {
+          if (currentLine.length > 0) detected.push(currentLine.join(' '))
+          currentLine = []
+          currentTop = top
+        }
+        currentLine.push(span.textContent || '')
       })
-
-      const detected = Array.from(lineMap.entries())
-        .sort(([a], [b]) => a - b)
-        .map(([_, ws]) => ws.join(' '))
+      if (currentLine.length > 0) detected.push(currentLine.join(' '))
 
       el.parentElement.removeChild(measurer)
       setLines(detected)
@@ -172,7 +176,8 @@ function SplitLines({
     const ro = new ResizeObserver(measure)
     if (ref.current?.parentElement) ro.observe(ref.current.parentElement)
     return () => ro.disconnect()
-  }, [text])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text, style?.textIndent])
 
   if (lines === null) {
     // Pre-measurement render — keeps layout space, hidden from sight.
