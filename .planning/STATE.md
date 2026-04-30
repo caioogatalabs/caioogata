@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed quick task 260429-tgx Tasks 1-2 (ContactOverlay + FAB + slim footer; tsc passes; Task 3 manual scroll/UI verify pending)
-last_updated: "2026-04-30T00:22:23.297Z"
-last_activity: "2026-04-29 - Completed quick task 260429-tgx: convert V2 footer contact form to floating overlay (ContactOverlay + FAB + slim footer; 2 commits c1bcb34, e3be2af; tsc passes; manual UI verify pending)"
+stopped_at: Completed quick task 260429-thh Tasks 1-2 (layered content reveal -mask-down/-mask-right/.-flow on /about; CSS + 4 about blocks; tsc clean; Task 3 awaiting human-verify)
+last_updated: "2026-04-30T00:23:26.550Z"
+last_activity: "2026-04-29 - Completed quick task 260429-thh Tasks 1-2: layered content reveal pattern as site standard (-mask-down/-mask-right/-line-x/.-flow CSS primitives + applied to /about; 2 commits c40a648, 7faa571; tsc passes; Task 3 visual verify pending)"
 progress:
   total_phases: 7
   completed_phases: 6
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 Phase: 04.2 (about-consolidation) — EXECUTING
 Plan: 4 of 6
 Status: Ready to execute
-Last activity: 2026-04-29 - Completed quick task 260429-tgx: convert V2 footer contact form to floating overlay (ContactOverlay + FAB + slim footer; 2 commits c1bcb34, e3be2af; tsc passes; manual UI verify pending)
+Last activity: 2026-04-29 - Completed quick task 260429-thh Tasks 1-2: layered content reveal pattern as site standard (-mask-down/-mask-right/-line-x/.-flow CSS primitives + applied to /about; 2 commits c40a648, 7faa571; tsc passes; Task 3 visual verify pending)
 
 Progress: [████████░░] 80%
 
@@ -123,6 +123,7 @@ Recent decisions affecting current work:
 - [Phase 260427-uge]: [Quick 260427-uge]: /experience page redesign — new converging-cards hero matching /about's 400vh pin pattern + strict 12-col row alignment + neutral expanded state. Added `useExperienceHero` hook (rAF + ticking-flag, mirrors useScrollVideo; reduced-motion + mobile <768px bypass at init); 3 components in `experience/` (StatsCard, StatsCards, ExperienceHero). 4-phase per-card trajectory (entry 0–0.6 linear 6/7, convergence 0.6–0.7 cubic ease-out 1/7, hold 0.7–0.85, exit 0.85–1.0 with opacity fade); cubic-bezier(0.16,1,0.3,1) approximated as 1-(1-t)^3 over the short converge segment. Headline at z-20 + cards at z-10 share `lg:row-start-1` so cards translate UP THROUGH the headline. Reduced-motion path remaps progress to 0.75 (hold phase — cards aligned + visible) — resolves spec ambiguity in favor of the verification checklist. ExperienceSection refactored: rows on strict 12-col grid (col 1 arrow / 2-3 date / 4-6 company / 7-12 title), expanded panel transparent (no yellow bg), bottom grid description(1-4)+spacer(5-6)+achievements(7-8/9-10/11-12), yellow bar shows only on highlight && !expanded. StatsCard uses `bg-bg-surface-secondary` to occlude the headline cleanly during convergence (Rule 2 auto-add). Three commits (c87c7d3, afc3b1c, c136cc1) covering 9 files; pnpm tsc --noEmit exits 0; Task 4 visual verification awaiting user.
 - [Phase 260429-ruy]: [Quick 260429-ruy]: Moved StickyLogoBar from short bg-bg-surface-secondary orchestrator wrapper into FIRST child of the 400vh pin containers (AboutPinned, ExperienceHero) so its sticky context spans the full pin scroll. Orchestrators (AboutSection, ExperienceSection) drop the wrapper + import. Mobile branch (ExperienceHero auto-height) falls back to natural-flow sticky — logo appears at top of hero region. Home (IntroSection) intentionally untouched. 4 files modified. Commits 2a98e30 (feat: mount), 1d2e2fc (refactor: drop wrapper). pnpm tsc --noEmit exits 0. Task 3 (manual scroll verification) awaiting human-verify.
 - [Phase 260429-tgx]: [Quick 260429-tgx]: Converted V2 footer's inline-expand contact form into a floating overlay. New ContactOverlay (572 lines) at root of PageShell — fixed bottom-right (50%×80% lg / full-vp mobile + 16px margins), data-theme="inverse" yellow surface, 12px radius, no backdrop, aria-modal="false" (body keeps scrolling), Escape closes; reuses useContactForm directly (no validation re-impl); 70/30 form/social columns; NO FormLog; success state replaces card body. New FloatingContactButton (123 lines) — IntersectionObserver on `[data-share-with-ai]` (added to StickyLogoBar `ask about` anchor); visible iff target NOT intersecting (rootMargin -10% bottom); click dispatches `open-contact`. FooterSection slimmed 418→125 lines (drops ContactForm import, expand state machinery, social grid, scrollIntoView, Escape listener; pt-[400px]→pt-32 md:pt-40); Contact button now just dispatches `open-contact`. PageShell mounts both at root (FooterSection stays in app/layout.tsx, not duplicated). Submit button uses inverted secondary fill (border-text-primary + bg-text-primary fill + text-bg-fill-primary on hover) for solid dark on yellow. Subject chip selected state inverted (bg-text-primary + text-bg-fill-primary). Twitch dropped from overlay social list (4 of 5 links shown). Reduced-motion: useRef + matchMedia gates collapse all transitions to 'none'. 2 commits (c1bcb34 feat: overlay+hook, e3be2af feat: FAB+footer+PageShell). pnpm tsc --noEmit exits 0. Task 3 manual browser verify pending.
+- [Phase 260429-thh]: [Quick 260429-thh]: Layered content reveal pattern as site standard — added 4 CSS primitives to V2 animation system (-mask-down clip-path top→bottom 0.9s, -mask-right clip-path left→right 0.6s for numerals, -line-x scaleX from left for divider rules) + .-flow parent class that remaps -a-N stagger from 70ms grid cadence to reading cadence (0/180/350/510/660/800/930/1050/1160/1260/1350ms) + --ease-fiddle token (cubic-bezier(0.16,1,0.3,1)). Applied to all four /about blocks: numerals via -mask-right -a-0; BioBlock middle paragraphs (capped at -a-10) and final quote via -mask-down inside .-flow wrappers; ClientsBlock shortDescription via -mask-down -a-1 (180ms after numeral) inside .-flow. Skills accordion rows + Clients logo grid + Education timeline rows untouched (kept -slide-up/-fade -a-N 70ms). Defensive prefers-reduced-motion override forces clip-path: inset(0) + transform: none on the 3 new variants. Commits c40a648 (CSS), 7faa571 (JSX). pnpm tsc --noEmit exits 0. Task 3 (visual verification) awaiting human-verify before plan-metadata commit and replication to /experience + /projects.
 
 ### Roadmap Evolution
 
@@ -141,6 +142,7 @@ None yet.
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
+| 260429-thh | Layered content reveal pattern as site standard — added 4 CSS primitives (-mask-down clip-path top→bottom 0.9s, -mask-right clip-path left→right 0.6s for numerals, -line-x scaleX from left for divider rules, .-flow parent that remaps -a-N to reading cadence ~150–180ms) + --ease-fiddle token; applied to all four /about blocks (numerals via -mask-right, BioBlock body + ClientsBlock description via -mask-down inside .-flow); list/grid rows untouched. Tasks 1-2 done; Task 3 (visual verify) awaiting human-verify | 2026-04-29 | c40a648, 7faa571 | [260429-thh-content-reveal-pattern-on-about-mask-dow](./quick/260429-thh-content-reveal-pattern-on-about-mask-dow/) |
 | 260429-tgx | Convert V2 footer's inline-expand contact form into a floating overlay (50%×80% lg / full-vp mobile, yellow inverse, no backdrop, body scrolls). New ContactOverlay + FloatingContactButton (FAB tied to StickyLogoBar `ask about` via IntersectionObserver). FooterSection slimmed 418→125 lines. PageShell mounts both at root. Tasks 1-2 done; Task 3 manual UI verify pending | 2026-04-29 | c1bcb34, e3be2af | [260429-tgx-convert-footer-contact-form-from-inline-](./quick/260429-tgx-convert-footer-contact-form-from-inline-/) |
 | 260429-ruy | Move StickyLogoBar inside AboutPinned + ExperienceHero (first child of 400vh pin); drop short bg-bg-surface-secondary wrapper from About + Experience orchestrators; home (IntroSection) untouched. Tasks 1-2 done; Task 3 (manual scroll verify) awaiting human | 2026-04-29 | 2a98e30, 1d2e2fc | [260429-ruy-move-stickylogobar-inside-aboutpinned-an](./quick/260429-ruy-move-stickylogobar-inside-aboutpinned-an/) |
 | 260429-edp | Hover Cell pattern unification — Menu drops 2.25rem overlay overrides (now 1.5rem default); SkillsBlock gains 12px-radius bar + -3px V bleed + masked vertical sans→mono 1.25rem name swap + hidden→swap-in level label; ExperienceSection canonical zero-diff | 2026-04-29 | b712781, e2c42fb | [260429-edp-implement-hover-cell-pattern-unification](./quick/260429-edp-implement-hover-cell-pattern-unification/) |
@@ -160,6 +162,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-30T00:22:23.294Z
-Stopped at: Completed quick task 260429-tgx Tasks 1-2 (ContactOverlay + FAB + slim footer; tsc passes; Task 3 manual scroll/UI verify pending)
+Last session: 2026-04-30T00:23:26.545Z
+Stopped at: Completed quick task 260429-thh Tasks 1-2 (layered content reveal -mask-down/-mask-right/.-flow on /about; CSS + 4 about blocks; tsc clean; Task 3 awaiting human-verify)
 Resume file: None
