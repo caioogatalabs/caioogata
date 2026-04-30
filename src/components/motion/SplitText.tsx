@@ -31,11 +31,13 @@ interface SplitTextProps extends SharedProps {
 }
 
 /**
- * Split a paragraph into masked elements that reveal as the container scrolls into view.
+ * Split text reveal that fires when the container scrolls into view.
  *
- * - `type="word"`: each word translates from below a per-word mask. Use for body text.
- * - `type="line"`: detects line breaks after layout (Range API on a clone) and translates each
- *   line from below a per-line mask. Use for hero text and large display copy.
+ * - `type="word"`: each word fades in with a small lift (no mask). Matches motion.dev's
+ *   React Split Text reference. Use for body text and inline copy.
+ * - `type="line"`: detects line breaks after layout, then translates each line from below
+ *   a per-line mask. Use for hero text and large display copy where the mask reveal reads
+ *   as a deliberate editorial gesture.
  *
  * Reveal trigger: Motion's `useInView` with `amount` controlling how much of the element
  * must be in viewport. Default 0.1 means animation fires as the text enters the viewport
@@ -50,8 +52,8 @@ function SplitWords({
   className,
   style,
   staggerMs = 30,
-  durationMs = 900,
-  baseDelayMs = 100,
+  durationMs = 600,
+  baseDelayMs = 80,
   once = true,
   amount = 0.1,
   as = 'p',
@@ -66,31 +68,21 @@ function SplitWords({
     if (/^\s+$/.test(tok)) return <span key={i}>{tok}</span>
     const idx = visibleIndex++
     return (
-      <span
+      // Fade + small lift — matches motion.dev's React Split Text reference.
+      // No mask: avoids the "rises from below" feel and keeps baseline natural.
+      <motion.span
         key={i}
-        style={{
-          // `inline-block` lets us animate transform on the inner span. Use `clip-path`
-          // instead of `overflow: hidden` because per CSS spec, an inline-block with
-          // `overflow !== visible` shifts its baseline to the bottom margin edge — that
-          // changes line-height vs the original `<p>` and inflates the rendered height.
-          // `clip-path` masks paint without touching the baseline.
-          display: 'inline-block',
-          clipPath: 'inset(-0.15em 0 -0.15em 0)',
+        style={{ display: 'inline-block', willChange: 'transform, opacity' }}
+        initial={{ opacity: 0, y: '0.3em' }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: '0.3em' }}
+        transition={{
+          delay: (baseDelayMs + idx * staggerMs) / 1000,
+          duration: durationMs / 1000,
+          ease: FIDDLE_EASE,
         }}
       >
-        <motion.span
-          style={{ display: 'inline-block', willChange: 'transform' }}
-          initial={{ y: '110%' }}
-          animate={isInView ? { y: '0%' } : { y: '110%' }}
-          transition={{
-            delay: (baseDelayMs + idx * staggerMs) / 1000,
-            duration: durationMs / 1000,
-            ease: FIDDLE_EASE,
-          }}
-        >
-          {tok}
-        </motion.span>
-      </span>
+        {tok}
+      </motion.span>
     )
   })
 
