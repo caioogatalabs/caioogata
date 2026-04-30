@@ -119,6 +119,11 @@ None — plan executed exactly as written. The single conditional decision (Page
 
 - `c1bcb34` — `feat(quick-260429-tgx): add ContactOverlay + StickyLogoBar data hook`
 - `e3be2af` — `feat(quick-260429-tgx): FAB + slim footer + mount overlay in PageShell`
+- `a7045a7` — `fix(quick-260429-tgx): use bg-bg on inverse-themed overlay (was bg-fill-primary → dark)` — post-execution smoke test fix
+
+## Post-execution smoke test (2026-04-30)
+
+Manual playwright verification on `/` flagged that `bg-bg-fill-primary` on the `data-theme="inverse"` overlay resolved to `brand-950` (dark — that token is reserved for the dark pills sitting on yellow), not the yellow surface. Swapped to `bg-bg` which resolves to `brand-400` in inverse mode (yellow). Confirmed visually: yellow surface, bottom-right anchor, 50%×80% on lg, content layout matches Figma 826:303 (Get in touch heading, name+email rows, 4 subject chips, full-width message textarea, Send Message + Clear left, vertical socials right with proper SVG icons + ↗, Close + × bottom-right). Body scroll preserved while overlay is open.
 
 ## Self-Check: PASSED
 
