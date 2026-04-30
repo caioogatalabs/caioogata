@@ -51,18 +51,18 @@ export function BioBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            {/* Core Expertise — same internal markup as today */}
-            <div className="flex flex-col w-full">
+            {/* Core Expertise — reading-paced reveal: kicker label, then each item with mask-down */}
+            <div className="flex flex-col w-full -flow">
               <span
-                className="text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
+                className="-entrance -mask-right -a-0 inline-block text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Core Expertise
               </span>
-              {about.expertise.map((item) => (
+              {about.expertise.map((item, i) => (
                 <p
                   key={item}
-                  className="text-base text-text-primary py-3 border-t border-border-secondary"
+                  className={`-entrance -mask-down -a-${Math.min(i + 1, 10)} text-base text-text-primary py-3 border-t border-border-secondary`}
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   {item}

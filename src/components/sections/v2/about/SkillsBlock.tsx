@@ -62,10 +62,10 @@ export function SkillsBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            <div className="flex flex-col">
+            <div className="flex flex-col -flow">
               {skillsData.categories.map((category, catIndex) => {
                 const isOpen = expandedCategoryTitle === category.title
-                const stagger = Math.min(catIndex, 19)
+                const stagger = Math.min(catIndex, 10)
                 const open = () => setExpandedCategoryTitle(category.title)
                 const toggle = () =>
                   setExpandedCategoryTitle((current) =>
@@ -75,7 +75,7 @@ export function SkillsBlock() {
                 return (
                   <div
                     key={category.title}
-                    className={`-entrance -slide-up -a-${stagger} border-t border-border-secondary`}
+                    className={`-entrance -mask-down -a-${stagger} border-t border-border-secondary`}
                     onMouseEnter={open}
                   >
                     {/* Header row — focusable button. Click toggles, hover/focus opens. */}

@@ -57,13 +57,13 @@ export function EducationBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            <div className="flex flex-col">
+            <div className="flex flex-col -flow">
               {allEducation.map((edu, index) => {
-                const stagger = Math.min(index, 19)
+                const stagger = Math.min(index, 10)
                 return (
                   <div
                     key={`${edu.institution}-${edu.year}-${index}`}
-                    className={`-entrance -slide-up -a-${stagger} flex gap-5 md:gap-8 border-t border-border-secondary py-6 md:py-8`}
+                    className={`-entrance -mask-down -a-${stagger} flex gap-5 md:gap-8 border-t border-border-secondary py-6 md:py-8`}
                   >
                     {/* Year stamp — fixed width */}
                     <span className="font-mono text-sm text-text-tertiary w-[100px] shrink-0">
