@@ -52,7 +52,7 @@ export function ClientsBlock() {
         <Grid className="!px-0 mb-12 md:mb-16">
           {/* Spacer cols 1-4 — hosts the section label */}
           <GridItem span={4} tabletSpan={2} mobileSpan={4}>
-            <span className="font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
+            <span className="-entrance -mask-right -a-0 inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
               1.3 / Notable Clients
             </span>
           </GridItem>
@@ -62,18 +62,20 @@ export function ClientsBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            <p
-              className="-entrance -slide-up -a-0 text-text-secondary"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '2.25rem',
-                lineHeight: 1.25,
-                letterSpacing: '-0.36px',
-                fontWeight: 700,
-              }}
-            >
-              {shortDescription}
-            </p>
+            <div className="-flow">
+              <p
+                className="-entrance -mask-down -a-1 text-text-secondary"
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '2.25rem',
+                  lineHeight: 1.25,
+                  letterSpacing: '-0.36px',
+                  fontWeight: 700,
+                }}
+              >
+                {shortDescription}
+              </p>
+            </div>
           </GridItem>
         </Grid>
 

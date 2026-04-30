@@ -39,7 +39,7 @@ export function BioBlock() {
         <Grid className="!px-0">
           {/* Spacer cols 1-4 (mobile collapses) — hosts the section label */}
           <GridItem span={4} tabletSpan={2} mobileSpan={4}>
-            <span className="font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
+            <span className="-entrance -mask-right -a-0 inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
               1.1 / Bio
             </span>
           </GridItem>
@@ -72,11 +72,11 @@ export function BioBlock() {
 
             {/* 64px gap between Core Expertise and bio paragraph stack */}
             <div className="mt-16">
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 -flow">
                 {middleParagraphs.map((paragraph, i) => (
                   <p
                     key={i}
-                    className={`-entrance -slide-up -a-${Math.min(i, 19)} text-[24px] font-semibold leading-[1.3] text-text-secondary`}
+                    className={`-entrance -mask-down -a-${Math.min(i, 10)} text-[24px] font-semibold leading-[1.3] text-text-secondary`}
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {paragraph}
@@ -89,19 +89,21 @@ export function BioBlock() {
 
         {/* Final quote — full 12 cols, below the column area */}
         {finalQuote && (
-          <p
-            className={`-entrance -slide-up -a-${Math.min(middleParagraphs.length, 19)} mt-16 md:mt-20 text-text-secondary`}
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '3rem',
-              lineHeight: 1.15,
-              letterSpacing: '-0.96px',
-              fontWeight: 400,
-              textIndent: '8em',
-            }}
-          >
-            {finalQuote}
-          </p>
+          <div className="-flow mt-16 md:mt-20">
+            <p
+              className="-entrance -mask-down -a-0 text-text-secondary"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '3rem',
+                lineHeight: 1.15,
+                letterSpacing: '-0.96px',
+                fontWeight: 400,
+                textIndent: '8em',
+              }}
+            >
+              {finalQuote}
+            </p>
+          </div>
         )}
       </div>
     </div>

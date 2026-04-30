@@ -45,7 +45,7 @@ export function EducationBlock() {
         <Grid className="!px-0">
           {/* Spacer cols 1-4 — hosts the section label */}
           <GridItem span={4} tabletSpan={2} mobileSpan={4}>
-            <span className="font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
+            <span className="-entrance -mask-right -a-0 inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
               1.4 / Education
             </span>
           </GridItem>
