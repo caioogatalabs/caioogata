@@ -69,9 +69,13 @@ function SplitWords({
       <span
         key={i}
         style={{
+          // `inline-block` lets us animate transform on the inner span. Use `clip-path`
+          // instead of `overflow: hidden` because per CSS spec, an inline-block with
+          // `overflow !== visible` shifts its baseline to the bottom margin edge — that
+          // changes line-height vs the original `<p>` and inflates the rendered height.
+          // `clip-path` masks paint without touching the baseline.
           display: 'inline-block',
-          overflow: 'hidden',
-          verticalAlign: 'bottom',
+          clipPath: 'inset(-0.15em 0 -0.15em 0)',
         }}
       >
         <motion.span
@@ -179,8 +183,26 @@ function SplitLines({
     )
   }
 
+  // Lines render as `display: block` spans, so a parent `text-indent` would inherit
+  // and apply to EVERY line (because each line span has its own first-line). Extract
+  // `text-indent` from the parent style and apply it only to the first line span as
+  // padding-left, matching the original `<p>` behaviour where only line 1 was indented.
+  const firstLineIndent = style?.textIndent
+  const parentStyle = style ? { ...style } : undefined
+  if (parentStyle && 'textIndent' in parentStyle) {
+    delete (parentStyle as Record<string, unknown>).textIndent
+  }
+
   const children = lines.map((line, i) => (
-    <span key={i} style={{ display: 'block', overflow: 'hidden' }}>
+    <span
+      key={i}
+      style={{
+        display: 'block',
+        overflow: 'hidden',
+        textIndent: 0,
+        paddingLeft: i === 0 ? firstLineIndent : undefined,
+      }}
+    >
       <motion.span
         style={{ display: 'block', willChange: 'transform' }}
         initial={{ y: '110%' }}
@@ -196,5 +218,5 @@ function SplitLines({
     </span>
   ))
 
-  return createElement(as, { ref, className, style }, children)
+  return createElement(as, { ref, className, style: parentStyle }, children)
 }
