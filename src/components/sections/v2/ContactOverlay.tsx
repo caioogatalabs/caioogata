@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useContactForm } from '@/hooks/useContactForm'
+import { ExternalLink } from '@/components/ui/ExternalLink'
 import content from '@/content/en.json'
 
 const form = content.contact.form
@@ -82,21 +83,6 @@ function SubjectChip({ label, selected, onClick }: { label: string; selected: bo
         </span>
       )}
     </button>
-  )
-}
-
-function SocialLink({ label, url }: { label: string; url: string }) {
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 text-base text-text-secondary hover:text-text-primary transition-colors group"
-      style={{ fontFamily: 'var(--font-sans)' }}
-    >
-      <span>{label}</span>
-      <span className="opacity-50 group-hover:opacity-100 transition-opacity" aria-hidden="true">↗</span>
-    </a>
   )
 }
 
@@ -243,10 +229,9 @@ export function ContactOverlay() {
       aria-modal="false"
       aria-label="Contact form"
       className="fixed z-[80] bg-bg text-text-primary rounded-[12px]
-                 bottom-4 right-4 left-4
-                 lg:bottom-6 lg:right-6 lg:left-auto
-                 lg:w-[50vw] lg:h-[80vh]
-                 h-[calc(100vh-32px)]
+                 bottom-5 right-5 left-5 h-[calc(100vh-40px)]
+                 md:bottom-8 md:right-8 md:left-8 md:h-[calc(100vh-64px)]
+                 lg:bottom-16 lg:right-16 lg:left-auto lg:w-[50vw] lg:h-[80vh]
                  flex flex-col
                  overflow-hidden"
       style={{
@@ -388,21 +373,33 @@ export function ContactOverlay() {
                   </div>
                 )}
 
-                {/* Submit + Clear */}
-                <div className="flex items-center gap-2 flex-wrap">
-                  <SubmitButton submitting={status === 'submitting'} label={status === 'submitting' ? form.submitting : form.submitButton} />
-                  <ClearButton onClick={resetForm} />
+                {/* Footer-of-form: Socials column (left) + Submit/Clear buttons (right) */}
+                <div className="flex items-start justify-between gap-6 pt-2">
+                  {/* Social column — vertical list, label + ExternalLink rows */}
+                  <div className="flex flex-col gap-2 min-w-0">
+                    <p className="font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
+                      Social
+                    </p>
+                    <div className="flex flex-col gap-2">
+                      {SOCIAL_ORDER.map((label) => {
+                        const link = content.contact.links.find((l) => l.label === label)
+                        if (!link) return null
+                        return (
+                          <ExternalLink key={label} href={link.url} size="sm">
+                            {link.label}
+                          </ExternalLink>
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Buttons — top-aligned with the Social label */}
+                  <div className="flex items-center gap-2 flex-wrap shrink-0">
+                    <SubmitButton submitting={status === 'submitting'} label={status === 'submitting' ? form.submitting : form.submitButton} />
+                    <ClearButton onClick={resetForm} />
+                  </div>
                 </div>
               </form>
-
-              {/* Socials — text + ↗, no boxes (matches ProjectInfoBlock Links pattern) */}
-              <div className="flex flex-wrap gap-x-6 gap-y-2 pt-6 mt-6 border-t border-border-primary">
-                {SOCIAL_ORDER.map((label) => {
-                  const link = content.contact.links.find((l) => l.label === label)
-                  if (!link) return null
-                  return <SocialLink key={label} label={link.label} url={link.url} />
-                })}
-              </div>
             </div>
           </div>
         </>
@@ -413,6 +410,10 @@ export function ContactOverlay() {
 
 function SubmitButton({ submitting, label }: { submitting: boolean; label: string }) {
   const [h, setH] = useState(false)
+  // Mirrors ClearButton's outline-hover token pair so the label stays legible
+  // in every theme — including data-theme="inverse" where text-primary and
+  // bg-fill-primary both resolve to brand-950 (same dark), which would make
+  // "dark-on-dark" the visual result of the previous bg-text-primary scheme.
   return (
     <button
       type="submit"
@@ -421,14 +422,14 @@ function SubmitButton({ submitting, label }: { submitting: boolean; label: strin
       onMouseLeave={() => setH(false)}
       onFocus={() => setH(true)}
       onBlur={() => setH(false)}
-      className="relative inline-flex items-center justify-center h-12 px-8 border border-text-primary rounded-full overflow-hidden disabled:opacity-60 disabled:cursor-not-allowed"
+      className="relative inline-flex items-center justify-center h-12 px-8 border border-border-primary rounded-full overflow-hidden disabled:opacity-60 disabled:cursor-not-allowed"
       style={{
-        color: h ? 'var(--color-bg-fill-primary)' : 'var(--color-text-primary)',
+        color: h ? 'var(--color-text-on-outline-hover)' : 'var(--color-text-primary)',
         transition: 'color 0.15s',
       }}
     >
       <div
-        className="absolute inset-0 bg-text-primary pointer-events-none"
+        className="absolute inset-0 bg-bg-fill-outline-hover pointer-events-none"
         style={{
           borderRadius: '999px',
           transform: h ? 'translateY(0)' : 'translateY(100%)',

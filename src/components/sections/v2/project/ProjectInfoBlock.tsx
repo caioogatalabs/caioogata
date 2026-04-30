@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { ExternalLink } from '@/components/ui/ExternalLink'
 import type { ProjectItem } from '@/content/types'
 
 interface ProjectInfoBlockProps {
@@ -24,27 +25,6 @@ function Value({ children }: { children: React.ReactNode }) {
     >
       {children}
     </p>
-  )
-}
-
-function ExternalLinkIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="shrink-0 translate-y-[1px]"
-    >
-      <path
-        d="M4 1.5H12.5V10M12 2L1.5 12.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   )
 }
 
@@ -119,21 +99,11 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
         <GridItem span={3} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-3">
           <Label>Links</Label>
           {project.links && project.links.length > 0 ? (
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               {project.links.map((link, i) => (
-                <a
-                  key={i}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-[18px] leading-[1.6] text-text-secondary hover:text-text-primary transition-colors group"
-                  style={{ fontFamily: 'var(--font-sans)' }}
-                >
-                  <span>{link.label}</span>
-                  <span className="opacity-50 group-hover:opacity-100 transition-opacity">
-                    <ExternalLinkIcon />
-                  </span>
-                </a>
+                <ExternalLink key={i} href={link.url}>
+                  {link.label}
+                </ExternalLink>
               ))}
             </div>
           ) : (
