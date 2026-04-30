@@ -285,7 +285,7 @@ export function ContactOverlay() {
       role="dialog"
       aria-modal="false"
       aria-label="Contact form"
-      className="fixed z-[80] bg-bg-fill-primary text-text-primary rounded-[12px]
+      className="fixed z-[80] bg-bg text-text-primary rounded-[12px]
                  bottom-4 right-4 left-4
                  lg:bottom-6 lg:right-6 lg:left-auto
                  lg:w-[50vw] lg:h-[80vh]
