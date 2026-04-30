@@ -4,6 +4,7 @@ import Image from 'next/image'
 import type { RefObject } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { SplitText } from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
@@ -62,20 +63,21 @@ export function ClientsBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            <div className="-flow">
-              <p
-                className="-entrance -mask-down -a-1 text-text-secondary"
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '2.25rem',
-                  lineHeight: 1.25,
-                  letterSpacing: '-0.36px',
-                  fontWeight: 700,
-                }}
-              >
-                {shortDescription}
-              </p>
-            </div>
+            <SplitText
+              type="line"
+              text={shortDescription}
+              className="text-text-secondary"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '2.25rem',
+                lineHeight: 1.25,
+                letterSpacing: '-0.36px',
+                fontWeight: 700,
+              }}
+              staggerMs={100}
+              durationMs={1000}
+              baseDelayMs={150}
+            />
           </GridItem>
         </Grid>
 

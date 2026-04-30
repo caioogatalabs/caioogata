@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { SplitText } from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
@@ -16,14 +17,17 @@ const about = typedContent.about
  *
  * Source paragraphs come from `about.bio.split('\n\n')`:
  *   index 0       → first paragraph (rendered inside <AboutPinned/>, NOT here)
- *   indices 1..n-2 → middle paragraphs (rendered in cols 5-12 stack)
- *   last index    → final quote (rendered full-width below column area)
+ *   indices 1..n-2 → middle paragraphs (rendered in cols 5-12 stack — word split via SplitText)
+ *   last index    → final quote (rendered full-width below column area — line-mask via SplitText)
  *
- * If there are fewer than 3 paragraphs total, the final-quote slot reuses the last
- * available middle paragraph (defensive — copy may shrink).
+ * Reveal: Motion's SplitText component handles entrance per element. CSS-based -entrance/-flow
+ * has been removed from these text blocks to avoid double-animating.
  */
 export function BioBlock() {
-  const contentRef = useInView({ threshold: 0.1, once: true })
+  // Section root inview ref — drives the numeral kickers (-mask-right) only.
+  // Body text (paragraphs, items, quote) animates via Motion's per-element
+  // useInView inside <SplitText>, independent of this ref.
+  const sectionRef = useInView({ threshold: 0.1, once: true })
   const allParagraphs = about.bio.split('\n\n')
   // First paragraph lives in <AboutPinned/>. We work with the rest.
   const remaining = allParagraphs.slice(1)
@@ -33,7 +37,7 @@ export function BioBlock() {
   return (
     <div>
       <div
-        ref={contentRef as React.RefObject<HTMLDivElement>}
+        ref={sectionRef as React.RefObject<HTMLDivElement>}
         className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
       >
         <Grid className="!px-0">
@@ -51,8 +55,8 @@ export function BioBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            {/* Core Expertise — reading-paced reveal: kicker label, then each item with mask-down */}
-            <div className="flex flex-col w-full -flow">
+            {/* Core Expertise — kicker + list of items, word-split per item */}
+            <div className="flex flex-col w-full">
               <span
                 className="-entrance -mask-right -a-0 inline-block text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
                 style={{ fontFamily: 'var(--font-sans)' }}
@@ -60,38 +64,46 @@ export function BioBlock() {
                 Core Expertise
               </span>
               {about.expertise.map((item, i) => (
-                <p
+                <SplitText
                   key={item}
-                  className={`-entrance -mask-down -a-${Math.min(i + 1, 10)} text-base text-text-primary py-3 border-t border-border-secondary`}
+                  type="word"
+                  text={item}
+                  className="text-base text-text-primary py-3 border-t border-border-secondary"
                   style={{ fontFamily: 'var(--font-sans)' }}
-                >
-                  {item}
-                </p>
+                  staggerMs={25}
+                  durationMs={800}
+                  baseDelayMs={i * 80}
+                />
               ))}
             </div>
 
             {/* 64px gap between Core Expertise and bio paragraph stack */}
             <div className="mt-16">
-              <div className="flex flex-col gap-6 -flow">
+              <div className="flex flex-col gap-6">
                 {middleParagraphs.map((paragraph, i) => (
-                  <p
+                  <SplitText
                     key={i}
-                    className={`-entrance -mask-down -a-${Math.min(i, 10)} text-[24px] font-semibold leading-[1.3] text-text-secondary`}
+                    type="word"
+                    text={paragraph}
+                    className="text-[24px] font-semibold leading-[1.3] text-text-secondary"
                     style={{ fontFamily: 'var(--font-sans)' }}
-                  >
-                    {paragraph}
-                  </p>
+                    staggerMs={20}
+                    durationMs={900}
+                    baseDelayMs={100}
+                  />
                 ))}
               </div>
             </div>
           </GridItem>
         </Grid>
 
-        {/* Final quote — full 12 cols, below the column area */}
+        {/* Final quote — full 12 cols, below the column area. Line-mask reveal. */}
         {finalQuote && (
-          <div className="-flow mt-16 md:mt-20">
-            <p
-              className="-entrance -mask-down -a-0 text-text-secondary"
+          <div className="mt-16 md:mt-20">
+            <SplitText
+              type="line"
+              text={finalQuote}
+              className="text-text-secondary"
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '3rem',
@@ -100,9 +112,10 @@ export function BioBlock() {
                 fontWeight: 400,
                 textIndent: '8em',
               }}
-            >
-              {finalQuote}
-            </p>
+              staggerMs={120}
+              durationMs={1100}
+              baseDelayMs={150}
+            />
           </div>
         )}
       </div>

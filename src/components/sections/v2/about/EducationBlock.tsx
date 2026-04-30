@@ -3,6 +3,7 @@
 import { useMemo } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { SplitText } from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content, EducationItem } from '@/content/types'
 
@@ -57,13 +58,12 @@ export function EducationBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            <div className="flex flex-col -flow">
+            <div className="flex flex-col">
               {allEducation.map((edu, index) => {
-                const stagger = Math.min(index, 10)
                 return (
                   <div
                     key={`${edu.institution}-${edu.year}-${index}`}
-                    className={`-entrance -mask-down -a-${stagger} flex gap-5 md:gap-8 border-t border-border-secondary py-6 md:py-8`}
+                    className="flex gap-5 md:gap-8 border-t border-border-secondary py-6 md:py-8"
                   >
                     {/* Year stamp — fixed width */}
                     <span className="font-mono text-sm text-text-tertiary w-[100px] shrink-0">
@@ -72,18 +72,25 @@ export function EducationBlock() {
 
                     {/* Info stack — flex-1 */}
                     <div className="flex flex-col gap-1 flex-1">
-                      <h3
+                      <SplitText
+                        type="word"
+                        as="h3"
+                        text={edu.institution}
                         className="text-lg md:text-xl text-text-primary"
                         style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}
-                      >
-                        {edu.institution}
-                      </h3>
-                      <p
+                        staggerMs={30}
+                        durationMs={800}
+                        baseDelayMs={80}
+                      />
+                      <SplitText
+                        type="word"
+                        text={edu.degree}
                         className="text-base text-text-secondary"
                         style={{ fontFamily: 'var(--font-sans)' }}
-                      >
-                        {edu.degree}
-                      </p>
+                        staggerMs={20}
+                        durationMs={700}
+                        baseDelayMs={200}
+                      />
                       <p className="font-mono text-xs text-text-tertiary">
                         {edu.location}
                       </p>

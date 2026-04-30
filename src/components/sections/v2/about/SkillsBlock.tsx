@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { SplitText } from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content, Skill } from '@/content/types'
 
@@ -62,10 +63,9 @@ export function SkillsBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            <div className="flex flex-col -flow">
-              {skillsData.categories.map((category, catIndex) => {
+            <div className="flex flex-col">
+              {skillsData.categories.map((category) => {
                 const isOpen = expandedCategoryTitle === category.title
-                const stagger = Math.min(catIndex, 10)
                 const open = () => setExpandedCategoryTitle(category.title)
                 const toggle = () =>
                   setExpandedCategoryTitle((current) =>
@@ -75,7 +75,7 @@ export function SkillsBlock() {
                 return (
                   <div
                     key={category.title}
-                    className={`-entrance -mask-down -a-${stagger} border-t border-border-secondary`}
+                    className="border-t border-border-secondary"
                     onMouseEnter={open}
                   >
                     {/* Header row — focusable button. Click toggles, hover/focus opens. */}
@@ -86,16 +86,20 @@ export function SkillsBlock() {
                       aria-expanded={isOpen}
                       className="group flex items-center justify-between w-full py-5 text-left"
                     >
-                      <span
+                      <SplitText
+                        type="word"
+                        as="span"
+                        text={category.title}
                         className={`text-sm font-medium uppercase tracking-[1.12px] transition-colors duration-300 ${
                           isOpen
                             ? 'text-text-primary'
                             : 'text-text-tertiary group-hover:text-text-primary'
                         }`}
                         style={{ fontFamily: 'var(--font-sans)' }}
-                      >
-                        {category.title}
-                      </span>
+                        staggerMs={30}
+                        durationMs={800}
+                        baseDelayMs={80}
+                      />
                       <span className="flex items-center gap-3">
                         <span className="font-mono text-xs text-text-tertiary">
                           {String(category.skills.length).padStart(2, '0')}

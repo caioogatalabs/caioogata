@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useScrollVideo } from '@/hooks/useScrollVideo'
 import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
+import { SplitText } from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
@@ -98,9 +99,19 @@ export function AboutPinned() {
               </div>
             </div>
 
-            {/* Paragraph — full 12 cols (testing). z-20 so it sits above the image overlap. */}
-            <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 z-20">
-              <p
+            {/* Paragraph — full 12 cols. z-20 so it sits above the image overlap.
+                Line-mask reveal via Motion: each line translates up from below a per-line mask
+                when the pin engages. Exit fade still tied to scroll progress (paragraphOpacity). */}
+            <div
+              className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 z-20"
+              style={{
+                opacity: paragraphOpacity,
+                transition: reducedMotion ? 'none' : 'opacity 60ms linear',
+              }}
+            >
+              <SplitText
+                type="line"
+                text={firstParagraph}
                 className="text-text-primary"
                 style={{
                   fontFamily: 'var(--font-sans)',
@@ -109,12 +120,11 @@ export function AboutPinned() {
                   letterSpacing: '-0.96px',
                   fontWeight: 400,
                   textIndent: '8em',
-                  opacity: paragraphOpacity,
-                  transition: reducedMotion ? 'none' : 'opacity 60ms linear',
                 }}
-              >
-                {firstParagraph}
-              </p>
+                staggerMs={120}
+                durationMs={1100}
+                baseDelayMs={150}
+              />
             </div>
           </div>
         </div>
