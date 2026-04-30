@@ -1,98 +1,20 @@
 'use client'
 
-import { useState } from 'react'
 import { useInView } from '@/hooks/useInView'
 
 const TECH_TAGS = ['Next.js', 'React', 'Tailwind', 'Vercel']
-const EASE = 'cubic-bezier(0.16,1,0.3,1)'
 
 /**
- * FooterSection (slim) — bottom-of-page bar:
- * - Left: tech tag pills + © stamp
- * - Right: Contact pill + `+` square (dispatches `open-contact`)
+ * FooterSection — bottom-of-page bar:
+ * - Tech tag pills + © stamp (left)
  *
- * The contact form is now rendered by ContactOverlay (mounted at PageShell
- * level). This footer no longer expands and no longer owns form state.
+ * The Contact trigger is now the FloatingContactButton (mounted at app/layout
+ * root). This footer no longer owns any contact-form CTA — that surface is
+ * handled exclusively by the FAB so the open/close button stays in the same
+ * spatial position on the screen.
  */
 export function FooterSection() {
-  const [groupHovered, setGroupHovered] = useState(false)
   const sectionRef = useInView({ threshold: 0.1 })
-
-  const open = () => {
-    window.dispatchEvent(new CustomEvent('open-contact'))
-  }
-
-  const t = `1s ${EASE}`
-  const tFast = `0.3s ${EASE}`
-
-  const ctaGroup = (
-    <div
-      className="flex items-center gap-0.5"
-      onMouseEnter={() => setGroupHovered(true)}
-      onMouseLeave={() => setGroupHovered(false)}
-    >
-      <button
-        type="button"
-        onClick={open}
-        aria-label="Open contact form"
-        className="relative inline-flex items-center justify-center h-12 rounded-full bg-bg-fill-primary text-text-on-primary px-8 overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
-      >
-        <span className="invisible text-base font-medium" style={{ fontFamily: 'var(--font-sans)' }} aria-hidden="true">
-          Contact
-        </span>
-        <span
-          className="absolute inset-0 flex items-center justify-center text-base font-medium"
-          style={{
-            fontFamily: 'var(--font-sans)',
-            transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
-            opacity: groupHovered ? 0 : 1,
-            transition: `transform ${t}, opacity ${tFast}`,
-          }}
-        >
-          Contact
-        </span>
-        <span
-          className="absolute inset-0 flex items-center justify-center type-overlay-hover"
-          style={{
-            transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
-            opacity: groupHovered ? 1 : 0,
-            transition: `transform ${t}, opacity ${tFast}`,
-          }}
-        >
-          Contact
-        </span>
-      </button>
-      <button
-        type="button"
-        onClick={open}
-        aria-label="Open contact form"
-        className="relative flex items-center justify-center size-12 rounded-[12px] bg-bg-fill-primary text-text-on-primary overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
-      >
-        <span className="invisible text-lg" style={{ fontFamily: 'var(--font-sans)' }} aria-hidden="true">+</span>
-        <span
-          className="absolute inset-0 flex items-center justify-center text-lg"
-          style={{
-            fontFamily: 'var(--font-sans)',
-            transform: groupHovered ? 'translateY(-100%)' : 'translateY(0)',
-            opacity: groupHovered ? 0 : 1,
-            transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
-          }}
-        >
-          +
-        </span>
-        <span
-          className="absolute inset-0 flex items-center justify-center type-overlay-hover"
-          style={{
-            transform: groupHovered ? 'translateY(0)' : 'translateY(100%)',
-            opacity: groupHovered ? 1 : 0,
-            transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
-          }}
-        >
-          +
-        </span>
-      </button>
-    </div>
-  )
 
   return (
     <footer
@@ -101,24 +23,18 @@ export function FooterSection() {
       data-section-id="footer"
       className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-16 pt-32 md:pt-40 pb-8"
     >
-      <div className="flex items-center justify-between gap-4 flex-wrap">
-        {/* Left: tags + © */}
-        <div className="flex items-center gap-3 flex-wrap">
-          {TECH_TAGS.map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5 rounded-[12px]"
-            >
-              {tag}
-            </span>
-          ))}
-          <span className="text-xs text-text-tertiary font-mono">
-            &copy; 2026 Caio Ogata
+      <div className="flex items-center gap-3 flex-wrap">
+        {TECH_TAGS.map((tag) => (
+          <span
+            key={tag}
+            className="inline-flex items-center justify-center border border-border-primary text-xs text-text-secondary font-mono px-3 py-1.5 rounded-[12px]"
+          >
+            {tag}
           </span>
-        </div>
-
-        {/* Right: Contact CTA */}
-        {ctaGroup}
+        ))}
+        <span className="text-xs text-text-tertiary font-mono">
+          &copy; 2026 Caio Ogata
+        </span>
       </div>
     </footer>
   )

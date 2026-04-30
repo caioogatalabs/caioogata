@@ -9,35 +9,6 @@ const subjectOptions = Object.entries(form.subjectOptions) as [string, string][]
 const EASE = 'cubic-bezier(0.16,1,0.3,1)'
 const EASE_OUT = 'cubic-bezier(0.22,0.31,0,1)'
 
-// Local social icons (decoupled from FooterSection so it can be slimmed safely)
-const SOCIAL_ICONS: Record<string, React.ReactNode> = {
-  LinkedIn: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  ),
-  GitHub: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-    </svg>
-  ),
-  Instagram: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  ),
-  YouTube: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
-      <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
-    </svg>
-  ),
-}
-
 const SOCIAL_ORDER = ['LinkedIn', 'GitHub', 'Instagram', 'YouTube'] as const
 
 function SubjectChip({ label, selected, onClick }: { label: string; selected: boolean; onClick: () => void }) {
@@ -114,37 +85,17 @@ function SubjectChip({ label, selected, onClick }: { label: string; selected: bo
   )
 }
 
-function SocialRow({ label, url }: { label: string; url: string }) {
-  const [h, setH] = useState(false)
+function SocialLink({ label, url }: { label: string; url: string }) {
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative flex items-center justify-between border-t border-border-primary first:border-t-0 px-3 h-12 overflow-hidden"
-      onMouseEnter={() => setH(true)}
-      onMouseLeave={() => setH(false)}
-      onFocus={() => setH(true)}
-      onBlur={() => setH(false)}
-      style={{
-        color: h ? 'var(--color-text-on-outline-hover)' : 'var(--color-text-primary)',
-        transition: 'color 0.15s',
-      }}
+      className="inline-flex items-center gap-2 text-base text-text-secondary hover:text-text-primary transition-colors group"
+      style={{ fontFamily: 'var(--font-sans)' }}
     >
-      <div
-        className="absolute inset-0 bg-bg-fill-outline-hover pointer-events-none"
-        style={{
-          transform: h ? 'translateY(0)' : 'translateY(100%)',
-          transition: h
-            ? `transform 0.2s ${EASE}`
-            : `transform 0.2s ${EASE} 0.04s`,
-        }}
-      />
-      <span className="relative z-10 flex items-center gap-3 text-sm font-medium" style={{ fontFamily: 'var(--font-sans)' }}>
-        <span className="inline-flex items-center justify-center size-5">{SOCIAL_ICONS[label] ?? null}</span>
-        {label}
-      </span>
-      <span className="relative z-10 font-mono text-base" aria-hidden="true">↗</span>
+      <span>{label}</span>
+      <span className="opacity-50 group-hover:opacity-100 transition-opacity" aria-hidden="true">↗</span>
     </a>
   )
 }
@@ -194,6 +145,12 @@ export function ContactOverlay() {
       window.removeEventListener('close-contact', onClose)
     }
   }, [close])
+
+  // Broadcast state so the FAB can stay in sync (Escape, success-state close,
+  // any future programmatic close path)
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('contact-state', { detail: { isOpen } }))
+  }, [isOpen])
 
   // Escape closes
   useEffect(() => {
@@ -334,13 +291,13 @@ export function ContactOverlay() {
           </div>
 
           {/* Body — scroll region */}
-          <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-              {/* Left column — form (~70%) */}
+          <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-24 md:pb-28">
+            <div className="flex flex-col">
+              {/* Form — full width */}
               <form
                 onSubmit={handleSubmit}
                 noValidate
-                className="flex-1 lg:w-[70%] flex flex-col gap-3"
+                className="flex flex-col gap-3"
               >
                 {/* Name + Email stacked */}
                 <div className="flex flex-col">
@@ -438,22 +395,15 @@ export function ContactOverlay() {
                 </div>
               </form>
 
-              {/* Right column — social links (~30%) */}
-              <div className="lg:w-[30%] flex flex-col">
-                <div className="flex flex-col border border-border-primary rounded-[12px] overflow-hidden">
-                  {SOCIAL_ORDER.map((label) => {
-                    const link = content.contact.links.find((l) => l.label === label)
-                    if (!link) return null
-                    return <SocialRow key={label} label={link.label} url={link.url} />
-                  })}
-                </div>
+              {/* Socials — text + ↗, no boxes (matches ProjectInfoBlock Links pattern) */}
+              <div className="flex flex-wrap gap-x-6 gap-y-2 pt-6 mt-6 border-t border-border-primary">
+                {SOCIAL_ORDER.map((label) => {
+                  const link = content.contact.links.find((l) => l.label === label)
+                  if (!link) return null
+                  return <SocialLink key={label} label={link.label} url={link.url} />
+                })}
               </div>
             </div>
-          </div>
-
-          {/* Footer-of-card — Close pill + × (bottom-right) */}
-          <div className="shrink-0 px-6 md:px-8 pb-6 md:pb-8 pt-2 flex items-center justify-end">
-            {closeGroup}
           </div>
         </>
       )}
