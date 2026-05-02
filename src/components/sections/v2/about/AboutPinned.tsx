@@ -121,8 +121,7 @@ export function AboutPinned() {
                   fontWeight: 400,
                   textIndent: '8em',
                 }}
-                staggerMs={120}
-                durationMs={1100}
+                durationMs={800}
                 baseDelayMs={150}
               />
             </div>

@@ -74,8 +74,7 @@ export function ClientsBlock() {
                 letterSpacing: '-0.36px',
                 fontWeight: 700,
               }}
-              staggerMs={100}
-              durationMs={1000}
+              durationMs={800}
               baseDelayMs={150}
             />
           </GridItem>
