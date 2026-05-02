@@ -55,6 +55,21 @@ Text reveal system built on `motion` (motion.dev, ~22 KB gzipped). Single compon
 - `amount` (default `0.2`) — fraction of the element's own height that must be visible. `0.1` = peeks in; `0.5` = half visible.
 - `viewportMargin` (default `"0px 0px -20% 0px"`) — `IntersectionObserver` rootMargin in `top right bottom left` order. The default shrinks the bottom of the viewport by 20vh, so text fires when it's clearly in scene (~70vh from the top), not when it just touches the bottom edge. Combine with `amount` for vh-anchored triggering.
 
+**Synchronizing groups** — when multiple text elements in the same visual block (e.g., institution + degree of an Education row, or kicker + items of a Core Expertise list) should enter on the same beat, wrap them in `<RevealGroup>` (exported from the same file). The group owns one `useInView` and broadcasts the in-view boolean to descendant `<SplitText>` via React context.
+
+```tsx
+<RevealGroup as="div" className="...">
+  <SplitText type="line" as="span" text="Core Expertise" baseDelayMs={100} />
+  {items.map((item, i) => (
+    <SplitText type="word" text={item} baseDelayMs={250 + i * 60} />
+  ))}
+</RevealGroup>
+```
+
+For mixed content (SplitText + plain `motion.span`/`motion.p` for metadata like year, location), use `useInView` directly on the parent ref and pass the boolean: `<SplitText inView={inView} />` plus `<motion.p animate={inView ? ... : ...} />`. See `EducationBlock.tsx` for the canonical example.
+
+Priority for resolving in-view inside `<SplitText>`: explicit `inView` prop > `<RevealGroup>` context > internal observer.
+
 **Defaults** (override per call site):
 - `durationMs`: `700` (word) / `900` (line)
 - `baseDelayMs`: `100`
@@ -77,8 +92,10 @@ Text reveal system built on `motion` (motion.dev, ~22 KB gzipped). Single compon
 - ClientsBlock kicker `1.3 / Notable Clients`: `type="line" as="span"`
 - ClientsBlock shortDescription: `type="line"`
 - EducationBlock kicker `1.4 / Education`: `type="line" as="span"`
-- EducationBlock 5 institution names: `type="word" as="h3"`
-- EducationBlock 5 degrees: `type="word"`
+- EducationBlock 5 institution names: `type="word" as="h3"` (synced per entry)
+- EducationBlock 5 degrees: `type="word"` (synced per entry)
+- EducationBlock 5 entries: each entry uses `useInView` on the row wrapper to sync year + h3 + degree p + location + note as one beat
+- BioBlock Core Expertise: kicker + 7 items wrapped in `<RevealGroup>` so the whole list enters together with cascading `baseDelayMs`
 
 The 16 ClientsBlock logos remain on the legacy CSS `-entrance -fade` system with grid-cadence stagger (70ms) — they're true grid items, not editorial text.
 

@@ -2,7 +2,7 @@
 
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { SplitText } from '@/components/motion/SplitText'
+import { RevealGroup, SplitText } from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
@@ -60,8 +60,9 @@ export function BioBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            {/* Core Expertise — kicker + list of items, word-split per item */}
-            <div className="flex flex-col w-full">
+            {/* Core Expertise — kicker + list of items. RevealGroup syncs them so
+                the whole list enters together when the block crosses the trigger. */}
+            <RevealGroup as="div" className="flex flex-col w-full">
               <SplitText
                 type="line"
                 as="span"
@@ -69,7 +70,7 @@ export function BioBlock() {
                 className="inline-block text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
                 style={{ fontFamily: 'var(--font-sans)' }}
                 durationMs={700}
-                baseDelayMs={150}
+                baseDelayMs={100}
               />
               {about.expertise.map((item, i) => (
                 <SplitText
@@ -78,12 +79,11 @@ export function BioBlock() {
                   text={item}
                   className="text-base text-text-primary py-3 border-t border-border-secondary"
                   style={{ fontFamily: 'var(--font-sans)' }}
-                  staggerMs={25}
-                  durationMs={800}
-                  baseDelayMs={i * 80}
+                  durationMs={700}
+                  baseDelayMs={250 + i * 60}
                 />
               ))}
-            </div>
+            </RevealGroup>
 
             {/* 64px gap between Core Expertise and bio paragraph stack.
                 Middle paragraphs use line-mask reveal — each line slides up from below

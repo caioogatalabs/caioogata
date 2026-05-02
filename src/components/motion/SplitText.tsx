@@ -2,11 +2,14 @@
 
 import { motion, useInView } from 'motion/react'
 import {
+  createContext,
   createElement,
+  useContext,
   useLayoutEffect,
   useRef,
   useState,
   type CSSProperties,
+  type ReactNode,
 } from 'react'
 
 const FIDDLE_EASE = [0.16, 1, 0.3, 1] as const
@@ -34,12 +37,67 @@ interface SharedProps {
    * it just peeks in from the bottom edge.
    */
   viewportMargin?: string
+  /**
+   * External in-view boolean. When provided (or inherited from a `<RevealGroup>`),
+   * overrides the internal observer so multiple SplitTexts can fire in sync.
+   */
+  inView?: boolean
   /** Wrapper element. Default `p`. Use `span` for inline contexts, `h3` for headings, etc. */
   as?: SupportedTag
 }
 
 const DEFAULT_VIEWPORT_MARGIN = '0px 0px -20% 0px'
 const DEFAULT_AMOUNT = 0.2
+
+/**
+ * Shared in-view state for groups of SplitTexts that should fire together.
+ * `null` = no group context, fall back to per-element observer.
+ */
+const RevealContext = createContext<boolean | null>(null)
+
+interface RevealGroupProps {
+  children: ReactNode
+  className?: string
+  style?: CSSProperties
+  amount?: number
+  viewportMargin?: string
+  once?: boolean
+  as?: SupportedTag
+}
+
+/**
+ * Wraps a block of related text so all `<SplitText>` descendants share a single
+ * IntersectionObserver. Use to keep visually grouped elements (e.g., an Education
+ * entry's institution + degree + location) entering at the same beat.
+ *
+ * Renders a plain wrapper element (default `<div>`) with its own ref + useInView.
+ * Children pull the in-view boolean from React context — no prop drilling needed.
+ *
+ * Standalone `<SplitText>` outside a group continues to use its own observer.
+ */
+export function RevealGroup({
+  children,
+  className,
+  style,
+  amount = DEFAULT_AMOUNT,
+  viewportMargin = DEFAULT_VIEWPORT_MARGIN,
+  once = true,
+  as = 'div',
+}: RevealGroupProps) {
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref, {
+    once,
+    amount,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    margin: viewportMargin as any,
+  })
+
+  return createElement(
+    as,
+    { ref, className, style },
+    <RevealContext.Provider value={inView}>{children}</RevealContext.Provider>
+  )
+}
 
 interface SplitTextProps extends SharedProps {
   type?: 'word' | 'line'
@@ -72,16 +130,21 @@ function SplitWords({
   once = true,
   amount = DEFAULT_AMOUNT,
   viewportMargin = DEFAULT_VIEWPORT_MARGIN,
+  inView,
   as = 'p',
 }: SharedProps) {
   const ref = useRef<HTMLElement>(null)
+  // Priority: explicit `inView` prop > <RevealGroup> context > internal observer.
+  const groupInView = useContext(RevealContext)
   // motion types `margin` as a strict template literal — runtime accepts any rootMargin string.
-  const isInView = useInView(ref, {
+  const internalInView = useInView(ref, {
     once,
     amount,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     margin: viewportMargin as any,
   })
+  const isInView =
+    inView !== undefined ? inView : groupInView !== null ? groupInView : internalInView
 
   // Whole-block opacity fade. The text renders inside a single motion.span so the
   // entire phrase enters as one consistent unit — no per-word stagger, no lift, no
@@ -114,17 +177,21 @@ function SplitLines({
   once = true,
   amount = DEFAULT_AMOUNT,
   viewportMargin = DEFAULT_VIEWPORT_MARGIN,
+  inView,
   as = 'p',
 }: SharedProps) {
   const ref = useRef<HTMLElement>(null)
   const [lines, setLines] = useState<string[] | null>(null)
+  const groupInView = useContext(RevealContext)
   // motion types `margin` as a strict template literal — runtime accepts any rootMargin string.
-  const isInView = useInView(ref, {
+  const internalInView = useInView(ref, {
     once,
     amount,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     margin: viewportMargin as any,
   })
+  const isInView =
+    inView !== undefined ? inView : groupInView !== null ? groupInView : internalInView
 
   useLayoutEffect(() => {
     const measure = () => {

@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
+import { motion, useInView as useMotionInView } from 'motion/react'
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { SplitText } from '@/components/motion/SplitText'
@@ -24,6 +25,82 @@ function getSortYear(yearStr: string): number {
 function getDisplayYear(yearStr: string): string {
   const sortYear = getSortYear(yearStr)
   return sortYear > 0 ? String(sortYear) : yearStr
+}
+
+const FIDDLE_EASE = [0.16, 1, 0.3, 1] as const
+
+/**
+ * One row in the timeline. A single `useInView` observer on the entry's wrapper
+ * drives every child element — year stamp, institution h3, degree p, location p,
+ * and the optional note — so they all enter on the same beat. No more "h3
+ * already on screen while p is still entering" desync within a row.
+ */
+function EducationEntry({ edu }: { edu: EducationItem }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useMotionInView(ref, {
+    once: true,
+    amount: 0.2,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    margin: '0px 0px -20% 0px' as any,
+  })
+
+  return (
+    <div
+      ref={ref}
+      className="flex gap-5 md:gap-8 border-t border-border-secondary py-6 md:py-8"
+    >
+      {/* Year stamp — synced fade. */}
+      <motion.span
+        className="font-mono text-sm text-text-tertiary w-[100px] shrink-0"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ delay: 0.1, duration: 0.6, ease: FIDDLE_EASE }}
+      >
+        {getDisplayYear(edu.year)}
+      </motion.span>
+
+      <div className="flex flex-col gap-1 flex-1">
+        <SplitText
+          type="word"
+          as="h3"
+          text={edu.institution}
+          className="text-lg md:text-xl text-text-primary"
+          style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}
+          durationMs={700}
+          baseDelayMs={150}
+          inView={inView}
+        />
+        <SplitText
+          type="word"
+          text={edu.degree}
+          className="text-base text-text-secondary"
+          style={{ fontFamily: 'var(--font-sans)' }}
+          durationMs={700}
+          baseDelayMs={250}
+          inView={inView}
+        />
+        <motion.p
+          className="font-mono text-xs text-text-tertiary"
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 0.35, duration: 0.6, ease: FIDDLE_EASE }}
+        >
+          {edu.location}
+        </motion.p>
+        {edu.note && (
+          <motion.p
+            className="text-sm text-text-secondary mt-2"
+            style={{ fontFamily: 'var(--font-sans)' }}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ delay: 0.45, duration: 0.6, ease: FIDDLE_EASE }}
+          >
+            {edu.note}
+          </motion.p>
+        )}
+      </div>
+    </div>
+  )
 }
 
 export function EducationBlock() {
@@ -64,53 +141,12 @@ export function EducationBlock() {
             className="lg:col-start-5"
           >
             <div className="flex flex-col">
-              {allEducation.map((edu, index) => {
-                return (
-                  <div
-                    key={`${edu.institution}-${edu.year}-${index}`}
-                    className="flex gap-5 md:gap-8 border-t border-border-secondary py-6 md:py-8"
-                  >
-                    {/* Year stamp — fixed width */}
-                    <span className="font-mono text-sm text-text-tertiary w-[100px] shrink-0">
-                      {getDisplayYear(edu.year)}
-                    </span>
-
-                    {/* Info stack — flex-1 */}
-                    <div className="flex flex-col gap-1 flex-1">
-                      <SplitText
-                        type="word"
-                        as="h3"
-                        text={edu.institution}
-                        className="text-lg md:text-xl text-text-primary"
-                        style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}
-                        staggerMs={30}
-                        durationMs={800}
-                        baseDelayMs={80}
-                      />
-                      <SplitText
-                        type="word"
-                        text={edu.degree}
-                        className="text-base text-text-secondary"
-                        style={{ fontFamily: 'var(--font-sans)' }}
-                        staggerMs={20}
-                        durationMs={700}
-                        baseDelayMs={200}
-                      />
-                      <p className="font-mono text-xs text-text-tertiary">
-                        {edu.location}
-                      </p>
-                      {edu.note && (
-                        <p
-                          className="text-sm text-text-secondary mt-2"
-                          style={{ fontFamily: 'var(--font-sans)' }}
-                        >
-                          {edu.note}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                )
-              })}
+              {allEducation.map((edu, index) => (
+                <EducationEntry
+                  key={`${edu.institution}-${edu.year}-${index}`}
+                  edu={edu}
+                />
+              ))}
             </div>
           </GridItem>
         </Grid>
