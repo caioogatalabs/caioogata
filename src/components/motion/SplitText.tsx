@@ -21,10 +21,25 @@ interface SharedProps {
   durationMs?: number
   baseDelayMs?: number
   once?: boolean
+  /**
+   * Fraction of the element's own height that must be visible to trigger.
+   * Default 0.2 — animation fires when ~20% of the element is in viewport.
+   * Combine with `viewportMargin` to add a vh-based buffer.
+   */
   amount?: number
+  /**
+   * IntersectionObserver root margin in `top right bottom left` form.
+   * Default `"0px 0px -20% 0px"` — shrinks the bottom of the viewport by 20vh,
+   * so text fires when it's ~20vh above the fold (clearly in scene), not when
+   * it just peeks in from the bottom edge.
+   */
+  viewportMargin?: string
   /** Wrapper element. Default `p`. Use `span` for inline contexts, `h3` for headings, etc. */
   as?: SupportedTag
 }
+
+const DEFAULT_VIEWPORT_MARGIN = '0px 0px -20% 0px'
+const DEFAULT_AMOUNT = 0.2
 
 interface SplitTextProps extends SharedProps {
   type?: 'word' | 'line'
@@ -55,11 +70,18 @@ function SplitWords({
   durationMs = 700,
   baseDelayMs = 100,
   once = true,
-  amount = 0.1,
+  amount = DEFAULT_AMOUNT,
+  viewportMargin = DEFAULT_VIEWPORT_MARGIN,
   as = 'p',
 }: SharedProps) {
   const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref, { once, amount })
+  // motion types `margin` as a strict template literal — runtime accepts any rootMargin string.
+  const isInView = useInView(ref, {
+    once,
+    amount,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    margin: viewportMargin as any,
+  })
 
   // Whole-block opacity fade. The text renders inside a single motion.span so the
   // entire phrase enters as one consistent unit — no per-word stagger, no lift, no
@@ -90,12 +112,19 @@ function SplitLines({
   durationMs = 900,
   baseDelayMs = 100,
   once = true,
-  amount = 0.1,
+  amount = DEFAULT_AMOUNT,
+  viewportMargin = DEFAULT_VIEWPORT_MARGIN,
   as = 'p',
 }: SharedProps) {
   const ref = useRef<HTMLElement>(null)
   const [lines, setLines] = useState<string[] | null>(null)
-  const isInView = useInView(ref, { once, amount })
+  // motion types `margin` as a strict template literal — runtime accepts any rootMargin string.
+  const isInView = useInView(ref, {
+    once,
+    amount,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    margin: viewportMargin as any,
+  })
 
   useLayoutEffect(() => {
     const measure = () => {

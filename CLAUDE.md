@@ -37,10 +37,50 @@ Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Arc
 
 ### Animation System
 
-- **Easing tokens**: `--ease-out` (0.22,0.31,0,1) for entrances, `--ease-in` (0.69,0,0,1) for exits, `--ease-smooth` (0.5,0,0.3,1) for micro-interactions
-- **Entrance system**: CSS classes `-entrance -slide-up`, `-entrance -fade`, `-entrance -scale-in` triggered by `-inview` class (IntersectionObserver via `useInView` hook). Parent `-inview` propagates to descendant `-entrance` children.
-- **Stagger**: `-a-0` through `-a-20`, 70ms per index + 150ms base offset
+- **Easing tokens**: `--ease-out` (0.22,0.31,0,1) for entrances, `--ease-in` (0.69,0,0,1) for exits, `--ease-smooth` (0.5,0,0.3,1) for micro-interactions, `--ease-fiddle` (0.16,1,0.3,1) for the project's signature deceleration curve (text reveals + preview expand)
+- **Entrance system**: CSS classes `-entrance -slide-up`, `-entrance -fade`, `-entrance -scale-in`, `-entrance -mask-down`, `-entrance -mask-right`, `-entrance -line-x` triggered by `-inview` class (IntersectionObserver via `useInView` hook). Parent `-inview` propagates to descendant `-entrance` children.
+- **Stagger**: `-a-0` through `-a-20`, 70ms per index + 150ms base offset. Modifier `.-flow` overrides the cadence to a reading-pace ~150-180ms per step, used inside text blocks where grid speed feels too fast.
 - **Loading gate**: `html.-loaded.-ready` required before any entrance fires. Set by inline `<script>` in `<head>` (not React hook — survives hydration).
+
+### Motion Text Reveal (`SplitText`)
+
+Text reveal system built on `motion` (motion.dev, ~22 KB gzipped). Single component: [`src/components/motion/SplitText.tsx`](src/components/motion/SplitText.tsx). Used wherever copy benefits from a deliberate entrance — supersedes the CSS `-entrance` variants for editorial text. The CSS variants remain in use for grid/UI items (logos, etc).
+
+**Two patterns** (selected via `type` prop):
+
+- **`type="line"`** — line-by-line mask reveal. After layout, the component clones the rendered element (preserves font axes, letter-spacing, text-indent), splits text into words, groups by `offsetTop`, and renders each detected line wrapped in `<span overflow:hidden>` with an inner `motion.span` that translates from `y: 110% → 0%`. Per-line `staggerMs` between lines. Use for: hero / display copy, section kickers (`1.1 / Bio`, etc), Bio middle paragraphs, final quote, large statements. Honors `text-indent` on the parent — extracts it from style and applies as `padding-left` to the first line span only (otherwise inheritance would indent every line).
+- **`type="word"`** — whole-block opacity fade. Renders the text as a single `motion.span` with `opacity: 0 → 1`. No splitting, no transform. Use for: short titles, body text where word-by-word stagger competes with reading. (`staggerMs` is ignored in this mode.)
+
+**Trigger position** — when in scroll the animation fires:
+- `amount` (default `0.2`) — fraction of the element's own height that must be visible. `0.1` = peeks in; `0.5` = half visible.
+- `viewportMargin` (default `"0px 0px -20% 0px"`) — `IntersectionObserver` rootMargin in `top right bottom left` order. The default shrinks the bottom of the viewport by 20vh, so text fires when it's clearly in scene (~70vh from the top), not when it just touches the bottom edge. Combine with `amount` for vh-anchored triggering.
+
+**Defaults** (override per call site):
+- `durationMs`: `700` (word) / `900` (line)
+- `baseDelayMs`: `100`
+- `staggerMs`: `100` (line only)
+- `easing`: `cubic-bezier(0.16, 1, 0.3, 1)` (`--ease-fiddle`)
+- `as`: `'p'` — set to `'span'` for inline kickers, `'h3'` for headings, etc.
+- `once`: `true` — fires once per page load
+
+**`prefers-reduced-motion`**: handled at the framework level — Motion respects the media query and collapses transforms. The CSS reduced-motion override at `globals.css:354` also forces `clip-path: inset(0)` on the legacy `-entrance` variants.
+
+**Where it's applied** (`/about` only as of 2026-05-02):
+- AboutPinned hero paragraph: `type="line"`
+- BioBlock kicker `1.1 / Bio`: `type="line" as="span"`
+- BioBlock `Core Expertise` kicker: `type="line" as="span"`
+- BioBlock 7 Core Expertise items: `type="word"` (one per item)
+- BioBlock 3 middle paragraphs: `type="line"`
+- BioBlock final quote: `type="line"`
+- SkillsBlock kicker `1.2 / Skills`: `type="line" as="span"`
+- SkillsBlock 6 category titles: `type="word" as="span"`
+- ClientsBlock kicker `1.3 / Notable Clients`: `type="line" as="span"`
+- ClientsBlock shortDescription: `type="line"`
+- EducationBlock kicker `1.4 / Education`: `type="line" as="span"`
+- EducationBlock 5 institution names: `type="word" as="h3"`
+- EducationBlock 5 degrees: `type="word"`
+
+The 16 ClientsBlock logos remain on the legacy CSS `-entrance -fade` system with grid-cadence stagger (70ms) — they're true grid items, not editorial text.
 
 ### Interaction Patterns (reference: fiddle.digital)
 
