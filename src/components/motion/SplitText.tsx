@@ -52,8 +52,11 @@ const DEFAULT_AMOUNT = 0.2
 /**
  * Shared in-view state for groups of SplitTexts that should fire together.
  * `null` = no group context, fall back to per-element observer.
+ *
+ * Exported so other Motion-aware components in the project (e.g. AnimatedDivider)
+ * can read the same group state without duplicating observers.
  */
-const RevealContext = createContext<boolean | null>(null)
+export const RevealContext = createContext<boolean | null>(null)
 
 interface RevealGroupProps {
   children: ReactNode
@@ -305,4 +308,62 @@ function SplitLines({
   ))
 
   return createElement(as, { ref, className, style: parentStyle }, children)
+}
+
+interface AnimatedDividerProps {
+  /** Explicit in-view state. Falls back to `<RevealGroup>` context if not provided. */
+  inView?: boolean
+  /** Delay before the line starts drawing. Default 0ms (matches the row's first reveal). */
+  delayMs?: number
+  /** Draw duration. Default 600ms. */
+  durationMs?: number
+  /**
+   * Token for the line color. Default `border-secondary`. Resolves to
+   * `var(--color-{token})` via inline style — works regardless of whether the
+   * Tailwind `bg-{token}` utility exists for the chosen token.
+   */
+  colorToken?: 'border-primary' | 'border-secondary' | 'border-brand' | 'border-inverse'
+  /** Override absolute positioning for non-row contexts. Default top: 0, full width. */
+  className?: string
+}
+
+/**
+ * 1px horizontal line that draws left → right (`scaleX 0 → 1`) when the
+ * surrounding row enters the viewport. Replaces static `border-t` on rows
+ * whose content uses Motion / SplitText reveals — keeps the structural line
+ * synced with the editorial gesture instead of sitting visible the whole time.
+ *
+ * Defaults to absolute-positioned, 1px tall, full width of its `relative`
+ * parent. Override `className` for custom layouts.
+ *
+ * Reads `<RevealGroup>` context for `inView` if not passed explicitly.
+ */
+export function AnimatedDivider({
+  inView,
+  delayMs = 0,
+  durationMs = 600,
+  colorToken = 'border-secondary',
+  className = 'absolute top-0 left-0 right-0 h-px',
+}: AnimatedDividerProps) {
+  const groupInView = useContext(RevealContext)
+  const isInView = inView !== undefined ? inView : groupInView ?? false
+
+  return (
+    <motion.div
+      className={className}
+      style={{
+        backgroundColor: `var(--color-${colorToken})`,
+        transformOrigin: 'left center',
+        willChange: 'transform',
+      }}
+      initial={{ scaleX: 0 }}
+      animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+      transition={{
+        delay: delayMs / 1000,
+        duration: durationMs / 1000,
+        ease: FIDDLE_EASE,
+      }}
+      aria-hidden="true"
+    />
+  )
 }

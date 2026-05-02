@@ -70,6 +70,21 @@ For mixed content (SplitText + plain `motion.span`/`motion.p` for metadata like 
 
 Priority for resolving in-view inside `<SplitText>`: explicit `inView` prop > `<RevealGroup>` context > internal observer.
 
+**Animated dividers** — for rows whose content uses Motion / SplitText reveals, use `<AnimatedDivider>` (also exported from `motion/SplitText.tsx`) instead of static `border-t` so the structural line draws in sync with the row, not visible the whole time.
+
+```tsx
+<div className="relative">
+  <AnimatedDivider />
+  <SplitText type="word" text="..." />
+</div>
+```
+
+`AnimatedDivider` defaults to absolute-positioned, 1px tall, full width of its `relative` parent, drawn left → right via `scaleX(0 → 1)` with `transform-origin: left`. Reads `<RevealGroup>` context for `inView` like `<SplitText>`, or accepts an explicit `inView` prop. `delayMs` shifts the draw to match a SplitText with the same `baseDelayMs`. `colorToken` defaults to `border-secondary` and resolves to `var(--color-{token})`.
+
+Applied where rows have synced text reveals: Education timeline (per entry, via row's own `useInView`), Bio Core Expertise items (each item gets a divider with the same `delayMs` as its SplitText, both inside `<RevealGroup>`), Skills accordion rows (extracted to `<SkillsRow>` with own `useInView`).
+
+Static `border-t` remains acceptable for purely structural rules unrelated to a text reveal — none currently in `/about`.
+
 **Defaults** (override per call site):
 - `durationMs`: `700` (word) / `900` (line)
 - `baseDelayMs`: `100`

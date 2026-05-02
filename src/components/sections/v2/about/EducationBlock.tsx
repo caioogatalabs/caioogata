@@ -4,7 +4,7 @@ import { useMemo, useRef } from 'react'
 import { motion, useInView as useMotionInView } from 'motion/react'
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { SplitText } from '@/components/motion/SplitText'
+import { AnimatedDivider, SplitText } from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content, EducationItem } from '@/content/types'
 
@@ -47,8 +47,10 @@ function EducationEntry({ edu }: { edu: EducationItem }) {
   return (
     <div
       ref={ref}
-      className="flex gap-5 md:gap-8 border-t border-border-secondary py-6 md:py-8"
+      className="relative flex gap-5 md:gap-8 py-6 md:py-8"
     >
+      {/* Top divider — draws left→right synced with the row reveal. */}
+      <AnimatedDivider inView={inView} />
       {/* Year stamp — synced fade. */}
       <motion.span
         className="font-mono text-sm text-text-tertiary w-[100px] shrink-0"

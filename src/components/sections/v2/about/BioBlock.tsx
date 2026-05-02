@@ -2,7 +2,7 @@
 
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { RevealGroup, SplitText } from '@/components/motion/SplitText'
+import { AnimatedDivider, RevealGroup, SplitText } from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content } from '@/content/types'
 
@@ -72,17 +72,24 @@ export function BioBlock() {
                 durationMs={700}
                 baseDelayMs={100}
               />
-              {about.expertise.map((item, i) => (
-                <SplitText
-                  key={item}
-                  type="word"
-                  text={item}
-                  className="text-base text-text-primary py-3 border-t border-border-secondary"
-                  style={{ fontFamily: 'var(--font-sans)' }}
-                  durationMs={700}
-                  baseDelayMs={250 + i * 60}
-                />
-              ))}
+              {about.expertise.map((item, i) => {
+                const delay = 250 + i * 60
+                return (
+                  <div key={item} className="relative">
+                    {/* Divider draws in sync with this item's reveal. RevealGroup context
+                        provides inView to AnimatedDivider automatically. */}
+                    <AnimatedDivider delayMs={delay} />
+                    <SplitText
+                      type="word"
+                      text={item}
+                      className="text-base text-text-primary py-3"
+                      style={{ fontFamily: 'var(--font-sans)' }}
+                      durationMs={700}
+                      baseDelayMs={delay}
+                    />
+                  </div>
+                )
+              })}
             </RevealGroup>
 
             {/* 64px gap between Core Expertise and bio paragraph stack.
