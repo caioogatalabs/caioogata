@@ -46,9 +46,14 @@ export function EducationBlock() {
         <Grid className="!px-0">
           {/* Spacer cols 1-4 — hosts the section label */}
           <GridItem span={4} tabletSpan={2} mobileSpan={4}>
-            <span className="-entrance -mask-right -a-0 inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
-              1.4 / Education
-            </span>
+            <SplitText
+              type="line"
+              as="span"
+              text="1.4 / Education"
+              className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
+              durationMs={700}
+              baseDelayMs={100}
+            />
           </GridItem>
 
           {/* Content cols 5-12 */}

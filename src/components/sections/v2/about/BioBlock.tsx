@@ -43,9 +43,14 @@ export function BioBlock() {
         <Grid className="!px-0">
           {/* Spacer cols 1-4 (mobile collapses) — hosts the section label */}
           <GridItem span={4} tabletSpan={2} mobileSpan={4}>
-            <span className="-entrance -mask-right -a-0 inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
-              1.1 / Bio
-            </span>
+            <SplitText
+              type="line"
+              as="span"
+              text="1.1 / Bio"
+              className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
+              durationMs={700}
+              baseDelayMs={100}
+            />
           </GridItem>
 
           {/* Content cols 5-12 */}
@@ -57,12 +62,15 @@ export function BioBlock() {
           >
             {/* Core Expertise — kicker + list of items, word-split per item */}
             <div className="flex flex-col w-full">
-              <span
-                className="-entrance -mask-right -a-0 inline-block text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
+              <SplitText
+                type="line"
+                as="span"
+                text="Core Expertise"
+                className="inline-block text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
                 style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                Core Expertise
-              </span>
+                durationMs={700}
+                baseDelayMs={150}
+              />
               {about.expertise.map((item, i) => (
                 <SplitText
                   key={item}
@@ -112,7 +120,8 @@ export function BioBlock() {
                 fontWeight: 400,
                 textIndent: '8em',
               }}
-              durationMs={800}
+              staggerMs={120}
+              durationMs={1100}
               baseDelayMs={150}
             />
           </div>

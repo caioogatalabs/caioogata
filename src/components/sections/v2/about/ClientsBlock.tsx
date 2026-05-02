@@ -53,9 +53,14 @@ export function ClientsBlock() {
         <Grid className="!px-0 mb-12 md:mb-16">
           {/* Spacer cols 1-4 — hosts the section label */}
           <GridItem span={4} tabletSpan={2} mobileSpan={4}>
-            <span className="-entrance -mask-right -a-0 inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary">
-              1.3 / Notable Clients
-            </span>
+            <SplitText
+              type="line"
+              as="span"
+              text="1.3 / Notable Clients"
+              className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
+              durationMs={700}
+              baseDelayMs={100}
+            />
           </GridItem>
           <GridItem
             span={8}
@@ -74,7 +79,8 @@ export function ClientsBlock() {
                 letterSpacing: '-0.36px',
                 fontWeight: 700,
               }}
-              durationMs={800}
+              staggerMs={100}
+              durationMs={1000}
               baseDelayMs={150}
             />
           </GridItem>
