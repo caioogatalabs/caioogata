@@ -23,26 +23,19 @@ export function IntroSection() {
         className="relative px-5 pt-8 md:px-8 md:pt-10 lg:px-16 lg:pt-12"
       >
         <div
-          className="-entrance -fade -a-0 flex items-start justify-between w-full text-text-primary opacity-50 uppercase tracking-[1.2px]"
+          className="-entrance -fade -a-0 font-mono flex items-start justify-between w-full text-text-primary opacity-50 tracking-[1.2px]"
           style={{
-            fontFamily: 'var(--font-sans)',
             fontSize: '12px',
             fontWeight: 600,
             lineHeight: 1.2,
           }}
         >
-          <p className="hidden md:block w-[232px]">
-            Welcome to caioogata portfolio &amp; website
+          <p className="hidden md:block whitespace-nowrap">
+            Welcome to caioogata portfolio
           </p>
-          <span className="text-right">
-            V2.
-            <br />
-            0.12
-          </span>
-          <p className="hidden lg:block w-[322px] text-right">
-            Built for human
-            <br />
-            and AI assistance
+          <span className="text-right whitespace-nowrap">V2.0.12</span>
+          <p className="hidden lg:block whitespace-nowrap text-right">
+            Built for human and AI assistance
           </p>
         </div>
       </section>
@@ -70,10 +63,9 @@ export function IntroSection() {
             {TAGS.map((tag) => (
               <span
                 key={tag.label}
-                className={`inline-flex items-center justify-center h-10 md:h-12 px-5 md:px-8 border border-border-primary text-text-primary text-sm md:text-base font-medium whitespace-nowrap ${
+                className={`font-mono inline-flex items-center justify-center h-10 md:h-12 px-5 md:px-8 border border-border-primary text-text-primary text-sm md:text-base font-medium whitespace-nowrap ${
                   tag.pill ? 'rounded-full' : 'rounded-[12px]'
                 }`}
-                style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {tag.label}
               </span>
