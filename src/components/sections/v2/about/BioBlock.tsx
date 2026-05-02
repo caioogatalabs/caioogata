@@ -85,18 +85,20 @@ export function BioBlock() {
               ))}
             </div>
 
-            {/* 64px gap between Core Expertise and bio paragraph stack */}
+            {/* 64px gap between Core Expertise and bio paragraph stack.
+                Middle paragraphs use line-mask reveal — each line slides up from below
+                a per-line mask, matching the hero/quote pattern. */}
             <div className="mt-16">
               <div className="flex flex-col gap-6">
                 {middleParagraphs.map((paragraph, i) => (
                   <SplitText
                     key={i}
-                    type="word"
+                    type="line"
                     text={paragraph}
                     className="text-[24px] font-semibold leading-[1.3] text-text-secondary"
                     style={{ fontFamily: 'var(--font-sans)' }}
-                    staggerMs={20}
-                    durationMs={900}
+                    staggerMs={70}
+                    durationMs={800}
                     baseDelayMs={100}
                   />
                 ))}
