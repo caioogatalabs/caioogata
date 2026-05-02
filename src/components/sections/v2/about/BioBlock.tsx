@@ -93,18 +93,20 @@ export function BioBlock() {
             </RevealGroup>
 
             {/* 64px gap between Core Expertise and bio paragraph stack.
-                Middle paragraphs use line-mask reveal — each line slides up from below
-                a per-line mask, matching the hero/quote pattern. */}
+                Middle paragraphs use whole-block fade (no per-line splitting) so the
+                paragraph reads as continuous body — line-mask rendered each line as a
+                separate `display: block` span, which created visible discontinuity at
+                wrap points (e.g., "entire user-facing" / "engineering layer"). Plain
+                fade keeps natural text flow. */}
             <div className="mt-16">
               <div className="flex flex-col gap-6">
                 {middleParagraphs.map((paragraph, i) => (
                   <SplitText
                     key={i}
-                    type="line"
+                    type="word"
                     text={paragraph}
                     className="text-[24px] font-normal leading-[1.3] text-text-secondary"
                     style={{ fontFamily: 'var(--font-sans)' }}
-                    staggerMs={70}
                     durationMs={800}
                     baseDelayMs={100}
                   />
