@@ -1,10 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { useInView as useMotionInView } from 'motion/react'
-import { useInView } from '@/hooks/useInView'
+import { useContext, useEffect, useState } from 'react'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { AnimatedDivider, SplitText } from '@/components/motion/SplitText'
+import {
+  AnimatedDivider,
+  RevealContext,
+  RevealGroup,
+  SplitText,
+} from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content, Skill, SkillCategory } from '@/content/types'
 
@@ -30,7 +33,6 @@ const LEVEL_WIDTH: Record<Skill['level'], string> = {
  *     a level-mapped yellow bar on row hover (text turns inverse).
  */
 export function SkillsBlock() {
-  const blockRef = useInView({ threshold: 0.1, once: true })
   const [expandedCategoryTitle, setExpandedCategoryTitle] = useState<string | null>(null)
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
   const [reducedMotion, setReducedMotion] = useState(false)
@@ -42,7 +44,6 @@ export function SkillsBlock() {
   return (
     <div>
       <div
-        ref={blockRef as React.RefObject<HTMLDivElement>}
         className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
         onMouseLeave={() => {
           setExpandedCategoryTitle(null)
@@ -69,11 +70,14 @@ export function SkillsBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
-            <div className="flex flex-col">
-              {skillsData.categories.map((category) => (
+            {/* RevealGroup so all 6 categories fire on the same beat with cascading
+                per-row delays. Matches Core Expertise / Education pattern. */}
+            <RevealGroup as="div" className="flex flex-col">
+              {skillsData.categories.map((category, index) => (
                 <SkillsRow
                   key={category.title}
                   category={category}
+                  index={index}
                   isOpen={expandedCategoryTitle === category.title}
                   hoveredSkill={hoveredSkill}
                   setHoveredSkill={setHoveredSkill}
@@ -86,7 +90,7 @@ export function SkillsBlock() {
                   }
                 />
               ))}
-            </div>
+            </RevealGroup>
           </GridItem>
         </Grid>
       </div>
@@ -96,6 +100,7 @@ export function SkillsBlock() {
 
 interface SkillsRowProps {
   category: SkillCategory
+  index: number
   isOpen: boolean
   hoveredSkill: string | null
   setHoveredSkill: (name: string | null) => void
@@ -105,12 +110,14 @@ interface SkillsRowProps {
 }
 
 /**
- * One accordion row. Owns its own `useInView` so the top divider draws + the
- * category title fades in on the same beat — no more "border already there
- * while title is still entering".
+ * One accordion row. Reads `inView` from the parent `<RevealGroup>` so all 6
+ * categories fire on the same beat with cascading delays. `index * 120ms` shifts
+ * each row's reveal across the cascade; within a row the divider draws first,
+ * then the title fades in 50ms later.
  */
 function SkillsRow({
   category,
+  index,
   isOpen,
   hoveredSkill,
   setHoveredSkill,
@@ -118,17 +125,13 @@ function SkillsRow({
   onOpen,
   onToggle,
 }: SkillsRowProps) {
-  const rowRef = useRef<HTMLDivElement>(null)
-  const inView = useMotionInView(rowRef, {
-    once: true,
-    amount: 0.2,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    margin: '0px 0px -20% 0px' as any,
-  })
+  const groupInView = useContext(RevealContext)
+  const inView = groupInView ?? false
+  const baseDelay = 200 + index * 120
 
   return (
-    <div ref={rowRef} className="relative" onMouseEnter={onOpen}>
-      <AnimatedDivider inView={inView} />
+    <div className="relative" onMouseEnter={onOpen}>
+      <AnimatedDivider inView={inView} delayMs={baseDelay} />
       {/* Header row — focusable button. Click toggles, hover/focus opens. */}
       <button
         type="button"
@@ -148,7 +151,7 @@ function SkillsRow({
           }`}
           style={{ fontFamily: 'var(--font-sans)' }}
           durationMs={700}
-          baseDelayMs={150}
+          baseDelayMs={baseDelay + 50}
           inView={inView}
         />
         <span className="flex items-center gap-3">

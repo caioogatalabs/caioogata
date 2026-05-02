@@ -102,7 +102,7 @@ export function BioBlock() {
                     key={i}
                     type="line"
                     text={paragraph}
-                    className="text-[24px] font-semibold leading-[1.3] text-text-secondary"
+                    className="text-[24px] font-normal leading-[1.3] text-text-secondary"
                     style={{ fontFamily: 'var(--font-sans)' }}
                     staggerMs={70}
                     durationMs={800}
