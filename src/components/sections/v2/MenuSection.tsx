@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useMenuNavigation } from '@/hooks/useMenuNavigation'
 import { useInView } from '@/hooks/useInView'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
+import { useScramble } from '@/hooks/useScramble'
 import { FloatingPreview } from '@/components/sections/v2/FloatingPreview'
 import type { MenuItem, Menu } from '@/content/types'
 
@@ -65,6 +66,18 @@ export function MenuSection({ content }: MenuSectionProps) {
   const { mode: interactionMode } = useInteractionMode()
   const keyboardSticky = interactionMode === 'keyboard' && activeIndex !== null
 
+  // Pilot: scramble the first menu item's label on highlight. Other items unchanged.
+  // Hooks must be called unconditionally — call once at top level, then thread the
+  // result into the row at index 0. Both rest + overlay spans receive the same
+  // scrambled string for visual coherence.
+  const firstItem = filteredItems[0]
+  const firstItemHighlighted = firstItem
+    ? (keyboardSticky
+        ? activeIndex === 0
+        : hoveredIndex === 0 || (hoveredIndex === null && activeIndex === 0))
+    : false
+  const firstItemScrambledLabel = useScramble(firstItem?.label ?? '', firstItemHighlighted)
+
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const newX = e.clientX
     const newY = e.clientY
@@ -101,6 +114,7 @@ export function MenuSection({ content }: MenuSectionProps) {
             ? activeIndex === index
             : hoveredIndex === index || (hoveredIndex === null && activeIndex === index)
           const isDimmed = (hoveredIndex !== null || activeIndex !== null) && !isHighlighted
+          const labelText = index === 0 ? firstItemScrambledLabel : item.label
 
           return (
             <li
@@ -188,7 +202,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                         : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                     }}
                   >
-                    <span className="block truncate">/{item.label}</span>
+                    <span className="block truncate">/{labelText}</span>
                   </span>
                   <span
                     className="absolute inset-0 flex items-center type-overlay-hover"
@@ -200,7 +214,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                       color: 'var(--color-text-on-primary)',
                     }}
                   >
-                    <span className="block truncate">/{item.label}</span>
+                    <span className="block truncate">/{labelText}</span>
                   </span>
                 </span>
 
