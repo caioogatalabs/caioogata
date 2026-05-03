@@ -239,7 +239,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                         color: 'var(--color-text-on-primary)',
                       }}
                     >
-                      <span className="block truncate">{item.description}</span>
+                      <span className="block truncate"><ScrambledLabel text={item.description} active={isHighlighted} /></span>
                     </span>
                   </span>
                 )}
