@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 const DEFAULT_POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%'
-const DEFAULT_STEP_MS = 35
+const DEFAULT_STEP_MS = 17
 
 export interface ScrambleResult {
   /** Current display string — mix of revealed chars (left) and random (right). */
@@ -49,8 +49,8 @@ export function useScramble(
 
     let step = 0
     const total = text.length
-    // Reveal cadence: ~2x stepMs per character. With stepMs=35 and
-    // revealEvery=2 → 70ms per char → "about" (5) ≈ 350ms; "experience" (10) ≈ 700ms.
+    // Reveal cadence: ~2x stepMs per character. With stepMs=17 and
+    // revealEvery=2 → 34ms per char → "about" (5) ≈ 170ms; "experience" (10) ≈ 340ms.
     const revealEvery = 2
 
     const tick = () => {
