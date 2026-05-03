@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useMenuNavigation } from '@/hooks/useMenuNavigation'
 import { useInView } from '@/hooks/useInView'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
-import { useScramble } from '@/hooks/useScramble'
+import { ScrambledLabel } from '@/components/motion/ScrambledLabel'
 import { FloatingPreview } from '@/components/sections/v2/FloatingPreview'
 import type { MenuItem, Menu } from '@/content/types'
 
@@ -66,19 +66,6 @@ export function MenuSection({ content }: MenuSectionProps) {
   const { mode: interactionMode } = useInteractionMode()
   const keyboardSticky = interactionMode === 'keyboard' && activeIndex !== null
 
-  // Pilot: scramble the first menu item's label on highlight. Other items unchanged.
-  // Hooks must be called unconditionally — call once at top level, then thread the
-  // result into the row at index 0. Both rest + overlay spans render the resolved
-  // half in mono and the scrambling tail in sans, so the typography contrast grows
-  // left → right alongside the char reveal (visible even on short labels).
-  const firstItem = filteredItems[0]
-  const firstItemHighlighted = firstItem
-    ? (keyboardSticky
-        ? activeIndex === 0
-        : hoveredIndex === 0 || (hoveredIndex === null && activeIndex === 0))
-    : false
-  const firstItemScramble = useScramble(firstItem?.label ?? '', firstItemHighlighted)
-
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const newX = e.clientX
     const newY = e.clientY
@@ -115,22 +102,6 @@ export function MenuSection({ content }: MenuSectionProps) {
             ? activeIndex === index
             : hoveredIndex === index || (hoveredIndex === null && activeIndex === index)
           const isDimmed = (hoveredIndex !== null || activeIndex !== null) && !isHighlighted
-          const isScrambling =
-            index === 0 &&
-            firstItemHighlighted &&
-            firstItemScramble.revealed < firstItemScramble.display.length
-          const labelNode: React.ReactNode = isScrambling ? (
-            <>
-              <span className="font-mono">
-                {firstItemScramble.display.slice(0, firstItemScramble.revealed)}
-              </span>
-              <span className="font-sans">
-                {firstItemScramble.display.slice(firstItemScramble.revealed)}
-              </span>
-            </>
-          ) : (
-            item.label
-          )
 
           return (
             <li
@@ -218,7 +189,10 @@ export function MenuSection({ content }: MenuSectionProps) {
                         : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                     }}
                   >
-                    <span className="block truncate">/{labelNode}</span>
+                    {/* Scramble reveal — both rest and overlay spans mount their own ScrambledLabel.
+                        Only the overlay is visible during hover (rest is translateY-100% off-screen),
+                        so independent random tails are not user-visible. */}
+                    <span className="block truncate">/<ScrambledLabel text={item.label} active={isHighlighted} /></span>
                   </span>
                   <span
                     className="absolute inset-0 flex items-center type-overlay-hover"
@@ -230,7 +204,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                       color: 'var(--color-text-on-primary)',
                     }}
                   >
-                    <span className="block truncate">/{labelNode}</span>
+                    <span className="block truncate">/<ScrambledLabel text={item.label} active={isHighlighted} /></span>
                   </span>
                 </span>
 
