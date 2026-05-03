@@ -8,6 +8,7 @@ import {
   RevealGroup,
   SplitText,
 } from '@/components/motion/SplitText'
+import { ScrambledLabel } from '@/components/motion/ScrambledLabel'
 import content from '@/content/en.json'
 import type { Content, Skill, SkillCategory } from '@/content/types'
 
@@ -249,7 +250,7 @@ function SkillsRow({
                               : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s',
                         }}
                       >
-                        <span className="block truncate">{skill.name}</span>
+                        <span className="block truncate"><ScrambledLabel text={skill.name} active={isHovered} /></span>
                       </span>
                     </span>
                   </div>
@@ -291,7 +292,7 @@ function SkillsRow({
                             : 'transform 0.2s cubic-bezier(0.5,0,0.75,0) 0s',
                       }}
                     >
-                      {skill.level}
+                      <ScrambledLabel text={skill.level} active={isHovered} />
                     </span>
                   </span>
                 </div>

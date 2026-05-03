@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useContactForm } from '@/hooks/useContactForm'
 import { FormLog } from '@/components/sections/v2/FormLog'
+import { ScrambledLabel } from '@/components/motion/ScrambledLabel'
 import content from '@/content/en.json'
 
 const form = content.contact.form
@@ -83,7 +84,7 @@ function SubjectChip({ label, selected, onClick }: { label: string; selected: bo
               : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
           }}
         >
-          {label}
+          <ScrambledLabel text={label} active={h} />
         </span>
       )}
     </button>
@@ -256,7 +257,7 @@ export function ContactForm({ actionSlot, expanded = true, fieldsRef }: {
               {status === 'submitting' ? form.submitting : form.submitButton}
             </span>
             <span className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden type-overlay-hover" style={{ transform: submitHovered ? 'translateY(0)' : 'translateY(100%)', opacity: submitHovered ? 1 : 0, transition: submitHovered ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
-              {status === 'submitting' ? form.submitting : form.submitButton}
+              <ScrambledLabel text={status === 'submitting' ? form.submitting : form.submitButton} active={submitHovered} />
             </span>
           </button>
           <button
@@ -272,7 +273,7 @@ export function ContactForm({ actionSlot, expanded = true, fieldsRef }: {
               Clear
             </span>
             <span className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden type-overlay-hover" style={{ transform: clearHovered ? 'translateY(0)' : 'translateY(100%)', opacity: clearHovered ? 1 : 0, transition: clearHovered ? `transform 1s ${EASE} 0.1s, opacity 0.3s ${EASE} 0.1s` : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s` }}>
-              Clear
+              <ScrambledLabel text="Clear" active={clearHovered} />
             </span>
           </button>
           </div>
