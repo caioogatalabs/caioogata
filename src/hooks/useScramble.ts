@@ -1,56 +1,56 @@
 import { useEffect, useRef, useState } from 'react'
 
 const DEFAULT_POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%'
-const DEFAULT_STEP_MS = 26
+const DEFAULT_STEP_MS = 35
+
+export interface ScrambleResult {
+  /** Current display string — mix of revealed chars (left) and random (right). */
+  display: string
+  /** Number of chars from the left that have settled on `text`. Use to slice
+   *  `display` for typography contrast (resolved vs scrambling tail). */
+  revealed: number
+}
 
 /**
  * useScramble — hand-rolled, zero-deps character scramble reveal.
  *
- * When `active` is true, returns a string that progressively reveals `text`
- * left → right; characters not yet revealed are random picks from `charPool`
- * (re-rolled every step). Whitespace is preserved (never randomised).
+ * Progressively reveals `text` left → right when `active` is true. Returns
+ * both the live display string and the revealed-char boundary so consumers
+ * can render the resolved/unresolved halves with different typography.
  *
- * When `active` flips to false, returns `text` immediately and clears any
- * running interval — no in-flight residue.
+ * When `active` flips to false, snaps to `text` (revealed = text.length).
  *
- * On unmount, the interval is cleared. React 19 strict-mode double-invoke is
- * safe: cleanup runs between effect invocations, so no two intervals coexist.
- *
- * V2-scoped reveal primitive. The legacy V1 ASCII block-scramble lives at
- * `useAsciiScramble` (different signature: returns `{ chars, isComplete }`).
- *
- * @param text     The final string to settle on.
- * @param active   When true, run the scramble cycle. When false, snap to text.
- * @param opts.stepMs   Interval between scramble ticks (default 26ms).
- * @param opts.charPool Pool of random characters for unrevealed positions.
+ * V2-scoped reveal primitive. Legacy V1 ASCII block-scramble lives at
+ * `useAsciiScramble` (different signature).
  */
 export function useScramble(
   text: string,
   active: boolean,
   opts?: { stepMs?: number; charPool?: string }
-): string {
+): ScrambleResult {
   const stepMs = opts?.stepMs ?? DEFAULT_STEP_MS
   const charPool = opts?.charPool ?? DEFAULT_POOL
-  const [display, setDisplay] = useState(text)
+  const [state, setState] = useState<ScrambleResult>(() => ({
+    display: text,
+    revealed: text.length,
+  }))
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
-    // Always clear any existing interval before deciding what to do.
     if (intervalRef.current) {
       clearInterval(intervalRef.current)
       intervalRef.current = null
     }
 
     if (!active) {
-      setDisplay(text)
+      setState({ display: text, revealed: text.length })
       return
     }
 
-    // active=true → run the scramble cycle.
     let step = 0
     const total = text.length
-    // Reveal one character per N steps. With stepMs=26 and revealEvery=2,
-    // a 10-char label settles in ~520ms.
+    // Reveal cadence: ~2x stepMs per character. With stepMs=35 and
+    // revealEvery=2 → 70ms per char → "about" (5) ≈ 350ms; "experience" (10) ≈ 700ms.
     const revealEvery = 2
 
     const tick = () => {
@@ -64,11 +64,10 @@ export function useScramble(
           out += charPool[Math.floor(Math.random() * charPool.length)]
         }
       }
-      setDisplay(out)
+      setState({ display: out, revealed })
       step++
       if (revealed >= total) {
-        // Settle on final text and stop.
-        setDisplay(text)
+        setState({ display: text, revealed: total })
         if (intervalRef.current) {
           clearInterval(intervalRef.current)
           intervalRef.current = null
@@ -76,8 +75,6 @@ export function useScramble(
       }
     }
 
-    // Fire one tick immediately so the user sees scramble on the first frame,
-    // not after stepMs delay.
     tick()
     intervalRef.current = setInterval(tick, stepMs)
 
@@ -89,5 +86,5 @@ export function useScramble(
     }
   }, [text, active, stepMs, charPool])
 
-  return display
+  return state
 }
