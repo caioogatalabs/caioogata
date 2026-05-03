@@ -8,6 +8,7 @@ import { ToastProvider } from '@/components/providers/ToastProvider'
 import { FooterSection } from '@/components/sections/v2/FooterSection'
 import { ContactOverlay } from '@/components/sections/v2/ContactOverlay'
 import { FloatingContactButton } from '@/components/sections/v2/FloatingContactButton'
+import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import './globals.css'
 
 export const viewport: Viewport = {
@@ -132,6 +133,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
+        <SmoothScroll />
         <LanguageProvider>
           <NavigationProvider>
             <ToastProvider>
