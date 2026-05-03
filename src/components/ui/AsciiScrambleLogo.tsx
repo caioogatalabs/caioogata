@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { useScramble } from '@/hooks/useScramble'
+import { useAsciiScramble } from '@/hooks/useAsciiScramble'
 
 /**
  * ASCII art representation of the "CO" logo, derived from the SVG paths (viewBox 0 0 440 200).
@@ -28,7 +28,7 @@ export function AsciiScrambleLogo({ className = '', animateOnMount = true, onAni
   const [trigger, setTrigger] = useState(0)
   const [charsPerFrame, setCharsPerFrame] = useState(animateOnMount ? 7 : 25)
 
-  const { chars } = useScramble(CO_ASCII, {
+  const { chars } = useAsciiScramble(CO_ASCII, {
     mode: 'scanner',
     charsPerFrame,
     scannerPhaseDuration: 1,

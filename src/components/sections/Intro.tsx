@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import CopyDropdown from '@/components/hero/CopyDropdown'
 import { AsciiScrambleLogo } from '@/components/ui/AsciiScrambleLogo'
-import { useScramble } from '@/hooks/useScramble'
+import { useAsciiScramble } from '@/hooks/useAsciiScramble'
 import InlineToast from '@/components/ui/InlineToast'
 import packageJson from '../../../package.json'
 import { COMMIT_COUNT } from '@/lib/build-info'
@@ -14,7 +14,7 @@ export default function Intro() {
   const version = `${packageJson.version}.${COMMIT_COUNT}`
   const [taglineIndex, setTaglineIndex] = useState(0)
   const taglines = [content.hero.tagline, content.hero.tagline2]
-  const tagline = useScramble(taglines[taglineIndex])
+  const tagline = useAsciiScramble(taglines[taglineIndex])
   const handleLogoTrigger = useCallback(() => {
     setTaglineIndex((i) => (i + 1) % taglines.length)
   }, [taglines.length])

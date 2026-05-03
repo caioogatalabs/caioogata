@@ -3,10 +3,10 @@
 import { AnimatePresence, motion } from 'motion/react'
 import CheckIcon from '@/components/ui/CheckIcon'
 import { useToastContext, type ToastState } from '@/components/providers/ToastProvider'
-import { useScramble } from '@/hooks/useScramble'
+import { useAsciiScramble } from '@/hooks/useAsciiScramble'
 
 function ToastContent({ message, type }: Pick<ToastState, 'message' | 'type'>) {
-  const { chars, isComplete } = useScramble(message, {
+  const { chars, isComplete } = useAsciiScramble(message, {
     mode: 'scanner',
     charsPerFrame: 4,
     scannerPhaseDuration: 1,
