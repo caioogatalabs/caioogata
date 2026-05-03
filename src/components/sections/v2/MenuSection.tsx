@@ -36,10 +36,6 @@ export function MenuSection({ content }: MenuSectionProps) {
         document
           .querySelector('[data-section-id="footer"]')
           ?.scrollIntoView({ behavior: 'smooth' })
-      } else if (item.key === 'projects') {
-        document
-          .querySelector('[data-section-id="projects"]')
-          ?.scrollIntoView({ behavior: 'smooth' })
       } else {
         router.push(`/${item.key}`)
       }

@@ -3,12 +3,12 @@ export interface MainNavItem {
   title: string
 }
 
-// TODO: /philosophy page is in the canonical circuit but the route doesn't
-// exist yet. Create the page (or filter this list) when /philosophy lands.
-// /projects (index) and /contact intentionally excluded for now.
+// /contact intentionally excluded — opens via overlay from MenuSection /
+// FloatingContactButton, not as a standalone routed page.
 export const MAIN_NAVIGATION: MainNavItem[] = [
   { href: '/', title: 'Home' },
   { href: '/about', title: 'About' },
   { href: '/experience', title: 'Experience' },
+  { href: '/projects', title: 'Projects' },
   { href: '/philosophy', title: 'Philosophy' },
 ]
