@@ -93,3 +93,14 @@ public/**/*.webm
 .windsurf/
 .zencoder/
 /skills/
+
+# Monorepo: site/ build artifacts (root patterns above no longer match the moved app)
+/site/node_modules
+/site/.next/
+/site/out/
+
+# Playwright MCP scratch output
+.playwright-mcp/
+
+# Archived legacy .next build backups – kept on disk for reference, too large for git
+/.archive/next-builds/
