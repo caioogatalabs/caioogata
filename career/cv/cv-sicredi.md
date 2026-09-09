@@ -5,13 +5,13 @@ Portuguese (native speaker) · English (advanced)
 
 [caioogata.com](https://caioogata.com) · [linkedin.com/in/caioogata](https://linkedin.com/in/caioogata/) · caio.ogata@gmail.com · [Ask about me on Claude](https://claude.ai/new?q=Read%20this%20full%20professional%20profile%20and%20be%20ready%20to%20answer%20questions%20about%20Caio%20Ogata's%20career%2C%20skills%2C%20projects%2C%20and%20background%3A%20https%3A%2F%2Fwww.caioogata.com%2Fllms-full.txt%0A%0AImportant%3A%20Only%20use%20information%20from%20the%20provided%20document.%20Do%20not%20search%20the%20web%20or%20infer%20details%20not%20explicitly%20stated.%20Always%20verify%20critical%20information%20at%20caioogata.com)
 
-**Design Systems · Design Engineering · AI-Native Workflows · Engineering & Code · Design Director · Open Source**
+**Design Leadership · DesignOps · Design Systems · Governance · UX Research · Product Design**
 
 ---
 
 ## Summary
 
-Design Director with four years at Azion Technologies, owning the Console Kit — an open-source design system with 40+ components, 34 contributors, and 6,000+ commits used at Itaú, Magazine Luiza, and Netshoes. Defined token architecture, component specs with edge cases and accessibility guidance, and reviewed implementation PRs at the API level. Code-fluent in TypeScript, Vue, and CSS for direct collaboration with engineers.
+Design Director with 20 years in design and 4 as Director at Azion Technologies, where I built the design organization from scratch across Product, Design Systems, UX Research, Design Operations, and Creative. Structured DesignOps and governance for a design system consumed by multiple product teams and now in production at Itaú, Magazine Luiza, and Netshoes — a federated, multi-consumer model. Mentored designers across 5 disciplines while owning visual craft, product specs, accessibility, and metrics-driven maturity. Fintech-adjacent track: served Itaú directly via Azion Console; Vivo, Claro, and consumer brands at Huia.
 
 ---
 
@@ -47,17 +47,17 @@ Built Design org from scratch (Product, Systems, DX).
 
 ## Skills
 
-**Design Systems**
-Systems Architecture, Design Tokens, Component Architecture, Atomic Design, Accessibility / WCAG, Figma (Auto Layout, Variables, Variants)
-
-**Engineering & Code**
-TypeScript / JavaScript, HTML / CSS, Vue 3, UI Engineering, Chrome DevTools, Storybook
-
-**AI-Native Workflow**
-Cursor, Claude Code, LLM collaboration & prototyping, MCP servers
+**Design Leadership**
+Team Leadership, Mentoring, Design Operations, Governance, Creative Direction, Product Design
 
 **Methodologies**
-Design Thinking, Design Sprint, Product Discovery, Agile, Technical Writing
+User Research (quali & quanti), Design Thinking, Design Sprint, Product Discovery, Accessibility / WCAG, Agile
 
-**Design Leadership**
-UI/UX Design, Creative Direction, Developer Experience, Product Design, Team Leadership, Design Operations
+**Design Systems**
+Systems Architecture, Federated / Multi-team Adoption, Design Tokens, Component Architecture, Figma
+
+**AI-Native Workflow**
+Cursor, Claude Code, LLM collaboration & prototyping
+
+**Engineering & Code**
+TypeScript / JavaScript, HTML / CSS, Vue 3, UI Engineering

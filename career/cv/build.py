@@ -3,8 +3,11 @@
 Build compact 1-page DOCX CVs from markdown sources, with REAL hyperlinks.
 Uses python-docx for proper hyperlink relationships that work in Word/Pages/Google Docs.
 """
+import html
 import os
 import re
+import shutil
+import subprocess
 import sys
 from typing import List
 
@@ -13,7 +16,9 @@ from docx.shared import Pt, Inches, RGBColor
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
-CV_DIR = "/Users/caioogata/Projects/portolio-v1/docs/cv"
+# Resolve the CV directory from this file's location so the build never breaks
+# if the repo (or this pillar) moves.
+CV_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Typography
 FONT_NAME = "Helvetica Neue"
@@ -334,18 +339,156 @@ def _section_header(doc, title: str):
     add_horizontal_rule(p)
 
 
+# ---------- HTML builder ----------
+# Same markdown source as the DOCX — keeps the .html in lockstep instead of
+# being a hand-maintained parallel artifact that silently drifts.
+
+HTML_HEAD = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>__TITLE__</title>
+<style>
+@page { margin: 0.5in; size: letter; }
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.25;
+  color: #1a1a1a;
+  margin: 0;
+}
+h1 {
+  font-size: 17pt;
+  margin: 0 0 2pt 0;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: 9pt;
+  margin: 7pt 0 2pt 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #444;
+}
+p { margin: 0 0 3pt 0; }
+hr {
+  border: 0;
+  border-top: 0.5pt solid #bbb;
+  margin: 5pt 0;
+}
+.meta { font-size: 9pt; color: #555; margin: 0 0 2pt 0; }
+.tags { font-size: 9pt; font-weight: 700; color: #1a1a1a; margin: 3pt 0 0 0; }
+.role { font-weight: 700; }
+.exp-line { margin: 0 0 4pt 0; }
+.skill-cat { font-weight: 700; margin-top: 3pt; margin-bottom: 1pt; }
+.skill-items { margin: 0 0 2pt 0; }
+a { color: #0a58ca; text-decoration: underline; }
+</style>
+</head>
+<body>"""
+
+
+def render_html_inline(text: str) -> str:
+    """Render markdown bold + links to inline HTML, escaping everything else."""
+    tokens = []
+    for m in LINK_RE.finditer(text):
+        tokens.append(("link", m.start(), m.end(), m.group(1), m.group(2)))
+    for m in BOLD_RE.finditer(text):
+        if any(t[0] == "link" and t[1] <= m.start() and m.end() <= t[2] for t in tokens):
+            continue
+        tokens.append(("bold", m.start(), m.end(), m.group(1), None))
+    tokens.sort(key=lambda t: t[1])
+
+    out = []
+    pos = 0
+    for kind, start, end, content, url in tokens:
+        if start > pos:
+            out.append(html.escape(text[pos:start]))
+        if kind == "link":
+            out.append(f'<a href="{html.escape(url, quote=True)}">{html.escape(content)}</a>')
+        elif kind == "bold":
+            out.append(f"<strong>{html.escape(content)}</strong>")
+        pos = end
+    if pos < len(text):
+        out.append(html.escape(text[pos:]))
+    return "".join(out)
+
+
+def build_html(parsed: dict, output_path: str):
+    parts = [HTML_HEAD.replace("__TITLE__", html.escape(parsed["name"]))]
+    parts.append(f'<h1>{html.escape(parsed["name"])}</h1>')
+
+    for line in parsed["meta_lines"]:
+        parts.append(f'<p class="meta">{render_html_inline(line)}</p>')
+    if parsed["tags"]:
+        parts.append(f'<p class="tags"><strong>{html.escape(parsed["tags"])}</strong></p>')
+
+    parts.append("<hr>")
+    parts.append("<h2>Summary</h2>")
+    if parsed["summary"]:
+        parts.append(f'<p>{render_html_inline(parsed["summary"])}</p>')
+
+    parts.append("<hr>")
+    parts.append("<h2>Experience</h2>")
+    for header, desc in parsed["experience"]:
+        line = render_html_inline(header)
+        if desc:
+            line += "<br>" + render_html_inline(desc)
+        parts.append(f'<p class="exp-line">{line}</p>')
+
+    parts.append("<hr>")
+    parts.append("<h2>Education</h2>")
+    for line in parsed["education"]:
+        parts.append(f'<p class="exp-line">{render_html_inline(line)}</p>')
+
+    parts.append("<hr>")
+    parts.append("<h2>Skills</h2>")
+    for cat, items in parsed["skills"]:
+        parts.append(f'<p class="skill-cat">{render_html_inline(cat)}</p>')
+        parts.append(f'<p class="skill-items">{render_html_inline(items)}</p>')
+
+    parts.append("</body>")
+    parts.append("</html>")
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(parts))
+
+
+# ---------- PDF export ----------
+# Brings the PDF into the pipeline so it regenerates from source instead of
+# being a stale, hand-dated artifact. Gracefully skips if LibreOffice is absent.
+
+def export_pdf(docx_path: str, out_dir: str) -> bool:
+    """Convert a DOCX to PDF using LibreOffice headless, if available."""
+    soffice = shutil.which("soffice") or shutil.which("libreoffice")
+    if not soffice:
+        return False
+    subprocess.run(
+        [soffice, "--headless", "--convert-to", "pdf", "--outdir", out_dir, docx_path],
+        check=True, capture_output=True,
+    )
+    return True
+
+
 # ---------- Driver ----------
 
 def build_cv(md_path: str) -> bool:
     base = os.path.splitext(md_path)[0]
     docx_path = base + ".docx"
+    html_path = base + ".html"
 
     with open(md_path, "r", encoding="utf-8") as f:
         md = f.read()
 
     parsed = parse_md(md)
     build_docx(parsed, docx_path)
-    print(f"OK {os.path.basename(docx_path)}")
+    build_html(parsed, html_path)
+    pdf_ok = export_pdf(docx_path, os.path.dirname(os.path.abspath(docx_path)))
+
+    outputs = ".docx + .html" + (" + .pdf" if pdf_ok else " (.pdf skipped: LibreOffice not found)")
+    print(f"OK {os.path.basename(base)} -> {outputs}")
     return True
 
 

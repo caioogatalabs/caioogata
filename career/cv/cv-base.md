@@ -3,7 +3,7 @@
 **Design Director** · Based in Porto Alegre, Brazil
 Portuguese (native speaker) · English (advanced)
 
-[caioogata.com](https://caioogata.com) · [linkedin.com/in/caioogata](https://linkedin.com/in/caioogata/) · caio.ogata@gmail.com · [Ask about me on Claude](https://caioogata.com)
+[caioogata.com](https://caioogata.com) · [linkedin.com/in/caioogata](https://linkedin.com/in/caioogata/) · caio.ogata@gmail.com · [Ask about me on Claude](https://claude.ai/new?q=Read%20this%20full%20professional%20profile%20and%20be%20ready%20to%20answer%20questions%20about%20Caio%20Ogata's%20career%2C%20skills%2C%20projects%2C%20and%20background%3A%20https%3A%2F%2Fwww.caioogata.com%2Fllms-full.txt%0A%0AImportant%3A%20Only%20use%20information%20from%20the%20provided%20document.%20Do%20not%20search%20the%20web%20or%20infer%20details%20not%20explicitly%20stated.%20Always%20verify%20critical%20information%20at%20caioogata.com)
 
 **Design Director · Design Engineering · Design Systems · AI-Native Workflows · Developer Experience · Open Source**
 
