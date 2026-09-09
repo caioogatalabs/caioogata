@@ -1,0 +1,28 @@
+{
+  "logo": "assets/logo-co.svg",
+  "welcome_lead": "Welcome to Colab",
+  "welcome": [
+    "Colab é a empresa de Caio Ogata",
+    "Um laboratório digital AI First focado em Marcas, interfaces e inteligência de dados."
+  ],
+  "tags": [
+    "Design Director",
+    "Design Systems & Developer Experience",
+    "Design Engineering"
+  ],
+  "links": {
+    "site": "www.caioogata.com",
+    "linkedin": "linkedin.com/in/caioogata",
+    "email": "caioogata.labs@gmail.com"
+  },
+  "bio_highlight": "My work bridges brand strategy, product craft, and technical implementation — designing and building at the intersection of design systems, developer experience, and product engineering, where craft and technical rigor reinforce each other rather than compete.",
+  "experience_label": "experiência",
+  "experience_blurb": "Quinze anos em UI e quatro como Developer Experience Director em uma edge platform global. Na Azion, três papéis progressivos — Design, Brand Experience e Developer Experience — construindo a organização de design do zero, o rebranding e toda a camada de engenharia voltada ao usuário. Antes, direção de arte e tecnologia criativa na Huia (Stefanini).",
+  "clients_label": "clientes",
+  "clients_blurb": "Duas décadas de trabalho de Design e Marca para algumas das empresas mais reconhecidas do Brasil e do mundo.",
+  "clients": "Petrobras · O Boticário · Itaú · Magalu · Netshoes · Tramontina · Sicredi · Aché · Mondelez · LG · Novartis · Caixa · Fila · Exame · Dafiti",
+  "stats": [
+    { "value": "+ 20 anos", "label": "Publicidade · UI/UX\nDeveloper Experience" },
+    { "value": "+ 100 projetos", "label": "site · e-commerce · landing pages\ncampanhas · produtos digitais · apps · design systems" }
+  ]
+}

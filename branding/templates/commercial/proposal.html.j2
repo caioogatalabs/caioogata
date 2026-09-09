@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Proposta — {{ p.meta.title }}</title>
+<link rel="stylesheet" href="proposal.css">
+</head>
+<body>
+
+{# ═══════════ PAGE 1 — COVER (COLab) ═══════════ #}
+<div class="cover">
+  <div class="cover__top">
+    <div class="cover__logo">{{ logo_svg | safe }}</div>
+    <div class="cover__links mono-sm">
+      <span class="site">{{ inst.links.site }}</span>
+      <span>{{ inst.links.linkedin }}</span>
+      <span>{{ inst.links.email }}</span>
+    </div>
+  </div>
+
+  <div class="cover__welcome">
+    <span class="lead">{{ inst.welcome_lead }}</span><br>
+    {% for line in inst.welcome %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+  </div>
+
+  <div class="cover__tags mono-cap">{{ inst.tags | join('  ·  ') }}</div>
+
+  <div class="cover__bio t-heading-lg">{{ inst.bio_highlight }}</div>
+
+  <div class="cover__trust grid12">
+    <div style="grid-column:7 / 10;">
+      <div class="mono-tag" style="margin-bottom:12px;">{{ inst.experience_label }}</div>
+      <p class="t-body-sm sec">{{ inst.experience_blurb }}</p>
+    </div>
+    <div style="grid-column:10 / 13;">
+      <div class="mono-tag" style="margin-bottom:12px;">{{ inst.clients_label }}</div>
+      <p class="t-body-sm sec" style="margin-bottom:10px;">{{ inst.clients_blurb }}</p>
+      <p class="mono" style="font-size:12px;line-height:1.9;color:var(--text-secondary);">{{ inst.clients }}</p>
+    </div>
+  </div>
+
+  <div class="cover__stats stats">
+    {% for s in inst.stats %}
+    <div class="stat"><span class="v">{{ s.value }}</span><span class="l">{{ s.label }}</span></div>
+    {% endfor %}
+  </div>
+</div>
+
+{# ═══════════ PAGE 2+ — PROPOSAL ═══════════ #}
+<header class="proj-header">
+  <div class="label">{{ p.meta.label | default('proposta') }}</div>
+  <h1>{{ p.meta.title }}</h1>
+  <div class="meta">Preparado por {{ p.meta.prepared_by }} &nbsp;·&nbsp; Cliente: {{ p.meta.client }} &nbsp;·&nbsp; {{ p.meta.date }} &nbsp;·&nbsp; v{{ p.meta.version }}</div>
+</header>
+
+{# 1 — Visão Geral #}
+<section class="section">
+  <div class="section__label eyebrow">visão geral</div>
+  <div class="section__content">
+    <p class="t-body-lg">{{ p.overview.context }}</p>
+    <div><div class="mono-tag" style="margin-bottom:6px;">objetivo</div><p class="t-body-sm sec">{{ p.overview.objective }}</p></div>
+  </div>
+</section>
+
+{# 2 — Proposta de Valor #}
+{% if p.value_proposition %}
+<section class="section">
+  <div class="section__label eyebrow">proposta de valor</div>
+  <div class="section__content">
+    <div class="cols2">
+      {% for para in p.value_proposition.split('\n\n') %}<p class="t-body-sm sec">{{ para }}</p>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# 3 — Escopo #}
+<section class="section">
+  <div class="section__label eyebrow">escopo</div>
+  <div class="section__content">
+    {% for cat in p.categories %}
+    <div class="cat">
+      <h3 class="t-heading-sm">{{ cat.name }}</h3>
+      <div class="row row--scope thead"><span class="h">#</span><span class="h">Item</span><span class="h">Descrição</span></div>
+      {% for it in cat['items'] %}
+      <div class="row row--scope trow">
+        <span class="idx">{{ '%02d'|format(it.num) }}</span>
+        <span><span class="item-name">{{ it.name }}</span>{% if it.cadence %}<span class="item-cad">{{ it.cadence }}</span>{% endif %}</span>
+        <span class="item-desc">{{ it.description }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{# 4 — Stack Técnica #}
+{% if p.stack and p.stack.tools %}
+<section class="section">
+  <div class="section__label eyebrow">stack técnica</div>
+  <div class="section__content">
+    <div class="row row--stack thead"><span class="h">Ferramenta</span><span class="h">Função</span><span class="h" style="text-align:right">Custo</span></div>
+    {% for t in p.stack.tools %}
+    <div class="row row--stack trow">
+      <span class="item-name">{{ t.name }}</span>
+      <span class="item-desc">{{ t.role }}</span>
+      <span class="cost">{{ t.cost }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{# 5 — Fora do Escopo #}
+{% if p.exclusions %}
+<section class="section">
+  <div class="section__label eyebrow">fora do escopo</div>
+  <div class="section__content">
+    <ul class="exclusions">{% for ex in p.exclusions %}<li><span>{{ ex }}</span></li>{% endfor %}</ul>
+  </div>
+</section>
+{% endif %}
+
+{# 6 — Estimativa de Horas (with Valor column) #}
+{% if p.meta.include_hours %}
+<section class="section">
+  <div class="section__label eyebrow">estimativa de horas</div>
+  <div class="section__content">
+    <div class="row row--hours thead"><span class="h">#</span><span class="h">Item</span><span class="h" style="text-align:right">Setup-h</span><span class="h" style="text-align:right">Mensal-h</span><span class="h" style="text-align:right">Valor-R$</span></div>
+    {% for cat in p.categories %}{% for it in cat['items'] %}
+    <div class="row row--hours trow">
+      <span class="idx">{{ '%02d'|format(it.num) }}</span>
+      <span class="item-name">{{ it.name }}</span>
+      <span class="num{% if it._setup_muted %} num--muted{% endif %}">{{ it._setup }}</span>
+      <span class="num{% if it._monthly_muted %} num--muted{% endif %}">{{ it._monthly }}</span>
+      <span class="num{% if it._value_muted %} num--muted{% endif %}">{{ it._value }}</span>
+    </div>
+    {% endfor %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{# 7 — Invoice close (totals + terms) #}
+{% if p.pricing %}
+<div class="invoice">
+  <div class="invoice__title"><h2>Invoice</h2></div>
+</div>
+<div class="invoice">
+  <div class="totals">
+    <div class="trow-t"><span class="k">Valor mensal · serviço</span><span class="v">{{ p.pricing.service }}</span></div>
+    {% if p.pricing.setup_diluted %}<div class="trow-t"><span class="k">Setup diluído · {{ p.pricing.dilution_months }}×</span><span class="v">{{ p.pricing.setup_diluted }}</span></div>{% endif %}
+    <div class="trow-t"><span class="k">Impostos · {{ p.pricing.tax_pct }}</span><span class="v">{{ p.pricing.tax }}</span></div>
+    <div class="trow-t total"><span class="k">Total · mensal</span><span class="v">{{ p.pricing.total }}</span></div>
+  </div>
+  <div class="terms">{{ p.pricing.terms }}</div>
+</div>
+{% endif %}
+
+</body>
+</html>
