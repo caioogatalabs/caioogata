@@ -106,3 +106,7 @@ skills-lock.json
 
 # Archived legacy .next build backups – kept on disk for reference, too large for git
 /.archive/next-builds/
+
+# Python bytecode
+__pycache__/
+*.pyc

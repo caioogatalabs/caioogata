@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Figma__get_screenshot",
+      "mcp__claude_ai_Figma__get_design_context",
+      "mcp__claude_ai_Figma__get_metadata",
+      "mcp__claude_ai_Figma__whoami",
+      "Bash(cd /Users/caioogata/Projects/caioogata/branding/templates/commercial && cp ~/ClaudeWorkspace/briefing-proposal-skill/exports/site-gerenciado-inteligencia/proposta-site-gerenciado-inteligencia.json ./example.json 2>/dev/null && echo \"json copied\" && python3 -c \"import jinja2; print\\('jinja2 ok'\\)\" 2>&1 | tail -1 && python3 -c \"import playwright; print\\('playwright ok'\\)\" 2>&1 | tail -1)",
+      "Bash(pip3 install *)"
+    ]
+  }
+}
