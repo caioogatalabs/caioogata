@@ -48,9 +48,6 @@ next-env.d.ts
 !.vscode/extensions.json
 .idea
 
-# claude
-.claude/settings.local.json
-
 # large media files (referenced via external services like YouTube)
 public/**/*.mp4
 public/**/*.mov
@@ -62,6 +59,11 @@ public/**/*.webm
 # public/about-frames/*.jpg
 
 # AI / IDE tools (configs, cache, skills) – não versionar
+# .claude/settings.json IS tracked (shared project permissions); everything else here is local state.
+.claude/settings.local.json
+.claude/skills/
+.claude/worktrees/
+skills-lock.json
 .adal/
 .agent/
 .agents/
