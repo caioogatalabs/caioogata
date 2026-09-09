@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useContactForm } from '@/hooks/useContactForm'
 import { ExternalLink } from '@/components/ui/ExternalLink'
-import { ScrambledLabel } from '@/components/motion/ScrambledLabel'
 import content from '@/content/en.json'
 
 const form = content.contact.form
@@ -80,7 +79,7 @@ function SubjectChip({ label, selected, onClick }: { label: string; selected: bo
               : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
           }}
         >
-          <ScrambledLabel text={label} active={h} />
+          {label}
         </span>
       )}
     </button>
@@ -187,7 +186,7 @@ export function ContactOverlay() {
             transition: `transform ${t}, opacity ${tFast}`,
           }}
         >
-          <ScrambledLabel text="Close" active={groupHovered} />
+          Close
         </span>
       </button>
       <button
@@ -216,7 +215,7 @@ export function ContactOverlay() {
             transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
           }}
         >
-          <ScrambledLabel text="×" active={groupHovered} />
+          ×
         </span>
       </button>
     </div>
@@ -462,7 +461,7 @@ function SubmitButton({ submitting, label }: { submitting: boolean; label: strin
             : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
         }}
       >
-        <ScrambledLabel text={label} active={h} />
+        {label}
       </span>
     </button>
   )
@@ -517,7 +516,7 @@ function ClearButton({ onClick }: { onClick: () => void }) {
             : `transform 1s ${EASE} 0.06s, opacity 0.3s ${EASE} 0.06s`,
         }}
       >
-        <ScrambledLabel text="Clear" active={h} />
+        Clear
       </span>
     </button>
   )

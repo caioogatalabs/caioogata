@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { ScrambledLabel } from '@/components/motion/ScrambledLabel'
 
 export function StickyLogoBar() {
   const [groupHovered, setGroupHovered] = useState(false)
@@ -54,7 +53,7 @@ export function StickyLogoBar() {
                   : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
               }}
             >
-              <ScrambledLabel text="ask about" active={groupHovered} />
+              ask about
             </span>
           </a>
           <button
@@ -85,7 +84,7 @@ export function StickyLogoBar() {
                   : 'transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.3s cubic-bezier(0.16,1,0.3,1)',
               }}
             >
-              <ScrambledLabel text="×" active={groupHovered} />
+              ×
             </span>
           </button>
         </div>

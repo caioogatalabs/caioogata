@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { ScrambledLabel } from '@/components/motion/ScrambledLabel'
 import { PageNavigation } from '@/components/sections/v2/PageNavigation'
 import { ExperienceHero } from '@/components/sections/v2/experience/ExperienceHero'
 import { MAIN_NAVIGATION } from '@/content/main-navigation'
@@ -231,9 +230,6 @@ export function ExperienceSection() {
                           marginBottom: '-0.4rem',
                         }}
                       >
-                        {/* Scramble reveal — both rest and overlay spans mount ScrambledLabel.
-                            Only the overlay is visible during showLargeText (rest is translateY-100%),
-                            so independent random tails are not user-visible. */}
                         {/* Default text */}
                         <span
                           className="absolute inset-0 flex items-center"
@@ -255,7 +251,7 @@ export function ExperienceSection() {
                             ...instantStyle,
                           }}
                         >
-                          <span className="block truncate"><ScrambledLabel text={job.company} active={showLargeText} /></span>
+                          <span className="block truncate">{job.company}</span>
                         </span>
                         {/* Hover text */}
                         <span
@@ -275,7 +271,7 @@ export function ExperienceSection() {
                             ...instantStyle,
                           }}
                         >
-                          <span className="block truncate"><ScrambledLabel text={job.company} active={showLargeText} /></span>
+                          <span className="block truncate">{job.company}</span>
                         </span>
                       </span>
                     </div>
@@ -310,7 +306,7 @@ export function ExperienceSection() {
                             ...instantStyle,
                           }}
                         >
-                          <span className="block truncate"><ScrambledLabel text={job.title} active={showLargeText} /></span>
+                          <span className="block truncate">{job.title}</span>
                         </span>
                         {/* Hover text */}
                         <span
@@ -330,7 +326,7 @@ export function ExperienceSection() {
                             ...instantStyle,
                           }}
                         >
-                          <span className="block truncate"><ScrambledLabel text={job.title} active={showLargeText} /></span>
+                          <span className="block truncate">{job.title}</span>
                         </span>
                       </span>
                     </div>

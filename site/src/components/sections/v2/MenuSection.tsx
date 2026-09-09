@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useMenuNavigation } from '@/hooks/useMenuNavigation'
 import { useInView } from '@/hooks/useInView'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
-import { ScrambledLabel } from '@/components/motion/ScrambledLabel'
 import { FloatingPreview } from '@/components/sections/v2/FloatingPreview'
 import type { MenuItem, Menu } from '@/content/types'
 
@@ -189,10 +188,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                         : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, color 0.3s cubic-bezier(0.22,0.31,0,1)',
                     }}
                   >
-                    {/* Scramble reveal — both rest and overlay spans mount their own ScrambledLabel.
-                        Only the overlay is visible during hover (rest is translateY-100% off-screen),
-                        so independent random tails are not user-visible. */}
-                    <span className="block truncate">/<ScrambledLabel text={item.label} active={isHighlighted} /></span>
+                    <span className="block truncate">/{item.label}</span>
                   </span>
                   <span
                     className="absolute inset-0 flex items-center type-overlay-hover"
@@ -204,7 +200,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                       color: 'var(--color-text-on-primary)',
                     }}
                   >
-                    <span className="block truncate">/<ScrambledLabel text={item.label} active={isHighlighted} /></span>
+                    <span className="block truncate">/{item.label}</span>
                   </span>
                 </span>
 
@@ -239,7 +235,7 @@ export function MenuSection({ content }: MenuSectionProps) {
                         color: 'var(--color-text-on-primary)',
                       }}
                     >
-                      <span className="block truncate"><ScrambledLabel text={item.description} active={isHighlighted} /></span>
+                      <span className="block truncate">{item.description}</span>
                     </span>
                   </span>
                 )}

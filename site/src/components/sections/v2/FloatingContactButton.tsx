@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ScrambledLabel } from '@/components/motion/ScrambledLabel'
 
 const EASE = 'cubic-bezier(0.16,1,0.3,1)'
 const EASE_OUT = 'cubic-bezier(0.22,0.31,0,1)'
@@ -140,7 +139,7 @@ export function FloatingContactButton() {
             transition: `transform ${t}, opacity ${tFast}`,
           }}
         >
-          <ScrambledLabel text={pillLabel} active={groupHovered} />
+          {pillLabel}
         </span>
       </button>
 
@@ -173,7 +172,7 @@ export function FloatingContactButton() {
             transition: `transform ${t} 0.1s, opacity ${tFast} 0.1s`,
           }}
         >
-          <ScrambledLabel text={squareLabel} active={groupHovered} />
+          {squareLabel}
         </span>
       </button>
     </div>

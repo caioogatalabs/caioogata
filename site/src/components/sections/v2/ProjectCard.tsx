@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-import { ScrambledLabel } from '@/components/motion/ScrambledLabel'
 
 interface ProjectCardProps {
   title: string
@@ -67,7 +66,7 @@ export function ProjectCard({ title, slug, year, index, className = '' }: Projec
                 : 'transform 1s cubic-bezier(0.16,1,0.3,1) 0.06s, opacity 0.3s cubic-bezier(0.16,1,0.3,1) 0.06s',
             }}
           >
-            <ScrambledLabel text="→" active={arrowHovered} />
+            →
           </span>
         </a>
       </div>
