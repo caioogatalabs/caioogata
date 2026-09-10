@@ -1,18 +1,22 @@
 # Brand Guidelines — Caio Ogata
 
-> Working document. Fill each section as the brand is defined.
+Verbal identity lives in [`voice/`](voice/). This file is the index, not a second copy —
+when it disagreed with the real material, the real material won.
 
-## Voice
-_How the brand sounds in writing. To be defined._
+| Document | What it holds |
+|---|---|
+| [`voice/who-is-caio.md`](voice/who-is-caio.md) | Who he is, where he comes from, the canonical facts. The base every site text derives from. |
+| `voice/voice-and-tone.md` | How he sounds. *Not written yet* — the guide exists, unused, in `.archive/legacy-docs/CONTENT.md` §2 and needs rescuing. |
 
-## Tone
-_How voice shifts by context (site vs. reel vs. cover letter). To be defined._
+Visual identity stays in the sibling folders: `logo/`, `typography/`, `color/`,
+`photography/`, `moodboard/`, `templates/`.
 
-## Do
-- _e.g. lead with craft, show the work._
+## Two brands, one person
 
-## Don't
-- _e.g. no marketing hyperbole, no buzzwords._
+**Caio Ogata** (this pillar, `caioogata.com`) — the person, selling creative work directly.
+Plain language. The reader is a potential client, not a recruiter.
 
-## Examples
-_Links to pieces that exemplify the brand once they exist._
+**COLab** (`branding/templates/commercial/institutional.json`) — the company. Sells
+products and delivery, writes in PT, speaks in the third person plural.
+
+Same human, different pitch. Do not let one's copy leak into the other.

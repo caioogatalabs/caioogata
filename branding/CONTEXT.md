@@ -16,7 +16,9 @@ Maintain and evolve the Caio Ogata visual identity. This pillar holds the *syste
 - `photography/` — official headshot and variants
 - `moodboard/` — reference captures and inspiration
 - `templates/` — reusable IG post / YT thumbnail / deck templates
-- `BRAND.md` — voice, tone, do/don't
+- `voice/` — verbal identity: `who-is-caio.md` (base document for every site text,
+  incl. canonical facts) and the voice/tone guide
+- `BRAND.md` — index into `voice/`, plus the Caio-vs-COLab split
 
 ## What good looks like
 Every brand asset has one canonical home here. When the site needs an asset, it gets a copy — the original stays in `branding/`.
