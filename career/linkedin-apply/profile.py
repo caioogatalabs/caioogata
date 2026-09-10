@@ -10,7 +10,7 @@ PERSONAL_INFO = {
     "linkedin": "https://www.linkedin.com/in/caioogata",
     "portfolio": "https://caioogata.com",
     "phone": "",  # Add your phone number here
-    "cv_path": "docs/caioogata-cv-02.26.pdf",  # Relative to portolio-v1/
+    "cv_path": "../cv/cv-base.pdf",  # Relative to career/linkedin-apply/
 }
 
 PROFESSIONAL_SUMMARY = """

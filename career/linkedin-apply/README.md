@@ -6,7 +6,7 @@ Caio Ogata · Porto Alegre · 2026
 
 ## What This Does
 
-For each pending job in `docs/job-search-2026.csv`:
+For each pending job in `career/tracker/job-search-2026.csv`:
 
 1. **Fetches the job description** from LinkedIn (auto-fetch → fallback to paste)
 2. **Generates a personalized cover letter** via Claude API, matching your voice and the JD
@@ -23,7 +23,7 @@ You still click **Apply** on LinkedIn. The script handles the brain work.
 ### 1. Install Python dependencies
 
 ```bash
-cd portolio-v1/scripts/linkedin-apply
+cd caioogata/career/linkedin-apply
 pip3 install -r requirements.txt
 ```
 
@@ -134,7 +134,7 @@ Regenerating...
 ## Output Files
 
 ```
-scripts/linkedin-apply/
+career/linkedin-apply/
 ├── output/
 │   ├── cover-letters/
 │   │   ├── 009-ramp-design-engineer.txt
@@ -198,7 +198,7 @@ MODEL = "claude-3-5-sonnet-20241022"  # Better quality, ~10x more expensive
 ## Project Files
 
 ```
-scripts/linkedin-apply/
+career/linkedin-apply/
 ├── main.py          # Main CLI orchestrator
 ├── profile.py       # Caio's professional profile (edit to update info)
 ├── fetcher.py       # LinkedIn JD fetcher with auto/manual fallback
@@ -224,7 +224,7 @@ Normal in some corporate network environments. Just paste the JD manually — th
 Press `e` to regenerate with specific feedback. Or edit `profile.py` → `VOICE_GUIDELINES` to tune the persona.
 
 **CSV not updating**
-Check you have write permissions: `ls -la portolio-v1/docs/job-search-2026.csv`
+Check you have write permissions: `ls -la career/tracker/job-search-2026.csv`
 
 ---
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
+import { COMMIT_COUNT } from '@/lib/build-info'
 import { StickyLogoBar } from './StickyLogoBar'
 
 const TAGS = [
@@ -33,7 +34,7 @@ export function IntroSection() {
           <p className="hidden md:block whitespace-nowrap">
             Welcome to caioogata portfolio
           </p>
-          <span className="text-right whitespace-nowrap">V2.0.12</span>
+          <span className="text-right whitespace-nowrap">V2.0.{COMMIT_COUNT}</span>
           <p className="hidden lg:block whitespace-nowrap text-right">
             Built for human and AI assistance
           </p>

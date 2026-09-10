@@ -13,9 +13,9 @@ from datetime import datetime
 from pathlib import Path
 
 
-# Paths relative to the project root (portolio-v1/)
-PROJECT_ROOT = Path(__file__).parent.parent.parent  # scripts/linkedin-apply/ → portolio-v1/
-CSV_PATH = PROJECT_ROOT / "docs" / "job-search-2026.csv"
+# Paths relative to the career/ pillar
+CAREER_ROOT = Path(__file__).parent.parent  # career/linkedin-apply/ → career/
+CSV_PATH = CAREER_ROOT / "tracker" / "job-search-2026.csv"
 COVER_LETTERS_DIR = Path(__file__).parent / "output" / "cover-letters"
 LOGS_DIR = Path(__file__).parent / "output" / "logs"
 
