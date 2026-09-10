@@ -224,11 +224,6 @@ first person and will change when the copy lands. The complement stays biographi
 ("Twenty years in advertising…") rather than becoming a promise.
 
 Still open:
-- **The voice guide is still stranded.** A written one exists in
-  `.archive/legacy-docs/CONTENT.md` §2 — clarity first, short sentences, no marketing
-  hyperbole, active voice — and it already prescribes what this rewrite is doing. Nobody
-  consults it because it lives inside a frozen 1,469-line V1 document. Next step: rescue it
-  to `branding/voice/voice-and-tone.md`. (`BRAND.md` is already an index pointing here.)
 - **Nothing has landed on the site yet.** The copy above is approved but
   `site/src/content/en.json` still carries the old recruiter-facing text. Applying it is a
   separate job, and `pt-br.json` needs the translated version.

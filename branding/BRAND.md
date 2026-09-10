@@ -6,7 +6,7 @@ when it disagreed with the real material, the real material won.
 | Document | What it holds |
 |---|---|
 | [`voice/who-is-caio.md`](voice/who-is-caio.md) | Who he is, where he comes from, the canonical facts. The base every site text derives from. |
-| `voice/voice-and-tone.md` | How he sounds. *Not written yet* — the guide exists, unused, in `.archive/legacy-docs/CONTENT.md` §2 and needs rescuing. |
+| [`voice/voice-and-tone.md`](voice/voice-and-tone.md) | How he sounds. Principles, tone by context, words to avoid on the site, yes/no examples. |
 
 Visual identity stays in the sibling folders: `logo/`, `typography/`, `color/`,
 `photography/`, `moodboard/`, `templates/`.
