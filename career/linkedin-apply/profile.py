@@ -19,7 +19,7 @@ at the intersection of brand strategy, design systems, and developer experience.
 
 Most recently: Developer Experience Director at Azion Technologies (2021–2025), where I built a
 14-person design organization from scratch and implemented two complete design systems. Previously:
-Partner & Head of Creative at Huia design studio (2012–2021), leading a team that grew from 1 to
+Partner & Head of Creative at Huia design studio (2013–2021), leading a team that grew from 1 to
 ~40 people before acquisition by Stefanini.
 
 I specialize in: design systems architecture, developer experience (DevEx), design team leadership,
@@ -43,7 +43,7 @@ Design Director (2021–2022)
 - Defined design culture, processes, and tools in an engineering-first company
 - Introduced product discovery, usability metrics, PLG strategy
 
-HUIA DESIGN & TECHNOLOGY STUDIO | São Paulo & Porto Alegre | 2012–2021
+HUIA DESIGN & TECHNOLOGY STUDIO | São Paulo & Porto Alegre | 2013–2021
 Partner & Head of Creative
 - Co-founded and grew the studio from 1 to ~40 employees (acquired by Stefanini)
 - Led design direction for 40+ digital projects across web, mobile, interactive TV
@@ -98,7 +98,7 @@ AZION CONSOLE KIT (azion.design)
 - Stack: Vue 3, TypeScript, PrimeVue, design tokens, Storybook
 
 HUIA — BRAND & DIGITAL PROJECTS
-- 40+ digital products for top Brazilian brands (2012–2021)
+- 40+ digital products for top Brazilian brands (2013–2021)
 - Petrobras digital ecosystem
 - O Boticário e-commerce and brand platforms
 - Tramontina product catalog and brand experience
