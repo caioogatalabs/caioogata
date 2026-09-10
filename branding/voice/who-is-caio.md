@@ -64,7 +64,7 @@ For the About page. Same length band as the reference sites (Corentin ~230, Korr
 >
 > The craft comes from advertising. He trained as an art director and specialised at Miami Ad School in São Paulo. The discipline there is making an idea land in a single look.
 >
-> Nine years at Huia taught him the other half. He joined the creative technology studio at the start and left as a partner. It grew to around forty people before Stefanini acquired it. He led creative direction for Petrobras, O Boticário, Tramontina, Sicredi and Mondelez brands. The work ran on WebGL, facial recognition and experimental techniques, years before they were common.
+> Eight years at Huia taught him the other half. He joined the creative technology studio in 2013 and made partner two years later, as head of creative technology. It grew to around forty people before Stefanini acquired it. He led creative direction for Petrobras, O Boticário, Tramontina, Sicredi and Mondelez brands. The work ran on WebGL, facial recognition and experimental techniques, years before they were common.
 >
 > Azion Technologies hired him as Design Director to build a design operation from the ground up, inside an engineering-first company. He structured it across product design, creative, design ops, research and design systems. Over four years he moved through brand and then developer experience. He ended with the whole user-facing layer: console, CLI, developer tools, website and documentation.
 >
@@ -89,9 +89,10 @@ sections. This text stops at the point where a curious reader would go look.
 
 He started in advertising, as an art director. Agencies, campaigns, brands.
 
-Then a studio — Huia, in Porto Alegre. He joined at the beginning and stayed nine years,
-becoming a partner and head of creative. The studio grew from a handful of people to around
-forty and was acquired by Stefanini. He led creative direction on 40+ digital projects for
+Then a studio — Huia, in Porto Alegre. He joined in 2013 as production designer and
+creative coordinator, running art, motion and video squads. In 2015 he made partner and head
+of creative technology, and stayed until 2021 — eight years in total. The studio grew to
+around forty people and was acquired by Stefanini. He led creative direction on 40+ digital projects for
 Petrobras, O Boticário, Tramontina, Sicredi, Aché, and international work through Mondelez
 brands — Lacta, Bis, Toblerone, Oreo.
 
@@ -150,6 +151,7 @@ Single source of truth. Fixes the drift between `site/src/content/en.json`,
 | Based in | Porto Alegre, Rio Grande do Sul, Brazil |
 | Languages | Portuguese (native), English (advanced) |
 | Career length | 20+ years total · 15 in UI and digital product |
+| Born | 1984 — **internal only, never publish age or birth year** |
 | Site | caioogata.com |
 | LinkedIn | linkedin.com/in/caioogata |
 
@@ -160,7 +162,8 @@ Single source of truth. Fixes the drift between `site/src/content/en.json`,
 | Azion Technologies | Developer Experience Director | 2024 – 2025 |
 | Azion Technologies | Brand Experience Director | 2023 – 2024 |
 | Azion Technologies | Design Director | 2021 – 2023 |
-| Huia (acquired by Stefanini) | Partner, Head of Creative Technology | ⚠ see conflict below |
+| Huia (acquired by Stefanini) | Partner, Head of Creative Technology | 2015 – 2021 |
+| Huia | Production Designer & Creative Coordinator | 2013 – 2015 |
 | W3haus | Art Director | 2012 |
 
 Earlier: Post Digital, Oz Propaganda, Dispert, Agência Ativa, Holos, PB.com. Full list in
@@ -175,7 +178,7 @@ Earlier: Post Digital, Oz Propaganda, Dispert, Agência Ativa, Holos, PB.com. Fu
 **Numbers that are safe to use**
 
 - Design org built from 0 to 14 people, across 5 disciplines
-- Huia: joined at day 1, ~40 people by acquisition, 9 years
+- Huia: 8 years total (2013–2021), partner from 2015, ~40 people by acquisition
 - 40+ digital projects led at Huia
 - Console Kit: 6,000+ commits, 34+ contributors, 3 named enterprise users
 
@@ -186,31 +189,31 @@ Mondelez (Lacta, Bis, Toblerone, Oreo) · LG
 
 ---
 
-## Conflicts to resolve
+## Resolved — Caio, 2026-09-10
 
-**⚠ Huia dates — three sources, three answers.**
+**Huia dates.** 2013–2015 as Production Designer & Creative Coordinator, then 2015–2021 as
+Partner and Head of Creative Technology. Eight years in total, partner for six. The
+"nine years, joined on day one" in `RECRUITER-FAQ.md` was wrong and is superseded.
 
-| Source | Says |
-|---|---|
-| `site/src/content/en.json` | 2015–2021 as Partner, *plus* a second overlapping entry 2013–2021 |
-| `career/cv/cv-base.md` | 2015–2021 |
-| `career/linkedin-apply/profile.py` | 2012–2021 |
-| `RECRUITER-FAQ.md` (Caio's own words) | "nine years… joined from day 1" → implies 2012–2021 |
+*Still to propagate:* `site/src/content/en.json` has the coordinator role as **2013–2021**,
+which overlaps the partner entry — should be 2013–2015. `career/cv/cv-base.md` shows only
+2015–2021, dropping the first two years. `career/linkedin-apply/profile.py` says 2012–2021.
+All three need fixing against the table above.
 
-His own account and `profile.py` agree on nine years from the start. The site and CV say
-six. If both are true, he joined around 2012 in one role and became partner around 2015 —
-which would explain the site's two overlapping Huia entries, except their dates don't line
-up either. **Needs Caio's answer, then propagate to all four files.**
+**Age.** Born 1984. **Not for publication** — no age, no birth year, anywhere public. Kept
+here only so nobody has to ask again.
 
-**⚠ Age.** The FAQ says 40, but it is undated legacy material. Not used in any copy above.
-Confirm before publishing anywhere.
+**Console Kit authorship.** Built under Caio's leadership, by the product design team he
+assembled. Not his personal code.
 
-**⚠ How much of the Console Kit is his, personally?** The positioning says he writes code,
-so a client may reasonably read the Console Kit as his code. The live site cites "6,000+
-commits, 34+ contributors" — that is the project, not him. The bio above deliberately says
-he *owned* the layer and calls the Kit *proof*, never that he wrote it. If he did write a
-substantial share, the bio can claim more and should. If he directed it, the current
-wording is the honest ceiling. **Needs his answer.**
+That settles the ceiling for how it can be described: he *led* it, the team *built* it. The
+approved bio already respects this — the Console Kit is not in it, and the base text calls
+it proof, never authorship.
+
+But it leaves a real gap. The positioning says he writes code, and the flagship artefact is
+team-built. **The proof that he codes has to come from work he actually built himself** —
+this site is the obvious candidate, and it is a stronger argument anyway: a client can look
+at the thing while reading about it. Worth deciding where that lands on the page.
 
 ---
 
