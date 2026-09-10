@@ -73,7 +73,7 @@
 
   /* ─── Radius ─── */
   --radius-component-none: var(--primitive-radius-none);
-  --radius-component-sm:   var(--primitive-radius-xs);
+  --radius-component-sm:   var(--primitive-radius-sm);  /* 4px — matches Figma's radius/sm */
   --radius-component-md:   var(--primitive-radius-md);  /* 12px — default for buttons, cards */
   --radius-component-full: var(--primitive-radius-full); /* pill buttons only */
 
