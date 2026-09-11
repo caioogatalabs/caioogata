@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 interface ProjectRowProps {
   title: string
@@ -25,6 +24,9 @@ interface ProjectRowProps {
  *
  * The card is purely visual; title, index and copy live outside it, unlike
  * `ProjectCard`, which keeps them inside and still backs the /projects index.
+ *
+ * Square corners, no entrance animation — deliberately bare while other
+ * effects are being tried.
  */
 export function ProjectRow({
   title,
@@ -36,8 +38,6 @@ export function ProjectRow({
   badgeLabel,
   cover,
 }: ProjectRowProps) {
-  const { ref, clipPath } = useScrollReveal()
-
   return (
     <article>
       <Grid>
@@ -45,9 +45,7 @@ export function ProjectRow({
         <GridItem mobileSpan={4} tabletSpan={8} span={7} start={2}>
           <a
             href={`/projects/${slug}`}
-            ref={ref as React.RefObject<HTMLAnchorElement>}
-            className="relative block h-[280px] w-full overflow-hidden rounded-[var(--radius-component-sm)] bg-bg-surface-primary md:h-[380px] lg:h-[502px]"
-            style={{ clipPath }}
+            className="relative block h-[280px] w-full overflow-hidden bg-bg-surface-primary md:h-[380px] lg:h-[502px]"
             aria-label={`View ${title} project`}
           >
             {cover && (
