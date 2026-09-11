@@ -14,6 +14,14 @@ const SOCIAL = [
 
 const EMAIL = 'contato@caioogata.com'
 
+/**
+ * V1's last build stamp, frozen: the `v1` branch ends at 91 commits on package
+ * version 1.1, the same `{version}.{commitCount}` scheme V2 stamps with. It
+ * renders as plain text until V2 replaces V1 in production, at which point this
+ * becomes the link to the archived V1.
+ */
+const V1_VERSION = 'V1.1.91'
+
 const LABEL =
   'font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50'
 
@@ -42,7 +50,10 @@ export function FooterSection() {
       // z-30 puts the panel above the fixed hero (z-20), so it slides over it
       // on the way down — the same layering the Figma frame has, where the
       // yellow block covers the sticky intro.
-      className="-entrance -fade -a-0 relative z-30 overflow-hidden bg-bg pt-16 md:pt-20 lg:pt-24"
+      // Opens on the header's own margin — `pt-12` here mirrors HeaderBar's
+      // `pt-12`, so the first line of the footer sits as far off the yellow as
+      // the hero's first label sits off the top of the page.
+      className="-entrance -fade -a-0 relative z-30 overflow-hidden bg-bg pt-8 md:pt-10 lg:pt-12"
     >
       {/* ── Link columns ── */}
       <Grid>
@@ -81,23 +92,28 @@ export function FooterSection() {
       </Grid>
 
       {/* ── Label row — mirrors the hero's header bar ── */}
-      <Grid className="mt-20 items-center md:mt-24 lg:mt-28">
-        <GridItem mobileSpan={4} tabletSpan={3} span={3} className={LABEL}>
-          ask ai about caio
-        </GridItem>
-
-        <GridItem mobileSpan={2} tabletSpan={1} span={1} className={`${LABEL} whitespace-nowrap`}>
-          V2.0.{COMMIT_COUNT}
-        </GridItem>
-
-        <GridItem mobileSpan={2} tabletSpan={2} span={3} className={`${LABEL} whitespace-nowrap`}>
+      <Grid className="mt-20 md:mt-24 lg:mt-28">
+        <GridItem mobileSpan={4} tabletSpan={3} span={3} className={`${LABEL} whitespace-nowrap`}>
           © 2026 All Rights Reserved
+        </GridItem>
+
+        {/* The version stack. V1's stamp is frozen at its last build — the
+            `v1` branch stopped at 91 commits on package version 1.1 — and this
+            is the slot the link to the live V1 goes in once V2 replaces it. */}
+        <GridItem mobileSpan={2} tabletSpan={1} span={1} className={`${LABEL} whitespace-nowrap`}>
+          <p>V2.0.{COMMIT_COUNT}</p>
+          <p>{V1_VERSION}</p>
+        </GridItem>
+
+        {/* Column 9 — the contact column above, so the two line up */}
+        <GridItem mobileSpan={2} tabletSpan={2} span={2} start={9} className={LABEL}>
+          ask ai about caio
         </GridItem>
 
         <GridItem
           mobileSpan={4}
           tabletSpan={2}
-          span={5}
+          span={2}
           className={`${LABEL} text-right`}
         >
           <button
@@ -110,8 +126,9 @@ export function FooterSection() {
         </GridItem>
       </Grid>
 
+      {/* The bar follows its label onto column 9. */}
       <Grid className="mt-4">
-        <GridItem mobileSpan={4} tabletSpan={3} span={3}>
+        <GridItem mobileSpan={4} tabletSpan={3} span={3} start={9}>
           <AskAiBar />
         </GridItem>
       </Grid>
