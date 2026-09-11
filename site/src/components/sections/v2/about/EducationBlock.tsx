@@ -112,7 +112,7 @@ export function EducationBlock() {
 
   return (
     <div>
-      <div className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32">
+      <div className="px-5 md:px-8 lg:px-8 py-16 md:py-24 lg:py-32">
         <Grid className="!px-0">
           {/* Spacer cols 1-4 — hosts the section label */}
           <GridItem span={4} tabletSpan={2} mobileSpan={4}>

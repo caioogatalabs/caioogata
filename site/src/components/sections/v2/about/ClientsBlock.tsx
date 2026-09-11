@@ -47,7 +47,7 @@ export function ClientsBlock() {
     <div>
       <div
         ref={blockRef as RefObject<HTMLDivElement>}
-        className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
+        className="px-5 md:px-8 lg:px-8 py-16 md:py-24 lg:py-32"
       >
         {/* Description in cols 5-12 — matches BioBlock/SkillsBlock alignment. Logo grid below spans full width. */}
         <Grid className="!px-0 mb-12 md:mb-16">

@@ -34,7 +34,7 @@ export function ProjectsList() {
       ref={sectionRef as React.RefObject<HTMLElement>}
       aria-label="All projects"
       data-section-id="projects-list"
-      className="flex flex-col gap-5 px-5 py-8 md:px-8 md:py-12 lg:px-16 lg:py-16"
+      className="flex flex-col gap-5 px-5 py-8 md:px-8 md:py-12 lg:px-8 lg:py-16"
     >
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className="flex flex-col md:flex-row gap-5">

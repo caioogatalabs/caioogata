@@ -7,7 +7,7 @@ export function StickyLogoBar() {
   const [groupHovered, setGroupHovered] = useState(false)
 
   return (
-    <div className="sticky top-0 z-50 px-5 py-4 md:px-8 lg:px-16">
+    <div className="sticky top-0 z-50 px-5 py-4 md:px-8 lg:px-8">
       <div className="flex items-center justify-between w-full">
         <a href="/">
           <Image

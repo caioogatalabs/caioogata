@@ -81,7 +81,7 @@ export function ExperienceHero({ headline, stats }: ExperienceHeroProps) {
             : 'sticky top-0 h-screen overflow-hidden bg-bg flex items-center'
         }
       >
-        <div className="w-full px-5 md:px-8 lg:px-16">
+        <div className="w-full px-5 md:px-8 lg:px-8">
           <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5">
             {/* Headline — full row, z-20 */}
             <h1

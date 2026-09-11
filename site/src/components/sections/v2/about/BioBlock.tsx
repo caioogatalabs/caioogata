@@ -38,7 +38,7 @@ export function BioBlock() {
     <div>
       <div
         ref={sectionRef as React.RefObject<HTMLDivElement>}
-        className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
+        className="px-5 md:px-8 lg:px-8 py-16 md:py-24 lg:py-32"
       >
         <Grid className="!px-0">
           {/* Spacer cols 1-4 (mobile collapses) — hosts the section label */}

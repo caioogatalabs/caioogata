@@ -79,7 +79,7 @@ export function ExperienceSection() {
       {/* Experience rows */}
       <div
         ref={rowsRef as React.RefObject<HTMLDivElement>}
-        className="px-5 md:px-8 lg:px-16 py-8 md:py-12"
+        className="px-5 md:px-8 lg:px-8 py-8 md:py-12"
         onMouseLeave={() => setHoveredIndex(-1)}
         role="list"
         aria-label="Experience roles"

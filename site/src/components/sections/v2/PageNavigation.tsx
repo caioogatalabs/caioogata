@@ -180,8 +180,8 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
   const showBackAsArrow = mode === 'mouse' || mode === 'touch'
 
   const navClassName = sticky
-    ? 'sticky top-0 z-40 bg-bg backdrop-blur-xl border-t border-border-secondary px-5 md:px-8 lg:px-16 py-3'
-    : 'bg-bg border-t border-border-secondary px-5 md:px-8 lg:px-16 py-3'
+    ? 'sticky top-0 z-40 bg-bg backdrop-blur-xl border-t border-border-secondary px-5 md:px-8 lg:px-8 py-3'
+    : 'bg-bg border-t border-border-secondary px-5 md:px-8 lg:px-8 py-3'
 
   return (
     <nav

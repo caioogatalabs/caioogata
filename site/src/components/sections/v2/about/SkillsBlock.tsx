@@ -44,7 +44,7 @@ export function SkillsBlock() {
   return (
     <div>
       <div
-        className="px-5 md:px-8 lg:px-16 py-16 md:py-24 lg:py-32"
+        className="px-5 md:px-8 lg:px-8 py-16 md:py-24 lg:py-32"
         onMouseLeave={() => {
           setExpandedCategoryTitle(null)
           setHoveredSkill(null)

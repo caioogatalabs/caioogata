@@ -270,7 +270,7 @@ function SecondaryComposition({ label, icon, iconRotate = 0 }: { label: string; 
    ═══════════════════════════════════════════ */
 export default function ButtonsPage() {
   return (
-    <main className="min-h-screen bg-bg px-5 py-12 md:px-8 lg:px-16 flex flex-col gap-8">
+    <main className="min-h-screen bg-bg px-5 py-12 md:px-8 lg:px-8 flex flex-col gap-8">
       <div className="flex flex-col gap-2 mb-4">
         <h1
           className="text-3xl font-semibold text-text-primary"

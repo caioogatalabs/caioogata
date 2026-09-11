@@ -79,7 +79,7 @@ export function AboutPinned() {
     <div ref={containerRef} style={{ height: '400vh' }} className="relative">
       <StickyLogoBar />
       <div className="sticky top-0 h-screen overflow-hidden bg-bg flex items-center">
-        <div className="w-full px-5 md:px-8 lg:px-16">
+        <div className="w-full px-5 md:px-8 lg:px-8">
           <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 items-center">
             {/* Image — cols 5-8 desktop (4 cols centered). z-10 so paragraph layers on top. */}
             <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-4 lg:col-start-5 lg:row-start-1 z-10">

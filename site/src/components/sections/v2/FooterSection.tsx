@@ -21,7 +21,7 @@ export function FooterSection() {
       ref={sectionRef as React.RefObject<HTMLElement>}
       aria-label="Footer"
       data-section-id="footer"
-      className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-16 pt-32 md:pt-40 pb-8"
+      className="-entrance -slide-up -a-0 px-5 md:px-8 lg:px-8 pt-32 md:pt-40 pb-8"
     >
       <div className="flex items-center gap-3 flex-wrap">
         {TECH_TAGS.map((tag) => (

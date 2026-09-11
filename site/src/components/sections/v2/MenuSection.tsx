@@ -109,7 +109,7 @@ export function MenuSection({ content }: MenuSectionProps) {
               aria-selected={activeIndex === index}
             >
               <div
-                className={`-entrance -slide-up -a-${index + 1} menu-row relative flex items-center px-5 md:px-8 lg:px-16 py-3 text-lg cursor-pointer`}
+                className={`-entrance -slide-up -a-${index + 1} menu-row relative flex items-center px-5 md:px-8 lg:px-8 py-3 text-lg cursor-pointer`}
                 style={{
                   fontFamily: 'var(--font-sans)',
                   lineHeight: 1.6,
@@ -259,7 +259,7 @@ export function MenuSection({ content }: MenuSectionProps) {
 
       {/* Navigation keyboard hints */}
       <div
-        className={`-entrance -fade -a-${filteredItems.length + 1} items-center gap-3 px-5 md:px-8 lg:px-16 py-3 hidden lg:flex`}
+        className={`-entrance -fade -a-${filteredItems.length + 1} items-center gap-3 px-5 md:px-8 lg:px-8 py-3 hidden lg:flex`}
       >
         <div className="flex items-center gap-1">
           <KeyBadge>↑</KeyBadge>
