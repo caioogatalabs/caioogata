@@ -1,6 +1,6 @@
 'use client'
 
-import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
+import { HeaderBar } from '@/components/layout/HeaderBar'
 import { SplitText } from '@/components/motion/SplitText'
 
 interface PhilosophyHeroProps {
@@ -9,9 +9,9 @@ interface PhilosophyHeroProps {
 }
 
 /**
- * /philosophy hero — sticky logo bar + kicker title + display headline.
+ * /philosophy hero — sticky header bar + kicker title + display headline.
  *
- * Mirrors the /about and /projects intro shape (StickyLogoBar + display
+ * Mirrors the /about and /projects intro shape (HeaderBar + display
  * headline with line-mask reveal). The mono `title` ("Fall, learn, evolve")
  * sits above the headline as a kicker — same role as `1.1 / Bio` in
  * BioBlock or `2.0 / Selected Work` in ProjectsHero.
@@ -19,7 +19,7 @@ interface PhilosophyHeroProps {
 export function PhilosophyHero({ title, headline }: PhilosophyHeroProps) {
   return (
     <div className="relative bg-bg">
-      <StickyLogoBar />
+      <HeaderBar sticky />
       <div className="min-h-[60vh] flex items-center px-5 md:px-8 lg:px-8 py-16 md:py-20 lg:py-24">
         <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 w-full">
           <div className="col-span-4 md:col-span-8 lg:col-span-12">

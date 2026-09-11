@@ -4,7 +4,7 @@ import React from 'react'
 import type { ProjectItem, ProjectSection } from '@/content/types'
 import type { Content } from '@/content/types'
 import content from '@/content/en.json'
-import { StickyLogoBar } from '@/components/sections/v2/StickyLogoBar'
+import { HeaderBar } from '@/components/layout/HeaderBar'
 import { ProjectHero } from './ProjectHero'
 import { ProjectChallenge } from './ProjectChallenge'
 import { ProjectImpact } from './ProjectImpact'
@@ -80,8 +80,9 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
   return (
     <div className="min-h-screen bg-bg overflow-x-clip">
       {/* Hero zone — bg wrapper provides continuous background for sticky bar */}
-      <div className="bg-bg-surface-secondary pt-8 md:pt-10 lg:pt-12">
-        <StickyLogoBar />
+      {/* HeaderBar carries its own top padding — none needed here. */}
+      <div className="bg-bg-surface-secondary">
+        <HeaderBar sticky />
         {heroSection && (
           <SectionBlock
             section={heroSection}
