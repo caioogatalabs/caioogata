@@ -116,7 +116,7 @@ interface ExperienceRowProps {
  */
 function ExperienceRow({ job, index, isOpen, reducedMotion, onHover }: ExperienceRowProps) {
   const staggerClass = `-a-${Math.min(index, 20)}`
-  // At most 3, one per pair of columns across 7-12.
+  // At most 3, one per pair of columns from the title axis (6-7, 8-9, 10-11).
   const achievements = (job.achievements ?? []).slice(0, 3)
 
   return (
@@ -184,13 +184,15 @@ function ExperienceRow({ job, index, isOpen, reducedMotion, onHover }: Experienc
         }`}
       >
         <div className="overflow-hidden">
-          {/* description (3-6) | achievements (7-8, 9-10, 11-12).
-              The description starts under the company name rather than under
-              the date, so the panel hangs off the column that names it — the
-              same rule the home's bio follows against the menu above it. That
-              leaves columns 1-2 empty as the panel's left gutter. */}
+          {/* The panel hangs off the header's own columns:
+                description   3-5   — the company column, exactly
+                achievements  6-7, 8-9, 10-11 — from the title's axis
+              The summary is held to the company's three columns so it stops
+              before column 6, where the title starts; the achievements then
+              pick up on that same axis. Columns 1-2 stay empty as the panel's
+              left gutter, the way the home's project rows leave column 1. */}
           <Grid className="!px-0 pb-6">
-            <GridItem mobileSpan={4} tabletSpan={4} span={4} start={3} className="md:col-start-3">
+            <GridItem mobileSpan={4} tabletSpan={4} span={3} start={3} className="md:col-start-3">
               {job.location && (
                 <p className="mb-2 font-mono text-xs text-text-tertiary">{job.location}</p>
               )}
@@ -207,7 +209,7 @@ function ExperienceRow({ job, index, isOpen, reducedMotion, onHover }: Experienc
                 mobileSpan={4}
                 tabletSpan={4}
                 span={2}
-                start={7 + i * 2}
+                start={6 + i * 2}
                 className={BODY}
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
