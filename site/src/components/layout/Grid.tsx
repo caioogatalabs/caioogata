@@ -9,6 +9,7 @@ interface GridItemProps extends HTMLAttributes<HTMLDivElement> {
   span?: number       // desktop span (out of 12)
   tabletSpan?: number // tablet span (out of 8)
   mobileSpan?: number // mobile span (out of 4)
+  start?: number      // desktop column start (1-12)
   children?: ReactNode
 }
 
@@ -26,6 +27,12 @@ const DESKTOP_SPAN: Record<number, string> = {
   9: 'lg:col-span-9', 10: 'lg:col-span-10', 11: 'lg:col-span-11', 12: 'lg:col-span-12',
 }
 
+const DESKTOP_START: Record<number, string> = {
+  1: 'lg:col-start-1', 2: 'lg:col-start-2', 3: 'lg:col-start-3', 4: 'lg:col-start-4',
+  5: 'lg:col-start-5', 6: 'lg:col-start-6', 7: 'lg:col-start-7', 8: 'lg:col-start-8',
+  9: 'lg:col-start-9', 10: 'lg:col-start-10', 11: 'lg:col-start-11', 12: 'lg:col-start-12',
+}
+
 export const Grid = forwardRef<HTMLDivElement, GridProps>(function Grid(
   { className = '', children, ...props },
   ref
@@ -33,7 +40,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(function Grid(
   return (
     <div
       ref={ref}
-      className={`grid grid-cols-4 gap-4 px-5 md:grid-cols-8 md:gap-5 md:px-8 lg:grid-cols-12 lg:px-16 ${className}`.trim()}
+      className={`grid grid-cols-4 gap-4 px-5 md:grid-cols-8 md:gap-5 md:px-8 lg:grid-cols-12 lg:px-8 ${className}`.trim()}
       {...props}
     >
       {children}
@@ -42,13 +49,14 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(function Grid(
 })
 
 export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem(
-  { span, tabletSpan, mobileSpan, className = '', style, children, ...props },
+  { span, tabletSpan, mobileSpan, start, className = '', style, children, ...props },
   ref
 ) {
   const classes: string[] = []
   if (mobileSpan) classes.push(MOBILE_SPAN[mobileSpan] ?? '')
   if (tabletSpan) classes.push(TABLET_SPAN[tabletSpan] ?? '')
   if (span) classes.push(DESKTOP_SPAN[span] ?? '')
+  if (start) classes.push(DESKTOP_START[start] ?? '')
   if (className) classes.push(className)
 
   return (
