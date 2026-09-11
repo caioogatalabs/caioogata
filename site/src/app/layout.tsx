@@ -6,8 +6,6 @@ import { LanguageProvider } from '@/components/providers/LanguageProvider'
 import { NavigationProvider } from '@/components/providers/NavigationProvider'
 import { ToastProvider } from '@/components/providers/ToastProvider'
 import { FooterSection } from '@/components/sections/v2/FooterSection'
-import { ContactOverlay } from '@/components/sections/v2/ContactOverlay'
-import { FloatingContactButton } from '@/components/sections/v2/FloatingContactButton'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import './globals.css'
 
@@ -139,8 +137,6 @@ export default function RootLayout({
             <ToastProvider>
               {children}
               <FooterSection />
-              <FloatingContactButton />
-              <ContactOverlay />
             </ToastProvider>
           </NavigationProvider>
         </LanguageProvider>

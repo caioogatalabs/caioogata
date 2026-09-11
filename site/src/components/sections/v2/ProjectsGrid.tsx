@@ -46,10 +46,11 @@ export function ProjectsGrid() {
       data-section-id="projects"
       // Horizontal padding comes from each row's <Grid>; doubling it here would
       // push the columns off the 12-col track.
-      // pt is a full viewport, not the hero height: --height-hero tops out at
-      // 85svh, which left the first row peeking above the fold. Nothing shows
-      // until the user scrolls. z-10 keeps the list under the fixed hero.
-      className="relative z-10 flex flex-col gap-8 pt-[100svh] pb-8 md:pb-12 lg:pb-16"
+      // From lg up the hero is fixed, so the list reserves a full viewport of
+      // padding and scrolls behind it — nothing shows until the user scrolls.
+      // z-10 keeps it under the hero. Below lg the hero is a normal block in
+      // the flow, so the list only needs its own top spacing.
+      className="relative z-10 flex flex-col gap-8 pt-16 pb-8 md:pb-12 lg:pt-[100svh] lg:pb-16"
     >
       {projects.map((project, i) => (
         <ProjectRow
