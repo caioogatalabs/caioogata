@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useInView } from '@/hooks/useInView'
+import { useScrollMaskOut } from '@/hooks/useScrollMaskOut'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { HeaderBar } from '@/components/layout/HeaderBar'
 import { AskAiBar } from '@/components/sections/v2/AskAiBar'
@@ -79,10 +80,18 @@ export function IntroSection() {
   const bottomRef = useInView({ threshold: 0.1, once: true })
   const labelsRef = useInView({ threshold: 0.1, once: true })
 
+  // Retires the hero from the bottom up as the project list rises behind it.
+  // Without this the hero stays pinned and opaque over the first rows.
+  const { clipPath, progress } = useScrollMaskOut()
+
+  // A boolean, not the raw progress: passing progress straight through would
+  // tear down and rebuild the glitch interval on every scroll frame.
+  const heroOnScreen = progress < 0.5
+
   return (
     <div
       className="pointer-events-none relative z-20 flex min-h-[100svh] flex-col pb-8 md:pb-10 lg:sticky lg:top-0 lg:h-[100svh] lg:pb-12"
-      style={{ '--hero-gap': 'clamp(1.5rem, 7.2svh, 4rem)' } as React.CSSProperties}
+      style={{ '--hero-gap': 'clamp(1.5rem, 7.2svh, 4rem)', clipPath } as React.CSSProperties}
     >
       <HeaderBar
         ref={welcomeRef as React.RefObject<HTMLDivElement>}
@@ -90,11 +99,19 @@ export function IntroSection() {
       />
 
       {/* ── Headline — 8 columns, top of the hero ── */}
+      {/* The observer sits on the Grid and the entrance on the GridItem inside
+          it, never both on one element. `-mask-down` starts at
+          `clip-path: inset(0 0 100% 0)`, and IntersectionObserver applies the
+          target's own clip when it measures the intersection — a self-hidden
+          element reports ratio 0 and never crosses `threshold: 0.1`, so it
+          would wait forever for the class that reveals it. Every other
+          `-mask-down` in the codebase is a descendant of its observer for the
+          same reason; this one is not special. */}
       <Grid
         ref={headlineRef as React.RefObject<HTMLDivElement>}
-        className={`-entrance -slide-up -a-2 ${BLOCK_GAP}`}
+        className={BLOCK_GAP}
       >
-        <GridItem mobileSpan={4} tabletSpan={8} span={8}>
+        <GridItem mobileSpan={4} tabletSpan={8} span={8} className="-entrance -mask-down -a-4">
           <h1
             className="text-[36px] leading-[1.15] tracking-[-0.02em] text-text-primary md:text-[48px]"
             style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
@@ -115,7 +132,10 @@ export function IntroSection() {
           takes whatever is left over it. */}
       <div
         ref={bottomRef as React.RefObject<HTMLDivElement>}
-        className={`-entrance -fade -a-3 lg:flex lg:min-h-0 lg:flex-1 lg:flex-col lg:justify-end ${LABELS_CLEARANCE}`}
+        // No entrance of its own any more: the photo and the bio enter on
+        // separate beats, so each carries its own. The observer stays here —
+        // `-inview` propagates to descendants.
+        className={`lg:flex lg:min-h-0 lg:flex-1 lg:flex-col lg:justify-end ${LABELS_CLEARANCE}`}
       >
         {/* ── Photo — columns 11-12, right edge ──
              From `lg` up the height drives the box, not the column width: it
@@ -141,7 +161,9 @@ export function IntroSection() {
             {/* `pointer-events-auto` because the whole section is
                 `pointer-events-none` (see the section element) — the distortion
                 is driven by pointermove and gets no events without it. */}
-            <div className="pointer-events-auto relative aspect-[216/281] w-full overflow-hidden bg-bg-surface-primary lg:h-full lg:max-h-[281px] lg:min-h-[120px] lg:w-auto">
+            {/* `-mask-down` is the box opening — the same entrance the headline
+                uses, so the two read as one gesture. */}
+            <div className="-entrance -mask-down -a-6 pointer-events-auto relative aspect-[216/281] w-full overflow-hidden bg-bg-surface-primary lg:h-full lg:max-h-[281px] lg:min-h-[120px] lg:w-auto">
               <Image
                 src="/caio-ogata-profile.webp"
                 alt="Caio Ogata"
@@ -151,8 +173,16 @@ export function IntroSection() {
                 priority
               />
               {/* Paints over the image above once its texture decodes; never
-                  mounts on touch or reduced motion, so the photo stands alone. */}
-              <ClientDistortedImage src="/caio-ogata-profile.webp" />
+                  mounts on touch or reduced motion, so the photo stands alone.
+                  The sweep is timed to `-a-6` (570ms) and `-mask-down` (900ms)
+                  so the distortion runs while the box is still opening. */}
+              <ClientDistortedImage
+                src="/caio-ogata-profile.webp"
+                revealOnMount
+                revealDelayMs={570}
+                revealDurationMs={900}
+                idleGlitchMs={heroOnScreen ? 5000 : 0}
+              />
             </div>
           </GridItem>
         </Grid>
@@ -161,7 +191,7 @@ export function IntroSection() {
         <Grid className={BLOCK_GAP}>
           <GridItem mobileSpan={4} tabletSpan={6} span={6} start={7} className="md:col-start-3">
             <p
-              className="text-[14px] leading-[1.5] text-text-secondary"
+              className="-entrance -fade -a-7 text-[14px] leading-[1.5] text-text-secondary"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {BIO}
@@ -180,7 +210,7 @@ export function IntroSection() {
            leaving the flow block would have cost it the entrance. */}
       <Grid
         ref={labelsRef as React.RefObject<HTMLDivElement>}
-        className={`-entrance -fade -a-3 items-center ${BLOCK_GAP} lg:absolute lg:inset-x-0 lg:bottom-12 lg:mt-0`}
+        className={`-entrance -fade -a-8 items-center ${BLOCK_GAP} lg:absolute lg:inset-x-0 lg:bottom-12 lg:mt-0`}
       >
         <GridItem
           mobileSpan={4}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo, useEffect } from 'react'
+import { useRef, useMemo, useEffect, useCallback } from 'react'
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import * as THREE from 'three'
 import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer.js'
@@ -33,7 +33,20 @@ export interface DistortedImageProps {
   tintStrength?: number
   /** Renders the raw velocity field instead of the image, for tuning. */
   debugGrid?: boolean
+  /** Runs one bottom-to-top sweep once the texture is ready, as the box opens. */
+  revealOnMount?: boolean
+  /** Delay before that sweep. Match the wrapper's entrance delay. */
+  revealDelayMs?: number
+  /** Length of the sweep. Match the wrapper's entrance duration. */
+  revealDurationMs?: number
+  /** Period of the idle twitch, in ms. 0 turns it off. */
+  idleGlitchMs?: number
+  /** Strength of the idle twitch relative to the reveal sweep. */
+  idleGlitchStrength?: number
 }
+
+/** Magnitude of a synthetic impulse, in the same units the pointer produces. */
+const REVEAL_IMPULSE = 2.2
 
 export function DistortedImage({
   texture,
@@ -42,6 +55,11 @@ export function DistortedImage({
   tint = '#FAEA4D',
   tintStrength = 1,
   debugGrid = false,
+  revealOnMount = false,
+  revealDelayMs = 0,
+  revealDurationMs = 900,
+  idleGlitchMs = 0,
+  idleGlitchStrength = 0.35,
 }: DistortedImageProps) {
   const gl = useThree((s) => s.gl)
   const viewport = useThree((s) => s.viewport)
@@ -140,6 +158,81 @@ export function DistortedImage({
   const handlePointerOut = () => {
     lastUv.current = null
   }
+
+  /**
+   * Writes the same uniforms the pointer handler writes, so a scripted effect
+   * and a real hover are indistinguishable downstream. The reference site does
+   * the same thing on pointerdown, injecting an impulse with no movement
+   * behind it.
+   */
+  const drive = useCallback(
+    (u: number, v: number, dx: number, dy: number) => {
+      const c = compute.variable.material.uniforms
+      c.uMouse.value.set(u, v)
+      c.uDeltaMouse.value.set(dx, dy)
+      energy.current = ENERGY_FRAMES
+      invalidate()
+    },
+    [compute, invalidate],
+  )
+
+  // Reveal: one sweep from the bottom edge to the top, timed to the wrapper's
+  // clip-path entrance so the distortion happens WHILE the box opens.
+  useEffect(() => {
+    if (!revealOnMount) return
+    let raf = 0
+    let start = 0
+
+    const step = (now: number) => {
+      if (!start) start = now
+      const t = Math.min(1, (now - start) / revealDurationMs)
+      // Drift sideways a little so the sweep does not read as a straight line.
+      drive(0.5 + Math.sin(t * Math.PI * 2) * 0.18, t, 0, REVEAL_IMPULSE * (1 - t * 0.5))
+      if (t < 1) raf = requestAnimationFrame(step)
+    }
+
+    const timer = setTimeout(() => {
+      raf = requestAnimationFrame(step)
+    }, revealDelayMs)
+
+    return () => {
+      clearTimeout(timer)
+      cancelAnimationFrame(raf)
+    }
+  }, [revealOnMount, revealDelayMs, revealDurationMs, drive])
+
+  // Idle twitch: a few weak impulses at random spots, on a slow period. Meant
+  // to be noticed peripherally, not watched.
+  useEffect(() => {
+    if (!idleGlitchMs) return
+    let timers: ReturnType<typeof setTimeout>[] = []
+
+    const burst = () => {
+      if (document.hidden) return
+      timers = []
+      const shots = 2 + Math.floor(Math.random() * 2)
+      for (let i = 0; i < shots; i++) {
+        timers.push(
+          setTimeout(() => {
+            const angle = Math.random() * Math.PI * 2
+            const mag = REVEAL_IMPULSE * idleGlitchStrength
+            drive(
+              Math.random(),
+              Math.random(),
+              Math.cos(angle) * mag,
+              Math.sin(angle) * mag,
+            )
+          }, i * 55),
+        )
+      }
+    }
+
+    const interval = setInterval(burst, idleGlitchMs)
+    return () => {
+      clearInterval(interval)
+      timers.forEach(clearTimeout)
+    }
+  }, [idleGlitchMs, idleGlitchStrength, drive])
 
   useFrame(() => {
     if (energy.current <= 0) return
