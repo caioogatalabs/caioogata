@@ -135,7 +135,9 @@ export default function RootLayout({
         <LanguageProvider>
           <NavigationProvider>
             <ToastProvider>
-              {children}
+              {/* The page content is the lid the footer is revealed from
+                  under: opaque, and on a layer above the fixed panel. */}
+              <div className="relative z-10 bg-bg">{children}</div>
               <FooterSection />
             </ToastProvider>
           </NavigationProvider>

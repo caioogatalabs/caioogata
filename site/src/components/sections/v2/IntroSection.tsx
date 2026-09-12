@@ -28,7 +28,9 @@ const LABELS_CLEARANCE = 'lg:pb-[calc(2.5rem+var(--hero-gap))]'
  * Five stacked blocks on the 12-column grid: header labels, headline, photo,
  * bio, footer labels.
  *
- * Fixed and transparent from `lg` up, so the project list scrolls behind it;
+ * Sticky and transparent from `lg` up, so the project list scrolls behind it
+ * and the hero lets go at the end of the list rather than staying pinned for
+ * the life of the page;
  * `pointer-events-none` lets clicks reach the cards underneath, with the menu
  * and the AI bar re-enabling them on themselves. Below `lg` it is a normal
  * block in the flow — the five blocks stack taller than a phone viewport, and
@@ -59,7 +61,7 @@ export function IntroSection() {
 
   return (
     <div
-      className="pointer-events-none relative z-20 flex min-h-[100svh] flex-col pb-8 md:pb-10 lg:fixed lg:inset-x-0 lg:top-0 lg:h-[100svh] lg:pb-12"
+      className="pointer-events-none relative z-20 flex min-h-[100svh] flex-col pb-8 md:pb-10 lg:sticky lg:top-0 lg:h-[100svh] lg:pb-12"
       style={{ '--hero-gap': 'clamp(1.5rem, 7.2svh, 4rem)' } as React.CSSProperties}
     >
       <HeaderBar

@@ -46,11 +46,12 @@ export function ProjectsGrid() {
       data-section-id="projects"
       // Horizontal padding comes from each row's <Grid>; doubling it here would
       // push the columns off the 12-col track.
-      // From lg up the hero is fixed, so the list reserves a full viewport of
-      // padding and scrolls behind it — nothing shows until the user scrolls.
-      // z-10 keeps it under the hero. Below lg the hero is a normal block in
-      // the flow, so the list only needs its own top spacing.
-      className="relative z-10 flex flex-col gap-8 pt-16 pb-8 md:pb-12 lg:pt-[100svh] lg:pb-16"
+      // The hero is sticky now, so it holds its own viewport in the flow and
+      // the list no longer reserves one — it just needs its own top spacing.
+      // z-10 keeps it under the hero, which stays readable over the rows.
+      // gap-16 (64px) between rows — the same beat as the hero's --hero-gap cap
+      // and the BLOCK_GAP the rest of the home is spaced on.
+      className="relative z-10 flex flex-col gap-16 pt-16 pb-8 md:pb-12 lg:pb-16"
     >
       {projects.map((project, i) => (
         <ProjectRow
