@@ -13,6 +13,7 @@ Central directory for all V2 planning, design, and execution artifacts.
 - [stitch/](stitch/) — Stitch outputs, prompts, tokens, visual decisions
 - [references/](references/) — Moodboards, screenshots, pattern extractions
 - [decisions/](decisions/) — Architecture/design decisions with context (ADR-lite)
+- [content-rewrite-plan.md](content-rewrite-plan.md) — Landing the approved brand copy on the site, field by field
 
 ## What's Done
 
