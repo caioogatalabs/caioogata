@@ -1,0 +1,174 @@
+'use client'
+
+import { useRef, useMemo, useEffect } from 'react'
+import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
+import * as THREE from 'three'
+import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer.js'
+import { vertexShader, fragmentShader, computeShader } from './shaders/displacement.glsl'
+
+/**
+ * Grid resolution for the velocity buffer. The reference implementation derives
+ * this from element width (w/70 x h/20), which collapses to 3x14 on a box this
+ * small — too coarse to read as liquid. Fixed instead, and still trivial: 1344
+ * texels, recomputed only while the trail is alive.
+ */
+const GRID_W = 32
+const GRID_H = 42
+
+/** Frames the trail keeps animating after the pointer stops. */
+const ENERGY_FRAMES = 90
+
+/** Per-frame multiplier on the accumulated velocity. Below 1, the trail fades. */
+const DECAY = 0.94
+
+export interface DistortedImageProps {
+  texture: THREE.Texture
+  /** Falloff radius of the mouse, in aspect-corrected UV. */
+  distance?: number
+  /** How far the displacement pushes the image UVs. */
+  strength?: number
+  /** Hex colour painted over displaced edges. Converted to linear to match the texture. */
+  tint?: string
+  /** 0 disables the colour and leaves pure distortion. */
+  tintStrength?: number
+  /** Renders the raw velocity field instead of the image, for tuning. */
+  debugGrid?: boolean
+}
+
+export function DistortedImage({
+  texture,
+  distance = 0.25,
+  strength = 0.01,
+  tint = '#FAEA4D',
+  tintStrength = 1,
+  debugGrid = false,
+}: DistortedImageProps) {
+  const gl = useThree((s) => s.gl)
+  const viewport = useThree((s) => s.viewport)
+  const invalidate = useThree((s) => s.invalidate)
+
+  const materialRef = useRef<THREE.ShaderMaterial>(null)
+  const energy = useRef(0)
+  const lastUv = useRef<THREE.Vector2 | null>(null)
+
+  const aspect = viewport.width / viewport.height
+
+  // The compute pass owns a GPU buffer pair, so it is built once per renderer
+  // and disposed by hand — React cannot see into it.
+  const compute = useMemo(() => {
+    const gpu = new GPUComputationRenderer(GRID_W, GRID_H, gl)
+    const variable = gpu.addVariable('uGrid', computeShader, gpu.createTexture())
+    gpu.setVariableDependencies(variable, [variable])
+
+    Object.assign(variable.material.uniforms, {
+      uMouse: { value: new THREE.Vector2(0, 0) },
+      uDeltaMouse: { value: new THREE.Vector2(0, 0) },
+      uDistance: { value: distance },
+      uDecay: { value: DECAY },
+      uGridAspect: { value: new THREE.Vector2(1, 1) },
+    })
+
+    const error = gpu.init()
+    if (error !== null) console.error('GPUComputationRenderer:', error)
+
+    return { gpu, variable }
+    // `distance` seeds the uniform; later changes are pushed in the effect below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gl])
+
+  useEffect(() => () => compute.gpu.dispose(), [compute])
+
+  const uniforms = useMemo(
+    () => ({
+      uTexture: { value: texture },
+      uGrid: { value: null as THREE.Texture | null },
+      uContainerResolution: { value: new THREE.Vector2(1, 1) },
+      uImageResolution: { value: new THREE.Vector2(1, 1) },
+      // THREE.Color converts the hex from sRGB into the renderer's linear
+      // working space, so the mix below happens in the same space as the texture.
+      uTint: { value: new THREE.Color(tint) },
+      uTintStrength: { value: tintStrength },
+      uStrength: { value: strength },
+      uDebugGrid: { value: 0 },
+    }),
+    // Built once; every field is kept in sync by the effect below so that
+    // changing a prop never recreates the material.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
+
+  // Push prop and size changes onto the live uniforms.
+  useEffect(() => {
+    const u = uniforms
+    u.uTexture.value = texture
+    u.uTint.value.set(tint)
+    u.uTintStrength.value = tintStrength
+    u.uStrength.value = strength
+    u.uDebugGrid.value = debugGrid ? 1 : 0
+    u.uContainerResolution.value.set(viewport.width, viewport.height)
+
+    const img = texture.image as { width?: number; height?: number } | undefined
+    u.uImageResolution.value.set(img?.width || 1, img?.height || 1)
+
+    const c = compute.variable.material.uniforms
+    c.uDistance.value = distance
+    c.uGridAspect.value.set(aspect > 1 ? aspect : 1, aspect > 1 ? 1 : 1 / aspect)
+
+    invalidate()
+  }, [
+    uniforms, texture, tint, tintStrength, strength, debugGrid,
+    viewport.width, viewport.height, distance, aspect, compute, invalidate,
+  ])
+
+  const handlePointerMove = (event: ThreeEvent<PointerEvent>) => {
+    if (!event.uv) return
+    const c = compute.variable.material.uniforms
+
+    if (lastUv.current) {
+      // Velocity, not position — a still pointer displaces nothing.
+      c.uDeltaMouse.value.subVectors(event.uv, lastUv.current).multiplyScalar(90)
+      lastUv.current.copy(event.uv)
+    } else {
+      lastUv.current = event.uv.clone()
+    }
+
+    c.uMouse.value.copy(event.uv)
+    energy.current = ENERGY_FRAMES
+    invalidate()
+  }
+
+  const handlePointerOut = () => {
+    lastUv.current = null
+  }
+
+  useFrame(() => {
+    if (energy.current <= 0) return
+
+    const c = compute.variable.material.uniforms
+    c.uDeltaMouse.value.multiplyScalar(DECAY)
+
+    compute.gpu.compute()
+    uniforms.uGrid.value = compute.gpu.getCurrentRenderTarget(compute.variable).texture
+
+    energy.current -= 1
+    // Keeps the demand-driven loop alive only while the trail is still moving.
+    invalidate()
+  })
+
+  return (
+    <mesh
+      scale={[viewport.width, viewport.height, 1]}
+      onPointerMove={handlePointerMove}
+      onPointerOut={handlePointerOut}
+    >
+      <planeGeometry args={[1, 1]} />
+      <shaderMaterial
+        ref={materialRef}
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        uniforms={uniforms}
+        transparent
+      />
+    </mesh>
+  )
+}

@@ -1,10 +1,30 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { HeaderBar } from '@/components/layout/HeaderBar'
 import { AskAiBar } from '@/components/sections/v2/AskAiBar'
+import type { DistortedImageCanvasProps } from '@/components/three/DistortedImageCanvas'
+
+/**
+ * Lazy-loaded client-only wrapper for DistortedImageCanvas — same shape as
+ * ProjectHero's ClientNoiseGradient. three/ is ~100 kB and this is the home
+ * page, so it must not block the photo, which is the LCP element.
+ */
+function ClientDistortedImage(props: DistortedImageCanvasProps) {
+  const [Component, setComponent] = useState<React.ComponentType<DistortedImageCanvasProps> | null>(null)
+
+  useEffect(() => {
+    import('@/components/three/DistortedImageCanvas').then(mod => {
+      setComponent(() => mod.DistortedImageCanvas)
+    })
+  }, [])
+
+  if (!Component) return null
+  return <Component {...props} />
+}
 
 const BIO =
   'Caio Ogata is a Creative Designer who learned to build. Twenty years in advertising, fifteen in interfaces, and a self-taught path into code. Based in Porto Alegre, he works across brand, interface and the code underneath — and takes it from idea to production.'
@@ -118,7 +138,10 @@ export function IntroSection() {
             // photo and the bio.
             className="col-start-3 md:col-start-7 lg:flex lg:min-h-0 lg:items-end lg:justify-end"
           >
-            <div className="relative aspect-[216/281] w-full overflow-hidden bg-bg-surface-primary lg:h-full lg:max-h-[281px] lg:min-h-[120px] lg:w-auto">
+            {/* `pointer-events-auto` because the whole section is
+                `pointer-events-none` (see the section element) — the distortion
+                is driven by pointermove and gets no events without it. */}
+            <div className="pointer-events-auto relative aspect-[216/281] w-full overflow-hidden bg-bg-surface-primary lg:h-full lg:max-h-[281px] lg:min-h-[120px] lg:w-auto">
               <Image
                 src="/caio-ogata-profile.webp"
                 alt="Caio Ogata"
@@ -127,6 +150,9 @@ export function IntroSection() {
                 className="object-cover"
                 priority
               />
+              {/* Paints over the image above once its texture decodes; never
+                  mounts on touch or reduced motion, so the photo stands alone. */}
+              <ClientDistortedImage src="/caio-ogata-profile.webp" />
             </div>
           </GridItem>
         </Grid>
