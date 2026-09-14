@@ -25,6 +25,19 @@ const V1_VERSION = 'V1.1.91'
 const LABEL =
   'font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50'
 
+/** Rendered in both the mobile tail and the desktop label row. */
+function ScrollUpButton() {
+  return (
+    <button
+      type="button"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="transition-opacity duration-300 hover:opacity-100"
+    >
+      scroll up
+    </button>
+  )
+}
+
 /**
  * FooterSection — the brand-yellow closing panel, per Figma `Home — V2 (DS)`
  * (node 1140:4723).
@@ -165,8 +178,46 @@ export function FooterSection() {
         </GridItem>
       </Grid>
 
+      {/* ── Mobile tail ──
+           The label row packs four slots onto a 4-column grid, which stacked
+           into © / versions + ask-ai / scroll up / bar — splitting the ask-ai
+           label from its own icons and pushing both away from Contact. Below
+           `md` the order is authored outright instead: the bar follows its
+           label and sits under Contact, versions and scroll up share a line,
+           and the copyright closes. From `md` up this is hidden and the grid
+           row below runs unchanged. */}
+      <div className="md:hidden">
+        <Grid className="-entrance -slide-up -a-2 mt-16">
+          <GridItem mobileSpan={4} className={LABEL}>
+            ask ai about caio
+          </GridItem>
+        </Grid>
+
+        <Grid className="-entrance -slide-up -a-2 mt-3">
+          <GridItem mobileSpan={4}>
+            <AskAiBar />
+          </GridItem>
+        </Grid>
+
+        <Grid className="-entrance -slide-up -a-3 mt-12">
+          <GridItem mobileSpan={2} className={`${LABEL} whitespace-nowrap`}>
+            <p>V2.0.{COMMIT_COUNT}</p>
+            <p>{V1_VERSION}</p>
+          </GridItem>
+          <GridItem mobileSpan={2} className={`${LABEL} text-right`}>
+            <ScrollUpButton />
+          </GridItem>
+        </Grid>
+
+        <Grid className="-entrance -slide-up -a-3 mt-6">
+          <GridItem mobileSpan={4} className={`${LABEL} whitespace-nowrap`}>
+            © 2026 All Rights Reserved
+          </GridItem>
+        </Grid>
+      </div>
+
       {/* ── Label row — mirrors the hero's header bar ── */}
-      <Grid className="-entrance -slide-up -a-2 mt-20 md:mt-24 lg:mt-28">
+      <Grid className="-entrance -slide-up -a-2 mt-20 hidden md:mt-24 md:grid lg:mt-28">
         <GridItem mobileSpan={4} tabletSpan={3} span={3} className={`${LABEL} whitespace-nowrap`}>
           © 2026 All Rights Reserved
         </GridItem>
@@ -190,18 +241,12 @@ export function FooterSection() {
           span={2}
           className={`${LABEL} text-right`}
         >
-          <button
-            type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="transition-opacity duration-300 hover:opacity-100"
-          >
-            scroll up
-          </button>
+          <ScrollUpButton />
         </GridItem>
       </Grid>
 
       {/* The bar follows its label onto column 9. */}
-      <Grid className="-entrance -slide-up -a-3 mt-4">
+      <Grid className="-entrance -slide-up -a-3 mt-4 hidden md:grid">
         <GridItem mobileSpan={4} tabletSpan={3} span={3} start={9}>
           <AskAiBar />
         </GridItem>

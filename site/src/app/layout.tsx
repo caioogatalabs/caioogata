@@ -7,6 +7,7 @@ import { NavigationProvider } from '@/components/providers/NavigationProvider'
 import { ToastProvider } from '@/components/providers/ToastProvider'
 import { FooterSection } from '@/components/sections/v2/FooterSection'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
+import { HeaderBar } from '@/components/layout/HeaderBar'
 import './globals.css'
 
 export const viewport: Viewport = {
@@ -136,8 +137,15 @@ export default function RootLayout({
           <NavigationProvider>
             <ToastProvider>
               {/* The page content is the lid the footer is revealed from
-                  under: opaque, and on a layer above the fixed panel. */}
-              <div className="relative z-10 bg-bg">{children}</div>
+                  under: opaque, and on a layer above the fixed panel.
+                  The header is its first child so that `sticky top-0` holds
+                  for the whole route rather than for one hero — every page
+                  used to mount its own, and on mobile that meant the bar left
+                  with the hero after a few hundred pixels. */}
+              <div className="relative z-10 bg-bg">
+                <HeaderBar />
+                {children}
+              </div>
               <FooterSection />
             </ToastProvider>
           </NavigationProvider>

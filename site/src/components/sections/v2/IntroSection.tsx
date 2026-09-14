@@ -5,9 +5,12 @@ import Image from 'next/image'
 import { useInView } from '@/hooks/useInView'
 import { useScrollExitProgress, slice } from '@/hooks/useScrollExitProgress'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { HeaderBar } from '@/components/layout/HeaderBar'
 import { AskAiBar } from '@/components/sections/v2/AskAiBar'
+import content from '@/content/en.json'
+import type { Content } from '@/content/types'
 import type { DistortedImageCanvasProps } from '@/components/three/DistortedImageCanvas'
+
+const typedContent = content as unknown as Content
 
 /**
  * Lazy-loaded client-only wrapper for DistortedImageCanvas — same shape as
@@ -27,8 +30,12 @@ function ClientDistortedImage(props: DistortedImageCanvasProps) {
   return <Component {...props} />
 }
 
-const BIO =
-  'Caio Ogata is a Creative Designer who learned to build. Twenty years in advertising, fifteen in interfaces, and a self-taught path into code. Based in Porto Alegre, he works across brand, interface and the code underneath — and takes it from idea to production.'
+/**
+ * The hero's short bio. Read from the content file rather than written here —
+ * the approved copy lives in `branding/voice/who-is-caio.md` and lands in
+ * `en.json`, and a second copy in the component is how the two drift apart.
+ */
+const BIO = typedContent.hero.summary
 
 /**
  * Spacing between the hero's blocks. Below `lg` it is a plain step. From `lg`
@@ -96,7 +103,6 @@ function exitClosing(p: number): React.CSSProperties {
  * At 1440x900 both sit at their caps and the frame matches the Figma exactly.
  */
 export function IntroSection() {
-  const welcomeRef = useInView({ threshold: 0.1, once: true })
   const headlineRef = useInView({ threshold: 0.1, once: true })
   const bottomRef = useInView({ threshold: 0.1, once: true })
   const labelsRef = useInView({ threshold: 0.1, once: true })
@@ -122,22 +128,17 @@ export function IntroSection() {
 
   return (
     <div
-      className="pointer-events-none relative z-20 flex min-h-[100svh] flex-col pb-8 md:pb-10 lg:sticky lg:top-0 lg:h-[100svh] lg:pb-12"
+      className="pointer-events-none relative z-20 flex min-h-[calc(100svh-var(--header-h))] flex-col pb-8 md:pb-10 lg:sticky lg:top-[var(--header-h)] lg:h-[calc(100svh-var(--header-h))] lg:pb-12"
       style={{ '--hero-gap': 'clamp(1.5rem, 7.2svh, 4rem)' } as React.CSSProperties}
     >
       {/* No mask on the container any more: one clip here would retire every
           block on the same schedule, in whatever order their geometry happened
           to give. Each block carries its own below.
 
-          The header is the exception — it carries none. It stays for the whole
-          page, matching every internal route, which already passes `sticky`.
-          The home was the only one that did not. */}
-      <HeaderBar
-        sticky
-        ref={welcomeRef as React.RefObject<HTMLDivElement>}
-        className="-entrance -fade -a-0"
-      />
-
+          The header is not here either: it is mounted once in `app/layout.tsx`
+          and sits above this hero in the flow, so it stays for the whole page
+          instead of leaving with the hero. The frame below therefore measures
+          the viewport MINUS the header, which is what `--header-h` carries. */}
       {/* ── Headline — 8 columns, top of the hero ── */}
       {/* The observer sits on the Grid and the entrance on the GridItem inside
           it, never both on one element. `-mask-down` starts at
@@ -280,24 +281,33 @@ export function IntroSection() {
         style={exitClosing(outLabels)}
         className={`-entrance -fade -a-8 items-center ${BLOCK_GAP} lg:absolute lg:inset-x-0 lg:bottom-12 lg:mt-0`}
       >
+        {/* Below `md` the label and `scroll down` share the first line and the
+            bar drops under them, so `order` pulls `scroll down` ahead of the
+            bar in the placement flow. DOM order still decides the desktop
+            columns, so both reset at `md`. */}
         <GridItem
-          mobileSpan={4}
+          mobileSpan={2}
           tabletSpan={2}
           span={2}
-          className="font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50"
+          className="order-1 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50 md:order-none"
         >
           Ask AI about Caio
-        </GridItem>
-
-        <GridItem mobileSpan={4} tabletSpan={3} span={2}>
-          <AskAiBar className="pointer-events-auto" />
         </GridItem>
 
         <GridItem
           mobileSpan={4}
           tabletSpan={3}
+          span={2}
+          className="order-3 md:order-none"
+        >
+          <AskAiBar className="pointer-events-auto" />
+        </GridItem>
+
+        <GridItem
+          mobileSpan={2}
+          tabletSpan={3}
           span={8}
-          className="font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50 text-right"
+          className="order-2 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50 text-right md:order-none"
         >
           scroll down
         </GridItem>

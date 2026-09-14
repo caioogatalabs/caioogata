@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { useExperienceHero } from '@/hooks/useExperienceHero'
 import { useInView } from '@/hooks/useInView'
-import { HeaderBar } from '@/components/layout/HeaderBar'
 import { StatsCards } from './StatsCards'
 
 interface ExperienceHeroProps {
@@ -72,7 +71,6 @@ export function ExperienceHero({ headline, stats }: ExperienceHeroProps) {
       style={{ height: isMobile ? 'auto' : '400vh' }}
       className="relative"
     >
-      <HeaderBar sticky />
       <div
         ref={mobileInViewRef as React.RefObject<HTMLDivElement>}
         className={

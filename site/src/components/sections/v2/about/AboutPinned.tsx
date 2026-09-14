@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useScrollVideo } from '@/hooks/useScrollVideo'
-import { HeaderBar } from '@/components/layout/HeaderBar'
 import { SplitText } from '@/components/motion/SplitText'
 import content from '@/content/en.json'
 import type { Content } from '@/content/types'
@@ -77,7 +76,6 @@ export function AboutPinned() {
 
   return (
     <div ref={containerRef} style={{ height: '400vh' }} className="relative">
-      <HeaderBar sticky />
       <div className="sticky top-0 h-screen overflow-hidden bg-bg flex items-center">
         <div className="w-full px-5 md:px-8 lg:px-8">
           <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 items-center">

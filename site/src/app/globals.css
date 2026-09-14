@@ -207,11 +207,34 @@ body {
 }
 
 /* ═══ V2 Animation System ═══ */
+/*
+ * Height of the global HeaderBar, which is mounted once in `app/layout.tsx`
+ * and sticky at the top of every route. Anything that wants to fill "the rest
+ * of the screen" has to subtract it — the home hero's frame, above all.
+ *
+ * These are constants rather than a measured value on purpose: a runtime
+ * measurement would land after first paint and the hero would visibly resize.
+ * They are the bar's own box, so keep them in step with it:
+ *   mobile  pt-8  (32) + two mono lines (2 x 14.4) + mt-1 (4)  = 65
+ *   md      pt-10 (40) + the menu column (4 x 21 + 3 x 4 gap)  = 136
+ *   lg      pt-12 (48) + the same 96                           = 144
+ * The menu column is the tallest slot from `md` up, so adding a menu item
+ * changes these.
+ */
 :root {
+  --header-h: 65px;
   --ease-out: cubic-bezier(0.22, 0.31, 0, 1);
   --ease-in: cubic-bezier(0.69, 0, 0, 1);
   --ease-smooth: cubic-bezier(0.5, 0, 0.3, 1);
   --ease-fiddle: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 768px) {
+  :root { --header-h: 136px; }
+}
+
+@media (min-width: 1024px) {
+  :root { --header-h: 144px; }
 }
 
 /* Loading gate — blocks entrance animations until fonts confirmed */

@@ -1,6 +1,5 @@
 'use client'
 
-import { HeaderBar } from '@/components/layout/HeaderBar'
 import { SplitText } from '@/components/motion/SplitText'
 
 interface ProjectsHeroProps {
@@ -22,7 +21,6 @@ interface ProjectsHeroProps {
 export function ProjectsHero({ headline, kicker }: ProjectsHeroProps) {
   return (
     <div className="relative bg-bg">
-      <HeaderBar sticky />
       <div className="min-h-[60vh] flex items-center px-5 md:px-8 lg:px-8 py-16 md:py-20 lg:py-24">
         <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 w-full">
           <div className="col-span-4 md:col-span-8 lg:col-span-12">
