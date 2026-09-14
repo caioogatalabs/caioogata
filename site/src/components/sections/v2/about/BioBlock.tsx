@@ -12,12 +12,12 @@ const about = typedContent.about
 /**
  * 1.1 / Bio block. Layout per Figma 701:303:
  *   - Spacer GridItem in cols 1-4 (empty)
- *   - Content GridItem in cols 5-12: Core Expertise list, then a 64px gap, then bio paragraphs
+ *   - Content GridItem in cols 5-12: bio paragraphs, then a 64px gap, then the Core Expertise list
  *   - Below the column area: full-width final quote (Epilogue 48px text-text-secondary)
  *
  * Source paragraphs come from `about.bio.split('\n\n')`:
  *   index 0       → first paragraph (rendered inside <AboutPinned/>, NOT here)
- *   indices 1..n-2 → middle paragraphs (rendered in cols 5-12 stack — word split via SplitText)
+ *   indices 1..n-2 → middle paragraphs (open the cols 5-12 stack — word split via SplitText)
  *   last index    → final quote (rendered full-width below column area — line-mask via SplitText)
  *
  * Reveal: Motion's SplitText component handles entrance per element. CSS-based -entrance/-flow
@@ -38,7 +38,9 @@ export function BioBlock() {
     <div>
       <div
         ref={sectionRef as React.RefObject<HTMLDivElement>}
-        className="px-5 md:px-8 lg:px-8 py-16 md:py-24 lg:py-32"
+        // Tighter on top than the other blocks: this one joins the pinned
+        // headline, and the section rhythm below it stays as it was.
+        className="px-5 pt-8 pb-16 md:px-8 md:pt-12 md:pb-24 lg:px-8 lg:pt-16 lg:pb-32"
       >
         <Grid className="!px-0">
           {/* Spacer cols 1-4 (mobile collapses) — hosts the section label */}
@@ -60,6 +62,29 @@ export function BioBlock() {
             mobileSpan={4}
             className="lg:col-start-5"
           >
+            {/* Bio paragraphs open the column — the reader meets the writing
+                before the list of what he does.
+                Whole-block fade (no per-line splitting) so the
+                paragraph reads as continuous body — line-mask rendered each line as a
+                separate `display: block` span, which created visible discontinuity at
+                wrap points (e.g., "entire user-facing" / "engineering layer"). Plain
+                fade keeps natural text flow. */}
+            <div>
+              <div className="flex flex-col gap-6">
+                {middleParagraphs.map((paragraph, i) => (
+                  <SplitText
+                    key={i}
+                    type="word"
+                    text={paragraph}
+                    className="text-[24px] font-normal leading-[1.3] text-text-secondary"
+                    style={{ fontFamily: 'var(--font-sans)' }}
+                    durationMs={800}
+                    baseDelayMs={100}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="mt-16">
             {/* Core Expertise — kicker + list of items. RevealGroup syncs them so
                 the whole list enters together when the block crosses the trigger. */}
             <RevealGroup as="div" className="flex flex-col w-full">
@@ -91,28 +116,8 @@ export function BioBlock() {
                 )
               })}
             </RevealGroup>
-
-            {/* 64px gap between Core Expertise and bio paragraph stack.
-                Middle paragraphs use whole-block fade (no per-line splitting) so the
-                paragraph reads as continuous body — line-mask rendered each line as a
-                separate `display: block` span, which created visible discontinuity at
-                wrap points (e.g., "entire user-facing" / "engineering layer"). Plain
-                fade keeps natural text flow. */}
-            <div className="mt-16">
-              <div className="flex flex-col gap-6">
-                {middleParagraphs.map((paragraph, i) => (
-                  <SplitText
-                    key={i}
-                    type="word"
-                    text={paragraph}
-                    className="text-[24px] font-normal leading-[1.3] text-text-secondary"
-                    style={{ fontFamily: 'var(--font-sans)' }}
-                    durationMs={800}
-                    baseDelayMs={100}
-                  />
-                ))}
-              </div>
             </div>
+
           </GridItem>
         </Grid>
 
