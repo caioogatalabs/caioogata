@@ -89,6 +89,58 @@ export function useScrollExitProgress({
 }
 
 /**
+ * The same reading for a section that scrolls normally rather than being
+ * pinned — so this one does take a ref, and measures the element.
+ *
+ * Progress runs 0 to 1 as the section's top travels from `startFraction` of
+ * the viewport up past `endFraction`, which is negative because the element is
+ * leaving through the top edge.
+ */
+export function useSectionExitProgress({
+  startFraction = 0.15,
+  endFraction = -0.5,
+} = {}) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [progress, setProgress] = useState(0)
+  const tickingRef = useRef(false)
+
+  const update = useCallback(() => {
+    tickingRef.current = false
+    const el = ref.current
+    if (!el) return
+
+    const vh = window.innerHeight
+    const start = vh * startFraction
+    const end = vh * endFraction
+    const top = el.getBoundingClientRect().top
+
+    setProgress(Math.max(0, Math.min(1, (start - top) / (start - end))))
+  }, [startFraction, endFraction])
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const onScroll = () => {
+      if (!tickingRef.current) {
+        tickingRef.current = true
+        requestAnimationFrame(update)
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
+    update()
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [update])
+
+  return { ref, progress }
+}
+
+/**
  * Slice of `progress` between two marks, renormalised to 0-1. Lets each block
  * own a window of the same scroll reading instead of every block leaving at once.
  */
