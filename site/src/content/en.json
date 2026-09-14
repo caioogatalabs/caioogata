@@ -33,37 +33,37 @@
       {
         "key": "about",
         "label": "about",
-        "description": "Bio, expertise, and background."
+        "description": "Who he is and how he works."
       },
       {
         "key": "projects",
         "label": "projects",
-        "description": "Selected design and product work."
+        "description": "Selected work, and what it took."
       },
       {
         "key": "experience",
         "label": "experience",
-        "description": "Roles, companies, and key achievements."
+        "description": "Twenty years, role by role."
       },
       {
         "key": "philosophy",
         "label": "philosophy",
-        "description": "Design principles and how I approach product and teams."
+        "description": "Falling, learning, and shipping anyway."
       },
       {
         "key": "contact",
         "label": "contact",
-        "description": "How to get in touch and connect."
+        "description": "How to reach him."
       }
     ]
   },
   "hero": {
     "name": "Caio Ogata",
     "welcomeTitle": "Welcome to Caio Ogata Portfolio",
-    "tagline": "Design Director · Design Systems & Developer Experience · Design Engineering",
-    "tagline2": "Bridging brand strategy, product craft, and technical implementation.",
-    "summary": "I design and build at the intersection of design systems, developer experience, and product engineering — with end-to-end ownership from concept to production. Fifteen years in UI, four years as Developer Experience Director at a global edge platform, and an open-source console used by enterprises across three countries taught me that engineering rigor and design craft aren't opposites. The best products happen when those two disciplines stop talking past each other.",
-    "location": "Based in Porto Alegre, Brazil | Open to remote, hybrid & relocation opportunities",
+    "tagline": "Creative Designer who learned to build.",
+    "tagline2": "Twenty years in advertising, fifteen in interfaces, and a self-taught path into code.",
+    "summary": "Caio Ogata is a Creative Designer who learned to build. Twenty years in advertising, fifteen in interfaces, and a self-taught path into code. Based in Porto Alegre, he works across brand, interface and the code underneath — and takes it from idea to production.",
+    "location": "Porto Alegre, Brazil",
     "cta": {
       "copy": "Share with AI",
       "copying": "Copying...",
@@ -74,27 +74,36 @@
   "about": {
     "command": "whoami",
     "heading": "About",
-    "headline": "Bridging brand strategy, product craft and technical workflow",
-    "bio": "My work bridges brand strategy, product craft, and technical implementation — designing and building at the intersection of design systems, developer experience, and product engineering, where craft and technical rigor reinforce each other rather than compete.\n\nThe most significant output of that approach is the Azion Console Kit — a complete front-end rebuild of a cloud platform's management interface, now open source and in production at Itaú, Magazine Luiza, and Netshoes. Built on Vue 3, TypeScript, and a headless component architecture, it reduced new screen implementation time from days to hours. End-to-end ownership, from design system to shipped production code: 6,000+ commits, 34+ contributors.\n\nAt Azion Technologies I held three progressive roles over four years — Design Director, Brand Experience Director, and Developer Experience Director. I built the design organization from scratch, led the company's full rebranding, and eventually took ownership of the entire user-facing engineering layer: Console, CLI, developer tools, public website, documentation, and marketing pages. Before Azion, I was at Huia — a creative technology studio acquired by Stefanini — where an advertising and art direction background met genuinely experimental work: WebGL, facial recognition, and LLM-adjacent techniques before those were mainstream, for clients like Petrobras, O Boticário, and Mondelez brands.\n\nWhat drives me is the gap between an idea and a real experience — and the discipline it takes to close it. Engineering rigor and design craft aren't opposites. The products I'm proudest of happened when both disciplines were solving the same problem.",
+    "headline": "Most people do one part of this. Caio does the span.",
+    "bio": "Caio Ogata is a Creative Designer in Porto Alegre, Brazil. A former art director with a background in user interfaces and a self-taught path into development.\n\nHis work mixes creativity and technology. Interaction and motion are not decoration added to a finished layout. They are decided alongside the type and the grid, because they are part of how the thing communicates. He designs the experience and writes the code that makes it behave.\n\nThe craft comes from advertising. He trained as an art director and specialised at Miami Ad School in São Paulo. The discipline there is making an idea land in a single look.\n\nEight years at Huia taught him the other half. He joined the creative technology studio in 2013 and made partner two years later, as head of creative technology. It grew to around forty people before Stefanini acquired it. He led creative direction for Petrobras, O Boticário, Tramontina, Sicredi and Mondelez brands. The work ran on WebGL, facial recognition and experimental techniques, years before they were common.\n\nAzion Technologies hired him as Design Director to build a design operation from the ground up, inside an engineering-first company. He structured it across product design, creative, design ops, research and design systems. Over four years he moved through brand and then developer experience. He ended with the whole user-facing layer: console, CLI, developer tools, website and documentation.\n\nMost people who do this work do one part of it. Caio does the span. The idea, the way it looks, and the thing that actually runs. For a client that means one person from start to finish.",
     "expertise": [
-      "Design Systems Architecture & Implementation",
-      "Developer Experience (DevEx) & Design Engineering",
-      "End-to-end Product Ownership (concept → production)",
-      "Brand Strategy & Creative Direction — Brand + Product dual experience",
-      "Design Team Leadership & Organizational Design",
-      "Cross-functional Collaboration (Design + Engineering)",
-      "UI/UX Design & Interaction Design"
+      "Creative direction",
+      "Brand and visual identity",
+      "Interface and interaction design",
+      "Motion, built in the browser",
+      "Front-end that ships to production",
+      "Reusable component libraries",
+      "Building and leading design teams"
     ]
   },
   "experience": {
     "command": "cat experience.txt",
     "heading": "Experience",
     "hero": {
-      "headline": "Design Engineering as a practice: where brand rigor, product thinking, and shipped code occupy the same role.",
+      "headline": "Advertising, then a studio, then product. Each step closer to the thing that ships.",
       "stats": [
-        { "value": "15+", "label": "years" },
-        { "value": "6", "label": "companies" },
-        { "value": "2", "label": "executive roles" }
+        {
+          "value": "20+",
+          "label": "years"
+        },
+        {
+          "value": "40+",
+          "label": "projects led"
+        },
+        {
+          "value": "0→14",
+          "label": "design org built"
+        }
       ]
     },
     "jobs": [
@@ -103,7 +112,7 @@
         "title": "Developer Experience Director",
         "location": "Porto Alegre, Brazil",
         "dateRange": "2024 - 2025",
-        "description": "Promoted to lead the Developer Experience department under Engineering, owning all user-facing interfaces while maintaining brand strategy oversight.",
+        "description": "Took over every interface a customer or an engineer touches: console, command line, tools, documentation. Kept brand oversight alongside it.",
         "achievements": [
           {
             "text": "Led Console, CLI, and all developer tools as the entire user-facing layer of engineering"
@@ -121,7 +130,7 @@
         "title": "Brand Experience Director",
         "location": "Porto Alegre, Brazil",
         "dateRange": "2023 - 2024",
-        "description": "Promoted to bridge brand strategy with developer-focused product experience, ensuring visual and strategic consistency across all digital touchpoints.",
+        "description": "Ran brand across the whole company after leading the rebrand — product screens, documentation, marketing, launches and events.",
         "achievements": [
           {
             "text": "Established brand guidelines for technical documentation, product interfaces, and marketing materials"
@@ -139,7 +148,7 @@
         "title": "Design Director",
         "location": "Porto Alegre, Brazil",
         "dateRange": "2021 - 2023",
-        "description": "Led design organization under Product, responsible for creative direction (Product Marketing) and product usability (Development).",
+        "description": "Hired to build a design operation from nothing, inside an engineering company. Grew it to fourteen people across five disciplines, and published azion.design.",
         "achievements": [
           {
             "text": "Built a design organization spanning Product Design, Creative, Design Ops, UX Research, and Design Systems"
@@ -160,7 +169,7 @@
         "title": "Partner, Head of Creative Technology",
         "location": "Porto Alegre, Brazil",
         "dateRange": "2015 - 2021",
-        "description": "Leader of UX and Design teams, creating innovative digital experiences and interface products. Huia grew to ~40 employees before being acquired by Stefanini Haus Group.",
+        "description": "Made partner two years after joining. Led the design and UX teams while the studio grew to around forty people, up to the Stefanini acquisition.",
         "achievements": [
           {
             "text": "Became Partner as studio grew to ~40 employees"
@@ -181,7 +190,7 @@
         "title": "Production Designer & Creative Coordinator",
         "location": "São Paulo, Brazil",
         "dateRange": "2013 - 2015",
-        "description": "Squad leader managing art, motion and video teams as creative supervisor. Part of Nonconformity Group.",
+        "description": "Ran the art, motion and video squads. Led creative direction on 40+ projects for O Boticário, Petrobras, Tramontina and Mondelez brands.",
         "achievements": [
           {
             "text": "Led creative direction for 40+ digital projects across web, mobile, and interactive TV platforms"
@@ -196,7 +205,7 @@
         "title": "Art Director",
         "location": "São Paulo, Brazil",
         "dateRange": "2012",
-        "description": "Art Director responsible for O Boticário's retail display unit (Vitrines). Part of Nonconformity Group.",
+        "description": "Art direction for O Boticário's retail displays, plus campaign work for Lacta, Toblerone, Petrobras and Fila.",
         "achievements": [
           {
             "text": "Directed creative strategy for O Boticário retail experiences"
@@ -211,7 +220,7 @@
         "title": "Creative Manager",
         "location": "São Paulo, Brazil",
         "dateRange": "2010 - 2012",
-        "description": "Joined as first project designer at a 2-month-old tech startup. Gained extensive experience in usability and multiplatform web interface design. Managed Design on ~40 projects.",
+        "description": "First designer at a two-month-old startup. Left having run design on around forty projects — software screens, iPad work, e-commerce, interactive TV.",
         "achievements": [
           {
             "text": "Delivered 40+ digital projects: software interfaces, iPad/mobile projects, corporate social networks, interactive TV, wireframes, e-commerce sites"
@@ -226,7 +235,7 @@
         "title": "Art Director",
         "location": "Londrina, PR, Brazil",
         "dateRange": "2007 - 2008",
-        "description": "Developed creative concepts, art direction, and design for print and point-of-sale materials in healthcare and education markets.",
+        "description": "Concepts, art direction and print for healthcare and education clients in Londrina.",
         "achievements": [
           {
             "text": "Clients: Unimed Londrina, Sandoz, Shopping Catuaí, Drogamais"
@@ -238,28 +247,28 @@
         "title": "Art Director",
         "location": "Londrina, PR, Brazil",
         "dateRange": "2007 - 2008",
-        "description": "Developed all types of print and point-of-sale materials, logos, radio spot scripts, and TV commercials with retail focus."
+        "description": "Retail advertising in every format — print, point of sale, logos, radio scripts, TV spots."
       },
       {
         "company": "Agência Ativa",
         "title": "Creative",
         "location": "Presidente Prudente, SP, Brazil",
         "dateRange": "2005 - 2006",
-        "description": "Creative development for advertising campaigns."
+        "description": "Campaign creative for local advertising accounts."
       },
       {
         "company": "Holos Sistema de Ensino",
         "title": "Layout Designer (Diagramador)",
         "location": "Presidente Prudente, SP, Brazil",
         "dateRange": "2004 - 2005",
-        "description": "Editorial layout for educational system workbooks, illustration of graphs and equations. Complex file preparation and finishing."
+        "description": "Editorial layout for school workbooks. Drew the graphs and equations, prepared the files for print."
       },
       {
         "company": "PB.com",
         "title": "Intern",
         "location": "Presidente Prudente, SP, Brazil",
         "dateRange": "2002 - 2003",
-        "description": "Web design internship at local internet provider."
+        "description": "First job. Web design at the local internet provider."
       }
     ]
   },
@@ -268,7 +277,7 @@
     "heading": "Skills",
     "categories": [
       {
-        "title": "Design Leadership",
+        "title": "Creative direction",
         "skills": [
           {
             "name": "UI/UX Design",
@@ -335,7 +344,7 @@
         ]
       },
       {
-        "title": "Design Systems",
+        "title": "Brand and identity",
         "skills": [
           {
             "name": "Design Systems Architecture",
@@ -398,7 +407,7 @@
         ]
       },
       {
-        "title": "Engineering & Code",
+        "title": "Interface and code",
         "skills": [
           {
             "name": "TypeScript / JavaScript",
@@ -448,7 +457,7 @@
         ]
       },
       {
-        "title": "AI-native Workflows",
+        "title": "Working with AI",
         "skills": [
           {
             "name": "Cursor",
@@ -477,7 +486,7 @@
         ]
       },
       {
-        "title": "Tools & Platforms",
+        "title": "Tools",
         "skills": [
           {
             "name": "Figma",
@@ -530,7 +539,7 @@
         ]
       },
       {
-        "title": "Methodologies",
+        "title": "How he works",
         "skills": [
           {
             "name": "Design Thinking",
@@ -625,10 +634,10 @@
           "#8B2500",
           "#FF8A5C"
         ],
-        "description": "A brand adaptation — not a full overhaul — that evolved Azion's digital presence while preserving the technology and structure already in production. New color tones with more saturation, new interface elements, block variants with richer layouts, and a new illustration pattern that visually represents product features and explains how they work. Led the visual and technical strategy for this expansion across the website, built on Astro and Vue with the existing webkit component library.",
+        "description": "A brand stretch, not a rebuild. The site needed more range — richer layouts, stronger colour, a way to show what the product actually does — without throwing away the front-end already running in production.",
         "role": "Design Director",
         "technologies": "Astro, Vue.js, Webkit Component Library, Design Tokens, Sora Typography, Monospace, Brand Adaptation, Illustration System",
-        "impact": "Expanded the visual identity without breaking the existing front-end architecture. Introduced new illustration patterns that explain product features visually, richer block variants across all pages, and a more saturated color palette that strengthened brand presence. The open-source webkit component library is a shared system powering both the website and the console — with project-specific blocks and patterns, but reusable core components across products.",
+        "impact": "New illustration patterns that explain features visually. Richer page blocks across every page. The existing architecture survived intact.",
         "caseStudyUrl": "/llms/projects/azion-website.txt",
         "links": [
           {
@@ -697,20 +706,36 @@
             "type": "gallery-stick",
             "rows": [
               {
-                "spans": [12],
-                "images": ["/projects/azion-website/home-pt-hero.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-website/home-pt-hero.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-website/marketplace-hero.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-website/marketplace-hero.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-website/cache-hero.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-website/cache-hero.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-website/professional-services-hero.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-website/professional-services-hero.webp"
+                ]
               }
             ]
           },
@@ -718,34 +743,58 @@
             "type": "gallery-staggered",
             "rows": [
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
-                "images": ["/projects/azion-website/home-reliable-zoom.webp"]
+                "images": [
+                  "/projects/azion-website/home-reliable-zoom.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 1,
-                "images": ["/projects/azion-website/card-image-optimization.webp"]
+                "images": [
+                  "/projects/azion-website/card-image-optimization.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
-                "images": ["/projects/azion-website/card-bot-traffic.webp"]
+                "images": [
+                  "/projects/azion-website/card-bot-traffic.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
-                "images": ["/projects/azion-website/card-connector-type.webp"]
+                "images": [
+                  "/projects/azion-website/card-connector-type.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
-                "images": ["/projects/azion-website/card-application-accelerator.webp"]
+                "images": [
+                  "/projects/azion-website/card-application-accelerator.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
-                "images": ["/projects/azion-website/functions-hero-zoom.webp"]
+                "images": [
+                  "/projects/azion-website/functions-hero-zoom.webp"
+                ]
               }
             ]
           },
@@ -858,10 +907,10 @@
         "title": "Azion Console Kit",
         "slug": "azion-console-kit",
         "year": "2023",
-        "description": "The complete front-end rebuild of the Azion management console — the interface engineers use to deploy, secure, and observe applications at the edge. Built on Vue 3, a custom design system, and a headless architecture that decouples UI from business logic, Console Kit ships features consistently and at the speed a global edge platform demands.",
+        "description": "The screen engineers use to deploy and watch their applications, rebuilt from scratch. Vue 3, a shared component library, and an architecture that separates how a screen looks from what it does.",
         "role": "Developer Experience Director",
         "technologies": "Vue 3, Vite, PrimeVue, TypeScript, Design Tokens, Component Architecture, Headless UI Pattern, Open Source",
-        "impact": "Open source project with 6,000+ commits, 34+ contributors, and 93+ releases. In production at Magazine Luiza, Itaú, and Netshoes — organizations running real workloads across Azion's global edge network every day. Reduced new screen implementation time to approximately one day through block componentization.",
+        "impact": "Open source: 6,000+ commits, 34+ contributors, 93+ releases. In production at Itaú, Magazine Luiza and Netshoes. New screens went from days to hours. Caio led it; the team he built wrote it.",
         "caseStudyUrl": "/llms/projects/azion-console-kit.txt",
         "credits": [
           {
@@ -1044,10 +1093,10 @@
         "title": "Azion Design System",
         "slug": "azion-design-system",
         "year": "2021",
-        "description": "A custom design system implemented gradually, allowing Azion to improve the experience and ship consistently without forcing a jarring visual break on customers already using the product. Built for the RTM (Real Time Manager) starting in 2021, it established the foundations — tokens, 40+ components, documentation. The strategic precursor to Console Kit.",
+        "description": "A shared kit of parts for the product, put in place a piece at a time so customers never woke up to a different-looking product.",
         "role": "Design Director",
         "technologies": "Figma, Design Tokens, Zeroheight, Component Architecture, Roboto Typography, Semantic Color System, Iconography, Figma Plugins",
-        "impact": "40+ documented components across a structured library with token-based foundations. Enabled parallel product teams to build consistently for the first time, reducing cross-team inconsistency across the RTM platform. Established the architectural groundwork — design tokens, component patterns, and documentation practices — that directly informed the Console Kit rebuild.",
+        "impact": "40+ documented components on one foundation. Parallel teams could finally build the same way. Published publicly at azion.design.",
         "caseStudyUrl": "/llms/projects/azion-design-system.txt",
         "credits": [
           {
@@ -1162,10 +1211,10 @@
         "title": "Azion Brand System",
         "slug": "azion-brand-system",
         "year": "2020",
-        "description": "A comprehensive brand identity system designed to position Azion as a bold innovator in edge computing. Led the strategic transformation from tactical design outputs to a unified brand experience across product, marketing, and engineering touchpoints — establishing visual language, voice guidelines, and scalable design principles that express technical excellence through clarity and confidence.",
+        "description": "A full identity for a company selling infrastructure: visual language, voice, illustration and iconography, applied across product, marketing and engineering.",
         "role": "Design Director, Brand Experience",
         "technologies": "Figma, Brand Strategy, Design Systems, Visual Identity, Voice & Tone Design, Illustration System, Iconography",
-        "impact": "Unified brand experience across 100+ edge locations and 20,000+ hosted applications. Established brand foundations that supported major investment rounds (Monashees, Qualcomm Ventures) and enabled consistent communication across product pillars (Build, Secure, Deploy, Observe). Created scalable system adopted by design, marketing, and engineering teams.",
+        "impact": "One brand across 100+ locations and 20,000+ hosted applications. The foundations held through investment rounds from Monashees and Qualcomm Ventures.",
         "caseStudyUrl": "/llms/projects/azion-brand-system.txt",
         "credits": [
           {
@@ -1232,49 +1281,85 @@
             "type": "gallery-staggered",
             "rows": [
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
-                "images": ["/projects/azion-brand-system/developer.webp"]
+                "images": [
+                  "/projects/azion-brand-system/developer.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
-                "images": ["/projects/azion-brand-system/observe.webp"]
+                "images": [
+                  "/projects/azion-brand-system/observe.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
-                "images": ["/projects/azion-brand-system/orchestrate.webp"]
+                "images": [
+                  "/projects/azion-brand-system/orchestrate.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 1,
-                "images": ["/projects/azion-brand-system/edge-computing.webp"]
+                "images": [
+                  "/projects/azion-brand-system/edge-computing.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
-                "images": ["/projects/azion-brand-system/observe-1.webp"]
+                "images": [
+                  "/projects/azion-brand-system/observe-1.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
-                "images": ["/projects/azion-brand-system/Azion-Careers.webp"]
+                "images": [
+                  "/projects/azion-brand-system/Azion-Careers.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
-                "images": ["/projects/azion-brand-system/illustrations-guides.webp"]
+                "images": [
+                  "/projects/azion-brand-system/illustrations-guides.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 1,
-                "images": ["/projects/azion-brand-system/illustrations-guides-2.webp"]
+                "images": [
+                  "/projects/azion-brand-system/illustrations-guides-2.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
-                "images": ["/projects/azion-brand-system/illustrations-guides-3.webp"]
+                "images": [
+                  "/projects/azion-brand-system/illustrations-guides-3.webp"
+                ]
               }
             ]
           },
@@ -1282,40 +1367,76 @@
             "type": "gallery-stick",
             "rows": [
               {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-welcome.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-welcome.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-serveless.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-serveless.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-cybersecurity.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-cybersecurity.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-101-serveless.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-101-serveless.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-application-acceleration.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-application-acceleration.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-zero-trust.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-zero-trust.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-ransomware.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-ransomware.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-marketplace.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-marketplace.webp"
+                ]
               },
               {
-                "spans": [12],
-                "images": ["/projects/azion-brand-system/asset-open-standards.webp"]
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-brand-system/asset-open-standards.webp"
+                ]
               }
             ]
           },
@@ -1434,10 +1555,10 @@
         "title": "Huia, Creativity & Innovation",
         "slug": "huia",
         "year": "2013",
-        "description": "Eight years leading creative technology at a digital innovation studio — from specialized production nucleus to full-service partner serving major Brazilian and international brands. The work went well beyond conventional digital production: we built with WebGL, facial recognition APIs, and LLM-adjacent techniques when those were genuinely experimental. Strong creative direction skills with the ability to be hands on when needed — end-to-end ownership from concept to shipped experience, at the edge of what technology could do for brand and product.",
+        "description": "Eight years at a creative technology studio in Porto Alegre — two running squads, six as partner. The work ran on WebGL, facial recognition and language models, years before any of it was common.",
         "role": "Partner, Head of Creative Technology & Design Director",
         "technologies": "Adobe Creative Suite, Premiere Pro, After Effects, Cinema 4D, WebGL, Facial Recognition APIs, Early LLM Integration, E-commerce Platforms, UX/UI Design, Video Production, Interactive Campaign Technologies, Agile Creative Methodologies",
-        "impact": "Scaled studio from internal agency nucleus to independent 40-person operation leading to Stefanini acquisition. Delivered monthly coupon campaigns for O Boticário that increased franchise store traffic by 30% across Brazil, sustained over 3 years. Led creative direction for 40+ digital projects across major brands including Petrobras, Tramontina, Sicredi, Samsung, and Mondelez.",
+        "impact": "The studio went from an internal nucleus to forty people, and was acquired by Stefanini. 40+ projects led for Petrobras, O Boticário, Tramontina, Sicredi and Mondelez brands.",
         "caseStudyUrl": "/llms/projects/huia.txt",
         "sections": [
           {
@@ -1470,17 +1591,27 @@
             "type": "gallery-staggered",
             "rows": [
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
-                "images": ["/projects/huia/huia-bird.webp"]
+                "images": [
+                  "/projects/huia/huia-bird.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
-                "images": ["/projects/huia/golden-circle.webp"]
+                "images": [
+                  "/projects/huia/golden-circle.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 1,
                 "images": [
                   {
@@ -1493,7 +1624,9 @@
                 ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
                 "images": [
                   {
@@ -1506,17 +1639,27 @@
                 ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
-                "images": ["/projects/huia/we-unlock-ideas.webp"]
+                "images": [
+                  "/projects/huia/we-unlock-ideas.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
-                "images": ["/projects/huia/team-portraits.webp"]
+                "images": [
+                  "/projects/huia/team-portraits.webp"
+                ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
                 "images": [
                   {
@@ -1529,7 +1672,9 @@
                 ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
                 "images": [
                   {
@@ -1542,7 +1687,9 @@
                 ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 1,
                 "images": [
                   {
@@ -1555,7 +1702,9 @@
                 ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 5,
                 "images": [
                   {
@@ -1568,7 +1717,9 @@
                 ]
               },
               {
-                "spans": [4],
+                "spans": [
+                  4
+                ],
                 "colStart": 9,
                 "images": [
                   {
@@ -1700,7 +1851,7 @@
   "clients": {
     "command": "grep \"notable\" clients.log",
     "heading": "Notable Clients",
-    "description": "Over two decades, I've led Design and Brand projects for some of Brazil's most recognizable companies—from national champions like Petrobras and O Boticario to international names like Mondelez. Whether building digital products for financial services or brand experiences for retail, the work always focuses on connecting business goals with user needs.",
+    "description": "Twenty years of brand and product work for companies most Brazilians already use. Petrobras, O Boticário, Itaú, Tramontina, Sicredi. International work through Mondelez — Lacta, Bis, Toblerone, Oreo. Campaigns, identities, interfaces, and the sites that carry them.",
     "shortDescription": "Two decades of work for brands across Brazil and beyond.",
     "list": [
       "Petrobras",
@@ -1725,7 +1876,7 @@
     "command": "vim philosophy.md",
     "heading": "Philosophy",
     "title": "Fall, learn, evolve",
-    "body": "Great design comes from the same place as great athleticism: the willingness to fail, learn, and iterate.\n\nI learned this first on the Judo mat. As I wrote in 2018: \"In Judo, the first lessons are all focused on teaching how to fall. From the beginning, it's understood that you will fall, lose, err. So suffer less, lose the fear, preserve your body and, most importantly, prepare your mind for the obstacles ahead.\"\n\nYears later, skateboarding taught me the same lesson. Skateboarders are the most persistent people I've ever met. They fall hundreds of times perfecting a single trick, and they do it without fear because falling is part of the process.\n\nThis mindset translates directly to design. The best work comes from teams that aren't afraid to test, fail, and iterate. Ship early, get feedback, evolve. Great products aren't born perfect—they're refined through countless small improvements.\n\nAs a design leader, I try to create environments where teams can fall safely. Where iteration is celebrated, not feared. Where \"I don't know yet\" is an acceptable answer, as long as it's followed by curiosity and action."
+    "body": "Good design comes from the same place as good athleticism: a willingness to fail, learn, and go again.\n\nCaio learned it on a judo mat. As he wrote in 2018: \"In Judo, the first lessons are all focused on teaching how to fall. From the beginning, it's understood that you will fall, lose, err. So suffer less, lose the fear, preserve your body and, most importantly, prepare your mind for the obstacles ahead.\"\n\nSkateboarding taught him the same thing. Skaters are the most persistent people he has met. They fall hundreds of times learning one trick, and do it without fear, because falling is the process rather than a failure of it.\n\nIt translates directly. The best work comes from teams that are not afraid to test, fail and change. Ship early, get it in front of people, keep going. Nothing good arrives finished.\n\nRunning a team, he tries to build places where people can fall safely. Where iterating is the point, not a setback. Where \"I don't know yet\" is a fine answer, as long as curiosity and action follow it."
   },
   "lifestyle": {
     "heading": "Life Outside Design",
@@ -1829,8 +1980,8 @@
   },
   "contact": {
     "command": "send message",
-    "heading": "Get in touch",
-    "description": "I'm currently exploring opportunities in design leadership, product development, and innovation—particularly where AI augments creative workflows. Open to remote, hybrid, or relocation for the right role.\n\nIf you're building something interesting, or just want to talk design systems, developer experience, or the intersection of sports and UX, reach out.",
+    "heading": "Work together",
+    "description": "Caio takes on brand, interface and front-end work — on his own, or alongside a team you already have. He is booking from October 2026.\n\nIf you have something in mind, write. One sentence about the project is enough to start.",
     "email": "caioogata.labs@gmail.com",
     "links": [
       {
@@ -1862,7 +2013,6 @@
       "subjectLabel": "Subject",
       "subjectPlaceholder": "Select a subject...",
       "subjectOptions": {
-        "job": "Job Opportunity",
         "freelance": "Freelance Project",
         "feedback": "Feedback",
         "other": "Other"
