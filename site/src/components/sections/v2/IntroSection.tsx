@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useInView } from '@/hooks/useInView'
-import { useScrollMaskOut } from '@/hooks/useScrollMaskOut'
+import { useScrollExitProgress, slice } from '@/hooks/useScrollExitProgress'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { HeaderBar } from '@/components/layout/HeaderBar'
 import { AskAiBar } from '@/components/sections/v2/AskAiBar'
@@ -44,6 +44,27 @@ const BLOCK_GAP = 'mt-8 md:mt-12 lg:mt-[var(--hero-gap)]'
 const LABELS_CLEARANCE = 'lg:pb-[calc(2.5rem+var(--hero-gap))]'
 
 /**
+ * Exit for a block that rises out of frame while a mask closes under it.
+ *
+ * `rise` is the block's own travel in px at full progress — giving each block a
+ * different distance over the same scroll is what separates their speeds, which
+ * is the whole point of the gesture. The clip closes from the bottom so the
+ * block reads as sliding up behind an edge rather than simply fading.
+ */
+function exitRising(p: number, rise: number): React.CSSProperties {
+  if (p <= 0) return {}
+  return {
+    transform: `translateY(${-p * rise}px)`,
+    clipPath: `inset(0 0 ${p * 100}% 0)`,
+  }
+}
+
+/** Exit for a block that just closes in place, no travel. */
+function exitClosing(p: number): React.CSSProperties {
+  return p <= 0 ? {} : { clipPath: `inset(0 0 ${p * 100}% 0)` }
+}
+
+/**
  * IntroSection — the home hero, per Figma `Home — V2 (DS)` (node 1126:4557).
  *
  * Five stacked blocks on the 12-column grid: header labels, headline, photo,
@@ -80,9 +101,20 @@ export function IntroSection() {
   const bottomRef = useInView({ threshold: 0.1, once: true })
   const labelsRef = useInView({ threshold: 0.1, once: true })
 
-  // Retires the hero from the bottom up as the project list rises behind it.
-  // Without this the hero stays pinned and opaque over the first rows.
-  const { clipPath, progress } = useScrollMaskOut()
+  // Retires the hero as the project list rises behind it. Without this the hero
+  // stays pinned and opaque over the first rows.
+  const { progress } = useScrollExitProgress()
+
+  // The footer labels sit at the bottom edge of the frame and are the first
+  // thing the rising list would collide with, so they go early and alone.
+  const outLabels = slice(progress, 0.0, 0.25)
+
+  // Headline, photo and bio all leave on one window, starting and finishing
+  // together. Staggering them read as the hero coming apart piece by piece.
+  // They still separate, but by distance rather than by timing: the headline
+  // drops a full line height while the photo travels 70px and the bio 38px, so
+  // the same scroll moves each of them at its own speed.
+  const outHero = slice(progress, 0.05, 0.42)
 
   // A boolean, not the raw progress: passing progress straight through would
   // tear down and rebuild the glitch interval on every scroll frame.
@@ -91,9 +123,17 @@ export function IntroSection() {
   return (
     <div
       className="pointer-events-none relative z-20 flex min-h-[100svh] flex-col pb-8 md:pb-10 lg:sticky lg:top-0 lg:h-[100svh] lg:pb-12"
-      style={{ '--hero-gap': 'clamp(1.5rem, 7.2svh, 4rem)', clipPath } as React.CSSProperties}
+      style={{ '--hero-gap': 'clamp(1.5rem, 7.2svh, 4rem)' } as React.CSSProperties}
     >
+      {/* No mask on the container any more: one clip here would retire every
+          block on the same schedule, in whatever order their geometry happened
+          to give. Each block carries its own below.
+
+          The header is the exception — it carries none. It stays for the whole
+          page, matching every internal route, which already passes `sticky`.
+          The home was the only one that did not. */}
       <HeaderBar
+        sticky
         ref={welcomeRef as React.RefObject<HTMLDivElement>}
         className="-entrance -fade -a-0"
       />
@@ -116,8 +156,30 @@ export function IntroSection() {
             className="text-[36px] leading-[1.15] tracking-[-0.02em] text-text-primary md:text-[48px]"
             style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
           >
-            <span className="block">Creative Designer</span>
-            <span className="block">who learned to build.</span>
+            {/* Each line is its own window: `overflow-hidden` on the outer
+                span, travel on the inner one, so the text leaves by sliding
+                down behind a fixed edge instead of moving the layout. This is
+                the same primitive `SplitText type="line"` uses for entrances —
+                reversed, and scrubbed by scroll rather than fired once. The
+                lines are already explicit spans, so none of SplitText's line
+                detection is needed. Both travel on one window, so the sentence
+                leaves whole instead of coming apart. */}
+            <span className="block overflow-hidden">
+              <span
+                className="block will-change-transform"
+                style={{ transform: `translateY(${outHero * 110}%)` }}
+              >
+                Creative Designer
+              </span>
+            </span>
+            <span className="block overflow-hidden">
+              <span
+                className="block will-change-transform"
+                style={{ transform: `translateY(${outHero * 110}%)` }}
+              >
+                who learned to build.
+              </span>
+            </span>
           </h1>
         </GridItem>
       </Grid>
@@ -162,8 +224,13 @@ export function IntroSection() {
                 `pointer-events-none` (see the section element) — the distortion
                 is driven by pointermove and gets no events without it. */}
             {/* `-mask-down` is the box opening — the same entrance the headline
-                uses, so the two read as one gesture. */}
-            <div className="-entrance -mask-down -a-6 pointer-events-auto relative aspect-[216/281] w-full overflow-hidden bg-bg-surface-primary lg:h-full lg:max-h-[281px] lg:min-h-[120px] lg:w-auto">
+                uses, so the two read as one gesture. The exit travels further
+                than the bio's (70px against 38px): same scroll, different
+                distance, which is what reads as different speeds. */}
+            <div
+              style={exitRising(outHero, 70)}
+              className="-entrance -mask-down -a-6 pointer-events-auto relative aspect-[216/281] w-full overflow-hidden bg-bg-surface-primary lg:h-full lg:max-h-[281px] lg:min-h-[120px] lg:w-auto"
+            >
               <Image
                 src="/caio-ogata-profile.webp"
                 alt="Caio Ogata"
@@ -192,7 +259,7 @@ export function IntroSection() {
           <GridItem mobileSpan={4} tabletSpan={6} span={6} start={7} className="md:col-start-3">
             <p
               className="-entrance -fade -a-7 text-[14px] leading-[1.5] text-text-secondary"
-              style={{ fontFamily: 'var(--font-sans)' }}
+              style={{ fontFamily: 'var(--font-sans)', ...exitRising(outHero, 38) }}
             >
               {BIO}
             </p>
@@ -210,6 +277,7 @@ export function IntroSection() {
            leaving the flow block would have cost it the entrance. */}
       <Grid
         ref={labelsRef as React.RefObject<HTMLDivElement>}
+        style={exitClosing(outLabels)}
         className={`-entrance -fade -a-8 items-center ${BLOCK_GAP} lg:absolute lg:inset-x-0 lg:bottom-12 lg:mt-0`}
       >
         <GridItem

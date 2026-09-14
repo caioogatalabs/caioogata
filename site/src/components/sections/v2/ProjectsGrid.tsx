@@ -1,6 +1,5 @@
 'use client'
 
-import { useInView } from '@/hooks/useInView'
 import { ProjectRow } from '@/components/sections/v2/ProjectRow'
 import content from '@/content/en.json'
 
@@ -37,11 +36,13 @@ const BADGES: Record<string, { value: string; label: string }> = {
 }
 
 export function ProjectsGrid() {
-  const sectionRef = useInView({ threshold: 0.1 })
-
+  // Deliberately no observer on the section. `-inview` propagates to every
+  // descendant, so one here fires every row's entrance the moment the list
+  // edges into view — which defeats the per-row staging in ProjectRow, where
+  // the image and the copy are supposed to arrive at different moments.
+  // Each row owns its own observers now.
   return (
     <section
-      ref={sectionRef as React.RefObject<HTMLElement>}
       aria-label="Projects"
       data-section-id="projects"
       // Horizontal padding comes from each row's <Grid>; doubling it here would

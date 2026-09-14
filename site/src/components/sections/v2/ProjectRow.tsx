@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { useInView } from '@/hooks/useInView'
 
 interface ProjectRowProps {
   title: string
@@ -38,14 +39,34 @@ export function ProjectRow({
   badgeLabel,
   cover,
 }: ProjectRowProps) {
+  // The image announces the row as soon as it touches the viewport.
+  const imageRef = useInView({ threshold: 0.1, once: true })
+
+  // The copy waits until the row reaches the middle of the screen. Shrinking the
+  // observation box to a thin band turns "is it visible" into "has it reached
+  // this line", with no extra hook and no scroll listener. The band's BOTTOM
+  // edge is what the column's top crosses, so `-50%` at the bottom puts the
+  // trigger exactly on the vertical centre rather than just below it.
+  const textRef = useInView({ threshold: 0, rootMargin: '-45% 0px -50% 0px', once: true })
+
   return (
     <article>
       <Grid>
-        {/* Image — 7 columns, offset to start at column 2 */}
-        <GridItem mobileSpan={4} tabletSpan={8} span={7} start={2}>
+        {/* Image — 7 columns, offset to start at column 2.
+            The observer goes on the GridItem and the entrance on the <a>
+            inside: `-mask-down` hides its own element with `clip-path`, and
+            IntersectionObserver measures the target through that clip, so an
+            observed element wearing it reports ratio 0 and never fires. */}
+        <GridItem
+          mobileSpan={4}
+          tabletSpan={8}
+          span={7}
+          start={2}
+          ref={imageRef as React.RefObject<HTMLDivElement>}
+        >
           <a
             href={`/projects/${slug}`}
-            className="relative block h-[280px] w-full overflow-hidden bg-bg-surface-primary md:h-[380px] lg:h-[502px]"
+            className="-entrance -mask-down relative block h-[280px] w-full overflow-hidden bg-bg-surface-primary md:h-[380px] lg:h-[502px]"
             aria-label={`View ${title} project`}
           >
             {cover && (
@@ -66,19 +87,20 @@ export function ProjectRow({
           tabletSpan={8}
           span={4}
           start={9}
+          ref={textRef as React.RefObject<HTMLDivElement>}
           className="grid grid-cols-4 gap-x-4 gap-y-6 self-start lg:gap-y-8"
         >
-          <span className="col-span-4 font-mono text-[11px] font-medium uppercase tracking-[0.88px] text-text-tertiary lg:col-span-3">
+          <span className="-entrance -mask-down -a-0 col-span-4 font-mono text-[11px] font-medium uppercase tracking-[0.88px] text-text-tertiary lg:col-span-3">
             {['PRJ', year].filter(Boolean).join('_')} // {String(index).padStart(3, '0')}
           </span>
 
-          <div className="col-span-4 flex flex-col gap-2 lg:col-span-3">
+          <div className="-entrance -mask-down -a-1 col-span-4 flex flex-col gap-2 lg:col-span-3">
             <h3 className="text-2xl font-semibold text-text-primary">{title}</h3>
             <p className="text-lg leading-[1.6] text-text-secondary">{summary}</p>
           </div>
 
           {badge && (
-            <div className="col-span-4 flex flex-col gap-2 lg:col-span-3">
+            <div className="-entrance -mask-down -a-2 col-span-4 flex flex-col gap-2 lg:col-span-3">
               <span className="inline-flex self-start items-center justify-center border border-border-secondary px-2 py-1 text-2xl font-semibold text-text-primary">
                 {badge}
               </span>
