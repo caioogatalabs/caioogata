@@ -163,19 +163,117 @@ on the site, and it currently says nothing about what was done.
 > Lacta, Bis, Toblerone, Oreo. Campaigns, identities, interfaces, and the sites that carry
 > them.
 
-### Skills — PROPOSED, category labels only
+### Skills — PROPOSED, rebuilt
 
-The items inside each group stay as they are — a client scanning the page reads the group
-names, not the entries.
+**Revised 2026-09-14.** The first pass renamed the six category labels and left the items
+inside untouched, which broke them: *Brand and identity* held nothing but component-library
+work, and *Creative direction* contained an item called *Creative Direction*. Renaming a
+label without reading what sits under it is how a list starts lying about itself.
 
-| Current | New |
+Rebuilt below. Levels carry over where the skill carried over.
+
+**Creative direction** — the craft, and where the record starts. Art direction opens it: he
+trained as one, held the title at three agencies, and specialised at Miami Ad School.
+
+| Skill | Level |
 |---|---|
-| Design Leadership | Creative direction |
-| Design Systems | Brand and identity |
-| Engineering & Code | Interface and code |
-| AI-native Workflows | Working with AI |
-| Tools & Platforms | Tools |
-| Methodologies | How he works |
+| Art direction | Expert |
+| Product design | Expert |
+| Interface design | Expert |
+| User experience | Expert |
+| Interaction design | Advanced |
+| Motion design | Advanced |
+| Typography | Advanced |
+| Photography direction | Advanced |
+
+**Brand and identity system** — brand plus the system that carries it. Brand strategy moves
+in from creative direction, where it never belonged.
+
+| Skill | Level |
+|---|---|
+| Visual identity | Expert |
+| Component libraries | Expert |
+| Design tokens | Expert |
+| Brand strategy | Advanced |
+| Voice and tone | Advanced |
+| Illustration and iconography | Advanced |
+| Atomic design | Advanced |
+| Accessibility / WCAG | Advanced |
+
+**Interface and code** — design-to-code workflows move in from the old design-system group,
+which is where that skill actually lives.
+
+| Skill | Level |
+|---|---|
+| Design-to-code workflows | Expert |
+| TypeScript / JavaScript | Advanced |
+| HTML / CSS | Advanced |
+| Semantic HTML | Advanced |
+| Vue 3 | Advanced |
+| UI engineering | Advanced |
+| Vite | Proficient |
+| Git / version control | Proficient |
+
+**Working with AI** — two near-duplicates merged (*LLM collaboration & prototyping* and
+*AI-assisted prototyping* were the same claim twice). MCP work added: it is the 2026 course
+in the education list.
+
+| Skill | Level |
+|---|---|
+| Cursor | Expert |
+| Claude Code | Expert |
+| Prototyping with LLMs | Advanced |
+| Design-to-code with MCP | Advanced |
+| Research and analysis | Advanced |
+| Image and video generation | Advanced |
+
+**Tools** — tools only. Storybook and Figma Variables move in from the groups where they were
+listed as disciplines.
+
+| Skill | Level |
+|---|---|
+| Figma | Expert |
+| Adobe Creative Suite | Expert |
+| Figma Variables & Token Studio | Advanced |
+| Framer | Advanced |
+| VS Code | Advanced |
+| Google AI Studio | Advanced |
+| Storybook | Proficient |
+| Remotion | Proficient |
+| n8n | Proficient |
+| VEO | Familiar |
+
+**How he works** — method and practice. Design operations and leading teams move in; neither
+is creative direction.
+
+| Skill | Level |
+|---|---|
+| Design sprint | Expert |
+| Leading design teams | Expert |
+| Design thinking | Expert |
+| Product discovery | Advanced |
+| UX research | Advanced |
+| Design operations | Advanced |
+| Agile / Scrum / Kanban | Advanced |
+
+#### What was dropped, and why
+
+| Item | Reason |
+|---|---|
+| `Creative Direction` | Sat inside a category of the same name |
+| `Developer Experience (DevEx)` | A job title, not a skill — and a banned term here. The record carries it on /experience |
+| `OKR-driven data analysis` | Filed under AI, where it is not an AI skill. Recruiter vocabulary |
+| `AI-assisted prototyping` | Duplicate of `LLM collaboration & prototyping` |
+| `Design Systems Architecture` | Replaced by `Component libraries`, which says the same thing without the banned phrase |
+| `UI/UX Design` | Split into `Interface design` and `User experience` |
+
+#### ⚠ One level needs Caio's call
+
+**Photography direction — Advanced.** Every other entry traces to something in the record: a
+job title, a project, a course, a named tool. This one does not. The only evidence in the
+content is `quickFacts`, where photography appears as a hobby alongside cinema. Directing
+photography is ordinary art-director work and the claim is plausible, but it is asserted
+here, not sourced. Confirm the level or cut the item.
 
 ---
 

@@ -280,129 +280,73 @@
         "title": "Creative direction",
         "skills": [
           {
-            "name": "UI/UX Design",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-website",
-              "azion-console-kit",
-              "azion-design-system",
-              "huia"
-            ]
+            "name": "Art direction",
+            "level": "Expert"
           },
           {
-            "name": "Creative Direction",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-brand-system",
-              "azion-website",
-              "huia"
-            ]
+            "name": "Product design",
+            "level": "Expert"
           },
           {
-            "name": "Developer Experience (DevEx)",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-console-kit",
-              "azion-design-system"
-            ]
+            "name": "Interface design",
+            "level": "Expert"
           },
           {
-            "name": "Product Design",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-console-kit",
-              "azion-website"
-            ]
+            "name": "User experience",
+            "level": "Expert"
           },
           {
-            "name": "Brand Strategy",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-brand-system"
-            ]
-          },
-          {
-            "name": "Team Leadership",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-design-system",
-              "huia"
-            ]
-          },
-          {
-            "name": "Design Operations",
+            "name": "Interaction design",
             "level": "Advanced"
           },
           {
-            "name": "Interaction Design",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-website",
-              "azion-console-kit"
-            ]
+            "name": "Motion design",
+            "level": "Advanced"
+          },
+          {
+            "name": "Typography",
+            "level": "Advanced"
+          },
+          {
+            "name": "Photography direction",
+            "level": "Advanced"
           }
         ]
       },
       {
-        "title": "Brand and identity",
+        "title": "Brand and identity system",
         "skills": [
           {
-            "name": "Design Systems Architecture",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-design-system",
-              "azion-console-kit"
-            ]
+            "name": "Visual identity",
+            "level": "Expert"
           },
           {
-            "name": "Design Tokens",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-design-system"
-            ]
+            "name": "Component libraries",
+            "level": "Expert"
           },
           {
-            "name": "Component Architecture",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-design-system",
-              "azion-console-kit"
-            ]
+            "name": "Design tokens",
+            "level": "Expert"
           },
           {
-            "name": "Design-to-Code Workflows",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-design-system",
-              "azion-console-kit"
-            ]
+            "name": "Brand strategy",
+            "level": "Advanced"
+          },
+          {
+            "name": "Voice and tone",
+            "level": "Advanced"
+          },
+          {
+            "name": "Illustration and iconography",
+            "level": "Advanced"
+          },
+          {
+            "name": "Atomic design",
+            "level": "Advanced"
           },
           {
             "name": "Accessibility / WCAG",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-design-system",
-              "azion-console-kit"
-            ]
-          },
-          {
-            "name": "Atomic Design",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-design-system"
-            ]
-          },
-          {
-            "name": "Figma Variables & Token Studio",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-design-system",
-              "azion-brand-system"
-            ]
-          },
-          {
-            "name": "Storybook",
-            "level": "Proficient"
+            "level": "Advanced"
           }
         ]
       },
@@ -410,21 +354,16 @@
         "title": "Interface and code",
         "skills": [
           {
+            "name": "Design-to-code workflows",
+            "level": "Expert"
+          },
+          {
             "name": "TypeScript / JavaScript",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-website",
-              "azion-console-kit"
-            ]
+            "level": "Advanced"
           },
           {
             "name": "HTML / CSS",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-website",
-              "azion-console-kit",
-              "huia"
-            ]
+            "level": "Advanced"
           },
           {
             "name": "Semantic HTML",
@@ -432,26 +371,18 @@
           },
           {
             "name": "Vue 3",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-console-kit"
-            ]
+            "level": "Advanced"
           },
           {
-            "name": "UI Engineering",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-website",
-              "azion-console-kit",
-              "huia"
-            ]
+            "name": "UI engineering",
+            "level": "Advanced"
           },
           {
             "name": "Vite",
             "level": "Proficient"
           },
           {
-            "name": "Git / Version Control",
+            "name": "Git / version control",
             "level": "Proficient"
           }
         ]
@@ -468,19 +399,19 @@
             "level": "Expert"
           },
           {
-            "name": "LLM collaboration & prototyping",
+            "name": "Prototyping with LLMs",
             "level": "Advanced"
           },
           {
-            "name": "AI-assisted research & analysis",
+            "name": "Design-to-code with MCP",
             "level": "Advanced"
           },
           {
-            "name": "OKR-driven data analysis",
+            "name": "Research and analysis",
             "level": "Advanced"
           },
           {
-            "name": "AI-assisted prototyping",
+            "name": "Image and video generation",
             "level": "Advanced"
           }
         ]
@@ -490,30 +421,18 @@
         "skills": [
           {
             "name": "Figma",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-design-system",
-              "azion-brand-system",
-              "azion-console-kit"
-            ]
+            "level": "Expert"
           },
           {
             "name": "Adobe Creative Suite",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-brand-system",
-              "huia"
-            ]
+            "level": "Expert"
+          },
+          {
+            "name": "Figma Variables & Token Studio",
+            "level": "Advanced"
           },
           {
             "name": "Framer",
-            "level": "Advanced",
-            "projectSlugs": [
-              "azion-website"
-            ]
-          },
-          {
-            "name": "Google AI Studio",
             "level": "Advanced"
           },
           {
@@ -521,20 +440,24 @@
             "level": "Advanced"
           },
           {
+            "name": "Google AI Studio",
+            "level": "Advanced"
+          },
+          {
+            "name": "Storybook",
+            "level": "Proficient"
+          },
+          {
             "name": "Remotion",
             "level": "Proficient"
           },
           {
-            "name": "AI image generation",
+            "name": "n8n",
             "level": "Proficient"
           },
           {
             "name": "VEO",
             "level": "Familiar"
-          },
-          {
-            "name": "N8n",
-            "level": "Proficient"
           }
         ]
       },
@@ -542,30 +465,31 @@
         "title": "How he works",
         "skills": [
           {
-            "name": "Design Thinking",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-console-kit",
-              "huia"
-            ]
+            "name": "Design sprint",
+            "level": "Expert"
           },
           {
-            "name": "Design Sprint",
-            "level": "Expert",
-            "projectSlugs": [
-              "azion-console-kit"
-            ]
+            "name": "Leading design teams",
+            "level": "Expert"
           },
           {
-            "name": "Product Discovery",
+            "name": "Design thinking",
+            "level": "Expert"
+          },
+          {
+            "name": "Product discovery",
+            "level": "Advanced"
+          },
+          {
+            "name": "UX research",
+            "level": "Advanced"
+          },
+          {
+            "name": "Design operations",
             "level": "Advanced"
           },
           {
             "name": "Agile / Scrum / Kanban",
-            "level": "Advanced"
-          },
-          {
-            "name": "UX Research",
             "level": "Advanced"
           }
         ]
