@@ -2,9 +2,7 @@
 
 import { useCallback, useRef, useEffect, useState } from 'react'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { PageNavigation } from '@/components/sections/v2/PageNavigation'
 import { ExperienceHero } from '@/components/sections/v2/experience/ExperienceHero'
-import { MAIN_NAVIGATION } from '@/content/main-navigation'
 import { useExperienceNavigation } from '@/hooks/useExperienceNavigation'
 import { useInView } from '@/hooks/useInView'
 import content from '@/content/en.json'
@@ -19,8 +17,8 @@ const jobs = typedContent.experience.jobs
  */
 const BODY = 'text-[14px] leading-[1.5] text-text-secondary'
 
-/** Rest → hover, the header menu's treatment. No bar, no type swap. */
-const HOVER = 'transition-opacity duration-300 hover:opacity-100'
+/** The open row reads at full strength, the rest sit back. */
+const HOVER = 'transition-opacity duration-300'
 
 export function ExperienceSection() {
   const rowsRef = useInView({ threshold: 0.05, once: true })
@@ -35,39 +33,65 @@ export function ExperienceSection() {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  // The hook resolves hover and keyboard into one `highlightedIndex`; the open
-  // row simply follows it, the way the skills accordion follows its hovered
-  // category. No separate expanded state to keep in sync — a row opens the
-  // moment it is highlighted, by mouse or by arrow key, and the container's
-  // `onMouseLeave` clears the highlight, which closes it.
   const noop = useCallback(() => {}, [])
-  const { highlightedIndex, setHoveredIndex } = useExperienceNavigation({
+  const { activeIndex } = useExperienceNavigation({
     itemCount: jobs.length,
     onExpand: noop,
     onCollapse: noop,
     containerRef,
   })
 
+  // Scroll opens the rows, one at a time. `scrollIndex` is the last row whose
+  // top has crossed a line at 45% of the viewport, so the stack releases one
+  // row per row on the way down and closes them again on the way up.
+  //
+  // This is stable without any damping, and for a structural reason: a row
+  // expands BELOW its own header, so opening row i never moves row i's top. It
+  // only pushes rows after it further down, away from the line. The measure
+  // cannot oscillate against its own effect.
+  //
+  // Hover no longer opens anything. With the pointer resting anywhere over the
+  // list it would win on every frame and the scroll sequence would never be
+  // seen. Arrow keys still override, which keeps the list reachable without a
+  // mouse.
+  const [scrollIndex, setScrollIndex] = useState(-1)
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+    let frame = 0
+    const measure = () => {
+      frame = 0
+      const line = window.innerHeight * 0.45
+      let next = -1
+      container.querySelectorAll<HTMLElement>('[data-experience-row]').forEach((row, i) => {
+        if (row.getBoundingClientRect().top <= line) next = i
+      })
+      setScrollIndex(next)
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure)
+    }
+    measure()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [])
+
+  const openIndex = activeIndex >= 0 ? activeIndex : scrollIndex
+
   return (
     <div className="min-h-screen bg-bg">
-      <ExperienceHero
-        headline={typedContent.experience.hero.headline}
-        stats={typedContent.experience.hero.stats}
-      />
-
-      {/* Unified page navigation — top sticky. Same set of commands as the
-          bottom navbar (back / categories / up-down / enter), so keyboard
-          users can read all the controls in either position. */}
-      <PageNavigation
-        lateral={{ items: MAIN_NAVIGATION, currentIndex: 2, scope: 'categories' }}
-        items={{ label: 'to navigate', enterLabel: 'to expand' }}
-      />
+      <ExperienceHero headline={typedContent.experience.hero.headline} />
 
       {/* Experience rows */}
       <div
         ref={rowsRef as React.RefObject<HTMLDivElement>}
         className="px-5 py-8 md:px-8 md:py-12 lg:px-8"
-        onMouseLeave={() => setHoveredIndex(-1)}
         role="list"
         aria-label="Experience roles"
       >
@@ -77,22 +101,13 @@ export function ExperienceSection() {
               key={index}
               job={job}
               index={index}
-              isOpen={highlightedIndex === index}
+              isOpen={openIndex === index}
               reducedMotion={reducedMotion}
-              onHover={() => setHoveredIndex(index)}
             />
           ))}
         </div>
       </div>
 
-      {/* Bottom navigation — mirrors the sticky top navbar (same commands).
-          Non-sticky inline placement after the rows. Keeps the keyboard
-          legend reachable without scrolling back to the top. */}
-      <PageNavigation
-        sticky={false}
-        lateral={{ items: MAIN_NAVIGATION, currentIndex: 2, scope: 'categories' }}
-        items={{ label: 'to navigate', enterLabel: 'to expand' }}
-      />
     </div>
   )
 }
@@ -102,19 +117,18 @@ interface ExperienceRowProps {
   index: number
   isOpen: boolean
   reducedMotion: boolean
-  onHover: () => void
 }
 
 /**
- * One experience row, built on the skills accordion's shape: a header that
- * opens on hover or focus, a `+` / `−` indicator, and a panel that grows via
- * `grid-template-rows: 0fr → 1fr` on the same curve and duration.
+ * One experience row: a header, a `+` / `−` indicator, and a panel that grows
+ * via `grid-template-rows: 0fr → 1fr` on the skills accordion's curve and
+ * duration. Scroll decides which one is open — see `ExperienceSection`.
  *
  * Everything sits on the shared `<Grid>`, so the columns and gutters are the
  * home's — the row used a raw `grid-cols-12` with a 16px gap inside its own
  * padding, which put it off the 12-col track at every breakpoint.
  */
-function ExperienceRow({ job, index, isOpen, reducedMotion, onHover }: ExperienceRowProps) {
+function ExperienceRow({ job, index, isOpen, reducedMotion }: ExperienceRowProps) {
   const staggerClass = `-a-${Math.min(index, 20)}`
   // At most 3, one per pair of columns from the title axis (6-7, 8-9, 10-11).
   const achievements = (job.achievements ?? []).slice(0, 3)
@@ -124,7 +138,6 @@ function ExperienceRow({ job, index, isOpen, reducedMotion, onHover }: Experienc
       data-experience-row
       role="listitem"
       className={`-entrance -slide-up ${staggerClass} border-t border-border-primary/10 last:border-b`}
-      onMouseEnter={onHover}
     >
       {/* Header — date (1-2) company (3-5) title (6-10) indicator (11-12) */}
       <Grid
@@ -132,8 +145,7 @@ function ExperienceRow({ job, index, isOpen, reducedMotion, onHover }: Experienc
         tabIndex={0}
         aria-expanded={isOpen}
         aria-label={`${job.company} — ${job.title}, ${job.dateRange}`}
-        onFocus={onHover}
-        className={`!px-0 cursor-pointer items-center py-5 ${HOVER} ${isOpen ? 'opacity-100' : 'opacity-70'}`}
+        className={`!px-0 items-center py-5 ${HOVER} ${isOpen ? 'opacity-100' : 'opacity-70'}`}
       >
         <GridItem
           mobileSpan={4}
