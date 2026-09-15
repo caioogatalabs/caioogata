@@ -67,19 +67,12 @@ export function PhilosophyBlock({ paragraphs, closingQuote }: PhilosophyBlockPro
         </Grid>
 
         {closingQuote && (
-          <div className="mt-16 md:mt-20">
+          <div className="mt-16 md:mt-20 [--line1-indent:0px] md:[--line1-indent:8em]">
             <SplitText
               type="line"
               text={closingQuote}
-              className="text-text-secondary"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '3rem',
-                lineHeight: 1.15,
-                letterSpacing: '-0.96px',
-                fontWeight: 400,
-                textIndent: '8em',
-              }}
+              className="type-display text-text-secondary"
+              style={{ textIndent: 'var(--line1-indent)' }}
               staggerMs={120}
               durationMs={1100}
               baseDelayMs={150}

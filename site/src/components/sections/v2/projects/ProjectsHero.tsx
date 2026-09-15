@@ -24,7 +24,7 @@ export function ProjectsHero({ headline, kicker }: ProjectsHeroProps) {
     <div className="relative bg-bg">
       <div className="min-h-[60vh] flex items-center px-5 md:px-8 lg:px-8 py-16 md:py-20 lg:py-24">
         <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 w-full">
-          <div className="col-span-4 md:col-span-8 lg:col-span-12">
+          <div className="col-span-4 md:col-span-8 lg:col-span-12 [--line1-indent:0px] md:[--line1-indent:8em]">
             {kicker && (
               <SplitText
                 type="line"
@@ -37,15 +37,8 @@ export function ProjectsHero({ headline, kicker }: ProjectsHeroProps) {
             <SplitText
               type="line"
               text={headline}
-              className="text-text-primary"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(2rem, 5vw, 3rem)',
-                lineHeight: 1.15,
-                letterSpacing: '-0.96px',
-                fontWeight: 400,
-                textIndent: '8em',
-              }}
+              className="type-display text-text-primary"
+              style={{ textIndent: 'var(--line1-indent)' }}
               staggerMs={120}
               durationMs={1100}
               baseDelayMs={200}

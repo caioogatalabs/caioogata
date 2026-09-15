@@ -115,15 +115,8 @@ export function AboutPinned() {
             <SplitText
               type="line"
               text={firstParagraph}
-              className="text-text-primary"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '3rem',
-                lineHeight: 1.15,
-                letterSpacing: '-0.96px',
-                fontWeight: 400,
-                textIndent: 'var(--line1-indent)',
-              }}
+              className="type-display text-text-primary"
+              style={{ textIndent: 'var(--line1-indent)' }}
               staggerMs={120}
               durationMs={1100}
               baseDelayMs={150}

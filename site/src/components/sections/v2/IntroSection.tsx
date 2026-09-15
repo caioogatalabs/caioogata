@@ -149,8 +149,7 @@ export function IntroSection() {
       >
         <GridItem mobileSpan={4} tabletSpan={8} span={8} className="-entrance -mask-down -a-4">
           <h1
-            className="text-[36px] leading-[1.15] tracking-[-0.02em] text-text-primary md:text-[48px]"
-            style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
+            className="type-display text-text-primary"
           >
             {/* Each line is its own window: `overflow-hidden` on the outer
                 span, travel on the inner one, so the text leaves by sliding

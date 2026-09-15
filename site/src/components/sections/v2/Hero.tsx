@@ -48,8 +48,7 @@ export function Hero({ kicker, technologies, headline }: HeroProps) {
             </GridItem>
             <GridItem span={8} start={5} tabletSpan={8} mobileSpan={4}>
               <p
-                className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary -entrance -fade -a-1"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                className="type-display text-text-primary -entrance -fade -a-1"
               >
                 {headline}
               </p>
@@ -58,8 +57,7 @@ export function Hero({ kicker, technologies, headline }: HeroProps) {
         ) : (
           <GridItem span={12} tabletSpan={8} mobileSpan={4}>
             <p
-              className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary -entrance -fade -a-1"
-              style={{ fontFamily: 'var(--font-sans)' }}
+              className="type-display text-text-primary -entrance -fade -a-1"
             >
               {headline}
             </p>

@@ -81,8 +81,7 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
                   {feature.name}
                 </p>
                 <p
-                  className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-tertiary"
-                  style={{ fontFamily: 'var(--font-sans)' }}
+                  className="type-display text-text-tertiary"
                 >
                   {feature.name}
                 </p>

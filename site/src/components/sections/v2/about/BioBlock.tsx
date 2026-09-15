@@ -128,15 +128,8 @@ export function BioBlock() {
             <SplitText
               type="line"
               text={finalQuote}
-              className="text-text-secondary"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '3rem',
-                lineHeight: 1.15,
-                letterSpacing: '-0.96px',
-                fontWeight: 400,
-                textIndent: 'var(--line1-indent)',
-              }}
+              className="type-display text-text-secondary"
+              style={{ textIndent: 'var(--line1-indent)' }}
               staggerMs={120}
               durationMs={1100}
               baseDelayMs={150}

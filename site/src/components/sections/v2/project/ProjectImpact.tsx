@@ -53,8 +53,7 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
           >
             <div className="flex flex-wrap items-start gap-5">
               <p
-                className="text-[72px] leading-[1.15] tracking-[-1.44px] text-text-primary"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                className="type-display-lg text-text-primary"
               >
                 {stat.value}
               </p>

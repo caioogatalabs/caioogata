@@ -35,8 +35,7 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
           <GridItem span={3} tabletSpan={4} mobileSpan={4}>
             <div className="-entrance -fade -a-1 flex flex-col gap-5">
               <h2
-                className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                className="type-display text-text-primary"
               >
                 {section.heading || t.challenge}
               </h2>
@@ -54,8 +53,7 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
           <GridItem span={3} tabletSpan={4} mobileSpan={4}>
             <div className="-entrance -fade -a-2 flex flex-col gap-5">
               <h2
-                className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                className="type-display text-text-primary"
               >
                 {section.solutionHeading || t.solution}
               </h2>

@@ -31,15 +31,8 @@ export function ExperienceHero({ headline }: ExperienceHeroProps) {
             <SplitText
               type="line"
               text={headline}
-              className="text-text-primary"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(2rem, 5vw, 3rem)',
-                lineHeight: 1.15,
-                letterSpacing: '-0.96px',
-                fontWeight: 400,
-                textIndent: 'var(--line1-indent)',
-              }}
+              className="type-display text-text-primary"
+              style={{ textIndent: 'var(--line1-indent)' }}
               staggerMs={120}
               durationMs={1100}
               baseDelayMs={200}

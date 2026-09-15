@@ -86,7 +86,7 @@
 
   /* ─── Type Scale (Figma text styles → CSS) ─── */
   /* Display */
-  --text-display-lg:           var(--primitive-text-6xl);   /* 72px — Epilogue Regular, lh 1.15, tracking -2% */
+  --text-display-lg:           var(--primitive-text-7xl);   /* 72px — Epilogue Regular, lh 1.15, tracking -2% */
   --text-display-md:           var(--primitive-text-5xl);   /* 48px — Epilogue Regular, lh 1.15, tracking -2% */
   /* Heading */
   --text-heading-lg:           var(--primitive-text-4xl);   /* 36px — Epilogue Bold, lh 1.25, tracking -1% */
