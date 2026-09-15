@@ -19,10 +19,23 @@ const EMAIL = 'contato@caioogata.com'
 /**
  * V1's last build stamp, frozen: the `v1` branch ends at 91 commits on package
  * version 1.1, the same `{version}.{commitCount}` scheme V2 stamps with. It
- * renders as plain text until V2 replaces V1 in production, at which point this
- * becomes the link to the archived V1.
+ * links to the archived V1, unlisted and kept out of search indexes.
  */
 const V1_VERSION = 'V1.1.91'
+const V1_URL = 'https://v1.caioogata.com'
+
+function V1Link() {
+  return (
+    <a
+      href={V1_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block transition-opacity duration-300 hover:opacity-100"
+    >
+      {V1_VERSION}
+    </a>
+  )
+}
 
 
 /** Rendered in both the mobile tail and the desktop label row. */
@@ -205,7 +218,7 @@ export function FooterSection() {
         <Grid className="-entrance -slide-up -a-3 mt-12">
           <GridItem mobileSpan={2} className={`${LABEL} whitespace-nowrap`}>
             <p>V2.0.{COMMIT_COUNT}</p>
-            <p>{V1_VERSION}</p>
+            <V1Link />
           </GridItem>
           <GridItem mobileSpan={2} className={`${LABEL} text-right`}>
             <ScrollUpButton />
@@ -226,11 +239,11 @@ export function FooterSection() {
         </GridItem>
 
         {/* The version stack. V1's stamp is frozen at its last build — the
-            `v1` branch stopped at 91 commits on package version 1.1 — and this
-            is the slot the link to the live V1 goes in once V2 replaces it. */}
+            `v1` branch stopped at 91 commits on package version 1.1 — and it
+            links to the archived V1. */}
         <GridItem mobileSpan={2} tabletSpan={1} span={1} className={`${LABEL} whitespace-nowrap`}>
           <p>V2.0.{COMMIT_COUNT}</p>
-          <p>{V1_VERSION}</p>
+          <V1Link />
         </GridItem>
 
         {/* Column 9 — the contact column above, so the two line up */}
