@@ -245,6 +245,10 @@ Two distinct hover patterns, both using masked vertical text swap (Epilogue → 
 - Composition icon: fill +0.1s, text +0.1s extra.
 - Fill tokens: `bg-fill-outline-hover` (bg) + `text-on-outline-hover` (text). Dark=light fill/dark text, Light=dark fill/light text, Inverse=light fill/dark text.
 
+### Project Images
+
+Before capturing or producing any project image — home cover, gallery, still or video — read [`PROJECTS-GUIDE.md`](PROJECTS-GUIDE.md). Home covers follow **Home Cover (ProjectCover)**: 16:10 captured at `1680x1050`, exported `1920x1200`, via `scripts/capture/`. Gallery images follow the separate composition standard (`1512x982` → `1600x1000`).
+
 ### Component Patterns
 
 - **Full-width sections**: Use direct `px-5 md:px-8 lg:px-16` padding (64px desktop). Grid component (`Grid`/`GridItem`) only where 12-col alignment is needed.

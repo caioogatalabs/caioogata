@@ -460,6 +460,114 @@ compose_top_right(
 
 ---
 
+## Home Cover (ProjectCover)
+
+The home project list (`ProjectsGrid` → `ProjectRow` → `ProjectCover`) shows one cover per project. This is a **separate standard** from the gallery composition above: gallery images are composed on a BG canvas (`1512x982` → `1600x1000`); cover images are bare screens that the component frames itself. Don't mix the two.
+
+### How the component frames a cover
+
+```
+┌──────────── frame (component) ────────────┐
+│                                           │
+│   ┌──────── window 16:10 (asset) ──────┐  │
+│   │                                    │  │
+│   │            1920 × 1200             │  │
+│   │                                    │  │
+│   └────────────────────────────────────┘  │
+│                                           │
+└───────────────────────────────────────────┘
+```
+
+- **Frame**: 6 of 12 columns (cols 3–8), `bg-bg-surface-primary`. **3:2 from `md` up, square on mobile** — after bymonolog.com's Success Stories (3:2 desktop, 1:1 mobile). A 16:10 frame read squat on desktop (30px vertical margin) and as a thin strip on mobile. Drawn by the component — never baked into the asset.
+- **Window**: centred, 86% of the frame width, `aspect-[16/10]`, 3px radius. The image **fills** it (`object-cover`), so anything not 16:10 gets cropped.
+- **Planned, not built**: a per-project frame background (brand colour or art), as in juanmoraromero.com/projects/villiers and bymonolog.com. The window stays 16:10, so the asset spec below does not change.
+
+Rendered sizes (desktop frame width = viewport/2 − 42px; window = 86% of frame). Margins at 1440: 47px sides, 44px top/bottom; at 390: 25px sides, 81px top/bottom.
+
+| Viewport | Window | Window @2x |
+|---|---|---|
+| 1280 | 514×321 | 1028×642 |
+| 1440 | 583×365 | 1166×729 |
+| 1728 | 707×442 | 1414×884 |
+| 1920 | 789×493 | 1578×986 |
+| 2560 | 1065×665 | — |
+| Mobile 390 | 301×188 | 602×376 |
+
+The window is ~40–55% of a desktop screen, so body text in a full-page capture becomes texture. Headlines survive; for detail, frame a component or a section, not the whole page.
+
+### Asset spec
+
+| Property | Value |
+|---|---|
+| Ratio | **16:10, exact** — the window crops everything else |
+| Final still | `1920x1200` `.webp` (q90) |
+| Final video | `1920x1200` `.mp4` (H.264, CRF 18) + `.webm` (VP9, CRF 32), 60fps, no audio |
+| Capture viewport | **`1680x1050`** CSS px — 1440 breaks some sites' nav (Lukso's menu overlapped EN/PT), 1152 breaks layouts |
+| Capture density | 2x for stills (PNG `3360x2100`, kept as master) |
+| Raw captures | `../content/captures/{project}/` (outside `public/`; pick finals from there) |
+| Final location | `public/projects/{slug}/` |
+| Naming | kebab-case by page and section: `home-en-hero`, `web-apps-use-cases-1`, `menu` |
+
+### Where the pixels come from
+
+- **Browser page** — capture at `1680x1050`; the screenshot is the window.
+- **Figma screen** (e.g. a home concept) — frame any 16:10 size; the frame width sets the scale. `1152x720` shows detail, `1680x1050` matches browser captures. Export with the width suffix **`1920w`** (not `2x`) to land on 1920x1200 directly.
+- **Art** (illustration, brand piece, icon set) — build a `1920x1200` board and place the art on it: centred on a solid ground, or bleeding to fill. Give the board a different tone from the frame, or the window disappears.
+
+### Stills — `scripts/capture/shots.cjs`
+
+```bash
+OUT_DIR=../content/captures/azion/website nice -n 15 node scripts/capture/shots.cjs list.json
+```
+
+```json
+[
+  { "name": "home-en-hero", "url": "https://www.azion.com/en/" },
+  { "name": "home-reliable", "url": "https://www.azion.com/en/", "text": "most reliable infrastructure", "section": true, "offset": 64 },
+  { "name": "web-apps-use-cases-1", "url": "https://www.azion.com/en/solutions/web-apps/", "scroll": 1247, "wait": 3000 },
+  { "name": "webkit-flow", "url": "https://webkit.azion.app/iframe.html?id=components-data-flow--branches&viewMode=story", "scale": 2,
+    "css": "#storybook-root{min-height:100vh;display:flex!important;align-items:center;justify-content:center}" }
+]
+```
+
+- **Framing a section**: find its `y` first (list `section`/`h2` offsets with Playwright) and set `scroll` so the section starts under the site's fixed nav.
+- **Cleanup is automatic**: cookie/consent banners are hidden by selector, and any small `position: fixed` element in a bottom corner (chat launchers mount late, under arbitrary names) is hidden right before the shot. Never click a consent banner.
+- **Sections with scroll-driven entrances** (pinned carousels, horizontal team rows) render empty at the section top. Scroll further in, check the shot, retake.
+- **Storybook components**: shoot the isolated `iframe.html?id=…&viewMode=story` URL, centre `#storybook-root` with `css`, and magnify with `scale`. **Never CSS `zoom`** — it broke a flow diagram's connectors and collapsed a pricing-card row.
+
+### Video — `scripts/capture/vcap.cjs`
+
+**60fps.** The frame rate does not change speed: the sites checked (GSAP, R3F with `delta`, `Date.now` loops) animate on elapsed time, so any fps plays at 1x. 24–30fps visibly steps on marquees, scroll and card entrances; 120fps doubles capture time and file size for a window shown at ~600–800px.
+
+**Frame by frame, not real time.** Real-time recording (CDP screencast, the `rec` command in `session.cjs`) came out uneven: frame intervals jittered 7–25ms with >100ms spikes, and frames arrived at 1x. `vcap.cjs` freezes the page clock and advances it exactly 1/60s per captured frame, so the result is perfectly even regardless of how long each frame takes. Interaction is scripted:
+
+```bash
+CURSOR=1 HOLD_MS=3000 OUT_DIR=../content/captures/azion/website \
+  nice -n 15 node scripts/capture/vcap.cjs https://www.azion.com/en/ menu 10.5 menu-plan.json
+```
+
+```json
+[
+  { "start": [900, 640] },
+  { "at": 0.8, "dur": 0.7,  "mouse": [224, 32] },
+  { "at": 2.8, "dur": 0.4,  "mouse": [348, 32] },
+  { "at": 4.8, "dur": 0.45, "mouse": [590, 32] },
+  { "at": 8.6, "dur": 0.8,  "mouse": [900, 700] }
+]
+```
+
+- **Loading sequences**: the clock stays at 0 during `HOLD_MS` (real time) so the page hydrates first. Starting it at navigation replayed Lukso's loader twice (remount mid-animation).
+- **Off-screen embeds**: `BLOCK=player.vimeo.com,vimeocdn.com` — a Vimeo iframe loading in the background stalled every Lukso run.
+- **Cursor**: `CURSOR=1` draws a white pointer; leave it off for pure page motion.
+- **Known limit — heavy WebGL sites**: on lukso.com.br about half the runs stalled inside Chrome and the R3F icons mounted only intermittently (the site gates them on a network GPU-tier check). Light sites (azion.com, 10.5s menu in 32s) run clean. For heavy sites, record natively instead (`screencapture -v`, needs Screen Recording permission for the terminal) with the window at 1680×1050, then trim/scale with ffmpeg.
+- **Trimming**: pick cut points from a contact sheet (`ffmpeg -vf "fps=2,scale=320:-1,tile=8x5"`), then `ffmpeg -ss A -to B -i raw.mp4 -c:v libx264 -crf 18 …`.
+
+### Machine load
+
+Captures run headless under `nice -n 15`; ffmpeg is capped at 4 threads. Every script closes its browser on finish, error, timeout and Ctrl+C — check with `ps -A | grep "Google Chrome for Testing"` after an interrupted run anyway. The visible window from `session.cjs` holds ~2 GB and constant CPU on animated sites: kill it as soon as the manual part is done. A 5s `vcap` run peaks around 3.4 GB / 6 cores for ~15s.
+
+---
+
 ## File Locations
 
 | What | Where |
@@ -476,6 +584,9 @@ compose_top_right(
 | Composition test | `scripts/compose-test.py` |
 | Raw captures | `scripts/` (temporary `.png`, not committed) |
 | Crop examples | `crop-examples/` (reference patterns) |
+| Home cover component | `src/components/sections/v2/ProjectCover.tsx` (framed by `ProjectRow.tsx`) |
+| Cover capture scripts | `scripts/capture/` (`shots.cjs`, `vcap.cjs`, `session.cjs`) |
+| Cover raw captures | `../content/captures/{project}/` |
 
 ---
 
@@ -492,6 +603,7 @@ When adding a new project:
   - [ ] Re-apply cleanup after scrolling to new sections
 - [ ] Compose images using script (Center for pages, Top-left/Top-right for details)
 - [ ] Add composed images to `public/projects/{slug}/`
+- [ ] Capture the home cover per **Home Cover (ProjectCover)**: 16:10 at `1680x1050`, exported `1920x1200` (`scripts/capture/`)
 - [ ] Add case study link to `markdown-generator.ts`
 - [ ] Add EN route to `sitemap.ts`
 - [ ] Update `types.ts` only if new fields are needed
