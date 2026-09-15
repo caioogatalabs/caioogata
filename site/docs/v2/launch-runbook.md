@@ -1,43 +1,47 @@
 # Launch runbook — V2 on caioogata.com, V1 on v1.caioogata.com
 
-Two Vercel projects stay separate (V1 builds from the repo root, V2 from `site/`).
-Team `caio-ogata-labs-projects`, DNS on Vercel.
+One Vercel project, `caioogata` (team `caio-ogata-labs-projects`), Root Directory `site`.
+Every branch keeps the app in `site/`. DNS is on Vercel.
 
-| Project | Today | After launch |
-|---|---|---|
-| `caioogata` | `main` → www.caioogata.com | `v1` → v1.caioogata.com |
-| `caioogata-v2` | `v2` → caioogata-v2.vercel.app | `main` → www.caioogata.com |
+| Branch | Version | Address | Vercel role |
+|---|---|---|---|
+| `main` | V2 | www.caioogata.com (apex 308 → www) | Production |
+| `v1` | V1, frozen at 1.1.91 | v1.caioogata.com | Preview, pinned by branch domain |
+| `v2` | working branch | `caioogata-git-v2-…vercel.app` | Preview |
 
-## Before
+`caioogata-v2` is the old separate V2 project. It is deleted after launch.
 
-- [x] `caioogata` git link repaired (2026-09-15, was `git_info_fail`).
-- [x] `v1.caioogata.com` added to `caioogata`, Git branch `v1`, deployment READY. It still
-      answers 302 to Vercel login: a branch-mapped domain is a preview, and previews are
-      protected. It goes public in step 3 of the cutover. Do not switch the production
-      branch to `v1` before step 1: `v1` carries the noindex header and would push it to www.
-- [ ] `launch` merged into `v2`, deployed, checked on caioogata-v2.vercel.app.
-- [ ] Remove the `RESEND_*` env vars from `caioogata-v2` (form is gone).
+## Before (done 2026-09-15)
 
-## Cutover
+- [x] `caioogata` git link repaired (was `git_info_fail`).
+- [x] `v1` moved into `site/` (`36faca9`) and carries `X-Robots-Tag: noindex, nofollow`.
+- [x] `caioogata` Root Directory set to `site`. www still serves the `main` @ `fa7a140` deployment.
+- [x] `v1.caioogata.com` on `caioogata`, Git branch `v1`, build READY. Answers 302 (preview protection) until launch step 2.
+- [x] Contact form, `/api/contact` and Resend removed; `/dev/*` 404s in production; `*.vercel.app` noindexed.
 
-1. `caioogata` → Domains: remove `caioogata.com` and `www.caioogata.com`.
-2. `caioogata-v2` → Domains: add `www.caioogata.com`, then `caioogata.com` redirecting (308) to www.
-3. `caioogata` → Settings → Environments → Production: branch `v1`; redeploy `v1` to
-   production; in Domains, clear the Git branch on `v1.caioogata.com`. It now serves the
-   production deployment and is public.
+## Launch
+
+1. Production: `git checkout main && git merge --ff-only v2 && git push origin main`.
+   The push builds `main` from `site/` and promotes it to www.
+2. `caioogata` → Settings → Deployment Protection → Vercel Authentication: off.
+   v1.caioogata.com goes public (previews are noindexed by their headers).
+3. `caioogata` → Settings → Security → Deployment Retention: keep preview and production deployments indefinitely, so the V1 preview is never pruned.
 4. Check:
    - `curl -sI https://caioogata.com` → 308 to www
    - `curl -sI https://www.caioogata.com` → 200, no `X-Robots-Tag`
    - `/about`, `/experience`, `/philosophy`, `/projects`, one `/projects/<slug>`, `/llms-full.txt`, `/sitemap.xml` → 200
    - `/dev/buttons` → 404
+   - header availability and footer copy the email
+   - footer V1 link → v1.caioogata.com, 200 with `X-Robots-Tag: noindex, nofollow`
    - OG preview (paste the URL in a LinkedIn/WhatsApp draft)
-   - footer V1 link opens v1.caioogata.com (200, `X-Robots-Tag: noindex, nofollow`)
-5. Search Console: resubmit `https://www.caioogata.com/sitemap.xml`.
+5. Delete the `caioogata-v2` project. Remove its `RESEND_*` env vars first if keeping it for a while.
 
 ## Rollback
 
-Move both domains back to `caioogata` and promote the `main` @ `fa7a140` deployment (Deployments → Promote), so www does not serve the noindex build.
+`caioogata` → Deployments → the `main` @ `fa7a140` production deployment → Instant Rollback.
+It was built with the app at the repo root and needs no rebuild. Then fix forward on `main`.
 
-## After
+## Later
 
-- Fast-forward `main` to `v2`; set `caioogata-v2` production branch to `main`.
+- `v2` stays the working branch; ship by fast-forwarding `main`.
+- Rewrite of the `/llms*.txt` corpus (`launch-copy.md`) and Search Console/indexing, after launch.
