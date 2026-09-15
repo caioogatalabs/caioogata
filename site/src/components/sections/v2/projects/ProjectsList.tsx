@@ -2,7 +2,7 @@
 
 import { useInView } from '@/hooks/useInView'
 import { ProjectCard } from '@/components/sections/v2/ProjectCard'
-import content from '@/content/en.json'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 
 const yearMap: Record<string, string> = {
   'azion-website': '2022',
@@ -12,8 +12,6 @@ const yearMap: Record<string, string> = {
   'huia': '2020',
 }
 
-const projects = content.projects.items.filter((p) => !p.disabled)
-
 /**
  * /projects index list — same `ProjectCard` and 2-up row layout as the
  * home `ProjectsGrid`, but renders ALL active projects (no slice). Rows
@@ -21,6 +19,8 @@ const projects = content.projects.items.filter((p) => !p.disabled)
  * desktop so the card keeps the same aspect as a paired card.
  */
 export function ProjectsList() {
+  const { content } = useLanguage()
+  const projects = content.projects.items.filter((p) => !p.disabled)
   const sectionRef = useInView({ threshold: 0.1 })
 
   // Chunk into rows of 2 (matches home ProjectsGrid rhythm).
@@ -32,7 +32,7 @@ export function ProjectsList() {
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
-      aria-label="All projects"
+      aria-label={content.ui.projects.listLabel}
       data-section-id="projects-list"
       className="flex flex-col gap-5 px-5 py-8 md:px-8 md:py-12 lg:px-8 lg:py-16"
     >

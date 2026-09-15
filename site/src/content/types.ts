@@ -271,6 +271,7 @@ export interface Content {
     facts: QuickFact[]
   }
   workingStyle?: WorkingStyleSection
+  ui: UIStrings
   collaborationContext?: CollaborationContextSection
   contact: {
     command: string
@@ -315,3 +316,6 @@ export interface Content {
 }
 
 export type Language = 'en' | 'pt-br'
+
+/** Interface strings. Typed off the English file, which pt-br.json mirrors key for key. */
+export type UIStrings = (typeof import('./en.json'))['ui']

@@ -5,11 +5,8 @@ import type { RefObject } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { SplitText } from '@/components/motion/SplitText'
-import content from '@/content/en.json'
-import type { Content } from '@/content/types'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 
-const typedContent = content as unknown as Content
-const clientsData = typedContent.clients
 
 type LogoEntry = { src: string; imgClass?: string }
 
@@ -37,6 +34,8 @@ const CLIENT_LOGOS: Record<string, LogoEntry> = {
 }
 
 export function ClientsBlock() {
+  const { content } = useLanguage()
+  const clientsData = content.clients
   const blockRef = useInView({ threshold: 0.1, once: true })
   const items = clientsData.list
   // Wave 1 unconditionally extended Content.clients with shortDescription?: string
@@ -56,7 +55,7 @@ export function ClientsBlock() {
             <SplitText
               type="line"
               as="span"
-              text="1.3 / Notable Clients"
+              text={content.ui.about.clientsKicker}
               className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
               durationMs={700}
               baseDelayMs={100}

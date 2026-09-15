@@ -1,6 +1,7 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { ExternalLink } from '@/components/ui/ExternalLink'
 import type { ProjectItem } from '@/content/types'
@@ -30,6 +31,7 @@ function Value({ children }: { children: React.ReactNode }) {
 
 export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
   const sectionRef = useInView()
+  const t = useLanguage().content.ui.project
 
   return (
     <section
@@ -41,15 +43,15 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
         <GridItem span={3} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-0">
           <div className="space-y-6">
             <div>
-              <Label>Project</Label>
+              <Label>{t.project}</Label>
               <Value>{project.title}</Value>
             </div>
             <div>
-              <Label>Client & Role</Label>
+              <Label>{t.clientRole}</Label>
               <Value>{project.role || '\u2014'}</Value>
             </div>
             <div>
-              <Label>Year</Label>
+              <Label>{t.year}</Label>
               <Value>{project.year || '\u2014'}</Value>
             </div>
           </div>
@@ -57,13 +59,13 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
 
         {/* Col 2: Technologies */}
         <GridItem span={3} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-1">
-          <Label>Technologies</Label>
+          <Label>{t.technologies}</Label>
           <Value>{project.technologies || '\u2014'}</Value>
         </GridItem>
 
         {/* Col 3: Credits */}
         <GridItem span={3} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-2">
-          <Label>Credits</Label>
+          <Label>{t.credits}</Label>
           {project.credits && project.credits.length > 0 ? (
             <div className="space-y-1">
               {project.credits.map((credit, i) => (
@@ -97,7 +99,7 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
 
         {/* Col 4: Links */}
         <GridItem span={3} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-3">
-          <Label>Links</Label>
+          <Label>{t.links}</Label>
           {project.links && project.links.length > 0 ? (
             <div className="flex flex-col gap-2">
               {project.links.map((link, i) => (

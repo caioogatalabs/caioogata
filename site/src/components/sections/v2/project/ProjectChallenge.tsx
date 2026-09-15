@@ -1,6 +1,7 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import type { ProjectItem, ProjectSection } from '@/content/types'
 
@@ -12,6 +13,7 @@ interface ProjectChallengeProps {
 
 export function ProjectChallenge({ section, project, projectIndex }: ProjectChallengeProps) {
   const sectionRef = useInView()
+  const t = useLanguage().content.ui.project
 
   return (
     <section
@@ -34,7 +36,7 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
                 className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
-                {section.heading || 'Challenge'}
+                {section.heading || t.challenge}
               </h2>
               <p
                 className="text-[18px] leading-[1.6] text-text-tertiary"
@@ -54,7 +56,7 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
                 className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
-                {section.solutionHeading || 'Solution'}
+                {section.solutionHeading || t.solution}
               </h2>
               <p
                 className="text-[18px] leading-[1.6] text-text-tertiary"

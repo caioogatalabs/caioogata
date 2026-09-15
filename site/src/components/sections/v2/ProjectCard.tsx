@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { fill, useLanguage } from '@/components/providers/LanguageProvider'
 
 interface ProjectCardProps {
   title: string
@@ -12,6 +13,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ title, slug, year, index, className = '' }: ProjectCardProps) {
+  const viewProject = useLanguage().content.ui.projects.viewProject
   const { ref, clipPath } = useScrollReveal()
   const [arrowHovered, setArrowHovered] = useState(false)
 
@@ -39,7 +41,7 @@ export function ProjectCard({ title, slug, year, index, className = '' }: Projec
         <a
           href={`/projects/${slug}`}
           className="relative flex items-center justify-center size-12 rounded-full bg-bg-fill-primary text-text-on-primary overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
-          aria-label={`View ${title} project`}
+          aria-label={fill(viewProject, { title })}
           style={{ borderRadius: '999px' }}
           onMouseEnter={() => setArrowHovered(true)}
           onMouseLeave={() => setArrowHovered(false)}

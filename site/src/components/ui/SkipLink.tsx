@@ -1,6 +1,9 @@
 'use client'
 
+import { useLanguage } from '@/components/providers/LanguageProvider'
+
 export default function SkipLink() {
+  const { content } = useLanguage()
   return (
     <a
       href="#main-content"
@@ -9,7 +12,7 @@ export default function SkipLink() {
                  focus:font-mono focus:text-base focus:rounded-base
                  focus:outline-none"
     >
-      Skip to main content
+      {content.ui.skipLink}
     </a>
   )
 }

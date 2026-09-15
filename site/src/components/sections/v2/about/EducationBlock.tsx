@@ -9,11 +9,9 @@ import {
   RevealGroup,
   SplitText,
 } from '@/components/motion/SplitText'
-import content from '@/content/en.json'
-import type { Content, EducationItem } from '@/content/types'
+import { useLanguage } from '@/components/providers/LanguageProvider'
+import type { EducationItem } from '@/content/types'
 
-const typedContent = content as unknown as Content
-const educationData = typedContent.education
 
 /**
  * Extract latest year from year string. Adapted from V1 Education.tsx.
@@ -102,13 +100,15 @@ function EducationEntry({ edu, index }: { edu: EducationItem; index: number }) {
 }
 
 export function EducationBlock() {
+  const { content } = useLanguage()
+  const educationData = content.education
   const allEducation: EducationItem[] = useMemo(() => {
     const formal = educationData.items
     const additional = educationData.additional || []
     return [...formal, ...additional].sort(
       (a, b) => getSortYear(b.year) - getSortYear(a.year)
     )
-  }, [])
+  }, [educationData])
 
   return (
     <div>
@@ -119,7 +119,7 @@ export function EducationBlock() {
             <SplitText
               type="line"
               as="span"
-              text="1.4 / Education"
+              text={content.ui.about.educationKicker}
               className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
               durationMs={700}
               baseDelayMs={100}

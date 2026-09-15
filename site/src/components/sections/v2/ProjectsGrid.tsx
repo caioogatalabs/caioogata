@@ -1,11 +1,10 @@
 'use client'
 
 import { ProjectRow } from '@/components/sections/v2/ProjectRow'
-import content from '@/content/en.json'
+import { useLanguage } from '@/components/providers/LanguageProvider'
+import type { ProjectItem } from '@/content/types'
 
-type Project = (typeof content.projects.items)[number]
-
-const projects = content.projects.items.filter((p) => !p.disabled)
+type Project = ProjectItem
 
 /** First image with a real src — some entries lead with a video, one has none. */
 function coverOf(project: Project): string | undefined {
@@ -24,18 +23,22 @@ function summaryOf(project: Project): string {
 
 /**
  * PLACEHOLDER — the badge marks one number per project, as in the Figma study.
- * Values are real, lifted from each project's `impact` prose; the labels are
- * ours. Move both into the content file once the project copy is revisited.
+ * Values are real, lifted from each project's `impact` prose; the labels live
+ * in `ui.projects.badges` so they translate. Move the values there too once
+ * the project copy is revisited.
  */
-const BADGES: Record<string, { value: string; label: string }> = {
-  'azion-console-kit': { value: '6,000+', label: 'commits, 34+ contributors, in production at Itaú, Magalu and Netshoes.' },
-  'azion-design-system': { value: '40+', label: 'documented components on token-based foundations.' },
-  'azion-brand-system': { value: '20,000+', label: 'hosted applications under one brand experience.' },
-  huia: { value: '40', label: 'people, from internal nucleus to independent studio.' },
+const BADGE_VALUES: Record<string, string> = {
+  'azion-console-kit': '6,000+',
+  'azion-design-system': '40+',
+  'azion-brand-system': '20,000+',
+  huia: '40',
   // azion-website has no number in its impact copy — renders without a badge.
 }
 
 export function ProjectsGrid() {
+  const { content } = useLanguage()
+  const projects = content.projects.items.filter((p) => !p.disabled)
+  const badgeLabels: Record<string, string> = content.ui.projects.badges
   // Deliberately no observer on the section. `-inview` propagates to every
   // descendant, so one here fires every row's entrance the moment the list
   // edges into view — which defeats the per-row staging in ProjectRow, where
@@ -43,7 +46,7 @@ export function ProjectsGrid() {
   // Each row owns its own observers now.
   return (
     <section
-      aria-label="Projects"
+      aria-label={content.ui.projects.gridLabel}
       data-section-id="projects"
       // Horizontal padding comes from each row's <Grid>; doubling it here would
       // push the columns off the 12-col track.
@@ -62,8 +65,8 @@ export function ProjectsGrid() {
           year={project.year}
           index={i + 1}
           summary={summaryOf(project)}
-          badge={BADGES[project.slug]?.value}
-          badgeLabel={BADGES[project.slug]?.label}
+          badge={BADGE_VALUES[project.slug]}
+          badgeLabel={badgeLabels[project.slug]}
           cover={coverOf(project)}
         />
       ))}

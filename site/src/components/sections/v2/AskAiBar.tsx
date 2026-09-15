@@ -1,3 +1,5 @@
+'use client'
+
 import {
   ChatGPTIcon,
   ClaudeIcon,
@@ -5,16 +7,7 @@ import {
   GrokIcon,
   PerplexityIcon,
 } from '@/components/icons/ai'
-
-/**
- * The prompt each assistant opens with. `llms-full.txt` is the canonical
- * machine-readable profile (see `src/lib/markdown-generator.ts`), so the
- * question points there rather than at the rendered site.
- */
-const PROMPT =
-  'Read https://www.caioogata.com/llms-full.txt and tell me about Caio Ogata — his background, how he works, and the projects in his portfolio.'
-
-const Q = encodeURIComponent(PROMPT)
+import { fill, useLanguage } from '@/components/providers/LanguageProvider'
 
 /**
  * Deep links that accept a pre-filled question.
@@ -24,11 +17,11 @@ const Q = encodeURIComponent(PROMPT)
  * one. Everything else takes `?q=` directly.
  */
 const ASSISTANTS = [
-  { name: 'Claude', href: `https://claude.ai/new?q=${Q}`, Icon: ClaudeIcon },
-  { name: 'Gemini', href: `https://www.google.com/search?udm=50&q=${Q}`, Icon: GeminiIcon },
-  { name: 'ChatGPT', href: `https://chatgpt.com/?q=${Q}`, Icon: ChatGPTIcon },
-  { name: 'Grok', href: `https://grok.com/?q=${Q}`, Icon: GrokIcon },
-  { name: 'Perplexity', href: `https://www.perplexity.ai/search?q=${Q}`, Icon: PerplexityIcon },
+  { name: 'Claude', href: (q: string) => `https://claude.ai/new?q=${q}`, Icon: ClaudeIcon },
+  { name: 'Gemini', href: (q: string) => `https://www.google.com/search?udm=50&q=${q}`, Icon: GeminiIcon },
+  { name: 'ChatGPT', href: (q: string) => `https://chatgpt.com/?q=${q}`, Icon: ChatGPTIcon },
+  { name: 'Grok', href: (q: string) => `https://grok.com/?q=${q}`, Icon: GrokIcon },
+  { name: 'Perplexity', href: (q: string) => `https://www.perplexity.ai/search?q=${q}`, Icon: PerplexityIcon },
 ] as const
 
 /**
@@ -39,16 +32,22 @@ const ASSISTANTS = [
  * dark hero and inside the footer's `data-theme="inverse"` yellow.
  */
 export function AskAiBar({ className = '' }: { className?: string }) {
+  // The prompt each assistant opens with points at the machine-readable profile
+  // (see `src/lib/markdown-generator.ts`) rather than the rendered site — the
+  // Portuguese prompt at `llms-pt.txt`, the English one at `llms-full.txt`.
+  const t = useLanguage().content.ui.askAi
+  const q = encodeURIComponent(t.prompt)
+
   return (
     <div className={`flex gap-px ${className}`.trim()}>
       {ASSISTANTS.map(({ name, href, Icon }) => (
         <a
           key={name}
-          href={href}
+          href={href(q)}
           target="_blank"
           rel="noopener noreferrer"
-          title={`Ask ${name} about Caio`}
-          aria-label={`Ask ${name} about Caio`}
+          title={fill(t.tileLabel, { name })}
+          aria-label={fill(t.tileLabel, { name })}
           className="flex size-10 items-center justify-center bg-bg-surface-primary text-icon-primary opacity-70 transition-opacity duration-300 hover:opacity-100"
         >
           <Icon className="size-[18px]" />

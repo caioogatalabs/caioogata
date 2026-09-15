@@ -1964,5 +1964,113 @@
   "notifications": {
     "copySuccess": "Content copied! Ready to paste into your AI assistant.",
     "copyError": "Couldn't copy automatically. Please try again or select text manually."
+  },
+  "ui": {
+    "skipLink": "Skip to main content",
+    "notFound": {
+      "message": "404 — page not found",
+      "back": "Back to home"
+    },
+    "header": {
+      "welcome": "Welcome to caioogata portfolio",
+      "available": "<> Available October 2026",
+      "location": "Porto Alegre, Brazil",
+      "worldwide": "Worldwide",
+      "freelancer": "Freelancer",
+      "sections": "Sections",
+      "menuIntro": "intro",
+      "menuAbout": "about",
+      "menuExperience": "experience",
+      "menuContact": "contact",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "menu": "Menu",
+      "language": "Language"
+    },
+    "intro": {
+      "headlineLine1": "Creative Designer",
+      "headlineLine2": "who learned to build.",
+      "askAi": "Ask AI about Caio",
+      "scrollDown": "scroll down"
+    },
+    "askAi": {
+      "prompt": "Read https://www.caioogata.com/llms-full.txt and tell me about Caio Ogata — his background, how he works, and the projects in his portfolio.",
+      "tileLabel": "Ask {name} about Caio"
+    },
+    "footer": {
+      "label": "Footer",
+      "scrollUp": "scroll up",
+      "social": "Social",
+      "contact": "Contact",
+      "askAi": "ask ai about caio",
+      "rights": "© 2026 All Rights Reserved"
+    },
+    "pageNav": {
+      "label": "Page navigation",
+      "backHome": "back to home",
+      "previous": "Previous: {title}",
+      "previousDisabled": "Previous (disabled)",
+      "next": "Next: {title}",
+      "nextDisabled": "Next (disabled)",
+      "navigateScope": "to navigate {scope}",
+      "scopeCategories": "categories",
+      "scopeProjects": "projects",
+      "up": "Up",
+      "down": "Down",
+      "navigate": "to navigate",
+      "expand": "to expand",
+      "titles": {
+        "home": "Home",
+        "about": "About",
+        "experience": "Experience",
+        "projects": "Projects",
+        "philosophy": "Philosophy"
+      }
+    },
+    "about": {
+      "bioKicker": "1.1 / Bio",
+      "coreExpertise": "Core Expertise",
+      "skillsKicker": "1.2 / Skills",
+      "clientsKicker": "1.3 / Notable Clients",
+      "educationKicker": "1.4 / Education"
+    },
+    "experience": {
+      "rolesLabel": "Experience roles"
+    },
+    "philosophy": {
+      "practiceKicker": "3.1 / Practice"
+    },
+    "projects": {
+      "kicker": "2.0 / Selected Work",
+      "headline": "A selection of projects across design systems, brand expansion, and the consoles engineers ship to every day.",
+      "listLabel": "All projects",
+      "gridLabel": "Projects",
+      "viewProject": "View {title} project",
+      "badges": {
+        "azion-console-kit": "commits, 34+ contributors, in production at Itaú, Magalu and Netshoes.",
+        "azion-design-system": "documented components on token-based foundations.",
+        "azion-brand-system": "hosted applications under one brand experience.",
+        "huia": "people, from internal nucleus to independent studio."
+      }
+    },
+    "project": {
+      "backHome": "Back to Home",
+      "project": "Project",
+      "clientRole": "Client & Role",
+      "year": "Year",
+      "technologies": "Technologies",
+      "credits": "Credits",
+      "links": "Links",
+      "challenge": "Challenge",
+      "solution": "Solution",
+      "results": "Results"
+    },
+    "video": {
+      "mute": "mute",
+      "unmute": "unmute",
+      "muteLabel": "Mute",
+      "unmuteLabel": "Turn sound on",
+      "frameTitle": "{platform} video {id}"
+    }
   }
 }

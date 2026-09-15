@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { AskAiBar } from '@/components/sections/v2/AskAiBar'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 import { COMMIT_COUNT } from '@/lib/build-info'
 
 const SOCIAL = [
@@ -27,13 +28,15 @@ const LABEL =
 
 /** Rendered in both the mobile tail and the desktop label row. */
 function ScrollUpButton() {
+  const t = useLanguage().content.ui.footer
+
   return (
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className="transition-opacity duration-300 hover:opacity-100"
     >
-      scroll up
+      {t.scrollUp}
     </button>
   )
 }
@@ -70,6 +73,7 @@ export function FooterSection() {
   const [height, setHeight] = useState(0)
   const [reveal, setReveal] = useState(0)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const t = useLanguage().content.ui.footer
 
   useEffect(() => {
     setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -135,7 +139,7 @@ export function FooterSection() {
 
       <footer
         ref={panelRef}
-        aria-label="Footer"
+        aria-label={t.label}
         data-section-id="footer"
         data-theme="inverse"
         className={`fixed inset-x-0 bottom-0 z-0 overflow-hidden bg-bg pt-8 md:pt-10 lg:pt-12 ${
@@ -145,7 +149,7 @@ export function FooterSection() {
       {/* ── Link columns ── */}
       <Grid className="-entrance -slide-up -a-0">
         <GridItem mobileSpan={4} tabletSpan={4} span={3} start={2}>
-          <p className={LABEL}>Social</p>
+          <p className={LABEL}>{t.social}</p>
           <ul className="mt-2 flex flex-col gap-2">
             {SOCIAL.map(({ label, href }) => (
               <li key={label}>
@@ -167,7 +171,7 @@ export function FooterSection() {
         </GridItem>
 
         <GridItem mobileSpan={4} tabletSpan={4} span={3} start={9} className="mt-10 md:mt-0">
-          <p className={LABEL}>Contact</p>
+          <p className={LABEL}>{t.contact}</p>
           <a
             href={`mailto:${EMAIL}`}
             className="mt-2 inline-block text-[18px] leading-[1.6] text-text-primary transition-opacity duration-300 hover:opacity-60"
@@ -189,7 +193,7 @@ export function FooterSection() {
       <div className="md:hidden">
         <Grid className="-entrance -slide-up -a-2 mt-16">
           <GridItem mobileSpan={4} className={LABEL}>
-            ask ai about caio
+            {t.askAi}
           </GridItem>
         </Grid>
 
@@ -211,7 +215,7 @@ export function FooterSection() {
 
         <Grid className="-entrance -slide-up -a-3 mt-6">
           <GridItem mobileSpan={4} className={`${LABEL} whitespace-nowrap`}>
-            © 2026 All Rights Reserved
+            {t.rights}
           </GridItem>
         </Grid>
       </div>
@@ -219,7 +223,7 @@ export function FooterSection() {
       {/* ── Label row — mirrors the hero's header bar ── */}
       <Grid className="-entrance -slide-up -a-2 mt-20 hidden md:mt-24 md:grid lg:mt-28">
         <GridItem mobileSpan={4} tabletSpan={3} span={3} className={`${LABEL} whitespace-nowrap`}>
-          © 2026 All Rights Reserved
+          {t.rights}
         </GridItem>
 
         {/* The version stack. V1's stamp is frozen at its last build — the
@@ -232,7 +236,7 @@ export function FooterSection() {
 
         {/* Column 9 — the contact column above, so the two line up */}
         <GridItem mobileSpan={2} tabletSpan={2} span={2} start={9} className={LABEL}>
-          ask ai about caio
+          {t.askAi}
         </GridItem>
 
         <GridItem

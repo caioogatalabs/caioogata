@@ -5,11 +5,8 @@ import { Grid, GridItem } from '@/components/layout/Grid'
 import { ExperienceHero } from '@/components/sections/v2/experience/ExperienceHero'
 import { useExperienceNavigation } from '@/hooks/useExperienceNavigation'
 import { useInView } from '@/hooks/useInView'
-import content from '@/content/en.json'
-import type { Content } from '@/content/types'
-
-const typedContent = content as unknown as Content
-const jobs = typedContent.experience.jobs
+import { useLanguage } from '@/components/providers/LanguageProvider'
+import type { Job } from '@/content/types'
 
 /**
  * Body copy inside an expanded row. Same scale as the home hero's short bio —
@@ -21,6 +18,8 @@ const BODY = 'text-[14px] leading-[1.5] text-text-secondary'
 const HOVER = 'transition-opacity duration-300'
 
 export function ExperienceSection() {
+  const { content } = useLanguage()
+  const jobs = content.experience.jobs
   const rowsRef = useInView({ threshold: 0.05, once: true })
   const containerRef = useRef<HTMLDivElement>(null)
   const [reducedMotion, setReducedMotion] = useState(false)
@@ -129,14 +128,14 @@ export function ExperienceSection() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <ExperienceHero headline={typedContent.experience.hero.headline} />
+      <ExperienceHero headline={content.experience.hero.headline} />
 
       {/* Experience rows */}
       <div
         ref={rowsRef as React.RefObject<HTMLDivElement>}
         className="px-5 py-8 md:px-8 md:py-12 lg:px-8"
         role="list"
-        aria-label="Experience roles"
+        aria-label={content.ui.experience.rolesLabel}
       >
         <div ref={containerRef}>
           {jobs.map((job, index) => (
@@ -157,7 +156,7 @@ export function ExperienceSection() {
 }
 
 interface ExperienceRowProps {
-  job: (typeof jobs)[number]
+  job: Job
   index: number
   isOpen: boolean
   reducedMotion: boolean

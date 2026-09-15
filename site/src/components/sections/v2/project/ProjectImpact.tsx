@@ -1,6 +1,7 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import type { ProjectSection } from '@/content/types'
 
@@ -17,6 +18,7 @@ function getStatSpan(count: number): number {
 
 export function ProjectImpact({ section }: ProjectImpactProps) {
   const sectionRef = useInView()
+  const t = useLanguage().content.ui.project
   const stats = section.stats
 
   if (!stats || stats.length === 0) return null
@@ -32,7 +34,7 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
         {/* Results label — full row */}
         <GridItem span={12} tabletSpan={8} mobileSpan={4}>
           <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-4 -entrance -fade -a-0">
-            Results
+            {t.results}
           </span>
         </GridItem>
 

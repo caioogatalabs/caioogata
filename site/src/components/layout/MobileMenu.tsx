@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { getLenis } from '@/components/layout/SmoothScroll'
+import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 
 interface MobileMenuProps {
   menu: readonly { label: string; href: string }[]
@@ -20,6 +22,7 @@ interface MobileMenuProps {
  */
 export function MobileMenu({ menu, pathname, clock }: MobileMenuProps) {
   const [open, setOpen] = useState(false)
+  const t = useLanguage().content.ui.header
   const buttonRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -57,7 +60,7 @@ export function MobileMenu({ menu, pathname, clock }: MobileMenuProps) {
         onClick={() => (open ? close() : setOpen(true))}
         aria-expanded={open}
         aria-controls="mobile-menu"
-        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-label={open ? t.closeMenu : t.openMenu}
         // 44px of hit area for a 20px mark: the negative margins pull the box
         // back so the bars still sit optically on the welcome line rather than
         // pushing the header taller.
@@ -82,12 +85,12 @@ export function MobileMenu({ menu, pathname, clock }: MobileMenuProps) {
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-label="Menu"
+        aria-label={t.menu}
         tabIndex={-1}
         hidden={!open}
         className="pointer-events-auto fixed inset-0 z-50 flex flex-col justify-between bg-bg px-5 pb-10 pt-8 outline-none"
       >
-        <nav aria-label="Sections" className="mt-16">
+        <nav aria-label={t.sections} className="mt-16">
           <ul
             className="flex flex-col gap-4 text-[28px] leading-[1.2] text-text-primary"
             style={{ fontFamily: 'var(--font-sans)' }}
@@ -110,14 +113,15 @@ export function MobileMenu({ menu, pathname, clock }: MobileMenuProps) {
           </ul>
         </nav>
 
-        <div className="flex flex-col gap-4 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50">
+        <div className="flex flex-col gap-4 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary">
           <div>
-            <p>Porto Alegre, Brazil</p>
-            <p>{clock}</p>
+            <p className="opacity-50">{t.location}</p>
+            <p className="opacity-50">{clock}</p>
+            <LanguageSwitch className="mt-1" />
           </div>
-          <div>
-            <p>Worldwide</p>
-            <p>Freelancer</p>
+          <div className="opacity-50">
+            <p>{t.worldwide}</p>
+            <p>{t.freelancer}</p>
           </div>
         </div>
       </div>

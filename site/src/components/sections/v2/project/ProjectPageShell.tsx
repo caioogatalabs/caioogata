@@ -2,8 +2,7 @@
 
 import React from 'react'
 import type { ProjectItem, ProjectSection } from '@/content/types'
-import type { Content } from '@/content/types'
-import content from '@/content/en.json'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 import { ProjectHero } from './ProjectHero'
 import { ProjectChallenge } from './ProjectChallenge'
 import { ProjectImpact } from './ProjectImpact'
@@ -15,12 +14,6 @@ import { ProjectGalleryFullBleed } from './ProjectGalleryFullBleed'
 import { ProjectGalleryStick } from './ProjectGalleryStick'
 import { PageNavigation } from '@/components/sections/v2/PageNavigation'
 
-const typedContent = content as unknown as Content
-const enabledProjects = typedContent.projects.items.filter(p => !p.disabled)
-const lateralItems = enabledProjects.map(p => ({
-  href: `/projects/${p.slug}`,
-  title: p.title,
-}))
 
 interface ProjectPageShellProps {
   project: ProjectItem
@@ -68,7 +61,16 @@ function SectionBlock({
   }
 }
 
-export function ProjectPageShell({ project }: ProjectPageShellProps) {
+export function ProjectPageShell({ project: projectFromRoute }: ProjectPageShellProps) {
+  // The route resolves the slug against the English file at build time; the
+  // page renders whichever language is active, matched by slug.
+  const { content } = useLanguage()
+  const enabledProjects = content.projects.items.filter(p => !p.disabled)
+  const project = enabledProjects.find(p => p.slug === projectFromRoute.slug) ?? projectFromRoute
+  const lateralItems = enabledProjects.map(p => ({
+    href: `/projects/${p.slug}`,
+    title: p.title,
+  }))
   const sections = project.sections || []
   const projectIndex = enabledProjects.findIndex(p => p.slug === project.slug)
 
@@ -93,7 +95,7 @@ export function ProjectPageShell({ project }: ProjectPageShellProps) {
 
       {/* Unified page navigation — below hero (single instance) */}
       <PageNavigation
-        back={{ href: '/', label: 'Back to Home' }}
+        back={{ href: '/', label: content.ui.project.backHome }}
         lateral={{ items: lateralItems, currentIndex: projectIndex, scope: 'projects' }}
       />
 

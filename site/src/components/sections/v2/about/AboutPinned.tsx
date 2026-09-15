@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useSectionExitProgress, slice } from '@/hooks/useScrollExitProgress'
 import { SplitText } from '@/components/motion/SplitText'
-import content from '@/content/en.json'
-import type { Content } from '@/content/types'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 import type { DistortedImageCanvasProps } from '@/components/three/DistortedImageCanvas'
 
 /** Lazy-loaded client-only wrapper — same shape as the home's. */
@@ -25,7 +24,6 @@ function ClientDistortedImage(props: DistortedImageCanvasProps) {
 /** The image is muted so the paragraph laid over it stays readable. */
 const IMAGE_OPACITY = 0.7
 
-const typedContent = content as unknown as Content
 
 /**
  * AboutPinned — the opening block of /about: one portrait with the first
@@ -62,7 +60,8 @@ export function AboutPinned() {
   const outImage = slice(progress, 0.55, 0.85)
   const outText = slice(progress, 0.75, 1)
 
-  const firstParagraph = typedContent.about.bio.split('\n\n')[0]
+  const { content } = useLanguage()
+  const firstParagraph = content.about.bio.split('\n\n')[0]
 
   return (
     <div ref={ref} className="relative py-24 md:py-32 lg:py-40">

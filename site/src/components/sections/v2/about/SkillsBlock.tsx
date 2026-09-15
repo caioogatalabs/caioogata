@@ -8,11 +8,9 @@ import {
   RevealGroup,
   SplitText,
 } from '@/components/motion/SplitText'
-import content from '@/content/en.json'
-import type { Content, SkillCategory } from '@/content/types'
+import { useLanguage } from '@/components/providers/LanguageProvider'
+import type { SkillCategory } from '@/content/types'
 
-const typedContent = content as unknown as Content
-const skillsData = typedContent.skills
 
 /**
  * 1.2 / Skills — exclusive accordion. Per Figma 701:303:
@@ -25,6 +23,8 @@ const skillsData = typedContent.skills
  *     Row hover is a plain opacity lift, matching the header menu.
  */
 export function SkillsBlock() {
+  const { content } = useLanguage()
+  const skillsData = content.skills
   const [expandedCategoryTitle, setExpandedCategoryTitle] = useState<string | null>(null)
   const [reducedMotion, setReducedMotion] = useState(false)
 
@@ -44,7 +44,7 @@ export function SkillsBlock() {
             <SplitText
               type="line"
               as="span"
-              text="1.2 / Skills"
+              text={content.ui.about.skillsKicker}
               className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
               durationMs={700}
               baseDelayMs={100}

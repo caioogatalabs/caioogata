@@ -3,11 +3,8 @@
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { AnimatedDivider, RevealGroup, SplitText } from '@/components/motion/SplitText'
-import content from '@/content/en.json'
-import type { Content } from '@/content/types'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 
-const typedContent = content as unknown as Content
-const about = typedContent.about
 
 /**
  * 1.1 / Bio block. Layout per Figma 701:303:
@@ -24,6 +21,8 @@ const about = typedContent.about
  * has been removed from these text blocks to avoid double-animating.
  */
 export function BioBlock() {
+  const { content } = useLanguage()
+  const { about, ui } = content
   // Section root inview ref — drives the numeral kickers (-mask-right) only.
   // Body text (paragraphs, items, quote) animates via Motion's per-element
   // useInView inside <SplitText>, independent of this ref.
@@ -48,7 +47,7 @@ export function BioBlock() {
             <SplitText
               type="line"
               as="span"
-              text="1.1 / Bio"
+              text={ui.about.bioKicker}
               className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
               durationMs={700}
               baseDelayMs={100}
@@ -91,7 +90,7 @@ export function BioBlock() {
               <SplitText
                 type="line"
                 as="span"
-                text="Core Expertise"
+                text={ui.about.coreExpertise}
                 className="inline-block text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
                 style={{ fontFamily: 'var(--font-sans)' }}
                 durationMs={700}

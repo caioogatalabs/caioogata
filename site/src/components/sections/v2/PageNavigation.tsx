@@ -23,6 +23,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
+import { fill, useLanguage } from '@/components/providers/LanguageProvider'
 
 export interface PageNavigationLateralItem {
   href: string
@@ -121,6 +122,7 @@ function KeyBadgeDisabled({
 }
 
 export function PageNavigation({ back, lateral, items, sticky = true }: PageNavigationProps) {
+  const t = useLanguage().content.ui.pageNav
   const pathname = usePathname()
   const { mode } = useInteractionMode()
   const [activeKey, setActiveKey] = useState<'esc' | 'left' | 'right' | null>(null)
@@ -185,7 +187,7 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
 
   return (
     <nav
-      aria-label="Page navigation"
+      aria-label={t.label}
       className={navClassName}
     >
       <div className="flex items-center gap-3 flex-wrap">
@@ -196,12 +198,12 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
                 href={backHref}
                 forwardRef={escLinkRef}
                 isActive={activeKey === 'esc'}
-                ariaLabel={back?.label ?? 'Back to home'}
+                ariaLabel={back?.label ?? t.backHome}
               >
                 {showBackAsArrow ? <ArrowLeftIcon /> : 'Esc'}
               </KeyBadgeLink>
               <span className="text-xs text-text-tertiary">
-                {back?.label ?? 'back to home'}
+                {back?.label ?? t.backHome}
               </span>
             </div>
             {lateral && (
@@ -217,12 +219,12 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
                 href={prev.href}
                 forwardRef={prevLinkRef}
                 isActive={activeKey === 'left'}
-                ariaLabel={`Previous: ${prev.title}`}
+                ariaLabel={fill(t.previous, { title: prev.title })}
               >
                 <ArrowLeftIcon />
               </KeyBadgeLink>
             ) : (
-              <KeyBadgeDisabled ariaLabel="Previous (disabled)">
+              <KeyBadgeDisabled ariaLabel={t.previousDisabled}>
                 <ArrowLeftIcon />
               </KeyBadgeDisabled>
             )}
@@ -231,17 +233,17 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
                 href={next.href}
                 forwardRef={nextLinkRef}
                 isActive={activeKey === 'right'}
-                ariaLabel={`Next: ${next.title}`}
+                ariaLabel={fill(t.next, { title: next.title })}
               >
                 <ArrowRightIcon />
               </KeyBadgeLink>
             ) : (
-              <KeyBadgeDisabled ariaLabel="Next (disabled)">
+              <KeyBadgeDisabled ariaLabel={t.nextDisabled}>
                 <ArrowRightIcon />
               </KeyBadgeDisabled>
             )}
             <span className="text-xs text-text-tertiary ml-0.5">
-              to navigate {lateral.scope}
+              {fill(t.navigateScope, { scope: lateral.scope })}
             </span>
           </div>
         )}
@@ -253,17 +255,17 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
             )}
             {/* Up/Down — visual only; keyboard handled by useExperienceNavigation. */}
             <div className="flex items-center gap-1">
-              <span className={KEYBADGE_BASE} aria-label="Up">↑</span>
-              <span className={KEYBADGE_BASE} aria-label="Down">↓</span>
+              <span className={KEYBADGE_BASE} aria-label={t.up}>↑</span>
+              <span className={KEYBADGE_BASE} aria-label={t.down}>↓</span>
               <span className="text-xs text-text-tertiary ml-0.5">
-                {items.label ?? 'to navigate'}
+                {items.label ?? t.navigate}
               </span>
             </div>
             <span className="text-xs text-text-tertiary opacity-40">·</span>
             <div className="flex items-center gap-1.5">
               <span className={KEYBADGE_BASE} aria-label="Enter">Enter</span>
               <span className="text-xs text-text-tertiary">
-                {items.enterLabel ?? 'to expand'}
+                {items.enterLabel ?? t.expand}
               </span>
             </div>
           </>

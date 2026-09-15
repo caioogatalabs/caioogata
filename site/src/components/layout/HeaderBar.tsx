@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { MobileMenu } from '@/components/layout/MobileMenu'
+import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 import { COMMIT_COUNT } from '@/lib/build-info'
 
 /**
@@ -12,10 +14,10 @@ import { COMMIT_COUNT } from '@/lib/build-info'
  * so the link resolves on every page, including this one.
  */
 const MENU = [
-  { label: 'intro', href: '/' },
-  { label: 'about', href: '/about' },
-  { label: 'experience', href: '/experience' },
-  { label: 'contact', href: '#contact' },
+  { key: 'menuIntro', href: '/' },
+  { key: 'menuAbout', href: '/about' },
+  { key: 'menuExperience', href: '/experience' },
+  { key: 'menuContact', href: '#contact' },
 ] as const
 
 /** Caio's local time. Rendered only after mount — the server has no timezone. */
@@ -150,6 +152,9 @@ export function HeaderBar() {
   const ref = usePublishMetrics(!isOpenProject)
   const yielded = useYieldToProjectNav(isOpenProject)
 
+  const t = useLanguage().content.ui.header
+  const menu = MENU.map(({ key, href }) => ({ label: t[key], href }))
+
   return (
     <Grid
       ref={ref}
@@ -168,33 +173,36 @@ export function HeaderBar() {
       <GridItem mobileSpan={4} className="md:hidden">
         <div className="flex items-start justify-between gap-4">
           <div className="opacity-50">
-            <p>Welcome to caioogata portfolio</p>
-            <p className="mt-1">{'<> Available October 2026'}</p>
+            <p>{t.welcome}</p>
+            <p className="mt-1">{t.available}</p>
           </div>
-          <MobileMenu menu={MENU} pathname={pathname} clock={<LocalClock />} />
+          <MobileMenu menu={menu} pathname={pathname} clock={<LocalClock />} />
         </div>
       </GridItem>
 
       <GridItem mobileSpan={4} tabletSpan={3} span={3} className="hidden opacity-50 md:block">
-        Welcome to caioogata portfolio
+        {t.welcome}
       </GridItem>
 
       <GridItem mobileSpan={2} tabletSpan={1} span={1} className="hidden opacity-50 whitespace-nowrap md:block">
         V2.0.{COMMIT_COUNT}
       </GridItem>
 
-      <GridItem mobileSpan={2} tabletSpan={2} span={2} className="hidden opacity-50 md:block">
-        <p>Porto Alegre, Brazil</p>
-        <p>
+      {/* Location, clock, and the language switch under them — the switch
+          carries its own opacity so the active language can read at full. */}
+      <GridItem mobileSpan={2} tabletSpan={2} span={2} className="hidden md:block">
+        <p className="opacity-50">{t.location}</p>
+        <p className="opacity-50">
           <LocalClock />
         </p>
+        <LanguageSwitch className="mt-1" />
       </GridItem>
 
       {/* Column 7 — the menu, per the design */}
       <GridItem mobileSpan={4} tabletSpan={2} span={2} className="hidden md:block">
-        <nav aria-label="Sections" className="pointer-events-auto">
+        <nav aria-label={t.sections} className="pointer-events-auto">
           <ul className="flex flex-col gap-1 font-sans text-[14px] leading-[1.5] tracking-normal">
-            {MENU.map(({ label, href }) => {
+            {menu.map(({ label, href }) => {
               const current = href.startsWith('/') && pathname === href
               return (
                 <li key={label}>
@@ -213,8 +221,8 @@ export function HeaderBar() {
       </GridItem>
 
       <GridItem mobileSpan={2} tabletSpan={1} span={1} className="hidden opacity-50 md:block">
-        <p>Worldwide</p>
-        <p>Freelancer</p>
+        <p>{t.worldwide}</p>
+        <p>{t.freelancer}</p>
       </GridItem>
 
       <GridItem
@@ -223,7 +231,7 @@ export function HeaderBar() {
         span={3}
         className="hidden opacity-50 text-right md:block md:whitespace-nowrap"
       >
-        {'<> Available October 2026'}
+        {t.available}
       </GridItem>
     </Grid>
   )

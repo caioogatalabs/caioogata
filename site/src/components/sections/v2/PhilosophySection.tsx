@@ -4,10 +4,7 @@ import { PageNavigation } from '@/components/sections/v2/PageNavigation'
 import { MAIN_NAVIGATION } from '@/content/main-navigation'
 import { PhilosophyHero } from '@/components/sections/v2/philosophy/PhilosophyHero'
 import { PhilosophyBlock } from '@/components/sections/v2/philosophy/PhilosophyBlock'
-import content from '@/content/en.json'
-import type { Content } from '@/content/types'
-
-const typedContent = content as unknown as Content
+import { useLanguage } from '@/components/providers/LanguageProvider'
 
 /**
  * /philosophy orchestrator.
@@ -24,7 +21,9 @@ const typedContent = content as unknown as Content
  *   last index    → closing quote in <PhilosophyBlock/> (line-mask reveal)
  */
 export function PhilosophySection() {
-  const philosophy = typedContent.philosophy
+  const { content } = useLanguage()
+  const philosophy = content.philosophy
+  const navigation = MAIN_NAVIGATION.map((item) => ({ ...item, title: content.ui.pageNav.titles[item.key] }))
   const allParagraphs = philosophy.body.split('\n\n')
   const headline = allParagraphs[0] ?? ''
   const remaining = allParagraphs.slice(1)
@@ -38,14 +37,14 @@ export function PhilosophySection() {
       <PhilosophyHero title={philosophy.title} headline={headline} />
 
       <PageNavigation
-        lateral={{ items: MAIN_NAVIGATION, currentIndex, scope: 'categories' }}
+        lateral={{ items: navigation, currentIndex, scope: content.ui.pageNav.scopeCategories }}
       />
 
       <PhilosophyBlock paragraphs={middle} closingQuote={closingQuote} />
 
       <PageNavigation
         sticky={false}
-        lateral={{ items: MAIN_NAVIGATION, currentIndex, scope: 'categories' }}
+        lateral={{ items: navigation, currentIndex, scope: content.ui.pageNav.scopeCategories }}
       />
     </div>
   )

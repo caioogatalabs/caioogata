@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect, useCallback } from 'react'
+import { fill, useLanguage } from '@/components/providers/LanguageProvider'
 
 interface VideoEmbedProps {
   platform: 'youtube' | 'vimeo'
@@ -47,6 +48,7 @@ function sendUnmute(iframe: HTMLIFrameElement, platform: 'youtube' | 'vimeo') {
 }
 
 export default function VideoEmbed({ platform, videoId, className = '', centeredButton = false }: VideoEmbedProps) {
+  const t = useLanguage().content.ui.video
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const isMutedRef = useRef(true)
   const [isMuted, setIsMuted] = useState(true)
@@ -94,13 +96,13 @@ export default function VideoEmbed({ platform, videoId, className = '', centered
         allow="autoplay; encrypted-media"
         allowFullScreen
         loading="lazy"
-        title={`${platform} video ${videoId}`}
+        title={fill(t.frameTitle, { platform, id: videoId })}
       />
       <button
         onClick={toggleMute}
         className={`absolute z-30 flex items-center gap-1.5 px-2 py-1 bg-black/50 border border-white/10 text-white/30 opacity-0 group-hover:opacity-100 hover:text-white/80 hover:border-white/30 hover:bg-black/70 transition-all duration-200 font-mono text-xs rounded-sm backdrop-blur-sm select-none ${centeredButton ? 'bottom-4 left-1/2 -translate-x-1/2' : 'bottom-3 left-3'}`}
-        aria-label={isMuted ? 'Ativar áudio' : 'Silenciar'}
-        title={isMuted ? 'Ativar áudio' : 'Silenciar'}
+        aria-label={isMuted ? t.unmuteLabel : t.muteLabel}
+        title={isMuted ? t.unmuteLabel : t.muteLabel}
       >
         {isMuted ? (
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -115,7 +117,7 @@ export default function VideoEmbed({ platform, videoId, className = '', centered
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
           </svg>
         )}
-        <span>{isMuted ? 'unmute' : 'mute'}</span>
+        <span>{isMuted ? t.unmute : t.mute}</span>
       </button>
     </div>
   )

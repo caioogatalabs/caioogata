@@ -6,11 +6,8 @@ import { useInView } from '@/hooks/useInView'
 import { useScrollExitProgress, slice } from '@/hooks/useScrollExitProgress'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { AskAiBar } from '@/components/sections/v2/AskAiBar'
-import content from '@/content/en.json'
-import type { Content } from '@/content/types'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 import type { DistortedImageCanvasProps } from '@/components/three/DistortedImageCanvas'
-
-const typedContent = content as unknown as Content
 
 /**
  * Lazy-loaded client-only wrapper for DistortedImageCanvas — same shape as
@@ -29,13 +26,6 @@ function ClientDistortedImage(props: DistortedImageCanvasProps) {
   if (!Component) return null
   return <Component {...props} />
 }
-
-/**
- * The hero's short bio. Read from the content file rather than written here —
- * the approved copy lives in `branding/voice/who-is-caio.md` and lands in
- * `en.json`, and a second copy in the component is how the two drift apart.
- */
-const BIO = typedContent.hero.summary
 
 /**
  * Spacing between the hero's blocks. Below `lg` it is a plain step. From `lg`
@@ -103,6 +93,11 @@ function exitClosing(p: number): React.CSSProperties {
  * At 1440x900 both sit at their caps and the frame matches the Figma exactly.
  */
 export function IntroSection() {
+  // The hero's short bio is read from the content file rather than written
+  // here — the approved copy lives in `branding/voice/who-is-caio.md` and lands
+  // in `en.json`, and a second copy in the component is how the two drift apart.
+  const { content } = useLanguage()
+  const { ui } = content
   const headlineRef = useInView({ threshold: 0.1, once: true })
   const bottomRef = useInView({ threshold: 0.1, once: true })
   const labelsRef = useInView({ threshold: 0.1, once: true })
@@ -170,7 +165,7 @@ export function IntroSection() {
                 className="block will-change-transform"
                 style={{ transform: `translateY(${outHero * 110}%)` }}
               >
-                Creative Designer
+                {ui.intro.headlineLine1}
               </span>
             </span>
             <span className="block overflow-hidden">
@@ -178,7 +173,7 @@ export function IntroSection() {
                 className="block will-change-transform"
                 style={{ transform: `translateY(${outHero * 110}%)` }}
               >
-                who learned to build.
+                {ui.intro.headlineLine2}
               </span>
             </span>
           </h1>
@@ -262,7 +257,7 @@ export function IntroSection() {
               className="-entrance -fade -a-7 text-[14px] leading-[1.5] text-text-secondary"
               style={{ fontFamily: 'var(--font-sans)', ...exitRising(outHero, 38) }}
             >
-              {BIO}
+              {content.hero.summary}
             </p>
           </GridItem>
         </Grid>
@@ -291,7 +286,7 @@ export function IntroSection() {
           span={2}
           className="order-1 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50 md:order-none"
         >
-          Ask AI about Caio
+          {ui.intro.askAi}
         </GridItem>
 
         <GridItem
@@ -309,7 +304,7 @@ export function IntroSection() {
           span={8}
           className="order-2 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50 text-right md:order-none"
         >
-          scroll down
+          {ui.intro.scrollDown}
         </GridItem>
       </Grid>
     </div>
