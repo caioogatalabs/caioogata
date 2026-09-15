@@ -28,7 +28,7 @@ Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Arc
 - **Package manager**: pnpm
 - **Hosting**: Vercel (static export in production)
 - **Animation**: CSS-first (no runtime library) — `requestAnimationFrame` for cursor-follow and scroll-linked reveals. Three.js/R3F for project hero noise gradient (client-only lazy load)
-- **Contact**: Resend API via `/api/contact`
+- **Contact**: email only, with a copy action (no form, no API route)
 - **Analytics**: Vercel Analytics + Speed Insights + Microsoft Clarity
 <!-- GSD:stack-end -->
 
@@ -269,8 +269,7 @@ src/components/sections/v2/
   FloatingPreview.tsx                 → Elastic cursor-follow image (rAF lerp)
   ProjectsGrid.tsx                    → 2x2 flex grid with ProjectCard
   ProjectCard.tsx                     → Card with data-stamp + arrow button + scroll-linked reveal
-  FooterSection.tsx                   → Expandable contact + tech tags
-  ContactForm.tsx                     → Underline-input form with validation
+  FooterSection.tsx                   → Social links, email, version stack (V1 link)
 src/hooks/
   useInView.ts                        → IntersectionObserver → adds -inview class
   useFontReady.ts                     → document.fonts.ready → -loaded/-ready (backup, layout.tsx has inline script)
