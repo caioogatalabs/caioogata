@@ -19,7 +19,7 @@ function RevealForeground({ src, alt }: { src: string; alt: string }) {
         src={src}
         alt={alt}
         loading="lazy"
-        className="w-full rounded-[12px] block"
+        className="w-full block"
       />
     </div>
   )

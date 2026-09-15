@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import type { ProjectSection, ProjectImage } from '@/content/types'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { LABEL } from '@/components/ui/label'
@@ -18,7 +19,7 @@ function ParallaxRevealImage({ src, alt }: { src: string; alt: string }) {
   return (
     <div
       ref={revealRef as React.RefObject<HTMLDivElement>}
-      className="overflow-hidden rounded-[var(--radius-component-md,12px)]"
+      className="overflow-hidden"
       style={{ clipPath }}
     >
       <div ref={parallaxRef as React.RefObject<HTMLDivElement>}>
@@ -34,10 +35,52 @@ function ParallaxRevealImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
+/**
+ * A local screen recording (e.g. a menu in use): muted, looping, inline, so it
+ * autoplays like an image would sit. Under reduced motion it never starts and
+ * the poster stands in for it.
+ */
+function LocalVideo({ src, poster, title }: { src: string; poster?: string; title: string }) {
+  const { ref: revealRef, clipPath } = useScrollReveal()
+  const [reduced, setReduced] = useState(false)
+
+  useEffect(() => {
+    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
+
+  return (
+    <div
+      ref={revealRef as React.RefObject<HTMLDivElement>}
+      className="overflow-hidden"
+      style={{ clipPath }}
+    >
+      {reduced && poster ? (
+        <img src={poster} alt={title} loading="lazy" className="w-full h-auto block" />
+      ) : (
+        <video
+          src={src}
+          poster={poster}
+          aria-label={title}
+          autoPlay={!reduced}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="w-full h-auto block"
+        />
+      )}
+    </div>
+  )
+}
+
 function FeatureMedia({ image }: { image: ProjectImage }) {
+  if (image.type === 'video' && !image.platform && image.src) {
+    return <LocalVideo src={image.src} poster={image.poster} title={image.title} />
+  }
+
   if (image.type === 'video' && image.videoId && image.platform) {
     return (
-      <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+      <div className="overflow-hidden">
         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
           <div className="absolute inset-0">
             <VideoEmbed platform={image.platform} videoId={image.videoId} centeredButton />
@@ -49,7 +92,7 @@ function FeatureMedia({ image }: { image: ProjectImage }) {
 
   if (image.type === 'figma' && image.figmaEmbedUrl) {
     return (
-      <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+      <div className="overflow-hidden">
         <iframe
           src={image.figmaEmbedUrl}
           title={image.title}
@@ -76,17 +119,9 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
         {features.map((feature, index) => (
           <Grid key={index}>
             <GridItem span={4} tabletSpan={8} mobileSpan={4}>
-              <div className="flex flex-col justify-between h-[410px]">
-                <p className={LABEL}>
-                  {feature.name}
-                </p>
-                <p
-                  className="type-display text-text-tertiary"
-                >
-                  {feature.name}
-                </p>
-                <div className="h-4" />
-              </div>
+              <p className={LABEL}>
+                {feature.name}
+              </p>
             </GridItem>
             <GridItem span={5} tabletSpan={8} mobileSpan={4}>
               <FeatureMedia image={feature.image} />

@@ -36,7 +36,7 @@ function ClientNoiseGradient(props: NoiseGradientCanvasProps) {
 function HeroMedia({ media }: { media: ProjectImage }) {
   if (media.type === 'video' && media.videoId && media.platform) {
     return (
-      <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+      <div className="overflow-hidden">
         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
           <div className="absolute inset-0">
             <VideoEmbed platform={media.platform} videoId={media.videoId} centeredButton />
@@ -48,7 +48,7 @@ function HeroMedia({ media }: { media: ProjectImage }) {
 
   if (media.type === 'figma' && media.figmaEmbedUrl) {
     return (
-      <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+      <div className="overflow-hidden">
         <iframe
           src={media.figmaEmbedUrl}
           title={media.title}
@@ -63,7 +63,7 @@ function HeroMedia({ media }: { media: ProjectImage }) {
 
   // Default: image
   return (
-    <div className="overflow-hidden rounded-[var(--radius-component-md,12px)]">
+    <div className="overflow-hidden">
       <img
         src={media.src}
         alt={media.title}

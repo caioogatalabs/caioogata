@@ -37,7 +37,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
       <section className="py-24">
         <div className="flex flex-col gap-4">
           {slidesSrc.map((src, i) => (
-            <img key={i} src={src} alt="" loading="lazy" className="w-full block rounded-xl" />
+            <img key={i} src={src} alt="" loading="lazy" className="w-full block" />
           ))}
         </div>
       </section>
@@ -53,7 +53,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
         style={{ height: `${slidesSrc.length * 100}vh` }}
       >
         <div className="sticky top-0 h-screen flex items-center justify-center">
-          <div className="relative w-full h-[min(800px,80vh)] overflow-hidden rounded-xl">
+          <div className="relative w-full h-[min(800px,80vh)] overflow-hidden">
             {/* Static bg sheet — catches any gap behind released slides */}
             <div className="absolute inset-0 bg-bg" aria-hidden />
             {slidesSrc.map((src, i) => {

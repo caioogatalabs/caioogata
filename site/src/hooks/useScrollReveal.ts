@@ -13,7 +13,7 @@ export function useScrollReveal({
   endFraction = 0.3,
 } = {}) {
   const ref = useRef<HTMLElement>(null)
-  const [clipPath, setClipPath] = useState('inset(0 0 100% 0 round 12px)')
+  const [clipPath, setClipPath] = useState('inset(0 0 100% 0)')
   const tickingRef = useRef(false)
 
   const update = useCallback(() => {
@@ -29,11 +29,11 @@ export function useScrollReveal({
     const end = vh * endFraction
     const progress = 1 - (rect.top - end) / (start - end)
     const clamped = Math.max(0, Math.min(1, progress))
-    // inset(top right bottom left round radius)
+    // inset(top right bottom left) — square corners, like every project image
     // bottom clips from 100% (hidden) to 0% (fully revealed)
     const bottom = (1 - clamped) * 100
 
-    setClipPath(`inset(0 0 ${bottom}% 0 round 12px)`)
+    setClipPath(`inset(0 0 ${bottom}% 0)`)
     tickingRef.current = false
   }, [startFraction, endFraction])
 
@@ -46,7 +46,7 @@ export function useScrollReveal({
     ).matches
 
     if (prefersReduced) {
-      setClipPath('inset(0 0 0 0 round 12px)')
+      setClipPath('inset(0 0 0 0)')
       return
     }
 

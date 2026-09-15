@@ -77,8 +77,11 @@ export interface ProjectImage {
   src: string
   title: string
   type?: 'image' | 'video' | 'figma'
+  /** Hosted video. Without it, a `video` plays `src` as a local muted loop. */
   platform?: 'youtube' | 'vimeo'
   videoId?: string
+  /** Still shown before a local video plays, and instead of it under reduced motion. */
+  poster?: string
   figmaEmbedUrl?: string
 }
 

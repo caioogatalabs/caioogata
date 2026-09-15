@@ -21,7 +21,7 @@ export function ProjectCard({ title, slug, year, index, className = '' }: Projec
   return (
     <article
       ref={ref as React.RefObject<HTMLElement>}
-      className={`relative flex flex-col h-[280px] md:h-[320px] lg:h-[420px] p-6 bg-bg-surface-primary rounded-[var(--radius-component-md,12px)] overflow-hidden ${className}`.trim()}
+      className={`relative flex flex-col h-[280px] md:h-[320px] lg:h-[420px] p-6 bg-bg-surface-primary overflow-hidden ${className}`.trim()}
       style={{ clipPath }}
     >
       {/* Top: title + data-stamp */}

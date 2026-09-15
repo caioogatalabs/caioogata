@@ -14,7 +14,7 @@ function RevealImage({ src, alt }: { src: string; alt: string }) {
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="overflow-hidden rounded-[var(--radius-component-md,12px)] min-h-screen"
+      className="overflow-hidden min-h-screen"
       style={{ clipPath }}
     >
       <img
