@@ -29,9 +29,10 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
           </span>
         </GridItem>
 
-        {/* Challenge column (cols 1-4) */}
+        {/* 3-3-3-3 on desktop: challenge on cols 1-3, solution on 4-6, and the
+            right half stays empty. Tablet keeps 4 + 4 of its 8 columns. */}
         {section.challenge && (
-          <GridItem span={4} tabletSpan={4} mobileSpan={4}>
+          <GridItem span={3} tabletSpan={4} mobileSpan={4}>
             <div className="-entrance -fade -a-1 flex flex-col gap-5">
               <h2
                 className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
@@ -49,9 +50,8 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
           </GridItem>
         )}
 
-        {/* Solution column (cols 5-8) */}
         {section.solution && (
-          <GridItem span={4} tabletSpan={4} mobileSpan={4}>
+          <GridItem span={3} tabletSpan={4} mobileSpan={4}>
             <div className="-entrance -fade -a-2 flex flex-col gap-5">
               <h2
                 className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary"
@@ -68,7 +68,6 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
             </div>
           </GridItem>
         )}
-        {/* cols 9-12 intentionally empty */}
       </Grid>
     </section>
   )

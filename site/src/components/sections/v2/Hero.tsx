@@ -14,7 +14,8 @@ interface HeroProps {
  * Shared text-only hero primitive used by /projects/* and /about.
  *
  * Behaviour:
- *  - With `technologies`: renders kicker (12-col) + technologies (4-col) + headline (8-col).
+ *  - With `technologies`: renders kicker (12-col) + technologies (3-col max) +
+ *    headline (8-col, from column 5 — column 4 stays empty as air).
  *  - Without `technologies`: renders kicker (12-col) + full-width headline (12-col).
  *
  * Entrance: one-shot CSS via `-entrance -fade -a-N` triggered by the section
@@ -37,7 +38,7 @@ export function Hero({ kicker, technologies, headline }: HeroProps) {
 
         {technologies ? (
           <>
-            <GridItem span={4} tabletSpan={8} mobileSpan={4}>
+            <GridItem span={3} tabletSpan={8} mobileSpan={4}>
               <p
                 className="text-[14px] font-medium leading-[1.5] uppercase tracking-[1.12px] text-text-tertiary -entrance -fade -a-1"
                 style={{ fontFamily: 'var(--font-sans)' }}
@@ -45,7 +46,7 @@ export function Hero({ kicker, technologies, headline }: HeroProps) {
                 {technologies}
               </p>
             </GridItem>
-            <GridItem span={8} tabletSpan={8} mobileSpan={4}>
+            <GridItem span={8} start={5} tabletSpan={8} mobileSpan={4}>
               <p
                 className="text-[48px] leading-[1.15] tracking-[-0.96px] text-text-primary -entrance -fade -a-1"
                 style={{ fontFamily: 'var(--font-sans)' }}
