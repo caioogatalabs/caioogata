@@ -1973,7 +1973,7 @@
     },
     "header": {
       "welcome": "Bem-vindo ao portfólio caioogata",
-      "available": "<> Disponível em outubro de 2026",
+      "available": "Disponível em outubro de 2026",
       "location": "Porto Alegre, Brasil",
       "worldwide": "Global",
       "freelancer": "Freelancer",
@@ -2003,6 +2003,8 @@
       "social": "Redes",
       "contact": "Contato",
       "askAi": "pergunte à ia",
+      "copyEmail": "copiar email?",
+      "emailCopied": "email copiado!",
       "rights": "© 2026 Todos os direitos reservados"
     },
     "pageNav": {

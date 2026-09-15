@@ -6,6 +6,7 @@ import { AskAiBar } from '@/components/sections/v2/AskAiBar'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { COMMIT_COUNT } from '@/lib/build-info'
 import { LABEL } from '@/components/ui/label'
+import { CopyEmail } from '@/components/ui/CopyEmail'
 
 const SOCIAL = [
   { label: 'Linkedin', href: 'https://www.linkedin.com/in/caioogata/' },
@@ -14,7 +15,6 @@ const SOCIAL = [
   { label: 'Youtube', href: 'https://www.youtube.com/@caioogatalabs' },
 ] as const
 
-const EMAIL = 'contato@caioogata.com'
 
 /**
  * V1's last build stamp, frozen: the `v1` branch ends at 91 commits on package
@@ -184,13 +184,13 @@ export function FooterSection() {
 
         <GridItem mobileSpan={4} tabletSpan={4} span={3} start={9} className="mt-10 md:mt-0">
           <p className={LABEL}>{t.contact}</p>
-          <a
-            href={`mailto:${EMAIL}`}
-            className="mt-2 inline-block text-[18px] leading-[1.6] text-text-primary transition-opacity duration-300 hover:opacity-60"
+          <CopyEmail
+            copyLabel={t.copyEmail}
+            copiedLabel={t.emailCopied}
+            className="mt-2 text-[18px] leading-[1.6] text-text-primary"
+            labelClassName="transition-opacity duration-300 hover:opacity-60"
             style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            {EMAIL}
-          </a>
+          />
         </GridItem>
       </Grid>
 

@@ -7,6 +7,7 @@ import { MobileMenu } from '@/components/layout/MobileMenu'
 import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { COMMIT_COUNT } from '@/lib/build-info'
+import { CopyEmail } from '@/components/ui/CopyEmail'
 
 /**
  * The four labels the Figma header carries. `contact` targets the footer,
@@ -21,6 +22,22 @@ const MENU = [
 ] as const
 
 /** Caio's local time. Rendered only after mount — the server has no timezone. */
+/** Availability, with the blinking square: hover hints and a click copies the email. */
+function Availability({ className = '' }: { className?: string }) {
+  const { ui } = useLanguage().content
+  return (
+    <CopyEmail
+      square
+      copyLabel={ui.footer.copyEmail}
+      copiedLabel={ui.footer.emailCopied}
+      className={className}
+      labelClassName="opacity-50 transition-opacity duration-300 hover:opacity-100"
+    >
+      {ui.header.available}
+    </CopyEmail>
+  )
+}
+
 function LocalClock() {
   const [time, setTime] = useState<string | null>(null)
 
@@ -172,9 +189,9 @@ export function HeaderBar() {
            nothing here applies. */}
       <GridItem mobileSpan={4} className="md:hidden">
         <div className="flex items-start justify-between gap-4">
-          <div className="opacity-50">
-            <p>{t.welcome}</p>
-            <p className="mt-1">{t.available}</p>
+          <div>
+            <p className="opacity-50">{t.welcome}</p>
+            <Availability className="mt-1" />
           </div>
           <MobileMenu menu={menu} pathname={pathname} clock={<LocalClock />} />
         </div>
@@ -229,9 +246,9 @@ export function HeaderBar() {
         mobileSpan={2}
         tabletSpan={3}
         span={3}
-        className="hidden opacity-50 text-right md:block md:whitespace-nowrap"
+        className="hidden text-right md:block md:whitespace-nowrap"
       >
-        {t.available}
+        <Availability />
       </GridItem>
     </Grid>
   )

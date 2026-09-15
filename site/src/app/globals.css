@@ -139,6 +139,11 @@ body {
   animation: blink 1s step-end infinite;
 }
 
+/* The contact square: a quick on/off, a quarter second each way. */
+.animate-blink-square {
+  animation: blink 0.5s step-end infinite;
+}
+
 @keyframes bar-fill {
   from {
     width: 0%;
