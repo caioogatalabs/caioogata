@@ -120,9 +120,11 @@ export function BioBlock() {
           </GridItem>
         </Grid>
 
-        {/* Final quote — full 12 cols, below the column area. Line-mask reveal. */}
+        {/* Final quote — full 12 cols, below the column area. Line-mask reveal.
+            First line on column 4, the same derived indent as the page's hero
+            (see AboutPinned for the arithmetic). */}
         {finalQuote && (
-          <div className="mt-16 md:mt-20">
+          <div className="mt-16 md:mt-20 [--line1-indent:0px] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]">
             <SplitText
               type="line"
               text={finalQuote}
@@ -133,7 +135,7 @@ export function BioBlock() {
                 lineHeight: 1.15,
                 letterSpacing: '-0.96px',
                 fontWeight: 400,
-                textIndent: '8em',
+                textIndent: 'var(--line1-indent)',
               }}
               staggerMs={120}
               durationMs={1100}

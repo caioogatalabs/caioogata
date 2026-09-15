@@ -111,6 +111,16 @@ export default function RootLayout({
             __html: `document.fonts.ready.then(function(){document.documentElement.classList.add('-loaded','-ready')})`,
           }}
         />
+        {/* The static HTML is English. When the saved preference is Portuguese,
+            hold the page invisible until LanguageProvider has swapped the
+            content, so a full reload (every header link is a native anchor)
+            does not flash the English first. The timeout releases it if
+            hydration never arrives. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem('portfolio-language')==='pt-br'){var r=document.documentElement;r.classList.add('-lang-pending');r.lang='pt-BR';setTimeout(function(){r.classList.remove('-lang-pending')},3000)}}catch(e){}`,
+          }}
+        />
       </head>
       <body className="antialiased overflow-x-hidden">
         <script

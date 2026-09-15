@@ -238,6 +238,11 @@ body {
 }
 
 /* Loading gate — blocks entrance animations until fonts confirmed */
+/* Held while a saved Portuguese preference is applied — see app/layout.tsx. */
+html.-lang-pending body {
+  visibility: hidden;
+}
+
 html:not(.-ready) .-entrance {
   opacity: 0 !important;
   transform: none !important;

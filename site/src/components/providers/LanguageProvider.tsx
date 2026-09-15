@@ -17,12 +17,15 @@ const STORAGE_KEY = 'portfolio-language'
 
 /**
  * The static export ships English HTML; a saved Portuguese preference is
- * applied right after hydration. Changing language remounts the tree under the
+ * applied right after hydration, with the page held invisible until then (see
+ * the `-lang-pending` script in app/layout.tsx). Changing language remounts the tree under the
  * provider (`key={language}`): SplitText measures and splits its lines once on
  * mount, so swapping the strings in place would leave the old line breaks.
  */
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en')
+  // True once the saved preference has been read and applied.
+  const [resolved, setResolved] = useState(false)
 
   useEffect(() => {
     try {
@@ -31,11 +34,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     } catch {
       // Storage blocked — stay on English.
     }
+    setResolved(true)
   }, [])
 
   useEffect(() => {
+    if (!resolved) return
     document.documentElement.lang = language === 'pt-br' ? 'pt-BR' : 'en'
-  }, [language])
+    // Releases the pre-paint hold set in app/layout.tsx, now that the content
+    // on screen is in the saved language.
+    document.documentElement.classList.remove('-lang-pending')
+  }, [language, resolved])
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
