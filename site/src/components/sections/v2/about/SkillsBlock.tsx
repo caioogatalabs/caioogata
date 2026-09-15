@@ -10,6 +10,7 @@ import {
 } from '@/components/motion/SplitText'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import type { SkillCategory } from '@/content/types'
+import { LABEL } from '@/components/ui/label'
 
 
 /**
@@ -45,7 +46,7 @@ export function SkillsBlock() {
               type="line"
               as="span"
               text={content.ui.about.skillsKicker}
-              className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
+              className={`inline-block ${LABEL}`}
               durationMs={700}
               baseDelayMs={100}
             />
@@ -137,7 +138,7 @@ function SkillsRow({
           inView={inView}
         />
         <span className="flex items-center gap-3">
-          <span className="font-mono text-xs text-text-tertiary">
+          <span className={LABEL}>
             {String(category.skills.length).padStart(2, '0')}
           </span>
           <span
@@ -168,7 +169,7 @@ function SkillsRow({
                 >
                   {skill.name}
                 </span>
-                <span className="shrink-0 font-mono text-xs text-text-tertiary">
+                <span className={`shrink-0 ${LABEL}`}>
                   {skill.level}
                 </span>
               </div>

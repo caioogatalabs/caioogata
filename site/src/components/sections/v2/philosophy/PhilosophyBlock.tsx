@@ -3,6 +3,8 @@
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { SplitText } from '@/components/motion/SplitText'
+import { LABEL } from '@/components/ui/label'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 
 interface PhilosophyBlockProps {
   paragraphs: string[]
@@ -19,6 +21,7 @@ interface PhilosophyBlockProps {
  *     line-mask reveal — same treatment as the BioBlock final quote.
  */
 export function PhilosophyBlock({ paragraphs, closingQuote }: PhilosophyBlockProps) {
+  const practiceKicker = useLanguage().content.ui.philosophy.practiceKicker
   const sectionRef = useInView({ threshold: 0.1, once: true })
 
   return (
@@ -33,8 +36,8 @@ export function PhilosophyBlock({ paragraphs, closingQuote }: PhilosophyBlockPro
             <SplitText
               type="line"
               as="span"
-              text="3.1 / Practice"
-              className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
+              text={practiceKicker}
+              className={`inline-block ${LABEL}`}
               durationMs={700}
               baseDelayMs={100}
             />

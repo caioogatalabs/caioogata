@@ -4,6 +4,7 @@ import { useInView } from '@/hooks/useInView'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import type { ProjectSection } from '@/content/types'
+import { LABEL_TYPE } from '@/components/ui/label'
 
 interface ProjectImpactProps {
   section: ProjectSection
@@ -33,8 +34,8 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
       <Grid>
         {/* Results label — full row */}
         <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-          <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-4 -entrance -fade -a-0">
-            {t.results}
+          <span className={`block ${LABEL_TYPE} mb-4 -entrance -fade -a-0`}>
+            <span className="opacity-50">{t.results}</span>
           </span>
         </GridItem>
 

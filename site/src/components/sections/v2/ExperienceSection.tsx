@@ -7,6 +7,7 @@ import { useExperienceNavigation } from '@/hooks/useExperienceNavigation'
 import { useInView } from '@/hooks/useInView'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import type { Job } from '@/content/types'
+import { LABEL } from '@/components/ui/label'
 
 /**
  * Body copy inside an expanded row. Same scale as the home hero's short bio —
@@ -200,7 +201,7 @@ function ExperienceRow({ job, index, isOpen, reducedMotion, panelHeight }: Exper
           mobileSpan={4}
           tabletSpan={2}
           span={2}
-          className="order-2 font-mono text-sm text-text-secondary md:order-none"
+          className={`order-2 ${LABEL} md:order-none`}
         >
           {job.dateRange}
         </GridItem>
@@ -277,7 +278,7 @@ function ExperienceRow({ job, index, isOpen, reducedMotion, panelHeight }: Exper
                 tabletSpan={4}
                 span={3}
                 start={4}
-                className="mb-2 font-mono text-xs text-text-tertiary md:col-start-3 lg:row-start-1"
+                className={`mb-2 ${LABEL} md:col-start-3 lg:row-start-1`}
               >
                 {job.location}
               </GridItem>

@@ -5,6 +5,7 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { ExternalLink } from '@/components/ui/ExternalLink'
 import type { ProjectItem } from '@/content/types'
+import { LABEL } from '@/components/ui/label'
 
 interface ProjectInfoBlockProps {
   project: ProjectItem
@@ -12,7 +13,7 @@ interface ProjectInfoBlockProps {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-2">
+    <p className={`${LABEL} mb-2`}>
       {children}
     </p>
   )

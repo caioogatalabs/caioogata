@@ -5,6 +5,7 @@ import { Grid, GridItem } from '@/components/layout/Grid'
 import { AskAiBar } from '@/components/sections/v2/AskAiBar'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { COMMIT_COUNT } from '@/lib/build-info'
+import { LABEL } from '@/components/ui/label'
 
 const SOCIAL = [
   { label: 'Linkedin', href: 'https://www.linkedin.com/in/caioogata/' },
@@ -23,8 +24,6 @@ const EMAIL = 'contato@caioogata.com'
  */
 const V1_VERSION = 'V1.1.91'
 
-const LABEL =
-  'font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary opacity-50'
 
 /** Rendered in both the mobile tail and the desktop label row. */
 function ScrollUpButton() {

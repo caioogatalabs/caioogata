@@ -4,6 +4,7 @@ import { useInView } from '@/hooks/useInView'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import type { ProjectItem, ProjectSection } from '@/content/types'
+import { LABEL_TYPE } from '@/components/ui/label'
 
 interface ProjectChallengeProps {
   section: ProjectSection
@@ -23,8 +24,8 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
       <Grid>
         {/* Data stamp */}
         <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-          <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-10 -entrance -fade -a-0">
-            PRJ_{project.year} // {String(projectIndex + 1).padStart(3, '0')}
+          <span className={`block ${LABEL_TYPE} mb-10 -entrance -fade -a-0`}>
+            <span className="opacity-50">PRJ_{project.year} // {String(projectIndex + 1).padStart(3, '0')}</span>
           </span>
         </GridItem>
 

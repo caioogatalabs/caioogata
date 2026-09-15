@@ -6,6 +6,7 @@ import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { SplitText } from '@/components/motion/SplitText'
 import { useLanguage } from '@/components/providers/LanguageProvider'
+import { LABEL } from '@/components/ui/label'
 
 
 type LogoEntry = { src: string; imgClass?: string }
@@ -56,7 +57,7 @@ export function ClientsBlock() {
               type="line"
               as="span"
               text={content.ui.about.clientsKicker}
-              className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
+              className={`inline-block ${LABEL}`}
               durationMs={700}
               baseDelayMs={100}
             />

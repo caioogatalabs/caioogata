@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { fill, useLanguage } from '@/components/providers/LanguageProvider'
+import { LABEL } from '@/components/ui/label'
 
 interface ProjectCardProps {
   title: string
@@ -28,7 +29,7 @@ export function ProjectCard({ title, slug, year, index, className = '' }: Projec
         <h3 className="text-xl font-semibold text-text-primary font-mono">
           {title}
         </h3>
-        <span className="shrink-0 font-mono text-[11px] font-medium uppercase tracking-[0.88px] text-text-tertiary">
+        <span className={`shrink-0 ${LABEL}`}>
           PRJ_{year} // {String(index).padStart(3, '0')}
         </span>
       </div>

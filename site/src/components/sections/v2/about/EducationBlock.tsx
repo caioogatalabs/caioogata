@@ -11,6 +11,7 @@ import {
 } from '@/components/motion/SplitText'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import type { EducationItem } from '@/content/types'
+import { LABEL, LABEL_TYPE } from '@/components/ui/label'
 
 
 /**
@@ -47,12 +48,12 @@ function EducationEntry({ edu, index }: { edu: EducationItem; index: number }) {
     <div className="relative flex gap-5 md:gap-8 py-6 md:py-8">
       <AnimatedDivider inView={inView} delayMs={baseDelay} />
       <motion.span
-        className="font-mono text-sm text-text-tertiary w-[100px] shrink-0"
+        className={`${LABEL_TYPE} w-[100px] shrink-0`}
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: (baseDelay + 50) / 1000, duration: 0.6, ease: FIDDLE_EASE }}
       >
-        {getDisplayYear(edu.year)}
+        <span className="opacity-50">{getDisplayYear(edu.year)}</span>
       </motion.span>
 
       <div className="flex flex-col gap-1 flex-1">
@@ -76,12 +77,12 @@ function EducationEntry({ edu, index }: { edu: EducationItem; index: number }) {
           inView={inView}
         />
         <motion.p
-          className="font-mono text-xs text-text-tertiary"
+          className={LABEL_TYPE}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: (baseDelay + 300) / 1000, duration: 0.6, ease: FIDDLE_EASE }}
         >
-          {edu.location}
+          <span className="opacity-50">{edu.location}</span>
         </motion.p>
         {edu.note && (
           <motion.p
@@ -120,7 +121,7 @@ export function EducationBlock() {
               type="line"
               as="span"
               text={content.ui.about.educationKicker}
-              className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
+              className={`inline-block ${LABEL}`}
               durationMs={700}
               baseDelayMs={100}
             />

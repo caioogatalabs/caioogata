@@ -4,14 +4,6 @@ import { useInView } from '@/hooks/useInView'
 import { ProjectCard } from '@/components/sections/v2/ProjectCard'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 
-const yearMap: Record<string, string> = {
-  'azion-website': '2022',
-  'azion-console-kit': '2023',
-  'azion-design-system': '2022',
-  'azion-brand-system': '2021',
-  'huia': '2020',
-}
-
 /**
  * /projects index list — same `ProjectCard` and 2-up row layout as the
  * home `ProjectsGrid`, but renders ALL active projects (no slice). Rows
@@ -43,7 +35,7 @@ export function ProjectsList() {
               key={project.slug}
               title={project.title}
               slug={project.slug}
-              year={yearMap[project.slug] || '2024'}
+              year={project.year ?? ''}
               index={rowIndex * 2 + i + 1}
               className="flex-1"
             />

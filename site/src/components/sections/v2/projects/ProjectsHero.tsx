@@ -1,6 +1,7 @@
 'use client'
 
 import { SplitText } from '@/components/motion/SplitText'
+import { LABEL } from '@/components/ui/label'
 
 interface ProjectsHeroProps {
   headline: string
@@ -29,13 +30,7 @@ export function ProjectsHero({ headline, kicker }: ProjectsHeroProps) {
                 type="line"
                 as="span"
                 text={kicker}
-                className="block font-mono text-text-secondary mb-6"
-                style={{
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  letterSpacing: '1.2px',
-                  textTransform: 'uppercase',
-                }}
+                className={`block ${LABEL} mb-6`}
                 baseDelayMs={100}
               />
             )}

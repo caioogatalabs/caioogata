@@ -2,6 +2,7 @@
 
 import type { ProjectSection, ProjectImage } from '@/content/types'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { LABEL } from '@/components/ui/label'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useScrollParallax } from '@/hooks/useScrollParallax'
 import VideoEmbed from '@/components/ui/VideoEmbed'
@@ -76,7 +77,7 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
           <Grid key={index}>
             <GridItem span={4} tabletSpan={8} mobileSpan={4}>
               <div className="flex flex-col justify-between h-[410px]">
-                <p className="font-mono text-xs uppercase tracking-[0.6px] text-text-tertiary">
+                <p className={LABEL}>
                   {feature.name}
                 </p>
                 <p

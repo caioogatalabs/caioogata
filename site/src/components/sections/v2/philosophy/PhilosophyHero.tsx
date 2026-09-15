@@ -1,6 +1,7 @@
 'use client'
 
 import { SplitText } from '@/components/motion/SplitText'
+import { LABEL } from '@/components/ui/label'
 
 interface PhilosophyHeroProps {
   title: string
@@ -25,13 +26,7 @@ export function PhilosophyHero({ title, headline }: PhilosophyHeroProps) {
               type="line"
               as="span"
               text={`3.0 / ${title}`}
-              className="block font-mono text-text-secondary mb-6"
-              style={{
-                fontSize: '12px',
-                fontWeight: 600,
-                letterSpacing: '1.2px',
-                textTransform: 'uppercase',
-              }}
+              className={`block ${LABEL} mb-6`}
               baseDelayMs={100}
             />
             <SplitText

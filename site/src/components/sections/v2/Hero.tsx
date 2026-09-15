@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { LABEL_TYPE } from '@/components/ui/label'
 
 interface HeroProps {
   kicker: string
@@ -29,8 +30,8 @@ export function Hero({ kicker, technologies, headline }: HeroProps) {
     >
       <Grid>
         <GridItem span={12} tabletSpan={8} mobileSpan={4}>
-          <span className="block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary mb-6 -entrance -fade -a-0">
-            {kicker}
+          <span className={`block ${LABEL_TYPE} mb-6 -entrance -fade -a-0`}>
+            <span className="opacity-50">{kicker}</span>
           </span>
         </GridItem>
 

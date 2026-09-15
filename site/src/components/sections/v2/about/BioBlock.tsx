@@ -4,6 +4,7 @@ import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { AnimatedDivider, RevealGroup, SplitText } from '@/components/motion/SplitText'
 import { useLanguage } from '@/components/providers/LanguageProvider'
+import { LABEL } from '@/components/ui/label'
 
 
 /**
@@ -48,7 +49,7 @@ export function BioBlock() {
               type="line"
               as="span"
               text={ui.about.bioKicker}
-              className="inline-block font-mono text-xs uppercase tracking-[0.88px] text-text-tertiary"
+              className={`inline-block ${LABEL}`}
               durationMs={700}
               baseDelayMs={100}
             />
