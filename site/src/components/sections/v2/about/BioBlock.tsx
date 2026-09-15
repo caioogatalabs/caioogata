@@ -92,8 +92,7 @@ export function BioBlock() {
                 type="line"
                 as="span"
                 text={ui.about.coreExpertise}
-                className="inline-block text-sm font-medium uppercase tracking-[1.12px] text-text-tertiary py-3"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                className={`inline-block ${LABEL} py-3`}
                 durationMs={700}
                 baseDelayMs={100}
               />

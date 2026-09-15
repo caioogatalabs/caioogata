@@ -25,7 +25,7 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
         {/* Data stamp */}
         <GridItem span={12} tabletSpan={8} mobileSpan={4}>
           <span className={`block ${LABEL_TYPE} mb-10 -entrance -fade -a-0`}>
-            <span className="opacity-50">PRJ_{project.year} // {String(projectIndex + 1).padStart(3, '0')}</span>
+            <span className="opacity-50">prj_{project.year} // {String(projectIndex + 1).padStart(3, '0')}</span>
           </span>
         </GridItem>
 

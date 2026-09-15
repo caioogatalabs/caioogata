@@ -85,7 +85,7 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
       {/* Hero text */}
       <h1 className="sr-only">{project.title}</h1>
       <Hero
-        kicker={`PRJ_${project.year} // ${String(index + 1).padStart(3, '0')}`}
+        kicker={`prj_${project.year} // ${String(index + 1).padStart(3, '0')}`}
         technologies={project.technologies}
         headline={section.body ?? ''}
       />

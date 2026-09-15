@@ -30,7 +30,7 @@ export function ProjectCard({ title, slug, year, index, className = '' }: Projec
           {title}
         </h3>
         <span className={`shrink-0 ${LABEL}`}>
-          PRJ_{year} // {String(index).padStart(3, '0')}
+          prj_{year} // {String(index).padStart(3, '0')}
         </span>
       </div>
 

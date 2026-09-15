@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { useInView } from '@/hooks/useInView'
+import { LABEL } from '@/components/ui/label'
 
 interface ProjectRowProps {
   title: string
@@ -91,22 +92,27 @@ export function ProjectRow({
           ref={textRef as React.RefObject<HTMLDivElement>}
           className="grid grid-cols-4 gap-x-4 gap-y-6 self-start lg:gap-y-8"
         >
-          <span className="-entrance -mask-down -a-0 col-span-4 font-mono text-[11px] font-medium uppercase tracking-[0.88px] text-text-tertiary lg:col-span-3">
-            {['PRJ', year].filter(Boolean).join('_')} // {String(index).padStart(3, '0')}
+          <span className={`-entrance -mask-down -a-0 col-span-4 ${LABEL} lg:col-span-3`}>
+            {['prj', year].filter(Boolean).join('_')} // {String(index).padStart(3, '0')}
           </span>
 
           <div className="-entrance -mask-down -a-1 col-span-4 flex flex-col gap-2 lg:col-span-3">
             <h3 className="text-2xl font-semibold text-text-primary">{title}</h3>
-            <p className="text-lg leading-[1.6] text-text-secondary">{summary}</p>
+            <p className="text-[14px] leading-[1.5] text-text-secondary">{summary}</p>
           </div>
 
           {badge && (
             <div className="-entrance -mask-down -a-2 col-span-4 flex flex-col gap-2 lg:col-span-3">
-              <span className="inline-flex self-start items-center justify-center border border-border-secondary px-2 py-1 text-2xl font-semibold text-text-primary">
+              {/* Numerals are all cap height, so trimming the line box to cap
+                  height and baseline centres them in the outline exactly —
+                  Epilogue's ascender and descender space otherwise sits
+                  unevenly above and below. `leading-none` is the fallback
+                  where `text-box` is unsupported. */}
+              <span className="inline-flex self-start items-center justify-center border border-border-secondary px-2 py-2 text-2xl leading-none font-semibold text-text-primary [text-box:trim-both_cap_alphabetic]">
                 {badge}
               </span>
               {badgeLabel && (
-                <p className="text-lg leading-[1.6] text-text-secondary">{badgeLabel}</p>
+                <p className="text-[14px] leading-[1.5] text-text-secondary">{badgeLabel}</p>
               )}
             </div>
           )}
