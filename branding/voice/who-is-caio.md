@@ -34,7 +34,7 @@ for LinkedIn and for recruiters; the site has a different job, which is to win w
 ## The bio, three lengths
 
 **Approved by Caio on 2026-09-10.** All three are final copy, not drafts — change them
-only on his say-so.
+only on his say-so. The full bio was rewritten at his direction on 2026-09-14; see below.
 
 Third person, matching the reference sites. Every sentence is under the 25-word limit the
 voice guide sets. All three reuse the approved hero wording rather than inventing new
@@ -54,31 +54,42 @@ For the About opening, a proposal cover, an email signature.
 > fifteen in interfaces, and a self-taught path into code. Based in Porto Alegre, he works
 > across brand, interface and the code underneath — and takes it from idea to production.
 
-### Full — 262 words
+### Full — 352 words
 
-For the About page. Same length band as the reference sites (Corentin ~230, Korr ~280).
+For the About page. **Rewritten on 2026-09-14 at Caio's direction; supersedes the 2026-09-10
+version**, which is in git history and quoted in `site/docs/v2/content-ui-copy.md`.
 
-> Caio Ogata is a Creative Designer in Porto Alegre, Brazil. A former art director with a background in user interfaces and a self-taught path into development.
+The direction: romanticise, using [juanmoraromero.com/about](https://www.juanmoraromero.com/about)
+as the reference — which does it through specificity, not adjectives. Photography and cinema
+become the origin, advertising is where the looking became work, Huia is where art direction
+met technology rather than a run of job titles, and Azion carries what sitting next to
+engineering taught him. Over the 230–280 band by design: the brief was more information, not
+less. Caio later changed *"through what you see and how it moves"* to *"through what you see
+and feel"*; the text below carries that edit, as the site does.
+
+> Caio Ogata is a Creative Designer. A former art director with a background in user interfaces and a self-taught path into development. He is happiest building sites that tell a story the way a photograph does. Through what you see and feel, rather than by explaining themselves.
 >
-> His work mixes creativity and technology. Interaction and motion are not decoration added to a finished layout. They are decided alongside the type and the grid, because they are part of how the thing communicates. He designs the experience and writes the code that makes it behave.
+> Cinema and photography came first, years before either was work. Framing, composition, colour, the way a shot moves. Technology ran alongside them, in video games and computers, and it is the more logical half of how he thinks. Advertising was where the looking became work.
 >
-> The craft comes from advertising. He trained as an art director and specialised at Miami Ad School in São Paulo. The discipline there is making an idea land in a single look.
+> Nothing on the screen is there by accident. Type, grid, motion and interaction all do a job, and they get decided together. He designs the experience and writes the code that makes it behave.
 >
-> Eight years at Huia taught him the other half. He joined the creative technology studio in 2013 and made partner two years later, as head of creative technology. It grew to around forty people before Stefanini acquired it. He led creative direction for Petrobras, O Boticário, Tramontina, Sicredi and Mondelez brands. The work ran on WebGL, facial recognition and experimental techniques, years before they were common.
+> The craft comes from advertising. Several years in agencies as an art director, then a specialisation at Miami Ad School in São Paulo. The discipline there is making an idea land in a single look.
 >
-> Azion Technologies hired him as Design Director to build a design operation from the ground up, inside an engineering-first company. He structured it across product design, creative, design ops, research and design systems. Over four years he moved through brand and then developer experience. He ended with the whole user-facing layer: console, CLI, developer tools, website and documentation.
+> Huia is where the two halves met. He joined the creative technology studio in 2013 and stayed eight years, six of them as partner. The brief was rarely a layout. It was a question: can this be built? The answers ran on WebGL, facial recognition and machine learning, years before any of that was ordinary. He led creative direction for Petrobras, O Boticário, Tramontina, Sicredi and Mondelez brands. He also picked up the habit he still works by, which is to build a rough one early and look at it.
+>
+> Azion Technologies hired him to build a design operation from nothing, inside a company of engineers. He grew it to fourteen people across five disciplines. Four years, three roles: design, then brand, then the tools engineers use. Sitting that close to engineering taught him the other half of the job. How software actually ships, what a component costs, why an engineer says no.
 >
 > Most people who do this work do one part of it. Caio does the span. The idea, the way it looks, and the thing that actually runs. For a client that means one person from start to finish.
 
-**How it is ordered.** Identity and working style come first, before any employer. A reader
-deciding whether to hire meets the work before the résumé. Paragraphs 1–2 are who he is and
-how he works; 3 is where the craft comes from; 4–5 are the two halves of the record; 6 is
+**How it is ordered.** Identity comes first, before any employer, so a reader deciding whether
+to hire meets the work before the résumé. Paragraphs 1–3 are who he is, where the eye came from
+and how he works; 4 is where the craft comes from; 5–6 are the two halves of the record; 7 is
 the only paragraph that says what the reader gets.
 
 **What it drops on purpose:** design systems, developer experience, design engineering,
-end-to-end ownership, intersection. All are in the current site copy. None survives a reader
-outside this industry. The judo material is also out — it reads as philosophy, and this bio
-has to sell. It stays available for a philosophy section elsewhere.
+end-to-end ownership, intersection. The 2026-09-10 version still used the first two in its
+Azion paragraph; this one says *fourteen people across five disciplines* and *the tools
+engineers use* instead. The judo material stays out — it lives on /philosophy.
 
 **Experience and skills are not this bio's job.** The site carries them in their own
 sections. This text stops at the point where a curious reader would go look.
@@ -195,10 +206,10 @@ Mondelez (Lacta, Bis, Toblerone, Oreo) · LG
 Partner and Head of Creative Technology. Eight years in total, partner for six. The
 "nine years, joined on day one" in `RECRUITER-FAQ.md` was wrong and is superseded.
 
-*Still to propagate:* `site/src/content/en.json` has the coordinator role as **2013–2021**,
-which overlaps the partner entry — should be 2013–2015. `career/cv/cv-base.md` shows only
-2015–2021, dropping the first two years. `career/linkedin-apply/profile.py` says 2012–2021.
-All three need fixing against the table above.
+*Still to propagate:* `career/cv/cv-base.md` shows only 2015–2021, dropping the first two
+years. `career/linkedin-apply/profile.py` says 2012–2021. Both need fixing against the table
+above when those files are next touched. (`site/src/content/en.json` had the coordinator role
+as 2013–2021; fixed in commit `0e1450e`.)
 
 **Age.** Born 1984. **Not for publication** — no age, no birth year, anywhere public. Kept
 here only so nobody has to ask again.
@@ -224,9 +235,8 @@ first person and will change when the copy lands. The complement stays biographi
 ("Twenty years in advertising…") rather than becoming a promise.
 
 Still open:
-- **Nothing has landed on the site yet.** The copy above is approved but
-  `site/src/content/en.json` still carries the old recruiter-facing text. Applying it is a
-  separate job, and `pt-br.json` needs the translated version.
+- ~~Nothing has landed on the site yet.~~ Landed: the copy is live in `en.json` (approved by
+  Caio 2026-09-15) and translated in `pt-br.json`, and the `/llms*.txt` corpus reads it.
 
 ---
 
