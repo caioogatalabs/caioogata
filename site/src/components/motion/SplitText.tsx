@@ -224,6 +224,11 @@ function SplitLines({
         span.textContent = word
         // Use natural inline (no inline-block) so wrap behaviour matches the
         // original `<p>` flow exactly — no inline-block whitespace quirks.
+        // `nowrap` keeps a hyphenated word whole: left free, "self-taught" could
+        // break after the hyphen, and grouping by its first fragment's top would
+        // put all of it on the upper line — a line wider than the box, which
+        // wraps again inside its `overflow: hidden` mask and loses the tail.
+        span.style.whiteSpace = 'nowrap'
         measurer.appendChild(span)
         wordSpans.push(span)
         if (i < words.length - 1) {
@@ -256,10 +261,20 @@ function SplitLines({
     }
 
     measure()
+    // A width change re-measures through the observer, but a webfont swap does
+    // not change the box — without this, lines measured in the fallback face
+    // would stick once Epilogue lands.
+    let cancelled = false
+    document.fonts?.ready.then(() => {
+      if (!cancelled) measure()
+    })
 
     const ro = new ResizeObserver(measure)
     if (ref.current?.parentElement) ro.observe(ref.current.parentElement)
-    return () => ro.disconnect()
+    return () => {
+      cancelled = true
+      ro.disconnect()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text, style?.textIndent])
 
