@@ -3,7 +3,7 @@ import { ProjectsSection } from '@/components/sections/v2/ProjectsSection'
 
 export const metadata: Metadata = {
   title: 'Projects - Caio Ogata',
-  description: 'Selected design engineering work across design systems, brand expansion, and developer-facing consoles.',
+  description: 'Selected work, and what it took. A brand identity, the website that carries it, a shared kit of parts, a rebuilt product console, and eight years at a creative technology studio.',
 }
 
 export default function ProjectsPage() {

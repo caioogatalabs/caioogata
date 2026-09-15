@@ -3,7 +3,7 @@ import { ExperienceSection } from '@/components/sections/v2/ExperienceSection'
 
 export const metadata: Metadata = {
   title: 'Experience - Caio Ogata',
-  description: '15+ years of design engineering practice across 6 companies, 2 executive roles.',
+  description: 'Agencies, then a studio, then a company of engineers. Twenty years of work, role by role.',
 }
 
 export default function ExperiencePage() {

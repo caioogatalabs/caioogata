@@ -8,6 +8,7 @@ import { ToastProvider } from '@/components/providers/ToastProvider'
 import { FooterSection } from '@/components/sections/v2/FooterSection'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { HeaderBar } from '@/components/layout/HeaderBar'
+import content from '@/content/en.json'
 import './globals.css'
 
 export const viewport: Viewport = {
@@ -17,17 +18,20 @@ export const viewport: Viewport = {
   userScalable: false,
 }
 
+const TITLE = 'Caio Ogata — Creative Designer'
+const DESCRIPTION = `${content.hero.tagline} ${content.hero.tagline2}`
+
 export const metadata: Metadata = {
-  title: 'Caio Ogata - Design Director | Systems, DevEx & Engineering',
-  description: 'Design Director specializing in design systems, DevEx, and product engineering. 15 years in UI/UX, 4 as DevEx Director at a global edge platform. Based in Porto Alegre, Brazil.',
+  title: TITLE,
+  description: DESCRIPTION,
   keywords: [
-    'Design Director',
-    'Design Systems',
-    'Developer Experience',
-    'DevEx',
-    'Design Engineering',
-    'Product Engineering',
-    'UI/UX Design',
+    'Creative Designer',
+    'Freelance designer',
+    'Art direction',
+    'Brand and visual identity',
+    'Interface design',
+    'Motion design',
+    'Front-end development',
     'Porto Alegre',
     'Brazil',
   ],
@@ -38,22 +42,22 @@ export const metadata: Metadata = {
     locale: 'en_US',
     alternateLocale: ['pt_BR'],
     url: 'https://www.caioogata.com',
-    title: 'Caio Ogata - Design Director | Systems, DevEx & Engineering',
-    description: 'Design Director building at the intersection of design systems, developer experience, and product engineering — with end-to-end ownership from concept to production. Based in Porto Alegre, Brazil.',
+    title: TITLE,
+    description: content.hero.summary,
     siteName: 'Caio Ogata Portfolio',
     images: [
       {
         url: 'https://www.caioogata.com/og-img.png',
         width: 1200,
         height: 630,
-        alt: 'Caio Ogata - Design Director',
+        alt: TITLE,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Caio Ogata - Design Director | Systems, DevEx & Engineering',
-    description: 'Design Director at the intersection of design systems, developer experience, and product engineering. 15 years in UI/UX, 4 as DevEx Director.',
+    title: TITLE,
+    description: DESCRIPTION,
     images: ['https://www.caioogata.com/og-img.png'],
   },
   icons: {
@@ -74,38 +78,19 @@ export const metadata: Metadata = {
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Caio Ogata',
-  jobTitle: 'Design Director',
+  name: content.hero.name,
+  jobTitle: 'Creative Designer',
   url: 'https://www.caioogata.com',
   image: 'https://www.caioogata.com/caio-ogata-profile.webp',
-  email: 'caioogata.labs@gmail.com',
-  birthDate: '1984-06',
+  email: content.contact.email,
   nationality: 'Brazilian',
   homeLocation: {
     '@type': 'Place',
     name: 'Porto Alegre, RS, Brazil',
   },
-  sameAs: [
-    'https://www.linkedin.com/in/caioogata/',
-    'https://github.com/caioogatalabs',
-    'https://www.instagram.com/caioogata.labs',
-    'https://www.youtube.com/@caioogatalabs',
-    'https://www.azion.design',
-  ],
-  knowsAbout: [
-    'Design Systems',
-    'Developer Experience',
-    'Design Engineering',
-    'Product Engineering',
-    'Product Design',
-    'UI/UX Design',
-    'Design Leadership',
-    'Design Operations',
-    'Edge Computing',
-    'Product-Led Growth',
-  ],
-  description:
-    'Design Director with 15+ years in UI/UX and 4 years as Developer Experience Director at Azion Technologies. Specialized in design systems, product engineering, and end-to-end design execution from concept to production.',
+  sameAs: content.contact.links.map(link => link.url),
+  knowsAbout: content.about.expertise,
+  description: content.hero.summary,
   subjectOf: {
     '@type': 'WebPage',
     name: 'LLM-optimized portfolio (machine-readable)',

@@ -3,7 +3,7 @@ import { AboutSection } from '@/components/sections/v2/AboutSection'
 
 export const metadata: Metadata = {
   title: 'About - Caio Ogata',
-  description: 'Design engineering leader bridging brand strategy, product craft, and technical implementation.',
+  description: 'Caio Ogata is a Creative Designer. A former art director with a background in user interfaces and a self-taught path into development.',
 }
 
 export default function AboutPage() {
