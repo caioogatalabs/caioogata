@@ -27,7 +27,7 @@ export function ExperienceHero({ headline }: ExperienceHeroProps) {
     <div className="relative bg-bg">
       <div className="flex min-h-[60vh] items-center px-5 py-16 md:px-8 md:py-20 lg:px-8 lg:py-24">
         <div className="grid w-full grid-cols-4 gap-4 md:grid-cols-8 md:gap-5 lg:grid-cols-12">
-          <div className="col-span-4 md:col-span-8 lg:col-span-12 [--line1-indent:0px] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]">
+          <div className="col-span-4 md:col-span-8 lg:col-span-12 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]">
             <SplitText
               type="line"
               text={headline}

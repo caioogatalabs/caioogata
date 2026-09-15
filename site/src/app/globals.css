@@ -394,7 +394,7 @@ html:not(.-ready) .-entrance {
 }
 
 /* Display type — every page headline and editorial statement, one scale on
-   every page. 36px below `md`, 48px from `md` up; the large step (impact
+   every page. 26px below `md`, 48px from `md` up; the large step (impact
    numbers) is 48px → 72px. Regular weight, 1.15 leading, -2% tracking so the
    spacing scales with the size. Size, weight, leading and tracking live here
    only: components add colour and indent, never their own font values. */
@@ -405,7 +405,7 @@ html:not(.-ready) .-entrance {
   line-height: var(--primitive-leading-tight);
   letter-spacing: -0.02em;
 }
-.type-display { font-size: var(--text-heading-lg); }
+.type-display { font-size: 1.625rem; }
 .type-display-lg { font-size: var(--text-display-md); }
 @media (width >= 48rem) {
   .type-display { font-size: var(--text-display-md); }

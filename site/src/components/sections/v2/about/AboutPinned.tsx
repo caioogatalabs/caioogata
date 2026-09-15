@@ -21,6 +21,19 @@ function ClientDistortedImage(props: DistortedImageCanvasProps) {
   return <Component {...props} />
 }
 
+/** `lg` and up, where portrait and paragraph sit side by side on one row. */
+function useIsWide() {
+  const [wide, setWide] = useState(false)
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 64rem)')
+    const update = () => setWide(query.matches)
+    update()
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
+  return wide
+}
+
 /** The image is muted so the paragraph laid over it stays readable. */
 const IMAGE_OPACITY = 0.7
 
@@ -52,7 +65,12 @@ export function AboutPinned() {
   // anything — pinning would be needed only to hold the sentence still, and it
   // is not still, it is just slower. The reference on alphamark.design runs its
   // three images the same way, one down and two up.
-  const imageRise = progress * 320
+  //
+  // Below `lg` the two share a column and the paragraph overlaps the portrait's
+  // lower half, so the portrait holds still: rising, it would slide up under
+  // the header and pull away from the text laid on it.
+  const isWide = useIsWide()
+  const imageRise = isWide ? progress * 320 : 0
   const textDrift = progress * 40
 
   // The fades stay staggered: the portrait clears first and leaves the
@@ -99,17 +117,20 @@ export function AboutPinned() {
               distortion is driven by pointermove, and without this the text
               layer would swallow every one of them. It is plain copy with no
               links, so nothing is lost. */}
+          {/* Below `lg` the paragraph is pulled up over the portrait. The
+              portrait is 3:4, so its height is 4/3 of the column width; a
+              negative margin of 68% of that width, less the row gap and the
+              scroll drift, covers roughly the portrait's lower 45%. */}
           {/* The first line starts on column 4 of whichever grid is in force,
               derived rather than eyeballed. For a track of width W with gap g,
               column 4 begins at 3 columns + 3 gaps, which reduces to W/4 + g/4
               on the 12-col grid and 3W/8 + 3g/8 on the 8-col one. It was a flat
               `8em` before — 384px at this size, which on a 350px phone pushed
-              the whole paragraph off screen. Mobile gets none: its grid is four
-              columns wide, so a fourth-column indent would leave one column of
-              text. SplitText reads this off the parent and moves it onto the
-              first line only. */}
+              the whole paragraph off screen. Mobile starts on column 2 of its
+              four, W/4 + g/4 with the 16px gap. SplitText reads this off the
+              parent and moves it onto the first line only. */}
           <div
-            className="pointer-events-none col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 z-20 [--line1-indent:0px] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]"
+            className="pointer-events-none col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 z-20 -mt-[68%] lg:mt-0 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]"
             style={{ opacity: 1 - outText, transform: `translateY(${textDrift}px)` }}
           >
             <SplitText

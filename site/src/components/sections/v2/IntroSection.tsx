@@ -158,23 +158,29 @@ export function IntroSection() {
                 reversed, and scrubbed by scroll rather than fired once. The
                 lines are already explicit spans, so none of SplitText's line
                 detection is needed. Both travel on one window, so the sentence
-                leaves whole instead of coming apart. */}
-            <span className="block overflow-hidden">
+                leaves whole instead of coming apart.
+                Below `md` the break is not forced: the column is too narrow
+                for the second line, which wrapped and stranded its last word
+                ("desenvolver." in PT). There the sentence runs as one balanced
+                block; from `md` up each line is its own window again. */}
+            <span className="block overflow-hidden text-balance md:hidden">
               <span
                 className="block will-change-transform"
                 style={{ transform: `translateY(${outHero * 110}%)` }}
               >
-                {ui.intro.headlineLine1}
+                {ui.intro.headlineLine1} {ui.intro.headlineLine2}
               </span>
             </span>
-            <span className="block overflow-hidden">
-              <span
-                className="block will-change-transform"
-                style={{ transform: `translateY(${outHero * 110}%)` }}
-              >
-                {ui.intro.headlineLine2}
+            {[ui.intro.headlineLine1, ui.intro.headlineLine2].map(line => (
+              <span key={line} className="hidden overflow-hidden md:block">
+                <span
+                  className="block will-change-transform"
+                  style={{ transform: `translateY(${outHero * 110}%)` }}
+                >
+                  {line}
+                </span>
               </span>
-            </span>
+            ))}
           </h1>
         </GridItem>
       </Grid>

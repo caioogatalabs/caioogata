@@ -124,7 +124,7 @@ export function BioBlock() {
             First line on column 4, the same derived indent as the page's hero
             (see AboutPinned for the arithmetic). */}
         {finalQuote && (
-          <div className="mt-16 md:mt-20 [--line1-indent:0px] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]">
+          <div className="mt-16 md:mt-20 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]">
             <SplitText
               type="line"
               text={finalQuote}
