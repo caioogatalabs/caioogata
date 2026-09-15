@@ -85,9 +85,11 @@ export function AboutPinned() {
     <div ref={ref} className="relative py-24 md:py-32 lg:py-40">
       <div className="w-full px-5 md:px-8 lg:px-8">
         <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 items-center">
-          {/* Image — the four right-hand columns, 9-12. z-10 so the paragraph
-              layers on top. Being tried here; it sat on 5-8 before. */}
-          <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-4 lg:col-start-9 lg:row-start-1 z-10">
+          {/* Image — the right-hand half below `lg` (cols 3-4 of four, 5-8 of
+              eight) and the four right-hand columns, 9-12, from `lg` up. Full
+              width on a phone or a portrait tablet, the 3:4 portrait ran taller
+              than the screen. z-10 so the paragraph layers on top. */}
+          <div className="col-span-2 col-start-3 md:col-span-4 md:col-start-5 lg:col-span-4 lg:col-start-9 lg:row-start-1 z-10">
             <div
               className="relative w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
               style={{
@@ -99,7 +101,7 @@ export function AboutPinned() {
                 src="/caio-ogata-profile.webp"
                 alt="Caio Ogata"
                 fill
-                sizes="(min-width: 1024px) 33vw, 100vw"
+                sizes="(min-width: 1024px) 33vw, 50vw"
                 className="object-cover"
                 priority
               />
@@ -118,9 +120,9 @@ export function AboutPinned() {
               layer would swallow every one of them. It is plain copy with no
               links, so nothing is lost. */}
           {/* Below `lg` the paragraph is pulled up over the portrait. The
-              portrait is 3:4, so its height is 4/3 of the column width; a
-              negative margin of 68% of that width, less the row gap and the
-              scroll drift, covers roughly the portrait's lower 45%. */}
+              portrait is 3:4 on half the track, so its height is 2/3 of the
+              track width; a negative margin of 34% of that width, less the row
+              gap and the scroll drift, covers roughly the portrait's lower 45%. */}
           {/* The first line starts on column 4 of whichever grid is in force,
               derived rather than eyeballed. For a track of width W with gap g,
               column 4 begins at 3 columns + 3 gaps, which reduces to W/4 + g/4
@@ -130,7 +132,7 @@ export function AboutPinned() {
               four, W/4 + g/4 with the 16px gap. SplitText reads this off the
               parent and moves it onto the first line only. */}
           <div
-            className="pointer-events-none col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 z-20 -mt-[68%] lg:mt-0 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]"
+            className="pointer-events-none col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 z-20 -mt-[34%] lg:mt-0 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]"
             style={{ opacity: 1 - outText, transform: `translateY(${textDrift}px)` }}
           >
             <SplitText
