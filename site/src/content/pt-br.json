@@ -151,7 +151,7 @@
         "description": "Contratado para montar uma operação de design do zero, dentro de uma empresa de engenharia. Levou a equipe a catorze pessoas em cinco disciplinas, e publicou o azion.design.",
         "achievements": [
           {
-            "text": "Montou uma organização de design com Product Design, Criação, Design Ops, UX Research e Design Systems"
+            "text": "Montou uma organização de design com design de produto, criação, design ops, pesquisa e o kit de peças compartilhado"
           },
           {
             "text": "Estabeleceu cultura de design thinking e práticas de usabilidade num ambiente guiado pela engenharia"
@@ -529,7 +529,7 @@
         "institution": "Memorisely",
         "location": "Online",
         "year": "2023",
-        "note": "Bootcamp intensivo de 4 semanas sobre construção de design systems escaláveis no Figma, com aulas ao vivo, exercícios e plantões guiados"
+        "note": "Intensivo de 4 semanas sobre construção de bibliotecas de componentes compartilhadas no Figma, com aulas ao vivo, exercícios e plantões guiados"
       },
       {
         "degree": "Nanodegree em Product Design",
@@ -1137,7 +1137,7 @@
         "year": "2020",
         "description": "Uma identidade completa para uma empresa que vende infraestrutura: linguagem visual, voz, ilustração e iconografia, aplicadas em produto, marketing e engenharia.",
         "role": "Design Director, Brand Experience",
-        "technologies": "Figma, estratégia de marca, Design Systems, identidade visual, voz e tom, sistema de ilustração, iconografia",
+        "technologies": "Figma, estratégia de marca, bibliotecas de componentes, identidade visual, voz e tom, sistema de ilustração, iconografia",
         "impact": "Uma só marca em mais de 100 localidades e mais de 20.000 aplicações hospedadas. A base aguentou rodadas de investimento da Monashees e da Qualcomm Ventures.",
         "caseStudyUrl": "/llms/projects/azion-brand-system.txt",
         "credits": [

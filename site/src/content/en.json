@@ -151,7 +151,7 @@
         "description": "Hired to build a design operation from nothing, inside an engineering company. Grew it to fourteen people across five disciplines, and published azion.design.",
         "achievements": [
           {
-            "text": "Built a design organization spanning Product Design, Creative, Design Ops, UX Research, and Design Systems"
+            "text": "Built a design organization across product design, creative, design ops, research and the shared kit of parts"
           },
           {
             "text": "Established design-thinking culture and usability practices in an engineering-first environment"
@@ -529,7 +529,7 @@
         "institution": "Memorisely",
         "location": "Online",
         "year": "2023",
-        "note": "4-week intensive bootcamp on building scalable design systems in Figma with live classes, exercises, and guided office hours"
+        "note": "4-week intensive on building shared component libraries in Figma, with live classes, exercises and guided office hours"
       },
       {
         "degree": "Product Design Nanodegree",
@@ -1137,7 +1137,7 @@
         "year": "2020",
         "description": "A full identity for a company selling infrastructure: visual language, voice, illustration and iconography, applied across product, marketing and engineering.",
         "role": "Design Director, Brand Experience",
-        "technologies": "Figma, Brand Strategy, Design Systems, Visual Identity, Voice & Tone Design, Illustration System, Iconography",
+        "technologies": "Figma, Brand Strategy, Component Libraries, Visual Identity, Voice & Tone Design, Illustration System, Iconography",
         "impact": "One brand across 100+ locations and 20,000+ hosted applications. The foundations held through investment rounds from Monashees and Qualcomm Ventures.",
         "caseStudyUrl": "/llms/projects/azion-brand-system.txt",
         "credits": [
