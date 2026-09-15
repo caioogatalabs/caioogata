@@ -11,6 +11,19 @@ const COPIED_MS = 2000
 /** The public address. The header availability and the footer contact both copy it. */
 export const CONTACT_EMAIL = 'contato@caioogata.com'
 
+/** Clipboard fallback for browsers without the async Clipboard API. */
+function copyWithSelection(text: string) {
+  const area = document.createElement('textarea')
+  area.value = text
+  area.setAttribute('readonly', '')
+  area.style.position = 'fixed'
+  area.style.opacity = '0'
+  document.body.appendChild(area)
+  area.select()
+  document.execCommand('copy')
+  area.remove()
+}
+
 interface CopyEmailProps {
   email?: string
   copyLabel: string
@@ -29,7 +42,8 @@ interface CopyEmailProps {
  * ("copy email?"), and a click copies the address and swaps the hint to the
  * confirmation. An optional yellow square blinks before the label. Keyboard focus shows the
  * hint under the address instead of at the cursor. If the clipboard is
- * unavailable, the click falls back to `mailto:`.
+ * unavailable (older browsers, insecure contexts), it copies through a
+ * selected textarea instead. It never opens a mail app.
  */
 export function CopyEmail({
   email = CONTACT_EMAIL,
@@ -89,17 +103,17 @@ export function CopyEmail({
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(email)
-      setCopied(true)
-      setVisible(true)
-      clearTimeout(resetTimer.current)
-      resetTimer.current = setTimeout(() => {
-        setCopied(false)
-        // Touch and keyboard have no leave event to close the hint.
-        if (!hovering.current && document.activeElement !== buttonRef.current) setVisible(false)
-      }, COPIED_MS)
     } catch {
-      window.location.href = `mailto:${email}`
+      copyWithSelection(email)
     }
+    setCopied(true)
+    setVisible(true)
+    clearTimeout(resetTimer.current)
+    resetTimer.current = setTimeout(() => {
+      setCopied(false)
+      // Touch and keyboard have no leave event to close the hint.
+      if (!hovering.current && document.activeElement !== buttonRef.current) setVisible(false)
+    }, COPIED_MS)
   }
 
   return (
