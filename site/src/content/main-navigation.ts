@@ -4,8 +4,7 @@ export interface MainNavItem {
   key: 'home' | 'about' | 'experience' | 'projects' | 'philosophy'
 }
 
-// /contact intentionally excluded — opens via overlay from MenuSection /
-// FloatingContactButton, not as a standalone routed page.
+// No /contact route — the footer carries the email with a copy action.
 export const MAIN_NAVIGATION: MainNavItem[] = [
   { href: '/', key: 'home' },
   { href: '/about', key: 'about' },
