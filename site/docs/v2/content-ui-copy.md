@@ -69,64 +69,53 @@ click ago:
 
 > Creative Designer who learned to build.
 
-### Bio — APPROVED
+### Bio — REWRITTEN 2026-09-14, supersedes the approved version
 
-Replaces `about.bio` whole. 262 words, third person.
+Caio directed this rewrite on 2026-09-14, against
+[juanmoraromero.com/about](https://www.juanmoraromero.com/about) as a reference. The brief
+was to romanticise — which that reference does through specificity, not adjectives
+(*"colour, shape, and technology have pulled at me with the same force"*).
 
-> Caio Ogata is a Creative Designer in Porto Alegre, Brazil. A former art director with a
-> background in user interfaces and a self-taught path into development.
+Six changes he asked for:
+
+1. Drop *in Porto Alegre, Brazil* from the opening — the header carries the location already.
+2. Keep the scale (art director → interfaces → self-taught developer) but give it an origin:
+   photography and cinema came first, and led him to advertising.
+3. The creativity-and-technology paragraph says **everything has a function**. The old
+   *"not decoration added to a finished layout"* was the cliché version of the same idea.
+4. The advertising paragraph gains *several years in agencies* before Miami Ad School.
+5. Huia stops being a run of job titles. It becomes where art direction met technology —
+   experiments, building to find out, machine learning years before it was ordinary.
+6. Azion carries leadership and operation, and what sitting next to engineering taught him.
+
+> Caio Ogata is a Creative Designer. A former art director with a background in user interfaces and a self-taught path into development.
 >
-> His work mixes creativity and technology. Interaction and motion are not decoration added
-> to a finished layout. They are decided alongside the type and the grid, because they are
-> part of how the thing communicates. He designs the experience and writes the code that
-> makes it behave.
+> It began with photography and cinema. He wanted to know why one frame moves you and the next one does not. Advertising was where that question became work.
 >
-> The craft comes from advertising. He trained as an art director and specialised at Miami
-> Ad School in São Paulo. The discipline there is making an idea land in a single look.
+> His work mixes creativity and technology. Nothing on a screen is there by accident. Type, grid, motion and interaction are all doing a job, and they get decided together. He designs the experience and writes the code that makes it behave.
 >
-> Eight years at Huia taught him the other half. He joined the creative technology studio in
-> 2013 and made partner two years later, as head of creative technology. It grew to around
-> forty people before Stefanini acquired it. He led creative direction for Petrobras, O
-> Boticário, Tramontina, Sicredi and Mondelez brands. The work ran on WebGL, facial
-> recognition and experimental techniques, years before they were common.
+> The craft comes from advertising. Several years in agencies as an art director, then a specialisation at Miami Ad School in São Paulo. The discipline there is making an idea land in a single look.
 >
-> Azion Technologies hired him as Design Director to build a design operation from the
-> ground up, inside an engineering-first company. He structured it across product design,
-> creative, design ops, research and design systems. Over four years he moved through brand
-> and then developer experience. He ended with the whole user-facing layer: console, CLI,
-> developer tools, website and documentation.
+> Huia is where the two halves met. He joined the creative technology studio in 2013 and stayed eight years, six of them as partner. The brief was rarely a layout. It was a question: can this be built? The answers ran on WebGL, facial recognition and machine learning, years before any of that was ordinary. He led creative direction for Petrobras, O Boticário, Tramontina, Sicredi and Mondelez brands. He also picked up the habit he still works by — build a rough one early and look at it.
 >
-> Most people who do this work do one part of it. Caio does the span. The idea, the way it
-> looks, and the thing that actually runs. For a client that means one person from start to
-> finish.
+> Azion Technologies hired him to build a design operation from nothing, inside a company of engineers. He grew it to fourteen people across five disciplines. Four years, three roles: design, then brand, then the tools engineers use. Sitting that close to engineering taught him the other half of the job. How software actually ships, what a component costs, why an engineer says no. He ended with the whole user-facing layer: console, CLI, developer tools, website and documentation.
+>
+> Most people who do this work do one part of it. Caio does the span. The idea, the way it looks, and the thing that actually runs. For a client that means one person from start to finish.
 
-**What it fixes beyond tone.** The current bio claims *"end-to-end ownership, from design
-system to shipped production code: 6,000+ commits, 34+ contributors."* The base document
-settles the ceiling: Caio **led** the Console Kit, the team he assembled **built** it. The
-approved bio drops it entirely rather than overclaim.
+**329 words**, against the 230–280 band the base document set from the reference sites. Over
+by design: the brief was more information, not less. Longest sentence is 20 words, inside the
+guide's limit. No banned terms.
 
-#### ⚠ The two brand documents disagree here — needs Caio's call
+**It resolves the ⚠ flagged above.** The old paragraph five read *"across product design,
+creative, design ops, research and design systems… he moved through brand and then developer
+experience."* The rewrite says *fourteen people across five disciplines* and *then the tools
+engineers use*, so the contradiction between the two brand documents disappears rather than
+needing a ruling.
 
-Paragraph five uses `design systems` and `developer experience`. Both are on the voice
-guide's banned list for this domain, and `who-is-caio.md`'s own note on the bio says it drops
-them: *"What it drops on purpose: design systems, developer experience, design engineering,
-end-to-end ownership, intersection."* The text does not.
-
-Two readings, and they lead to different fixes:
-
-- **They are names, not descriptions.** *Design Systems* was one of the five disciplines in
-  the org he built, and *Developer Experience* is the job title he held. Proper nouns are
-  exempt, so nothing changes.
-- **They are jargon to the reader.** A possible client does not know either term, and this is
-  the one paragraph where the bio slips into the vocabulary it was written to escape.
-
-If the second reading wins, the same facts in plain language — everything else in the
-paragraph untouched:
-
-> He structured it across product design, creative, design ops, research and the shared kit
-> of parts. Over four years he moved through brand and then the tools engineers use.
-
-This copy is approved and was not changed here. Flagging rather than editing.
+**`who-is-caio.md` is now behind the site.** That file is the source of truth and holds the
+version approved on 2026-09-10. It needs this text folded in once Caio has read it on screen
+— otherwise the base and the site have drifted, which is the exact failure this whole
+exercise set out to fix.
 
 ### Core Expertise — PROPOSED
 
