@@ -140,6 +140,8 @@ export interface ProjectItem {
   credits?: ProjectCredit[]
   links?: ProjectLink[]
   images: ProjectImage[]
+  /** Home list cover, a 16:10 1920x1200 screen (PROJECTS-GUIDE.md › Home Cover). Falls back to the first image. */
+  cover?: string
   gridLayout?: 'default' | 'large-only'
   disabled?: boolean
   sections?: ProjectSection[]

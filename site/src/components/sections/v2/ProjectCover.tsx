@@ -10,10 +10,14 @@ import Image from 'next/image'
  * an empty rectangle. So the frame is constant and the image sits inside it:
  * a neutral panel, and a window at screen proportion floating on it.
  *
- * Both panel and window are 16:10, and the window is 86% of the width, which
- * makes the margin even on all four sides without hardcoding it. The image
- * fills the window rather than fitting inside it — the window is already a
- * screen shape, so cropping to it is what makes every project read the same.
+ * The window is 16:10 at 86% of the panel width. The panel is taller than the
+ * window, after bymonolog.com's Success Stories: 3:2 from tablet up, which
+ * leaves a near-even margin (47px sides, 44px top and bottom at 1440 — a 16:10
+ * panel gave only 30px vertically and the box read squat), and square on
+ * mobile, where a 16:10 panel was a thin strip. The image fills the window
+ * rather than fitting inside it — the window is already a screen shape, so
+ * cropping to it is what makes every project read the same. Assets are 16:10
+ * 1920x1200 (PROJECTS-GUIDE.md › Home Cover).
  *
  * No browser chrome. The margin and the corner do the work; drawing a title bar
  * with three dots is a portfolio cliché and fights the rest of the page.
@@ -27,7 +31,7 @@ import Image from 'next/image'
  */
 export function ProjectCover({ src, alt = '' }: { src?: string; alt?: string }) {
   return (
-    <div className="relative flex aspect-[16/10] w-full items-center justify-center overflow-hidden bg-bg-surface-primary">
+    <div className="relative flex aspect-square w-full items-center md:aspect-[3/2] justify-center overflow-hidden bg-bg-surface-primary">
       {src && (
         <div className="relative aspect-[16/10] w-[86%] overflow-hidden rounded-[3px] bg-bg-surface-secondary">
           <Image

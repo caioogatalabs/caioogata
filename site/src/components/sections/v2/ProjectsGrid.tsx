@@ -6,9 +6,12 @@ import type { ProjectItem } from '@/content/types'
 
 type Project = ProjectItem
 
-/** First image with a real src — some entries lead with a video, one has none. */
+/**
+ * The authored `cover` when there is one; otherwise the first image with a real
+ * src — some entries lead with a video, one has none.
+ */
 function coverOf(project: Project): string | undefined {
-  return project.images?.find((i) => i.src)?.src || undefined
+  return project.cover || project.images?.find((i) => i.src)?.src || undefined
 }
 
 /**
