@@ -1,7 +1,7 @@
 'use client'
 
-import Image from 'next/image'
 import { Grid, GridItem } from '@/components/layout/Grid'
+import { ProjectCover } from '@/components/sections/v2/ProjectCover'
 import { useInView } from '@/hooks/useInView'
 import { LABEL } from '@/components/ui/label'
 
@@ -68,18 +68,10 @@ export function ProjectRow({
         >
           <a
             href={`/projects/${slug}`}
-            className="-entrance -mask-down relative block h-[280px] w-full overflow-hidden bg-bg-surface-primary md:h-[380px] lg:h-[502px]"
+            className="-entrance -mask-down block w-full"
             aria-label={`View ${title} project`}
           >
-            {cover && (
-              <Image
-                src={cover}
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 66vw, 100vw"
-                className="object-cover"
-              />
-            )}
+            <ProjectCover src={cover} />
           </a>
         </GridItem>
 
