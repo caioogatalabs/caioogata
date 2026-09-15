@@ -74,8 +74,8 @@
   "about": {
     "command": "whoami",
     "heading": "Sobre",
-    "headline": "A maioria faz uma parte disso. Caio faz o arco inteiro.",
-    "bio": "Caio Ogata é designer criativo. Ex-diretor de arte, com formação em interfaces e um caminho autodidata até o desenvolvimento. Ele é mais feliz construindo sites que contam uma história do jeito que uma fotografia conta. Pelo que você vê e sente, e não por se explicarem.\n\nCinema e fotografia vieram primeiro, anos antes de qualquer um dos dois virar trabalho. Enquadramento, composição, cor, o jeito como uma cena se move. A tecnologia andou ao lado, nos videogames e nos computadores, e é a metade mais lógica do jeito como ele pensa. Foi na publicidade que o olhar virou trabalho.\n\nNada na tela está ali por acaso. Tipografia, grid, movimento e interação têm, cada um, uma função, e são decididos juntos. Ele desenha a experiência e escreve o código que põe tudo para funcionar.\n\nO ofício vem da publicidade. Alguns anos em agências como diretor de arte, depois uma especialização na Miami Ad School, em São Paulo. A disciplina ali é fazer uma ideia chegar num único olhar.\n\nA Huia foi onde as duas metades se encontraram. Ele entrou no estúdio de tecnologia criativa em 2013 e ficou oito anos, seis deles como sócio. O briefing raramente era um layout. Era uma pergunta: dá para construir isso? As respostas rodavam em WebGL, reconhecimento facial e machine learning, anos antes de qualquer uma dessas coisas ser comum. Liderou a direção criativa para Petrobras, O Boticário, Tramontina, Sicredi e marcas da Mondelez. Foi ali também que pegou o hábito com que trabalha até hoje: fazer cedo uma versão tosca e olhar para ela.\n\nA Azion Technologies o contratou para montar uma operação de design do zero, dentro de uma empresa de engenheiros. Ele levou a equipe a catorze pessoas, em cinco disciplinas. Quatro anos, três cargos: design, depois marca, depois as ferramentas que os engenheiros usam. Trabalhar tão perto da engenharia ensinou a outra metade do ofício. Como um software chega de fato à produção, quanto custa um componente, por que um engenheiro diz não.\n\nA maioria das pessoas que faz esse trabalho faz uma parte dele. Caio faz o arco inteiro. A ideia, a forma como ela aparece e a coisa que de fato funciona. Para um cliente, isso significa uma só pessoa do começo ao fim.",
+    "headline": "A maioria faz uma parte disso. Caio faz o todo.",
+    "bio": "Caio Ogata é designer criativo. Ex-diretor de arte, com experiência em interfaces e um caminho autodidata até o desenvolvimento. O que ele mais gosta é construir sites que contam uma história do jeito que uma fotografia conta. Pelo que você vê e sente, e não se explicando.\n\nCinema e fotografia vieram primeiro, anos antes de virarem trabalho. Enquadramento, composição, cor, o movimento de um plano. A tecnologia correu ao lado, nos videogames e nos computadores, e é a metade mais lógica do jeito como ele pensa. Foi na publicidade que o olhar virou trabalho.\n\nNada na tela está ali por acaso. Tipografia, grid, movimento e interação cumprem uma função, e são decididos juntos. Ele projeta a experiência e escreve o código que faz ela se comportar.\n\nO ofício vem da publicidade. Vários anos em agências como diretor de arte, depois uma especialização na Miami Ad School, em São Paulo. A disciplina ali é fazer uma ideia acontecer num único olhar.\n\nA Huia foi onde as duas metades se encontraram. Ele entrou no estúdio de tecnologia criativa em 2013 e ficou oito anos, seis deles como sócio. O briefing raramente era um layout. Era uma pergunta: dá para construir isso? As respostas rodavam em WebGL, reconhecimento facial e machine learning, anos antes de qualquer uma dessas coisas ser comum. Ele liderou a direção criativa para Petrobras, O Boticário, Tramontina, Sicredi e marcas da Mondelez. Também pegou ali o hábito com que trabalha até hoje: construir cedo uma versão rústica e olhar para ela.\n\nA Azion Technologies o contratou para montar uma operação de design do zero, dentro de uma empresa de engenheiros. Ele a fez crescer até catorze pessoas, em cinco disciplinas. Quatro anos, três cargos: design, depois marca, depois as ferramentas que os engenheiros usam. Trabalhar tão perto da engenharia ensinou a ele a outra metade do trabalho. Como um software de fato chega à produção, quanto custa um componente, por que um engenheiro diz não.\n\nA maioria das pessoas que faz esse trabalho faz só uma parte dele. Caio faz o todo. A ideia, a forma como ela aparece e a coisa que de fato funciona. Para um cliente, isso significa uma só pessoa do começo ao fim.",
     "expertise": [
       "Direção criativa",
       "Marca e identidade visual",
@@ -112,7 +112,7 @@
         "title": "Developer Experience Director",
         "location": "Porto Alegre, Brasil",
         "dateRange": "2024 - 2025",
-        "description": "Assumiu todas as interfaces que um cliente ou um engenheiro toca: console, linha de comando, ferramentas, documentação. Manteve a supervisão da marca ao mesmo tempo.",
+        "description": "Assumiu todas as interfaces que um cliente ou um engenheiro toca: console, linha de comando, ferramentas, documentação. Manteve a supervisão da marca junto.",
         "achievements": [
           {
             "text": "Liderou o Console, a CLI e todas as ferramentas de desenvolvedor, a camada inteira da engenharia voltada ao usuário"
@@ -831,7 +831,7 @@
         "title": "Azion Console Kit",
         "slug": "azion-console-kit",
         "year": "2023",
-        "description": "A tela que engenheiros usam para publicar e acompanhar suas aplicações, reconstruída do zero. Vue 3, uma biblioteca de componentes compartilhada e uma arquitetura que separa a aparência de uma tela do que ela faz.",
+        "description": "A tela que engenheiros usam para publicar e acompanhar suas aplicações, reconstruída do zero. Vue 3, uma biblioteca de componentes compartilhada e uma arquitetura que separa a aparência de uma tela daquilo que ela faz.",
         "role": "Developer Experience Director",
         "technologies": "Vue 3, Vite, PrimeVue, TypeScript, Design Tokens, arquitetura de componentes, padrão Headless UI, open source",
         "impact": "Open source: mais de 6.000 commits, mais de 34 contribuidores e 93 releases. Em produção no Itaú, no Magazine Luiza e na Netshoes. Novas telas passaram de dias para horas. Caio liderou; o time que ele montou escreveu o código.",
@@ -1017,7 +1017,7 @@
         "title": "Azion Design System",
         "slug": "azion-design-system",
         "year": "2021",
-        "description": "Um kit de peças compartilhado para o produto, implantado aos poucos para que nenhum cliente acordasse com um produto de cara diferente.",
+        "description": "Um kit de peças compartilhado para o produto, implantado aos poucos para que nenhum cliente acordasse com um produto de cara nova.",
         "role": "Design Director",
         "technologies": "Figma, Design Tokens, Zeroheight, arquitetura de componentes, tipografia Roboto, sistema de cores semântico, iconografia, plugins de Figma",
         "impact": "Mais de 40 componentes documentados sobre uma única base. Times em paralelo finalmente conseguiam construir do mesmo jeito. Publicado em azion.design.",
@@ -1138,7 +1138,7 @@
         "description": "Uma identidade completa para uma empresa que vende infraestrutura: linguagem visual, voz, ilustração e iconografia, aplicadas em produto, marketing e engenharia.",
         "role": "Design Director, Brand Experience",
         "technologies": "Figma, estratégia de marca, bibliotecas de componentes, identidade visual, voz e tom, sistema de ilustração, iconografia",
-        "impact": "Uma só marca em mais de 100 localidades e mais de 20.000 aplicações hospedadas. A base aguentou rodadas de investimento da Monashees e da Qualcomm Ventures.",
+        "impact": "Uma só marca em mais de 100 localidades e mais de 20.000 aplicações hospedadas. A base se sustentou ao longo das rodadas de investimento da Monashees e da Qualcomm Ventures.",
         "caseStudyUrl": "/llms/projects/azion-brand-system.txt",
         "credits": [
           {
@@ -1800,7 +1800,7 @@
     "command": "vim philosophy.md",
     "heading": "Filosofia",
     "title": "Cair, aprender, evoluir",
-    "body": "Bom design vem do mesmo lugar que bom desempenho no esporte: a disposição de falhar, aprender e tentar de novo.\n\nCaio aprendeu isso num tatame de judô. Como ele escreveu em 2018: \"No judô, as primeiras aulas são todas sobre aprender a cair. Desde o início, fica entendido que você vai cair, perder, errar. Então sofra menos, perca o medo, preserve o corpo e, principalmente, prepare a mente para os obstáculos à frente.\"\n\nO skate ensinou a mesma coisa. Skatistas são as pessoas mais persistentes que ele já conheceu. Caem centenas de vezes aprendendo uma manobra, e fazem isso sem medo, porque cair é o processo, não uma falha dele.\n\nIsso se traduz direto para o trabalho. O melhor trabalho vem de times que não têm medo de testar, errar e mudar. Entregue cedo, coloque na frente das pessoas, siga em frente. Nada de bom chega pronto.\n\nÀ frente de um time, ele tenta criar lugares onde as pessoas possam cair com segurança. Onde iterar é o objetivo, não um retrocesso. Onde \"ainda não sei\" é uma boa resposta, desde que curiosidade e ação venham depois."
+    "body": "Bom design vem do mesmo lugar que bom desempenho no esporte: a disposição de falhar, aprender e ir de novo.\n\nCaio aprendeu isso num tatame de judô. Como ele escreveu em 2018: \"No judô, as primeiras aulas são todas sobre aprender a cair. Desde o início, fica entendido que você vai cair, perder, errar. Então sofra menos, perca o medo, preserve o corpo e, principalmente, prepare a mente para os obstáculos à frente.\"\n\nO skate ensinou a mesma coisa. Skatistas são as pessoas mais persistentes que ele já conheceu. Caem centenas de vezes aprendendo uma manobra, e fazem isso sem medo, porque cair é o processo, não uma falha dele.\n\nIsso se aplica diretamente. O melhor trabalho vem de times que não têm medo de testar, errar e mudar. Entregue cedo, coloque na frente das pessoas, siga em frente. Nada de bom chega pronto.\n\nÀ frente de um time, ele tenta criar lugares onde as pessoas possam cair com segurança. Onde iterar é o ponto, não um retrocesso. Onde \"ainda não sei\" é uma boa resposta, desde que curiosidade e ação venham em seguida."
   },
   "lifestyle": {
     "heading": "Vida fora do design",
@@ -1879,7 +1879,7 @@
   "contact": {
     "command": "send message",
     "heading": "Vamos trabalhar juntos",
-    "description": "Caio pega trabalhos de marca, interface e front-end — sozinho, ou junto de um time que você já tem. A agenda está aberta a partir de outubro de 2026.\n\nSe você tem algo em mente, escreva. Uma frase sobre o projeto já é suficiente para começar.",
+    "description": "Caio aceita projetos de marca, interface e front-end — sozinho ou junto de um time que você já tem. Ele tem agenda a partir de outubro de 2026.\n\nSe você tem algo em mente, escreva. Uma frase sobre o projeto já basta para começar.",
     "email": "caioogata.labs@gmail.com",
     "links": [
       {
