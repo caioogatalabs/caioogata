@@ -15,6 +15,7 @@ Central directory for all V2 planning, design, and execution artifacts.
 - [decisions/](decisions/) — Architecture/design decisions with context (ADR-lite)
 - [content-rewrite-plan.md](content-rewrite-plan.md) — Landing the approved brand copy on the site, field by field
 - [content-ui-copy.md](content-ui-copy.md) — The written copy for every string a reader sees
+- [next-session-brief.md](next-session-brief.md) — Machine-facing text and the Portuguese site: audit, items, open decisions
 
 ## What's Done
 
