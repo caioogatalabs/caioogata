@@ -189,10 +189,6 @@ export interface QuickFact {
   value: string
 }
 
-export interface LookingForItem {
-  text: string
-}
-
 export interface WorkingStyleTrait {
   label: string
   description: string
@@ -273,12 +269,6 @@ export interface Content {
   quickFacts: {
     heading: string
     facts: QuickFact[]
-  }
-  lookingFor: {
-    heading: string
-    description: string
-    idealRole: LookingForItem[]
-    focusAreas: string
   }
   workingStyle?: WorkingStyleSection
   collaborationContext?: CollaborationContextSection

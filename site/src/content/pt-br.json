@@ -1015,10 +1015,6 @@
     "heading": "Fatos Rápidos",
     "facts": [
       {
-        "label": "Nascimento",
-        "value": "Junho de 1984"
-      },
-      {
         "label": "Atual",
         "value": "Porto Alegre, RS, Brasil"
       },
@@ -1043,28 +1039,6 @@
         "value": "Baixista (INFUSE), 3x vice-campeão brasileiro de baseball (categorias de base)"
       }
     ]
-  },
-  "lookingFor": {
-    "heading": "O Que Estou Buscando",
-    "description": "Atualmente explorando oportunidades em liderança de design, desenvolvimento de produto e inovação—particularmente onde IA aumenta workflows criativos. Aberto para remoto, híbrido ou relocação para a função certa.",
-    "idealRole": [
-      {
-        "text": "Liderança de design ou cargo senior IC com trabalho hands-on"
-      },
-      {
-        "text": "Oportunidade de resolver problemas de negócio, mover métricas, buscar resultados"
-      },
-      {
-        "text": "Propósito claro, pessoas inspiradoras, oportunidade de crescimento"
-      },
-      {
-        "text": "Startup, big tech ou agência com cultura forte"
-      },
-      {
-        "text": "Aberto a CLT, PJ ou qualquer tipo de contrato para a oportunidade certa"
-      }
-    ],
-    "focusAreas": "Posições de tomada de decisão em grandes empresas, ou cargos de sócio/fundador em negócios investidos me interessam mais. Áreas de foco: inovação, desenvolvimento de tecnologia, sports tech, wellness, fazer o mundo melhor."
   },
   "contact": {
     "command": "send mensagem",

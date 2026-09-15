@@ -1810,10 +1810,6 @@
     "heading": "Quick Facts",
     "facts": [
       {
-        "label": "Born",
-        "value": "June 1984"
-      },
-      {
         "label": "Current",
         "value": "Porto Alegre, RS, Brazil"
       },
@@ -1838,28 +1834,6 @@
         "value": "Bassist (INFUSE), 3x Brazilian youth baseball vice-champion"
       }
     ]
-  },
-  "lookingFor": {
-    "heading": "What I'm Looking For",
-    "description": "I'm currently exploring opportunities in design leadership, product development, and innovation—particularly where AI augments creative workflows. Open to remote, hybrid, or relocation for the right role.",
-    "idealRole": [
-      {
-        "text": "Design leadership or senior IC role with hands-on work"
-      },
-      {
-        "text": "Opportunity to solve business problems, move metrics, seek results"
-      },
-      {
-        "text": "Clear purpose, inspiring people, growth opportunity"
-      },
-      {
-        "text": "Startup, big tech, or agency with strong culture"
-      },
-      {
-        "text": "Open to CLT, PJ, or any contract type for the right opportunity"
-      }
-    ],
-    "focusAreas": "Decision-making positions at large companies, or partner/founder roles in invested businesses interest me most. Focus areas: innovation, technology development, sports tech, wellness, making the world better."
   },
   "workingStyle": {
     "heading": "Working Style",
