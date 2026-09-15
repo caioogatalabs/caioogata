@@ -19,15 +19,15 @@ interface ProjectRowProps {
 }
 
 /**
- * One project as a grid row: the image spans 8 columns, the metadata column the
- * remaining 4. Inside that column the text is held to 3 columns, so it wraps
- * early instead of running to the page edge — per the design.
+ * One project as a grid row: the image sits on columns 3-8, the metadata on
+ * 9-12. Inside that column the text is held to 3 columns, so it wraps early
+ * instead of running to the page edge — per the design.
  *
  * The card is purely visual; title, index and copy live outside it, unlike
  * `ProjectCard`, which keeps them inside and still backs the /projects index.
  *
- * Square corners, no entrance animation — deliberately bare while other
- * effects are being tried.
+ * Square corners. The two halves enter on separate beats: the image as the row
+ * touches the viewport, the copy once the row reaches the middle of the screen.
  */
 export function ProjectRow({
   title,
@@ -52,7 +52,8 @@ export function ProjectRow({
   return (
     <article>
       <Grid>
-        {/* Image — 7 columns, offset to start at column 2.
+        {/* Image — 6 columns, from column 3 to column 8. Pulled in one column
+            from the left; the right edge stays put.
             The observer goes on the GridItem and the entrance on the <a>
             inside: `-mask-down` hides its own element with `clip-path`, and
             IntersectionObserver measures the target through that clip, so an
@@ -60,8 +61,8 @@ export function ProjectRow({
         <GridItem
           mobileSpan={4}
           tabletSpan={8}
-          span={7}
-          start={2}
+          span={6}
+          start={3}
           ref={imageRef as React.RefObject<HTMLDivElement>}
         >
           <a

@@ -68,8 +68,9 @@ export function AboutPinned() {
     <div ref={ref} className="relative py-24 md:py-32 lg:py-40">
       <div className="w-full px-5 md:px-8 lg:px-8">
         <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 items-center">
-          {/* Image — cols 5-8 desktop. z-10 so the paragraph layers on top. */}
-          <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-4 lg:col-start-5 lg:row-start-1 z-10">
+          {/* Image — the four right-hand columns, 9-12. z-10 so the paragraph
+              layers on top. Being tried here; it sat on 5-8 before. */}
+          <div className="col-span-4 md:col-span-8 md:col-start-1 lg:col-span-4 lg:col-start-9 lg:row-start-1 z-10">
             <div
               className="relative w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
               style={{

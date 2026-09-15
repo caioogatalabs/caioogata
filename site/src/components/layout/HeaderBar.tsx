@@ -42,29 +42,81 @@ function LocalClock() {
 }
 
 /**
- * Publishes the bar's own height to `--header-h` so the home hero can size its
- * frame to "the viewport minus the header".
+ * Publishes two numbers the rest of the page needs.
  *
- * Measured rather than assumed: from `md` up the slots rewrap with width, so
- * the bar is 144px at 1440 but 185px at 800 — no constant covers the range.
- * globals.css keeps constants for the pre-hydration paint; this supersedes
- * them as soon as the bar is in the DOM.
+ * `--header-h` is the bar's own height, so the home hero can size its frame to
+ * "the viewport minus the header". Measured rather than assumed: from `md` up
+ * the slots rewrap with width, so the bar is 144px at 1440 but 185px at 800 —
+ * no constant covers the range. globals.css keeps constants for the
+ * pre-hydration paint; this supersedes them once the bar is in the DOM.
+ *
+ * `--sticky-top` is where pinned content below has to start so the header does
+ * not cover it — the same height while the bar is pinned, and 0 where it is
+ * not. `PageNavigation` reads it. Without that, its `sticky top-0` put it at
+ * exactly the coordinate the header occupies, and the z-50 bar hid the z-40
+ * strip on every route that has one.
  */
-function usePublishHeight() {
+function usePublishMetrics(stickyTop: boolean) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const apply = () =>
-      document.documentElement.style.setProperty('--header-h', `${el.offsetHeight}px`)
+    const apply = () => {
+      const root = document.documentElement.style
+      root.setProperty('--header-h', `${el.offsetHeight}px`)
+      root.setProperty('--sticky-top', stickyTop ? `${el.offsetHeight}px` : '0px')
+    }
     const ro = new ResizeObserver(apply)
     ro.observe(el)
     apply()
     return () => ro.disconnect()
-  }, [])
+  }, [stickyTop])
 
   return ref
+}
+
+/**
+ * True once the project navigation strip has climbed to the top of an open
+ * project page — the moment the header hands it the place.
+ *
+ * The header watches the strip rather than the strip telling the header: the
+ * rule ("the site bar yields here") belongs to the bar, and this keeps
+ * PageNavigation a plain strip that five routes share without knowing why.
+ */
+function useYieldToProjectNav(active: boolean) {
+  const [yielded, setYielded] = useState(false)
+
+  useEffect(() => {
+    if (!active) {
+      setYielded(false)
+      return
+    }
+
+    let ticking = false
+    const check = () => {
+      ticking = false
+      const nav = document.querySelector('nav[aria-label="Page navigation"]')
+      if (nav) setYielded(nav.getBoundingClientRect().top <= 1)
+    }
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(check)
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
+    check()
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [active])
+
+  return yielded
 }
 
 /**
@@ -88,13 +140,23 @@ function usePublishHeight() {
  */
 export function HeaderBar() {
   const pathname = usePathname()
-  const ref = usePublishHeight()
+
+  // `/projects` itself is an index, not a project, so only a slug counts.
+  const isOpenProject = /^\/projects\/[^/]+$/.test(pathname)
+
+  // On an open project the bar holds the top until the project navigation
+  // reaches it, then steps aside and lets that strip have the place. Elsewhere
+  // the strip pins below the bar instead, which is what `--sticky-top` carries.
+  const ref = usePublishMetrics(!isOpenProject)
+  const yielded = useYieldToProjectNav(isOpenProject)
 
   return (
     <Grid
       ref={ref}
       role="banner"
-      className="pointer-events-none sticky top-0 z-50 pt-8 md:pt-10 lg:pt-12 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary"
+      className={`pointer-events-none sticky top-0 z-50 pt-8 md:pt-10 lg:pt-12 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary transition-[transform,opacity] duration-300 ${
+        yielded ? '-translate-y-full opacity-0' : ''
+      }`}
     >
       {/* ── Mobile form — two lines and a button ──
            Six slots on a 4-column grid stacked into four rows and 262px of
