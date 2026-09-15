@@ -554,11 +554,6 @@
         "slug": "azion-website",
         "cover": "/projects/azion-website/cover.webp",
         "year": "2022",
-        "colors": [
-          "#F3652B",
-          "#8B2500",
-          "#FF8A5C"
-        ],
         "description": "Uma expansão da marca, não uma reconstrução. O site precisava de mais repertório — layouts mais ricos, cor mais forte, um jeito de mostrar o que o produto de fato faz — sem jogar fora o front-end que já rodava em produção.",
         "role": "Design Director",
         "technologies": "Astro, Vue.js, biblioteca de componentes Webkit, Design Tokens, tipografia Sora, Monospace, adaptação de marca, sistema de ilustração",
@@ -673,7 +668,7 @@
                 ],
                 "colStart": 9,
                 "images": [
-                  "/projects/azion-website/home-reliable-zoom.webp"
+                  "/projects/azion-website/home-reliable.webp"
                 ]
               },
               {
@@ -729,15 +724,17 @@
               {
                 "name": "Navegação de produtos",
                 "image": {
-                  "src": "/projects/azion-website/home-products-menu-zoom.webp",
-                  "title": "Product Navigation Menu"
+                  "src": "/projects/azion-website/home-products-menu.mp4",
+                  "title": "Product Navigation Menu",
+                  "type": "video",
+                  "poster": "/projects/azion-website/home-products-menu.webp"
                 },
                 "description": "Mega-menu que revela as categorias de produto com interação no hover."
               },
               {
                 "name": "Ferramentas para desenvolvedores",
                 "image": {
-                  "src": "/projects/azion-website/devtools-zoom.webp",
+                  "src": "/projects/azion-website/devtools.webp",
                   "title": "Documentation — DevTools"
                 },
                 "description": "Documentação e recursos de ferramentas para desenvolvedores."
@@ -745,7 +742,7 @@
               {
                 "name": "Biblioteca de componentes",
                 "image": {
-                  "src": "/projects/azion-website/webkit-components.webp",
+                  "src": "/projects/azion-website/webkit-colors-storybook.webp",
                   "title": "Webkit Component Library"
                 },
                 "description": "Biblioteca de componentes webkit, open source, que alimenta o site e o console."
@@ -773,11 +770,11 @@
             "title": "The Web Platform — Homepage EN"
           },
           {
-            "src": "/projects/azion-website/home-reliable-zoom.webp",
+            "src": "/projects/azion-website/home-reliable.webp",
             "title": "Most Reliable Infrastructure — Section Detail"
           },
           {
-            "src": "/projects/azion-website/home-products-menu-zoom.webp",
+            "src": "/projects/azion-website/home-products-menu.webp",
             "title": "Product Navigation — Menu Open"
           },
           {
@@ -813,11 +810,11 @@
             "title": "Marketplace — Hero"
           },
           {
-            "src": "/projects/azion-website/devtools-zoom.webp",
+            "src": "/projects/azion-website/devtools.webp",
             "title": "Documentation — DevTools"
           },
           {
-            "src": "/projects/azion-website/webkit-components.webp",
+            "src": "/projects/azion-website/webkit-colors-storybook.webp",
             "title": "Webkit Component Library — Storybook (Open Source)"
           },
           {
