@@ -8,8 +8,11 @@ const LERP_FACTOR = 0.2
 const HINT_OFFSET = { x: 14, y: 18 }
 const COPIED_MS = 2000
 
-/** The public address. The header availability and the footer contact both copy it. */
-export const CONTACT_EMAIL = 'contato@caioogata.com'
+/**
+ * The public address. The header availability and the footer contact both copy
+ * it. Gmail for now, until contato@caioogata.com is set up.
+ */
+export const CONTACT_EMAIL = 'caioogata.labs@gmail.com'
 
 /** Clipboard fallback for browsers without the async Clipboard API. */
 function copyWithSelection(text: string) {
