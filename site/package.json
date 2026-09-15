@@ -9,7 +9,7 @@
     "postbuild": "node scripts/patch-webpack-runtime.js",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "git config core.hooksPath .githooks || true"
+    "prepare": "git config core.hooksPath site/.githooks || true"
   },
   "dependencies": {
     "@fontsource/cascadia-mono": "^5.2.3",
