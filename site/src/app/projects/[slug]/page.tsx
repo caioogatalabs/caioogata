@@ -21,7 +21,10 @@ export async function generateMetadata({
   const project = typedContent.projects.items.find((p) => p.slug === slug)
   if (!project) return {}
 
-  const firstImage = project.images.find((img) => img.src)
+  // A local video can't be an OG image; its poster can.
+  const firstImage = project.images
+    .map((img) => (img.type === 'video' ? { ...img, src: img.poster ?? '' } : img))
+    .find((img) => img.src)
   return {
     title: `${project.title} - Caio Ogata`,
     description: project.description.slice(0, 160),

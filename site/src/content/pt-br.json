@@ -552,7 +552,7 @@
       {
         "title": "Azion Website & Expansão de Marca",
         "slug": "azion-website",
-        "cover": "/projects/azion-website/cover.webp",
+        "cover": "/projects/azion-website/hero-loop.mp4",
         "year": "2022",
         "description": "Uma expansão da marca, não uma reconstrução. O site precisava de mais repertório — layouts mais ricos, cor mais forte, um jeito de mostrar o que o produto de fato faz — sem jogar fora o front-end que já rodava em produção.",
         "role": "Design Director",
@@ -772,8 +772,10 @@
         "gridLayout": "large-only",
         "images": [
           {
-            "src": "/projects/azion-website/home-en-hero.webp",
-            "title": "The Web Platform — Homepage EN"
+            "src": "/projects/azion-website/hero-loop.mp4",
+            "title": "Brand Evolution — Tagline, Colour and Type",
+            "type": "video",
+            "poster": "/projects/azion-website/hero-loop.webp"
           },
           {
             "src": "/projects/azion-website/home-reliable.webp",

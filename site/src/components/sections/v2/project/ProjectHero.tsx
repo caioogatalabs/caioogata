@@ -32,8 +32,37 @@ function ClientNoiseGradient(props: NoiseGradientCanvasProps) {
   return <Component {...props} />
 }
 
-/** Renders the appropriate media element for the hero: image, video embed, or figma embed */
+/** Renders the appropriate media element for the hero: image, local video, video embed, or figma embed */
 function HeroMedia({ media }: { media: ProjectImage }) {
+  const [reduced, setReduced] = useState(false)
+
+  useEffect(() => {
+    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
+
+  // A local muted loop, as in the feature list; the poster stands in under reduced motion.
+  if (media.type === 'video' && !media.platform && media.src) {
+    return (
+      <div className="overflow-hidden">
+        {reduced && media.poster ? (
+          <img src={media.poster} alt={media.title} loading="eager" className="w-full h-auto block" />
+        ) : (
+          <video
+            src={media.src}
+            poster={media.poster}
+            aria-label={media.title}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="w-full h-auto block"
+          />
+        )}
+      </div>
+    )
+  }
+
   if (media.type === 'video' && media.videoId && media.platform) {
     return (
       <div className="overflow-hidden">

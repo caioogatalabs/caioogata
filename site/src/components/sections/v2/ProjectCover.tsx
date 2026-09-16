@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 /**
@@ -28,19 +31,44 @@ import Image from 'next/image'
  *
  * With no image the panel stands on its own, which is the whole point of having
  * a panel rather than a bare box.
+ *
+ * A `.mp4`/`.webm` cover plays as a muted loop. Its still is the same path as
+ * `.webp`, shown before playback and instead of it under reduced motion.
  */
 export function ProjectCover({ src, alt = '' }: { src?: string; alt?: string }) {
+  const isVideo = !!src && /\.(mp4|webm)$/.test(src)
+  const poster = isVideo ? src.replace(/\.(mp4|webm)$/, '.webp') : undefined
+  const [reduced, setReduced] = useState(false)
+
+  useEffect(() => {
+    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
+
   return (
     <div className="relative flex aspect-square w-full items-center md:aspect-[3/2] justify-center overflow-hidden bg-bg-surface-primary">
       {src && (
         <div className="relative aspect-[16/10] w-[86%] overflow-hidden rounded-[3px] bg-bg-surface-secondary">
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            sizes="(min-width: 1024px) 50vw, 90vw"
-            className="object-cover"
-          />
+          {isVideo && !reduced ? (
+            <video
+              src={src}
+              poster={poster}
+              aria-label={alt || undefined}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : (
+            <Image
+              src={isVideo ? poster! : src}
+              alt={alt}
+              fill
+              sizes="(min-width: 1024px) 50vw, 90vw"
+              className="object-cover"
+            />
+          )}
         </div>
       )}
     </div>
