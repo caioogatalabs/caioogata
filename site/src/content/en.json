@@ -646,7 +646,7 @@
                   12
                 ],
                 "images": [
-                  "/projects/azion-website/cache-hero.webp"
+                  "/projects/azion-website/web-apps-use-cases-1.webp"
                 ]
               },
               {
@@ -654,7 +654,15 @@
                   12
                 ],
                 "images": [
-                  "/projects/azion-website/professional-services-hero.webp"
+                  "/projects/azion-website/web-apps-compatible-stack.webp"
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-website/home-reliable.webp"
                 ]
               }
             ]
@@ -666,16 +674,6 @@
                 "spans": [
                   4
                 ],
-                "colStart": 9,
-                "images": [
-                  "/projects/azion-website/home-reliable.webp"
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "colStart": 1,
                 "images": [
                   "/projects/azion-website/card-image-optimization.webp"
                 ]
@@ -684,7 +682,6 @@
                 "spans": [
                   4
                 ],
-                "colStart": 5,
                 "images": [
                   "/projects/azion-website/card-bot-traffic.webp"
                 ]
@@ -693,7 +690,6 @@
                 "spans": [
                   4
                 ],
-                "colStart": 9,
                 "images": [
                   "/projects/azion-website/card-connector-type.webp"
                 ]
@@ -702,7 +698,6 @@
                 "spans": [
                   4
                 ],
-                "colStart": 5,
                 "images": [
                   "/projects/azion-website/card-application-accelerator.webp"
                 ]
@@ -711,9 +706,16 @@
                 "spans": [
                   4
                 ],
-                "colStart": 9,
                 "images": [
                   "/projects/azion-website/functions-hero-zoom.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  "/projects/azion-website/webkit-codeblock.webp"
                 ]
               }
             ]

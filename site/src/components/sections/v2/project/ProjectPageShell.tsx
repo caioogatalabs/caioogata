@@ -24,14 +24,11 @@ function SectionBlock({
   index,
   project,
   projectIndex,
-  impact,
 }: {
   section: ProjectSection
   index: number
   project: ProjectItem
   projectIndex: number
-  /** Set only when the project pairs an impact section with a challenge one. */
-  impact?: ProjectSection
 }) {
   switch (section.type) {
     case 'hero':
@@ -50,13 +47,10 @@ function SectionBlock({
           section={section}
           project={project}
           projectIndex={projectIndex}
-          impact={impact}
         />
       )
     case 'impact':
-      // Rendered inside the challenge row when there is one; on its own only
-      // for a project without a challenge section.
-      return impact ? null : <ProjectImpact key={index} section={section} />
+      return <ProjectImpact key={index} section={section} />
     case 'gallery-staggered':
       return <ProjectGalleryStaggered key={index} section={section} />
     case 'gallery-feature-list':
@@ -89,8 +83,6 @@ export function ProjectPageShell({ project: projectFromRoute }: ProjectPageShell
 
   // The stats travel with the challenge row, so the two have to be paired
   // before either is rendered.
-  const impactSection = sections.find(s => s.type === 'impact')
-  const pairedImpact = sections.some(s => s.type === 'challenge') ? impactSection : undefined
 
   const heroSection = sections.find(s => s.type === 'hero')
   const heroIndex = sections.findIndex(s => s.type === 'hero')
@@ -127,7 +119,6 @@ export function ProjectPageShell({ project: projectFromRoute }: ProjectPageShell
           index={i}
           project={project}
           projectIndex={projectIndex}
-          impact={pairedImpact}
         />
       ))}
     </div>

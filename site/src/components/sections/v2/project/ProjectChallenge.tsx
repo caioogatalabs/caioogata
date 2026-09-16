@@ -10,11 +10,9 @@ interface ProjectChallengeProps {
   section: ProjectSection
   project: ProjectItem
   projectIndex: number
-  /** The project's impact stats, shown on the right half of this same row. */
-  impact?: ProjectSection
 }
 
-export function ProjectChallenge({ section, project, projectIndex, impact }: ProjectChallengeProps) {
+export function ProjectChallenge({ section, project, projectIndex }: ProjectChallengeProps) {
   const sectionRef = useInView()
   const t = useLanguage().content.ui.project
 
@@ -31,11 +29,11 @@ export function ProjectChallenge({ section, project, projectIndex, impact }: Pro
           </span>
         </GridItem>
 
-        {/* 3-3-3-3 on desktop: challenge on cols 1-3, solution on 4-6, and the
-            impact stats fill 7-9 and 10-12. Tablet keeps 4 + 4 of its 8
-            columns and the stats wrap underneath. */}
+        {/* 4-4-4 on desktop with the first four columns left empty: challenge
+            on 5-8, solution on 9-12. The impact stats are their own row below,
+            on the same grid. Tablet keeps 4 + 4 of its eight columns. */}
         {section.challenge && (
-          <GridItem span={3} tabletSpan={4} mobileSpan={4}>
+          <GridItem span={4} start={5} tabletSpan={4} mobileSpan={4}>
             <div className="-entrance -fade -a-1 flex flex-col gap-5">
               <h2
                 className="type-display text-text-primary"
@@ -53,7 +51,7 @@ export function ProjectChallenge({ section, project, projectIndex, impact }: Pro
         )}
 
         {section.solution && (
-          <GridItem span={3} tabletSpan={4} mobileSpan={4}>
+          <GridItem span={4} start={9} tabletSpan={4} mobileSpan={4}>
             <div className="-entrance -fade -a-2 flex flex-col gap-5">
               <h2
                 className="type-display text-text-primary"
@@ -70,32 +68,6 @@ export function ProjectChallenge({ section, project, projectIndex, impact }: Pro
           </GridItem>
         )}
 
-        {/* Impact — one column on 7-9, the stats stacked in it, so however many
-            there are they read as a single list beside the two text columns. */}
-        {impact?.stats && impact.stats.length > 0 && (
-          <GridItem
-            span={3}
-            start={7}
-            tabletSpan={4}
-            mobileSpan={4}
-            className="flex flex-col gap-8 mt-12 lg:mt-0"
-          >
-            <span className={`block ${LABEL_TYPE} -entrance -fade -a-1`}>
-              <span className="opacity-50">{t.results}</span>
-            </span>
-            {impact.stats.map((stat, i) => (
-              <div key={i} className={`-entrance -slide-up -a-${i + 2} flex flex-col gap-2`}>
-                <p className="type-display-lg text-text-primary">{stat.value}</p>
-                <p
-                  className="text-[14px] font-medium leading-[1.5] uppercase tracking-[1.12px] text-text-tertiary max-w-[224px]"
-                  style={{ fontFamily: 'var(--font-sans)' }}
-                >
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </GridItem>
-        )}
       </Grid>
     </section>
   )

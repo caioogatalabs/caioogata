@@ -2,7 +2,7 @@
 
 import { useInView } from '@/hooks/useInView'
 import { Grid, GridItem } from '@/components/layout/Grid'
-import { LABEL_TYPE } from '@/components/ui/label'
+import { LABEL_TYPE, LABEL_LG } from '@/components/ui/label'
 
 interface HeroProps {
   kicker: string
@@ -40,8 +40,7 @@ export function Hero({ kicker, technologies, headline }: HeroProps) {
           <>
             <GridItem span={3} tabletSpan={8} mobileSpan={4}>
               <p
-                className="text-[14px] font-medium leading-[1.5] uppercase tracking-[1.12px] text-text-tertiary -entrance -fade -a-1"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                className={`${LABEL_LG} -entrance -fade -a-1`}
               >
                 {technologies}
               </p>

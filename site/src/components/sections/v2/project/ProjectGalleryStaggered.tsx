@@ -146,19 +146,31 @@ export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProp
                 // a run like 9, 5, 9 would land on the same side twice. Row
                 // parity keeps the zigzag regardless of the authored zones. A
                 // row with more than one image is already a 4-4 pair.
-                const tabletStart =
-                  row.images.length === 1 && span !== 12
-                    ? rowIdx % 2 === 0
-                      ? TABLET_START_LEFT
-                      : TABLET_START_RIGHT
+                const alone = row.images.length === 1 && span !== 12
+                const tabletStart = alone
+                  ? rowIdx % 2 === 0
+                    ? TABLET_START_LEFT
+                    : TABLET_START_RIGHT
+                  : ''
+                // Desktop keeps the first four columns empty: a lone image is
+                // four columns wide and alternates between the second zone
+                // (5-8) and the third (9-12) down the gallery. Row parity, not
+                // the authored `colStart`, drives it — the zones are fixed now,
+                // and a run like 9, 5, 9 would land on the same side twice. A
+                // row with more than one image declares its own spans.
+                const desktopStart = alone
+                  ? rowIdx % 2 === 0
+                    ? 'lg:col-start-5'
+                    : 'lg:col-start-9'
+                  : imgIdx === 0 && row.colStart
+                    ? COL_START[row.colStart] || ''
                     : ''
                 const spanClasses = [
                   MOBILE_SPAN[span] || 'col-span-4',
                   TABLET_SPAN[span] || 'md:col-span-4',
                   tabletStart,
-                  DESKTOP_SPAN[span] || 'lg:col-span-12',
-                  // Apply column start offset if set on row (first image only)
-                  imgIdx === 0 && row.colStart ? (COL_START[row.colStart] || '') : '',
+                  alone ? 'lg:col-span-4' : DESKTOP_SPAN[span] || 'lg:col-span-12',
+                  desktopStart,
                 ].filter(Boolean).join(' ')
 
                 return (

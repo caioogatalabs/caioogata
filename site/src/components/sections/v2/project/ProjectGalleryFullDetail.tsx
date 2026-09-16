@@ -4,6 +4,7 @@ import type { ProjectSection } from '@/content/types'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useInView } from '@/hooks/useInView'
+import { LABEL, LABEL_TYPE } from '@/components/ui/label'
 
 interface ProjectGalleryFullDetailProps {
   section: ProjectSection
@@ -32,35 +33,19 @@ export function ProjectGalleryFullDetail({ section }: ProjectGalleryFullDetailPr
 
   if (!section.image) return null
 
-  const layout = section.layout || '4-8'
-  const textSpan = layout === '4-8' ? 4 : 4
-  const imageSpan = layout === '4-8' ? 8 : 8
-
   const textBlock = (
-    <GridItem
-      span={textSpan}
-      tabletSpan={8}
-      mobileSpan={4}
-      className="flex flex-col justify-center"
-    >
+    <GridItem span={2} start={11} tabletSpan={8} mobileSpan={4} className="flex flex-col gap-3">
       {section.heading && (
-        <h3
-          className="text-[1.875rem] font-bold text-text-primary leading-[1.2] mb-4 -entrance -slide-up"
-          style={{ fontFamily: 'var(--font-sans)' }}
-        >
-          {section.heading}
-        </h3>
+        <h3 className={`${LABEL} -entrance -slide-up`}>{section.heading}</h3>
       )}
       {section.description && (
-        <p className="text-base text-text-secondary leading-[1.5] -entrance -slide-up -a-1">
-          {section.description}
-        </p>
+        <p className={`${LABEL_TYPE} -entrance -slide-up -a-1`}>{section.description}</p>
       )}
     </GridItem>
   )
 
   const imageBlock = (
-    <GridItem span={imageSpan} tabletSpan={8} mobileSpan={4}>
+    <GridItem span={6} start={5} tabletSpan={8} mobileSpan={4}>
       <RevealImage
         src={section.image.src}
         alt={section.image.title}
@@ -71,17 +56,8 @@ export function ProjectGalleryFullDetail({ section }: ProjectGalleryFullDetailPr
   return (
     <section ref={inViewRef} className="py-24 -entrance -slide-up">
       <Grid>
-        {layout === '4-8' ? (
-          <>
-            {textBlock}
-            {imageBlock}
-          </>
-        ) : (
-          <>
-            {imageBlock}
-            {textBlock}
-          </>
-        )}
+        {imageBlock}
+        {textBlock}
       </Grid>
     </section>
   )

@@ -127,12 +127,11 @@ function SkillsRow({
           type="word"
           as="span"
           text={category.title}
-          className={`text-sm font-medium uppercase tracking-[1.12px] transition-colors duration-300 ${
+          className={`font-mono text-[14px] font-semibold leading-[1.4] tracking-[-0.04em] transition-colors duration-300 ${
             isOpen
               ? 'text-text-primary'
               : 'text-text-tertiary group-hover:text-text-primary'
           }`}
-          style={{ fontFamily: 'var(--font-sans)' }}
           durationMs={700}
           baseDelayMs={baseDelay + 50}
           inView={inView}

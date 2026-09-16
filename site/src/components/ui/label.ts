@@ -1,13 +1,18 @@
 /**
- * The site's mono label, as the home header sets it: JetBrains Mono 12px,
- * semibold, 1.2 line height, 1.2px tracking, secondary text at half strength.
- * Kickers, data stamps, metadata and the footer rows all use it.
+ * The site's label type: JetBrains Mono, -4% tracking, 1.4 line height,
+ * secondary text at half strength. Two sizes and no others — 12px for kickers,
+ * data stamps, metadata and footer rows, 14px where a label carries a block of
+ * its own (hero technologies, stat captions, skill categories). Never
+ * uppercase: the Figma sets these in sentence case.
  *
- * `LABEL_TYPE` is the same style without the opacity, for elements that
- * animate their own opacity (`-entrance -fade`, motion) — there the 50% goes
- * on an inner span, or the animation's end value would override it.
+ * `LABEL_TYPE` / `LABEL_TYPE_LG` are the same styles without the opacity, for
+ * elements that animate their own (`-entrance -fade`, motion) — there the 50%
+ * goes on an inner span, or the animation's end value would override it.
  */
-export const LABEL_TYPE =
-  'font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary'
+const LABEL_BASE = 'font-mono font-semibold leading-[1.4] tracking-[-0.04em] text-text-secondary'
 
+export const LABEL_TYPE = `${LABEL_BASE} text-[12px]`
 export const LABEL = `${LABEL_TYPE} opacity-50`
+
+export const LABEL_TYPE_LG = `${LABEL_BASE} text-[14px]`
+export const LABEL_LG = `${LABEL_TYPE_LG} opacity-50`
