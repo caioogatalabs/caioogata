@@ -690,15 +690,7 @@
                   4
                 ],
                 "images": [
-                  "/projects/azion-website/functions-hero-zoom.webp"
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "images": [
-                  "/projects/azion-website/webkit-codeblock.webp"
+                  "/projects/azion-website/case-studies-grid.webp"
                 ]
               }
             ]
@@ -752,16 +744,6 @@
                   "title": "Webkit Component Library"
                 },
                 "description": "Open-source webkit component library powering both website and console."
-              },
-              {
-                "name": "Brand Concept",
-                "image": {
-                  "src": "",
-                  "title": "Brand Concept 2025/26 — Figma",
-                  "type": "figma",
-                  "figmaEmbedUrl": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
-                },
-                "description": "Visual identity evolution — color, illustration, and typography explorations for the 2025/26 brand cycle."
               }
             ]
           },
@@ -824,12 +806,6 @@
           {
             "src": "/projects/azion-website/webkit-colors-storybook.webp",
             "title": "Webkit Component Library — Storybook (Open Source)"
-          },
-          {
-            "src": "",
-            "title": "Brand Concept 2025 — Figma",
-            "type": "figma",
-            "figmaEmbedUrl": "https://embed.figma.com/design/uO1JyKrPKC6Wnt2T9xtIPw/Brand-Concept--2025-26--Preview?node-id=4145-4536&embed-host=share"
           }
         ]
       },
