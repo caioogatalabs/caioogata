@@ -71,14 +71,11 @@ export function ClientsBlock() {
             <SplitText
               type="line"
               text={shortDescription}
-              className="text-text-secondary"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '2.25rem',
-                lineHeight: 1.25,
-                letterSpacing: '-0.36px',
-                fontWeight: 700,
-              }}
+              // The statement is a title, so it takes the display class and its
+              // steps per breakpoint. It used to be 36px bold at every width,
+              // written inline, which on a phone read larger than the page's
+              // own title.
+              className="type-display text-text-secondary"
               staggerMs={100}
               durationMs={1000}
               baseDelayMs={150}
