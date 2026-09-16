@@ -40,8 +40,11 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
               >
                 {section.heading || t.challenge}
               </h2>
+              {/* Three of the block's four columns: for a 4-col item of width
+                  4c + 3g, three columns are 3c + 2g = 75% - g/4, and the
+                  desktop gap is 20px. */}
               <p
-                className="text-[14px] leading-[1.6] md:text-[18px] text-text-tertiary"
+                className="text-[14px] leading-[1.6] md:text-[18px] lg:max-w-[calc(75%-5px)] text-text-tertiary"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {section.challenge}
@@ -58,8 +61,11 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
               >
                 {section.solutionHeading || t.solution}
               </h2>
+              {/* Three of the block's four columns: for a 4-col item of width
+                  4c + 3g, three columns are 3c + 2g = 75% - g/4, and the
+                  desktop gap is 20px. */}
               <p
-                className="text-[14px] leading-[1.6] md:text-[18px] text-text-tertiary"
+                className="text-[14px] leading-[1.6] md:text-[18px] lg:max-w-[calc(75%-5px)] text-text-tertiary"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {section.solution}
