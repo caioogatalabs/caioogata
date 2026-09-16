@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import type { ProjectSection } from '@/content/types'
 import { useScrollStick } from '@/hooks/useScrollStick'
 
@@ -19,35 +18,12 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
   }).filter(Boolean)
 
   const { containerRef, slides } = useScrollStick(slidesSrc.length || 1)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    // Up to `lg`, not just phones: a slide pinned to a tall upright tablet
-    // holds the viewport for a full screen-height per image and reads as the
-    // page having stopped scrolling.
-    const mql = window.matchMedia('(max-width: 1023px)')
-    setIsMobile(mql.matches)
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
-    mql.addEventListener('change', handler)
-    return () => mql.removeEventListener('change', handler)
-  }, [])
 
   if (slidesSrc.length === 0) return null
 
-  // Mobile fallback: vertical image stack (no sticky)
-  if (isMobile) {
-    return (
-      <section className="py-8">
-        <div className="flex flex-col gap-4">
-          {slidesSrc.map((src, i) => (
-            <img key={i} src={src} alt="" loading="lazy" className="w-full block" />
-          ))}
-        </div>
-      </section>
-    )
-  }
-
-  // Desktop/tablet: sticky slide-stack gallery
+  // One behaviour at every width: the slides pin and stack. There used to be a
+  // plain vertical list below a breakpoint, which turned the gallery into an
+  // ordinary column of images on the screens most people read the site on.
   return (
     <section>
       <div
@@ -55,7 +31,10 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
         className="relative"
         style={{ height: `${slidesSrc.length * 100}vh` }}
       >
-        <div className="sticky top-0 h-screen flex items-center justify-center">
+        {/* The gutter is the page's own — px-5 / px-8, the same values the
+            Grid uses — so a pinned slide lines up with every other block
+            instead of bleeding to the screen edge. */}
+        <div className="sticky top-0 h-screen flex items-center justify-center px-5 md:px-8 lg:px-8">
           <div className="relative w-full h-[min(800px,80vh)] overflow-hidden">
             {/* Static bg sheet — catches any gap behind released slides */}
             <div className="absolute inset-0 bg-bg" aria-hidden />

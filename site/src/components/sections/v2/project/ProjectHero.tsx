@@ -110,7 +110,13 @@ export function ProjectHero({ project, section, index }: ProjectHeroProps) {
           {/* Media — 75% centered, above gradient */}
           <Grid className="relative z-10">
             <GridItem span={12} tabletSpan={8} mobileSpan={4} className="-entrance -scale-in -a-2">
-              <div className="mx-auto w-[75%] py-[12%]">
+              {/* Full width on a phone — the four columns the grid already
+                  gives this item, with the page gutter as its only margin.
+                  At 75% the image came out around 250px wide and read as a
+                  thumbnail. From `md` up the inset returns, where there is
+                  width to spare and the gradient needs room around the
+                  image. */}
+              <div className="mx-auto w-full py-[12%] md:w-[75%]">
                 <HeroMedia media={heroImage} />
               </div>
             </GridItem>
