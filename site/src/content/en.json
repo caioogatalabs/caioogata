@@ -722,7 +722,7 @@
           },
           {
             "type": "statement",
-            "body": "Below, the pieces that hold the site together — the navigation, the documentation, the component library, and the brand concept behind them."
+            "body": "Twenty pages changed how they look while the front-end underneath never stopped shipping. The identity gained range instead of being replaced."
           },
           {
             "type": "gallery-feature-list",
@@ -960,7 +960,7 @@
           },
           {
             "type": "statement",
-            "body": "Below, how the kit is put together — the blocks a screen is assembled from, and the console they build."
+            "body": "Screens are no longer hand-built. They are assembled from blocks, a new one in about a day, by thirty-four people working in the same codebase."
           },
           {
             "type": "gallery-feature-list",
@@ -1097,7 +1097,7 @@
           },
           {
             "type": "statement",
-            "body": "Below, the foundations the system stands on — the tokens, and the components handed to the engineers who ship them."
+            "body": "No customer ever woke up to a different-looking product. The system arrived one component at a time, and the console was later rebuilt on top of it."
           },
           {
             "type": "gallery-feature-list",
@@ -1301,7 +1301,7 @@
           },
           {
             "type": "statement",
-            "body": "Below, how the brand speaks in practice — the illustration that explains the product, and the documentation that carries it."
+            "body": "An identity for the thing nobody sees: infrastructure. It had to make a hundred edge locations and twenty thousand hosted applications read as one company."
           },
           {
             "type": "gallery-stick",
@@ -1675,7 +1675,7 @@
           },
           {
             "type": "statement",
-            "body": "Below, the work the studio was built for — interactive campaigns, and projects where craft and technology arrive together."
+            "body": "WebGL and facial recognition in the browser, years before either was ordinary. Eight years took the studio from a nucleus inside an agency to forty people of its own."
           },
           {
             "type": "gallery-feature-list",
