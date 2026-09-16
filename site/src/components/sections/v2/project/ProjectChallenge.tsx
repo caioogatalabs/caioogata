@@ -19,7 +19,7 @@ export function ProjectChallenge({ section, project, projectIndex }: ProjectChal
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
-      className="py-16"
+      className="py-8"
     >
       <Grid>
         {/* Data stamp */}

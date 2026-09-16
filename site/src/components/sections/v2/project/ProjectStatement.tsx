@@ -17,7 +17,7 @@ export function ProjectStatement({ section }: ProjectStatementProps) {
   if (!section.body) return null
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-8">
       <Grid>
         <GridItem span={8} start={5} tabletSpan={8} mobileSpan={4}>
           <SplitText

@@ -37,7 +37,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
   // Mobile fallback: vertical image stack (no sticky)
   if (isMobile) {
     return (
-      <section className="py-24">
+      <section className="py-8">
         <div className="flex flex-col gap-4">
           {slidesSrc.map((src, i) => (
             <img key={i} src={src} alt="" loading="lazy" className="w-full block" />

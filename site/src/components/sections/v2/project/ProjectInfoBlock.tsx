@@ -37,7 +37,7 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
-      className="py-16 border-t border-border-primary"
+      className="py-8 border-t border-border-primary"
     >
       <Grid>
         {/* Col 1: Project + Role + Year */}

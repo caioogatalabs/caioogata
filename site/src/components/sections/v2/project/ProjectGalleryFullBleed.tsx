@@ -29,7 +29,7 @@ export function ProjectGalleryFullBleed({ section }: ProjectGalleryFullBleedProp
   if (!section.bgImage || !section.fgImage) return null
 
   return (
-    <section className="relative py-24">
+    <section className="relative py-8">
       {/* Background: 100vw bleed, breaks padded parent */}
       <div
         className="relative w-screen"

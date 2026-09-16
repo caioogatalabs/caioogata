@@ -54,7 +54,7 @@ export function ProjectGalleryFullDetail({ section }: ProjectGalleryFullDetailPr
   )
 
   return (
-    <section ref={inViewRef} className="py-24 -entrance -slide-up">
+    <section ref={inViewRef} className="py-8 -entrance -slide-up">
       <Grid>
         {imageBlock}
         {textBlock}

@@ -128,7 +128,7 @@ export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProp
   if (rows.length === 0) return null
 
   return (
-    <section className="py-24 px-5 md:px-8 lg:px-8">
+    <section className="py-8 px-5 md:px-8 lg:px-8">
       <div className="flex flex-col gap-y-[8px]">
         {rows.map((row, rowIdx) => {
           // Defensive: warn if spans and images count mismatch
@@ -153,15 +153,17 @@ export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProp
                     : TABLET_START_RIGHT
                   : ''
                 // Desktop keeps the first four columns empty: a lone image is
-                // four columns wide and alternates between the second zone
-                // (5-8) and the third (9-12) down the gallery. Row parity, not
-                // the authored `colStart`, drives it — the zones are fixed now,
-                // and a run like 9, 5, 9 would land on the same side twice. A
-                // row with more than one image declares its own spans.
+                // four columns wide and sits in the second zone (5-8), with
+                // every third one stepping out to the third (9-12) to break the
+                // stack. The last image always comes back to the middle, so the
+                // gallery closes on the same columns the numbers below use. Row
+                // position, not the authored `colStart`, drives this — a row
+                // with more than one image declares its own spans.
+                const steppedOut = rowIdx % 3 === 2 && rowIdx !== rows.length - 1
                 const desktopStart = alone
-                  ? rowIdx % 2 === 0
-                    ? 'lg:col-start-5'
-                    : 'lg:col-start-9'
+                  ? steppedOut
+                    ? 'lg:col-start-9'
+                    : 'lg:col-start-5'
                   : imgIdx === 0 && row.colStart
                     ? COL_START[row.colStart] || ''
                     : ''

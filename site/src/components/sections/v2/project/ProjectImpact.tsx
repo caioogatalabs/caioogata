@@ -16,9 +16,9 @@ interface ProjectImpactProps {
  * empty, and the next four split 2-2 into two stacked blocks. The left block
  * fills first, so three stats read two and one — the same shape as the Figma.
  * Each stat is a rule with the number under it and its caption alongside,
- * aligned to the same top. The rule is the site's `AnimatedDivider` and the
- * spacing is the one the Education and Skills rows use — py-6, py-8 from `md`
- * up — so the numbers keep the page's rhythm instead of the Figma's own.
+ * aligned to the same top. The rule is the site's `AnimatedDivider`, drawn on
+ * the same 4px step the rest of the page uses: 16px above the number and 24px
+ * below it, 24 and 32 from `md` up.
  */
 function splitIntoColumns<T>(stats: T[]): [T[], T[]] {
   const left = Math.ceil(stats.length / 2)
@@ -27,7 +27,7 @@ function splitIntoColumns<T>(stats: T[]): [T[], T[]] {
 
 function StatBlock({ value, label }: { value: string; label: string }) {
   return (
-    <div className="relative flex items-start gap-3 py-6 md:py-8">
+    <div className="relative flex items-start gap-3 pt-4 pb-6 md:pt-6 md:pb-8">
       <AnimatedDivider />
       <p className="type-display-lg shrink-0 whitespace-nowrap text-text-primary">{value}</p>
       <p className={`${LABEL_LG} flex-1`}>{label}</p>
@@ -47,11 +47,14 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
-      className="py-16"
+      className="py-8"
     >
       <Grid>
-        <GridItem span={4} start={5} tabletSpan={8} mobileSpan={4}>
-          <span className={`block ${LABEL_TYPE} mb-4 -entrance -fade -a-0`}>
+        {/* The label reads from the empty first columns, level with the first
+            number — the page's labels sit beside their content, never on a
+            line above it. The offset matches the stat's own top padding. */}
+        <GridItem span={4} tabletSpan={8} mobileSpan={4} className="pt-4 md:pt-6">
+          <span className={`block ${LABEL_TYPE} -entrance -fade -a-0`}>
             <span className="opacity-50">{t.results}</span>
           </span>
         </GridItem>

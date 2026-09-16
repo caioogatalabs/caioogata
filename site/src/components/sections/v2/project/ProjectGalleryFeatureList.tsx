@@ -114,7 +114,7 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
   if (features.length === 0) return null
 
   return (
-    <section className="py-24">
+    <section className="py-8">
       <div className="space-y-16">
         {features.map((feature, index) => {
           // On a tablet held upright the desktop 6/2 row does not fit, and
@@ -125,14 +125,14 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
           const tabletStart = index % 2 === 0 ? 1 : 3
           return (
             <Grid key={index}>
+              <GridItem span={4} tabletSpan={6} tabletStart={tabletStart} mobileSpan={4}>
+                <p className={LABEL}>{feature.name}</p>
+              </GridItem>
               <GridItem span={6} start={5} tabletSpan={6} tabletStart={tabletStart} mobileSpan={4}>
                 <FeatureMedia image={feature.image} />
               </GridItem>
               <GridItem span={2} start={11} tabletSpan={5} tabletStart={tabletStart} mobileSpan={4}>
-                <div className="flex flex-col gap-3">
-                  <p className={LABEL}>{feature.name}</p>
-                  <p className={LABEL_TYPE}>{feature.description}</p>
-                </div>
+                <p className={LABEL_TYPE}>{feature.description}</p>
               </GridItem>
             </Grid>
           )
