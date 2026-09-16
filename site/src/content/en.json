@@ -707,15 +707,15 @@
             "type": "impact",
             "stats": [
               {
-                "value": "+40",
+                "value": "40+",
                 "label": "Vue components ready to use"
               },
               {
-                "value": "+20",
+                "value": "20+",
                 "label": "Pages redesigned"
               },
               {
-                "value": "+30",
+                "value": "30+",
                 "label": "New product images redesigned"
               }
             ]

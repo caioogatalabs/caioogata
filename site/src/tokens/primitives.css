@@ -115,6 +115,7 @@
   --primitive-leading-normal:  1.5;
   --primitive-leading-relaxed: 1.6;
 
+  --primitive-font-thin:     100;
   --primitive-font-regular:  400;
   --primitive-font-medium:   500;
   --primitive-font-semibold: 600;
