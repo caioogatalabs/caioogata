@@ -29,13 +29,17 @@ function splitIntoColumns<T>(stats: T[]): [T[], T[]] {
  * On a phone the block is the page's own four columns — same gap as the Grid —
  * with the caption on the left two and the number on the right two, both on
  * the rule's top. From `md` up it is a row again, number first.
+ *
+ * Both texts are trimmed to cap height and baseline, so the caption's first
+ * line starts at the number's cap top rather than at the top of its own line
+ * box — the two line boxes differ by ~20px of leading and ascender at 72px.
  */
 function StatBlock({ value, label }: { value: string; label: string }) {
   return (
     <div className="relative grid grid-cols-4 items-start gap-4 pt-4 pb-6 md:flex md:gap-3 md:pt-6 md:pb-8">
       <AnimatedDivider />
-      <p className="type-display-lg col-span-2 col-start-3 row-start-1 whitespace-nowrap text-text-primary md:shrink-0">{value}</p>
-      <p className={`${LABEL_LG} col-span-2 col-start-1 row-start-1 md:flex-1`}>{label}</p>
+      <p className="type-display-lg [text-box:trim-both_cap_alphabetic] col-span-2 col-start-3 row-start-1 whitespace-nowrap text-text-primary md:shrink-0">{value}</p>
+      <p className={`${LABEL_LG} [text-box:trim-both_cap_alphabetic] col-span-2 col-start-1 row-start-1 md:flex-1`}>{label}</p>
     </div>
   )
 }
