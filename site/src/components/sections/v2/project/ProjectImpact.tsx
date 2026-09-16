@@ -4,7 +4,8 @@ import { useInView } from '@/hooks/useInView'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import type { ProjectSection } from '@/content/types'
-import { LABEL, LABEL_TYPE } from '@/components/ui/label'
+import { LABEL_TYPE, LABEL_LG } from '@/components/ui/label'
+import { AnimatedDivider, RevealGroup } from '@/components/motion/SplitText'
 
 interface ProjectImpactProps {
   section: ProjectSection
@@ -14,8 +15,10 @@ interface ProjectImpactProps {
  * The numbers sit on the middle third of the page: the first four columns stay
  * empty, and the next four split 2-2 into two stacked blocks. The left block
  * fills first, so three stats read two and one — the same shape as the Figma.
- * Each stat is a rule with the number under it and its caption alongside, 8px
- * off the number's right edge and aligned to the same top.
+ * Each stat is a rule with the number under it and its caption alongside,
+ * aligned to the same top. The rule is the site's `AnimatedDivider` and the
+ * spacing is the one the Education and Skills rows use — py-6, py-8 from `md`
+ * up — so the numbers keep the page's rhythm instead of the Figma's own.
  */
 function splitIntoColumns<T>(stats: T[]): [T[], T[]] {
   const left = Math.ceil(stats.length / 2)
@@ -24,9 +27,10 @@ function splitIntoColumns<T>(stats: T[]): [T[], T[]] {
 
 function StatBlock({ value, label }: { value: string; label: string }) {
   return (
-    <div className="flex items-start gap-2 border-t border-border-tertiary-default pt-4">
+    <div className="relative flex items-start gap-3 py-6 md:py-8">
+      <AnimatedDivider />
       <p className="type-display-lg shrink-0 whitespace-nowrap text-text-primary">{value}</p>
-      <p className={`${LABEL} flex-1`}>{label}</p>
+      <p className={`${LABEL_LG} flex-1`}>{label}</p>
     </div>
   )
 }
@@ -60,16 +64,14 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
               start={columnIdx === 0 ? 5 : 7}
               tabletSpan={4}
               mobileSpan={4}
-              className="flex flex-col gap-16"
             >
-              {column.map((stat, i) => (
-                <div
-                  key={i}
-                  className={`-entrance -slide-up -a-${columnIdx * 2 + i + 1}`}
-                >
-                  <StatBlock value={stat.value} label={stat.label} />
-                </div>
-              ))}
+              {/* One group per column: its rules draw together, the way an
+                  Education or Skills row does. */}
+              <RevealGroup className="flex flex-col">
+                {column.map((stat, i) => (
+                  <StatBlock key={i} value={stat.value} label={stat.label} />
+                ))}
+              </RevealGroup>
             </GridItem>
           )
         )}

@@ -606,23 +606,6 @@
             "solution": "Evoluímos o sistema existente com novos tons de cor, variações de bloco mais ricas e um padrão de ilustração que representa visualmente as funcionalidades do produto."
           },
           {
-            "type": "impact",
-            "stats": [
-              {
-                "value": "+40",
-                "label": "Componentes Vue prontos para uso"
-              },
-              {
-                "value": "+20",
-                "label": "Páginas redesenhadas"
-              },
-              {
-                "value": "+30",
-                "label": "Novas imagens de produto redesenhadas"
-              }
-            ]
-          },
-          {
             "type": "gallery-stick",
             "rows": [
               {
@@ -719,6 +702,27 @@
                 ]
               }
             ]
+          },
+          {
+            "type": "impact",
+            "stats": [
+              {
+                "value": "+40",
+                "label": "Componentes Vue prontos para uso"
+              },
+              {
+                "value": "+20",
+                "label": "Páginas redesenhadas"
+              },
+              {
+                "value": "+30",
+                "label": "Novas imagens de produto redesenhadas"
+              }
+            ]
+          },
+          {
+            "type": "statement",
+            "body": "Abaixo, as peças que sustentam o site — a navegação, a documentação, a biblioteca de componentes e o conceito de marca por trás delas."
           },
           {
             "type": "gallery-feature-list",
@@ -923,6 +927,21 @@
             "solution": "Uma arquitetura headless em Vue 3 que separa a interface da lógica de negócio, com componentização em blocos que reduziu a implementação de uma nova tela para cerca de um dia."
           },
           {
+            "type": "gallery-staggered",
+            "rows": [
+              {
+                "spans": [
+                  6,
+                  6
+                ],
+                "images": [
+                  "/projects/azion-console-kit/drawer-double.webp",
+                  "/projects/azion-console-kit/console-mobile-metrics.webp"
+                ]
+              }
+            ]
+          },
+          {
             "type": "impact",
             "stats": [
               {
@@ -936,21 +955,6 @@
               {
                 "value": "93+",
                 "label": "Releases"
-              }
-            ]
-          },
-          {
-            "type": "gallery-staggered",
-            "rows": [
-              {
-                "spans": [
-                  6,
-                  6
-                ],
-                "images": [
-                  "/projects/azion-console-kit/drawer-double.webp",
-                  "/projects/azion-console-kit/console-mobile-metrics.webp"
-                ]
               }
             ]
           },
@@ -1189,19 +1193,6 @@
             "solution": "Liderou a transformação estratégica estabelecendo linguagem visual, diretrizes de voz e princípios de design escaláveis, que expressam excelência técnica com clareza e confiança."
           },
           {
-            "type": "impact",
-            "stats": [
-              {
-                "value": "100+",
-                "label": "Localidades edge com a marca"
-              },
-              {
-                "value": "20.000+",
-                "label": "Aplicações hospedadas"
-              }
-            ]
-          },
-          {
             "type": "gallery-staggered",
             "rows": [
               {
@@ -1284,6 +1275,19 @@
                 "images": [
                   "/projects/azion-brand-system/illustrations-guides-3.webp"
                 ]
+              }
+            ]
+          },
+          {
+            "type": "impact",
+            "stats": [
+              {
+                "value": "100+",
+                "label": "Localidades edge com a marca"
+              },
+              {
+                "value": "20.000+",
+                "label": "Aplicações hospedadas"
               }
             ]
           },
@@ -1495,23 +1499,6 @@
             "solution": "Levou o estúdio de núcleo interno de agência a uma operação independente de 40 pessoas, entregando experiências digitais com WebGL, APIs de reconhecimento facial e tecnologias experimentais."
           },
           {
-            "type": "impact",
-            "stats": [
-              {
-                "value": "40+",
-                "label": "Projetos digitais entregues"
-              },
-              {
-                "value": "30%",
-                "label": "Mais tráfego nas lojas do O Boticário"
-              },
-              {
-                "value": "40",
-                "label": "Pessoas no time, no auge"
-              }
-            ]
-          },
-          {
             "type": "gallery-staggered",
             "rows": [
               {
@@ -1654,6 +1641,23 @@
                     "videoId": "TnaCQZDCAmo"
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "type": "impact",
+            "stats": [
+              {
+                "value": "40+",
+                "label": "Projetos digitais entregues"
+              },
+              {
+                "value": "30%",
+                "label": "Mais tráfego nas lojas do O Boticário"
+              },
+              {
+                "value": "40",
+                "label": "Pessoas no time, no auge"
               }
             ]
           },

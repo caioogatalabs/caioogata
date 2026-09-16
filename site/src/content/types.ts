@@ -110,7 +110,7 @@ export interface ProjectSectionImage {
 }
 
 export interface ProjectSection {
-  type: 'hero' | 'challenge' | 'impact' | 'gallery-staggered' | 'gallery-feature-list' | 'gallery-full-detail' | 'info' | 'gallery-full-bleed' | 'gallery-stick'
+  type: 'hero' | 'challenge' | 'impact' | 'statement' | 'gallery-staggered' | 'gallery-feature-list' | 'gallery-full-detail' | 'info' | 'gallery-full-bleed' | 'gallery-stick'
   heading?: string
   body?: string
   challenge?: string

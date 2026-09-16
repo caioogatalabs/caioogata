@@ -6,6 +6,7 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
 import { ProjectHero } from './ProjectHero'
 import { ProjectChallenge } from './ProjectChallenge'
 import { ProjectImpact } from './ProjectImpact'
+import { ProjectStatement } from './ProjectStatement'
 import { ProjectInfoBlock } from './ProjectInfoBlock'
 import { ProjectGalleryStaggered } from './ProjectGalleryStaggered'
 import { ProjectGalleryFeatureList } from './ProjectGalleryFeatureList'
@@ -51,6 +52,8 @@ function SectionBlock({
       )
     case 'impact':
       return <ProjectImpact key={index} section={section} />
+    case 'statement':
+      return <ProjectStatement key={index} section={section} />
     case 'gallery-staggered':
       return <ProjectGalleryStaggered key={index} section={section} />
     case 'gallery-feature-list':

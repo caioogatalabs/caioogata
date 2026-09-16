@@ -606,23 +606,6 @@
             "solution": "We evolved the existing system by introducing new color tones, richer block variants, and an illustration pattern that visually represents product features."
           },
           {
-            "type": "impact",
-            "stats": [
-              {
-                "value": "+40",
-                "label": "Vue components ready to use"
-              },
-              {
-                "value": "+20",
-                "label": "Pages redesigned"
-              },
-              {
-                "value": "+30",
-                "label": "New product images redesigned"
-              }
-            ]
-          },
-          {
             "type": "gallery-stick",
             "rows": [
               {
@@ -719,6 +702,27 @@
                 ]
               }
             ]
+          },
+          {
+            "type": "impact",
+            "stats": [
+              {
+                "value": "+40",
+                "label": "Vue components ready to use"
+              },
+              {
+                "value": "+20",
+                "label": "Pages redesigned"
+              },
+              {
+                "value": "+30",
+                "label": "New product images redesigned"
+              }
+            ]
+          },
+          {
+            "type": "statement",
+            "body": "Below, the pieces that hold the site together — the navigation, the documentation, the component library, and the brand concept behind them."
           },
           {
             "type": "gallery-feature-list",
@@ -923,6 +927,21 @@
             "solution": "Built a headless architecture on Vue 3 that decouples UI from business logic, with block componentization that reduced new screen implementation time to approximately one day."
           },
           {
+            "type": "gallery-staggered",
+            "rows": [
+              {
+                "spans": [
+                  6,
+                  6
+                ],
+                "images": [
+                  "/projects/azion-console-kit/drawer-double.webp",
+                  "/projects/azion-console-kit/console-mobile-metrics.webp"
+                ]
+              }
+            ]
+          },
+          {
             "type": "impact",
             "stats": [
               {
@@ -936,21 +955,6 @@
               {
                 "value": "93+",
                 "label": "Releases"
-              }
-            ]
-          },
-          {
-            "type": "gallery-staggered",
-            "rows": [
-              {
-                "spans": [
-                  6,
-                  6
-                ],
-                "images": [
-                  "/projects/azion-console-kit/drawer-double.webp",
-                  "/projects/azion-console-kit/console-mobile-metrics.webp"
-                ]
               }
             ]
           },
@@ -1189,19 +1193,6 @@
             "solution": "Led the strategic transformation by establishing visual language, voice guidelines, and scalable design principles that express technical excellence through clarity and confidence."
           },
           {
-            "type": "impact",
-            "stats": [
-              {
-                "value": "100+",
-                "label": "Edge locations branded"
-              },
-              {
-                "value": "20,000+",
-                "label": "Hosted applications"
-              }
-            ]
-          },
-          {
             "type": "gallery-staggered",
             "rows": [
               {
@@ -1284,6 +1275,19 @@
                 "images": [
                   "/projects/azion-brand-system/illustrations-guides-3.webp"
                 ]
+              }
+            ]
+          },
+          {
+            "type": "impact",
+            "stats": [
+              {
+                "value": "100+",
+                "label": "Edge locations branded"
+              },
+              {
+                "value": "20,000+",
+                "label": "Hosted applications"
               }
             ]
           },
@@ -1495,23 +1499,6 @@
             "solution": "Scaled the studio from internal agency nucleus to independent 40-person operation, delivering innovative digital experiences using WebGL, facial recognition APIs, and experimental technologies."
           },
           {
-            "type": "impact",
-            "stats": [
-              {
-                "value": "40+",
-                "label": "Digital projects delivered"
-              },
-              {
-                "value": "30%",
-                "label": "Store traffic increase for O Boticario"
-              },
-              {
-                "value": "40",
-                "label": "Team members at peak"
-              }
-            ]
-          },
-          {
             "type": "gallery-staggered",
             "rows": [
               {
@@ -1654,6 +1641,23 @@
                     "videoId": "TnaCQZDCAmo"
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "type": "impact",
+            "stats": [
+              {
+                "value": "40+",
+                "label": "Digital projects delivered"
+              },
+              {
+                "value": "30%",
+                "label": "Store traffic increase for O Boticario"
+              },
+              {
+                "value": "40",
+                "label": "Team members at peak"
               }
             ]
           },
