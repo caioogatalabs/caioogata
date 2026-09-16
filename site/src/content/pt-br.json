@@ -959,6 +959,10 @@
             ]
           },
           {
+            "type": "statement",
+            "body": "Abaixo, como o kit se monta — os blocos que formam uma tela e o console que eles constroem."
+          },
+          {
             "type": "gallery-feature-list",
             "features": [
               {
@@ -1090,6 +1094,10 @@
                 "label": "Fundações de design semânticas"
               }
             ]
+          },
+          {
+            "type": "statement",
+            "body": "Abaixo, as fundações do sistema — os tokens e os componentes entregues a quem desenvolve."
           },
           {
             "type": "gallery-feature-list",
@@ -1290,6 +1298,10 @@
                 "label": "Aplicações hospedadas"
               }
             ]
+          },
+          {
+            "type": "statement",
+            "body": "Abaixo, como a marca fala na prática — a ilustração que explica o produto e a documentação que a carrega."
           },
           {
             "type": "gallery-stick",
@@ -1660,6 +1672,10 @@
                 "label": "Pessoas no time, no auge"
               }
             ]
+          },
+          {
+            "type": "statement",
+            "body": "Abaixo, o trabalho para o qual o estúdio foi criado — campanhas interativas e projetos em que criação e tecnologia chegam juntas."
           },
           {
             "type": "gallery-feature-list",

@@ -187,7 +187,7 @@ Multi-image rows (`[6,6]`, `[8,4]`, `[4,8]`, `[4,4]`) and full-width rows (`[12]
 **Sizing:**
 - Images: `w-full max-h-[500px] min-h-[200px] object-cover` — natural aspect within bounds
 - Sharp corners (0px radius) on all gallery images
-- Gaps: `gap-x-[4px]` within rows, `gap-y-[8px]` between rows
+- Gaps: `gap-x-[4px]` within rows, `gap-y-4` (16px) between rows
 
 **Stagger animation:** Each image in a multi-image row gets `startFraction: 0.85 + staggerIndex * 0.03` for left-to-right scroll-reveal wave.
 

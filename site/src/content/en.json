@@ -959,6 +959,10 @@
             ]
           },
           {
+            "type": "statement",
+            "body": "Below, how the kit is put together — the blocks a screen is assembled from, and the console they build."
+          },
+          {
             "type": "gallery-feature-list",
             "features": [
               {
@@ -1090,6 +1094,10 @@
                 "label": "Semantic design foundations"
               }
             ]
+          },
+          {
+            "type": "statement",
+            "body": "Below, the foundations the system stands on — the tokens, and the components handed to the engineers who ship them."
           },
           {
             "type": "gallery-feature-list",
@@ -1290,6 +1298,10 @@
                 "label": "Hosted applications"
               }
             ]
+          },
+          {
+            "type": "statement",
+            "body": "Below, how the brand speaks in practice — the illustration that explains the product, and the documentation that carries it."
           },
           {
             "type": "gallery-stick",
@@ -1660,6 +1672,10 @@
                 "label": "Team members at peak"
               }
             ]
+          },
+          {
+            "type": "statement",
+            "body": "Below, the work the studio was built for — interactive campaigns, and projects where craft and technology arrive together."
           },
           {
             "type": "gallery-feature-list",

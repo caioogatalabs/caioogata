@@ -129,7 +129,7 @@ export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProp
 
   return (
     <section className="py-8 px-5 md:px-8 lg:px-8">
-      <div className="flex flex-col gap-y-[8px]">
+      <div className="flex flex-col gap-y-4">
         {rows.map((row, rowIdx) => {
           // Defensive: warn if spans and images count mismatch
           if (process.env.NODE_ENV === 'development' && row.spans.length !== row.images.length) {
