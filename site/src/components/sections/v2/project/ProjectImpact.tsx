@@ -13,7 +13,8 @@ interface ProjectImpactProps {
 
 /**
  * The numbers sit on the middle third of the page: the first four columns stay
- * empty, and the next four split 2-2 into two stacked blocks. The left block
+ * empty, and the next four split 2-2 into two stacked blocks (from 1680 up;
+ * below that they stack in one). The left block
  * fills first, so three stats read two and one — the same shape as the Figma.
  * Each stat is a rule with the number under it and its caption alongside,
  * aligned to the same top. The rule is the site's `AnimatedDivider`, drawn on
@@ -68,25 +69,28 @@ export function ProjectImpact({ section }: ProjectImpactProps) {
           </span>
         </GridItem>
 
-        {columns.map((column, columnIdx) =>
-          column.length === 0 ? null : (
-            <GridItem
-              key={columnIdx}
-              span={2}
-              start={columnIdx === 0 ? 5 : 7}
-              tabletSpan={4}
-              mobileSpan={4}
-            >
-              {/* One group per column: its rules draw together, the way an
-                  Education or Skills row does. */}
-              <RevealGroup className="flex flex-col">
-                {column.map((stat, i) => (
-                  <StatBlock key={i} value={stat.value} label={stat.label} />
-                ))}
-              </RevealGroup>
-            </GridItem>
-          )
-        )}
+        {/* One track of four columns (5–8). It splits 2-2 only from 1680 up:
+            below that — tablets held sideways, laptops — two columns of
+            two are too narrow for a 72px number and its caption, and the
+            caption ran into the next number. So there the stats stack, each
+            using all four columns. An upright tablet has the whole 8-column
+            row, so it splits 4-4 again. The inner gap is the Grid's, which
+            keeps the split on the page's columns. */}
+        <GridItem span={4} start={5} tabletSpan={8} mobileSpan={4}>
+          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-5 lg:grid-cols-1 min-[105rem]:grid-cols-2">
+            {columns.map((column, columnIdx) =>
+              column.length === 0 ? null : (
+                // One group per column: its rules draw together, the way an
+                // Education or Skills row does.
+                <RevealGroup key={columnIdx} className="flex flex-col">
+                  {column.map((stat, i) => (
+                    <StatBlock key={i} value={stat.value} label={stat.label} />
+                  ))}
+                </RevealGroup>
+              )
+            )}
+          </div>
+        </GridItem>
       </Grid>
     </section>
   )

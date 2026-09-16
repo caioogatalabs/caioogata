@@ -117,21 +117,18 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
     <section className="py-8">
       <div className="space-y-16">
         {features.map((feature, index) => {
-          // On a tablet held upright the desktop 6/2 row does not fit, and
-          // three blocks at full width read as one undifferentiated column.
-          // Instead the whole feature takes a side — media six of eight, name
-          // and description on the same edge — and the next one takes the
-          // other, so the list zigzags the way the staggered gallery does.
-          const tabletStart = index % 2 === 0 ? 1 : 3
+          // On a tablet held upright the desktop 6/2 row does not fit, so each
+          // feature stacks on the first six of eight columns — name, media,
+          // description — and every feature starts on the same edge.
           return (
             <Grid key={index}>
-              <GridItem span={4} tabletSpan={6} tabletStart={tabletStart} mobileSpan={4}>
+              <GridItem span={4} tabletSpan={6} tabletStart={1} mobileSpan={4}>
                 <p className={LABEL}>{feature.name}</p>
               </GridItem>
-              <GridItem span={6} start={5} tabletSpan={6} tabletStart={tabletStart} mobileSpan={4}>
+              <GridItem span={6} start={5} tabletSpan={6} tabletStart={1} mobileSpan={4}>
                 <FeatureMedia image={feature.image} />
               </GridItem>
-              <GridItem span={2} start={11} tabletSpan={5} tabletStart={tabletStart} mobileSpan={4}>
+              <GridItem span={2} start={11} tabletSpan={5} tabletStart={1} mobileSpan={4}>
                 <p className={LABEL_TYPE}>{feature.description}</p>
               </GridItem>
             </Grid>
