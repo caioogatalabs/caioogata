@@ -56,7 +56,7 @@ export function PhilosophyBlock({ paragraphs, closingQuote }: PhilosophyBlockPro
                   key={i}
                   type="word"
                   text={paragraph}
-                  className="text-[24px] font-normal leading-[1.3] text-text-secondary"
+                  className="text-[14px] leading-[1.6] font-normal md:text-[20px] md:leading-[1.3] lg:text-[24px] text-text-secondary"
                   style={{ fontFamily: 'var(--font-sans)' }}
                   durationMs={800}
                   baseDelayMs={100 + i * 80}

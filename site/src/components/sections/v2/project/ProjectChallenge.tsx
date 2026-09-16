@@ -43,7 +43,7 @@ export function ProjectChallenge({ section, project, projectIndex, impact }: Pro
                 {section.heading || t.challenge}
               </h2>
               <p
-                className="text-[18px] leading-[1.6] text-text-tertiary"
+                className="text-[14px] leading-[1.6] md:text-[18px] text-text-tertiary"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {section.challenge}
@@ -61,7 +61,7 @@ export function ProjectChallenge({ section, project, projectIndex, impact }: Pro
                 {section.solutionHeading || t.solution}
               </h2>
               <p
-                className="text-[18px] leading-[1.6] text-text-tertiary"
+                className="text-[14px] leading-[1.6] md:text-[18px] text-text-tertiary"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {section.solution}

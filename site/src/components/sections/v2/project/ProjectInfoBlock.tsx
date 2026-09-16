@@ -22,7 +22,7 @@ function Label({ children }: { children: React.ReactNode }) {
 function Value({ children }: { children: React.ReactNode }) {
   return (
     <p
-      className="text-[18px] leading-[1.6] text-text-secondary"
+      className="text-[14px] leading-[1.6] md:text-[18px] text-text-secondary"
       style={{ fontFamily: 'var(--font-sans)' }}
     >
       {children}
@@ -72,7 +72,7 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
               {project.credits.map((credit, i) => (
                 <p
                   key={i}
-                  className="text-[18px] leading-[1.6]"
+                  className="text-[14px] leading-[1.6] md:text-[18px]"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   {credit.url ? (

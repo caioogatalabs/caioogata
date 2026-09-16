@@ -136,7 +136,7 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
               <GridItem span={3} tabletSpan={5} tabletStart={tabletStart} mobileSpan={4}>
                 <div className="flex items-start h-full">
                   <p
-                    className="text-[18px] leading-[1.6] text-text-secondary"
+                    className="text-[14px] leading-[1.6] md:text-[18px] text-text-secondary"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {feature.description}
