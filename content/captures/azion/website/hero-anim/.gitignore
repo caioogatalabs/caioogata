@@ -1,0 +1,8 @@
+# Proto Mono is a licensed font: install it locally, never commit it.
+ProtoMono-*.ttf
+# Renders and review stills; the finals live in site/public/projects/azion-website/.
+*.mp4
+*.webm
+hero-loop.webp
+review/
+page/

@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Azion hero loop</title>
+<!--
+  Azion Website — hero loop for the home cover and the case hero.
+  Source: Figma Port › animações-azion-hero (1227:5617). One loop, three scenes:
+    A  tagline   — the box widens and the line changes (azion.com → the full tagline)
+    B  colour    — three base colours subdivide into tones and take an accent
+    C  type      — Sora spec, then Proto Mono spec
+    D  page      — the azion.com hero assembles (Figma 1227:5827), then back to A
+  The stage is authored at 2560x1600 (the Figma frames) and scaled to the window.
+  Driven by one rAF clock off performance.now(), so vcap.cjs's virtual time steps
+  it frame by frame. ?t=5.2 freezes the loop at that second, for review stills.
+-->
+<style>
+  @font-face { font-family: 'Proto Mono'; src: local('Proto Mono Regular'), local('ProtoMono-Regular'), url(ProtoMono-Regular.ttf); font-weight: 400; }
+  @font-face { font-family: 'Proto Mono'; src: local('Proto Mono SemiBold'), local('ProtoMono-SemiBold'), url(ProtoMono-SemiBold.ttf); font-weight: 600; }
+  @font-face { font-family: 'Sora'; src: url(Sora-Regular.ttf); font-weight: 400; }
+
+  html, body { margin: 0; height: 100%; background: #13131a; overflow: hidden; }
+  #stage {
+    position: absolute; left: 0; top: 0; width: 2560px; height: 1600px;
+    transform-origin: 0 0; overflow: hidden; background: #13131a;
+  }
+  .abs { position: absolute; }
+  .rect { position: absolute; will-change: transform; }
+  p { margin: 0; white-space: nowrap; }
+
+  /* Scene A */
+  .meta { font: 600 22.222px/1.5 'Proto Mono'; letter-spacing: -0.511px; color: #101010; }
+  #box {
+    position: absolute; top: 689.3px; left: 50%; height: 208px; box-sizing: border-box;
+    border: 5.2px solid #13131a; display: flex; align-items: center; overflow: hidden;
+  }
+  #box .logo { flex: none; width: 208px; height: 88.4px; }
+  #box .rule { flex: none; width: 5.2px; height: 208px; background: #13131a; margin-left: -5.2px; }
+  #box .line {
+    flex: none; padding: 0 52px; font: 400 38.88px/1.22 'Proto Mono';
+    letter-spacing: -0.894px; color: #13131a;
+  }
+
+  /* Scene C */
+  .val { font: 400 68.543px/1.22 'Sora'; letter-spacing: -1.371px; color: #b5b1f4; }
+  .lab { font: 400 35.852px/1.5 'Sora'; letter-spacing: -0.825px; color: #fff; }
+  .big { font: 400 402.575px/1.22 'Sora'; letter-spacing: -8.05px; color: #b5b1f4; }
+  .body { font: 400 35.852px/1.5 'Sora'; color: #fff; white-space: normal; width: 1099.7px; }
+  .mono .val, .mono.val { font-family: 'Proto Mono'; color: #fe601f; letter-spacing: -1.37px; }
+  .mono.big { font-family: 'Proto Mono'; font-size: 402.247px; color: #fe601f; }
+  .mono.body { font-family: 'Proto Mono'; font-size: 33.862px; letter-spacing: -0.677px; width: 1098.8px; }
+
+  /* Scene D — authored in the Figma frame's units (1512 wide), cropped to 16:10
+     (1512x945): centred blocks move up 18.5, bottom blocks keep their bottom margin. */
+  #sceneD { background: #070707; }
+  #page { position: absolute; left: 0; top: 0; width: 1512px; height: 945px; transform: scale(calc(2560 / 1512)); transform-origin: 0 0; }
+  #graphics { position: absolute; left: 2px; top: 242.5px; width: 1510px; height: 461px; }
+  #graphics svg { position: absolute; inset: 0; overflow: visible; }
+  .sq { position: absolute; background: #f3652b; }
+  .pm { font: 400 16.75px/1.2 'Proto Mono'; letter-spacing: -0.1675px; }
+  #headline {
+    position: absolute; left: 744.75px; top: 374.5px; transform: translateX(-50%);
+    font: 400 50.252px/1.1 'Sora'; letter-spacing: -1.5076px; color: #ede8e8; text-align: center;
+  }
+  #headline span { display: block; }
+  #buttons { position: absolute; left: 743.96px; top: 524.5px; transform: translateX(-50%); display: flex; gap: 25.126px; }
+  .btn { padding: 12.563px 20.938px; border-radius: 5px; white-space: nowrap; }
+  .btn.light { background: #e5e5e5; color: #171717; }
+  .btn.dark { background: #171717; color: #e5e5e5; box-shadow: inset 0 0 0 1.047px #404040; }
+  .bar { position: absolute; height: 11.516px; background: #ede8e8; transform-origin: left; }
+  .cur { display: inline-block; width: 5.217px; height: 11.516px; background: #ede8e8; vertical-align: -0.5px; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- Scene C: type spec (under everything; revealed when B's black column covers the stage) -->
+  <div id="sceneC" class="abs" style="inset:0">
+    <p class="abs big" data-k="sora" style="left:1292.9px;top:76.25px">aA</p>
+    <p class="abs big mono" data-k="mono" style="left:1263.1px;top:76.2px">aA</p>
+
+    <p class="abs lab" data-k="sora" style="left:1298px;top:513.4px">Display XL</p>
+    <p class="abs lab" data-k="mono" style="left:1296.9px;top:513px">labels XL</p>
+
+    <p class="abs val" data-k="sora" style="left:1292.9px;top:671px">Sora</p>
+    <p class="abs val mono" data-k="mono" style="left:1291.9px;top:670.5px">proto mono</p>
+    <p class="abs val" data-k="sora" style="left:1818.2px;top:671px">150%</p>
+    <p class="abs val mono" data-k="mono" style="left:1816.7px;top:670.5px">55%</p>
+    <p class="abs lab" data-k="both" style="left:1298px;top:767.6px">Nome</p>
+    <p class="abs lab" data-k="both" style="left:1821.6px;top:767.6px">Altura da linha</p>
+
+    <p class="abs val" data-k="sora" style="left:1292.9px;top:898px">Regular</p>
+    <p class="abs val mono" data-k="mono" style="left:1291.9px;top:897.4px">mono</p>
+    <p class="abs val" data-k="sora" style="left:1821.6px;top:898px">-2%</p>
+    <p class="abs val mono" data-k="mono" style="left:1820.1px;top:897.4px">-2%</p>
+    <p class="abs lab" data-k="both" style="left:1298px;top:994.7px">Peso</p>
+    <p class="abs lab" data-k="both" style="left:1821.6px;top:994.7px">Kerning</p>
+
+    <p class="abs body" data-k="sora" style="left:1292.9px;top:1152.3px">Azion is an edge platform that simplifies how you build and run modern applications anywhere: in more than 100 <span style="white-space:nowrap">Azion-operated</span> data centers, or on remote devices, <span style="white-space:nowrap">on-premises</span> and <span style="white-space:nowrap">multi-cloud.</span></p>
+    <p class="abs body mono" data-k="mono" style="left:1291.9px;top:1136.1px">Azion is an edge platform that simplifies how you build and run modern applications anywhere: in more than 100 <span style="white-space:nowrap">Azion-operated</span> data centers, or on remote devices, <span style="white-space:nowrap">on-premises</span> and <span style="white-space:nowrap">multi-cloud.</span></p>
+  </div>
+
+  <!-- Scene D: the azion.com hero, assembling -->
+  <div id="sceneD" class="abs" style="inset:0">
+    <div id="page">
+      <div id="graphics"><svg id="lines" width="1510" height="461"></svg></div>
+      <p id="headline"><span>Scale and secure</span><span>applications everywhere</span></p>
+      <div id="buttons" class="pm">
+        <p class="btn light">&gt; Start Now</p>
+        <p class="btn dark">&gt; Get a Demo</p>
+      </div>
+      <div class="bar" id="barL1" style="left:43.97px;top:875.9px;width:544.4px;opacity:.2"></div>
+      <div class="bar" id="barL2" style="left:43.97px;top:895.8px;width:544.4px;opacity:.2"></div>
+      <p class="abs pm" id="lede" style="left:41.88px;top:871.7px;width:556.96px;white-space:normal;color:#ede8e8"></p>
+      <div class="bar" id="barR" style="left:1186.4px;top:885.3px;width:153.9px;opacity:.3"></div>
+      <p class="abs pm" id="trusted" style="left:1186.4px;top:881.1px;color:#ede8e8"></p>
+      <img id="vtex" class="abs" src="vtex.png" alt="" style="left:1388.7px;top:875.9px;width:81.43px;height:29.31px">
+    </div>
+  </div>
+
+  <!-- Scene B: colour structure -->
+  <div id="sceneB" class="abs" style="inset:0">
+    <div class="rect" id="bWhite"  style="left:0;top:0;width:853px;height:1600px"></div>
+    <div class="rect" id="bGrey1"  style="left:0;top:533px;width:853px;height:1067px;background:#ede8e8;transform-origin:bottom"></div>
+    <div class="rect" id="bGrey2"  style="left:0;top:1067px;width:853px;height:533px;background:#cec9c9;transform-origin:bottom"></div>
+
+    <div class="rect" id="bOrange" style="left:853px;top:0;width:854px;height:1600px;background:#fe601f"></div>
+    <div class="rect" id="bRust"   style="left:853px;top:800px;width:854px;height:800px;background:#d94a03;transform-origin:bottom"></div>
+
+    <div class="rect" id="bLav"    style="left:1707px;top:0;width:427px;height:800px;background:#b5b1f4"></div>
+    <div class="rect" id="bSlate"  style="left:1706px;top:800px;width:213px;height:800px;background:#343345;transform-origin:bottom"></div>
+    <div class="rect" id="bInk"    style="left:1919px;top:800px;width:215px;height:800px;background:#101010;transform-origin:bottom"></div>
+    <div class="rect" id="bBlack"  style="left:0;top:0;width:2560px;height:1600px;transform-origin:right"></div>
+  </div>
+
+  <!-- Scene A: tagline on orange -->
+  <div id="sceneA" class="abs" style="inset:0;background:#f3652b;transform-origin:bottom">
+    <div id="aContent" class="abs" style="inset:0">
+      <p class="abs meta" style="left:111.1px;top:55.56px">azion</p>
+      <p class="abs meta" style="right:111.1px;top:55.56px">www.azion.com</p>
+      <p class="abs meta" style="left:111.1px;top:1511.4px">mind the sec</p>
+      <p class="abs meta" style="right:111.1px;top:1511.4px">16-17.09.2025</p>
+      <div id="box">
+        <svg class="logo" viewBox="0 0 208 88.4"><path fill-rule="evenodd" clip-rule="evenodd" d="M143.199 0.199997L54.4481 75.2769L52 88.2H64.7865L133.535 30.0733L122.454 88.2H139.224L156 0.199997H143.199Z" fill="#13131A"/></svg>
+        <div class="rule"></div>
+        <p class="line" id="line"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const LOOP = 21
+const SHORT = 'azion.com'
+const LONG = 'The web platform for modern workloads'
+const W_SHORT = 529.07, W_LONG = 1201.2
+
+const $ = (id) => document.getElementById(id)
+const stage = $('stage')
+const fit = () => { stage.style.transform = `scale(${innerWidth / 2560})` }
+addEventListener('resize', fit); fit()
+
+const clamp = (x) => Math.min(1, Math.max(0, x))
+const seg = (t, a, b) => clamp((t - a) / (b - a))
+const lerp = (a, b, p) => a + (b - a) * p
+const inOut4 = (p) => p < 0.5 ? 8 * p ** 4 : 1 - (-2 * p + 2) ** 4 / 2
+const out3 = (p) => 1 - (1 - p) ** 3
+const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16))
+const mix = (a, b, p) => `rgb(${hex(a).map((v, i) => Math.round(lerp(v, hex(b)[i], p))).join(',')})`
+
+const soraEls = [...document.querySelectorAll('#sceneC [data-k="sora"]')]
+const monoEls = [...document.querySelectorAll('#sceneC [data-k="mono"]')]
+const bothEls = [...document.querySelectorAll('#sceneC [data-k="both"]')]
+// Stagger order follows reading order: top to bottom, left to right.
+const order = (el) => parseFloat(el.style.top) * 10 + parseFloat(el.style.left)
+const rank = (els) => [...els].sort((a, b) => order(a) - order(b))
+const soraR = rank(soraEls), monoR = rank(monoEls)
+const allR = rank([...soraEls, ...bothEls])
+
+function render(T) {
+  const t = ((T % LOOP) + LOOP) % LOOP
+
+  /* ---------- Scene A: 0 – 4.8, returns 12.7 – 14 ---------- */
+  // Erase the short line, widen the box, type the long line.
+  let text = SHORT, width = W_SHORT
+  if (t >= 1.2 && t < 12) {
+    const erase = seg(t, 1.2, 1.5)
+    const grow = inOut4(seg(t, 1.45, 2.25))
+    const type = seg(t, 2.1, 2.9)
+    width = lerp(W_SHORT, W_LONG, grow)
+    text = type > 0 ? LONG.slice(0, Math.round(LONG.length * type)) : SHORT.slice(0, Math.round(SHORT.length * (1 - erase)))
+  }
+  $('line').textContent = text
+  $('box').style.width = width + 'px'
+  $('box').style.transform = 'translateX(-50%)'
+
+  // A leaves by fading its content; the orange stays as B's middle column grows out of it.
+  const aOut = seg(t, 4.0, 4.3)
+  // A returns: orange rises from the bottom over D, then its content fades in.
+  const aRise = inOut4(seg(t, 19.4, 20.1))
+  const aIn = out3(seg(t, 20.05, 20.6))
+  let aVisible, aScaleY = 1, aContent
+  if (t < 4.8) { aVisible = true; aContent = 1 - aOut }
+  else if (t >= 19.4) { aVisible = true; aScaleY = aRise; aContent = aIn }
+  else { aVisible = false; aContent = 0 }
+  $('sceneA').style.display = aVisible ? 'block' : 'none'
+  $('sceneA').style.transform = `scaleY(${aScaleY})`
+  $('sceneA').style.background = mix('#f3652b', '#fe601f', t < 4.8 ? inOut4(seg(t, 4.2, 4.8)) : 0)
+  $('aContent').style.opacity = aContent
+  // The side columns slide in over A's orange.
+  const sides = inOut4(seg(t, 4.3, 5.0))
+
+  /* ---------- Scene B: 4.2 – 8.8 ---------- */
+  const bVisible = t >= 4.3 && t < 12.7
+  $('sceneB').style.display = bVisible ? 'block' : 'none'
+  $('sceneB').style.zIndex = t < 4.8 ? 2 : 0
+  $('sceneA').style.zIndex = t < 4.8 ? 1 : 3
+  if (bVisible) {
+    // Frame 1: white | orange | black. Before 4.8 the white and black arrive from the edges.
+    $('bWhite').style.transform = `translateX(${lerp(-853, 0, sides)}px)`
+    // Split: tones rise from the bottom, staggered by column.
+    const L = inOut4(seg(t, 5.6, 6.5)), L2 = inOut4(seg(t, 5.75, 6.65))
+    const M = inOut4(seg(t, 5.85, 6.75))
+    const R = inOut4(seg(t, 6.0, 6.9)), R2 = inOut4(seg(t, 6.1, 7.0))
+    $('bWhite').style.background = mix('#f9f8f8', '#ffffff', L)
+    $('bGrey1').style.transform = `scaleY(${L})`
+    $('bGrey2').style.transform = `scaleY(${L2})`
+    $('bOrange').style.opacity = sides > 0 || t >= 4.8 ? 1 : 0
+    $('bRust').style.transform = `scaleY(${M})`
+    $('bSlate').style.transform = `scaleY(${R})`
+    $('bInk').style.transform = `scaleY(${R2})`
+
+    // The black column: slides in from the right, retracts to reveal the accent,
+    // then sweeps left over the whole stage and becomes C's ground.
+    const cover = inOut4(seg(t, 8.0, 8.8))
+    let left
+    if (t < 4.8) left = lerp(2560, 1707, sides)
+    else left = lerp(lerp(1707, 2134, R), 0, cover)
+    $('bBlack').style.left = left + 'px'
+    $('bBlack').style.width = (2560 - left) + 'px'
+    $('bBlack').style.background = mix('#000000', '#13131a', cover)
+    $('bLav').style.opacity = t < 4.8 ? 0 : 1
+    for (const id of ['bSlate', 'bInk']) $(id).style.opacity = cover < 1 ? 1 : 0
+  }
+
+  /* ---------- Scene C: 8.8 – 12.7 ---------- */
+  const cOn = t >= 8.7 && t < 12.9
+  $('sceneC').style.display = cOn ? 'block' : 'none'
+  $('sceneC').style.zIndex = 1
+  $('sceneB').style.zIndex = t < 4.8 ? 2 : (t >= 8.8 ? 0 : 1)
+  if (cOn) {
+    // Enter: Sora spec, line by line.
+    allR.forEach((el, i) => {
+      const p = out3(seg(t, 8.9 + i * 0.05, 9.6 + i * 0.05))
+      el.style.opacity = p
+      el.style.transform = `translateY(${lerp(40, 0, p)}px)`
+    })
+    // Swap: each Sora line leaves upward, its Proto Mono counterpart arrives from below.
+    soraR.forEach((el, i) => {
+      const out = inOut4(seg(t, 10.7 + i * 0.06, 11.2 + i * 0.06))
+      if (t >= 10.7) {
+        el.style.opacity = 1 - out
+        el.style.transform = `translateY(${lerp(0, -40, out)}px)`
+      }
+    })
+    monoR.forEach((el, i) => {
+      const inn = out3(seg(t, 10.95 + i * 0.06, 11.6 + i * 0.06))
+      el.style.opacity = inn
+      el.style.transform = `translateY(${lerp(40, 0, inn)}px)`
+    })
+    // Leave as D's ground comes up.
+    const cOut = seg(t, 12.2, 12.5)
+    $('sceneC').style.opacity = 1 - cOut
+  }
+
+  /* ---------- Scene D: 12.4 – 19.4 ---------- */
+  const dOn = t >= 12.4
+  $('sceneD').style.display = dOn ? 'block' : 'none'
+  $('sceneD').style.zIndex = 2
+  if (dOn) renderD(t)
+}
+
+/* Scene D geometry, from the Figma Graphics instance (1510x461). */
+const SQUARES = [
+  // [left, top, size, kind] — kind: 's' solid, 'g' glow (blur 13), 'd' dim (blur 2, 40%)
+  [291.04, 0, 10.469, 's'], [1296.08, 419.81, 14.657, 's'], [1456.26, 64.91, 10.469, 's'],
+  [1036.44, 322.45, 10.469, 's'], [909.77, 364.33, 18.844, 's'], [836.48, 50.25, 20.938, 's'],
+  [422.95, 434.47, 20.938, 's'], [67, 230.32, 14.657, 's'], [1263.62, 166.46, 14.657, 's'],
+  [-33.5, 60.72, 67.002, 'g'], [1494.99, 308.84, 67.002, 'g'],
+  [1235.22, 470.2, 10.469, 'd'], [233.45, 21.92, 14.657, 'd'], [70.15, 397.86, 10.469, 'd'],
+  [564.45, 128.24, 10.469, 'd'], [708.03, 402.24, 20.938, 'd'], [1140.97, 0, 20.938, 'd'],
+  [1520.19, 220.3, 14.657, 'd'], [267.43, 287.16, 14.657, 'd'],
+]
+const LINES = [
+  // [left, top, w, h, rotation, length, opacity] — a horizontal line rotated inside its box;
+  // the gradient runs transparent → orange along the line's local x.
+  [843.81, 60.72, 425.047, 113.067, -165.1, 439.828, 0.6],
+  [74.33, 5.23, 222.993, 233.462, -46.31, 322.847, 0.6],
+  [6.28, 94.22, 68.049, 144.474, -115.22, 159.698, 0.6],
+  [1270.95, 70.14, 190.538, 103.644, -28.54, 216.903, 0.6],
+  [1303.41, 70.14, 158.084, 356.998, -66.12, 390.433, 0.6],
+  [297.32, 5.23, 136.099, 439.704, -107.2, 460.285, 0.6],
+  [432.38, 173.79, 836.484, 271.151, 162.04, 879.334, 0.1],
+]
+const LEDE = 'Experience a fully integrated web platform, powered by the planet’s most reliable network'
+const TRUSTED = 'Trusted by'
+
+const NS = 'http://www.w3.org/2000/svg'
+const G_CX = 755, G_CY = 230.5
+const squares = SQUARES.map(([l, tp, sz, kind]) => {
+  const el = document.createElement('div')
+  el.className = 'sq'
+  Object.assign(el.style, { left: l + 'px', top: tp + 'px', width: sz + 'px', height: sz + 'px' })
+  if (kind === 'g') el.style.filter = 'blur(13.086px)'
+  if (kind === 'd') el.style.filter = 'blur(2.094px)'
+  $('graphics').insertBefore(el, $('lines'))
+  const d = Math.hypot(l + sz / 2 - G_CX, tp + sz / 2 - G_CY)
+  return { el, kind, d, max: kind === 'd' ? 0.4 : 1, phase: l * 0.013 }
+})
+// Solid squares arrive from the centre outward; the soft ones follow.
+const byDist = [...squares].sort((a, b) => a.d - b.d)
+const lines = LINES.map(([l, tp, w, h, rot, len, op], i) => {
+  const a = rot * Math.PI / 180, cx = l + w / 2, cy = tp + h / 2
+  const dx = Math.cos(a) * len / 2, dy = Math.sin(a) * len / 2
+  const [x1, y1, x2, y2] = [cx - dx, cy - dy, cx + dx, cy + dy]
+  const grad = document.createElementNS(NS, 'linearGradient')
+  grad.id = 'lg' + i
+  grad.setAttribute('gradientUnits', 'userSpaceOnUse')
+  Object.entries({ x1, y1, x2, y2 }).forEach(([k, v]) => grad.setAttribute(k, v))
+  grad.innerHTML = '<stop offset="0" stop-color="#F3652B" stop-opacity="0"/><stop offset="1" stop-color="#F3652B"/>'
+  $('lines').appendChild(grad)
+  const ln = document.createElementNS(NS, 'line')
+  Object.entries({ x1, y1, x2, y2 }).forEach(([k, v]) => ln.setAttribute(k, v))
+  ln.setAttribute('stroke', `url(#lg${i})`)
+  ln.setAttribute('stroke-width', 0.523)
+  ln.setAttribute('opacity', op)
+  ln.style.strokeDasharray = len
+  $('lines').appendChild(ln)
+  return { ln, len }
+})
+const heads = [...$('headline').children]
+const btns = [...$('buttons').children]
+
+function renderD(t) {
+  $('sceneD').style.opacity = seg(t, 12.4, 12.7)
+
+  // Squares pop from the centre out; afterwards they breathe a few px.
+  byDist.forEach((s, i) => {
+    const start = s.kind === 's' ? 12.55 + i * 0.07 : 13.1 + i * 0.05
+    const p = out3(seg(t, start, start + 0.45))
+    const drift = Math.sin((t - 12.4) * 1.1 + s.phase) * 3 * p
+    s.el.style.opacity = p * s.max
+    s.el.style.transform = `translateY(${drift}px) scale(${p})`
+  })
+  // Lines draw from their faded end to the orange end.
+  lines.forEach((l, i) => {
+    const p = inOut4(seg(t, 13.2 + i * 0.1, 14.2 + i * 0.1))
+    l.ln.style.strokeDashoffset = l.len * (1 - p)
+  })
+  // Headline, line by line; then the buttons.
+  heads.forEach((el, i) => {
+    const p = out3(seg(t, 13.6 + i * 0.12, 14.3 + i * 0.12))
+    el.style.opacity = p
+    el.style.transform = `translateY(${lerp(18, 0, p)}px)`
+  })
+  btns.forEach((el, i) => {
+    const p = out3(seg(t, 14.2 + i * 0.1, 14.8 + i * 0.1))
+    el.style.opacity = p
+    el.style.transform = `translateY(${lerp(10, 0, p)}px)`
+  })
+  // Footer: the bars wipe in, the text types over them with a block cursor.
+  const bars = [['barL1', 14.5], ['barL2', 14.6], ['barR', 14.8]]
+  for (const [id, a] of bars) $(id).style.transform = `scaleX(${inOut4(seg(t, a, a + 0.5))})`
+  const n = Math.round(LEDE.length * seg(t, 14.9, 16.1))
+  const typing = t < 16.1
+  // Blink once typed: on half a second, off half a second.
+  const cursorOn = t >= 14.9 && (typing || Math.floor((t - 16.1) * 2) % 2 === 0)
+  $('lede').innerHTML = LEDE.slice(0, n) + (cursorOn ? '<span class="cur"></span>' : '')
+  $('trusted').textContent = TRUSTED.slice(0, Math.round(TRUSTED.length * seg(t, 15.2, 15.5)))
+  $('vtex').style.opacity = out3(seg(t, 15.4, 15.9))
+}
+
+const q = new URLSearchParams(location.search)
+const fixed = q.has('t') ? parseFloat(q.get('t')) : null
+document.fonts.ready.then(() => {
+  if (fixed !== null) { render(fixed); document.body.dataset.ready = 1; return }
+  const frame = () => { render(performance.now() / 1000); requestAnimationFrame(frame) }
+  frame()
+  document.body.dataset.ready = 1
+})
+</script>
+</body>
+</html>
