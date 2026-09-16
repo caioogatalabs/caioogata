@@ -10,6 +10,7 @@ interface GridItemProps extends HTMLAttributes<HTMLDivElement> {
   tabletSpan?: number // tablet span (out of 8)
   mobileSpan?: number // mobile span (out of 4)
   start?: number      // desktop column start (1-12)
+  tabletStart?: number // tablet column start (1-8)
   children?: ReactNode
 }
 
@@ -25,6 +26,11 @@ const DESKTOP_SPAN: Record<number, string> = {
   1: 'lg:col-span-1', 2: 'lg:col-span-2', 3: 'lg:col-span-3', 4: 'lg:col-span-4',
   5: 'lg:col-span-5', 6: 'lg:col-span-6', 7: 'lg:col-span-7', 8: 'lg:col-span-8',
   9: 'lg:col-span-9', 10: 'lg:col-span-10', 11: 'lg:col-span-11', 12: 'lg:col-span-12',
+}
+
+const TABLET_START: Record<number, string> = {
+  1: 'md:col-start-1', 2: 'md:col-start-2', 3: 'md:col-start-3', 4: 'md:col-start-4',
+  5: 'md:col-start-5', 6: 'md:col-start-6', 7: 'md:col-start-7', 8: 'md:col-start-8',
 }
 
 const DESKTOP_START: Record<number, string> = {
@@ -49,12 +55,13 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(function Grid(
 })
 
 export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem(
-  { span, tabletSpan, mobileSpan, start, className = '', style, children, ...props },
+  { span, tabletSpan, mobileSpan, start, tabletStart, className = '', style, children, ...props },
   ref
 ) {
   const classes: string[] = []
   if (mobileSpan) classes.push(MOBILE_SPAN[mobileSpan] ?? '')
   if (tabletSpan) classes.push(TABLET_SPAN[tabletSpan] ?? '')
+  if (tabletStart) classes.push(TABLET_START[tabletStart] ?? '')
   if (span) classes.push(DESKTOP_SPAN[span] ?? '')
   if (start) classes.push(DESKTOP_START[start] ?? '')
   if (className) classes.push(className)

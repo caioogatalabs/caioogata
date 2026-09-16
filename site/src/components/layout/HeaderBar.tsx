@@ -182,12 +182,15 @@ export function HeaderBar() {
     >
       {/* ── Mobile form — two lines and a button ──
            Six slots on a 4-column grid stacked into four rows and 262px of
-           header, a third of a phone screen. Below `md` only the welcome and
+           header, a third of a phone screen. Below `lg` only the welcome and
            the availability stay on the bar; the menu, the location and the
            freelancer label move into the panel, and the version stamp is
-           dropped. From `md` up the six slots fit one row (3/1/2/2/1/3) and
-           nothing here applies. */}
-      <GridItem mobileSpan={4} className="md:hidden">
+           dropped. From `lg` up the six slots fit one row (3/1/2/2/1/3) and
+           nothing here applies.
+           The switch is at `lg`, not `md`: on a tablet held upright the six
+           slots do fit, but the nav lands in two of eight columns and breaks
+           its four links into four stacked lines. */}
+      <GridItem mobileSpan={4} tabletSpan={8} className="lg:hidden">
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="opacity-50">{t.welcome}</p>
@@ -197,17 +200,17 @@ export function HeaderBar() {
         </div>
       </GridItem>
 
-      <GridItem mobileSpan={4} tabletSpan={3} span={3} className="hidden opacity-50 md:block">
+      <GridItem mobileSpan={4} tabletSpan={3} span={3} className="hidden opacity-50 lg:block">
         {t.welcome}
       </GridItem>
 
-      <GridItem mobileSpan={2} tabletSpan={1} span={1} className="hidden opacity-50 whitespace-nowrap md:block">
+      <GridItem mobileSpan={2} tabletSpan={1} span={1} className="hidden opacity-50 whitespace-nowrap lg:block">
         V2.0.{COMMIT_COUNT}
       </GridItem>
 
       {/* Location, clock, and the language switch under them — the switch
           carries its own opacity so the active language can read at full. */}
-      <GridItem mobileSpan={2} tabletSpan={2} span={2} className="hidden md:block">
+      <GridItem mobileSpan={2} tabletSpan={2} span={2} className="hidden lg:block">
         <p className="opacity-50">{t.location}</p>
         <p className="opacity-50">
           <LocalClock />
@@ -216,7 +219,7 @@ export function HeaderBar() {
       </GridItem>
 
       {/* Column 7 — the menu, per the design */}
-      <GridItem mobileSpan={4} tabletSpan={2} span={2} className="hidden md:block">
+      <GridItem mobileSpan={4} tabletSpan={2} span={2} className="hidden lg:block">
         <nav aria-label={t.sections} className="pointer-events-auto">
           <ul className="flex flex-col gap-1 font-sans text-[14px] leading-[1.5] tracking-normal">
             {menu.map(({ label, href }) => {
@@ -237,7 +240,7 @@ export function HeaderBar() {
         </nav>
       </GridItem>
 
-      <GridItem mobileSpan={2} tabletSpan={1} span={1} className="hidden opacity-50 md:block">
+      <GridItem mobileSpan={2} tabletSpan={1} span={1} className="hidden opacity-50 lg:block">
         <p>{t.worldwide}</p>
         <p>{t.freelancer}</p>
       </GridItem>
@@ -246,7 +249,7 @@ export function HeaderBar() {
         mobileSpan={2}
         tabletSpan={3}
         span={3}
-        className="hidden text-right md:block md:whitespace-nowrap"
+        className="hidden text-right lg:block lg:whitespace-nowrap"
       >
         <Availability />
       </GridItem>

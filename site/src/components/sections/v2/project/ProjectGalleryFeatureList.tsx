@@ -116,28 +116,36 @@ export function ProjectGalleryFeatureList({ section }: ProjectGalleryFeatureList
   return (
     <section className="py-24">
       <div className="space-y-16">
-        {features.map((feature, index) => (
-          <Grid key={index}>
-            <GridItem span={4} tabletSpan={8} mobileSpan={4}>
-              <p className={LABEL}>
-                {feature.name}
-              </p>
-            </GridItem>
-            <GridItem span={5} tabletSpan={8} mobileSpan={4}>
-              <FeatureMedia image={feature.image} />
-            </GridItem>
-            <GridItem span={3} tabletSpan={8} mobileSpan={4}>
-              <div className="flex items-start h-full">
-                <p
-                  className="text-[18px] leading-[1.6] text-text-secondary"
-                  style={{ fontFamily: 'var(--font-sans)' }}
-                >
-                  {feature.description}
+        {features.map((feature, index) => {
+          // On a tablet held upright the desktop 4/5/3 row does not fit, and
+          // three blocks at full width read as one undifferentiated column.
+          // Instead the whole feature takes a side — media six of eight, name
+          // and description on the same edge — and the next one takes the
+          // other, so the list zigzags the way the staggered gallery does.
+          const tabletStart = index % 2 === 0 ? 1 : 3
+          return (
+            <Grid key={index}>
+              <GridItem span={4} tabletSpan={6} tabletStart={tabletStart} mobileSpan={4}>
+                <p className={LABEL}>
+                  {feature.name}
                 </p>
-              </div>
-            </GridItem>
-          </Grid>
-        ))}
+              </GridItem>
+              <GridItem span={5} tabletSpan={6} tabletStart={tabletStart} mobileSpan={4}>
+                <FeatureMedia image={feature.image} />
+              </GridItem>
+              <GridItem span={3} tabletSpan={5} tabletStart={tabletStart} mobileSpan={4}>
+                <div className="flex items-start h-full">
+                  <p
+                    className="text-[18px] leading-[1.6] text-text-secondary"
+                    style={{ fontFamily: 'var(--font-sans)' }}
+                  >
+                    {feature.description}
+                  </p>
+                </div>
+              </GridItem>
+            </Grid>
+          )
+        })}
       </div>
     </section>
   )

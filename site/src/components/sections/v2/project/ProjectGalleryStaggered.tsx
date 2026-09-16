@@ -15,18 +15,23 @@ const DESKTOP_SPAN: Record<number, string> = {
   9: 'lg:col-span-9', 10: 'lg:col-span-10', 11: 'lg:col-span-11', 12: 'lg:col-span-12',
 }
 
-// Tablet: minimum 6-col per image
+// Tablet: half the eight-column track, so a row reads as 4-4. A declared span
+// of 12 is the one exception — a full-bleed row stays full-bleed.
 const TABLET_SPAN: Record<number, string> = {
-  1: 'md:col-span-6', 2: 'md:col-span-6', 3: 'md:col-span-6', 4: 'md:col-span-6',
-  5: 'md:col-span-6', 6: 'md:col-span-6', 7: 'md:col-span-8', 8: 'md:col-span-8',
-  9: 'md:col-span-8', 10: 'md:col-span-8', 11: 'md:col-span-8', 12: 'md:col-span-12',
+  1: 'md:col-span-4', 2: 'md:col-span-4', 3: 'md:col-span-4', 4: 'md:col-span-4',
+  5: 'md:col-span-4', 6: 'md:col-span-4', 7: 'md:col-span-4', 8: 'md:col-span-4',
+  9: 'md:col-span-4', 10: 'md:col-span-4', 11: 'md:col-span-4', 12: 'md:col-span-8',
 }
+
+// Tablet: the two halves a lone image alternates between.
+const TABLET_START_LEFT = 'md:col-start-1'
+const TABLET_START_RIGHT = 'md:col-start-5'
 
 // Mobile: all images stack to full width
 const MOBILE_SPAN: Record<number, string> = {
-  1: 'col-span-12', 2: 'col-span-12', 3: 'col-span-12', 4: 'col-span-12',
-  5: 'col-span-12', 6: 'col-span-12', 7: 'col-span-12', 8: 'col-span-12',
-  9: 'col-span-12', 10: 'col-span-12', 11: 'col-span-12', 12: 'col-span-12',
+  1: 'col-span-4', 2: 'col-span-4', 3: 'col-span-4', 4: 'col-span-4',
+  5: 'col-span-4', 6: 'col-span-4', 7: 'col-span-4', 8: 'col-span-4',
+  9: 'col-span-4', 10: 'col-span-4', 11: 'col-span-4', 12: 'col-span-4',
 }
 
 // Column start offset (desktop only — mobile always starts at 1)
@@ -132,12 +137,25 @@ export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProp
           }
 
           return (
-            <div key={rowIdx} className="grid grid-cols-12 gap-x-[4px]">
+            <div key={rowIdx} className="grid grid-cols-4 gap-x-[4px] md:grid-cols-8 lg:grid-cols-12">
               {row.images.map((item, imgIdx) => {
                 const span = row.spans[imgIdx] ?? Math.floor(12 / row.images.length)
+                // A row carrying one image alternates halves down the gallery.
+                // The desktop `colStart` cannot drive this: it names three zones
+                // out of twelve columns and the tablet has two out of eight, and
+                // a run like 9, 5, 9 would land on the same side twice. Row
+                // parity keeps the zigzag regardless of the authored zones. A
+                // row with more than one image is already a 4-4 pair.
+                const tabletStart =
+                  row.images.length === 1 && span !== 12
+                    ? rowIdx % 2 === 0
+                      ? TABLET_START_LEFT
+                      : TABLET_START_RIGHT
+                    : ''
                 const spanClasses = [
-                  MOBILE_SPAN[span] || 'col-span-12',
-                  TABLET_SPAN[span] || 'md:col-span-6',
+                  MOBILE_SPAN[span] || 'col-span-4',
+                  TABLET_SPAN[span] || 'md:col-span-4',
+                  tabletStart,
                   DESKTOP_SPAN[span] || 'lg:col-span-12',
                   // Apply column start offset if set on row (first image only)
                   imgIdx === 0 && row.colStart ? (COL_START[row.colStart] || '') : '',

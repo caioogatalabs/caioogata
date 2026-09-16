@@ -22,7 +22,10 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const mql = window.matchMedia('(max-width: 767px)')
+    // Up to `lg`, not just phones: a slide pinned to a tall upright tablet
+    // holds the viewport for a full screen-height per image and reads as the
+    // page having stopped scrolling.
+    const mql = window.matchMedia('(max-width: 1023px)')
     setIsMobile(mql.matches)
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
     mql.addEventListener('change', handler)
