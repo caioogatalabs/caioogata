@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { getLenis } from '@/components/layout/SmoothScroll'
 import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
-import { ThemeSwitch } from '@/components/layout/ThemeSwitch'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 
 interface MobileMenuProps {
@@ -103,7 +102,6 @@ export function MobileMenu({ menu, pathname, clock }: MobileMenuProps) {
           <p className="opacity-50">{t.location}</p>
           <p className="opacity-50">{clock}</p>
           <LanguageSwitch className="mt-1" />
-          <ThemeSwitch />
         </div>
         <div className="opacity-50">
           <p>{t.worldwide}</p>

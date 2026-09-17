@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { MobileMenu } from '@/components/layout/MobileMenu'
 import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
-import { ThemeSwitch } from '@/components/layout/ThemeSwitch'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { COMMIT_COUNT } from '@/lib/build-info'
 import { CopyEmail } from '@/components/ui/CopyEmail'
@@ -232,7 +231,6 @@ export function HeaderBar() {
           <LocalClock />
         </p>
         <LanguageSwitch className="mt-1" />
-        <ThemeSwitch />
       </GridItem>
 
       {/* Column 7 — the menu, per the design */}

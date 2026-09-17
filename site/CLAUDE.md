@@ -293,14 +293,14 @@ src/tokens/
 
 `primitives.css` → `semantic.css` (@theme) → Tailwind utility classes → Components
 
-### Theming
+### Section Theming
 
-Three modes via the `data-theme` attribute — all semantic tokens remap automatically:
+Three modes via the `data-theme` attribute **on a section container** — all semantic tokens remap automatically:
 - **Dark (default):** no attribute needed
-- **Light:** `data-theme="light"` — page on neutral-50 (0.93), a held-back white, never `#fff`. Surfaces ladder *downward* from the page (primary 100 → secondary 200), because in light the headroom is below, not above. Dark text and borders.
+- **Light:** `data-theme="light"` — grey bg (neutral-200, 0.65), dark text/borders. NOT white.
 - **Inverse:** `data-theme="inverse"` — brand yellow bg, dark brand text
 
-The attribute works at two scales, with the same rule: on a **section container** (the footer runs `inverse`), or on **`<html>`** for the whole site. `ThemeProvider` (`src/components/providers/ThemeProvider.tsx`) owns the site-wide one — dark is the absence of the attribute, light sets it. **Dark is always the default**: `prefers-color-scheme` is deliberately not consulted, since the portfolio is dark-first by design and a light OS should not decide that for a reader. Light is only ever a choice, made with the `DARK / LIGHT` switch in the header and saved to `portfolio-theme`. The initial attribute is written by an inline script in `app/layout.tsx`, so a reader who chose light does not get a dark flash on the way back.
+The site itself is dark, full stop. A site-wide light skin — the attribute on `<html>`, a `DARK / LIGHT` switch, a saved preference — was built and taken back out on 2026-09-17: the page does not work in it. Do not rebuild it without deciding first what the hero, the covers and the header blend do there. `light` survives as a section value, which is what `/dev/buttons` previews; the footer is the only production section carrying one, and it carries `inverse`.
 
 Yellow primary button (`bg-fill-primary` + `text-on-primary`) stays stable across Dark and Light. Only Inverse overrides it. Never hardcode inverted colors — use `data-theme` on the container.
 
@@ -312,7 +312,7 @@ Two rules govern where the class can go:
 - **It must sit on the bar, not on its slots.** The bar is `sticky z-50`, which is a stacking context, and a blend inside one only sees that context's own group — which here is empty, so nothing happens.
 - **Nothing under it may own an opaque surface.** `mix-blend-mode` takes the whole subtree with it. `MobileMenu` portals its full-screen panel to the body for exactly this reason, and therefore states its own type rather than inheriting the bar's mono.
 
-The blend is also why the light page tone is neutral-50 and not a mid grey: difference against a mid grey lands almost on top of itself (1.5:1). Against neutral-50 it reads 14.6:1, matching dark's 16.8:1.
+The blend needs the surface under it to be near one end of the range. Against the site's near-black it reads 16.8:1; against a mid grey it differences almost onto itself (1.5:1), which is one of the reasons the site-wide light skin came back out.
 <!-- GSD:architecture-end -->
 
 ---

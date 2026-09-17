@@ -2225,10 +2225,7 @@
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
       "menu": "Menu",
-      "language": "Language",
-      "theme": "Theme",
-      "themeDark": "DARK",
-      "themeLight": "LIGHT"
+      "language": "Language"
     },
     "intro": {
       "headlineLine1": "Creative Designer",
