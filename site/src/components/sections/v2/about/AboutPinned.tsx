@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSectionExitProgress, slice } from '@/hooks/useScrollExitProgress'
 import { SplitText } from '@/components/motion/SplitText'
 import { useLanguage } from '@/components/providers/LanguageProvider'
@@ -59,12 +59,20 @@ const IMAGE_OPACITY = 1
  * The portrait. WebM first — VP9 is ~40% of the H.264 file at the same read —
  * with MP4 behind it for Safari.
  *
- * The clip is the turn and its way back: the original 27 frames reversed and
- * then played forward, so frame 0 and the last frame are both the portrait
- * looking back — the same frame as the poster. Autoplaying the one-way clip
- * loaded on the poster (its last frame) and then jumped to its first, and the
- * head visibly dropped the moment playback started. Now nothing moves until
- * the reader asks for it, and it comes to rest where it began.
+ * The arrival only: the first second of `07-video-corpo-b.mp4` — frames 0-26,
+ * where he is already at the camera and turns away from it — played backwards,
+ * so he turns toward the camera and stops on frame 0. That last frame is the
+ * portrait, and the clip ends on it without a loop or a hold.
+ *
+ * It ran the turn and its way back before, the same 27 frames reversed and then
+ * forward again. A round trip returns to where it started, so it could only be
+ * a hover; half of it is the half that was wanted.
+ *
+ * Encoded at CRF 36 (VP9) and 26 (H.264) rather than the 32 and 20 it carried
+ * as a round trip. The grain survives both — this is a black-and-white study
+ * and the grain is the picture, so it was checked frame against frame at 1:1
+ * before the numbers moved, and the next step down, 40 and 29, is where the
+ * skin starts going waxy.
  */
 const PORTRAIT = {
   webm: '/about/portrait-reverse.webm',
@@ -73,8 +81,8 @@ const PORTRAIT = {
 } as const
 
 /**
- * Played back slower than it was shot. The clip is 54 frames at 24fps; at 0.6
- * each frame is held ~69ms, so the round trip takes 3.7s instead of 2.25s.
+ * Played back slower than it was shot. The clip is 27 frames at 24fps; at 0.6
+ * each frame is held ~69ms, so the turn takes 1.9s instead of 1.1s.
  * Done on the element rather than in the encode on purpose — there are no
  * frames to invent, so stretching it here or stretching it in ffmpeg look
  * identical, and this one is a number you can change without re-encoding.
@@ -91,10 +99,8 @@ const PLAYBACK_RATE = 0.6
  * — as you scrolled. The frames and `useScrollVideo` are still on disk in case
  * that comes back, but nothing loads them now: the block is normal height.
  *
- * The portrait here is a short loop rather than the still the home hero uses:
- * the first 1.1s of `branding/photography/estudos-pb/07-video-corpo-b.mp4`
- * reversed, which is the tail of the rotation — he arrives at the camera
- * instead of turning away from it, and it ends on the blink. The same element
+ * The portrait here is a clip rather than the still the home hero uses: he
+ * turns to the camera once as the page opens and stays there. The same element
  * feeds the distortion as a texture, so it decodes once and stays the fallback
  * wherever the canvas does not mount.
  *
@@ -140,8 +146,8 @@ export function AboutPinned() {
    * It is meant to load whole — the portrait's base on the page's bottom
    * margin, the paragraph's last line with it, nothing of either below the
    * fold. Sitting it there takes the height of the sticky header, which is not
-   * a constant: it carries the nav, the clock and the two switches, and it
-   * wraps to a different number of lines at each breakpoint.
+   * a constant: it wraps to a different number of lines at each breakpoint, and
+   * to another one whenever something is added to or taken out of it.
    *
    * So it is read rather than written down. This block is the first thing in
    * `main`, so its own distance from the top of the document is exactly what
@@ -171,52 +177,76 @@ export function AboutPinned() {
     return () => observer.disconnect()
   }, [ref])
 
-  // The screen left for the block. `py-8` on both edges is the 64px taken out
-  // of it for the room the portrait actually has.
-  const screenBelowHeader = aboveTop === null ? undefined : `calc(100svh - ${aboveTop}px)`
-
   /**
-   * On a short window the portrait would not fit that room. Four columns of a
-   * 1440 track make it 594px tall, and a laptop browser at that width leaves
-   * about 530 — so the base that was just set on the bottom margin would go
-   * back under the fold, which is the whole thing this is for.
+   * The screen left for the block: a floor, not a ceiling.
    *
-   * It gives up width rather than height when that happens: a ceiling on the
-   * width, derived from the room by the 3:4 it keeps, and the column pushed to
-   * its right edge so the portrait stays against the page's right margin. The
-   * proportion holds and nothing is cropped — it is the same picture, smaller,
-   * and it only ever engages where the alternative was cutting it off.
+   * On a window tall enough it holds the whole composition and the portrait's
+   * base lands on the bottom margin. On a short one the block grows past it and
+   * the base goes under the fold.
+   *
+   * It stays a floor on purpose. A ceiling was tried — the portrait giving up
+   * width to fit the screen, its proportion intact — and the width it gives up
+   * is the four columns: the picture is laid out at the column width on the
+   * first paint and retracts off it once the header has been measured, which
+   * reads as the page correcting itself. The portrait's left edge is on column
+   * 9 and that is worth more than the fold.
    */
-  const portraitCeiling =
-    aboveTop === null ? undefined : `calc((100svh - ${aboveTop + 64}px) * 3 / 4)`
+  const screenBelowHeader = aboveTop === null ? undefined : `calc(100svh - ${aboveTop}px)`
 
   const [portrait, setPortrait] = useState<HTMLVideoElement | null>(null)
   const reducedMotion = useReducedMotion()
 
   /**
-   * The turn runs on the pointer, not on load. This block is the first thing on
-   * /about, so an in-view trigger would fire at the same moment autoplay did.
-   * A second hover while it runs is ignored — restarting mid-turn reads as a
-   * stutter, not as a second arrival.
+   * The turn runs once, on load. It is the arrival: he is facing away when the
+   * page opens and comes round to meet the reader, and there is nothing to
+   * trigger because the block is the first thing on /about — it is already on
+   * screen. No `loop`: an arrival that repeats stops being one, and the clip
+   * ends on the frame it is meant to rest on anyway.
+   *
+   * Where it cannot run — a reader who asked for reduced motion, or a browser
+   * that refused to play — the element is parked on the last frame rather than
+   * left on the first, so the portrait is the portrait and not the back of his
+   * head. `duration` is only known once metadata is in, so the seek waits for
+   * it; `fastSeek` where it exists, since the target is a frame the decoder can
+   * pick, not a timestamp that has to be exact.
+   *
+   * One starter, and only one. It played the turn twice before: the element
+   * carried `autoplay`, which starts as soon as the data is there — often
+   * before this effect runs at all — and then the effect rewound to 0 and
+   * played it again, which read as the page loading the portrait twice. The
+   * attribute is gone and this owns it, behind a ref so that a re-run — React
+   * in development, or the reduced-motion query answering later — cannot start
+   * a second one.
    */
-  const playTurn = useCallback(() => {
-    if (!portrait || reducedMotion) return
-    if (!portrait.paused && portrait.currentTime > 0) return
-    portrait.currentTime = 0
-    void portrait.play()
-  }, [portrait, reducedMotion])
-
-  // `playbackRate` is a property, not an attribute — React cannot set it from
-  // JSX, and it resets whenever the element loads a new source.
+  const turnRan = useRef(false)
   useEffect(() => {
     if (!portrait) return
-    const apply = () => {
-      portrait.playbackRate = PLAYBACK_RATE
+
+    const rest = () => {
+      const end = portrait.duration
+      if (!Number.isFinite(end)) return
+      portrait.pause()
+      if (typeof portrait.fastSeek === 'function') portrait.fastSeek(end)
+      else portrait.currentTime = end
     }
-    apply()
-    portrait.addEventListener('loadedmetadata', apply)
-    return () => portrait.removeEventListener('loadedmetadata', apply)
-  }, [portrait])
+
+    // `playbackRate` is a property, not an attribute — React cannot set it from
+    // JSX, and it resets whenever the element loads a new source.
+    const start = () => {
+      if (turnRan.current) return
+      turnRan.current = true
+      portrait.playbackRate = PLAYBACK_RATE
+      if (reducedMotion) {
+        rest()
+        return
+      }
+      void portrait.play().catch(rest)
+    }
+
+    if (portrait.readyState >= HTMLMediaElement.HAVE_METADATA) start()
+    else portrait.addEventListener('loadedmetadata', start, { once: true })
+    return () => portrait.removeEventListener('loadedmetadata', start)
+  }, [portrait, reducedMotion])
 
   const { content } = useLanguage()
   const firstParagraph = content.about.bio.split('\n\n')[0]
@@ -233,15 +263,8 @@ export function AboutPinned() {
               eight) and the four right-hand columns, 9-12, from `lg` up. Full
               width on a phone or a portrait tablet, a 3:4 portrait ran taller
               than the screen. z-10 so the paragraph layers on top. */}
-          <div
-            className="col-span-2 col-start-3 md:col-span-4 md:col-start-5 lg:col-span-4 lg:col-start-9 lg:row-start-1 z-10 lg:ml-auto lg:w-full"
-            style={{ maxWidth: isWide ? portraitCeiling : undefined }}
-          >
-            {/* The trigger sits on the frame, not on the <video>: the
-                distortion canvas covers the element, so a pointer entering the
-                portrait never reaches the video itself. */}
+          <div className="col-span-2 col-start-3 md:col-span-4 md:col-start-5 lg:col-span-4 lg:col-start-9 lg:row-start-1 z-10">
             <div
-              onPointerEnter={playTurn}
               className="relative w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
               style={{
                 opacity: IMAGE_OPACITY * (1 - outImage),
@@ -250,19 +273,21 @@ export function AboutPinned() {
             >
               {/* A callback ref rather than useRef: the canvas has to re-render
                   once the element exists, and a ref object never triggers that. */}
-              {/* Rests on the portrait looking back and runs the turn once
-                  per hover, coming back to the same frame. No `loop`: the turn
-                  is an arrival, and an arrival that repeats stops being one.
-                  Reduced motion never starts it — the same contract
-                  `LoopVideo` holds elsewhere. The element still mounts, so the
-                  distortion can take its first frame. */}
+              {/* The poster is the clip's own first frame — his back — so the
+                  picture that stands here before the video decodes is the one
+                  playback starts from, and there is no jump when it does. What
+                  it comes to rest on is the last frame, which the effect above
+                  parks it on wherever the turn cannot run. `muted` and
+                  `playsInline` are what make playing it without a gesture
+                  allowed at all; there is no `autoplay` attribute, because the
+                  effect is the one thing that starts it. */}
               <video
                 ref={setPortrait}
                 poster={PORTRAIT.poster}
                 aria-label="Caio Ogata"
                 muted
                 playsInline
-                preload={reducedMotion ? 'metadata' : 'auto'}
+                preload="auto"
                 className="absolute inset-0 h-full w-full object-cover"
               >
                 <source src={PORTRAIT.webm} type="video/webm" />
