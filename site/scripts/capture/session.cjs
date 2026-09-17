@@ -11,6 +11,10 @@
 //   stop                  stop recording -> mp4 + webm 1920x1200
 //   cursor on|off         draw a cursor overlay that follows the mouse
 //   eval <js>             run JS in the page, log the result
+//   move <x> <y>          move the real mouse (CSS px) — hover states
+//   click <x> <y>         real click
+//   type <text>           real keystrokes into the focused field
+//   press <key>           one key, e.g. Escape, Enter, ArrowDown
 //
 // Real-time recording is uneven (frame timing jitters, frames arrive at 1x) —
 // use it for rough takes; vcap.cjs or native screen recording for finals.
@@ -127,6 +131,13 @@ const CURSOR_SCRIPT = `
     },
 
     async eval(js) { return JSON.stringify(await page.evaluate(js)) },
+
+    // Real input, for states page scripts can't fake: chart hover tooltips,
+    // autocomplete that listens to keystrokes, overlays that close on a real click.
+    async move(args) { const [x, y] = args.split(' ').map(Number); await page.mouse.move(x, y, { steps: 8 }); return `mouse ${x},${y}` },
+    async click(args) { const [x, y] = args.split(' ').map(Number); await page.mouse.click(x, y); return `click ${x},${y}` },
+    async type(text) { await page.keyboard.type(text, { delay: 60 }); return `typed "${text}"` },
+    async press(key) { await page.keyboard.press(key); return `pressed ${key}` },
   }
 
   // One command at a time, in order — `stop` must never overlap `rec`.
