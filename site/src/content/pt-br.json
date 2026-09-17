@@ -812,6 +812,7 @@
       {
         "title": "Azion Console Kit",
         "slug": "azion-console-kit",
+        "cover": "/projects/azion-console-kit/cover.mp4",
         "year": "2023",
         "description": "A tela que engenheiros usam para publicar e acompanhar suas aplicações, reconstruída do zero. Vue 3, uma biblioteca de componentes compartilhada e uma arquitetura que separa a aparência de uma tela daquilo que ela faz.",
         "role": "Developer Experience Director",
@@ -905,16 +906,79 @@
             "solution": "Uma arquitetura headless em Vue 3 que separa a interface da lógica de negócio, com componentização em blocos que reduziu a implementação de uma nova tela para cerca de um dia."
           },
           {
+            "type": "statement",
+            "body": "O console antigo mandava você embora para criar qualquer coisa: voltar ao menu, criar a peça que faltava, achar o caminho de volta. Agora a peça que falta abre onde você está."
+          },
+          {
+            "type": "gallery-stick",
+            "rows": [
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-console-kit/home.webp"
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-console-kit/workload-edit.webp"
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-console-kit/application-create-modules.webp"
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-console-kit/rtm-hover-edge-cache.webp"
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/azion-console-kit/rte-error-details-cards.webp"
+                ]
+              }
+            ]
+          },
+          {
             "type": "gallery-staggered",
             "rows": [
               {
                 "spans": [
-                  6,
-                  6
+                  4
                 ],
                 "images": [
-                  "/projects/azion-console-kit/drawer-double.webp",
-                  "/projects/azion-console-kit/console-mobile-metrics.webp"
+                  "/projects/azion-console-kit/create-panel.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  "/projects/azion-console-kit/rtm-date-filter-quick.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  "/projects/azion-console-kit/invoice-details-expanded.webp"
                 ]
               }
             ]
@@ -944,24 +1008,82 @@
             "type": "gallery-feature-list",
             "features": [
               {
-                "name": "Console Kit Blocks — Figma",
+                "name": "Criar no lugar",
                 "image": {
-                  "src": "",
-                  "title": "Console Kit Blocks — Figma",
-                  "type": "figma",
-                  "figmaEmbedUrl": "https://embed.figma.com/design/DKr8aHcsH8yUgl4Ptz1a2E/Console-Kit-Blocks?node-id=0-1&embed-host=share"
+                  "src": "/projects/azion-console-kit/drawer-create-firewall.mp4",
+                  "title": "Create Firewall drawer inside a workload",
+                  "type": "video",
+                  "poster": "/projects/azion-console-kit/drawer-create-firewall.webp"
                 },
-                "description": "Console Kit Blocks — Figma"
+                "description": "Um Firewall que falta é criado numa gaveta lateral, dentro do workload que precisa dele. A jornada não sai da tela onde começou."
               },
               {
-                "name": "Console UI — prévia da migração",
+                "name": "Um padrão em todo produto",
                 "image": {
-                  "src": "",
-                  "title": "Console UI — Migration Preview",
-                  "type": "figma",
-                  "figmaEmbedUrl": "https://embed.figma.com/design/FungJEKktn3K00HEmqhzai/Console-UI--Migration--Preview?node-id=9366-129330&embed-host=share"
+                  "src": "/projects/azion-console-kit/application-modules.mp4",
+                  "title": "Application modules",
+                  "type": "video",
+                  "poster": "/projects/azion-console-kit/application-modules.webp"
                 },
-                "description": "Console UI — prévia da migração"
+                "description": "Descrição à esquerda, controles à direita. Criar, editar e excluir funcionam igual em Applications, Firewall e em todos os outros produtos."
+              },
+              {
+                "name": "Navegação por categoria",
+                "image": {
+                  "src": "/projects/azion-console-kit/menu-categories.mp4",
+                  "title": "Console menu by category",
+                  "type": "video",
+                  "poster": "/projects/azion-console-kit/menu-categories.webp"
+                },
+                "description": "Produtos agrupados pelo que fazem: Build, Secure, Store, Deploy e Observe."
+              },
+              {
+                "name": "Claro e escuro",
+                "image": {
+                  "src": "/projects/azion-console-kit/theme-light-dark.mp4",
+                  "title": "Light and dark themes",
+                  "type": "video",
+                  "poster": "/projects/azion-console-kit/theme-light-dark.webp"
+                },
+                "description": "Todas as telas nos dois temas, trocados pelo menu da conta."
+              },
+              {
+                "name": "Azion Copilot",
+                "image": {
+                  "src": "/projects/azion-console-kit/copilot.mp4",
+                  "title": "Azion Copilot",
+                  "type": "video",
+                  "poster": "/projects/azion-console-kit/copilot.webp"
+                },
+                "description": "Um assistente de IA dentro do console responde como construir, proteger e publicar, sem sair da página."
+              },
+              {
+                "name": "Real-Time Metrics",
+                "image": {
+                  "src": "/projects/azion-console-kit/rtm-hover-edge-cache.webp",
+                  "title": "Real-Time Metrics chart detail"
+                },
+                "description": "Gráficos por produto, com filtros e o detalhe por trás de cada ponto."
+              },
+              {
+                "name": "Real-Time Events",
+                "image": {
+                  "src": "/projects/azion-console-kit/events-filter.mp4",
+                  "title": "Real-Time Events filter",
+                  "type": "video",
+                  "poster": "/projects/azion-console-kit/events-filter.webp"
+                },
+                "description": "Logs brutos de requisições e de segurança, filtrados enquanto você digita, para inspecionar um ataque ou depurar uma requisição."
+              },
+              {
+                "name": "Templates",
+                "image": {
+                  "src": "/projects/azion-console-kit/template-deploy-log.mp4",
+                  "title": "Template deploy log",
+                  "type": "video",
+                  "poster": "/projects/azion-console-kit/template-deploy-log.webp"
+                },
+                "description": "Um template publicado direto do Create, com o log do build rodando na tela."
               }
             ]
           },
@@ -978,24 +1100,36 @@
             "title": "Azion Console Kit — Product Overview"
           },
           {
-            "src": "/projects/azion-console-kit/drawer-double.webp",
-            "title": "Drawer — Dual Panel"
+            "src": "/projects/azion-console-kit/home.webp",
+            "title": "Home"
           },
           {
-            "src": "/projects/azion-console-kit/console-mobile-metrics.webp",
-            "title": "Mobile — Metrics"
+            "src": "/projects/azion-console-kit/workload-edit.webp",
+            "title": "Workload settings"
           },
           {
-            "src": "",
-            "title": "Console Kit Blocks — Figma",
-            "type": "figma",
-            "figmaEmbedUrl": "https://embed.figma.com/design/DKr8aHcsH8yUgl4Ptz1a2E/Console-Kit-Blocks?node-id=0-1&embed-host=share"
+            "src": "/projects/azion-console-kit/application-create-modules.webp",
+            "title": "Application modules"
           },
           {
-            "src": "",
-            "title": "Console UI — Migration Preview",
-            "type": "figma",
-            "figmaEmbedUrl": "https://embed.figma.com/design/FungJEKktn3K00HEmqhzai/Console-UI--Migration--Preview?node-id=9366-129330&embed-host=share"
+            "src": "/projects/azion-console-kit/rtm-hover-edge-cache.webp",
+            "title": "Real-Time Metrics"
+          },
+          {
+            "src": "/projects/azion-console-kit/rte-error-details-cards.webp",
+            "title": "Real-Time Events details"
+          },
+          {
+            "src": "/projects/azion-console-kit/create-panel.webp",
+            "title": "Create"
+          },
+          {
+            "src": "/projects/azion-console-kit/rtm-date-filter-quick.webp",
+            "title": "Date filter"
+          },
+          {
+            "src": "/projects/azion-console-kit/invoice-details-expanded.webp",
+            "title": "Invoice details"
           }
         ]
       },
@@ -1124,6 +1258,7 @@
       {
         "title": "Azion Brand System",
         "slug": "azion-brand-system",
+        "cover": "/projects/azion-brand-system/cover.mp4",
         "year": "2020",
         "description": "Uma identidade completa para uma empresa que vende infraestrutura: linguagem visual, voz, ilustração e iconografia, aplicadas em produto, marketing e engenharia.",
         "role": "Design Director, Brand Experience",
