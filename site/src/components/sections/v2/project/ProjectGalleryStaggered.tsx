@@ -159,7 +159,13 @@ export function ProjectGalleryStaggered({ section }: ProjectGalleryStaggeredProp
                 // gallery closes on the same columns the numbers below use. Row
                 // position, not the authored `colStart`, drives this — a row
                 // with more than one image declares its own spans.
-                const steppedOut = rowIdx % 3 === 2 && rowIdx !== rows.length - 1
+                // A gallery of three never reached its third row before the
+                // last, so nothing stepped out and all three stacked on 5-8.
+                // There the middle image takes the step instead.
+                const steppedOut =
+                  rows.length === 3
+                    ? rowIdx === 1
+                    : rowIdx % 3 === 2 && rowIdx !== rows.length - 1
                 const desktopStart = alone
                   ? steppedOut
                     ? 'lg:col-start-9'
