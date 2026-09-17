@@ -1823,7 +1823,7 @@
           {
             "type": "challenge",
             "challenge": "Huia started as a small production nucleus within a larger agency, needing to establish itself as an independent creative technology partner.",
-            "solution": "Scaled the studio from internal agency nucleus to independent 40-person operation, delivering innovative digital experiences using WebGL, facial recognition APIs, and experimental technologies."
+            "solution": "Caio helped grow the studio from a nucleus inside an agency to forty people of its own, delivering work that ran on WebGL, facial recognition and experimental technology."
           },
           {
             "type": "gallery-staggered",
@@ -2233,7 +2233,7 @@
       "scrollDown": "scroll down"
     },
     "askAi": {
-      "prompt": "Read https://www.caioogata.com/llms-full.txt and tell me about Caio Ogata — his background, how he works, and the projects in his portfolio.",
+      "prompt": "I'm looking for someone who can design the thing and also build it. Evaluate Caio Ogata (caioogata.com — full profile at caioogata.com/llms-full.txt) as a hire or a partner: what he actually makes, how he works with a team, what the projects in his portfolio back up, and where he would be the wrong choice.",
       "tileLabel": "Ask {name} about Caio"
     },
     "footer": {
@@ -2283,7 +2283,7 @@
     },
     "projects": {
       "kicker": "2.0 / Selected Work",
-      "headline": "A selection of projects across design systems, brand expansion, and the consoles engineers ship to every day.",
+      "headline": "A selection of work: the screens engineers use every day, the kits of parts behind them, and the brands they carry.",
       "listLabel": "All projects",
       "gridLabel": "Projects",
       "viewProject": "View {title} project",

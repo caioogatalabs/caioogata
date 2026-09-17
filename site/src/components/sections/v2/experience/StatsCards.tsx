@@ -40,11 +40,20 @@ const COL_CLASSES = [
 
 const STAGGER_CLASSES = ['-a-0', '-a-1', '-a-2'] as const
 
-const ARIA_LABELS = [
-  '15 plus years of design engineering practice',
-  '6 companies across the career',
-  '2 executive roles',
-] as const
+/**
+ * A stat's accessible name, read from the content instead of a fixed list: the
+ * numbers changed (20+ years, 40+ projects led, 0→14) while a hardcoded list
+ * still announced the old ones. `0→14` is read as a range, and `+` as "plus",
+ * so a screen reader does not spell the symbols.
+ */
+function ariaLabelFor(value: string, label: string): string {
+  const spoken = value
+    .replace('→', ' to ')
+    .replace('+', ' plus')
+    .replace(/\s+/g, ' ')
+    .trim()
+  return `${spoken} ${label}`
+}
 
 /**
  * Cubic ease-out approximation for cubic-bezier(0.16, 1, 0.3, 1).
@@ -127,7 +136,7 @@ export function StatsCards({ progress, stats, isMobile }: StatsCardsProps) {
             <StatsCard
               value={stat.value}
               label={stat.label}
-              ariaLabel={ARIA_LABELS[i] ?? `${stat.value} ${stat.label}`}
+              ariaLabel={ariaLabelFor(stat.value, stat.label)}
             />
           </div>
         ))}
@@ -154,7 +163,7 @@ export function StatsCards({ progress, stats, isMobile }: StatsCardsProps) {
             <StatsCard
               value={stat.value}
               label={stat.label}
-              ariaLabel={ARIA_LABELS[i] ?? `${stat.value} ${stat.label}`}
+              ariaLabel={ariaLabelFor(stat.value, stat.label)}
             />
           </div>
         )

@@ -12,16 +12,19 @@ import { fill, useLanguage } from '@/components/providers/LanguageProvider'
 /**
  * Deep links that accept a pre-filled question.
  *
- * Gemini has no documented prefill parameter on gemini.google.com, so it routes
- * through Google's AI Mode (`udm=50`), which is the same model and does accept
- * one. Everything else takes `?q=` directly.
+ * Endpoints matched against bymonolog.com's own Ask AI block, which is the
+ * reference for this bar: ChatGPT through `chat.openai.com`, Grok through
+ * `x.com/i/grok` (grok.com puts a sign-in wall in front of a prefilled
+ * question), Perplexity through `/search/new`. Gemini has no documented
+ * prefill parameter on gemini.google.com, so it routes through Google's AI
+ * Mode (`udm=50&aep=11`), which is the same model and does accept one.
  */
 const ASSISTANTS = [
   { name: 'Claude', href: (q: string) => `https://claude.ai/new?q=${q}`, Icon: ClaudeIcon },
-  { name: 'Gemini', href: (q: string) => `https://www.google.com/search?udm=50&q=${q}`, Icon: GeminiIcon },
-  { name: 'ChatGPT', href: (q: string) => `https://chatgpt.com/?q=${q}`, Icon: ChatGPTIcon },
-  { name: 'Grok', href: (q: string) => `https://grok.com/?q=${q}`, Icon: GrokIcon },
-  { name: 'Perplexity', href: (q: string) => `https://www.perplexity.ai/search?q=${q}`, Icon: PerplexityIcon },
+  { name: 'Gemini', href: (q: string) => `https://www.google.com/search?udm=50&aep=11&q=${q}`, Icon: GeminiIcon },
+  { name: 'ChatGPT', href: (q: string) => `https://chat.openai.com/?q=${q}`, Icon: ChatGPTIcon },
+  { name: 'Grok', href: (q: string) => `https://x.com/i/grok?text=${q}`, Icon: GrokIcon },
+  { name: 'Perplexity', href: (q: string) => `https://www.perplexity.ai/search/new?q=${q}`, Icon: PerplexityIcon },
 ] as const
 
 /**
@@ -32,9 +35,11 @@ const ASSISTANTS = [
  * dark hero and inside the footer's `data-theme="inverse"` yellow.
  */
 export function AskAiBar({ className = '' }: { className?: string }) {
-  // The prompt each assistant opens with points at the machine-readable profile
-  // (see `src/lib/markdown-generator.ts`) rather than the rendered site — the
-  // Portuguese prompt at `llms-pt.txt`, the English one at `llms-full.txt`.
+  // The prompt is written in the visitor's voice, the way bymonolog.com writes
+  // theirs: it states who is asking, what to evaluate, and by which criteria —
+  // including where Caio would be the wrong choice. It names the site and the
+  // machine-readable profile (see `src/lib/markdown-generator.ts`), the
+  // Portuguese one at `llms-pt.txt`, the English one at `llms-full.txt`.
   const t = useLanguage().content.ui.askAi
   const q = encodeURIComponent(t.prompt)
 

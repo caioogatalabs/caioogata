@@ -1823,7 +1823,7 @@
           {
             "type": "challenge",
             "challenge": "A Huia começou como um pequeno núcleo de produção dentro de uma agência maior, e precisava se firmar como parceira independente de tecnologia criativa.",
-            "solution": "Levou o estúdio de núcleo interno de agência a uma operação independente de 40 pessoas, entregando experiências digitais com WebGL, APIs de reconhecimento facial e tecnologias experimentais."
+            "solution": "Caio ajudou o estúdio a crescer de um núcleo dentro de uma agência para quarenta pessoas próprias, entregando trabalhos que rodavam em WebGL, reconhecimento facial e tecnologia experimental."
           },
           {
             "type": "gallery-staggered",
@@ -2233,7 +2233,7 @@
       "scrollDown": "role para baixo"
     },
     "askAi": {
-      "prompt": "Leia https://www.caioogata.com/llms-pt.txt e me conte sobre Caio Ogata — a trajetória dele, como trabalha e os projetos do portfólio.",
+      "prompt": "Estou procurando alguém que desenhe e também construa. Avalie Caio Ogata (caioogata.com — perfil completo em caioogata.com/llms-pt.txt) como contratação ou parceiro: o que ele faz de fato, como trabalha com um time, o que os projetos do portfólio sustentam e onde ele não seria a escolha certa.",
       "tileLabel": "Pergunte ao {name} sobre o Caio"
     },
     "footer": {
@@ -2283,7 +2283,7 @@
     },
     "projects": {
       "kicker": "2.0 / Trabalhos selecionados",
-      "headline": "Uma seleção de projetos entre design systems, expansão de marca e os consoles que engenheiros usam todo dia.",
+      "headline": "Uma seleção de trabalhos: as telas que engenheiros usam todo dia, os kits de peças por trás delas e as marcas que elas carregam.",
       "listLabel": "Todos os projetos",
       "gridLabel": "Projetos",
       "viewProject": "Ver o projeto {title}",
