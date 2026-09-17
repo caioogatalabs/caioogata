@@ -5,17 +5,23 @@ import { usePathname } from 'next/navigation'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { MobileMenu } from '@/components/layout/MobileMenu'
 import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
+import { ThemeSwitch } from '@/components/layout/ThemeSwitch'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { COMMIT_COUNT } from '@/lib/build-info'
 import { CopyEmail } from '@/components/ui/CopyEmail'
 
 /**
- * The four labels the Figma header carries. `contact` targets the footer,
- * which is mounted globally in `app/layout.tsx` and carries `id="contact"` —
- * so the link resolves on every page, including this one.
+ * The labels the header carries. `contact` targets the footer, which is
+ * mounted globally in `app/layout.tsx` and carries `id="contact"` — so the
+ * link resolves on every page, including this one.
+ *
+ * `work` points at the home project list for now (`ProjectsGrid` carries
+ * `id="projects"`); the standalone `/projects` route exists but the list on
+ * the home is the current front of the work. Swap the href when that changes.
  */
 const MENU = [
   { key: 'menuIntro', href: '/' },
+  { key: 'menuWork', href: '/#projects' },
   { key: 'menuAbout', href: '/about' },
   { key: 'menuExperience', href: '/experience' },
   { key: 'menuContact', href: '#contact' },
@@ -156,6 +162,16 @@ function useYieldToProjectNav(active: boolean) {
  * `pointer-events-auto` sits on the nav rather than the bar, so a transparent
  * bar laid over scrolling content still lets clicks through everywhere except
  * the links themselves.
+ *
+ * `-contrast-blend` (globals.css) is what keeps it readable over whatever
+ * scrolls beneath: white type differenced against the backdrop, so it comes
+ * out light on a dark cover and dark on a light one. It has to sit on the bar
+ * and not on the slots — the bar is `sticky z-50`, which is a stacking
+ * context, and a blend inside one can only see that context's own group, which
+ * here is empty. On the bar it blends against the page wrapper instead, which
+ * is where the content is. That is also why `MobileMenu` renders its panel in
+ * a portal: an opaque full-screen surface under a blended ancestor would be
+ * differenced along with the type.
  */
 export function HeaderBar() {
   const pathname = usePathname()
@@ -176,7 +192,7 @@ export function HeaderBar() {
     <Grid
       ref={ref}
       role="banner"
-      className={`pointer-events-none sticky top-0 z-50 pt-8 md:pt-10 lg:pt-12 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary transition-[transform,opacity] duration-300 ${
+      className={`-contrast-blend pointer-events-none sticky top-0 z-50 pt-8 md:pt-10 lg:pt-12 font-mono text-[12px] font-semibold leading-[1.2] tracking-[1.2px] text-text-secondary transition-[transform,opacity] duration-300 ${
         yielded ? '-translate-y-full opacity-0' : ''
       }`}
     >
@@ -216,6 +232,7 @@ export function HeaderBar() {
           <LocalClock />
         </p>
         <LanguageSwitch className="mt-1" />
+        <ThemeSwitch />
       </GridItem>
 
       {/* Column 7 — the menu, per the design */}

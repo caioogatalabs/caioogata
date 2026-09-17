@@ -36,7 +36,10 @@
 /* Base styles */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 2rem;
+  /* The header is sticky, so an anchor that lands at the top of the viewport
+     lands underneath it. `--header-h` is the bar's own height — a constant
+     below, replaced by the measured value once the bar is in the DOM. */
+  scroll-padding-top: calc(var(--header-h, 8rem) + 2rem);
 }
 
 body {
@@ -100,6 +103,27 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Contrast blend — the header chrome reads against whatever scrolls under it.
+   `difference` subtracts the backdrop from white, so the same white type comes
+   out light over a dark surface and dark over a light one, with no scroll
+   listener and no per-section override. Reference: supersolid.agency/work,
+   juanmoraromero.com/lab.
+
+   The colour has to be white for the inversion to be clean, so this overrides
+   the token colour on purpose — the one place in the site where it is right to.
+
+   Two rules for where it goes:
+   - It must sit on an element whose *parent* stacking context holds the
+     content it should read against. Put it on a child of the sticky bar and it
+     blends against the bar's own group, which is empty, and nothing happens.
+   - Keep it off anything that owns an opaque surface (the mobile menu panel):
+     `mix-blend-mode` takes the whole subtree with it. `MobileMenu` portals its
+     panel to the body for exactly this reason. */
+.-contrast-blend {
+  mix-blend-mode: difference;
+  color: #fff;
 }
 
 /* Custom utilities */
@@ -235,11 +259,11 @@ body {
 }
 
 @media (min-width: 768px) {
-  :root { --header-h: 136px; }
+  :root { --header-h: 161px; }
 }
 
 @media (min-width: 1024px) {
-  :root { --header-h: 144px; }
+  :root { --header-h: 169px; }
 }
 
 /* Loading gate — blocks entrance animations until fonts confirmed */

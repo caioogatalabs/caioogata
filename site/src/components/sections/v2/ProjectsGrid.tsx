@@ -34,6 +34,9 @@ export function ProjectsGrid() {
   // Each row owns its own observers now.
   return (
     <section
+      // The header's `work` link targets this list — `/#projects`. The scroll
+      // lands clear of the sticky bar via `scroll-padding-top` in globals.css.
+      id="projects"
       aria-label={content.ui.projects.gridLabel}
       data-section-id="projects"
       // Horizontal padding comes from each row's <Grid>; doubling it here would

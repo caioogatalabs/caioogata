@@ -3,6 +3,7 @@ import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { LanguageProvider } from '@/components/providers/LanguageProvider'
+import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { NavigationProvider } from '@/components/providers/NavigationProvider'
 import { ToastProvider } from '@/components/providers/ToastProvider'
 import { FooterSection } from '@/components/sections/v2/FooterSection'
@@ -124,6 +125,17 @@ export default function RootLayout({
             __html: `try{if(localStorage.getItem('portfolio-language')==='pt-br'){var r=document.documentElement;r.classList.add('-lang-pending');r.lang='pt-BR';setTimeout(function(){r.classList.remove('-lang-pending')},3000)}}catch(e){}`,
           }}
         />
+        {/* Theme, before first paint. The export is one static HTML for every
+            reader, so a saved choice can only be applied here; a React effect
+            would land after the dark paint and flash. The site is dark unless
+            the reader has said otherwise — `prefers-color-scheme` is not
+            consulted, on purpose. Dark is the token default, so it is the
+            absence of the attribute. ThemeProvider takes over from here. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var l=localStorage.getItem('portfolio-theme')==='light';if(l)document.documentElement.dataset.theme='light';document.documentElement.style.colorScheme=l?'light':'dark'}catch(e){}`,
+          }}
+        />
       </head>
       <body className="antialiased overflow-x-hidden">
         <script
@@ -131,23 +143,25 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <SmoothScroll />
-        <LanguageProvider>
-          <NavigationProvider>
-            <ToastProvider>
-              {/* The page content is the lid the footer is revealed from
-                  under: opaque, and on a layer above the fixed panel.
-                  The header is its first child so that `sticky top-0` holds
-                  for the whole route rather than for one hero — every page
-                  used to mount its own, and on mobile that meant the bar left
-                  with the hero after a few hundred pixels. */}
-              <div className="relative z-10 bg-bg">
-                <HeaderBar />
-                {children}
-              </div>
-              <FooterSection />
-            </ToastProvider>
-          </NavigationProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <NavigationProvider>
+              <ToastProvider>
+                {/* The page content is the lid the footer is revealed from
+                    under: opaque, and on a layer above the fixed panel.
+                    The header is its first child so that `sticky top-0` holds
+                    for the whole route rather than for one hero — every page
+                    used to mount its own, and on mobile that meant the bar left
+                    with the hero after a few hundred pixels. */}
+                <div className="relative z-10 bg-bg">
+                  <HeaderBar />
+                  {children}
+                </div>
+                <FooterSection />
+              </ToastProvider>
+            </NavigationProvider>
+          </LanguageProvider>
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
         <Script

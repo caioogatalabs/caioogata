@@ -2217,14 +2217,18 @@
       "worldwide": "Worldwide",
       "freelancer": "Freelancer",
       "sections": "Sections",
-      "menuIntro": "intro",
+      "menuIntro": "index",
+      "menuWork": "work",
       "menuAbout": "about",
       "menuExperience": "experience",
       "menuContact": "contact",
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
       "menu": "Menu",
-      "language": "Language"
+      "language": "Language",
+      "theme": "Theme",
+      "themeDark": "DARK",
+      "themeLight": "LIGHT"
     },
     "intro": {
       "headlineLine1": "Creative Designer",

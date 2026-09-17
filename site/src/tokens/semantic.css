@@ -103,13 +103,24 @@
   --text-overlay-hover:        var(--primitive-text-2xl);   /* 24px — button hover overlay (masked vertical text-swap) */
 }
 
-/* ─── Light theme (grey-based, for sections over neutral-200 bg) ─── */
-[data-theme="light"] {
-  --color-bg:                         var(--primitive-neutral-200);
+/* ─── Light theme (grey-based — the site's second skin, and the per-section one) ───
+   Two selectors for one rule. The section form (`[data-theme="light"]`) is a
+   descendant of `:root`, so it simply wins by cascade. The site-wide form is
+   `<html>` itself, where the attribute selector ties with the `:root` that
+   Tailwind's `@theme` emits — `html[...]` carries the extra type selector that
+   settles it, whatever order the generated sheet lands in. */
+[data-theme="light"],
+html[data-theme="light"] {
+  /* The page is neutral-50 — a held-back white, not #fff. The surfaces sit
+     *under* it rather than over it: in dark a raised surface is lighter
+     because there is headroom above near-black, and in light the headroom is
+     below. So the ladder runs primary → secondary → tertiary downward from the
+     page, which is the same tonal stacking read in mirror. */
+  --color-bg:                         var(--primitive-neutral-50);
   --color-bg-surface-primary:         var(--primitive-neutral-100);
-  --color-bg-surface-secondary:       var(--primitive-neutral-300);
-  --color-bg-surface-tertiary:        var(--primitive-neutral-200);
-  --color-bg-surface-secondary-hover: var(--primitive-neutral-50);
+  --color-bg-surface-secondary:       var(--primitive-neutral-200);
+  --color-bg-surface-tertiary:        var(--primitive-neutral-100);
+  --color-bg-surface-secondary-hover: var(--primitive-neutral-200);
   --color-bg-fill-primary-disabled:   var(--primitive-neutral-400);
   --color-bg-fill-outline-hover:      var(--primitive-neutral-800);
   --color-text-on-outline-hover:      var(--primitive-neutral-100);
