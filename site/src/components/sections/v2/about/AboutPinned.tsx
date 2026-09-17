@@ -56,13 +56,6 @@ function useIsWide() {
 const IMAGE_OPACITY = 1
 
 /**
- * The frame is the clip's own proportion, near square: the source had a band of
- * empty dark below the shoulders, which left the figure floating above the
- * frame's lower edge. Cropping it at 964 of 1274 rows — where the picture
- * returns to its background — sets the figure's base on the frame's base
- * without touching the width, so the side margins and the columns are the ones
- * it always had.
- *
  * The portrait. WebM first — VP9 is ~40% of the H.264 file at the same read —
  * with MP4 behind it for Safari.
  *
@@ -105,16 +98,12 @@ const PLAYBACK_RATE = 0.6
  * feeds the distortion as a texture, so it decodes once and stays the fallback
  * wherever the canvas does not mount.
  *
- * The clip is padded rather than cropped: the source frames him tighter than
- * the still did, and at that magnification the same rotation sweeps more pixels
- * and reads faster than it is. It is scaled to 85% inside the frame, which puts
- * his head at the size and height the still had.
- *
- * The margin is filled by mirroring the frame's own edges outward
- * (`fillborders`), not with a flat colour. A flat near-black was the right
- * *value* — the source's corners measure #101010 — but it was dead smooth
- * against film grain, and the eye read that boundary as a box drawn over the
- * portrait. Mirroring carries the grain out with it and the edge disappears.
+ * The clip is the source's own frame, untouched: 1248x1656 is already 3:4 and
+ * already sets his torso on the lower edge, so it scales straight to 960x1280.
+ * An earlier pass scaled it to 85% inside the frame and mirrored the margin
+ * outward to match the still's head size; that padding is what left the figure
+ * floating, and cropping it back off shortened the frame by a third — which is
+ * what pulled the whole block up against the version in production.
  *
  * On the way out the image leaves before the text, so the portrait clears and
  * the paragraph is left alone for a moment before it goes.
@@ -144,6 +133,62 @@ export function AboutPinned() {
   // paragraph alone for a moment before it goes too.
   const outImage = slice(progress, 0.55, 0.85)
   const outText = slice(progress, 0.75, 1)
+
+  /**
+   * The screen this block gets: a viewport less whatever stands above it.
+   *
+   * It is meant to load whole — the portrait's base on the page's bottom
+   * margin, the paragraph's last line with it, nothing of either below the
+   * fold. Sitting it there takes the height of the sticky header, which is not
+   * a constant: it carries the nav, the clock and the two switches, and it
+   * wraps to a different number of lines at each breakpoint.
+   *
+   * So it is read rather than written down. This block is the first thing in
+   * `main`, so its own distance from the top of the document is exactly what
+   * sits above it, and nothing here feeds back into that: the measurement is a
+   * position, and what it sets is a height.
+   *
+   * `svh` rather than `vh` because on a phone browser `vh` is the tallest the
+   * viewport ever gets, with the toolbars retracted, which is not the screen
+   * the page loads into. It is only applied from `lg` anyway, where the
+   * portrait and the paragraph share a row and settle on the same base line.
+   */
+  const [aboveTop, setAboveTop] = useState<number | null>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const measure = () => {
+      setAboveTop(Math.round(el.getBoundingClientRect().top + window.scrollY))
+    }
+    measure()
+
+    // What moves this block is the header changing height — it wraps to more
+    // lines on a narrow window, and settles again once the fonts land. A
+    // `resize` listener misses the second one, so watch the document instead:
+    // it resizes for both, and `100svh` handles the viewport on its own.
+    const observer = new ResizeObserver(measure)
+    observer.observe(document.body)
+    return () => observer.disconnect()
+  }, [ref])
+
+  // The screen left for the block. `py-8` on both edges is the 64px taken out
+  // of it for the room the portrait actually has.
+  const screenBelowHeader = aboveTop === null ? undefined : `calc(100svh - ${aboveTop}px)`
+
+  /**
+   * On a short window the portrait would not fit that room. Four columns of a
+   * 1440 track make it 594px tall, and a laptop browser at that width leaves
+   * about 530 — so the base that was just set on the bottom margin would go
+   * back under the fold, which is the whole thing this is for.
+   *
+   * It gives up width rather than height when that happens: a ceiling on the
+   * width, derived from the room by the 3:4 it keeps, and the column pushed to
+   * its right edge so the portrait stays against the page's right margin. The
+   * proportion holds and nothing is cropped — it is the same picture, smaller,
+   * and it only ever engages where the alternative was cutting it off.
+   */
+  const portraitCeiling =
+    aboveTop === null ? undefined : `calc((100svh - ${aboveTop + 64}px) * 3 / 4)`
 
   const [portrait, setPortrait] = useState<HTMLVideoElement | null>(null)
   const reducedMotion = useReducedMotion()
@@ -177,20 +222,27 @@ export function AboutPinned() {
   const firstParagraph = content.about.bio.split('\n\n')[0]
 
   return (
-    <div ref={ref} className="relative py-24 md:py-32 lg:py-40">
+    <div
+      ref={ref}
+      className="relative py-24 md:py-32 lg:flex lg:flex-col lg:justify-end lg:py-8"
+      style={{ minHeight: isWide ? screenBelowHeader : undefined }}
+    >
       <div className="w-full px-5 md:px-8 lg:px-8">
         <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 items-center">
           {/* Image — the right-hand half below `lg` (cols 3-4 of four, 5-8 of
               eight) and the four right-hand columns, 9-12, from `lg` up. Full
               width on a phone or a portrait tablet, a 3:4 portrait ran taller
               than the screen. z-10 so the paragraph layers on top. */}
-          <div className="col-span-2 col-start-3 md:col-span-4 md:col-start-5 lg:col-span-4 lg:col-start-9 lg:row-start-1 z-10">
+          <div
+            className="col-span-2 col-start-3 md:col-span-4 md:col-start-5 lg:col-span-4 lg:col-start-9 lg:row-start-1 z-10 lg:ml-auto lg:w-full"
+            style={{ maxWidth: isWide ? portraitCeiling : undefined }}
+          >
             {/* The trigger sits on the frame, not on the <video>: the
                 distortion canvas covers the element, so a pointer entering the
                 portrait never reaches the video itself. */}
             <div
               onPointerEnter={playTurn}
-              className="relative w-full aspect-[960/964] overflow-hidden bg-bg-surface-secondary"
+              className="relative w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
               style={{
                 opacity: IMAGE_OPACITY * (1 - outImage),
                 transform: `translateY(${-imageRise}px)`,
@@ -231,12 +283,21 @@ export function AboutPinned() {
               layer would swallow every one of them. It is plain copy with no
               links, so nothing is lost. */}
           {/* Below `lg` the paragraph is pulled up over the portrait. The
-              portrait is near square on half the track, so its height is about
-              half the track width; a negative margin of 22% of that width,
-              less the row gap and the scroll drift, covers roughly the
-              portrait's lower 45%. It was 34% while the portrait was 3:4 and a
-              third taller — at the cropped proportion that reached 60% and put
-              the text across the face. */}
+              portrait is 3:4 on half the track, so its height is 2/3 of the
+              track width; a negative margin of 22% of that width, less the row
+              gap, starts the text just under the chin and covers roughly the
+              portrait's lower 30%. It was 34% — the portrait's lower 45% —
+              while the portrait was the still, which framed him small enough
+              that 45% still cleared his face. The clip is framed tighter, and
+              the same 45% ran the text across his eyes. */}
+          {/* From `lg` the paragraph is a row of its own, and `items-center`
+              would centre it on the portrait — which is where the face is.
+              `self-end` sets its last line on the portrait's base instead, so
+              it covers the lower 46% by the layout's own measure rather than
+              by a number chosen for one viewport. In production the same band
+              was an accident: the exit progress started at 0.43 at rest, so
+              the portrait was drawn 145px above where it was laid out, and the
+              paragraph read as low only because the picture had ridden up. */}
           {/* The first line starts on column 4 of whichever grid is in force,
               derived rather than eyeballed. For a track of width W with gap g,
               column 4 begins at 3 columns + 3 gaps, which reduces to W/4 + g/4
@@ -246,7 +307,7 @@ export function AboutPinned() {
               four, W/4 + g/4 with the 16px gap. SplitText reads this off the
               parent and moves it onto the first line only. */}
           <div
-            className="pointer-events-none col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 z-20 -mt-[22%] lg:mt-0 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]"
+            className="pointer-events-none col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 lg:self-end z-20 -mt-[22%] lg:mt-0 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]"
             style={{ opacity: 1 - outText, transform: `translateY(${textDrift}px)` }}
           >
             <SplitText
