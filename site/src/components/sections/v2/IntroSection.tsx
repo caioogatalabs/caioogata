@@ -315,9 +315,28 @@ export function IntroSection() {
                 uses, so the two read as one gesture. The exit travels further
                 than the bio's (70px against 38px): same scroll, different
                 distance, which is what reads as different speeds. */}
+            {/* From `lg` the box takes its height from the row and its width
+                from that height, so the ceiling on the height is what decides
+                how wide it ends up. It used to be a flat 281px, which was the
+                portrait's height in the Figma — and from about 1500px of
+                viewport on, two columns are wider than 281px can fill, so the
+                box sat short of column 11 with the gap growing as the screen
+                did. The ceiling is two columns now, written out: the grid is
+                `px-8` with `gap-5`, so one column is `(100vw - 64 - 220) / 12`
+                and two of them plus the gap between is `(100vw - 284) / 6 +
+                20`. At 1800 that is 273px, which is the cell to the pixel.
+
+                It stays a ceiling rather than becoming the width, because when
+                the row is too short to hold it — an ultrawide window at 800px
+                tall leaves this row 218px — the box has to give something up.
+                Capping the height and deriving the width means it gives up
+                size and keeps its proportion: a smaller portrait, still a
+                portrait. Setting the width from the columns instead and
+                clamping the height crops it to a letterbox with his head cut
+                off at 1.83:1, which is worse than being small. */}
             <div
               style={exitRising(outHero, 70)}
-              className="-entrance -mask-down -a-6 pointer-events-auto relative aspect-[216/281] w-full overflow-hidden bg-bg-surface-primary lg:h-full lg:max-h-[281px] lg:min-h-[120px] lg:w-auto"
+              className="-entrance -mask-down -a-6 pointer-events-auto relative aspect-[216/281] w-full overflow-hidden bg-bg-surface-primary lg:h-full lg:max-h-[calc(((100vw_-_284px)_/_6_+_20px)_*_281_/_216)] lg:min-h-[120px] lg:w-auto"
             >
               {/* The poster is the clip's own first frame, which is also the
                   frame it ends on, so the picture standing here before
