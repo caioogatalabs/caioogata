@@ -1,42 +1,9 @@
+# Archived V1 of caioogata.com. The live site is https://www.caioogata.com —
+# it is the only version search engines and AI assistants should read. This
+# copy stays online for reference only, and the deployment also answers with
+# `X-Robots-Tag: noindex, nofollow`.
+
 User-agent: *
-Allow: /
-
-# LLM-optimized content available at:
-# https://www.caioogata.com/llms.txt (index)
-# https://www.caioogata.com/llms-full.txt (full profile, canonical)
-
-# Explicitly allow LLM crawlers
-User-agent: GPTBot
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: YouBot
-Allow: /
-
-User-agent: DuckAssistBot
-Allow: /
-
-User-agent: meta-externalagent
-Allow: /
+Disallow: /
 
 Sitemap: https://www.caioogata.com/sitemap.xml
