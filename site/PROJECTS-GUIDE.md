@@ -466,22 +466,59 @@ One image for the whole site, at `public/og-img.png`, 1200x630. It is the hero's
 own composition — headline left, portrait right, mono labels top and bottom — so
 a shared link looks like the page it opens.
 
-It is not drawn by hand: `/dev/og` renders the board with the site's fonts and
-tokens, and the image is a screenshot of it. Re-shoot whenever the headline, the
-portrait or the availability line changes:
+It is not drawn by hand: `/dev/og` renders the board with the site's own `Grid`,
+fonts and tokens, and the image is a screenshot of it. Re-shoot whenever the
+headline, the portrait, the bio or the availability line changes.
+
+With the dev server running, in a Playwright page at a viewport of at least
+1024 wide (below that the `Grid` drops to the tablet layout):
+
+```js
+await page.goto('http://localhost:3000/dev/og')
+await page.evaluate(async () => {
+  await document.fonts.ready
+  // Render at 2x without reflowing: a transform re-rasterises the type at the
+  // higher scale, where `zoom` or a wider viewport would re-wrap it.
+  const b = document.getElementById('og-board')
+  b.style.transformOrigin = 'top left'
+  b.style.transform = 'scale(2)'
+  const p = b.parentElement
+  Object.assign(p.style, { display: 'block', padding: '0', minHeight: '0',
+                           width: '2400px', height: '1260px', overflow: 'hidden' })
+})
+await page.locator('#og-board').screenshot({ path: 'og-2x.png', scale: 'css' })
+```
 
 ```bash
-# with the dev server running
-node -e "..."   # or any Playwright script:
-# 1. viewport 1400x800 at deviceScaleFactor 2
-# 2. goto /dev/og, wait for the fonts
-# 3. screenshot the #og-board element  -> 2400x1260
-# 4. sips -z 630 1200 og-2x.png --out public/og-img.png
+sips -z 630 1200 og-2x.png --out public/og-img.png
 ```
 
 Shooting at 2x and scaling down to 1200x630 is what keeps the thin Epilogue
-headline clean. `/dev/` is `noindex` and disallowed in `robots.txt`, so the
-board never shows up in search.
+headline clean. The board hides `[role="banner"]`, `footer` and `nextjs-portal`
+itself — the root layout mounts the header and footer on every route, the header
+is sticky, and an element screenshot picks up whatever is painted over the box.
+`/dev/` is `noindex` and disallowed in `robots.txt`, so the board never shows up
+in search.
+
+**Composition.** The board is the intro's frame, not a card assembled from its
+parts: a label row where the header sits, the headline on the left eight
+columns, the portrait on the right four. Headline and portrait share one grid
+row rather than stacking — at four columns the portrait is 365 wide, and at the
+Figma's 216x281 that is 475 tall, three quarters of the card. Stacked it would
+not fit; beside the headline it does.
+
+Type runs four points over the page: labels at 17px against the page's 12,
+because a share card is read in a feed at a third of its size.
+
+**What the card does not carry, on purpose.** No bio — body copy at feed scale
+is grey noise, and the description meta tag already says it in real text the
+platform renders itself. No availability line; the email has that slot, because
+away from the site the card's job is to be answerable.
+
+**Crops.** LinkedIn, X and Facebook all show something near the native 1.91:1,
+so the frame survives whole. A square-cropped preview (some WhatsApp contexts)
+takes the middle 630px: it keeps the headline but loses the domain on the left
+and most of the portrait on the right.
 
 ---
 
