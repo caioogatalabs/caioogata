@@ -92,12 +92,23 @@ export function useScrollExitProgress({
  * The same reading for a section that scrolls normally rather than being
  * pinned — so this one does take a ref, and measures the element.
  *
- * Progress runs 0 to 1 as the section's top travels from `startFraction` of
- * the viewport up past `endFraction`, which is negative because the element is
- * leaving through the top edge.
+ * Progress is 0 where the section rests and runs to 1 once its top has
+ * travelled up past `endFraction` of the viewport, which is negative because
+ * the element is leaving through the top edge. `startFraction` delays the
+ * start by that fraction of a viewport of scroll.
+ *
+ * Rest is the section's own position in the document, not a fixed mark in the
+ * viewport: with a mark, a section that loads already past it started at a
+ * progress above 0, so whatever it drives was displaced on the first frame —
+ * on /about the portrait and the paragraph jumped up ~140px right after load,
+ * and further on every reload that restored a scroll position. Measuring the
+ * element means the transform it drives begins at zero wherever it sits.
+ *
+ * The ref must go on an element the progress does not move, or its own
+ * transform feeds back into the measurement.
  */
 export function useSectionExitProgress({
-  startFraction = 0.15,
+  startFraction = 0,
   endFraction = -0.5,
 } = {}) {
   const ref = useRef<HTMLDivElement>(null)
@@ -110,11 +121,14 @@ export function useSectionExitProgress({
     if (!el) return
 
     const vh = window.innerHeight
-    const start = vh * startFraction
+    // The section's resting top, in document coordinates: `scrollY` cancels
+    // out of the reading, so it does not drift as the page scrolls.
+    const rest = el.getBoundingClientRect().top + window.scrollY
     const end = vh * endFraction
-    const top = el.getBoundingClientRect().top
+    const travel = Math.max(1, rest - end)
+    const scrolled = window.scrollY - vh * startFraction
 
-    setProgress(Math.max(0, Math.min(1, (start - top) / (start - end))))
+    setProgress(Math.max(0, Math.min(1, scrolled / travel)))
   }, [startFraction, endFraction])
 
   useEffect(() => {
