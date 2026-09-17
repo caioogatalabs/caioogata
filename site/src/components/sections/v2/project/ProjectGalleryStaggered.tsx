@@ -105,6 +105,22 @@ function RevealFigma({ media, staggerIndex = 0 }: { media: ProjectImage; stagger
   )
 }
 
+/** A local screen recording, looping muted like an image would sit. */
+function RevealLoopVideo({ media, staggerIndex = 0 }: { media: ProjectImage; staggerIndex?: number }) {
+  const { ref, clipPath } = useScrollReveal({
+    startFraction: 0.85 + staggerIndex * 0.03,
+  })
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="overflow-hidden"
+      style={{ clipPath }}
+    >
+      <LoopVideo src={media.src} poster={media.poster} title={media.title} />
+    </div>
+  )
+}
+
 /**
  * A highlight: an isolated component on a surface, with a 32px margin on top
  * and on the side it anchors to, running flush to the opposite side and the
@@ -139,6 +155,10 @@ function StaggeredMedia({ item, staggerIndex = 0 }: { item: string | ProjectImag
 
   if (item.frame) {
     return <RevealFramed media={item} staggerIndex={staggerIndex} />
+  }
+
+  if (item.type === 'video' && !item.platform && item.src) {
+    return <RevealLoopVideo media={item} staggerIndex={staggerIndex} />
   }
 
   if (item.type === 'video' && item.videoId) {

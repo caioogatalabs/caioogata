@@ -550,6 +550,189 @@
     },
     "items": [
       {
+        "title": "Lukso",
+        "slug": "lukso",
+        "cover": "/projects/lukso/cover.mp4",
+        "year": "2026",
+        "description": "The website of a storytelling agency that works for Disney, PepsiCo and Ambev. One page that plays like a short film: 3D icons, a reel, and the agency's method told in four chapters.",
+        "role": "Design and development, through COLABS",
+        "technologies": "Next.js, React, Three.js, React Three Fiber, GSAP, Lenis, Tailwind CSS, Vercel",
+        "impact": "A site in English and Portuguese with twelve custom 3D icons and one template behind thirteen case pages. Caio designed and built it through COLABS, from the first layout to the live site.",
+        "caseStudyUrl": "/llms/projects/lukso.txt",
+        "links": [
+          {
+            "label": "Live site — lukso.com.br",
+            "url": "https://lukso.com.br"
+          }
+        ],
+        "sections": [
+          {
+            "type": "hero",
+            "body": "A website for a storytelling agency, built to behave like the stories it sells: it prepares, reveals and settles."
+          },
+          {
+            "type": "challenge",
+            "challenge": "Lukso tells stories for brands like Disney, PepsiCo and Ambev, but its own website did not tell one. It needed to show how the agency works, not only who it works for.",
+            "solution": "One long page that works like a short film. A yellow opening, three 3D icons around the question \"What's your story?\", a reel, and the method told in four chapters as the visitor scrolls."
+          },
+          {
+            "type": "gallery-stick",
+            "rows": [
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/lukso/home-05-clients.webp"
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/lukso/home-08-testimonials.webp"
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  "/projects/lukso/home-09-footer.webp"
+                ]
+              }
+            ]
+          },
+          {
+            "type": "impact",
+            "stats": [
+              {
+                "value": "12",
+                "label": "Custom 3D icons"
+              },
+              {
+                "value": "13",
+                "label": "Case pages from one template"
+              },
+              {
+                "value": "2",
+                "label": "Languages, English and Portuguese"
+              }
+            ]
+          },
+          {
+            "type": "statement",
+            "body": "Dark by default, with amber used like punctuation. Every movement follows three beats, prepare, reveal and settle, and nothing bounces."
+          },
+          {
+            "type": "gallery-staggered",
+            "rows": [
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/icons.mp4",
+                    "title": "Custom 3D icons",
+                    "type": "video",
+                    "poster": "/projects/lukso/icons.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/team-nav.mp4",
+                    "title": "Team, sideways navigation",
+                    "type": "video",
+                    "poster": "/projects/lukso/team-nav.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/projects-parallax.mp4",
+                    "title": "Projects grid with column parallax",
+                    "type": "video",
+                    "poster": "/projects/lukso/projects-parallax.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/method-hover.mp4",
+                    "title": "Story-First Method cards on hover",
+                    "type": "video",
+                    "poster": "/projects/lukso/method-hover.webp"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "gallery-feature-list",
+            "features": [
+              {
+                "name": "Opening",
+                "image": {
+                  "src": "/projects/lukso/cover.mp4",
+                  "title": "Loading and hero",
+                  "type": "video",
+                  "poster": "/projects/lukso/cover.webp"
+                },
+                "description": "A yellow curtain lifts and the headline assembles around three 3D icons: a magnifying glass, a play button and a star."
+              },
+              {
+                "name": "Four chapters",
+                "image": {
+                  "src": "/projects/lukso/what-we-do.mp4",
+                  "title": "What we do",
+                  "type": "video",
+                  "poster": "/projects/lukso/what-we-do.webp"
+                },
+                "description": "Narrative, Content, Culture and Training. The section holds on screen while each 3D icon turns into the next."
+              }
+            ]
+          },
+          {
+            "type": "info"
+          }
+        ],
+        "images": [
+          {
+            "src": "/projects/lukso/hero.mp4",
+            "title": "Hero into the reel",
+            "type": "video",
+            "poster": "/projects/lukso/hero.webp"
+          },
+          {
+            "src": "/projects/lukso/home-05-clients.webp",
+            "title": "Clients"
+          },
+          {
+            "src": "/projects/lukso/home-08-testimonials.webp",
+            "title": "Testimonials"
+          },
+          {
+            "src": "/projects/lukso/home-09-footer.webp",
+            "title": "Contact"
+          }
+        ]
+      },
+      {
         "title": "Azion Website & Brand Expansion",
         "slug": "azion-website",
         "cover": "/projects/azion-website/hero-loop.mp4",
@@ -1281,11 +1464,11 @@
         "title": "Azion Brand System",
         "slug": "azion-brand-system",
         "cover": "/projects/azion-brand-system/cover.mp4",
-        "year": "2020",
-        "description": "A full identity for a company selling infrastructure: visual language, voice, illustration and iconography, applied across product, marketing and engineering.",
+        "year": "2021-22",
+        "description": "An illustration system that made a very technical company easier to understand. It set one visual standard for social media, sales presentations, brand materials and, above all, internal training.",
         "role": "Design Director, Brand Experience",
         "technologies": "Figma, Brand Strategy, Component Libraries, Visual Identity, Voice & Tone Design, Illustration System, Iconography",
-        "impact": "One brand across 100+ locations and 20,000+ hosted applications. The foundations held through investment rounds from Monashees and Qualcomm Ventures.",
+        "impact": "One way of explaining Azion, used across social media, brand materials, sales presentations and internal training. It became the base for taking the brand to larger customers, and it held through investment rounds from Monashees and Qualcomm Ventures.",
         "caseStudyUrl": "/llms/projects/azion-brand-system.txt",
         "credits": [
           {
@@ -1328,12 +1511,12 @@
         "sections": [
           {
             "type": "hero",
-            "body": "A comprehensive brand identity system positioning Azion as a bold innovator in edge computing — from tactical design outputs to a unified brand experience."
+            "body": "An illustration system for a company that sells infrastructure, so a very technical brand could explain itself with more warmth and less weight."
           },
           {
             "type": "challenge",
-            "challenge": "Azion lacked a unified visual language, leading to fragmented brand communication across product, marketing, and engineering touchpoints.",
-            "solution": "Led the strategic transformation by establishing visual language, voice guidelines, and scalable design principles that express technical excellence through clarity and confidence."
+            "challenge": "Azion sells something hard to picture: servers spread around the world that run other companies' applications. The way it talked was heavy with technical terms, and each team drew and explained the product its own way.",
+            "solution": "Caio led an illustration system with shared rules for characters, light and shape. Marketing, sales and internal teams could now explain the same idea the same way, in a tone that felt human."
           },
           {
             "type": "gallery-staggered",
@@ -1418,25 +1601,20 @@
                 "images": [
                   "/projects/azion-brand-system/illustrations-guides-3.webp"
                 ]
-              }
-            ]
-          },
-          {
-            "type": "impact",
-            "stats": [
-              {
-                "value": "100+",
-                "label": "Edge locations branded"
               },
               {
-                "value": "20,000+",
-                "label": "Hosted applications"
+                "spans": [
+                  4
+                ],
+                "images": [
+                  "/projects/azion-brand-system/build.webp"
+                ]
               }
             ]
           },
           {
             "type": "statement",
-            "body": "An identity for the thing nobody sees: infrastructure. It had to make a hundred edge locations and twenty thousand hosted applications read as one company."
+            "body": "An identity for the thing nobody sees: infrastructure. The illustrations took off some of the technical weight, so people understood the idea before they read the details."
           },
           {
             "type": "gallery-stick",
@@ -1527,7 +1705,7 @@
                   "platform": "youtube",
                   "videoId": "rk4apN50IpU"
                 },
-                "description": "Scalable illustration patterns that explain technical concepts visually across product pillars."
+                "description": "Characters, cubes of orange light and simple shapes that turn a technical idea into a picture any team can reuse."
               },
               {
                 "name": "Knowledge Base",
@@ -1535,7 +1713,7 @@
                   "src": "/projects/azion-brand-system/knowledgebase.webp",
                   "title": "Knowledge Base"
                 },
-                "description": "Branded documentation and knowledge resources for the edge computing platform."
+                "description": "Internal training and documentation drawn in the same language. This is where the illustrations were used the most."
               }
             ]
           },
@@ -1545,8 +1723,10 @@
         ],
         "images": [
           {
-            "src": "/projects/azion-brand-system/build.webp",
-            "title": "Build"
+            "src": "/projects/azion-brand-system/hero.mp4",
+            "title": "Illustration System — Motion Reel",
+            "type": "video",
+            "poster": "/projects/azion-brand-system/hero.webp"
           },
           {
             "src": "/projects/azion-brand-system/asset-welcome.webp",
@@ -1652,7 +1832,6 @@
                 "spans": [
                   4
                 ],
-                "colStart": 5,
                 "images": [
                   "/projects/huia/huia-bird.webp"
                 ]
@@ -1661,113 +1840,10 @@
                 "spans": [
                   4
                 ],
-                "colStart": 9,
-                "images": [
-                  "/projects/huia/golden-circle.webp"
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "colStart": 1,
                 "images": [
                   {
                     "src": "",
-                    "title": "Creative Technology Showcase",
-                    "type": "video",
-                    "platform": "youtube",
-                    "videoId": "d8_xTUsyQdo"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "colStart": 9,
-                "images": [
-                  {
-                    "src": "",
-                    "title": "Digital Production & Innovation Reel",
-                    "type": "video",
-                    "platform": "youtube",
-                    "videoId": "s-3rKGVUQiM"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "colStart": 5,
-                "images": [
-                  "/projects/huia/we-unlock-ideas.webp"
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "colStart": 9,
-                "images": [
-                  "/projects/huia/team-portraits.webp"
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "colStart": 5,
-                "images": [
-                  {
-                    "src": "",
-                    "title": "Interactive Campaigns & UX Solutions",
-                    "type": "video",
-                    "platform": "vimeo",
-                    "videoId": "377557773"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "colStart": 9,
-                "images": [
-                  {
-                    "src": "",
-                    "title": "Integrated Creative & Tech Works",
-                    "type": "video",
-                    "platform": "vimeo",
-                    "videoId": "185564121"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "colStart": 1,
-                "images": [
-                  {
-                    "src": "",
-                    "title": "Brand & Campaign Highlights",
-                    "type": "video",
-                    "platform": "youtube",
-                    "videoId": "u-bbxKjiZvk"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "colStart": 5,
-                "images": [
-                  {
-                    "src": "",
-                    "title": "Creative Direction Reel",
+                    "title": "O Boticário responsive brand study",
                     "type": "video",
                     "platform": "youtube",
                     "videoId": "1RpIxQtXwYY"
@@ -1778,15 +1854,30 @@
                 "spans": [
                   4
                 ],
-                "colStart": 9,
+                "images": [
+                  "/projects/huia/golden-circle.webp"
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
                 "images": [
                   {
                     "src": "",
-                    "title": "Digital Experience Showcase",
+                    "title": "Huia Bird interactive website",
                     "type": "video",
                     "platform": "youtube",
                     "videoId": "TnaCQZDCAmo"
                   }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  "/projects/huia/team-portraits.webp"
                 ]
               }
             ]
@@ -1816,26 +1907,37 @@
             "type": "gallery-feature-list",
             "features": [
               {
-                "name": "Interactive Campaigns & UX Solutions",
+                "name": "Huia Platforms",
                 "image": {
                   "src": "",
-                  "title": "Interactive Campaigns & UX Solutions",
+                  "title": "HUIA Platforms reel",
                   "type": "video",
-                  "platform": "vimeo",
-                  "videoId": "377557773"
+                  "platform": "youtube",
+                  "videoId": "d8_xTUsyQdo"
                 },
-                "description": "Interactive Campaigns & UX Solutions"
+                "description": "Websites, apps and e-commerce for brands and agencies, from campaign microsites to complete online stores."
               },
               {
-                "name": "Integrated Creative & Technology Work",
+                "name": "Huia Innovation",
                 "image": {
                   "src": "",
-                  "title": "Integrated Creative & Technology Work",
+                  "title": "HUIA Innovation reel",
                   "type": "video",
-                  "platform": "vimeo",
-                  "videoId": "185564121"
+                  "platform": "youtube",
+                  "videoId": "s-3rKGVUQiM"
                 },
-                "description": "Integrated Creative & Technology Work"
+                "description": "Facial recognition, early AI and interactive experiences in commercial campaigns, years before any of them was common."
+              },
+              {
+                "name": "Media",
+                "image": {
+                  "src": "",
+                  "title": "Huia motion and websites reel",
+                  "type": "video",
+                  "platform": "youtube",
+                  "videoId": "u-bbxKjiZvk"
+                },
+                "description": "Where the studio began: a specialist nucleus producing motion, video and interactive media for agencies."
               }
             ]
           },
@@ -1857,20 +1959,6 @@
             "videoId": "s-3rKGVUQiM",
             "src": "",
             "title": "Digital Production & Innovation Reel"
-          },
-          {
-            "type": "video",
-            "platform": "vimeo",
-            "videoId": "377557773",
-            "src": "",
-            "title": "Interactive Campaigns & UX Solutions"
-          },
-          {
-            "type": "video",
-            "platform": "vimeo",
-            "videoId": "185564121",
-            "src": "",
-            "title": "Integrated Creative & Technology Work"
           },
           {
             "type": "video",
@@ -1900,10 +1988,6 @@
           {
             "src": "/projects/huia/golden-circle.webp",
             "title": "Golden Circle — Why, How, What"
-          },
-          {
-            "src": "/projects/huia/we-unlock-ideas.webp",
-            "title": "We Unlock Ideas"
           },
           {
             "src": "/projects/huia/team-portraits.webp",

@@ -47,6 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: 'https://www.caioogata.com/llms/projects/lukso.txt',
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: 'https://www.caioogata.com/llms/projects/huia.txt',
       lastModified: today,
       changeFrequency: 'monthly',

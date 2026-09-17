@@ -11,7 +11,7 @@
 //   stop                  stop recording -> mp4 + webm 1920x1200
 //   cursor on|off         draw a cursor overlay that follows the mouse
 //   eval <js>             run JS in the page, log the result
-//   move <x> <y>          move the real mouse (CSS px) — hover states
+//   move <x> <y> [ms]     move the real mouse (CSS px) — hover states; with ms, an eased glide
 //   click <x> <y>         real click
 //   type <text>           real keystrokes into the focused field
 //   press <key>           one key, e.g. Escape, Enter, ArrowDown
@@ -56,7 +56,7 @@ const CURSOR_SCRIPT = `
       c.style.cssText = 'position:fixed;left:0;top:0;width:22px;height:22px;z-index:2147483647;pointer-events:none;display:none;transform:translate(-100px,-100px);'
       c.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22"><path d="M3 2 L3 18 L7.5 13.8 L10.6 20.5 L13.4 19.2 L10.4 12.6 L16.5 12.6 Z" fill="#000" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>'
       document.documentElement.appendChild(c)
-      addEventListener('mousemove', (e) => { c.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)' }, { passive: true })
+      addEventListener('mousemove', (e) => { window.__capMouse = [e.clientX, e.clientY]; c.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)' }, { passive: true })
       const sync = () => { c.style.display = sessionStorage.getItem('__capCursor') === '1' ? 'block' : 'none' }
       window.__capCursorSync = sync
       sync()
@@ -151,7 +151,19 @@ const CURSOR_SCRIPT = `
 
     // Real input, for states page scripts can't fake: chart hover tooltips,
     // autocomplete that listens to keystrokes, overlays that close on a real click.
-    async move(args) { const [x, y] = args.split(' ').map(Number); await page.mouse.move(x, y, { steps: 8 }); return `mouse ${x},${y}` },
+    async move(args) {
+      const [x, y, ms] = args.split(' ').map(Number)
+      if (!ms) { await page.mouse.move(x, y, { steps: 8 }); return `mouse ${x},${y}` }
+      // Eased glide over `ms`, one step per frame, for hover states filmed in real time.
+      const [x0, y0] = await page.evaluate(() => window.__capMouse || [0, 0])
+      const n = Math.max(1, Math.round(ms / 16))
+      for (let i = 1; i <= n; i++) {
+        const p = i / n, e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2
+        await page.mouse.move(x0 + (x - x0) * e, y0 + (y - y0) * e)
+        await page.waitForTimeout(16)
+      }
+      return `mouse ${x},${y} over ${ms}ms`
+    },
     async click(args) { const [x, y] = args.split(' ').map(Number); await page.mouse.click(x, y); return `click ${x},${y}` },
     async type(text) { await page.keyboard.type(text, { delay: 60 }); return `typed "${text}"` },
     async press(key) { await page.keyboard.press(key); return `pressed ${key}` },
