@@ -87,9 +87,8 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
                   ) : (
                     <span className="text-text-secondary">{credit.name}</span>
                   )}
-                  {credit.role && (
-                    <span className="text-text-tertiary text-[14px]"> — {credit.role}</span>
-                  )}
+                  {/* Names only. `credit.role` stays in the content, unshown:
+                      a title per person turned the list into an org chart. */}
                 </p>
               ))}
             </div>
