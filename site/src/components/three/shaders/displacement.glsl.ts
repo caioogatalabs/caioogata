@@ -55,6 +55,7 @@ uniform vec3 uTint;
 uniform float uTintStrength;
 uniform float uStrength;
 uniform float uDebugGrid;
+uniform float uEncodeOutput;
 
 varying vec2 vUv;
 
@@ -118,11 +119,20 @@ void main() {
     gl_FragColor = vec4(mix(base.rgb, uTint, ghost), base.a);
   }
 
-  // The texture is declared sRGB, so three decodes it to linear on sample and
-  // every value above is linear. A raw ShaderMaterial gets none of the output
-  // encoding that built-in materials do, so without this the linear values
-  // reach the canvas as-is and the image renders dark. Must follow the
+  // An image texture is declared sRGB, so three decodes it to linear on sample
+  // and every value above is linear. A raw ShaderMaterial gets none of the
+  // output encoding that built-in materials do, so without this the linear
+  // values reach the canvas as-is and the image renders dark. Must follow the
   // gl_FragColor write, and there must be exactly one to follow.
+  //
+  // A video texture is declared NoColorSpace and passes straight through
+  // instead (uEncodeOutput 0). The canvas sits directly over the <video>
+  // element it samples, so the only defensible output is the one the browser
+  // already painted underneath — and a round trip that depends on how a given
+  // browser decodes video into a GL texture is not that. Both branches are
+  // computed and one is chosen; the cost is a few instructions.
+  vec4 passthrough = gl_FragColor;
   #include <colorspace_fragment>
+  gl_FragColor = mix(passthrough, gl_FragColor, uEncodeOutput);
 }
 `

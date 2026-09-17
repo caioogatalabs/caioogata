@@ -108,6 +108,7 @@ export function DistortedImage({
       uTintStrength: { value: tintStrength },
       uStrength: { value: strength },
       uDebugGrid: { value: 0 },
+      uEncodeOutput: { value: 1 },
     }),
     // Built once; every field is kept in sync by the effect below so that
     // changing a prop never recreates the material.
@@ -123,10 +124,21 @@ export function DistortedImage({
     u.uTintStrength.value = tintStrength
     u.uStrength.value = strength
     u.uDebugGrid.value = debugGrid ? 1 : 0
+    // Declared NoColorSpace by the caller for video, sRGB for a still — which
+    // is exactly the question of whether the shader owes the output an encode.
+    u.uEncodeOutput.value = texture.colorSpace === THREE.NoColorSpace ? 0 : 1
     u.uContainerResolution.value.set(viewport.width, viewport.height)
 
-    const img = texture.image as { width?: number; height?: number } | undefined
-    u.uImageResolution.value.set(img?.width || 1, img?.height || 1)
+    // A video element carries its intrinsic size on `videoWidth`/`videoHeight`;
+    // its `width`/`height` are the layout attributes and read 0 here, which
+    // would collapse the shader's cover fit.
+    const img = texture.image as
+      | { width?: number; height?: number; videoWidth?: number; videoHeight?: number }
+      | undefined
+    u.uImageResolution.value.set(
+      img?.videoWidth || img?.width || 1,
+      img?.videoHeight || img?.height || 1,
+    )
 
     const c = compute.variable.material.uniforms
     c.uDistance.value = distance
