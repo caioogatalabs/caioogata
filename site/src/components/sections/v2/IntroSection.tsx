@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 import { useInView } from '@/hooks/useInView'
 import { useScrollExitProgress, slice } from '@/hooks/useScrollExitProgress'
 import { Grid, GridItem } from '@/components/layout/Grid'
@@ -26,6 +25,44 @@ function ClientDistortedImage(props: DistortedImageCanvasProps) {
   if (!Component) return null
   return <Component {...props} />
 }
+
+/** True while the reader asks for reduced motion. */
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReduced(query.matches)
+    update()
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
+  return reduced
+}
+
+/**
+ * The hero portrait. WebM first, MP4 behind it for Safari.
+ *
+ * The last second of `branding/photography/estudos-pb/08-video-balanco-b.mp4`
+ * — frames 97-120, where he is settled and frontal and blinks once. He holds
+ * the same pose at both ends of it: measured frame against frame, the only
+ * thing that moves across the cut is the grain, so the clip returns to its own
+ * first frame and the restart is invisible. That is what lets it be a trigger
+ * rather than a loop.
+ *
+ * 540x702 for a box that is 216px wide at most — the crop is the box's own
+ * 216:281 taken out of the source, so `object-cover` has nothing left to do.
+ */
+const PORTRAIT = {
+  webm: '/hero/portrait-blink.webm',
+  mp4: '/hero/portrait-blink.mp4',
+  poster: '/hero/portrait-blink-poster.webp',
+} as const
+
+/**
+ * How long the portrait holds still between blinks. Long enough that it reads
+ * as a photograph that happens to be alive rather than as a video playing.
+ */
+const BLINK_EVERY_MS = 12000
 
 /**
  * Spacing between the hero's blocks. Below `lg` it is a plain step. From `lg`
@@ -120,6 +157,56 @@ export function IntroSection() {
   // A boolean, not the raw progress: passing progress straight through would
   // tear down and rebuild the glitch interval on every scroll frame.
   const heroOnScreen = progress < 0.5
+
+  /**
+   * The blink, on a clock rather than on a pointer or on load.
+   *
+   * A callback ref rather than useRef: the canvas has to re-render once the
+   * element exists, and a ref object never triggers that.
+   *
+   * It only runs while the portrait can actually be seen, so a reader who has
+   * scrolled past is not paying to decode a face nobody can see, and the count
+   * starts again when they come back. Nothing fires on load either — the block
+   * enters as a photograph, and the first blink is 12 seconds in.
+   *
+   * Seen takes two readings, because each one is blind where the other works.
+   * From `lg` the hero is `sticky`, so it never leaves the viewport and an
+   * observer holds it true long after the projects have scrolled over it —
+   * IntersectionObserver reports geometry, not what is on top. `heroOnScreen`,
+   * which the idle glitch already uses, is the one that turns false there.
+   * Below `lg` it is `heroOnScreen` that is blind: `useScrollExitProgress`
+   * reports 0 outside `lg`, so the flag is pinned true all the way down the
+   * page — and there the hero scrolls away like anything else, which is
+   * exactly what the observer sees.
+   *
+   * `paused` guards the case where a blink is somehow still running when the
+   * next one is due. There is no `loop` and no `autoplay`: this is the only
+   * thing that ever starts it, so it cannot be started twice.
+   */
+  const [portrait, setPortrait] = useState<HTMLVideoElement | null>(null)
+  const [portraitOnScreen, setPortraitOnScreen] = useState(false)
+  const reducedMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (!portrait) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setPortraitOnScreen(entry.isIntersecting),
+      { threshold: 0 }
+    )
+    observer.observe(portrait)
+    return () => observer.disconnect()
+  }, [portrait])
+
+  useEffect(() => {
+    if (!portrait || reducedMotion || !portraitOnScreen || !heroOnScreen) return
+    const blink = () => {
+      if (!portrait.paused) return
+      portrait.currentTime = 0
+      void portrait.play().catch(() => {})
+    }
+    const id = setInterval(blink, BLINK_EVERY_MS)
+    return () => clearInterval(id)
+  }, [portrait, reducedMotion, portraitOnScreen, heroOnScreen])
 
   return (
     <div
@@ -232,20 +319,30 @@ export function IntroSection() {
               style={exitRising(outHero, 70)}
               className="-entrance -mask-down -a-6 pointer-events-auto relative aspect-[216/281] w-full overflow-hidden bg-bg-surface-primary lg:h-full lg:max-h-[281px] lg:min-h-[120px] lg:w-auto"
             >
-              <Image
-                src="/caio-ogata-profile.webp"
-                alt="Caio Ogata"
-                fill
-                sizes="(min-width: 1024px) 220px, (min-width: 768px) 25vw, 45vw"
-                className="object-cover"
-                priority
-              />
-              {/* Paints over the image above once its texture decodes; never
-                  mounts on touch or reduced motion, so the photo stands alone.
-                  The sweep is timed to `-a-6` (570ms) and `-mask-down` (900ms)
-                  so the distortion runs while the box is still opening. */}
+              {/* The poster is the clip's own first frame, which is also the
+                  frame it ends on, so the picture standing here before
+                  anything plays is the one the hero rests at — and the one a
+                  reader on reduced motion keeps, with nothing to seek to. */}
+              <video
+                ref={setPortrait}
+                poster={PORTRAIT.poster}
+                aria-label="Caio Ogata"
+                muted
+                playsInline
+                preload="auto"
+                className="absolute inset-0 h-full w-full object-cover"
+              >
+                <source src={PORTRAIT.webm} type="video/webm" />
+                <source src={PORTRAIT.mp4} type="video/mp4" />
+              </video>
+              {/* Paints over the video above once its texture decodes; never
+                  mounts on touch or reduced motion, so the portrait stands
+                  alone. The sweep is timed to `-a-6` (570ms) and `-mask-down`
+                  (900ms) so the distortion runs while the box is still
+                  opening. It reads frames off the same element, so the blink
+                  costs one decode, not two. */}
               <ClientDistortedImage
-                src="/caio-ogata-profile.webp"
+                video={portrait}
                 revealOnMount
                 revealDelayMs={570}
                 revealDurationMs={900}
