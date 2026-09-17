@@ -24,24 +24,9 @@ function summaryOf(project: Project): string {
   return first
 }
 
-/**
- * PLACEHOLDER — the badge marks one number per project, as in the Figma study.
- * Values are real, lifted from each project's `impact` prose; the labels live
- * in `ui.projects.badges` so they translate. Move the values there too once
- * the project copy is revisited.
- */
-const BADGE_VALUES: Record<string, string> = {
-  'azion-console-kit': '6,000+',
-  'azion-design-system': '40+',
-  'azion-brand-system': '20,000+',
-  huia: '40',
-  // azion-website has no number in its impact copy — renders without a badge.
-}
-
 export function ProjectsGrid() {
   const { content } = useLanguage()
   const projects = content.projects.items.filter((p) => !p.disabled)
-  const badgeLabels: Record<string, string> = content.ui.projects.badges
   // Deliberately no observer on the section. `-inview` propagates to every
   // descendant, so one here fires every row's entrance the moment the list
   // edges into view — which defeats the per-row staging in ProjectRow, where
@@ -68,8 +53,6 @@ export function ProjectsGrid() {
           year={project.year}
           index={i + 1}
           summary={summaryOf(project)}
-          badge={BADGE_VALUES[project.slug]}
-          badgeLabel={badgeLabels[project.slug]}
           cover={coverOf(project)}
         />
       ))}

@@ -12,10 +12,6 @@ interface ProjectRowProps {
   index: number
   /** Two-line summary of the project. Not the full description — that is 300+ chars. */
   summary: string
-  /** One number that marks the project. Omitted when there is nothing to claim. */
-  badge?: string
-  /** Sits under the badge and says what the number counts. */
-  badgeLabel?: string
   cover?: string
 }
 
@@ -36,8 +32,6 @@ export function ProjectRow({
   year,
   index,
   summary,
-  badge,
-  badgeLabel,
   cover,
 }: ProjectRowProps) {
   // The image announces the row as soon as it touches the viewport.
@@ -92,22 +86,6 @@ export function ProjectRow({
             <h3 className="text-2xl font-semibold text-text-primary">{title}</h3>
             <p className="text-[14px] leading-[1.5] text-text-secondary">{summary}</p>
           </div>
-
-          {badge && (
-            <div className="-entrance -mask-down -a-2 col-span-4 flex flex-col gap-2 lg:col-span-3">
-              {/* Numerals are all cap height, so trimming the line box to cap
-                  height and baseline centres them in the outline exactly —
-                  Epilogue's ascender and descender space otherwise sits
-                  unevenly above and below. `leading-none` is the fallback
-                  where `text-box` is unsupported. */}
-              <span className="inline-flex self-start items-center justify-center border border-border-secondary px-2 py-2 text-2xl leading-none font-semibold text-text-primary [text-box:trim-both_cap_alphabetic]">
-                {badge}
-              </span>
-              {badgeLabel && (
-                <p className="text-[14px] leading-[1.5] text-text-secondary">{badgeLabel}</p>
-              )}
-            </div>
-          )}
         </GridItem>
       </Grid>
     </article>
