@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useInView } from '@/hooks/useInView'
 import { useSectionExitProgress, slice } from '@/hooks/useScrollExitProgress'
 import { SplitText } from '@/components/motion/SplitText'
 import { useLanguage } from '@/components/providers/LanguageProvider'
@@ -131,6 +132,12 @@ export function AboutPinned() {
   // Below `lg` the two share a column and the paragraph overlaps the portrait's
   // lower half, so the portrait holds still: rising, it would slide up under
   // the header and pull away from the text laid on it.
+  // The portrait opens the way the home's does — the box masking down rather
+  // than simply being there. `-entrance` needs an ancestor carrying `-inview`,
+  // and the container's ref is already taken by the exit progress, so the
+  // observer sits on the column instead.
+  const portraitReveal = useInView({ threshold: 0.1, once: true })
+
   const isWide = useIsWide()
   const imageRise = isWide ? progress * 320 : 0
   const textDrift = progress * 40
@@ -263,9 +270,21 @@ export function AboutPinned() {
               eight) and the four right-hand columns, 9-12, from `lg` up. Full
               width on a phone or a portrait tablet, a 3:4 portrait ran taller
               than the screen. z-10 so the paragraph layers on top. */}
-          <div className="col-span-2 col-start-3 md:col-span-4 md:col-start-5 lg:col-span-4 lg:col-start-9 lg:row-start-1 z-10">
+          <div
+            ref={portraitReveal as React.RefObject<HTMLDivElement>}
+            className="col-span-2 col-start-3 md:col-span-4 md:col-start-5 lg:col-span-4 lg:col-start-9 lg:row-start-1 z-10"
+          >
+            {/* `-mask-down` is the box opening, the same reveal the home hero
+                uses, on the same 900ms curve. `-a-0` is 150ms, which is the
+                paragraph's own `baseDelayMs`, so the picture and the sentence
+                start on one beat.
+
+                Only the clip-path half of `-mask-down` runs here: the variant
+                also lifts 6px, and this box already carries an inline
+                `transform` for the scroll exit, which wins over a stylesheet.
+                The wipe is the reveal; the 6px was never the part you saw. */}
             <div
-              className="relative w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
+              className="-entrance -mask-down -a-0 relative w-full aspect-[3/4] overflow-hidden bg-bg-surface-secondary"
               style={{
                 opacity: IMAGE_OPACITY * (1 - outImage),
                 transform: `translateY(${-imageRise}px)`,
@@ -296,7 +315,7 @@ export function AboutPinned() {
               <ClientDistortedImage
                 video={portrait}
                 revealOnMount
-                revealDelayMs={200}
+                revealDelayMs={150}
                 idleGlitchMs={progress < 0.5 ? 5000 : 0}
               />
             </div>
