@@ -69,6 +69,9 @@ export const metadata: Metadata = {
     apple: '/favicon/apple-touch-icon.png',
   },
   manifest: '/favicon/site.webmanifest',
+  // Resolves every relative canonical below, and the OG/Twitter image paths.
+  metadataBase: new URL('https://www.caioogata.com'),
+  alternates: { canonical: '/' },
   robots: {
     index: true,
     follow: true,

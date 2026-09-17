@@ -1,68 +1,36 @@
 import { MetadataRoute } from 'next'
+import content from '@/content/en.json'
 
+const SITE = 'https://www.caioogata.com'
+
+/**
+ * Every page a crawler should know about, plus the machine-readable profile.
+ * The pages come first and the project pages are read from the content, so a
+ * new case study lands in the sitemap by being added to `en.json` rather than
+ * here. `/dev/*` is a scratch route and stays out, as does the archived V1 at
+ * v1.caioogata.com, which answers `noindex` and disallows crawlers.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const today = new Date()
+  const projects = content.projects.items.filter(p => !p.disabled)
 
-  return [
-    {
-      url: 'https://www.caioogata.com',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 1.0,
-    },
-    {
-      url: 'https://www.caioogata.com/llms.txt',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://www.caioogata.com/llms-full.txt',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://www.caioogata.com/llms-pt.txt',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: 'https://www.caioogata.com/llms/projects/azion-brand-system.txt',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: 'https://www.caioogata.com/llms/projects/azion-console-kit.txt',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: 'https://www.caioogata.com/llms/projects/azion-design-system.txt',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: 'https://www.caioogata.com/llms/projects/lukso.txt',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: 'https://www.caioogata.com/llms/projects/huia.txt',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: 'https://www.caioogata.com/llms/projects/azion-website.txt',
-      lastModified: today,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-  ]
+  const pages: MetadataRoute.Sitemap = [
+    { url: SITE, priority: 1.0 },
+    { url: `${SITE}/projects`, priority: 0.9 },
+    { url: `${SITE}/about`, priority: 0.8 },
+    { url: `${SITE}/experience`, priority: 0.8 },
+    { url: `${SITE}/philosophy`, priority: 0.6 },
+    ...projects.map(p => ({ url: `${SITE}/projects/${p.slug}`, priority: 0.7 })),
+  ].map(entry => ({ ...entry, lastModified: today, changeFrequency: 'monthly' as const }))
+
+  const machineReadable: MetadataRoute.Sitemap = [
+    { url: `${SITE}/llms.txt`, priority: 0.8 },
+    { url: `${SITE}/llms-full.txt`, priority: 0.8 },
+    { url: `${SITE}/llms-pt.txt`, priority: 0.6 },
+    ...projects
+      .filter(p => p.caseStudyUrl)
+      .map(p => ({ url: `${SITE}${p.caseStudyUrl}`, priority: 0.7 })),
+  ].map(entry => ({ ...entry, lastModified: today, changeFrequency: 'monthly' as const }))
+
+  return [...pages, ...machineReadable]
 }

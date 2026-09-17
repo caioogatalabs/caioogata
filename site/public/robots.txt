@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /dev/
+
+# The archived V1 lives at v1.caioogata.com. It disallows crawlers of its own
+# and answers with `X-Robots-Tag: noindex, nofollow` — this site is the only
+# version to read.
 
 # LLM-optimized content available at:
 # https://www.caioogata.com/llms.txt (index)
