@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import type { ProjectSection, ProjectImage } from '@/content/types'
 import { Grid, GridItem } from '@/components/layout/Grid'
 import { LABEL, LABEL_TYPE } from '@/components/ui/label'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useScrollParallax } from '@/hooks/useScrollParallax'
 import VideoEmbed from '@/components/ui/VideoEmbed'
+import { LoopVideo } from '@/components/ui/LoopVideo'
 
 interface ProjectGalleryFeatureListProps {
   section: ProjectSection
@@ -35,18 +35,8 @@ function ParallaxRevealImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
-/**
- * A local screen recording (e.g. a menu in use): muted, looping, inline, so it
- * autoplays like an image would sit. Under reduced motion it never starts and
- * the poster stands in for it.
- */
 function LocalVideo({ src, poster, title }: { src: string; poster?: string; title: string }) {
   const { ref: revealRef, clipPath } = useScrollReveal()
-  const [reduced, setReduced] = useState(false)
-
-  useEffect(() => {
-    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-  }, [])
 
   return (
     <div
@@ -54,21 +44,7 @@ function LocalVideo({ src, poster, title }: { src: string; poster?: string; titl
       className="overflow-hidden"
       style={{ clipPath }}
     >
-      {reduced && poster ? (
-        <img src={poster} alt={title} loading="lazy" className="w-full h-auto block" />
-      ) : (
-        <video
-          src={src}
-          poster={poster}
-          aria-label={title}
-          autoPlay={!reduced}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="w-full h-auto block"
-        />
-      )}
+      <LoopVideo src={src} poster={poster} title={title} />
     </div>
   )
 }

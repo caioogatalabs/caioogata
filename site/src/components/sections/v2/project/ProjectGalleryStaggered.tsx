@@ -3,6 +3,7 @@
 import type { ProjectSection, ProjectImage } from '@/content/types'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import VideoEmbed from '@/components/ui/VideoEmbed'
+import { LoopVideo } from '@/components/ui/LoopVideo'
 
 interface ProjectGalleryStaggeredProps {
   section: ProjectSection
@@ -104,11 +105,40 @@ function RevealFigma({ media, staggerIndex = 0 }: { media: ProjectImage; stagger
   )
 }
 
+/**
+ * A highlight: an isolated component on a surface, with a 32px margin on top
+ * and on the side it anchors to, running flush to the opposite side and the
+ * bottom (PROJECTS-GUIDE.md, Composition Alignments). Shown whole, never
+ * cropped — the frame follows the media's own height.
+ */
+function RevealFramed({ media, staggerIndex = 0 }: { media: ProjectImage; staggerIndex?: number }) {
+  const { ref, clipPath } = useScrollReveal({
+    startFraction: 0.85 + staggerIndex * 0.03,
+  })
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className={`overflow-hidden bg-bg-surface-primary pt-8 ${media.frame === 'left' ? 'pl-8' : 'pr-8'}`}
+      style={{ clipPath }}
+    >
+      {media.type === 'video' ? (
+        <LoopVideo src={media.src} poster={media.poster} title={media.title} />
+      ) : (
+        <img src={media.src} alt={media.title} loading="lazy" className="w-full h-auto block" />
+      )}
+    </div>
+  )
+}
+
 /** Renders the appropriate media element based on type */
 function StaggeredMedia({ item, staggerIndex = 0 }: { item: string | ProjectImage; staggerIndex?: number }) {
   // Plain string -> image path (backward compatible)
   if (typeof item === 'string') {
     return <RevealImage src={item} alt="" staggerIndex={staggerIndex} />
+  }
+
+  if (item.frame) {
+    return <RevealFramed media={item} staggerIndex={staggerIndex} />
   }
 
   if (item.type === 'video' && item.videoId) {

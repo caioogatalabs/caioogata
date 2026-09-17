@@ -817,7 +817,7 @@
         "description": "The screen engineers use to deploy and watch their applications, rebuilt from scratch. Vue 3, a shared component library, and an architecture that separates how a screen looks from what it does.",
         "role": "Developer Experience Director",
         "technologies": "Vue 3, Vite, PrimeVue, TypeScript, Design Tokens, Component Architecture, Headless UI Pattern, Open Source",
-        "impact": "Open source: 6,000+ commits, 34+ contributors, 93+ releases. In production at Itaú, Magazine Luiza and Netshoes. New screens went from days to hours. Caio led it; the team he built wrote it.",
+        "impact": "Applications set up three times faster, 235% more new users becoming active, and a new screen in preview in about four hours. Open source: 6,000+ commits, 34+ contributors, 93+ releases. In production at Itaú, Magazine Luiza and Netshoes. Caio led it; the team he built wrote it.",
         "caseStudyUrl": "/llms/projects/azion-console-kit.txt",
         "credits": [
           {
@@ -903,7 +903,7 @@
           {
             "type": "challenge",
             "challenge": "The legacy console was a monolithic application that slowed feature delivery and created inconsistent experiences across product surfaces.",
-            "solution": "Built a headless architecture on Vue 3 that decouples UI from business logic, with block componentization that reduced new screen implementation time to approximately one day."
+            "solution": "Built a headless architecture on Vue 3 that decouples UI from business logic, with block componentization that brought a new screen down to a few hours."
           },
           {
             "type": "statement",
@@ -962,7 +962,13 @@
                   4
                 ],
                 "images": [
-                  "/projects/azion-console-kit/create-panel.webp"
+                  {
+                    "src": "/projects/azion-console-kit/hl-events-filter.mp4",
+                    "title": "Real-Time Events filter autocomplete",
+                    "type": "video",
+                    "poster": "/projects/azion-console-kit/hl-events-filter.webp",
+                    "frame": "left"
+                  }
                 ]
               },
               {
@@ -970,7 +976,13 @@
                   4
                 ],
                 "images": [
-                  "/projects/azion-console-kit/rtm-date-filter-quick.webp"
+                  {
+                    "src": "/projects/azion-console-kit/hl-modules.mp4",
+                    "title": "Application modules switched on and off",
+                    "type": "video",
+                    "poster": "/projects/azion-console-kit/hl-modules.webp",
+                    "frame": "left"
+                  }
                 ]
               },
               {
@@ -978,7 +990,13 @@
                   4
                 ],
                 "images": [
-                  "/projects/azion-console-kit/invoice-details-expanded.webp"
+                  {
+                    "src": "/projects/azion-console-kit/hl-dropdown-create.mp4",
+                    "title": "Create Application and Create Firewall inside the workload dropdowns",
+                    "type": "video",
+                    "poster": "/projects/azion-console-kit/hl-dropdown-create.webp",
+                    "frame": "right"
+                  }
                 ]
               }
             ]
@@ -987,22 +1005,26 @@
             "type": "impact",
             "stats": [
               {
-                "value": "6,000+",
-                "label": "Commits"
+                "value": "3x",
+                "label": "Faster to set up an application"
+              },
+              {
+                "value": "235%",
+                "label": "More new users becoming active"
+              },
+              {
+                "value": "4h",
+                "label": "For a new screen to reach preview"
               },
               {
                 "value": "34+",
-                "label": "Contributors"
-              },
-              {
-                "value": "93+",
-                "label": "Releases"
+                "label": "Contributors, Azion team and clients"
               }
             ]
           },
           {
             "type": "statement",
-            "body": "Screens are no longer hand-built. They are assembled from blocks, a new one in about a day, by thirty-four people working in the same codebase."
+            "body": "Screens are no longer hand-built. They are assembled from blocks, a new one in preview in about four hours, by thirty-four people working in the same codebase."
           },
           {
             "type": "gallery-feature-list",
@@ -1020,10 +1042,10 @@
               {
                 "name": "One pattern, every product",
                 "image": {
-                  "src": "/projects/azion-console-kit/application-modules.mp4",
-                  "title": "Application modules",
+                  "src": "/projects/azion-console-kit/workload-create.mp4",
+                  "title": "Create Workload form",
                   "type": "video",
-                  "poster": "/projects/azion-console-kit/application-modules.webp"
+                  "poster": "/projects/azion-console-kit/workload-create.webp"
                 },
                 "description": "Description on the left, controls on the right. Create, edit and delete behave the same across Applications, Firewall and every other product."
               },
@@ -1076,14 +1098,14 @@
                 "description": "Raw request and security logs, filtered as you type, to inspect an attack or debug a request."
               },
               {
-                "name": "Templates",
+                "name": "Create and deploy",
                 "image": {
-                  "src": "/projects/azion-console-kit/template-deploy-log.mp4",
-                  "title": "Template deploy log",
+                  "src": "/projects/azion-console-kit/create-deploy.mp4",
+                  "title": "Create menu to a running template deploy",
                   "type": "video",
-                  "poster": "/projects/azion-console-kit/template-deploy-log.webp"
+                  "poster": "/projects/azion-console-kit/create-deploy.webp"
                 },
-                "description": "A template deployed straight from Create, with its build log running on screen."
+                "description": "One Create menu holds every way to start: recommendations, ready-made templates, your own app imported from GitHub, and Azion presets already configured. Pick one and it deploys with the build log on screen, so a new user sees a first application live before configuring anything."
               }
             ]
           },

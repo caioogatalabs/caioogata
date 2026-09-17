@@ -1190,6 +1190,12 @@ An AI-powered assistant embedded directly in the console. Engineers describe wha
 
 ## Impact
 
+For the people using the console:
+
+- **3x faster** to set up an application — the missing pieces (Firewall, Application) are created in side drawers without leaving the flow
+- **235% more new users becoming active** — the Create menu (recommendations, templates, import from GitHub, Azion presets) gets a first application deployed fast
+- **About four hours** for a new screen to reach a preview environment for internal teams to test
+
 Console Kit is open source and publicly available on GitHub. The numbers tell part of the story:
 
 - **6,000+ commits**
@@ -1204,7 +1210,7 @@ In production, it serves companies operating at global scale:
 
 These aren't demo deployments. These are organizations running real workloads across Azion's edge network, managed through the console every day. The architecture decisions made during the rebuild directly affect the reliability and usability they experience.
 
-The block componentization model reduced new screen implementation time to approximately **one day** — compared to the multi-week cycles of the previous codebase. That's a compounding return: every feature shipped after the rebuild costs less than it would have before.
+The block componentization model brought a new screen to a preview environment, ready for internal teams to test, in about **four hours** — compared to the multi-week cycles of the previous codebase. That's a compounding return: every feature shipped after the rebuild costs less than it would have before.
 
 ---
 
@@ -1333,6 +1339,12 @@ Um assistente com IA incorporado diretamente no console. Engenheiros descrevem o
 
 ## Impacto
 
+Para quem usa o console:
+
+- **3x mais rápido** para configurar uma aplicação — as peças que faltam (Firewall, Application) são criadas em drawers laterais sem sair do fluxo
+- **235% mais usuários novos se tornando ativos** — o menu Create (recomendações, templates, import do GitHub, pré-configurações da Azion) coloca a primeira aplicação no ar rápido
+- **Cerca de quatro horas** para uma tela nova chegar a um ambiente de preview para os times internos testarem
+
 O Console Kit é open source e está disponível publicamente no GitHub. Os números contam parte da história:
 
 - **6.000+ commits**
@@ -1347,7 +1359,7 @@ Em produção, serve empresas operando em escala global:
 
 Não são deploys de demonstração. São organizações rodando workloads reais na rede edge da Azion, gerenciadas através do console todos os dias. As decisões arquiteturais tomadas durante a reconstrução afetam diretamente a confiabilidade e usabilidade que eles experimentam.
 
-O modelo de componentização em blocos reduziu o tempo de implementação de novas telas para aproximadamente **um dia** — comparado aos ciclos de semanas do codebase anterior. Esse é um retorno composto: cada feature lançada após a reconstrução custa menos do que custaria antes.
+O modelo de componentização em blocos levou uma tela nova a um ambiente de preview, pronta para os times internos testarem, em cerca de **quatro horas** — comparado aos ciclos de semanas do codebase anterior. Esse é um retorno composto: cada feature lançada após a reconstrução custa menos do que custaria antes.
 
 ---
 

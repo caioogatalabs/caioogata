@@ -15,6 +15,11 @@
 //   click <x> <y>         real click
 //   type <text>           real keystrokes into the focused field
 //   press <key>           one key, e.g. Escape, Enter, ArrowDown
+//   iso <js expr>         isolate the element the expression returns: the rest
+//                         of the page goes invisible but keeps its layout and
+//                         behaviour; overlays added to <body> stay visible.
+//                         Logs its rect [x, y, w, h] — crop recordings to it
+//   iso off               show the whole page again
 //
 // Real-time recording is uneven (frame timing jitters, frames arrive at 1x) —
 // use it for rough takes; vcap.cjs or native screen recording for finals.
@@ -32,6 +37,10 @@ const OUT = process.env.OUT_DIR
 const START_URL = process.env.START_URL
 const VW = Number(process.env.VW || 1680)
 const VH = Number(process.env.VH || 1050)
+// MOBILE=1: a phone viewport (default 390x844 @3x) with touch, for captures of
+// the responsive layout. The webp keeps the shot's own proportion.
+const MOBILE = process.env.MOBILE === '1'
+const DPR = Number(process.env.DPR || (MOBILE ? 3 : 2))
 
 fs.mkdirSync(QUEUE, { recursive: true })
 fs.mkdirSync(OUT, { recursive: true })
@@ -60,10 +69,13 @@ const CURSOR_SCRIPT = `
   const ctx = await chromium.launchPersistentContext(path.join(HERE, 'profile'), {
         headless: false,
     viewport: { width: VW, height: VH },
-    deviceScaleFactor: 2,
+    deviceScaleFactor: DPR,
+    isMobile: MOBILE,
+    hasTouch: MOBILE,
     args: ['--window-position=80,60'],
   })
   await ctx.addInitScript(CURSOR_SCRIPT)
+  await ctx.addInitScript({ path: path.join(HERE, 'iso.js') })
   let page = ctx.pages()[0] || (await ctx.newPage())
   ctx.on('page', (p) => { page = p; log(`new tab is now active: ${p.url()}`) })
   if (START_URL) await page.goto(START_URL).catch((e) => log(`goto failed: ${e.message}`))
@@ -78,7 +90,7 @@ const CURSOR_SCRIPT = `
       const png = path.join(OUT, `${name}.png`)
       const webp = path.join(OUT, `${name}.webp`)
       await page.screenshot({ path: png })
-      execFileSync('cwebp', ['-quiet', '-q', '90', '-resize', '1920', '1200', png, '-o', webp])
+      execFileSync('cwebp', ['-quiet', '-q', '90', ...(MOBILE ? [] : ['-resize', '1920', '1200']), png, '-o', webp])
       return `${webp}`
     },
 
@@ -94,7 +106,7 @@ const CURSOR_SCRIPT = `
         frames.push({ file, t: metadata.timestamp })
         cdp.send('Page.screencastFrameAck', { sessionId }).catch(() => {})
       })
-      await cdp.send('Page.startScreencast', { format: 'jpeg', quality: 95, maxWidth: VW * 2, maxHeight: VH * 2, everyNthFrame: 1 })
+      await cdp.send('Page.startScreencast', { format: 'jpeg', quality: 95, maxWidth: VW * DPR, maxHeight: VH * DPR, everyNthFrame: 1 })
       rec = { name, dir, cdp, frames, started: Date.now() / 1000 }
       return `recording "${name}"`
     },
@@ -116,7 +128,7 @@ const CURSOR_SCRIPT = `
       lines.push(`file '${frames[frames.length - 1].file}'`)
       const list = path.join(dir, 'list.txt')
       fs.writeFileSync(list, lines.join('\n'))
-      const vf = 'scale=1920:1200:flags=lanczos,fps=60,format=yuv420p'
+      const vf = MOBILE ? `scale=${VW * 2}:${VH * 2}:flags=lanczos,fps=60,format=yuv420p` : 'scale=1920:1200:flags=lanczos,fps=60,format=yuv420p'
       const mp4 = path.join(OUT, `${name}.mp4`)
       const webm = path.join(OUT, `${name}.webm`)
       execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', list, '-vf', vf, '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-movflags', '+faststart', mp4])
@@ -128,6 +140,11 @@ const CURSOR_SCRIPT = `
       const on = state === 'on'
       await page.evaluate((v) => { sessionStorage.setItem('__capCursor', v ? '1' : '0'); window.__capCursorSync && window.__capCursorSync() }, on)
       return `cursor ${on ? 'on' : 'off'}`
+    },
+
+    async iso(expr) {
+      if (expr === 'off') { await page.evaluate(() => window.__unIso()); return 'iso off' }
+      return JSON.stringify(await page.evaluate(`window.__iso(${expr})`))
     },
 
     async eval(js) { return JSON.stringify(await page.evaluate(js)) },

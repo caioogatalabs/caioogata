@@ -83,6 +83,11 @@ export interface ProjectImage {
   /** Still shown before a local video plays, and instead of it under reduced motion. */
   poster?: string
   figmaEmbedUrl?: string
+  /**
+   * Highlight frame (staggered gallery): a 32px margin on top and on this side,
+   * the side the highlight sits on; the media runs flush to the other edges.
+   */
+  frame?: 'left' | 'right'
 }
 
 export interface ProjectCredit {
