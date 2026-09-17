@@ -460,6 +460,31 @@ compose_top_right(
 
 ---
 
+## Open Graph image
+
+One image for the whole site, at `public/og-img.png`, 1200x630. It is the hero's
+own composition — headline left, portrait right, mono labels top and bottom — so
+a shared link looks like the page it opens.
+
+It is not drawn by hand: `/dev/og` renders the board with the site's fonts and
+tokens, and the image is a screenshot of it. Re-shoot whenever the headline, the
+portrait or the availability line changes:
+
+```bash
+# with the dev server running
+node -e "..."   # or any Playwright script:
+# 1. viewport 1400x800 at deviceScaleFactor 2
+# 2. goto /dev/og, wait for the fonts
+# 3. screenshot the #og-board element  -> 2400x1260
+# 4. sips -z 630 1200 og-2x.png --out public/og-img.png
+```
+
+Shooting at 2x and scaling down to 1200x630 is what keeps the thin Epilogue
+headline clean. `/dev/` is `noindex` and disallowed in `robots.txt`, so the
+board never shows up in search.
+
+---
+
 ## Home Cover (ProjectCover)
 
 The home project list (`ProjectsGrid` → `ProjectRow` → `ProjectCover`) shows one cover per project. This is a **separate standard** from the gallery composition above: gallery images are composed on a BG canvas (`1512x982` → `1600x1000`); cover images are bare screens that the component frames itself. Don't mix the two.
