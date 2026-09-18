@@ -576,35 +576,6 @@
             "solution": "Uma página longa que funciona como um curta. Uma abertura amarela, três ícones 3D em volta da pergunta \"What's your story?\", um reel e o método contado em quatro capítulos conforme a pessoa rola."
           },
           {
-            "type": "gallery-stick",
-            "rows": [
-              {
-                "spans": [
-                  12
-                ],
-                "images": [
-                  "/projects/lukso/home-05-clients.webp"
-                ]
-              },
-              {
-                "spans": [
-                  12
-                ],
-                "images": [
-                  "/projects/lukso/home-08-testimonials.webp"
-                ]
-              },
-              {
-                "spans": [
-                  12
-                ],
-                "images": [
-                  "/projects/lukso/home-09-footer.webp"
-                ]
-              }
-            ]
-          },
-          {
             "type": "impact",
             "stats": [
               {
@@ -634,10 +605,10 @@
                 ],
                 "images": [
                   {
-                    "src": "/projects/lukso/icons.mp4",
-                    "title": "Custom 3D icons",
+                    "src": "/projects/lukso/icon-star.mp4",
+                    "title": "Estrela",
                     "type": "video",
-                    "poster": "/projects/lukso/icons.webp"
+                    "poster": "/projects/lukso/icon-star.webp"
                   }
                 ]
               },
@@ -647,10 +618,10 @@
                 ],
                 "images": [
                   {
-                    "src": "/projects/lukso/team-nav.mp4",
-                    "title": "Team, sideways navigation",
+                    "src": "/projects/lukso/icon-rewind.mp4",
+                    "title": "Rewind",
                     "type": "video",
-                    "poster": "/projects/lukso/team-nav.webp"
+                    "poster": "/projects/lukso/icon-rewind.webp"
                   }
                 ]
               },
@@ -660,23 +631,10 @@
                 ],
                 "images": [
                   {
-                    "src": "/projects/lukso/projects-parallax.mp4",
-                    "title": "Projects grid with column parallax",
+                    "src": "/projects/lukso/icon-plus.mp4",
+                    "title": "Mais",
                     "type": "video",
-                    "poster": "/projects/lukso/projects-parallax.webp"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "images": [
-                  {
-                    "src": "/projects/lukso/method-hover.mp4",
-                    "title": "Story-First Method cards on hover",
-                    "type": "video",
-                    "poster": "/projects/lukso/method-hover.webp"
+                    "poster": "/projects/lukso/icon-plus.webp"
                   }
                 ]
               }
@@ -688,10 +646,10 @@
               {
                 "name": "Abertura",
                 "image": {
-                  "src": "/projects/lukso/cover.mp4",
+                  "src": "/projects/lukso/opening.mp4",
                   "title": "Loading and hero",
                   "type": "video",
-                  "poster": "/projects/lukso/cover.webp"
+                  "poster": "/projects/lukso/opening.webp"
                 },
                 "description": "Uma cortina amarela sobe e o título se monta em volta de três ícones 3D: uma lupa, um play e uma estrela."
               },
@@ -704,6 +662,36 @@
                   "poster": "/projects/lukso/what-we-do.webp"
                 },
                 "description": "Narrativa, Conteúdo, Cultura e Treinamento. A seção fica parada na tela enquanto cada ícone 3D se transforma no próximo."
+              },
+              {
+                "name": "Time",
+                "image": {
+                  "src": "/projects/lukso/team-nav.mp4",
+                  "title": "Time",
+                  "type": "video",
+                  "poster": "/projects/lukso/team-nav.webp"
+                },
+                "description": "Os rostos são a navegação. Escolher um traz aquela pessoa para a frente e recua o resto, então a lista se lê como uma sala, não como uma grade."
+              },
+              {
+                "name": "Cases",
+                "image": {
+                  "src": "/projects/lukso/projects-parallax.mp4",
+                  "title": "Cases",
+                  "type": "video",
+                  "poster": "/projects/lukso/projects-parallax.webp"
+                },
+                "description": "Treze páginas de case saídas de um template só. Elas passam em velocidades diferentes conforme se rola, que é o que impede um layout único de se ler como uma página repetida."
+              },
+              {
+                "name": "Método",
+                "image": {
+                  "src": "/projects/lukso/method-hover.mp4",
+                  "title": "Método",
+                  "type": "video",
+                  "poster": "/projects/lukso/method-hover.webp"
+                },
+                "description": "Os quatro passos são cartas que respondem ao ponteiro: a que está sob ele se abre e as outras lhe dão espaço, então o método se lê manuseando."
               }
             ]
           },
