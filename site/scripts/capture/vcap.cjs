@@ -132,6 +132,20 @@ const withTimeout = (p, ms, what) => Promise.race([p, new Promise((_, rej) => se
   const ctx = await browser.newContext({ viewport: { width: VW, height: VH }, deviceScaleFactor: DSF })
   if (BLOCK.length) await ctx.route((u) => BLOCK.some((b) => u.href.includes(b)), (r) => r.abort())
   await ctx.addInitScript(VIRTUAL_TIME)
+  // No scrollbar in the frame. It is an overlay on this platform, so it fades
+  // in while a plan scrolls and out again after — which is why it is in some
+  // recordings and not others, and why it was missed until four of them were
+  // measured. The capture is a picture of the site, not of the browser, and
+  // the bar is the browser. `shots.cjs` hides its own furniture (cookie
+  // banners, chat widgets) for the same reason; this is that, for video.
+  //
+  // An init script rather than `addStyleTag`: the style has to be there for
+  // the very first painted frame, and a tag added after `goto` is not.
+  await ctx.addInitScript(`addEventListener('DOMContentLoaded', () => {
+    const s = document.createElement('style')
+    s.textContent = '::-webkit-scrollbar { display: none !important } html { scrollbar-width: none !important }'
+    document.documentElement.appendChild(s)
+  })`)
   // CURSOR=1 draws a pointer that follows the mouse; screenshots have none.
   if (process.env.CURSOR) await ctx.addInitScript(`addEventListener('DOMContentLoaded', () => {
     const c = document.createElement('div')
