@@ -1353,6 +1353,7 @@
       {
         "title": "Azion Design System",
         "slug": "azion-design-system",
+        "cover": "/projects/azion-design-system/cover.mp4",
         "year": "2021",
         "description": "A shared kit of parts for the product, put in place a piece at a time so customers never woke up to a different-looking product.",
         "role": "Design Director",
@@ -1458,6 +1459,12 @@
           }
         ],
         "images": [
+          {
+            "src": "/projects/azion-design-system/hero.mp4",
+            "title": "Components handoff: anatomy, tokens, states and color",
+            "type": "video",
+            "poster": "/projects/azion-design-system/hero.webp"
+          },
           {
             "src": "",
             "title": "Global Tokens — Figma",
