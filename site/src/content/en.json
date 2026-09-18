@@ -724,11 +724,11 @@
         "title": "Azion Website & Brand Expansion",
         "slug": "azion-website",
         "cover": "/projects/azion-website/hero-loop.mp4",
-        "year": "2022",
-        "description": "A brand stretch, not a rebuild. The site needed more range — richer layouts, stronger colour, a way to show what the product actually does — without throwing away the front-end already running in production.",
-        "role": "Design Director",
-        "technologies": "Astro, Vue.js, Webkit Component Library, Design Tokens, Sora Typography, Monospace, Brand Adaptation, Illustration System",
-        "impact": "New illustration patterns that explain features visually. Richer page blocks across every page. The existing architecture survived intact.",
+        "year": "2025",
+        "description": "Azion changed how it describes itself: from an edge computing platform to a web platform for modern workloads. The website had to carry that change across dozens of products that, until then, all looked alike.",
+        "role": "Developer Experience Director",
+        "technologies": "Astro, Vue.js, Design Tokens, Webkit Component Library, Storybook, Sora, Monospace Type, Technical Illustration",
+        "impact": "One system behind 19 product pages, 6 solution pages, the documentation and the console. Product, documentation and support teams fix and publish on their own, and a new idea reaches preview in about four hours. Live since Q3 2025, and still growing.",
         "caseStudyUrl": "/llms/projects/azion-website.txt",
         "links": [
           {
@@ -769,12 +769,12 @@
         "sections": [
           {
             "type": "hero",
-            "body": "A brand adaptation that evolved Azion's digital presence while preserving the technology already in production."
+            "body": "A brand repositioning, told through the website. Fewer abstract promises, more drawings of how the product actually works."
           },
           {
             "type": "challenge",
-            "challenge": "Azion needed to expand its visual identity without breaking the existing front-end architecture built on Astro and Vue.",
-            "solution": "We evolved the existing system by introducing new color tones, richer block variants, and an illustration pattern that visually represents product features."
+            "challenge": "Azion was moving away from \"edge computing platform\", a category the market had not fully adopted. The website could not carry the new story. Dozens of products were hard to explain, a short palette made every page look like the last, and the illustrations described the products in terms too abstract for a developer.",
+            "solution": "The brand gained range on top of the site already running. Technical illustrations show each product as architecture and flow. New colours tell product families apart. Sora and a monospace face bring the type closer to code. Tokens, a component library and documentation let product, documentation and support teams build and fix pages without waiting on design."
           },
           {
             "type": "gallery-stick",
@@ -870,22 +870,22 @@
             "type": "impact",
             "stats": [
               {
-                "value": "40+",
-                "label": "Vue components ready to use"
+                "value": "+8%",
+                "label": "New sign-ups from product pages"
               },
               {
-                "value": "20+",
-                "label": "Pages redesigned"
+                "value": "+38%",
+                "label": "Time engaged on the site"
               },
               {
-                "value": "30+",
-                "label": "New product images redesigned"
+                "value": "+18%",
+                "label": "Visits to the pricing page"
               }
             ]
           },
           {
             "type": "statement",
-            "body": "Twenty pages changed how they look while the front-end underneath never stopped shipping. The identity gained range instead of being replaced."
+            "body": "A brand made for the people who write the code. Type that feels at home next to a terminal, and drawings that explain each product the way one developer would explain it to another."
           },
           {
             "type": "gallery-feature-list",
@@ -898,7 +898,7 @@
                   "type": "video",
                   "poster": "/projects/azion-website/home-products-menu.webp"
                 },
-                "description": "Mega-menu revealing product categories with hover interaction."
+                "description": "A menu that sorts the catalog by what each product does, so a first-time visitor finds the right one."
               },
               {
                 "name": "Developer Tools",
@@ -906,7 +906,7 @@
                   "src": "/projects/azion-website/devtools.webp",
                   "title": "Documentation — DevTools"
                 },
-                "description": "Developer-facing documentation and tooling resources."
+                "description": "Documentation and tools written for the developer who will actually use the product."
               },
               {
                 "name": "Component Library",
@@ -914,7 +914,7 @@
                   "src": "/projects/azion-website/webkit-colors-storybook.webp",
                   "title": "Webkit Component Library"
                 },
-                "description": "Open-source webkit component library powering both website and console."
+                "description": "Webkit, the open-source library behind the website and the console. Tokens, components and documentation in one place."
               }
             ]
           },

@@ -724,11 +724,11 @@
         "title": "Azion Website & Expansão de Marca",
         "slug": "azion-website",
         "cover": "/projects/azion-website/hero-loop.mp4",
-        "year": "2022",
-        "description": "Uma expansão da marca, não uma reconstrução. O site precisava de mais repertório — layouts mais ricos, cor mais forte, um jeito de mostrar o que o produto de fato faz — sem jogar fora o front-end que já rodava em produção.",
-        "role": "Design Director",
-        "technologies": "Astro, Vue.js, biblioteca de componentes Webkit, Design Tokens, tipografia Sora, Monospace, adaptação de marca, sistema de ilustração",
-        "impact": "Novos padrões de ilustração que explicam funcionalidades visualmente. Blocos de página mais ricos em todas as páginas. A arquitetura existente sobreviveu intacta.",
+        "year": "2025",
+        "description": "A Azion mudou a forma de se apresentar: de plataforma de edge computing para plataforma web para workloads modernos. O site precisava levar essa mudança para dezenas de produtos que, até então, pareciam todos iguais.",
+        "role": "Developer Experience Director",
+        "technologies": "Astro, Vue.js, Design Tokens, biblioteca de componentes Webkit, Storybook, Sora, tipografia monoespaçada, ilustração técnica",
+        "impact": "Um sistema só por trás de 19 páginas de produto, 6 de soluções, da documentação e do console. Os times de produto, documentação e suporte corrigem e publicam sozinhos, e uma ideia nova chega em preview em cerca de quatro horas. No ar desde o terceiro trimestre de 2025, e segue evoluindo.",
         "caseStudyUrl": "/llms/projects/azion-website.txt",
         "links": [
           {
@@ -769,12 +769,12 @@
         "sections": [
           {
             "type": "hero",
-            "body": "Uma adaptação de marca que evoluiu a presença digital da Azion preservando a tecnologia que já estava em produção."
+            "body": "Um reposicionamento de marca contado pelo site. Menos promessa abstrata, mais desenho de como o produto funciona de verdade."
           },
           {
             "type": "challenge",
-            "challenge": "A Azion precisava expandir a identidade visual sem quebrar a arquitetura de front-end existente, construída em Astro e Vue.",
-            "solution": "Evoluímos o sistema existente com novos tons de cor, variações de bloco mais ricas e um padrão de ilustração que representa visualmente as funcionalidades do produto."
+            "challenge": "A Azion estava deixando de se apresentar como \"plataforma de edge computing\", uma categoria que o mercado ainda não tinha adotado por completo. O site não dava conta da nova história. Os produtos eram difíceis de explicar, a paleta curta deixava toda página parecida com a anterior e as ilustrações falavam dos produtos de um jeito abstrato demais para um desenvolvedor.",
+            "solution": "A marca ganhou repertório em cima do site que já estava no ar. Ilustrações técnicas mostram cada produto como arquitetura e fluxo. Novas cores separam as famílias de produto. A Sora e uma fonte monoespaçada aproximam a tipografia do código. Tokens, uma biblioteca de componentes e documentação deixam os times de produto, documentação e suporte criar e corrigir páginas sem esperar pelo design."
           },
           {
             "type": "gallery-stick",
@@ -870,22 +870,22 @@
             "type": "impact",
             "stats": [
               {
-                "value": "40+",
-                "label": "Componentes Vue prontos para uso"
+                "value": "+8%",
+                "label": "Cadastros vindos das páginas de produto"
               },
               {
-                "value": "20+",
-                "label": "Páginas redesenhadas"
+                "value": "+38%",
+                "label": "Tempo de engajamento no site"
               },
               {
-                "value": "30+",
-                "label": "Novas imagens de produto redesenhadas"
+                "value": "+18%",
+                "label": "Acessos à página de preços"
               }
             ]
           },
           {
             "type": "statement",
-            "body": "Vinte páginas mudaram de cara sem que o front-end embaixo parasse de rodar. A identidade ganhou alcance em vez de ser trocada."
+            "body": "Uma marca feita para quem escreve o código. Tipografia que se sente em casa ao lado de um terminal, e desenhos que explicam cada produto do jeito que um desenvolvedor explicaria para outro."
           },
           {
             "type": "gallery-feature-list",
@@ -898,7 +898,7 @@
                   "type": "video",
                   "poster": "/projects/azion-website/home-products-menu.webp"
                 },
-                "description": "Mega-menu que revela as categorias de produto com interação no hover."
+                "description": "Um menu que organiza o catálogo pelo que cada produto faz, para quem chega pela primeira vez achar o certo."
               },
               {
                 "name": "Ferramentas para desenvolvedores",
@@ -906,7 +906,7 @@
                   "src": "/projects/azion-website/devtools.webp",
                   "title": "Documentation — DevTools"
                 },
-                "description": "Documentação e recursos de ferramentas para desenvolvedores."
+                "description": "Documentação e ferramentas escritas para o desenvolvedor que vai usar o produto."
               },
               {
                 "name": "Biblioteca de componentes",
@@ -914,7 +914,7 @@
                   "src": "/projects/azion-website/webkit-colors-storybook.webp",
                   "title": "Webkit Component Library"
                 },
-                "description": "Biblioteca de componentes webkit, open source, que alimenta o site e o console."
+                "description": "Webkit, a biblioteca open source por trás do site e do console. Tokens, componentes e documentação num lugar só."
               }
             ]
           },
