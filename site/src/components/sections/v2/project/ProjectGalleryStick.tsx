@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { ProjectSection } from '@/content/types'
+import type { ProjectImage, ProjectSection } from '@/content/types'
 import { useScrollStick } from '@/hooks/useScrollStick'
 
 interface ProjectGalleryStickProps {
@@ -14,12 +14,18 @@ const FALLBACK_RATIO = 16 / 10
 export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
   const rows = section.rows || []
 
-  // Extract slide images: first image from each row
-  const slidesSrc: string[] = rows.map(row => {
-    const img = row.images[0]
-    if (!img) return ''
-    return typeof img === 'string' ? img : img.src
-  }).filter(Boolean)
+  // One slide per row: its first image, or a local muted loop
+  const slidesMedia: ProjectImage[] = rows
+    .map(row => row.images[0])
+    .filter(Boolean)
+    .map(img => (typeof img === 'string' ? { src: img, title: '' } : img))
+    .filter(m => m.src)
+  const slidesSrc = slidesMedia.map(m => m.src)
+
+  const [reduced, setReduced] = useState(false)
+  useEffect(() => {
+    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
 
   const { containerRef, slides } = useScrollStick(slidesSrc.length || 1)
 
@@ -37,6 +43,17 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
       slidesSrc.map(
         src =>
           new Promise<number>(resolve => {
+            // A video reports its proportion from its metadata, which is also
+            // what starts it loading ahead of its turn in the stack.
+            if (slidesMedia.find(m => m.src === src)?.type === 'video') {
+              const probe = document.createElement('video')
+              probe.preload = 'metadata'
+              probe.muted = true
+              probe.onloadedmetadata = () => resolve(probe.videoWidth / probe.videoHeight)
+              probe.onerror = () => resolve(Infinity)
+              probe.src = src
+              return
+            }
             const probe = new Image()
             probe.onload = () => resolve(probe.naturalWidth / probe.naturalHeight)
             probe.onerror = () => resolve(Infinity)
@@ -82,7 +99,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
           >
             {/* Static bg sheet — catches any gap behind released slides */}
             <div className="absolute inset-0 bg-bg" aria-hidden />
-            {slidesSrc.map((src, i) => {
+            {slidesMedia.map((media, i) => {
               const state = slides[i]
               if (!state) return null
 
@@ -102,12 +119,26 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
                     willChange: 'transform, opacity',
                   }}
                 >
-                  <img
-                    src={src}
-                    alt=""
-                    loading="eager"
-                    className="max-w-full max-h-full object-contain block"
-                  />
+                  {media.type === 'video' && !(reduced && media.poster) ? (
+                    <video
+                      src={media.src}
+                      poster={media.poster}
+                      aria-label={media.title}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      className="max-w-full max-h-full object-contain block"
+                    />
+                  ) : (
+                    <img
+                      src={media.type === 'video' ? media.poster : media.src}
+                      alt=""
+                      loading="eager"
+                      className="max-w-full max-h-full object-contain block"
+                    />
+                  )}
                 </div>
               )
             })}

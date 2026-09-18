@@ -554,10 +554,10 @@
         "slug": "lukso",
         "cover": "/projects/lukso/cover.mp4",
         "year": "2026",
-        "description": "The website of a storytelling agency that works for Disney, PepsiCo and Ambev. One page that plays like a short film: 3D icons, a reel, and the agency's method told in four chapters.",
+        "description": "The website of a story-first agency that works for Disney, PepsiCo and Ambev. Lukso's work was bold, colourful and full of movement, and its old site did not show it. The new one makes that impression on the first scroll.",
         "role": "Design and development, through COLABS",
         "technologies": "Next.js, React, Three.js, React Three Fiber, GSAP, Lenis, Tailwind CSS, Vercel",
-        "impact": "A site in English and Portuguese with twelve custom 3D icons and one template behind thirteen case pages. Caio designed and built it through COLABS, from the first layout to the live site.",
+        "impact": "A bilingual single page where visitors stay longer, with twelve custom 3D icons and one template behind thirteen case pages. Structured data and llms.txt files let search engines and AI assistants find and describe the agency. Caio designed and built it through COLABS, from the first layout to the live site.",
         "caseStudyUrl": "/llms/projects/lukso.txt",
         "links": [
           {
@@ -568,12 +568,56 @@
         "sections": [
           {
             "type": "hero",
-            "body": "A website for a storytelling agency, built to behave like the stories it sells: it prepares, reveals and settles."
+            "body": "A single page that makes the first impression Lukso's work already makes: bold, moving, and told as a story."
           },
           {
             "type": "challenge",
-            "challenge": "Lukso tells stories for brands like Disney, PepsiCo and Ambev, but its own website did not tell one. It needed to show how the agency works, not only who it works for.",
-            "solution": "One long page that works like a short film. A yellow opening, three 3D icons around the question \"What's your story?\", a reel, and the method told in four chapters as the visitor scrolls."
+            "challenge": "Lukso has strong cases, big clients and a clear position: story first. Its work is bold, animated and full of colour. Its website was not, and a visitor had to dig before seeing what the agency can deliver.",
+            "solution": "One page that walks through the agency in order. It opens on \"What's your story?\" and the story-first promise. The reel comes right after, jumping to the middle of the screen over a moving background. Then the four pillars and the work inside each one, followed by clients, cases, the team and a call for new clients."
+          },
+          {
+            "type": "gallery-stick",
+            "rows": [
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/hero.mp4",
+                    "title": "Hero into the reel",
+                    "type": "video",
+                    "poster": "/projects/lukso/hero.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/team-nav.mp4",
+                    "title": "Team",
+                    "type": "video",
+                    "poster": "/projects/lukso/team-nav.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/method-hover.mp4",
+                    "title": "Method",
+                    "type": "video",
+                    "poster": "/projects/lukso/method-hover.webp"
+                  }
+                ]
+              }
+            ]
           },
           {
             "type": "impact",
@@ -594,7 +638,7 @@
           },
           {
             "type": "statement",
-            "body": "Dark by default, with amber used like punctuation. Every movement follows three beats, prepare, reveal and settle, and nothing bounces."
+            "body": "Dark by default, with amber used like punctuation, so the strongest colour on screen comes from Lukso's own work."
           },
           {
             "type": "gallery-staggered",
@@ -605,36 +649,36 @@
                 ],
                 "images": [
                   {
+                    "src": "/projects/lukso/icon-magnifying.mp4",
+                    "title": "Magnifying glass",
+                    "type": "video",
+                    "poster": "/projects/lukso/icon-magnifying.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/icon-play.mp4",
+                    "title": "Play",
+                    "type": "video",
+                    "poster": "/projects/lukso/icon-play.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
                     "src": "/projects/lukso/icon-star.mp4",
                     "title": "Star",
                     "type": "video",
                     "poster": "/projects/lukso/icon-star.webp"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "images": [
-                  {
-                    "src": "/projects/lukso/icon-rewind.mp4",
-                    "title": "Rewind",
-                    "type": "video",
-                    "poster": "/projects/lukso/icon-rewind.webp"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "images": [
-                  {
-                    "src": "/projects/lukso/icon-plus.mp4",
-                    "title": "Plus",
-                    "type": "video",
-                    "poster": "/projects/lukso/icon-plus.webp"
                   }
                 ]
               }
@@ -654,24 +698,14 @@
                 "description": "A yellow curtain lifts and the headline assembles around three 3D icons: a magnifying glass, a play button and a star."
               },
               {
-                "name": "Four chapters",
+                "name": "Four pillars",
                 "image": {
                   "src": "/projects/lukso/what-we-do.mp4",
                   "title": "What we do",
                   "type": "video",
                   "poster": "/projects/lukso/what-we-do.webp"
                 },
-                "description": "Narrative, Content, Culture and Training. The section holds on screen while each 3D icon turns into the next."
-              },
-              {
-                "name": "Team",
-                "image": {
-                  "src": "/projects/lukso/team-nav.mp4",
-                  "title": "Team",
-                  "type": "video",
-                  "poster": "/projects/lukso/team-nav.webp"
-                },
-                "description": "Faces are the navigation. Picking one brings that person forward and the rest stand back, so the list reads as a room rather than a grid."
+                "description": "Narrative, Content, Culture and Training, each with the kinds of work Lukso delivers inside it. The section holds on screen while each 3D icon turns into the next."
               },
               {
                 "name": "Cases",
@@ -681,17 +715,7 @@
                   "type": "video",
                   "poster": "/projects/lukso/projects-parallax.webp"
                 },
-                "description": "Thirteen case pages off one template. They pass at different speeds as you scroll, which is what keeps a single layout from reading as a single page repeated."
-              },
-              {
-                "name": "Method",
-                "image": {
-                  "src": "/projects/lukso/method-hover.mp4",
-                  "title": "Method",
-                  "type": "video",
-                  "poster": "/projects/lukso/method-hover.webp"
-                },
-                "description": "The four steps are cards that answer the pointer: the one under it opens and the others give it room, so the method is read by handling it."
+                "description": "Thirteen case pages from one template. They pass at different speeds as you scroll, so the same layout never looks repeated."
               }
             ]
           },
@@ -701,10 +725,10 @@
         ],
         "images": [
           {
-            "src": "/projects/lukso/hero.mp4",
-            "title": "Hero into the reel",
+            "src": "/projects/lukso/identity.mp4",
+            "title": "Typography and color",
             "type": "video",
-            "poster": "/projects/lukso/hero.webp"
+            "poster": "/projects/lukso/identity.webp"
           },
           {
             "src": "/projects/lukso/home-05-clients.webp",

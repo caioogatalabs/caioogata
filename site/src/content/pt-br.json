@@ -554,10 +554,10 @@
         "slug": "lukso",
         "cover": "/projects/lukso/cover.mp4",
         "year": "2026",
-        "description": "O site de uma agência de storytelling que atende Disney, PepsiCo e Ambev. Uma página que roda como um curta: ícones 3D, um reel e o método da agência contado em quatro capítulos.",
+        "description": "O site de uma agência story-first que atende Disney, PepsiCo e Ambev. O trabalho da Lukso era ousado, colorido e cheio de movimento, e o site antigo não mostrava isso. O novo causa essa impressão logo na primeira rolagem.",
         "role": "Design e desenvolvimento, pela COLABS",
         "technologies": "Next.js, React, Three.js, React Three Fiber, GSAP, Lenis, Tailwind CSS, Vercel",
-        "impact": "Um site em inglês e português, com doze ícones 3D feitos sob medida e um template por trás de treze páginas de case. Caio desenhou e construiu tudo pela COLABS, do primeiro layout ao site no ar.",
+        "impact": "Uma página única e bilíngue onde os visitantes ficam mais tempo, com doze ícones 3D sob medida e um template por trás de treze páginas de case. Dados estruturados e arquivos llms.txt ajudam buscadores e assistentes de IA a encontrar e descrever a agência. Caio desenhou e construiu tudo pela COLABS, do primeiro layout ao site no ar.",
         "caseStudyUrl": "/llms/projects/lukso.txt",
         "links": [
           {
@@ -568,12 +568,56 @@
         "sections": [
           {
             "type": "hero",
-            "body": "Um site para uma agência de storytelling, feito para se comportar como as histórias que ela vende: prepara, revela e assenta."
+            "body": "Uma página única que causa a primeira impressão que o trabalho da Lukso já causa: ousada, em movimento e contada como história."
           },
           {
             "type": "challenge",
-            "challenge": "A Lukso conta histórias para marcas como Disney, PepsiCo e Ambev, mas o próprio site não contava nenhuma. Ele precisava mostrar como a agência trabalha, e não só para quem.",
-            "solution": "Uma página longa que funciona como um curta. Uma abertura amarela, três ícones 3D em volta da pergunta \"What's your story?\", um reel e o método contado em quatro capítulos conforme a pessoa rola."
+            "challenge": "A Lukso tem cases fortes, clientes grandes e um posicionamento claro: story first. O trabalho dela é ousado, animado e cheio de cor. O site não era, e o visitante precisava procurar para ver do que a agência é capaz.",
+            "solution": "Uma página que apresenta a agência em ordem. Abre com \"What's your story?\" e a promessa story-first. O reel vem logo em seguida, saltando para o meio da tela sobre um fundo em movimento. Depois, os quatro pilares e o trabalho dentro de cada um, seguidos de clientes, cases, time e um chamado para novos clientes."
+          },
+          {
+            "type": "gallery-stick",
+            "rows": [
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/hero.mp4",
+                    "title": "Hero into the reel",
+                    "type": "video",
+                    "poster": "/projects/lukso/hero.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/team-nav.mp4",
+                    "title": "Time",
+                    "type": "video",
+                    "poster": "/projects/lukso/team-nav.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/method-hover.mp4",
+                    "title": "Método",
+                    "type": "video",
+                    "poster": "/projects/lukso/method-hover.webp"
+                  }
+                ]
+              }
+            ]
           },
           {
             "type": "impact",
@@ -594,7 +638,7 @@
           },
           {
             "type": "statement",
-            "body": "Escuro por padrão, com o âmbar usado como pontuação. Todo movimento segue três tempos, prepara, revela e assenta, e nada quica."
+            "body": "Escuro por padrão, com o âmbar usado como pontuação, para que a cor mais forte da tela venha do próprio trabalho da Lukso."
           },
           {
             "type": "gallery-staggered",
@@ -605,36 +649,36 @@
                 ],
                 "images": [
                   {
+                    "src": "/projects/lukso/icon-magnifying.mp4",
+                    "title": "Lupa",
+                    "type": "video",
+                    "poster": "/projects/lukso/icon-magnifying.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
+                    "src": "/projects/lukso/icon-play.mp4",
+                    "title": "Play",
+                    "type": "video",
+                    "poster": "/projects/lukso/icon-play.webp"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  4
+                ],
+                "images": [
+                  {
                     "src": "/projects/lukso/icon-star.mp4",
                     "title": "Estrela",
                     "type": "video",
                     "poster": "/projects/lukso/icon-star.webp"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "images": [
-                  {
-                    "src": "/projects/lukso/icon-rewind.mp4",
-                    "title": "Rewind",
-                    "type": "video",
-                    "poster": "/projects/lukso/icon-rewind.webp"
-                  }
-                ]
-              },
-              {
-                "spans": [
-                  4
-                ],
-                "images": [
-                  {
-                    "src": "/projects/lukso/icon-plus.mp4",
-                    "title": "Mais",
-                    "type": "video",
-                    "poster": "/projects/lukso/icon-plus.webp"
                   }
                 ]
               }
@@ -654,24 +698,14 @@
                 "description": "Uma cortina amarela sobe e o título se monta em volta de três ícones 3D: uma lupa, um play e uma estrela."
               },
               {
-                "name": "Quatro capítulos",
+                "name": "Quatro pilares",
                 "image": {
                   "src": "/projects/lukso/what-we-do.mp4",
                   "title": "What we do",
                   "type": "video",
                   "poster": "/projects/lukso/what-we-do.webp"
                 },
-                "description": "Narrativa, Conteúdo, Cultura e Treinamento. A seção fica parada na tela enquanto cada ícone 3D se transforma no próximo."
-              },
-              {
-                "name": "Time",
-                "image": {
-                  "src": "/projects/lukso/team-nav.mp4",
-                  "title": "Time",
-                  "type": "video",
-                  "poster": "/projects/lukso/team-nav.webp"
-                },
-                "description": "Os rostos são a navegação. Escolher um traz aquela pessoa para a frente e recua o resto, então a lista se lê como uma sala, não como uma grade."
+                "description": "Narrativa, Conteúdo, Cultura e Treinamento, cada um com os tipos de trabalho que a Lukso entrega dentro dele. A seção fica parada na tela enquanto cada ícone 3D se transforma no próximo."
               },
               {
                 "name": "Cases",
@@ -681,17 +715,7 @@
                   "type": "video",
                   "poster": "/projects/lukso/projects-parallax.webp"
                 },
-                "description": "Treze páginas de case saídas de um template só. Elas passam em velocidades diferentes conforme se rola, que é o que impede um layout único de se ler como uma página repetida."
-              },
-              {
-                "name": "Método",
-                "image": {
-                  "src": "/projects/lukso/method-hover.mp4",
-                  "title": "Método",
-                  "type": "video",
-                  "poster": "/projects/lukso/method-hover.webp"
-                },
-                "description": "Os quatro passos são cartas que respondem ao ponteiro: a que está sob ele se abre e as outras lhe dão espaço, então o método se lê manuseando."
+                "description": "Treze páginas de case feitas a partir de um template. Elas passam em velocidades diferentes na rolagem, e o mesmo layout nunca parece repetido."
               }
             ]
           },
@@ -701,10 +725,10 @@
         ],
         "images": [
           {
-            "src": "/projects/lukso/hero.mp4",
-            "title": "Hero into the reel",
+            "src": "/projects/lukso/identity.mp4",
+            "title": "Tipografia e cor",
             "type": "video",
-            "poster": "/projects/lukso/hero.webp"
+            "poster": "/projects/lukso/identity.webp"
           },
           {
             "src": "/projects/lukso/home-05-clients.webp",
