@@ -215,7 +215,10 @@ const withTimeout = (p, ms, what) => Promise.race([p, new Promise((_, rej) => se
   const mp4 = path.join(OUT, `${name}.mp4`)
   const webm = path.join(OUT, `${name}.webm`)
   const ff = (args) => execFileSync('nice', ['-n', '15', 'ffmpeg', '-y', '-loglevel', 'error', '-threads', '4', ...args])
-  ff(['-framerate', String(FPS), '-i', path.join(dir, '%06d.jpg'), '-vf', 'scale=1920:1200:flags=lanczos,format=yuv420p', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-movflags', '+faststart', mp4])
+  // `veryslow` spends encode time, not quality: at the same CRF the picture is
+  // the same and the file comes out 10-20% smaller. The frames are deleted
+  // below, so this is the only encode that ever sees a lossless source.
+  ff(['-framerate', String(FPS), '-i', path.join(dir, '%06d.jpg'), '-vf', 'scale=1920:1200:flags=lanczos,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryslow', '-crf', '18', '-movflags', '+faststart', mp4])
   ff(['-i', mp4, '-c:v', 'libvpx-vp9', '-crf', '32', '-b:v', '0', '-row-mt', '1', '-cpu-used', '4', webm])
   fs.rmSync(dir, { recursive: true, force: true })
   console.log(`done ${mp4} (${total} frames in ${((Date.now() - t0) / 1000).toFixed(0)}s)`)
