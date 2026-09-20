@@ -1008,11 +1008,11 @@
         "title": "Azion Console Kit",
         "slug": "azion-console-kit",
         "cover": "/projects/azion-console-kit/cover.mp4",
-        "year": "2023",
+        "year": "2023-25",
         "description": "The screen engineers use to deploy and watch their applications, rebuilt from scratch. Vue 3, a shared component library, and an architecture that separates how a screen looks from what it does.",
         "role": "Developer Experience Director",
         "technologies": "Vue 3, Vite, PrimeVue, TypeScript, Design Tokens, Component Architecture, Headless UI Pattern, Open Source",
-        "impact": "Applications set up three times faster, 235% more new users becoming active, and a new screen in preview in about four hours. Open source: 6,000+ commits, 34+ contributors, 93+ releases. In production at Itaú, Magazine Luiza and Netshoes. Caio led it; the team he built wrote it.",
+        "impact": "Applications set up three times faster, 235% more new users becoming active, and a new screen in preview in about four hours. Open source: 6,000+ commits, 34+ contributors, 93+ releases. In production at Itaú, Magazine Luiza, iFood and Netshoes. Caio led it; the team he built wrote it.",
         "caseStudyUrl": "/llms/projects/azion-console-kit.txt",
         "credits": [
           {
@@ -1093,12 +1093,12 @@
         "sections": [
           {
             "type": "hero",
-            "body": "The complete front-end rebuild of Azion's management console — the interface engineers use daily to deploy, secure, and observe applications at the edge."
+            "body": "A full front-end rebuild of the console engineers at Itaú, Magazine Luiza and iFood use every day to deploy, secure and watch their applications."
           },
           {
             "type": "challenge",
-            "challenge": "The legacy console was a monolithic application that slowed feature delivery and created inconsistent experiences across product surfaces.",
-            "solution": "Built a headless architecture on Vue 3 that decouples UI from business logic, with block componentization that brought a new screen down to a few hours."
+            "challenge": "Every change in the console cost weeks, so interface work kept losing priority to the backend and each area of the product drifted into its own patterns. It showed most at the beginning, where someone who wanted to try the platform hit enough breaks in the journey to give up and wait for a salesperson.",
+            "solution": "A rebuild on Vue 3 over PrimeVue, an open component library, with Azion's own theme and blocks on top. Patterns were settled once and reused, so screens are assembled instead of hand-built. The flows people already knew stayed where they were, and the effort went into the first hour: templates, presets, import from GitHub and guidance inside the product, so a new user gets an application running without help."
           },
           {
             "type": "statement",
@@ -1219,7 +1219,7 @@
           },
           {
             "type": "statement",
-            "body": "Screens are no longer hand-built. They are assembled from blocks, a new one in preview in about four hours, by thirty-four people working in the same codebase."
+            "body": "The product stopped being where interface work waited its turn. What took days now takes hours, and a screen can be proposed, built and tested in the same week."
           },
           {
             "type": "gallery-feature-list",

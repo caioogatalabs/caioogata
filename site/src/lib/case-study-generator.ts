@@ -1107,7 +1107,7 @@ slug: azion-console-kit
 client: Azion Technologies
 industry: Edge Computing Platform
 role: Developer Experience Director
-duration: 2024-2025
+duration: Q3 2023 — 2025, still evolving
 author: Caio Ogata
 last_updated: ${today}
 optimized_for: Claude, ChatGPT, Gemini, LLMs
@@ -1120,7 +1120,7 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 **Client**: Azion Technologies
 **Industry**: Edge Computing Platform
 **Project Type**: Complete Front-End Rebuild of Management Console
-**Duration**: 2024–2025
+**Duration**: Q3 2023 to the client migration in early 2025, still evolving
 **Role**: Developer Experience Director
 **Live Product**: [https://console.azion.com/](https://console.azion.com/)
 **Source Code**: [https://github.com/aziontech/azion-console-kit](https://github.com/aziontech/azion-console-kit)
@@ -1129,11 +1129,13 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 
 ## The Challenge
 
-The previous Azion console was showing its age. Long development cycles made shipping new features slow. Visual inconsistencies across the interface created friction for engineers and maintenance overhead for the team. The codebase was tightly coupled — a change in one place risked breaking something else entirely.
+Every change in the console cost weeks. That price had a consequence for the roadmap: interface work kept losing priority to backend work, and each area of the product drifted into patterns of its own, with no clear definitions to build against.
 
-Building an interface that manages 100+ global datacenters and billions of daily requests is a significant engineering and design challenge. The rebuild needed to solve three things at once: developer velocity, visual consistency, and long-term maintainability — without disrupting a product already in use by enterprise clients at scale.
+It showed most at the beginning of the journey. Someone who arrived wanting to try the platform ran into enough breaks and dead ends to give up and wait for a salesperson. For a company that wanted self-service adoption, the first hour of use was the most expensive part of the product.
 
-Starting over wasn't an option. The approach had to be deliberate: architectural choices that would compound in value over time, not just solve the immediate problem.
+This is also an interface that manages 100+ global datacenters and billions of daily requests, already in use by enterprise clients. The rebuild had to make interface work cheap again, fix the first hour, and keep the platform running the whole time.
+
+Reinventing the experience was never the plan. The system underneath changed completely; the products, flows, tables and listings people already knew stayed where they were, so nobody arrived at the new console and got lost. The experience changes were deliberate and small: side drawers, and the Create flow.
 
 ---
 
@@ -1143,7 +1145,7 @@ The architecture starts with **Vue 3 and Vite** — a fast, modern stack with a 
 
 **PrimeVue** was chosen as the component foundation. It's open source, ships 80+ accessible components out of the box, and has an active community. That decision removed a significant amount of undifferentiated work — the team wasn't rebuilding tables, modals, and form inputs from scratch. The energy went into product-level problems instead.
 
-On top of PrimeVue sits **Azion Blocks** — a custom component layer tailored to the platform's specific patterns, data structures, and design language. Azion Blocks is where generic UI primitives become Console-specific building blocks. This two-layer approach — open source foundation plus custom composition layer — is what enables a new screen to be implemented in approximately one day.
+Azion's own theme was applied over PrimeVue, and on top of it sits **Azion Blocks** — a custom component layer tailored to the platform's specific patterns, data structures, and design language. Azion Blocks is where generic UI primitives become Console-specific building blocks. This two-layer approach — open source foundation plus custom composition layer — is what brings a new screen to a preview environment in about four hours, instead of the days it took before.
 
 ### Stack Summary
 
@@ -1207,11 +1209,12 @@ In production, it serves companies operating at global scale:
 
 - **Magazine Luiza** — one of Brazil's largest retailers
 - **Itaú** — one of the largest banks in Latin America
+- **iFood** — the largest food delivery platform in Latin America
 - **Netshoes** — major e-commerce platform
 
 These aren't demo deployments. These are organizations running real workloads across Azion's edge network, managed through the console every day. The architecture decisions made during the rebuild directly affect the reliability and usability they experience.
 
-The block componentization model brought a new screen to a preview environment, ready for internal teams to test, in about **four hours** — compared to the multi-week cycles of the previous codebase. That's a compounding return: every feature shipped after the rebuild costs less than it would have before.
+The block componentization model brought a new screen to a preview environment, ready for internal teams to test, in about **four hours**, where the previous codebase took days. That's a compounding return: every feature shipped after the rebuild costs less than it would have before.
 
 ---
 
@@ -1256,7 +1259,7 @@ slug: azion-console-kit
 client: Azion Technologies
 industry: Plataforma de Edge Computing
 role: Developer Experience Director
-duration: 2024-2025
+duration: Q3 2023 — 2025, still evolving
 author: Caio Ogata
 last_updated: ${today}
 optimized_for: Claude, ChatGPT, Gemini, LLMs
@@ -1269,7 +1272,7 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 **Cliente**: Azion Technologies
 **Setor**: Plataforma de Edge Computing
 **Tipo de Projeto**: Reconstrução Completa do Front-End do Console de Gerenciamento
-**Duração**: 2024–2025
+**Duração**: Q3 2023 até a migração de clientes no início de 2025, e segue evoluindo
 **Papel**: Developer Experience Director
 **Produto em Produção**: [https://console.azion.com/](https://console.azion.com/)
 **Código-Fonte**: [https://github.com/aziontech/azion-console-kit](https://github.com/aziontech/azion-console-kit)
@@ -1278,11 +1281,13 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 
 ## O Desafio
 
-O console anterior da Azion estava mostrando sua idade. Ciclos de desenvolvimento longos tornavam o lançamento de novas features lento. Inconsistências visuais em toda a interface criavam atrito para engenheiros e sobrecarga de manutenção para o time. O codebase estava fortemente acoplado — uma mudança em um lugar arriscava quebrar outra coisa completamente.
+Cada mudança no console custava semanas. Esse preço tinha uma consequência no roadmap: o trabalho de interface sempre perdia prioridade para o back-end, e cada área do produto foi criando padrões próprios, sem definições claras para seguir.
 
-Construir uma interface que gerencia mais de 100 datacenters globais e bilhões de requisições diárias é um desafio significativo de engenharia e design. A reconstrução precisava resolver três coisas ao mesmo tempo: velocidade de desenvolvimento, consistência visual e manutenibilidade de longo prazo — sem interromper um produto já em uso por clientes enterprise em escala.
+Isso aparecia mais no começo da jornada. Quem chegava querendo testar a plataforma encontrava quebras e becos sem saída suficientes para desistir e esperar por um vendedor. Para uma empresa que queria adoção sem assistência, a primeira hora de uso era a parte mais cara do produto.
 
-Começar do zero não era uma opção. A abordagem precisava ser deliberada: escolhas arquiteturais que comporiam valor ao longo do tempo, não apenas resolveriam o problema imediato.
+É também uma interface que gerencia mais de 100 datacenters globais e bilhões de requisições diárias, já em uso por clientes enterprise. A reconstrução precisava baratear o trabalho de interface, consertar a primeira hora e manter a plataforma no ar o tempo todo.
+
+Reinventar a experiência nunca foi o plano. O sistema por baixo mudou por completo; os produtos, fluxos, tabelas e listagens que as pessoas já conheciam continuaram onde estavam, para que ninguém chegasse ao novo console e se perdesse. As mudanças de experiência foram poucas e deliberadas: as gavetas laterais e o fluxo de Create.
 
 ---
 
@@ -1292,7 +1297,7 @@ A arquitetura começa com **Vue 3 e Vite** — uma stack moderna e rápida, com 
 
 O **PrimeVue** foi escolhido como fundação de componentes. É open source, entrega mais de 80 componentes acessíveis out of the box e tem uma comunidade ativa. Essa decisão eliminou uma quantidade significativa de trabalho indiferenciado — o time não precisou reconstruir tabelas, modais e inputs de formulário do zero. A energia foi para problemas de nível de produto.
 
-Sobre o PrimeVue está o **Azion Blocks** — uma camada de componentes customizada, adaptada aos padrões específicos da plataforma, estruturas de dados e linguagem de design. O Azion Blocks é onde primitivas genéricas de UI se tornam blocos de construção específicos do Console. Essa abordagem em duas camadas — fundação open source mais camada de composição customizada — é o que permite implementar uma nova tela em aproximadamente um dia.
+O tema próprio da Azion foi aplicado sobre o PrimeVue, e acima dele está o **Azion Blocks** — uma camada de componentes customizada, adaptada aos padrões específicos da plataforma, estruturas de dados e linguagem de design. O Azion Blocks é onde primitivas genéricas de UI se tornam blocos de construção específicos do Console. Essa abordagem em duas camadas — fundação open source mais camada de composição customizada — é o que leva uma tela nova a um ambiente de preview em cerca de quatro horas, no lugar dos dias que levava antes.
 
 ### Resumo da Stack
 
@@ -1356,11 +1361,12 @@ Em produção, serve empresas operando em escala global:
 
 - **Magazine Luiza** — um dos maiores varejistas do Brasil
 - **Itaú** — um dos maiores bancos da América Latina
+- **iFood** — a maior plataforma de delivery de comida da América Latina
 - **Netshoes** — grande plataforma de e-commerce
 
 Não são deploys de demonstração. São organizações rodando workloads reais na rede edge da Azion, gerenciadas através do console todos os dias. As decisões arquiteturais tomadas durante a reconstrução afetam diretamente a confiabilidade e usabilidade que eles experimentam.
 
-O modelo de componentização em blocos levou uma tela nova a um ambiente de preview, pronta para os times internos testarem, em cerca de **quatro horas** — comparado aos ciclos de semanas do codebase anterior. Esse é um retorno composto: cada feature lançada após a reconstrução custa menos do que custaria antes.
+O modelo de componentização em blocos levou uma tela nova a um ambiente de preview, pronta para os times internos testarem, em cerca de **quatro horas**, onde o codebase anterior levava dias. Esse é um retorno composto: cada feature lançada após a reconstrução custa menos do que custaria antes.
 
 ---
 
