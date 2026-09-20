@@ -1,6 +1,5 @@
 'use client'
 
-import { Grid, GridItem } from '@/components/layout/Grid'
 import { ProjectCover } from '@/components/sections/v2/ProjectCover'
 import { useInView } from '@/hooks/useInView'
 import { LABEL } from '@/components/ui/label'
@@ -13,18 +12,21 @@ interface ProjectRowProps {
   /** Two-line summary of the project. Not the full description — that is 300+ chars. */
   summary: string
   cover?: string
+  /** The cover element, handed to `ProjectsGrid`, which watches it against the centre line. */
+  rowRef?: (el: HTMLElement | null) => void
 }
 
 /**
- * One project as a grid row: the image sits on columns 3-8, the metadata on
- * 9-12. Inside that column the text is held to 3 columns, so it wraps early
- * instead of running to the page edge — per the design.
+ * One project in the middle column of the home list: the cover, and the copy
+ * that belongs to it.
  *
- * The card is purely visual; title, index and copy live outside it, unlike
- * `ProjectCard`, which keeps them inside and still backs the /projects index.
+ * The copy is only painted here below lg. From lg up the list carries one text
+ * at a time, held at the centre of the screen by `ProjectsGrid`, so the copy in
+ * the row goes `sr-only` — still in the document and still attached to its own
+ * project for anyone reading with assistive tech, just not drawn twice.
  *
- * Square corners. The two halves enter on separate beats: the image as the row
- * touches the viewport, the copy once the row reaches the middle of the screen.
+ * Square corners. The cover enters as the row touches the viewport; below lg
+ * the copy follows once the row reaches the middle of the screen.
  */
 export function ProjectRow({
   title,
@@ -33,6 +35,7 @@ export function ProjectRow({
   index,
   summary,
   cover,
+  rowRef,
 }: ProjectRowProps) {
   // The image announces the row as soon as it touches the viewport.
   const imageRef = useInView({ threshold: 0.1, once: true })
@@ -44,50 +47,45 @@ export function ProjectRow({
   // trigger exactly on the vertical centre rather than just below it.
   const textRef = useInView({ threshold: 0, rootMargin: '-45% 0px -50% 0px', once: true })
 
+  // `imageRef` fires the cover's own entrance; `rowRef` is how the grid finds
+  // the cover's top edge to know when the copy is due. One element, two
+  // readers, so the callback feeds both.
+  const setImageRef = (el: HTMLDivElement | null) => {
+    ;(imageRef as React.MutableRefObject<HTMLElement | null>).current = el
+    rowRef?.(el)
+  }
+
   return (
-    <article>
-      <Grid>
-        {/* Image — 6 columns, from column 3 to column 8. Pulled in one column
-            from the left; the right edge stays put.
-            The observer goes on the GridItem and the entrance on the <a>
-            inside: `-mask-down` hides its own element with `clip-path`, and
-            IntersectionObserver measures the target through that clip, so an
-            observed element wearing it reports ratio 0 and never fires. */}
-        <GridItem
-          mobileSpan={4}
-          tabletSpan={8}
-          span={6}
-          start={3}
-          ref={imageRef as React.RefObject<HTMLDivElement>}
-        >
-          <a
-            href={`/projects/${slug}`}
-            className="-entrance -mask-down block w-full"
-            aria-label={`View ${title} project`}
-          >
-            <ProjectCover src={cover} />
-          </a>
-        </GridItem>
+    <article className="flex flex-col gap-4">
+      <div
+        ref={textRef as React.RefObject<HTMLDivElement>}
+        className="flex flex-col gap-2 lg:sr-only"
+      >
+        <span className={`-entrance -mask-down -a-0 ${LABEL}`}>
+          {['prj', year].filter(Boolean).join('_')} // {String(index).padStart(3, '0')}
+        </span>
+        <h3 className="-entrance -mask-down -a-1 text-balance text-2xl font-semibold text-text-primary">
+          {title}
+        </h3>
+      </div>
 
-        {/* Metadata — 4 columns from column 9, text held to 3 of them */}
-        <GridItem
-          mobileSpan={4}
-          tabletSpan={8}
-          span={4}
-          start={9}
-          ref={textRef as React.RefObject<HTMLDivElement>}
-          className="grid grid-cols-4 gap-x-4 gap-y-6 self-start lg:gap-y-8"
+      {/* The observer goes on the wrapper and the entrance on the <a> inside:
+          `-mask-down` hides its own element with `clip-path`, and
+          IntersectionObserver measures the target through that clip, so an
+          observed element wearing it reports ratio 0 and never fires. */}
+      <div ref={setImageRef}>
+        <a
+          href={`/projects/${slug}`}
+          className="-entrance -mask-down block w-full"
+          aria-label={`View ${title} project`}
         >
-          <span className={`-entrance -mask-down -a-0 col-span-4 ${LABEL} lg:col-span-3`}>
-            {['prj', year].filter(Boolean).join('_')} // {String(index).padStart(3, '0')}
-          </span>
+          <ProjectCover src={cover} />
+        </a>
+      </div>
 
-          <div className="-entrance -mask-down -a-1 col-span-4 flex flex-col gap-2 lg:col-span-3">
-            <h3 className="text-2xl font-semibold text-text-primary">{title}</h3>
-            <p className="text-[14px] leading-[1.5] text-text-secondary">{summary}</p>
-          </div>
-        </GridItem>
-      </Grid>
+      <p className="-entrance -mask-down -a-1 text-balance text-[14px] leading-[1.5] text-text-secondary lg:sr-only">
+        {summary}
+      </p>
     </article>
   )
 }
