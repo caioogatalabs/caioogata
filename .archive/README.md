@@ -5,6 +5,7 @@ Frozen legacy assets. **Nothing here is referenced by any build.**
 ## Contents
 - `screenshots/` — loose PNG/JPEG screenshots from the old repo root
 - `crop-examples/` — one-off image crops
+- `site-public/` — files that sat in `site/public/` with nothing in `site/src/` pointing at them (2026-09-20), kept under their old paths: the 241 scroll-scrub JPEGs of the old pinned `/about` (`about-frames/`), `intro.mp4`, the PNG sources of six `azion-console-kit` stills, the menu `previews/`, `azion-website/_backup` and `test-compose`, and a few loose stills. Move one back to `site/public/` at the same path to use it again.
 - `legacy-docs/` — V1 docs superseded by `site/docs/v2/` (PRD, RECRUITER-FAQ, TECHNICAL-SPEC, CONTENT)
 
 ## Lifecycle
