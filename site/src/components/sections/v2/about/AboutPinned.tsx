@@ -96,9 +96,9 @@ const PLAYBACK_RATE = 0.6
  * paragraph of the bio laid across it.
  *
  * No longer pinned, despite the name. It used to be a 400vh container whose
- * sticky inner scrubbed 241 preloaded JPEGs — 9.8MB in `public/about-frames/`
- * — as you scrolled. The frames and `useScrollVideo` are still on disk in case
- * that comes back, but nothing loads them now: the block is normal height.
+ * sticky inner scrubbed 241 preloaded JPEGs — 9.8MB, once in `public/about-frames/`
+ * — as you scrolled. The frames now live in `.archive/site-public/about-frames/`
+ * and `useScrollVideo` is gone, recoverable from git history if this comes back.
  *
  * The portrait here is a clip rather than the still the home hero uses: he
  * turns to the camera once as the page opens and stays there. The same element

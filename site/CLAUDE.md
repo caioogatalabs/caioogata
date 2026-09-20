@@ -10,7 +10,7 @@ Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Arc
 ### Constraints
 
 - **Stack**: Next.js 15 (App Router) + React 19 + Tailwind v4 + pnpm + Vercel
-- **Export**: Static export in production (`output: 'export'`) — no server-side features in pages
+- **Deployment**: Runs on Vercel with route handlers (`src/app/llms*.txt/route.ts`, `src/app/api/llms/route.ts`) and `src/middleware.ts` — not a static export
 - **Performance**: CSS/JS animations only, `prefers-reduced-motion` respected. Exception: R3F WebGL for project hero noise gradient (lazy-loaded, client-only, `dpr=1`)
 - **Font**: Epilogue + JetBrains Mono (self-hosted woff2 variable). Verify license before production.
 - **Grid**: 12-column system, all layouts use column spans (6-6, 4-4-4, 3-6-3, 2-8-2)
@@ -26,8 +26,8 @@ Evolution of caioogata.com portfolio from V1 (CLI-inspired monospace) to V2 (Arc
 - **Styling**: Tailwind CSS v4 with `@theme` (semantic tokens in `src/tokens/`)
 - **Fonts**: Epilogue (variable, 100-900) as `--font-sans`, JetBrains Mono (variable, 100-800) as `--font-mono`
 - **Package manager**: pnpm
-- **Hosting**: Vercel (static export in production)
-- **Animation**: CSS-first (no runtime library) — `requestAnimationFrame` for cursor-follow and scroll-linked reveals. Three.js/R3F for project hero noise gradient (client-only lazy load)
+- **Hosting**: Vercel (route handlers + middleware, not a static export)
+- **Animation**: `requestAnimationFrame` for cursor-follow and scroll-linked reveals, `motion` (motion.dev) for text reveals (see Motion Text Reveal below). Three.js/R3F for project hero noise gradient (client-only lazy load)
 - **Contact**: email only, with a copy action (no form, no API route)
 - **Analytics**: Vercel Analytics + Speed Insights + Microsoft Clarity
 <!-- GSD:stack-end -->
@@ -117,8 +117,6 @@ The 16 ClientsBlock logos remain on the legacy CSS `-entrance -fade` system with
 ### Interaction Patterns (reference: fiddle.digital)
 
 - **Primary easing**: `cubic-bezier(0.16, 1, 0.3, 1)` — strong deceleration at end, used for text reveals and preview expand
-- **List hover**: Yellow bar (66.66% width, bleeds -5px vertical), masked text clip reveal on label AND description (1.0s ease-out), duplicate text enters at 2xl/1.5rem bold. Display-size arrow `→` (3.5rem JetBrains Mono) expands before label. Bar 0.6s entry, 0.5s exit.
-- **Floating preview**: rAF lerp loop (factor 0.12) for elastic cursor follow. Skew on both axes from lerped velocity delta (±30° clamp). Entry: wrapper scale 0.5→1 (0.6s), inner image scale 3→1.25 zoom reveal (0.7s). `key={imageSrc}` remounts on row switch — re-triggers expand from center. Sharp corners (0px radius). Parallax via inverse velocity translate.
 - **All interactions must have keyboard parity** — if it works on hover, it must work on arrow key navigation.
 - **Scroll-linked reveal** (`useScrollReveal` hook): `clip-path: inset()` (square corners) driven by scroll position via rAF. Reveals top→bottom as element scrolls into view. `startFraction` (0.85) = viewport Y where reveal begins, `endFraction` (0.3) = where it completes. Returns `{ ref, clipPath }` as React state — clipPath applied via `style` prop. Used by `ProjectCard`. Reference: fiddle.digital canvas section.
 - **Scroll-linked expand** (`useScrollExpand` hook): `clip-path: polygon()` with distorted corners driven by scroll position via rAF. Expands from small center-bottom shape to full rect. Each polygon vertex has independent easing (power curve) for organic distortion — bottom corners arrive first, top-left arrives last. `startFraction` (0.95) = viewport Y where expand begins, `endFraction` (0.1) = where it completes. Returns `{ ref, clipPath, opacity }`. Used by `ProjectHeroImage` noise gradient background. Bottom Y is always 100% to prevent bottom clipping. Reference: fiddle.digital `.preview-bg`.
@@ -138,7 +136,7 @@ div.relative (expandRef — measures scroll position)
 ```
 
 **Critical rules (learned from debugging):**
-- **Client-only import**: Three.js CANNOT be imported at module level. Use `useEffect` + dynamic `import()` pattern (`ClientNoiseGradient` wrapper), NOT `next/dynamic` (fails silently in static export) or `React.lazy` (breaks SSR in App Router).
+- **Client-only import**: Three.js CANNOT be imported at module level. Use `useEffect` + dynamic `import()` pattern (`ClientNoiseGradient` wrapper), NOT `next/dynamic` or `React.lazy` (breaks SSR in App Router).
 - **Canvas sizing**: R3F Canvas must have `position: absolute; inset: 0` set in the wrapper div's `style` prop (not just className). The mesh uses `useThree().viewport` to auto-scale the plane geometry to fill the canvas — never hardcode zoom values.
 - **No `overflow-hidden` on gradient wrapper**: The clip-path polygon controls the shape. Adding `overflow-hidden` clips the expanding polygon and causes visual cuts at edges.
 - **Clip-path on gradient only**: The `clipPath` and `opacity` from `useScrollExpand` go on the gradient wrapper div, NOT on the outer container. The image must always be visible without clipping.
@@ -225,7 +223,7 @@ div.bg-bg-surface-secondary          ← continuous background
 - **Wrapper provides background**: The sticky bar itself has NO background. The parent wrapper div with `bg-bg-surface-secondary` provides the continuous color. This prevents visible bg flash on stick/unstick transitions.
 - **No `overflow-hidden` on wrapper**: Breaks `position: sticky`.
 - **Separate `useInView` per fragment**: Each fragment needs its own `useInView` ref for entrance animations, since `-inview` only propagates to *descendants* of the observed element, not siblings.
-- **No glassmorphism header**: The old `StickyHeader` component (glassmorphism backdrop-blur bar) is replaced by the inline sticky logo+CTA row. `StickyHeader.tsx` still exists but is NOT imported.
+- **No glassmorphism header**: The old `StickyHeader` component (glassmorphism backdrop-blur bar) is replaced by the inline sticky logo+CTA row. The file has since been deleted entirely.
 - **Welcome bar text**: Split into separate word groups with `<br/>` line breaks matching Figma layout: "Welcome/to", "caioogata", "portfolio & website" (left), "V2./0.12" (center), "Built for human/and AI assistance" (right). Font: Epilogue Semibold 12px, line-height 1.2, opacity 50%.
 
 ### Button Hover Patterns
@@ -268,16 +266,13 @@ src/components/layout/PageShell.tsx   → Orchestrates V2 sections, runs useFont
 src/components/layout/Grid.tsx        → 12-col responsive grid (Grid + GridItem)
 src/components/sections/v2/
   IntroSection.tsx                    → Hero: welcome bar + sticky logo/CTA + headline (3 fragments in bg wrapper)
-  StickyHeader.tsx                    → (legacy, not imported) Glassmorphism bar
-  MenuSection.tsx                     → CLI menu with fiddle-style hover + FloatingPreview
-  FloatingPreview.tsx                 → Elastic cursor-follow image (rAF lerp)
-  ProjectsGrid.tsx                    → 2x2 flex grid with ProjectCard
-  ProjectCard.tsx                     → Card with data-stamp + arrow button + scroll-linked reveal
+  ProjectsGrid.tsx                    → Home project list, one column of ProjectRow entries with a centre-held caption above lg
+  ProjectRow.tsx                      → One project row: cover + copy, entrance driven by useInView
+  ProjectCard.tsx                     → Card with data-stamp + arrow button + scroll-linked reveal (used by ProjectsSection / projects/ProjectsList, not the home list)
   FooterSection.tsx                   → Social links, email, version stack (V1 link)
 src/hooks/
   useInView.ts                        → IntersectionObserver → adds -inview class
   useFontReady.ts                     → document.fonts.ready → -loaded/-ready (backup, layout.tsx has inline script)
-  useMenuNavigation.ts                → Keyboard nav (arrows/enter/esc) + type-to-filter
   useScrollReveal.ts                  → Scroll-linked clip-path reveal (rAF + React state)
   useScrollExpand.ts                  → Scroll-linked polygon expand (distorted corners, rAF)
 src/components/three/

@@ -14,5 +14,5 @@ const LABEL_BASE = 'font-mono font-semibold leading-[1.4] tracking-[-0.04em] tex
 export const LABEL_TYPE = `${LABEL_BASE} text-[12px]`
 export const LABEL = `${LABEL_TYPE} opacity-50`
 
-export const LABEL_TYPE_LG = `${LABEL_BASE} text-[14px]`
+const LABEL_TYPE_LG = `${LABEL_BASE} text-[14px]`
 export const LABEL_LG = `${LABEL_TYPE_LG} opacity-50`

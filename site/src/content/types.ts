@@ -107,13 +107,6 @@ export interface GalleryRow {
   colStart?: number // 1-based column start in 12-col grid (e.g. 1, 5, 9 for 3-column layout)
 }
 
-export interface ProjectSectionImage {
-  src: string
-  title: string
-  description?: string
-  featureName?: string
-}
-
 export interface ProjectSection {
   type: 'hero' | 'challenge' | 'impact' | 'statement' | 'gallery-staggered' | 'gallery-feature-list' | 'gallery-full-detail' | 'info' | 'gallery-full-bleed' | 'gallery-stick'
   heading?: string
