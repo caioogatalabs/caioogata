@@ -29,6 +29,26 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
 
   const { containerRef, slides } = useScrollStick(slidesSrc.length || 1)
 
+  // The slides cannot load one by one — see below — but the block as a whole
+  // can wait. Nothing is fetched until it is within a screen and a half, which
+  // is still well ahead of the first slide having to be in place.
+  const [near, setNear] = useState(false)
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          setNear(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '150% 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [containerRef])
+
   // The tallest proportion among the slides (lowest width/height). On a screen
   // held upright the frame takes this shape, so the tallest image fills it
   // edge to edge and the wider ones sit centred inside it. Loading them here
@@ -38,6 +58,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
   const [frameRatio, setFrameRatio] = useState(FALLBACK_RATIO)
   const srcKey = slidesSrc.join('|')
   useEffect(() => {
+    if (!near) return
     let cancelled = false
     Promise.all(
       slidesSrc.map(
@@ -68,7 +89,7 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
       cancelled = true
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [srcKey])
+  }, [srcKey, near])
 
   if (slidesSrc.length === 0) return null
 
@@ -121,19 +142,19 @@ export function ProjectGalleryStick({ section }: ProjectGalleryStickProps) {
                 >
                   {media.type === 'video' && !(reduced && media.poster) ? (
                     <video
-                      src={media.src}
+                      src={near ? media.src : undefined}
                       poster={media.poster}
                       aria-label={media.title}
                       autoPlay
                       muted
                       loop
                       playsInline
-                      preload="auto"
+                      preload={near ? 'auto' : 'none'}
                       className="max-w-full max-h-full object-contain block"
                     />
                   ) : (
                     <img
-                      src={media.type === 'video' ? media.poster : media.src}
+                      src={near ? (media.type === 'video' ? media.poster : media.src) : undefined}
                       alt=""
                       loading="eager"
                       className="max-w-full max-h-full object-contain block"

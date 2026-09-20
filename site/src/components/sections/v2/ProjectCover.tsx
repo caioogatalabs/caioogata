@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { useLazyVideo } from '@/hooks/useLazyVideo'
 
 /**
  * The frame every project cover sits in.
@@ -34,11 +35,14 @@ import Image from 'next/image'
  *
  * A `.mp4`/`.webm` cover plays as a muted loop. Its still is the same path as
  * `.webp`, shown before playback and instead of it under reduced motion.
+ * Loading and playback are gated by `useLazyVideo` — the poster fills the
+ * frame until the cover is about to scroll into view.
  */
 export function ProjectCover({ src, alt = '' }: { src?: string; alt?: string }) {
   const isVideo = !!src && /\.(mp4|webm)$/.test(src)
   const poster = isVideo ? src.replace(/\.(mp4|webm)$/, '.webp') : undefined
   const [reduced, setReduced] = useState(false)
+  const { ref, videoSrc, preload } = useLazyVideo<HTMLVideoElement>(src ?? '')
 
   useEffect(() => {
     setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -50,14 +54,14 @@ export function ProjectCover({ src, alt = '' }: { src?: string; alt?: string }) 
         <div className="relative aspect-[16/10] w-[86%] overflow-hidden rounded-[3px] bg-bg-surface-secondary">
           {isVideo && !reduced ? (
             <video
-              src={src}
+              ref={ref}
+              src={videoSrc}
               poster={poster}
               aria-label={alt || undefined}
-              autoPlay
               muted
               loop
               playsInline
-              preload="metadata"
+              preload={preload}
               className="absolute inset-0 h-full w-full object-cover"
             />
           ) : (

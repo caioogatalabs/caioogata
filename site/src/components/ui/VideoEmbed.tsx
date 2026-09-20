@@ -49,10 +49,33 @@ function sendUnmute(iframe: HTMLIFrameElement, platform: 'youtube' | 'vimeo') {
 
 export default function VideoEmbed({ platform, videoId, className = '', centeredButton = false }: VideoEmbedProps) {
   const t = useLanguage().content.ui.video
+  const containerRef = useRef<HTMLDivElement>(null)
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const isMutedRef = useRef(true)
   const [isMuted, setIsMuted] = useState(true)
+  const [isNear, setIsNear] = useState(false)
   const videoKey = `${platform}-${videoId}`
+
+  // The iframe itself — third-party player script, not just the video file —
+  // is the expensive part (~1.4 MB), so it stays unmounted until the embed is
+  // about to scroll into view. The wrapper's own aspect-ratio box (set by
+  // each call site) holds the layout, so nothing shifts when it mounts.
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          setIsNear(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '50% 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   // Listen for other videos unmuting — auto-mute this one if it's currently playing
   useEffect(() => {
@@ -88,16 +111,18 @@ export default function VideoEmbed({ platform, videoId, className = '', centered
   }, [platform, videoKey])
 
   return (
-    <div className="group relative w-full h-full">
-      <iframe
-        ref={iframeRef}
-        src={getEmbedUrl(platform, videoId)}
-        className={`w-full h-full border-0 ${className}`}
-        allow="autoplay; encrypted-media"
-        allowFullScreen
-        loading="lazy"
-        title={fill(t.frameTitle, { platform, id: videoId })}
-      />
+    <div ref={containerRef} className="group relative w-full h-full">
+      {isNear && (
+        <iframe
+          ref={iframeRef}
+          src={getEmbedUrl(platform, videoId)}
+          className={`w-full h-full border-0 ${className}`}
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          loading="lazy"
+          title={fill(t.frameTitle, { platform, id: videoId })}
+        />
+      )}
       <button
         onClick={toggleMute}
         className={`absolute z-30 flex items-center gap-1.5 px-2 py-1 bg-black/50 border border-white/10 text-white/30 opacity-0 group-hover:opacity-100 hover:text-white/80 hover:border-white/30 hover:bg-black/70 transition-all duration-200 font-mono text-xs rounded-sm backdrop-blur-sm select-none ${centeredButton ? 'bottom-4 left-1/2 -translate-x-1/2' : 'bottom-3 left-3'}`}
