@@ -144,6 +144,17 @@ export default function RootLayout({
         </LanguageProvider>
         <Analytics />
         <SpeedInsights />
+        {/* Google Analytics, after hydration so it never competes with the
+            first paint. The stock snippet is wrapped in a host check: only the
+            real domain reports, so localhost, Vercel previews and the
+            measuring scripts stay out of the numbers. */}
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `if(/^(www\\.)?caioogata\\.com$/.test(location.hostname)){var s=document.createElement('script');s.async=1;s.src='https://www.googletagmanager.com/gtag/js?id=G-Z5YD3YDGWE';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Z5YD3YDGWE');}`,
+          }}
+        />
         <Script
           id="microsoft-clarity"
           strategy="afterInteractive"
