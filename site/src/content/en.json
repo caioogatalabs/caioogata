@@ -1409,7 +1409,7 @@
           },
           {
             "type": "challenge",
-            "challenge": "Multiple product teams were building inconsistent UI patterns across the RTM platform, with no shared design language or component library.",
+            "challenge": "Every product team was building its own interface patterns inside the console customers use to run their applications, with no shared design language and no component library to build from.",
             "solution": "Established token-based foundations with 40+ documented components, creating the architectural groundwork that directly informed the Console Kit rebuild."
           },
           {
@@ -1828,9 +1828,9 @@
       {
         "title": "Huia, Creativity & Innovation",
         "slug": "huia",
-        "year": "2013",
+        "year": "2013-21",
         "description": "Eight years at a creative technology studio in Porto Alegre — two running squads, six as partner. The work ran on WebGL, facial recognition and language models, years before any of it was common.",
-        "role": "Partner, Head of Creative Technology & Design Director",
+        "role": "Partner, Head of Creative Technology",
         "technologies": "Adobe Creative Suite, Premiere Pro, After Effects, Cinema 4D, WebGL, Facial Recognition APIs, Early LLM Integration, E-commerce Platforms, UX/UI Design, Video Production, Interactive Campaign Technologies, Agile Creative Methodologies",
         "impact": "The studio went from an internal nucleus to forty people, and was acquired by Stefanini. 40+ projects led for Petrobras, O Boticário, Tramontina, Sicredi and Mondelez brands.",
         "caseStudyUrl": "/llms/projects/huia.txt",
@@ -2093,46 +2093,9 @@
       }
     ]
   },
-  "workingStyle": {
-    "heading": "Working Style",
-    "traits": [
-      {
-        "label": "Systems thinker",
-        "description": "Approaches problems by mapping relationships and constraints before defining solutions. Builds frameworks that scale rather than one-off fixes."
-      },
-      {
-        "label": "Collaborative leader",
-        "description": "Facilitates alignment across design, engineering, and business without creating bottlenecks. Comfortable sharing ownership and distributing decision-making."
-      },
-      {
-        "label": "Analytical under ambiguity",
-        "description": "Uses structured thinking (Design Sprint, Lean UX) to navigate undefined problem spaces. Converts ambiguity into testable hypotheses."
-      },
-      {
-        "label": "Design-engineering bridge",
-        "description": "Maintains technical fluency sufficient to collaborate directly with engineers on implementation, accessibility, and component architecture."
-      },
-      {
-        "label": "High-ownership mindset",
-        "description": "Takes responsibility for outcomes, not just deliverables. Tracks whether design decisions produced measurable results."
-      },
-      {
-        "label": "Direct communicator",
-        "description": "Prefers asynchronous, written communication with clear context. Meets synchronously for decisions, not status updates."
-      }
-    ]
-  },
-  "collaborationContext": {
-    "heading": "Collaboration Context",
-    "description": "20+ years working across agency, studio, and product company environments — including 4 years of remote-first collaboration with Silicon Valley-based teams at Azion Technologies.",
-    "contexts": [
-      "Remote and distributed teams across time zones (Brazil, US, Europe)",
-      "Technical stakeholders: engineers, product managers, DevRel, and CTOs",
-      "Executive leadership: C-suite presentations, board-level design reviews",
-      "Cross-functional pods: design, engineering, marketing, and operations",
-      "External partners: agencies, contractors, and freelance specialists",
-      "Global brand and product alignment across multiple business units"
-    ]
+  "howHeWorks": {
+    "heading": "How he builds",
+    "body": "He learned this on a judo mat, where the first lessons are about how to fall. You are going to fall, so you learn to do it without fear and carry on. Skateboarding taught him the same thing: a few hundred falls buy you one trick.\n\nThat is how he builds. Something rough goes up early, gets looked at, and changes. Nothing good arrives finished.\n\nHe works the whole span himself, from the idea to the way it looks to the code that puts it on screen. For a client that means one person carrying the work from the first thought to the thing being live, instead of a handoff between three."
   },
   "contact": {
     "command": "send message",
@@ -2194,9 +2157,7 @@
         "Found a bug? Let me know.",
         "Got a project in mind? Let's talk.",
         "Shall we work together?",
-        "Looking for a design director? Say hi.",
         "Ideas? Questions? Drop a message.",
-        "Open for freelance and full-time roles.",
         "Curiosity is always welcome here."
       ],
       "waitingMessage": "Waiting for your message."
@@ -2310,7 +2271,7 @@
       "gridLabel": "Projects",
       "viewProject": "View {title} project",
       "badges": {
-        "azion-console-kit": "commits, 34+ contributors, in production at Itaú, Magalu and Netshoes.",
+        "azion-console-kit": "commits, 34+ contributors, in production at Itaú, Magalu, iFood and Netshoes.",
         "azion-design-system": "documented components on token-based foundations.",
         "azion-brand-system": "hosted applications under one brand experience.",
         "huia": "people, from internal nucleus to independent studio."

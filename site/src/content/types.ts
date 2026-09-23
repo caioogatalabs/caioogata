@@ -192,22 +192,6 @@ export interface QuickFact {
   value: string
 }
 
-export interface WorkingStyleTrait {
-  label: string
-  description: string
-}
-
-export interface WorkingStyleSection {
-  heading: string
-  traits: WorkingStyleTrait[]
-}
-
-export interface CollaborationContextSection {
-  heading: string
-  description: string
-  contexts: string[]
-}
-
 export interface Content {
   menu: Menu
   hero: {
@@ -273,9 +257,8 @@ export interface Content {
     heading: string
     facts: QuickFact[]
   }
-  workingStyle?: WorkingStyleSection
+  howHeWorks?: { heading: string; body: string }
   ui: UIStrings
-  collaborationContext?: CollaborationContextSection
   contact: {
     command: string
     heading: string

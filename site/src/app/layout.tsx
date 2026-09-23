@@ -107,6 +107,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* The markdown mirror of this site, for anything that would rather
+            read text than parse the page. The file itself is also linked from
+            the footer and listed in the sitemap. */}
+        <link rel="alternate" type="text/markdown" href="https://www.caioogata.com/llms-full.txt" />
         <script
           dangerouslySetInnerHTML={{
             __html: `document.fonts.ready.then(function(){document.documentElement.classList.add('-loaded','-ready')})`,

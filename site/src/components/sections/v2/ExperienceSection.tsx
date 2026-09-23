@@ -15,6 +15,38 @@ import { LABEL } from '@/components/ui/label'
  */
 const BODY = 'text-[14px] leading-[1.5] text-text-secondary'
 
+/**
+ * Achievements are authored with inline markdown links — `[label](/path)` — so a
+ * role can point at the case that proves it. Rendered raw, the brackets and the
+ * path were printed on the page. This turns that one construct into anchors and
+ * leaves everything else as written; it is not a markdown parser and is not
+ * meant to become one. Anything more than a link belongs in the content file as
+ * plain prose.
+ */
+function withLinks(text: string) {
+  const pattern = /\[([^\]]+)\]\(([^)]+)\)/g
+  const out: React.ReactNode[] = []
+  let last = 0
+
+  for (const match of text.matchAll(pattern)) {
+    const at = match.index ?? 0
+    if (at > last) out.push(text.slice(last, at))
+    out.push(
+      <a
+        key={at}
+        href={match[2]}
+        className="text-text-primary underline decoration-border-secondary underline-offset-2 transition-colors hover:decoration-text-primary"
+      >
+        {match[1]}
+      </a>
+    )
+    last = at + match[0].length
+  }
+
+  if (last < text.length) out.push(text.slice(last))
+  return out
+}
+
 /** The open row reads at full strength, the rest sit back. */
 const HOVER = 'transition-opacity duration-300'
 
@@ -307,7 +339,7 @@ function ExperienceRow({ job, index, isOpen, reducedMotion, panelHeight }: Exper
                 className={`${BODY} lg:row-start-2`}
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
-                {a.text}
+                {withLinks(a.text)}
               </GridItem>
             ))}
           </Grid>

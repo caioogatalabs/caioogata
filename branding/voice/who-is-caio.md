@@ -118,7 +118,7 @@ company's rebrand and ending with the entire user-facing engineering layer: cons
 developer tools, website, documentation.
 
 The thing he points at as proof is the Azion Console Kit: a full front-end rebuild of a
-cloud platform's management interface, open source, in production at Itaú, Magazine Luiza
+cloud platform's management interface, open source, in production at Itaú, Magazine Luiza, iFood
 and Netshoes. Vue 3, TypeScript, headless components. It cut new-screen implementation from
 days to hours. 6,000+ commits, 34+ contributors.
 
@@ -195,7 +195,7 @@ Earlier: Post Digital, Oz Propaganda, Dispert, Agência Ativa, Holos, PB.com. Fu
 
 **Clients worth naming**
 
-Petrobras · O Boticário · Itaú · Magazine Luiza · Netshoes · Tramontina · Sicredi · Aché ·
+Petrobras · O Boticário · Itaú · Magazine Luiza · iFood · Netshoes · Tramontina · Sicredi · Aché ·
 Mondelez (Lacta, Bis, Toblerone, Oreo) · LG
 
 ---

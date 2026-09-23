@@ -29,7 +29,9 @@ function V1Link() {
     <a
       href={V1_URL}
       target="_blank"
-      rel="noopener noreferrer"
+      // `nofollow` as well as V1's own noindex: the archive should not be
+      // reached from here by a crawler following links.
+      rel="noopener noreferrer nofollow"
       className="block transition-opacity duration-300 hover:opacity-100"
     >
       {V1_VERSION}
@@ -191,6 +193,17 @@ export function FooterSection() {
             labelClassName="transition-opacity duration-300 hover:opacity-60"
             style={{ fontFamily: 'var(--font-sans)' }}
           />
+
+          {/* The machine-readable profile the assistant tiles above point at.
+              It was reachable only through the sitemap and a JSON-LD field;
+              this is the one crawlable link to it from a page people visit. */}
+          <a
+            href="/llms.txt"
+            className="mt-4 inline-block text-[14px] leading-[1.6] text-text-primary opacity-60 transition-opacity duration-300 hover:opacity-100"
+            style={{ fontFamily: 'var(--font-mono)' }}
+          >
+            llms.txt
+          </a>
         </GridItem>
       </Grid>
 

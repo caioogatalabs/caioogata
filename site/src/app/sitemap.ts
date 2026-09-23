@@ -27,9 +27,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE}/llms.txt`, priority: 0.8 },
     { url: `${SITE}/llms-full.txt`, priority: 0.8 },
     { url: `${SITE}/llms-pt.txt`, priority: 0.6 },
+    // Each case study exists in both languages; `caseStudyUrl` only names the
+    // English one, so the PT file is derived rather than listed by hand.
     ...projects
       .filter(p => p.caseStudyUrl)
-      .map(p => ({ url: `${SITE}${p.caseStudyUrl}`, priority: 0.7 })),
+      .flatMap(p => [
+        { url: `${SITE}${p.caseStudyUrl}`, priority: 0.7 },
+        { url: `${SITE}${p.caseStudyUrl!.replace(/\.txt$/, '-pt.txt')}`, priority: 0.5 },
+      ]),
   ].map(entry => ({ ...entry, lastModified: today, changeFrequency: 'monthly' as const }))
 
   return [...pages, ...machineReadable]

@@ -1409,7 +1409,7 @@
           },
           {
             "type": "challenge",
-            "challenge": "Vários times de produto construíam padrões de interface inconsistentes na plataforma RTM, sem uma linguagem de design ou biblioteca de componentes em comum.",
+            "challenge": "Cada time de produto construía seus próprios padrões de interface dentro do console que os clientes usam para rodar suas aplicações, sem uma linguagem de design comum e sem uma biblioteca de componentes para partir dela.",
             "solution": "Uma base de tokens com mais de 40 componentes documentados, que criou o alicerce de arquitetura usado diretamente na reconstrução do Console Kit."
           },
           {
@@ -1828,9 +1828,9 @@
       {
         "title": "Huia, Criatividade & Inovação",
         "slug": "huia",
-        "year": "2013",
+        "year": "2013-21",
         "description": "Oito anos num estúdio de tecnologia criativa em Porto Alegre — dois comandando squads, seis como sócio. O trabalho rodava em WebGL, reconhecimento facial e modelos de linguagem, anos antes de qualquer uma dessas coisas ser comum.",
-        "role": "Sócio, Head of Creative Technology & Design Director",
+        "role": "Sócio, Head of Creative Technology",
         "technologies": "Adobe Creative Suite, Premiere Pro, After Effects, Cinema 4D, WebGL, APIs de reconhecimento facial, primeiras integrações com LLM, plataformas de e-commerce, UX/UI Design, produção de vídeo, tecnologias para campanhas interativas, metodologias ágeis de criação",
         "impact": "O estúdio passou de núcleo interno a quarenta pessoas, e foi adquirido pela Stefanini. Mais de 40 projetos liderados para Petrobras, O Boticário, Tramontina, Sicredi e marcas da Mondelez.",
         "caseStudyUrl": "/llms/projects/huia.txt",
@@ -2093,46 +2093,9 @@
       }
     ]
   },
-  "workingStyle": {
-    "heading": "Jeito de trabalhar",
-    "traits": [
-      {
-        "label": "Pensa em sistemas",
-        "description": "Aborda problemas mapeando relações e restrições antes de definir soluções. Constrói estruturas que escalam, em vez de consertos pontuais."
-      },
-      {
-        "label": "Líder colaborativo",
-        "description": "Alinha design, engenharia e negócio sem virar gargalo. Fica à vontade dividindo responsabilidade e distribuindo decisões."
-      },
-      {
-        "label": "Analítico na ambiguidade",
-        "description": "Usa pensamento estruturado (Design Sprint, Lean UX) para atravessar problemas ainda indefinidos. Transforma ambiguidade em hipóteses testáveis."
-      },
-      {
-        "label": "Ponte entre design e engenharia",
-        "description": "Tem fluência técnica suficiente para trabalhar direto com engenheiros em implementação, acessibilidade e arquitetura de componentes."
-      },
-      {
-        "label": "Assume o resultado",
-        "description": "Responde por resultados, não só por entregas. Acompanha se as decisões de design produziram resultados mensuráveis."
-      },
-      {
-        "label": "Comunicação direta",
-        "description": "Prefere comunicação escrita e assíncrona, com contexto claro. Reuniões são para decidir, não para atualizar status."
-      }
-    ]
-  },
-  "collaborationContext": {
-    "heading": "Contexto de colaboração",
-    "description": "Mais de 20 anos em agências, estúdios e empresas de produto — incluindo 4 anos de colaboração remota com times baseados no Vale do Silício na Azion Technologies.",
-    "contexts": [
-      "Times remotos e distribuídos em vários fusos (Brasil, EUA, Europa)",
-      "Interlocutores técnicos: engenheiros, gerentes de produto, DevRel e CTOs",
-      "Liderança executiva: apresentações para a diretoria, revisões de design no nível do conselho",
-      "Times multidisciplinares: design, engenharia, marketing e operações",
-      "Parceiros externos: agências, prestadores de serviço e especialistas freelancers",
-      "Alinhamento global de marca e produto entre várias unidades de negócio"
-    ]
+  "howHeWorks": {
+    "heading": "Como ele constrói",
+    "body": "Ele aprendeu isso no tatame, onde as primeiras aulas são sobre como cair. Você vai cair, então aprende a cair sem medo e seguir. O skate ensinou a mesma coisa: algumas centenas de quedas compram uma manobra.\n\nÉ assim que ele constrói. Alguma coisa tosca sobe cedo, é olhada e muda. Nada que presta chega pronto.\n\nEle faz o caminho inteiro, da ideia ao visual, e do visual ao código que coloca aquilo na tela. Para o cliente, isso significa uma pessoa levando o trabalho do primeiro pensamento até a coisa no ar, em vez de uma passagem de bastão entre três."
   },
   "contact": {
     "command": "send message",
@@ -2194,9 +2157,7 @@
         "Achou um bug? Me avise.",
         "Tem um projeto em mente? Vamos conversar.",
         "Vamos trabalhar juntos?",
-        "Procurando um diretor de design? Manda um oi.",
         "Ideias? Dúvidas? Mande uma mensagem.",
-        "Aberto a freelas e posições fixas.",
         "Curiosidade é sempre bem-vinda aqui."
       ],
       "waitingMessage": "Esperando sua mensagem."
@@ -2310,7 +2271,7 @@
       "gridLabel": "Projetos",
       "viewProject": "Ver o projeto {title}",
       "badges": {
-        "azion-console-kit": "commits, mais de 34 contribuidores, em produção no Itaú, no Magalu e na Netshoes.",
+        "azion-console-kit": "commits, mais de 34 contribuidores, em produção no Itaú, no Magalu, no iFood e na Netshoes.",
         "azion-design-system": "componentes documentados sobre uma base de tokens.",
         "azion-brand-system": "aplicações hospedadas sob uma só experiência de marca.",
         "huia": "pessoas, de núcleo interno a estúdio independente."
