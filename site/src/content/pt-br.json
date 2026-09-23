@@ -1354,11 +1354,11 @@
         "title": "Azion Design System",
         "slug": "azion-design-system",
         "cover": "/projects/azion-design-system/cover.mp4",
-        "year": "2021",
-        "description": "Um kit de peças compartilhado para o produto, implantado aos poucos para que nenhum cliente acordasse com um produto de cara nova.",
+        "year": "2021-22",
+        "description": "O produto não tinha um conjunto de peças em comum. Cada time desenhava a mesma tela do seu jeito, e as regras viviam na cabeça de poucas pessoas. O sistema entrou uma tela por vez, para ninguém acordar com um produto de cara diferente.",
         "role": "Design Director",
         "technologies": "Figma, Design Tokens, Zeroheight, arquitetura de componentes, tipografia Roboto, sistema de cores semântico, iconografia, plugins de Figma",
-        "impact": "Mais de 40 componentes documentados sobre uma única base. Times em paralelo finalmente conseguiam construir do mesmo jeito. Publicado em azion.design.",
+        "impact": "Mais de 40 componentes documentados sobre uma fundação só, feitos para os seis ou sete times de produto que os consumiam, com um time próprio de design e front-end cuidando do sistema e do handoff. Publicado abertamente no azion.design. Ele também respondeu uma pergunta maior: boa parte do que parecia dívida de design era arquitetura de front-end, e a evidência juntada tela a tela foi o que levou a empresa a reconstruir essa arquitetura.",
         "caseStudyUrl": "/llms/projects/azion-design-system.txt",
         "credits": [
           {
@@ -1405,12 +1405,12 @@
         "sections": [
           {
             "type": "hero",
-            "body": "Um design system próprio implantado aos poucos — permitindo que a Azion entregasse com consistência sem impor uma ruptura visual aos clientes que já usavam o produto."
+            "body": "O design system por trás do console que os clientes usam para rodar suas aplicações: o primeiro conjunto de componentes, padrões e regras que o produto teve."
           },
           {
             "type": "challenge",
-            "challenge": "Cada time de produto construía seus próprios padrões de interface dentro do console que os clientes usam para rodar suas aplicações, sem uma linguagem de design comum e sem uma biblioteca de componentes para partir dela.",
-            "solution": "Uma base de tokens com mais de 40 componentes documentados, que criou o alicerce de arquitetura usado diretamente na reconstrução do Console Kit."
+            "challenge": "Não havia documentação para consultar. Um time copiava uma tela existente e adivinhava o resto, então o mesmo fluxo saía diferente em cada produto. As regras viviam com poucas pessoas: os designers passavam o tempo revisando e corrigindo fluxos em vez de desenhar, e um engenheiro de front-end não conseguia colocar uma interface em produção sem um deles ao lado.",
+            "solution": "Tokens, componentes, padrões e a documentação que diz como aplicar cada coisa, publicada no azion.design. A maior parte das telas era legada, dentro do monolito, então o sistema entrou junto com o roadmap: sempre que uma área de produto era aberta por causa de um cliente, aquelas telas eram refeitas sobre o sistema e puxadas para uma arquitetura modular. Um time próprio de design e front-end cuidava do sistema e do handoff para todos os times de produto."
           },
           {
             "type": "impact",
@@ -1420,14 +1420,18 @@
                 "label": "Componentes documentados"
               },
               {
-                "value": "Tokens",
-                "label": "Fundações de design semânticas"
+                "value": "6+",
+                "label": "Times de produto construindo com ele"
+              },
+              {
+                "value": "1",
+                "label": "Time cuidando do sistema e do handoff"
               }
             ]
           },
           {
             "type": "statement",
-            "body": "Nenhum cliente acordou com um produto diferente. O sistema entrou um componente por vez, e o console foi reconstruído em cima dele."
+            "body": "Nenhum cliente acordou com um produto de cara diferente. O sistema chegou um componente por vez, dentro de um trabalho que já ia acontecer de qualquer jeito."
           },
           {
             "type": "gallery-feature-list",
@@ -1440,7 +1444,7 @@
                   "type": "figma",
                   "figmaEmbedUrl": "https://embed.figma.com/design/2TFLoJyClig14zTpnaXuxt/Global-Tokens--Copy-?node-id=0-1&embed-host=share"
                 },
-                "description": "Global Tokens — Figma"
+                "description": "As variáveis que sustentam o sistema, abertas no Figma. Cor, espaçamento e tipografia são definidos uma vez aqui e consumidos por todos os componentes."
               },
               {
                 "name": "RTM Components — handoff",
@@ -1450,7 +1454,7 @@
                   "type": "figma",
                   "figmaEmbedUrl": "https://embed.figma.com/design/lCDgGUdLgjFq2odYz9GNc5/RTM-Components---Handoff--Copy-?node-id=10756-539481&embed-host=share"
                 },
-                "description": "RTM Components — handoff"
+                "description": "A biblioteca como os engenheiros a recebem: variações, estados e as notas que dizem quando cada um se aplica."
               }
             ]
           },
@@ -1485,7 +1489,7 @@
         "cover": "/projects/azion-brand-system/cover.mp4",
         "year": "2021-22",
         "description": "Um sistema de ilustração que deixou uma empresa muito técnica mais fácil de entender. Ele criou um padrão visual para redes sociais, apresentações comerciais, materiais de marca e, principalmente, treinamento interno.",
-        "role": "Design Director, Brand Experience",
+        "role": "Design Director",
         "technologies": "Figma, estratégia de marca, bibliotecas de componentes, identidade visual, voz e tom, sistema de ilustração, iconografia",
         "impact": "Um só jeito de explicar a Azion, usado em redes sociais, materiais de marca, apresentações comerciais e treinamento interno. Virou a base para levar a marca a clientes maiores e se sustentou ao longo das rodadas de investimento da Monashees e da Qualcomm Ventures.",
         "caseStudyUrl": "/llms/projects/azion-brand-system.txt",
@@ -1643,7 +1647,43 @@
                   12
                 ],
                 "images": [
-                  "/projects/azion-brand-system/asset-welcome.webp"
+                  {
+                    "src": "/projects/azion-brand-system/brandbook-build.webp",
+                    "title": "Brand Book — o pilar Build"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  {
+                    "src": "/projects/azion-brand-system/brandbook-secure.webp",
+                    "title": "Brand Book — o pilar Secure"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  {
+                    "src": "/projects/azion-brand-system/brandbook-deploy.webp",
+                    "title": "Brand Book — o pilar Deploy"
+                  }
+                ]
+              },
+              {
+                "spans": [
+                  12
+                ],
+                "images": [
+                  {
+                    "src": "/projects/azion-brand-system/brandbook-observe.webp",
+                    "title": "Brand Book — o pilar Observe"
+                  }
                 ]
               },
               {
@@ -1693,22 +1733,6 @@
                 "images": [
                   "/projects/azion-brand-system/asset-ransomware.webp"
                 ]
-              },
-              {
-                "spans": [
-                  12
-                ],
-                "images": [
-                  "/projects/azion-brand-system/asset-marketplace.webp"
-                ]
-              },
-              {
-                "spans": [
-                  12
-                ],
-                "images": [
-                  "/projects/azion-brand-system/asset-open-standards.webp"
-                ]
               }
             ]
           },
@@ -1748,10 +1772,6 @@
             "poster": "/projects/azion-brand-system/hero.webp"
           },
           {
-            "src": "/projects/azion-brand-system/asset-welcome.webp",
-            "title": "Welcome"
-          },
-          {
             "src": "/projects/azion-brand-system/edge-computing.webp",
             "title": "Edge Computing"
           },
@@ -1778,14 +1798,6 @@
           {
             "src": "/projects/azion-brand-system/asset-ransomware.webp",
             "title": "Ransomware"
-          },
-          {
-            "src": "/projects/azion-brand-system/asset-marketplace.webp",
-            "title": "Marketplace"
-          },
-          {
-            "src": "/projects/azion-brand-system/asset-open-standards.webp",
-            "title": "Open Standards"
           },
           {
             "src": "/projects/azion-brand-system/observe.webp",

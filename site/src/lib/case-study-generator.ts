@@ -11,7 +11,7 @@ project: Azion Brand System
 slug: azion-brand-system
 client: Azion Technologies
 industry: Edge Computing Platform
-role: Design Director, Brand Experience
+role: Design Director
 duration: 2021-2022
 author: Caio Ogata
 last_updated: ${today}
@@ -26,7 +26,7 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 **Industry**: Edge Computing Platform
 **Project Type**: Comprehensive Brand Identity System
 **Duration**: 2021–2022
-**Role**: Design Director, Brand Experience Director
+**Role**: Design Director Director
 **Deliverable**: Azion Brand Book v2 (complete brand guidelines and visual identity system)
 
 ---
@@ -402,7 +402,7 @@ project: Sistema de Marca Azion
 slug: azion-brand-system
 client: Azion Technologies
 industry: Plataforma de Edge Computing
-role: Design Director, Brand Experience
+role: Design Director
 duration: 2021-2022
 author: Caio Ogata
 last_updated: ${today}
@@ -417,7 +417,7 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 **Setor**: Plataforma de Edge Computing
 **Tipo de Projeto**: Sistema Abrangente de Identidade de Marca
 **Duração**: 2021–2022
-**Papel**: Design Director, Brand Experience Director
+**Papel**: Design Director Director
 **Entrega**: Azion Brand Book v2 (diretrizes completas de marca e sistema de identidade visual)
 
 ---
@@ -1701,7 +1701,7 @@ slug: azion-design-system
 client: Azion Technologies
 industry: Edge Computing Platform
 role: Design Director
-duration: 2021-2024
+duration: 2021-2022
 author: Caio Ogata
 last_updated: ${today}
 optimized_for: Claude, ChatGPT, Gemini, LLMs
@@ -1716,7 +1716,7 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 **Client**: Azion Technologies
 **Industry**: Edge Computing Platform
 **Project Type**: Custom Design System
-**Duration**: 2021–2024
+**Duration**: 2021–2022
 **Role**: Design Director
 **Documentation**: [https://www.azion.design](https://www.azion.design/6c444676a/p/14c623-azion-design-system)
 
@@ -1727,6 +1727,10 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 When Caio joined Azion in 2021, the RTM — Real Time Manager, the platform customers used to manage their edge applications — was functional and stable. But stability masked a growing problem. Different product teams were building their own sections independently, and the experience wasn't always the same across them. Stakeholders and the team itself reported friction and limitations that were difficult to address. Many of the improvements that needed to happen were blocked by internal implementation challenges, and inconsistencies between product areas compounded over time.
 
 The platform had no shared design language. No tokens, no documented components, no single source of truth for how a button, a form field, or an error state should look and behave. Each team made decisions in isolation and shipped what worked for their context — which meant the product accumulated visual and behavioral debt with every release.
+
+There was also nothing to build from. No documentation said how a pattern should be used or when it applied, so a team opened an existing screen, copied what it saw, and guessed the rest. The rules lived with a handful of people who had been there long enough to know them.
+
+That had a price on both sides of the handoff. Designers spent their time reviewing and correcting flows other people had assembled, instead of designing. A front-end engineer could not put an interface into production alone: without documented patterns, every screen needed a designer beside it to say what was right.
 
 The challenge wasn't just cosmetic. It was structural.
 
@@ -1751,6 +1755,8 @@ The system was built around three layers that built on each other.
 **Foundations first.** Before any components, the team established design tokens: color, typography, spacing, and iconography defined as structured values rather than one-off decisions. The primary accent — \`#F3652B\`, Azion's orange — was documented alongside a full semantic color system covering states, text hierarchy, and backgrounds. Roboto became the typographic foundation. These decisions, once made centrally, applied everywhere consistently.
 
 **Components built on tokens.** With a foundation in place, components could be built to spec rather than intuition. The library grew to 40+ documented components covering the full product surface: inputs (Text, TextArea, Number, Password, PhoneNumber), selection (Checkbox, Radio, Switch, Select, MultiSelect, Datepicker), navigation (Header, SubHeader, SideBar, TabBar, TabSection, Pagination), feedback (Alert, Banner, Modals, System Status), display (Cards, Chips, Tags, Typography), and specialized elements (CodeEditor, ActionBar, Stepper, NavigationCards, Accordion). Each component had defined states, documented usage, and a clear status — Ready, In Progress, or To Do — so teams always knew what they could trust and what was still being built.
+
+**Who built it and who used it.** A dedicated team of designers and a front-end engineer owned the system itself and the handoff to everyone else. On the other side were the six or seven product teams building the platform's areas, all consuming the same library. Most of the screens were legacy, sitting in the monolith alongside the backend, so the system was not rolled out as a project of its own: it went in with the roadmap. Whenever a product area was opened for a customer-facing reason, those screens were rebuilt on the system and pulled into a more modular architecture. The result was visible early — new screens started coming out consistent as soon as the first products adopted the library.
 
 **Documentation as infrastructure.** Components without documentation are just files. The system was documented on Zeroheight — a platform that connects Figma directly to written documentation, keeping design and specs in sync. Figma plugins extended this with theming support and responsive design tooling, reducing the friction between designing and implementing. The result: engineering teams received clear, documented specs on first handoff — fewer ambiguities, fewer rounds of back-and-forth, and higher quality on initial deliveries.
 
@@ -1783,13 +1789,11 @@ Figma plugins extended both with theming and responsive design support, reducing
 
 ## Connection to Console Kit
 
-The design system built for RTM wasn't the final destination. It was the precondition.
+The design system was the base the next decision was taken from, in two ways.
 
-When the time came to not just improve the platform but fundamentally rebuild it — restructuring the architecture, rebuilding APIs, making the platform modular — the design system had already done the structural groundwork. That moment marked the beginning of Console Kit and a broader organizational shift: restructured teams, new habits, audacious goals, and a move from incremental improvement to deliberate reconstruction.
+The first is what it revealed. Fitting the system into the legacy screens, one product area at a time, showed where the cost actually sat. A good part of what had been read as design debt was not a design problem at all: it was front-end architecture. Patterns could be documented and components could be drawn, but the same flow kept coming out differently because the architecture underneath allowed it to. Migrating the whole platform into the system, screen by screen, carried a price of its own — and once that price was on the table, rebuilding the front end from a clean architecture became the better trade. That argument was not made in a meeting; it was made gradually, with evidence from the work, until the stakeholders were reading the platform the same way. Console Kit is where it landed.
 
-Console Kit started fresh with its own token system — the RTM era didn't have consistent tokenization, and the rebuild was an opportunity to do it right from the ground up. But the lessons learned building the first system — what to document, how to structure components, where the handoff friction lives — directly informed how Console Kit's design language was architected. The component patterns and documentation practices carried forward even as the token values were rebuilt.
-
-This is the compounding return of infrastructure investments. A design system built carefully in 2021 reduced the cost and risk of a complete rebuild. The experience of building the first system — not just the artifacts — became the foundation that Console Kit was built on.
+The second is what carried over. Console Kit started fresh on its own tokens, because the RTM era never had consistent tokenization and a rebuild is the moment to get that right. But the practice came along: what is worth documenting, how to structure a component, where the handoff actually breaks. Theming, tokenisation and documentation all went faster the second time, which is what freed the team to spend the rebuild on patterns and architecture rather than on drawing components again.
 
 ---
 
@@ -1852,7 +1856,7 @@ slug: azion-design-system
 client: Azion Technologies
 industry: Plataforma de Edge Computing
 role: Design Director
-duration: 2021-2024
+duration: 2021-2022
 author: Caio Ogata
 last_updated: ${today}
 optimized_for: Claude, ChatGPT, Gemini, LLMs
@@ -1867,7 +1871,7 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 **Cliente**: Azion Technologies
 **Setor**: Plataforma de Edge Computing
 **Tipo de Projeto**: Design System Próprio
-**Duração**: 2021–2024
+**Duração**: 2021–2022
 **Papel**: Design Director
 **Documentação**: [https://www.azion.design](https://www.azion.design/6c444676a/p/14c623-azion-design-system)
 
@@ -1878,6 +1882,10 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 Quando Caio entrou na Azion em 2021, o RTM — Real Time Manager, a plataforma que os clientes usavam para gerenciar suas aplicações edge — era funcional e estável. Mas a estabilidade mascarava um problema crescente. Times de produto diferentes construíam suas seções de forma independente, e a experiência nem sempre era a mesma entre elas. Stakeholders e o próprio time relatavam fricções e limitações difíceis de endereçar. Muitas das melhorias que precisavam acontecer eram bloqueadas por desafios internos de implementação, e as inconsistências entre áreas do produto se acumulavam a cada release.
 
 A plataforma não tinha linguagem visual compartilhada. Nenhum token, nenhum componente documentado, nenhuma fonte de verdade única sobre como um botão, um campo de formulário ou um estado de erro deveria parecer e se comportar. Cada time tomava decisões de forma isolada e entregava o que funcionava no seu contexto — o que significava que o produto acumulava dívida visual e comportamental a cada lançamento.
+
+Também não havia de onde partir. Nenhuma documentação dizia como um padrão deveria ser usado ou quando ele se aplicava, então o time abria uma tela existente, copiava o que via e adivinhava o resto. As regras viviam com poucas pessoas, as que estavam ali há tempo suficiente para conhecê-las.
+
+Isso cobrava dos dois lados do handoff. Os designers passavam o tempo revisando e corrigindo fluxos montados por outras pessoas, em vez de desenhar. Um engenheiro de front-end não conseguia colocar uma interface em produção sozinho: sem padrão documentado, cada tela precisava de um designer ao lado para dizer o que estava certo.
 
 O desafio não era apenas cosmético. Era estrutural.
 
@@ -1902,6 +1910,8 @@ O sistema foi construído em três camadas que se apoiavam mutuamente.
 **Fundações primeiro.** Antes de qualquer componente, o time estabeleceu design tokens: cor, tipografia, espaçamento e iconografia definidos como valores estruturados, não decisões avulsas. O destaque primário — \`#F3652B\`, o laranja da Azion — foi documentado junto com um sistema de cores semântico cobrindo estados, hierarquia de texto e fundos. Roboto tornou-se a fundação tipográfica. Essas decisões, tomadas centralmente uma vez, aplicavam-se em todos os lugares com consistência.
 
 **Componentes construídos sobre tokens.** Com uma fundação estabelecida, os componentes podiam ser construídos a partir de especificações, não de intuição. A biblioteca cresceu para mais de 40 componentes documentados, cobrindo toda a superfície do produto: inputs (Text, TextArea, Number, Password, PhoneNumber), seleção (Checkbox, Radio, Switch, Select, MultiSelect, Datepicker), navegação (Header, SubHeader, SideBar, TabBar, TabSection, Pagination), feedback (Alert, Banner, Modals, System Status), exibição (Cards, Chips, Tags, Typography) e elementos especializados (CodeEditor, ActionBar, Stepper, NavigationCards, Accordion). Cada componente tinha estados definidos, uso documentado e um status claro — Ready, In Progress ou To Do — para que os times sempre soubessem no que podiam confiar e o que ainda estava sendo construído.
+
+**Quem construiu e quem usou.** Um time próprio, de designers e um engenheiro de front-end, cuidava do sistema em si e do handoff para todo mundo. Do outro lado estavam os seis ou sete times de produto que construíam as áreas da plataforma, todos consumindo a mesma biblioteca. A maior parte das telas era legada, dentro do monolito junto com o backend, então o sistema não foi lançado como projeto à parte: ele entrou junto com o roadmap. Sempre que uma área de produto era aberta por uma necessidade de cliente, aquelas telas eram refeitas sobre o sistema e puxadas para uma arquitetura mais modular. O efeito apareceu cedo: as telas novas começaram a sair consistentes assim que os primeiros produtos adotaram a biblioteca.
 
 **Documentação como infraestrutura.** Componentes sem documentação são apenas arquivos. O sistema foi documentado no Zeroheight — uma plataforma que conecta o Figma diretamente à documentação escrita, mantendo design e especificações sincronizados. Plugins do Figma estenderam isso com suporte a temas e ferramentas de design responsivo, reduzindo o atrito entre projetar e implementar. O resultado: times de engenharia recebiam specs claras e documentadas no primeiro handoff — menos ambiguidades, menos idas e vindas, e mais qualidade nas entregas iniciais.
 
@@ -1934,13 +1944,11 @@ Plugins do Figma estenderam ambos com suporte a temas e design responsivo, reduz
 
 ## Conexão com o Console Kit
 
-O design system construído para o RTM não era o destino final. Era a pré-condição.
+O design system foi a base de onde a decisão seguinte partiu, de duas maneiras.
 
-Quando chegou o momento de não apenas melhorar a plataforma, mas fundamentalmente reconstruí-la — reestruturar a arquitetura, reconstruir APIs, tornar a plataforma modular — o design system já tinha feito o trabalho estrutural de base. Esse momento marcou o início do Console Kit e uma mudança organizacional mais ampla: times reestruturados, novos hábitos, metas audaciosas, e uma transição de melhoria incremental para reconstrução deliberada.
+A primeira é o que ele revelou. Encaixar o sistema nas telas legadas, uma área de produto por vez, mostrou onde o custo realmente estava. Boa parte do que era lido como dívida de design não era problema de design: era arquitetura de front-end. Dava para documentar padrões e desenhar componentes, mas o mesmo fluxo continuava saindo diferente porque a arquitetura embaixo permitia. Migrar a plataforma inteira para o sistema, tela a tela, tinha um preço próprio — e, com esse preço na mesa, reconstruir o front-end a partir de uma arquitetura limpa virou a troca mais vantajosa. Esse argumento não foi feito numa reunião: foi construído aos poucos, com evidência do trabalho, até os stakeholders lerem a plataforma da mesma forma. O Console Kit é onde isso foi parar.
 
-O Console Kit começou do zero com seu próprio sistema de tokens — a era RTM não tinha uma tokenização consistente, e a reconstrução foi a oportunidade de fazer certo desde o início. Mas as lições aprendidas construindo o primeiro sistema — o que documentar, como estruturar componentes, onde mora o atrito do handoff — informaram diretamente como a linguagem visual do Console Kit foi arquitetada. Os padrões de componentes e práticas de documentação foram levados adiante mesmo com os valores de tokens sendo reconstruídos.
-
-Esse é o retorno composto de investimentos em infraestrutura. Um design system construído com cuidado em 2021 reduziu o custo e o risco de uma reconstrução completa. A experiência de construir o primeiro sistema — não apenas os artefatos — tornou-se a fundação sobre a qual o Console Kit foi construído.
+A segunda é o que foi junto. O Console Kit começou do zero nos próprios tokens, porque a era do RTM nunca teve tokenização consistente e uma reconstrução é a hora de acertar isso. Mas a prática foi junto: o que vale documentar, como estruturar um componente, onde o handoff quebra de verdade. Tema, tokenização e documentação foram mais rápidos na segunda vez, e foi isso que liberou o time para gastar a reconstrução em padrões e arquitetura, em vez de desenhar componentes de novo.
 
 ---
 
