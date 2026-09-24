@@ -185,12 +185,6 @@ function SplitLines({
 }: SharedProps) {
   const ref = useRef<HTMLElement>(null)
   const [lines, setLines] = useState<string[] | null>(null)
-  // The height the text occupies before it is split, kept as a floor for the
-  // split render. Line spans are `display: block` with their own overflow box,
-  // which stacks leading slightly differently from a flowing paragraph; the
-  // few pixels of difference moved everything below and measured 0.089 of
-  // layout shift on /about. Holding the measured height keeps the box still.
-  const [reservedHeight, setReservedHeight] = useState<number | null>(null)
   const groupInView = useContext(RevealContext)
   // motion types `margin` as a strict template literal — runtime accepts any rootMargin string.
   const internalInView = useInView(ref, {
@@ -262,13 +256,7 @@ function SplitLines({
       })
       if (currentLine.length > 0) detected.push(currentLine.join(' '))
 
-      // Height comes from the measurer, not from `el`: on a re-measure `el` is
-      // already the split render wearing the reserved height, so reading it
-      // back would hold the old, taller box when the viewport widens and the
-      // text needs fewer lines.
-      const measured = measurer.getBoundingClientRect().height
       el.parentElement.removeChild(measurer)
-      setReservedHeight(measured || null)
       setLines(detected)
     }
 
@@ -305,8 +293,6 @@ function SplitLines({
   // padding-left, matching the original `<p>` behaviour where only line 1 was indented.
   const firstLineIndent = style?.textIndent
   const parentStyle = style ? { ...style } : undefined
-  const heldStyle =
-    reservedHeight !== null ? { minHeight: `${reservedHeight}px` } : undefined
   if (parentStyle && 'textIndent' in parentStyle) {
     delete (parentStyle as Record<string, unknown>).textIndent
   }
@@ -336,11 +322,7 @@ function SplitLines({
     </span>
   ))
 
-  return createElement(
-    as,
-    { ref, className, style: { ...parentStyle, ...heldStyle } },
-    children
-  )
+  return createElement(as, { ref, className, style: parentStyle }, children)
 }
 
 interface AnimatedDividerProps {
