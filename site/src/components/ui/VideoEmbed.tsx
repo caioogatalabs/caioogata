@@ -88,14 +88,30 @@ export default function VideoEmbed({ platform, videoId, className = '', centered
       observer.observe(el)
     }
 
+    // Idle alone was not enough on a phone: stacked on a narrow screen the
+    // first embed sits inside the margin from the start, and in a throttled
+    // run it still began loading at 156ms, against a first paint at 1.9s.
+    // So the observer waits for the page to finish loading first, and only
+    // then for an idle moment. Nothing the visitor came to read competes with
+    // a third-party player any more.
+    let handle: number | undefined
     const hasIdle = 'requestIdleCallback' in window
-    const handle = hasIdle
-      ? window.requestIdleCallback(arm, { timeout: 2000 })
-      : window.setTimeout(arm, 200)
+
+    const schedule = () => {
+      handle = hasIdle
+        ? window.requestIdleCallback(arm, { timeout: 2000 })
+        : window.setTimeout(arm, 200)
+    }
+
+    if (document.readyState === 'complete') schedule()
+    else window.addEventListener('load', schedule, { once: true })
 
     return () => {
-      if (hasIdle) window.cancelIdleCallback(handle)
-      else window.clearTimeout(handle)
+      window.removeEventListener('load', schedule)
+      if (handle !== undefined) {
+        if (hasIdle) window.cancelIdleCallback(handle)
+        else window.clearTimeout(handle)
+      }
       observer?.disconnect()
     }
   }, [])

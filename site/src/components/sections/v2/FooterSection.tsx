@@ -193,17 +193,6 @@ export function FooterSection() {
             labelClassName="transition-opacity duration-300 hover:opacity-60"
             style={{ fontFamily: 'var(--font-sans)' }}
           />
-
-          {/* The machine-readable profile the assistant tiles above point at.
-              It was reachable only through the sitemap and a JSON-LD field;
-              this is the one crawlable link to it from a page people visit. */}
-          <a
-            href="/llms.txt"
-            className="mt-4 block w-fit text-[14px] leading-[1.6] text-text-primary opacity-60 transition-opacity duration-300 hover:opacity-100"
-            style={{ fontFamily: 'var(--font-mono)' }}
-          >
-            llms.txt
-          </a>
         </GridItem>
       </Grid>
 
