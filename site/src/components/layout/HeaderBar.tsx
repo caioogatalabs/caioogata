@@ -6,6 +6,7 @@ import { Grid, GridItem } from '@/components/layout/Grid'
 import { MobileMenu } from '@/components/layout/MobileMenu'
 import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
 import { useLanguage } from '@/components/providers/LanguageProvider'
+import { stripLocale } from '@/lib/i18n'
 import { COMMIT_COUNT } from '@/lib/build-info'
 import { CopyEmail } from '@/components/ui/CopyEmail'
 
@@ -176,7 +177,7 @@ export function HeaderBar() {
   const pathname = usePathname()
 
   // `/projects` itself is an index, not a project, so only a slug counts.
-  const isOpenProject = /^\/projects\/[^/]+$/.test(pathname)
+  const isOpenProject = /^\/projects\/[^/]+$/.test(stripLocale(pathname))
 
   // On an open project the bar holds the top until the project navigation
   // reaches it, then steps aside and lets that strip have the place. Elsewhere
@@ -184,8 +185,10 @@ export function HeaderBar() {
   const ref = usePublishMetrics(!isOpenProject)
   const yielded = useYieldToProjectNav(isOpenProject)
 
-  const t = useLanguage().content.ui.header
-  const menu = MENU.map(({ key, href }) => ({ label: t[key], href }))
+  const { content, localize } = useLanguage()
+  const t = content.ui.header
+  // Localized here, so `current` below compares like with like.
+  const menu = MENU.map(({ key, href }) => ({ label: t[key], href: localize(href) }))
 
   return (
     <Grid

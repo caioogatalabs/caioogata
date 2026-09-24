@@ -24,6 +24,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
 import { fill, useLanguage } from '@/components/providers/LanguageProvider'
+import { stripLocale } from '@/lib/i18n'
 
 export interface PageNavigationLateralItem {
   href: string
@@ -122,8 +123,10 @@ function KeyBadgeDisabled({
 }
 
 export function PageNavigation({ back, lateral, items, sticky = true }: PageNavigationProps) {
-  const t = useLanguage().content.ui.pageNav
-  const pathname = usePathname()
+  const { content, localize } = useLanguage()
+  const t = content.ui.pageNav
+  // Callers pass unprefixed paths; they are localized here, at the link.
+  const pathname = stripLocale(usePathname())
   const { mode } = useInteractionMode()
   const [activeKey, setActiveKey] = useState<'esc' | 'left' | 'right' | null>(null)
 
@@ -141,7 +144,7 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
   // Show Esc hint on any non-home page, or whenever an explicit back override is given.
   // On '/', leave Escape free for MenuSection's own filter-clear handler.
   const showEsc = pathname !== '/' || !!back
-  const backHref = back?.href ?? '/'
+  const backHref = localize(back?.href ?? '/')
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -216,7 +219,7 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
           <div className="flex items-center gap-1">
             {prev ? (
               <KeyBadgeLink
-                href={prev.href}
+                href={localize(prev.href)}
                 forwardRef={prevLinkRef}
                 isActive={activeKey === 'left'}
                 ariaLabel={fill(t.previous, { title: prev.title })}
@@ -230,7 +233,7 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
             )}
             {next ? (
               <KeyBadgeLink
-                href={next.href}
+                href={localize(next.href)}
                 forwardRef={nextLinkRef}
                 isActive={activeKey === 'right'}
                 ariaLabel={fill(t.next, { title: next.title })}

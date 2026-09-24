@@ -3,6 +3,7 @@
 import { ProjectCover } from '@/components/sections/v2/ProjectCover'
 import { useInView } from '@/hooks/useInView'
 import { LABEL } from '@/components/ui/label'
+import { useLanguage } from '@/components/providers/LanguageProvider'
 
 interface ProjectRowProps {
   title: string
@@ -37,6 +38,8 @@ export function ProjectRow({
   cover,
   rowRef,
 }: ProjectRowProps) {
+  const { localize } = useLanguage()
+
   // The image announces the row as soon as it touches the viewport.
   const imageRef = useInView({ threshold: 0.1, once: true })
 
@@ -75,7 +78,7 @@ export function ProjectRow({
           observed element wearing it reports ratio 0 and never fires. */}
       <div ref={setImageRef}>
         <a
-          href={`/projects/${slug}`}
+          href={localize(`/projects/${slug}`)}
           className="-entrance -mask-down block w-full"
           aria-label={`View ${title} project`}
         >

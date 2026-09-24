@@ -2335,6 +2335,28 @@
       "muteLabel": "Silenciar",
       "unmuteLabel": "Ativar áudio",
       "frameTitle": "vídeo {platform} {id}"
+    },
+    "seo": {
+      "home": {
+        "title": "Caio Ogata — Creative Designer",
+        "description": "Creative Designer que aprendeu a desenvolver. Vinte anos de publicidade, quinze de interfaces e um caminho autodidata até o código."
+      },
+      "about": {
+        "title": "Sobre - Caio Ogata",
+        "description": "Caio Ogata é Creative Designer. Ex-diretor de arte, com formação em interfaces e um caminho autodidata até o desenvolvimento."
+      },
+      "experience": {
+        "title": "Experiência - Caio Ogata",
+        "description": "Agências, depois um estúdio, depois uma empresa de engenheiros. Vinte anos de trabalho, cargo a cargo."
+      },
+      "projects": {
+        "title": "Projetos - Caio Ogata",
+        "description": "Trabalhos selecionados, e o que cada um exigiu. Uma identidade de marca, o site que a carrega, um kit compartilhado de peças, um console de produto reconstruído e oito anos num estúdio de tecnologia criativa."
+      },
+      "philosophy": {
+        "title": "Filosofia - Caio Ogata",
+        "description": "Cair, aprender, evoluir — princípios de design tirados do judô, do skate e de vinte anos entregando produto."
+      }
     }
   }
 }

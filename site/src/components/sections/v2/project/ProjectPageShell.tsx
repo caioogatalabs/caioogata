@@ -72,8 +72,8 @@ function SectionBlock({
 }
 
 export function ProjectPageShell({ project: projectFromRoute }: ProjectPageShellProps) {
-  // The route resolves the slug against the English file at build time; the
-  // page renders whichever language is active, matched by slug.
+  // The route resolves the slug in its own language; the lookup here keeps the
+  // lateral list and the index in the same file as the page.
   const { content } = useLanguage()
   const enabledProjects = content.projects.items.filter(p => !p.disabled)
   const project = enabledProjects.find(p => p.slug === projectFromRoute.slug) ?? projectFromRoute

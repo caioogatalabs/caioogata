@@ -19,6 +19,14 @@ const nextConfig = {
   trailingSlash: false,
   reactStrictMode: true,
   poweredByHeader: false,
+  // English has no prefix. `/en` would be a second address for the same page,
+  // so it redirects to the one that is indexed.
+  async redirects() {
+    return [
+      { source: '/en', destination: '/', permanent: true },
+      { source: '/en/:path*', destination: '/:path*', permanent: true },
+    ]
+  },
   // Only the custom domain is indexed; Vercel-generated hosts stay out of search.
   async headers() {
     return [

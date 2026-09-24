@@ -14,7 +14,8 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ title, slug, year, index, className = '' }: ProjectCardProps) {
-  const viewProject = useLanguage().content.ui.projects.viewProject
+  const { content, localize } = useLanguage()
+  const viewProject = content.ui.projects.viewProject
   const { ref, clipPath } = useScrollReveal()
   const [arrowHovered, setArrowHovered] = useState(false)
 
@@ -40,7 +41,7 @@ export function ProjectCard({ title, slug, year, index, className = '' }: Projec
       {/* Bottom: arrow button */}
       <div className="flex items-center justify-end w-full">
         <a
-          href={`/projects/${slug}`}
+          href={localize(`/projects/${slug}`)}
           className="relative flex items-center justify-center size-12 rounded-full bg-bg-fill-primary text-text-on-primary overflow-hidden transition-colors duration-300 hover:bg-bg-fill-primary-hover"
           aria-label={fill(viewProject, { title })}
           style={{ borderRadius: '999px' }}

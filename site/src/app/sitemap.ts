@@ -1,10 +1,12 @@
 import { MetadataRoute } from 'next'
 import content from '@/content/en.json'
-
-const SITE = 'https://www.caioogata.com'
+import { SITE_URL as SITE } from '@/lib/i18n'
+import { absoluteUrl, languageAlternates } from '@/lib/seo'
 
 /**
- * Every page a crawler should know about, plus the machine-readable profile.
+ * Every page a crawler should know about, in both languages, plus the
+ * machine-readable profile. Each page entry carries both language URLs as
+ * alternates, which is the sitemap form of hreflang.
  * The pages come first and the project pages are read from the content, so a
  * new case study lands in the sitemap by being added to `en.json` rather than
  * here. `/dev/*` is a scratch route and stays out, as does the archived V1 at
@@ -14,14 +16,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const today = new Date()
   const projects = content.projects.items.filter(p => !p.disabled)
 
-  const pages: MetadataRoute.Sitemap = [
-    { url: SITE, priority: 1.0 },
-    { url: `${SITE}/projects`, priority: 0.9 },
-    { url: `${SITE}/about`, priority: 0.8 },
-    { url: `${SITE}/experience`, priority: 0.8 },
-    { url: `${SITE}/philosophy`, priority: 0.6 },
-    ...projects.map(p => ({ url: `${SITE}/projects/${p.slug}`, priority: 0.7 })),
-  ].map(entry => ({ ...entry, lastModified: today, changeFrequency: 'monthly' as const }))
+  const paths: { path: string; priority: number }[] = [
+    { path: '/', priority: 1.0 },
+    { path: '/projects', priority: 0.9 },
+    { path: '/about', priority: 0.8 },
+    { path: '/experience', priority: 0.8 },
+    { path: '/philosophy', priority: 0.6 },
+    ...projects.map(p => ({ path: `/projects/${p.slug}`, priority: 0.7 })),
+  ]
+
+  const pages: MetadataRoute.Sitemap = paths.flatMap(({ path, priority }) =>
+    (['en', 'pt-br'] as const).map(language => ({
+      url: absoluteUrl(path, language),
+      priority,
+      alternates: { languages: languageAlternates(path) },
+      lastModified: today,
+      changeFrequency: 'monthly' as const,
+    }))
+  )
 
   const machineReadable: MetadataRoute.Sitemap = [
     { url: `${SITE}/llms.txt`, priority: 0.8 },

@@ -261,7 +261,9 @@ Before capturing or producing any project image — home cover, gallery, still o
 ### V2 Component Structure
 
 ```
-src/app/page.tsx                      → Home (SkipLink + PageShell)
+src/app/(en)/, src/app/pt/            → Same page tree per language (English unprefixed, Portuguese under /pt); each has its own root layout
+src/app/_site/SiteLayout.tsx          → Shared root layout body (html lang, head, header, footer); lib/i18n.ts + lib/seo.ts for paths, hreflang, metadata
+src/app/(en)/page.tsx                 → Home (SkipLink + PageShell)
 src/components/layout/PageShell.tsx   → Orchestrates V2 sections, runs useFontReady
 src/components/layout/Grid.tsx        → 12-col responsive grid (Grid + GridItem)
 src/components/sections/v2/

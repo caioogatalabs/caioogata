@@ -1,6 +1,6 @@
 # Portuguese routes, hreflang and sitemap — design
 
-Date: 2026-09-24. Status: approved in conversation, awaiting spec review.
+Date: 2026-09-24. Status: approved; implemented 2026-09-24 (structure revised, see Structure).
 
 ## Why
 
@@ -62,30 +62,31 @@ suggestion banner: keep it simple, go by location.
 
 ## Structure
 
-- Pages move from `app/` to `app/[lang]/`: `page.tsx`, `about`, `experience`,
-  `projects`, `projects/[slug]`, `philosophy`. `generateStaticParams` returns
-  `en` and `pt`; `dynamicParams = false`, so any other first segment is a 404.
-  Project pages generate `lang × slug`.
-- `app/[lang]/layout.tsx` becomes the root layout (today's `app/layout.tsx`),
-  and sets `<html lang>` to `en` or `pt-BR` from the param.
-- `app/[lang]/not-found.tsx` replaces `app/not-found.tsx`;
-  `app/[lang]/[...rest]/page.tsx` calls `notFound()` so unmatched URLs get the
-  site's 404 in the right language instead of Next's default one.
-- `app/dev/layout.tsx` gains its own `<html>`/`<body>` (it is a second root
-  layout now) and keeps the production 404.
+Revised during implementation (2026-09-24). The first build used one
+`app/[lang]/` root with rewrites; it worked, but a single layout importing both
+content providers put both JSON files (~47 KB gzip) into every page. Two root
+layouts fix that, and remove the rewrites with them.
+
+- `app/(en)/` — route group, unprefixed English: `page.tsx`, `about`,
+  `experience`, `projects`, `projects/[slug]`, `philosophy`, `not-found.tsx`,
+  `[...rest]` (calls `notFound()` so unmatched URLs get the site's 404).
+- `app/pt/` — the same tree for Portuguese.
+- Each has its own root `layout.tsx` (a few lines) that imports only its
+  provider and renders the shared `app/_site/SiteLayout.tsx` (html lang, head,
+  JSON-LD, header, footer, analytics). `app/_site/project.tsx` holds the
+  project route logic both `[slug]` pages call.
+- The page files are thin and duplicated per language; a new fixed page means
+  two files. Cases are data and need nothing.
+- `app/dev/layout.tsx` gains its own `<html>`/`<body>` (a third root layout)
+  and keeps the production 404.
 - `llms*` route handlers and `sitemap.ts` stay at `app/`.
-- The route segment is `pt`; the content language stays `pt-br` (the existing
+- The route name is `pt`; the content language stays `pt-br` (the existing
   `Language` type). `lib/i18n.ts` holds the mapping and the helpers below.
 
 ## Routing (`next.config.mjs`)
 
 - `redirects()`: `/en` → `/`, `/en/:path*` → `/:path*`, permanent.
-- `rewrites().afterFiles`: `/` → `/en`, and every path not starting with `pt`
-  (`/:path((?!pt(?:/|$)).*)`) → `/en/:path`. `afterFiles` runs after `public/`
-  files and static routes (`/llms.txt`, `/sitemap.xml`, `/dev/*`) and before
-  dynamic routes, so those are never rewritten. No middleware involvement.
-- The exclusion regex and `/_next/image` are checked in the local build before
-  anything ships.
+- No rewrites: the route group serves English at the root directly.
 
 ## Content and language state
 
