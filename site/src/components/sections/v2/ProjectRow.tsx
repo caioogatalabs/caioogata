@@ -79,7 +79,7 @@ export function ProjectRow({
           className="-entrance -mask-down block w-full"
           aria-label={`View ${title} project`}
         >
-          <ProjectCover src={cover} />
+          <ProjectCover src={cover} priority={index === 1} />
         </a>
       </div>
 

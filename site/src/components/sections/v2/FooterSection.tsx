@@ -199,7 +199,7 @@ export function FooterSection() {
               this is the one crawlable link to it from a page people visit. */}
           <a
             href="/llms.txt"
-            className="mt-4 inline-block text-[14px] leading-[1.6] text-text-primary opacity-60 transition-opacity duration-300 hover:opacity-100"
+            className="mt-4 block w-fit text-[14px] leading-[1.6] text-text-primary opacity-60 transition-opacity duration-300 hover:opacity-100"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
             llms.txt

@@ -95,14 +95,22 @@ export function ClientsBlock() {
                 className={`-entrance -fade -a-${stagger} min-h-[120px] flex items-center justify-center`}
               >
                 {logo ? (
-                  <Image
-                    src={logo.src}
-                    alt={client}
-                    width={120}
-                    height={48}
-                    className={`object-contain max-h-[44px] max-w-[108px]${logo.imgClass ? ` ${logo.imgClass}` : ''}`}
-                    unoptimized
-                  />
+                  // The box is declared, not inferred from the file: these are
+                  // sixteen logos of sixteen different aspect ratios, and with
+                  // only `max-h`/`max-w` each one took its final size on load,
+                  // which moved the rows under it. Lighthouse measured 0.089 of
+                  // layout shift from a single logo. The cell now holds
+                  // 108×44 whatever arrives, and the logo fits inside it.
+                  <div className="relative h-[44px] w-[108px]">
+                    <Image
+                      src={logo.src}
+                      alt={client}
+                      fill
+                      sizes="108px"
+                      className={`object-contain${logo.imgClass ? ` ${logo.imgClass}` : ''}`}
+                      unoptimized
+                    />
+                  </div>
                 ) : (
                   <span
                     className="font-mono text-xs text-text-tertiary text-center"

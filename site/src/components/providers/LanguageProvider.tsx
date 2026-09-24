@@ -1,8 +1,7 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, Fragment, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, Fragment, ReactNode } from 'react'
 import enContent from '@/content/en.json'
-import ptContent from '@/content/pt-br.json'
 import type { Content, Language } from '@/content/types'
 
 interface LanguageContextType {
@@ -16,6 +15,16 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const STORAGE_KEY = 'portfolio-language'
 
 /**
+ * Portuguese is fetched, not bundled. Both content files are ~90 KB each, and
+ * importing them statically put ~37 KB gzip of the language nobody is reading
+ * into every page of the site. English stays static because the HTML is
+ * English; Portuguese arrives on demand and is then cached by the browser.
+ *
+ * The language only changes once its content is in hand. Switching remounts
+ * the tree, and SplitText measures its line breaks on mount, so a two-step
+ * switch — language first, strings after — would leave the old line breaks on
+ * screen.
+ *
  * The static export ships English HTML; a saved Portuguese preference is
  * applied right after hydration, with the page held invisible until then (see
  * the `-lang-pending` script in app/layout.tsx). Changing language remounts the tree under the
@@ -24,18 +33,40 @@ const STORAGE_KEY = 'portfolio-language'
  */
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en')
+  const [ptContent, setPtContent] = useState<Content | null>(null)
   // True once the saved preference has been read and applied.
   const [resolved, setResolved] = useState(false)
 
+  const loadPt = useCallback(async () => {
+    if (ptContent) return ptContent
+    const mod = await import('@/content/pt-br.json')
+    const loaded = mod.default as unknown as Content
+    setPtContent(loaded)
+    return loaded
+  }, [ptContent])
+
   useEffect(() => {
+    let saved: string | null = null
     try {
-      const saved = localStorage.getItem(STORAGE_KEY)
-      if (saved === 'en' || saved === 'pt-br') setLanguageState(saved)
+      saved = localStorage.getItem(STORAGE_KEY)
     } catch {
       // Storage blocked — stay on English.
     }
+
+    if (saved === 'pt-br') {
+      // The page is held invisible until this resolves, which is the same hold
+      // that already covered hydration. A failed fetch falls back to English
+      // rather than leaving the visitor on a held page.
+      loadPt()
+        .then(() => setLanguageState('pt-br'))
+        .catch(() => {})
+        .finally(() => setResolved(true))
+      return
+    }
+
+    if (saved === 'en') setLanguageState('en')
     setResolved(true)
-  }, [])
+  }, [loadPt])
 
   useEffect(() => {
     if (!resolved) return
@@ -46,15 +77,20 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [language, resolved])
 
   const setLanguage = (lang: Language) => {
-    setLanguageState(lang)
-    try {
-      localStorage.setItem(STORAGE_KEY, lang)
-    } catch {
-      // Storage blocked — the choice lasts for this page view only.
+    const apply = () => {
+      setLanguageState(lang)
+      try {
+        localStorage.setItem(STORAGE_KEY, lang)
+      } catch {
+        // Storage blocked — the choice lasts for this page view only.
+      }
     }
+
+    if (lang === 'pt-br') loadPt().then(apply).catch(() => {})
+    else apply()
   }
 
-  const content = (language === 'en' ? enContent : ptContent) as unknown as Content
+  const content = (language === 'pt-br' && ptContent ? ptContent : enContent) as unknown as Content
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, content }}>

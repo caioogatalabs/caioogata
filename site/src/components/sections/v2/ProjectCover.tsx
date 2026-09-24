@@ -38,7 +38,16 @@ import { useLazyVideo } from '@/hooks/useLazyVideo'
  * Loading and playback are gated by `useLazyVideo` — the poster fills the
  * frame until the cover is about to scroll into view.
  */
-export function ProjectCover({ src, alt = '' }: { src?: string; alt?: string }) {
+export function ProjectCover({
+  src,
+  alt = '',
+  priority = false,
+}: {
+  src?: string
+  alt?: string
+  /** The first cover in a list: fetched at high priority instead of lazily. */
+  priority?: boolean
+}) {
   const isVideo = !!src && /\.(mp4|webm)$/.test(src)
   const poster = isVideo ? src.replace(/\.(mp4|webm)$/, '.webp') : undefined
   const [reduced, setReduced] = useState(false)
@@ -53,23 +62,45 @@ export function ProjectCover({ src, alt = '' }: { src?: string; alt?: string }) 
       {src && (
         <div className="relative aspect-[16/10] w-[86%] overflow-hidden rounded-[3px] bg-bg-surface-secondary">
           {isVideo && !reduced ? (
-            <video
-              ref={ref}
-              src={videoSrc}
-              poster={poster}
-              aria-label={alt || undefined}
-              muted
-              loop
-              playsInline
-              preload={preload}
-              className="absolute inset-0 h-full w-full object-cover"
-            />
+            <>
+              {/* The still goes through the image optimiser instead of riding
+                  on the video's `poster` attribute. As a poster it was served
+                  at its authored 1920x1200 into a box of about 544x340, which
+                  Lighthouse counted as ~217 KiB of waste on the home alone;
+                  as an <Image> the browser picks the variant that fits.
+                  It sits under the video rather than inside it, so it is what
+                  shows until the file has enough to paint. */}
+              <Image
+                src={poster!}
+                alt=""
+                aria-hidden
+                fill
+                sizes="(min-width: 1024px) 43vw, 78vw"
+                quality={90}
+                priority={priority}
+                loading={priority ? undefined : 'eager'}
+                className="object-cover"
+              />
+              <video
+                ref={ref}
+                src={videoSrc}
+                aria-label={alt || undefined}
+                muted
+                loop
+                playsInline
+                preload={preload}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </>
           ) : (
             <Image
               src={isVideo ? poster! : src}
               alt={alt}
               fill
-              sizes="(min-width: 1024px) 50vw, 90vw"
+              sizes="(min-width: 1024px) 43vw, 78vw"
+              quality={90}
+              priority={priority}
+              loading={priority ? undefined : 'eager'}
               className="object-cover"
             />
           )}

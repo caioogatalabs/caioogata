@@ -1993,13 +1993,6 @@
         ],
         "images": [
           {
-            "src": "",
-            "title": "HUIA — Google experiment case",
-            "type": "video",
-            "platform": "youtube",
-            "videoId": "T3anPB05Deo"
-          },
-          {
             "type": "video",
             "platform": "youtube",
             "videoId": "d8_xTUsyQdo",
@@ -2045,6 +2038,13 @@
           {
             "src": "/projects/huia/team-portraits.webp",
             "title": "The Huia Team"
+          },
+          {
+            "src": "",
+            "title": "HUIA — Google experiment case",
+            "type": "video",
+            "platform": "youtube",
+            "videoId": "T3anPB05Deo"
           }
         ],
         "links": [

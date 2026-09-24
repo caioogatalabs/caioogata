@@ -57,24 +57,47 @@ export default function VideoEmbed({ platform, videoId, className = '', centered
   const videoKey = `${platform}-${videoId}`
 
   // The iframe itself — third-party player script, not just the video file —
-  // is the expensive part (~1.4 MB), so it stays unmounted until the embed is
-  // about to scroll into view. The wrapper's own aspect-ratio box (set by
-  // each call site) holds the layout, so nothing shifts when it mounts.
+  // is the expensive part: measured at ~1.4 MB of player code plus a first
+  // video segment of ~1 MB. So it stays unmounted until the embed is about to
+  // scroll into view. The wrapper's own aspect-ratio box (set by each call
+  // site) holds the layout, so nothing shifts when it mounts.
+  //
+  // Two things keep it off the critical path. The margin is a fraction of a
+  // viewport rather than half of one: at 50% an embed sitting just under the
+  // fold counted as near and started loading at 136ms, before the page had
+  // even painted its own largest element. And the observer is not armed until
+  // the browser goes idle, so the player never competes with the page's own
+  // first paint on a slow connection. `requestIdleCallback` is missing on
+  // Safari, hence the timeout fallback.
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
 
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries.some(entry => entry.isIntersecting)) {
-          setIsNear(true)
-          observer.disconnect()
-        }
-      },
-      { rootMargin: '50% 0px' }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
+    let observer: IntersectionObserver | undefined
+
+    const arm = () => {
+      observer = new IntersectionObserver(
+        entries => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            setIsNear(true)
+            observer?.disconnect()
+          }
+        },
+        { rootMargin: '20% 0px' }
+      )
+      observer.observe(el)
+    }
+
+    const hasIdle = 'requestIdleCallback' in window
+    const handle = hasIdle
+      ? window.requestIdleCallback(arm, { timeout: 2000 })
+      : window.setTimeout(arm, 200)
+
+    return () => {
+      if (hasIdle) window.cancelIdleCallback(handle)
+      else window.clearTimeout(handle)
+      observer?.disconnect()
+    }
   }, [])
 
   // Listen for other videos unmuting — auto-mute this one if it's currently playing
