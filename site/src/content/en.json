@@ -1841,20 +1841,20 @@
         "title": "Huia, Creativity & Innovation",
         "slug": "huia",
         "year": "2013-21",
-        "description": "Eight years at a creative technology studio in Porto Alegre — two running squads, six as partner. The work ran on WebGL, facial recognition and language models, years before any of it was common.",
+        "description": "Eight years at a creative technology studio in Porto Alegre: two running production squads, six as partner. The studio's job was to try what had never shipped in a campaign yet — 3D in the browser, a webcam that reads a pose — and make it work for brands like O Boticário, Petrobras and Tramontina.",
         "role": "Partner, Head of Creative Technology",
-        "technologies": "Adobe Creative Suite, Premiere Pro, After Effects, Cinema 4D, WebGL, Facial Recognition APIs, Early LLM Integration, E-commerce Platforms, UX/UI Design, Video Production, Interactive Campaign Technologies, Agile Creative Methodologies",
-        "impact": "The studio went from an internal nucleus to forty people, and was acquired by Stefanini. 40+ projects led for Petrobras, O Boticário, Tramontina, Sicredi and Mondelez brands.",
+        "technologies": "WebGL, Three.js, GSAP, PoseNet, Machine learning, Motion design, Cinema 4D, After Effects, E-commerce platforms",
+        "impact": "Creative and technical direction on 40+ projects. The coupon platform built for O Boticário kept 2,000+ stores in sync and raised store traffic by 30%. The studio went from a nucleus inside an agency to forty people selling applications directly to clients, and was acquired by Stefanini.",
         "caseStudyUrl": "/llms/projects/huia.txt",
         "sections": [
           {
             "type": "hero",
-            "body": "Eight years leading creative technology at a digital innovation studio — from specialized production nucleus to full-service partner for major brands."
+            "body": "Eight years of creative technology, and where Caio learned to carry an idea from the brief all the way into the code that runs it."
           },
           {
             "type": "challenge",
-            "challenge": "Huia started as a small production nucleus within a larger agency, needing to establish itself as an independent creative technology partner.",
-            "solution": "Caio helped grow the studio from a nucleus inside an agency to forty people of its own, delivering work that ran on WebGL, facial recognition and experimental technology."
+            "challenge": "Huia was born as a motion, video and technology nucleus spun out of the agency W3haus, and its brief was to try things nobody had shipped in a campaign yet. The risk in that work sits between the idea and the execution: an idea leaves the agency, passes through interface, 3D and code, and usually loses whatever made it good on the way.",
+            "solution": "Caio led both sides of it. He ran the interface and motion specialists and stayed with the development team until the work was live, so what reached the screen was still the idea that left the agency. Over the years he led the studio's shift from serving one agency to selling applications, tools, sites and brands directly to clients, which became its specialty."
           },
           {
             "type": "gallery-staggered",
@@ -1918,21 +1918,25 @@
             "stats": [
               {
                 "value": "40+",
-                "label": "Digital projects delivered"
+                "label": "Projects led"
               },
               {
                 "value": "30%",
-                "label": "Store traffic increase for O Boticario"
+                "label": "More traffic in O Boticário stores"
+              },
+              {
+                "value": "2,000+",
+                "label": "Stores synced daily"
               },
               {
                 "value": "40",
-                "label": "Team members at peak"
+                "label": "People at the studio's peak"
               }
             ]
           },
           {
             "type": "statement",
-            "body": "WebGL and facial recognition in the browser, years before either was ordinary. Eight years took the studio from a nucleus inside an agency to forty people of its own."
+            "body": "An extinct bird rebuilt in the browser, and a webcam that knew a Hadouken when it saw one. Both shipped years before either was ordinary."
           },
           {
             "type": "gallery-feature-list",
@@ -1946,7 +1950,7 @@
                   "platform": "youtube",
                   "videoId": "d8_xTUsyQdo"
                 },
-                "description": "Websites, apps and e-commerce for brands and agencies, from campaign microsites to complete online stores."
+                "description": "Sites, apps and e-commerce for brands. The largest was O Boticário's coupon platform: free-sample coupons across 2,000+ stores, with coupon and product stock synced daily so nobody walked into a store for something that was not there."
               },
               {
                 "name": "Huia Innovation",
@@ -1957,7 +1961,7 @@
                   "platform": "youtube",
                   "videoId": "s-3rKGVUQiM"
                 },
-                "description": "Facial recognition, early AI and interactive experiences in commercial campaigns, years before any of them was common."
+                "description": "Experiments that shipped. The studio's own bird, extinct since the last century, modelled and animated in the browser, then taken to an event where a webcam read the audience's poses and the bird answered them."
               },
               {
                 "name": "Media",
@@ -1968,7 +1972,18 @@
                   "platform": "youtube",
                   "videoId": "u-bbxKjiZvk"
                 },
-                "description": "Where the studio began: a specialist nucleus producing motion, video and interactive media for agencies."
+                "description": "Where the studio began: a specialist nucleus producing motion, video and the volume of digital assets that O Boticário's e-commerce and media ran on."
+              },
+              {
+                "name": "The Huia bird, and the Google experiment",
+                "image": {
+                  "src": "",
+                  "title": "HUIA — Google experiment case",
+                  "type": "video",
+                  "platform": "youtube",
+                  "videoId": "T3anPB05Deo"
+                },
+                "description": "The studio's own bird, extinct since the last century, rebuilt for the browser: every element modelled from scratch so code could drive it, rendered in 3D with Three.js and animated with GSAP. At an event it got a camera — PoseNet, a pose model trained by Google, read the audience through a plain webcam, and three reads of the same pose, a Hadouken among them, fired the bird's answer."
               }
             ]
           },
@@ -1978,39 +1993,46 @@
         ],
         "images": [
           {
+            "src": "",
+            "title": "HUIA — Google experiment case",
+            "type": "video",
+            "platform": "youtube",
+            "videoId": "T3anPB05Deo"
+          },
+          {
             "type": "video",
             "platform": "youtube",
             "videoId": "d8_xTUsyQdo",
             "src": "",
-            "title": "Creative Technology Showcase"
+            "title": "HUIA Platforms reel"
           },
           {
             "type": "video",
             "platform": "youtube",
             "videoId": "s-3rKGVUQiM",
             "src": "",
-            "title": "Digital Production & Innovation Reel"
+            "title": "HUIA Innovation reel"
           },
           {
             "type": "video",
             "platform": "youtube",
             "videoId": "u-bbxKjiZvk",
             "src": "",
-            "title": "Brand & Campaign Highlights"
+            "title": "Huia motion and websites reel"
           },
           {
             "type": "video",
             "platform": "youtube",
             "videoId": "1RpIxQtXwYY",
             "src": "",
-            "title": "Creative Direction Reel"
+            "title": "O Boticário responsive brand study"
           },
           {
             "type": "video",
             "platform": "youtube",
             "videoId": "TnaCQZDCAmo",
             "src": "",
-            "title": "Digital Experience Showcase"
+            "title": "Huia Bird interactive website"
           },
           {
             "src": "/projects/huia/huia-bird.webp",
@@ -2023,6 +2045,12 @@
           {
             "src": "/projects/huia/team-portraits.webp",
             "title": "The Huia Team"
+          }
+        ],
+        "links": [
+          {
+            "label": "Case video — the Huia bird and the Google experiment",
+            "url": "https://youtu.be/T3anPB05Deo"
           }
         ]
       },

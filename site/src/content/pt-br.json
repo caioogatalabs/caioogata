@@ -1841,20 +1841,20 @@
         "title": "Huia, Criatividade & Inovação",
         "slug": "huia",
         "year": "2013-21",
-        "description": "Oito anos num estúdio de tecnologia criativa em Porto Alegre — dois comandando squads, seis como sócio. O trabalho rodava em WebGL, reconhecimento facial e modelos de linguagem, anos antes de qualquer uma dessas coisas ser comum.",
+        "description": "Oito anos em um estúdio de creative technology em Porto Alegre: dois à frente de squads de produção, seis como sócio. O trabalho do estúdio era testar o que ainda não tinha ido ao ar em campanha — 3D no navegador, uma webcam que lê uma pose — e fazer aquilo funcionar para marcas como O Boticário, Petrobras e Tramontina.",
         "role": "Sócio, Head of Creative Technology",
-        "technologies": "Adobe Creative Suite, Premiere Pro, After Effects, Cinema 4D, WebGL, APIs de reconhecimento facial, primeiras integrações com LLM, plataformas de e-commerce, UX/UI Design, produção de vídeo, tecnologias para campanhas interativas, metodologias ágeis de criação",
-        "impact": "O estúdio passou de núcleo interno a quarenta pessoas, e foi adquirido pela Stefanini. Mais de 40 projetos liderados para Petrobras, O Boticário, Tramontina, Sicredi e marcas da Mondelez.",
+        "technologies": "WebGL, Three.js, GSAP, PoseNet, machine learning, motion design, Cinema 4D, After Effects, plataformas de e-commerce",
+        "impact": "Direção criativa e técnica em mais de 40 projetos. A plataforma de cupons feita para O Boticário mantinha mais de 2.000 lojas sincronizadas e aumentou o fluxo nas lojas em 30%. O estúdio saiu de núcleo dentro de uma agência para quarenta pessoas vendendo aplicações direto para o cliente, e foi adquirido pela Stefanini.",
         "caseStudyUrl": "/llms/projects/huia.txt",
         "sections": [
           {
             "type": "hero",
-            "body": "Oito anos liderando tecnologia criativa num estúdio de inovação digital — de núcleo especializado em produção a parceiro completo de grandes marcas."
+            "body": "Oito anos de creative technology, e onde Caio aprendeu a levar uma ideia do briefing até o código que a coloca de pé."
           },
           {
             "type": "challenge",
-            "challenge": "A Huia começou como um pequeno núcleo de produção dentro de uma agência maior, e precisava se firmar como parceira independente de tecnologia criativa.",
-            "solution": "Caio ajudou o estúdio a crescer de um núcleo dentro de uma agência para quarenta pessoas próprias, entregando trabalhos que rodavam em WebGL, reconhecimento facial e tecnologia experimental."
+            "challenge": "A Huia nasceu como núcleo de motion, vídeo e tecnologia, saído da agência W3haus, com a missão de testar o que ninguém tinha colocado no ar em campanha. O risco desse trabalho mora entre a ideia e a execução: a ideia sai da agência, passa por interface, 3D e código, e costuma perder no caminho aquilo que a tornava boa.",
+            "solution": "Caio cuidava dos dois lados. Liderava os especialistas de interface e motion e ficava com o time de desenvolvimento até a coisa entrar no ar, para que o que chegasse à tela ainda fosse a ideia que saiu da agência. Ao longo dos anos, liderou a virada do estúdio: de atender uma agência para vender aplicações, ferramentas, sites e marcas direto para o cliente, que virou a especialidade da casa."
           },
           {
             "type": "gallery-staggered",
@@ -1918,21 +1918,25 @@
             "stats": [
               {
                 "value": "40+",
-                "label": "Projetos digitais entregues"
+                "label": "Projetos liderados"
               },
               {
                 "value": "30%",
-                "label": "Mais tráfego nas lojas do O Boticário"
+                "label": "De aumento no fluxo das lojas do O Boticário"
+              },
+              {
+                "value": "2.000+",
+                "label": "Lojas sincronizadas todo dia"
               },
               {
                 "value": "40",
-                "label": "Pessoas no time, no auge"
+                "label": "Pessoas no auge do estúdio"
               }
             ]
           },
           {
             "type": "statement",
-            "body": "WebGL e reconhecimento facial no navegador anos antes de isso virar comum. Oito anos levaram o estúdio de núcleo dentro de uma agência a quarenta pessoas próprias."
+            "body": "Uma ave extinta reconstruída no navegador, e uma webcam que reconhecia um Hadouken. As duas coisas foram ao ar anos antes de qualquer uma delas ser comum."
           },
           {
             "type": "gallery-feature-list",
@@ -1946,7 +1950,7 @@
                   "platform": "youtube",
                   "videoId": "d8_xTUsyQdo"
                 },
-                "description": "Sites, aplicativos e e-commerce para marcas e agências, de hotsites de campanha a lojas online completas."
+                "description": "Sites, apps e e-commerce para marcas. O maior foi a plataforma de cupons do O Boticário: cupons de amostra grátis em mais de 2.000 lojas, com estoque de cupom e de produto sincronizado todo dia, para ninguém entrar numa loja atrás do que não estava lá."
               },
               {
                 "name": "Huia Innovation",
@@ -1957,10 +1961,10 @@
                   "platform": "youtube",
                   "videoId": "s-3rKGVUQiM"
                 },
-                "description": "Reconhecimento facial, IA ainda no começo e experiências interativas em campanhas comerciais, anos antes de qualquer uma delas ser comum."
+                "description": "Experimentos que foram ao ar. A ave do próprio estúdio, extinta desde o século passado, modelada e animada no navegador, e depois levada a um evento onde uma webcam lia a pose de quem estava na frente dela e a ave respondia."
               },
               {
-                "name": "Mídia",
+                "name": "Media",
                 "image": {
                   "src": "",
                   "title": "Huia motion and websites reel",
@@ -1968,7 +1972,18 @@
                   "platform": "youtube",
                   "videoId": "u-bbxKjiZvk"
                 },
-                "description": "Onde o estúdio começou: um núcleo especializado em produzir motion, vídeo e mídia interativa para agências."
+                "description": "Onde o estúdio começou: um núcleo especializado produzindo motion, vídeo e o volume de peças digitais que o e-commerce e a mídia do O Boticário consumiam."
+              },
+              {
+                "name": "A ave Huia e o experimento com o Google",
+                "image": {
+                  "src": "",
+                  "title": "HUIA — case do experimento com o Google",
+                  "type": "video",
+                  "platform": "youtube",
+                  "videoId": "T3anPB05Deo"
+                },
+                "description": "A ave do próprio estúdio, extinta desde o século passado, reconstruída para o navegador: cada elemento modelado do zero para ser controlado por código, renderizado em 3D com Three.js e animado com GSAP. Num evento ela ganhou uma câmera — a PoseNet, modelo de pose treinado pelo Google, lia o público por uma webcam comum, e três leituras da mesma pose, um Hadouken entre elas, disparavam a resposta da ave."
               }
             ]
           },
@@ -1978,39 +1993,46 @@
         ],
         "images": [
           {
+            "src": "",
+            "title": "HUIA — case do experimento com o Google",
+            "type": "video",
+            "platform": "youtube",
+            "videoId": "T3anPB05Deo"
+          },
+          {
             "type": "video",
             "platform": "youtube",
             "videoId": "d8_xTUsyQdo",
             "src": "",
-            "title": "Creative Technology Showcase"
+            "title": "Reel da HUIA Platforms"
           },
           {
             "type": "video",
             "platform": "youtube",
             "videoId": "s-3rKGVUQiM",
             "src": "",
-            "title": "Digital Production & Innovation Reel"
+            "title": "Reel da HUIA Innovation"
           },
           {
             "type": "video",
             "platform": "youtube",
             "videoId": "u-bbxKjiZvk",
             "src": "",
-            "title": "Brand & Campaign Highlights"
+            "title": "Reel de motion e sites da Huia"
           },
           {
             "type": "video",
             "platform": "youtube",
             "videoId": "1RpIxQtXwYY",
             "src": "",
-            "title": "Creative Direction Reel"
+            "title": "Estudo de marca responsiva do O Boticário"
           },
           {
             "type": "video",
             "platform": "youtube",
             "videoId": "TnaCQZDCAmo",
             "src": "",
-            "title": "Digital Experience Showcase"
+            "title": "Site interativo da ave Huia"
           },
           {
             "src": "/projects/huia/huia-bird.webp",
@@ -2023,6 +2045,12 @@
           {
             "src": "/projects/huia/team-portraits.webp",
             "title": "The Huia Team"
+          }
+        ],
+        "links": [
+          {
+            "label": "Vídeo do case — a ave Huia e o experimento com o Google",
+            "url": "https://youtu.be/T3anPB05Deo"
           }
         ]
       },

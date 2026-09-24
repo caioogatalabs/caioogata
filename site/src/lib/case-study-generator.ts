@@ -802,12 +802,13 @@ One of Huia's most impactful engagements was an ongoing partnership with O Botic
 Huia developed and operated a recurring online coupon distribution system:
 - **Frequency**: Nearly monthly campaigns, aligned with each product cycle or new product launch
 - **Mechanism**: Consumers redeemed coupons online through dedicated campaign websites, then visited physical franchise stores to claim free products or significant discounts
-- **Scale**: Nationwide reach across all O Boticário franchisees throughout Brazil
+- **Scale**: Nationwide reach across all O Boticário franchisees throughout Brazil — more than 2,000 stores
 - **Duration**: Campaigns ran monthly for approximately 3 consecutive years
+- **The hard part**: coupon and product stock had to stay in sync with every one of those stores, refreshed daily, so a coupon was only ever issued against something the chosen store actually had. The platform also had to hold the traffic a nationwide campaign brings the hour it opens.
 
 ### Impact
 
-- **+30% increase in franchise store traffic** across all Brazilian locations
+- **+30% increase in franchise store traffic** across all Brazilian locations: the coupon put someone in the store, and that visit rarely ended with the free sample alone
 - Created a measurable bridge between digital engagement and physical retail conversion
 - Demonstrated the power of integrated online-to-offline (O2O) marketing strategies
 - Became a recurring revenue and engagement engine for both the brand and its franchisees
@@ -822,8 +823,18 @@ A defining aspect of Huia's approach was the deep integration between creative a
 
 - **Collaborative Ideation**: Technologists sat alongside creatives during brainstorming sessions, making current technologies accessible for ideation
 - **Technology Translation**: The team translated complex technical capabilities into actionable creative possibilities
-- **Emerging Tech Integration**: Pioneered the commercial application of technologies that would later become mainstream — including facial recognition cameras, early AI integrations, and interactive digital experiences
-- **Innovation Before the Boom**: Utilized AI and computer vision in commercial campaigns years before these technologies entered the mainstream conversation
+- **Emerging Tech Integration**: Put technologies to commercial use years before they were ordinary — real-time 3D in the browser, computer vision through a plain webcam, and camera-driven interaction in live events
+- **Innovation Before the Boom**: Used computer vision in commercial campaigns years before it entered the mainstream conversation
+
+### The Huia Bird, and the Google Experiment
+
+The studio is named after a bird from New Zealand, extinct since the last century. Bringing it back was the studio's own project and its clearest demonstration.
+
+The bird was rebuilt for the browser: every element modelled from scratch so it could be driven from code, rendered in 3D with Three.js and animated with GSAP. It became the studio's website.
+
+It then went to an event with a camera pointed at the audience. PoseNet, a pose-estimation model trained by Google, read the body in the webcam feed; the team had recorded many people holding a given pose — a Hadouken among them — so the model would recognise it. Three consecutive reads of the same pose fired the bird's animation, and the piece answered whoever was standing in front of it.
+
+What made it work was not the stack. Designers, developers, 3D modellers and the audio team were in it from the first day rather than receiving a finished idea to execute, which is what kept production short and the result coherent.
 
 ### Production Capabilities
 
@@ -860,7 +871,7 @@ The studio maintained full-stack creative production capabilities:
 - **Design Tools**: Adobe Creative Suite, Sketch, Figma
 - **Video Production**: Premiere Pro, After Effects, Cinema 4D
 - **Development**: HTML5, CSS3, JavaScript, responsive frameworks
-- **Emerging Tech**: Facial Recognition APIs, early AI integration, AR experiences
+- **Emerging Tech**: WebGL and Three.js, PoseNet and other pre-trained vision models, camera-driven interaction, AR
 - **E-commerce**: Platform integration and custom solutions
 - **Methodologies**: Agile creative workflows, design thinking, UX research, collaborative ideation
 
@@ -874,7 +885,7 @@ The studio maintained full-stack creative production capabilities:
 - Established sustainable creative-tech collaboration methodology
 
 ### Client Impact
-- **O Boticário**: +30% franchise store traffic through monthly coupon campaigns (sustained 3+ years)
+- **O Boticário**: +30% franchise store traffic through monthly coupon campaigns (sustained 3+ years, 2,000+ stores)
 - **40+ Digital Projects**: Led creative direction across major brands
 - **Pioneered Emerging Tech**: Commercial applications of facial recognition and AI before mainstream adoption
 
@@ -979,12 +990,13 @@ Uma das entregas mais impactantes da Huia foi uma parceria contínua com O Botic
 A Huia desenvolveu e operou um sistema recorrente de distribuição de cupons online:
 - **Frequência**: Campanhas quase mensais, alinhadas a cada ciclo de produto ou lançamento
 - **Mecanismo**: Consumidores resgatavam cupons online em sites dedicados de campanha, depois visitavam lojas franqueadas para retirar produtos grátis ou obter descontos significativos
-- **Escala**: Alcance nacional em todas as franquias do O Boticário pelo Brasil
+- **Escala**: Alcance nacional em todas as franquias do O Boticário pelo Brasil — mais de 2.000 lojas
 - **Duração**: Campanhas rodaram mensalmente por aproximadamente 3 anos consecutivos
+- **A parte difícil**: o estoque de cupons e de produtos precisava ficar sincronizado com cada uma dessas lojas, atualizado todo dia, para que um cupom só fosse emitido contra algo que a loja escolhida realmente tinha. E a plataforma precisava segurar o tráfego que uma campanha nacional traz na hora em que abre.
 
 ### Impacto
 
-- **+30% de aumento no tráfego das lojas franqueadas** em todas as localizações brasileiras
+- **+30% de aumento no fluxo das lojas franqueadas** em todo o Brasil: o cupom colocava a pessoa dentro da loja, e essa visita raramente terminava só na amostra grátis
 - Criou uma ponte mensurável entre engajamento digital e conversão no varejo físico
 - Demonstrou o poder de estratégias integradas de marketing online-to-offline (O2O)
 - Tornou-se um motor recorrente de receita e engajamento tanto para a marca quanto para seus franqueados
@@ -999,8 +1011,18 @@ Um aspecto definidor da abordagem da Huia era a integração profunda entre equi
 
 - **Ideação Colaborativa**: Tecnólogos sentavam ao lado de criativos durante sessões de brainstorming, tornando tecnologias vigentes acessíveis para a ideação
 - **Tradução Tecnológica**: O time traduzia capacidades técnicas complexas em possibilidades criativas acionáveis
-- **Integração de Tecnologia Emergente**: Pioneiros na aplicação comercial de tecnologias que depois se tornariam mainstream — incluindo câmeras de reconhecimento facial, integrações iniciais de IA e experiências digitais interativas
-- **Inovação Antes do Boom**: Utilizou IA e visão computacional em campanhas comerciais anos antes dessas tecnologias entrarem na conversa mainstream
+- **Integração de Tecnologia Emergente**: Colocou em uso comercial tecnologias anos antes de serem comuns — 3D em tempo real no navegador, visão computacional por uma webcam comum e interação por câmera em eventos ao vivo
+- **Inovação Antes do Boom**: Usou visão computacional em campanhas comerciais anos antes de o assunto virar mainstream
+
+### A ave Huia e o experimento com o Google
+
+O estúdio tem o nome de uma ave da Nova Zelândia, extinta desde o século passado. Trazê-la de volta virou projeto da própria casa e a demonstração mais clara do que ela sabia fazer.
+
+A ave foi reconstruída para o navegador: cada elemento modelado do zero para poder ser controlado por código, renderizado em 3D com Three.js e animado com GSAP. Virou o site do estúdio.
+
+Depois foi para um evento, com uma câmera apontada para o público. A PoseNet, modelo de estimativa de pose treinado pelo Google, lia o corpo na imagem da webcam; o time tinha gravado muita gente fazendo uma mesma pose — um Hadouken entre elas — para o modelo aprender a reconhecê-la. Três leituras seguidas da mesma pose disparavam a animação, e a peça respondia a quem estivesse na frente dela.
+
+O que fez aquilo funcionar não foi a stack. Designers, desenvolvedores, quem modelava o 3D e o time de áudio estavam juntos desde o primeiro dia, em vez de receber uma ideia pronta para executar, e foi isso que encurtou a produção e manteve o resultado coerente.
 
 ### Capacidades de Produção
 
@@ -1037,7 +1059,7 @@ O estúdio mantinha capacidades completas de produção criativa:
 - **Ferramentas de Design**: Adobe Creative Suite, Sketch, Figma
 - **Produção de Vídeo**: Premiere Pro, After Effects, Cinema 4D
 - **Desenvolvimento**: HTML5, CSS3, JavaScript, frameworks responsivos
-- **Tecnologia Emergente**: APIs de Reconhecimento Facial, integração inicial de IA, experiências AR
+- **Tecnologia Emergente**: WebGL e Three.js, PoseNet e outros modelos de visão pré-treinados, interação por câmera, AR
 - **E-commerce**: Integração de plataformas e soluções customizadas
 - **Metodologias**: Workflows ágeis criativos, design thinking, pesquisa de UX, ideação colaborativa
 
@@ -1051,9 +1073,9 @@ O estúdio mantinha capacidades completas de produção criativa:
 - Estabeleceu metodologia sustentável de colaboração criativo-tecnológica
 
 ### Impacto nos Clientes
-- **O Boticário**: +30% de tráfego em lojas franqueadas através de campanhas mensais de cupons (sustentadas por 3+ anos)
+- **O Boticário**: +30% de tráfego em lojas franqueadas através de campanhas mensais de cupons (sustentadas por 3+ anos, mais de 2.000 lojas)
 - **40+ Projetos Digitais**: Liderou direção criativa para grandes marcas
-- **Pioneirismo em Tecnologia Emergente**: Aplicações comerciais de reconhecimento facial e IA antes da adoção mainstream
+- **Pioneirismo em Tecnologia Emergente**: Visão computacional em campanha comercial antes da adoção mainstream
 
 ### Contribuição para a Indústria
 - Demonstrou modelo viável para estúdios criativo-tecnológicos no Brasil
