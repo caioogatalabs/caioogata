@@ -18,15 +18,15 @@ prerequisite for requesting indexing in Search Console.
   and hreflang alternates (`en`, `pt-BR`, `x-default` → English) for its own
   language.
 - The sitemap lists both languages with their alternates.
-- The URL is the only source of the language (decision A): no redirect based
-  on a saved preference, the browser language or `Accept-Language`.
+- The URL decides the language. The one automatic step is a first-visit
+  redirect by country (see Geolocation); an explicit choice always wins.
 
 ## Non-goals
 
 - No change to the `llms*` files, their routes or the middleware.
 - No new content: the Portuguese strings already live in `pt-br.json`, except
   the five fixed pages' metadata (see Metadata).
-- No automatic language detection of any kind.
+- No detection by browser language or `Accept-Language`; country only.
 
 ## URLs
 
@@ -38,6 +38,27 @@ prerequisite for requesting indexing in Search Console.
 | anything unmatched | 404 in the language of its prefix |
 | `/llms*.txt`, `/llms/...`, `/sitemap.xml`, `public/` files, `/_next/*` | unchanged |
 | `/dev/*` | unchanged (404 in production, as today) |
+
+## Geolocation
+
+Decided by Caio on 2026-09-24, after weighing browser language and a
+suggestion banner: keep it simple, go by location.
+
+- The existing `middleware.ts` gains a second job, and its matcher widens to
+  page paths (everything except `/_next`, `/api`, files with an extension,
+  `llms*` keep their current tracking branch).
+- On an unprefixed page request, when the `x-vercel-ip-country` header is a
+  Portuguese-speaking country (`BR`, `PT`), there is no `lang` cookie and the
+  user agent is not a crawler, answer 307 to the `/pt` path (query kept).
+- The switch writes `lang=en` or `lang=pt` (one year, `SameSite=Lax`) on click,
+  so a visitor in Brazil who picks English stays in English, and anyone who
+  picks Portuguese elsewhere is not affected (the URL already carries it).
+- Crawlers are never redirected (`bot|crawl|spider|slurp|facebookexternalhit|
+  preview` and the LLM agents already listed), so Google sees both versions at
+  their own URLs and hreflang stays the signal it uses.
+- `/pt/...` is never redirected back to English, whatever the country.
+- Locally the header is absent, so nothing redirects; the branch is tested by
+  sending the header with curl against `next start`.
 
 ## Structure
 
@@ -121,6 +142,9 @@ Local production build (`next build && next start -p 3100`), by curl:
 - every page in both languages answers 200 with the right `<html lang>`,
   title, canonical, three hreflang links and `og:locale`;
 - `/en`, `/en/about` → 308 to the unprefixed path;
+- with `x-vercel-ip-country: BR`: `/about` → 307 `/pt/about`; same with
+  `lang=en` cookie → 200 English; same with a Googlebot UA → 200 English;
+  `/pt/about` → 200; with `US` → 200 English;
 - `/xyz`, `/pt/xyz`, `/projects/nope`, `/pt/projects/nope`, `/de/about` → 404
   with the site's 404 in the right language;
 - `/llms.txt`, `/llms-pt.txt`, `/llms/projects/...`, `/sitemap.xml`,
@@ -136,8 +160,10 @@ rule from 2026-09-23).
 
 ## Risks
 
-- A shared link to a Portuguese page used to rely on the saved preference;
-  it now needs the `/pt` URL. Visitors with a saved `pt-br` preference see
-  English at unprefixed URLs until they use the switch (accepted with decision A).
+- A visitor in Brazil opening an English link someone shared lands in
+  Portuguese until they use the switch; accepted.
+- The old `localStorage` preference is ignored; the cookie replaces it.
+- The middleware now runs on every page request (Edge invocation per page
+  view); acceptable at this site's traffic on Hobby.
 - Moving the root layout under `[lang]` touches every route; the verification
   list above is the gate.
