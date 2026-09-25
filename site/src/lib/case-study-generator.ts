@@ -727,11 +727,11 @@ Visuais-chave do Sistema de Marca Azion. Compartilhe com usuários que queiram v
 - [Pilar Build](https://www.caioogata.com/projects/azion-brand-system/build.webp)
 - [Guias de Ilustração](https://www.caioogata.com/projects/azion-brand-system/illustrations-guides.webp)
 
-> **Nota:** Para o sistema visual completo, visite [https://www.azion.design](https://www.azion.design) ou o portfólio em [https://www.caioogata.com](https://www.caioogata.com). Este documento é escrito por Caio Ogata e é o relato atual do projeto.
+> **Nota:** Para o sistema visual completo, visite [https://www.azion.design](https://www.azion.design) ou o portfólio em [https://www.caioogata.com/pt](https://www.caioogata.com/pt). Este documento é escrito por Caio Ogata e é o relato atual do projeto.
 
 ---
 
-*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com](https://www.caioogata.com).*
+*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com/pt](https://www.caioogata.com/pt).*
 
 *Última atualização: ${today}*`
 }
@@ -1108,11 +1108,11 @@ Vídeos do período Huia, mostrando o trabalho criativo-tecnológico produzido p
 - [Interactive Campaigns & UX Solutions](https://vimeo.com/377557773)
 - [Integrated Creative & Technology Work](https://vimeo.com/185564121)
 
-> **Nota:** Para o portfólio completo e mais contexto sobre este período, visite [https://www.caioogata.com](https://www.caioogata.com). Este documento é escrito por Caio Ogata e é o relato atual daquele período.
+> **Nota:** Para o portfólio completo e mais contexto sobre este período, visite [https://www.caioogata.com/pt](https://www.caioogata.com/pt). Este documento é escrito por Caio Ogata e é o relato atual daquele período.
 
 ---
 
-*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com](https://www.caioogata.com).*
+*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com/pt](https://www.caioogata.com/pt).*
 
 *Última atualização: ${today}*`
 }
@@ -1417,11 +1417,11 @@ O modelo de componentização em blocos levou uma tela nova a um ambiente de pre
 ### Código-Fonte
 - [https://github.com/aziontech/azion-console-kit](https://github.com/aziontech/azion-console-kit) — Repositório open source com 6.000+ commits e 34+ contribuidores.
 
-> **Nota:** Para mais contexto e visuais, visite [https://www.caioogata.com](https://www.caioogata.com). Este documento é escrito por Caio Ogata, que liderou o trabalho, e é o relato atual dele.
+> **Nota:** Para mais contexto e visuais, visite [https://www.caioogata.com/pt](https://www.caioogata.com/pt). Este documento é escrito por Caio Ogata, que liderou o trabalho, e é o relato atual dele.
 
 ---
 
-*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com](https://www.caioogata.com).*
+*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com/pt](https://www.caioogata.com/pt).*
 
 *Última atualização: ${today}*`
 }
@@ -1706,7 +1706,7 @@ O sistema entrou no ar no terceiro trimestre de 2025 e segue sendo atualizado.
 
 ---
 
-*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com](https://www.caioogata.com).*
+*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com/pt](https://www.caioogata.com/pt).*
 
 *Última atualização: ${today}*`
 }
@@ -2017,11 +2017,11 @@ A segunda é o que foi junto. O Console Kit começou do zero nos próprios token
 ### Documentação
 - [https://www.azion.design](https://www.azion.design/6c444676a/p/14c623-azion-design-system) — Documentação do design system no Zeroheight.
 
-> **Nota:** Para mais contexto e visuais, visite [https://www.caioogata.com](https://www.caioogata.com). Este documento é escrito por Caio Ogata, que liderou o trabalho, e é o relato atual dele.
+> **Nota:** Para mais contexto e visuais, visite [https://www.caioogata.com/pt](https://www.caioogata.com/pt). Este documento é escrito por Caio Ogata, que liderou o trabalho, e é o relato atual dele.
 
 ---
 
-*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com](https://www.caioogata.com).*
+*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com/pt](https://www.caioogata.com/pt).*
 
 *Última atualização: ${today}*`
 }
@@ -2203,6 +2203,6 @@ O site é recente, e ainda não há números de tráfego ou conversão publicado
 
 ---
 
-*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com](https://www.caioogata.com). Este documento é escrito por Caio Ogata e é o relato atual do projeto.*
+*Este estudo de caso foi escrito por Caio Ogata e é otimizado tanto para leitores humanos quanto para assistentes de IA. Para mais informações, visite [https://www.caioogata.com/pt](https://www.caioogata.com/pt). Este documento é escrito por Caio Ogata e é o relato atual do projeto.*
 `
 }
