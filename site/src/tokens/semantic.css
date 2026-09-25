@@ -93,6 +93,7 @@
   --text-heading-md:           var(--primitive-text-2xl);   /* 24px — Epilogue Semibold, lh 1.3, tracking 0 */
   --text-heading-sm:           var(--primitive-text-xl);    /* 20px — Epilogue Semibold, lh 1.3, tracking 0 */
   /* Body */
+  --text-body-xl:              1.625rem;                    /* 26px — About bio paragraphs from xl (1280) up; no primitive step between 24 and 30 */
   --text-body-lg:              var(--primitive-text-lg);    /* 18px — Epilogue Regular, lh 1.6, tracking 0 */
   --text-body-md:              var(--primitive-text-base);  /* 16px — Epilogue Regular, lh 1.5, tracking 0 */
   --text-body-sm:              var(--primitive-text-sm);    /* 14px — Epilogue Regular, lh 1.5, tracking 0 */
