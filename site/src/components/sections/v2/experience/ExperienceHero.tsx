@@ -15,7 +15,7 @@ interface ExperienceHeroProps {
  * page now opens the way /projects and /philosophy do — one screen, one
  * sentence, then the list.
  *
- * The first line starts on column 4, with the same derived indent as the /about
+ * The first line starts on column 5 on desktop, with the same derived indent as the /about
  * hero (see AboutPinned for the arithmetic). The
  * indent rides a CSS variable rather than a JS breakpoint check, because
  * `SplitText` reads `text-indent` off the computed style and applies it to the
@@ -27,7 +27,7 @@ export function ExperienceHero({ headline }: ExperienceHeroProps) {
     <div className="relative bg-bg">
       <div className="flex min-h-[60vh] items-center px-5 py-16 md:px-8 md:py-20 lg:px-8 lg:py-24">
         <div className="grid w-full grid-cols-4 gap-4 md:grid-cols-8 md:gap-5 lg:grid-cols-12">
-          <div className="col-span-4 md:col-span-8 lg:col-span-12 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]">
+          <div className="col-span-4 md:col-span-8 lg:col-span-12 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(33.3333%_+_6.667px)]">
             <SplitText
               type="line"
               text={headline}

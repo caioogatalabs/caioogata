@@ -67,7 +67,7 @@ export function PhilosophyBlock({ paragraphs, closingQuote }: PhilosophyBlockPro
         </Grid>
 
         {closingQuote && (
-          <div className="mt-16 md:mt-20 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:8em]">
+          <div className="mt-16 md:mt-20 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:8em] lg:[--line1-indent:calc(33.3333%_+_6.667px)]">
             <SplitText
               type="line"
               text={closingQuote}

@@ -21,7 +21,7 @@ export function PhilosophyHero({ title, headline }: PhilosophyHeroProps) {
     <div className="relative bg-bg">
       <div className="min-h-[60vh] flex items-center px-5 md:px-8 lg:px-8 py-16 md:py-20 lg:py-24">
         <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-5 w-full">
-          <div className="col-span-4 md:col-span-8 lg:col-span-12 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:8em]">
+          <div className="col-span-4 md:col-span-8 lg:col-span-12 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:8em] lg:[--line1-indent:calc(33.3333%_+_6.667px)]">
             <SplitText
               type="line"
               as="span"

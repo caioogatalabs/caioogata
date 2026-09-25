@@ -342,16 +342,17 @@ export function AboutPinned() {
               was an accident: the exit progress started at 0.43 at rest, so
               the portrait was drawn 145px above where it was laid out, and the
               paragraph read as low only because the picture had ridden up. */}
-          {/* The first line starts on column 4 of whichever grid is in force,
-              derived rather than eyeballed. For a track of width W with gap g,
-              column 4 begins at 3 columns + 3 gaps, which reduces to W/4 + g/4
-              on the 12-col grid and 3W/8 + 3g/8 on the 8-col one. It was a flat
+          {/* The first line starts on a column boundary of whichever grid is
+              in force, derived rather than eyeballed. For a track of width W
+              with gap g, column n begins at (n-1)(W + g)/12 on the 12-col grid.
+              Desktop starts on column 5, the 4-4-4 split: W/3 + g/3, with the
+              20px gap. The 8-col grid starts on column 4, 3W/8 + 3g/8. It was a flat
               `8em` before — 384px at this size, which on a 350px phone pushed
               the whole paragraph off screen. Mobile starts on column 2 of its
               four, W/4 + g/4 with the 16px gap. SplitText reads this off the
               parent and moves it onto the first line only. */}
           <div
-            className="pointer-events-none col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 lg:self-end z-20 -mt-[22%] lg:mt-0 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(25%_+_5px)]"
+            className="pointer-events-none col-span-4 md:col-span-8 md:col-start-1 lg:col-span-12 lg:col-start-1 lg:row-start-1 lg:self-end z-20 -mt-[22%] lg:mt-0 [--line1-indent:calc(25%_+_4px)] md:[--line1-indent:calc(37.5%_+_7.5px)] lg:[--line1-indent:calc(33.3333%_+_6.667px)]"
             style={{ opacity: 1 - outText, transform: `translateY(${textDrift}px)` }}
           >
             <SplitText
