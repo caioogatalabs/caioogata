@@ -86,7 +86,7 @@ export function ProjectRow({
         </a>
       </div>
 
-      <p className="-entrance -mask-down -a-1 text-balance text-[14px] leading-[1.5] text-text-secondary lg:sr-only">
+      <p className="-entrance -mask-down -a-1 text-balance text-body-md leading-[1.5] text-text-secondary lg:sr-only">
         {summary}
       </p>
     </article>

@@ -175,7 +175,7 @@ export function ProjectsGrid() {
                 like the title on the other side. */}
             <GridItem span={2} start={11}>
               <Reveal key={current.slug} token={current.slug}>
-                <p className="-entrance -mask-down -a-1 text-balance text-[14px] leading-[1.5] text-text-secondary">
+                <p className="-entrance -mask-down -a-1 text-balance text-body-md leading-[1.5] text-text-secondary">
                   {summaryOf(current)}
                 </p>
               </Reveal>

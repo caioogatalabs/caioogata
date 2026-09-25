@@ -375,7 +375,7 @@ export function IntroSection() {
         <Grid className={BLOCK_GAP}>
           <GridItem mobileSpan={4} tabletSpan={6} span={6} start={7} className="md:col-start-3">
             <p
-              className="-entrance -fade -a-7 text-[14px] leading-[1.5] text-text-secondary"
+              className="-entrance -fade -a-7 text-body-md leading-[1.5] text-text-secondary"
               style={{ fontFamily: 'var(--font-sans)', ...exitRising(outHero, 38) }}
             >
               {content.hero.summary}
