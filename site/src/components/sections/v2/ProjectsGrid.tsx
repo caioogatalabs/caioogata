@@ -67,7 +67,7 @@ function Reveal({
 
 export function ProjectsGrid() {
   const { content } = useLanguage()
-  const projects = content.projects.items.filter((p) => !p.disabled)
+  const projects = content.projects.items
 
   // Which project owns the copy right now. The list shows one text at a time,
   // so the covers are watched against a zero-height band at the middle of the

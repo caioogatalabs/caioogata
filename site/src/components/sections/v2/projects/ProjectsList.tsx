@@ -12,7 +12,7 @@ import { useLanguage } from '@/components/providers/LanguageProvider'
  */
 export function ProjectsList() {
   const { content } = useLanguage()
-  const projects = content.projects.items.filter((p) => !p.disabled)
+  const projects = content.projects.items
   const sectionRef = useInView({ threshold: 0.1 })
 
   // Chunk into rows of 2 (matches home ProjectsGrid rhythm).

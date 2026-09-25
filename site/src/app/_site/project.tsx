@@ -11,9 +11,7 @@ import { contentFor, pageMetadata } from '@/lib/seo'
 type Params = Promise<{ slug: string }>
 
 export function projectStaticParams() {
-  return contentFor('en')
-    .projects.items.filter((p) => !p.disabled)
-    .map((p) => ({ slug: p.slug }))
+  return contentFor('en').projects.items.map((p) => ({ slug: p.slug }))
 }
 
 export async function projectMetadata(locale: Locale, params: Params): Promise<Metadata> {
@@ -41,7 +39,7 @@ export async function projectMetadata(locale: Locale, params: Params): Promise<M
 export async function ProjectRoute({ locale, params }: { locale: Locale; params: Params }) {
   const { slug } = await params
   const project = contentFor(locale).projects.items.find((p) => p.slug === slug)
-  if (!project || project.disabled) notFound()
+  if (!project) notFound()
 
   return (
     <main id="main-content">

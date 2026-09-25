@@ -22,7 +22,7 @@ const TITLE = 'Creative Designer'
 export function generateLLMSIndex(): string {
   const content = enContent as Content
   const today = new Date().toISOString().split('T')[0]
-  const caseStudies = content.projects.items.filter(p => p.caseStudyUrl && !p.disabled)
+  const caseStudies = content.projects.items.filter(p => p.caseStudyUrl)
 
   return `---
 type: professional_portfolio_index
@@ -225,7 +225,7 @@ function generateAIInstructions(isEnglish: boolean): string {
 }
 
 function generateLLMIndex(content: Content, isEnglish: boolean): string {
-  const caseStudies = content.projects.items.filter(p => p.caseStudyUrl && !p.disabled)
+  const caseStudies = content.projects.items.filter(p => p.caseStudyUrl)
   const caseStudyLabel = isEnglish ? 'Case study' : 'Estudo de caso'
 
   return [

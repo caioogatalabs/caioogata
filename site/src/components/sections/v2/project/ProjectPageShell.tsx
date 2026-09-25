@@ -75,14 +75,14 @@ export function ProjectPageShell({ project: projectFromRoute }: ProjectPageShell
   // The route resolves the slug in its own language; the lookup here keeps the
   // lateral list and the index in the same file as the page.
   const { content } = useLanguage()
-  const enabledProjects = content.projects.items.filter(p => !p.disabled)
-  const project = enabledProjects.find(p => p.slug === projectFromRoute.slug) ?? projectFromRoute
-  const lateralItems = enabledProjects.map(p => ({
+  const projects = content.projects.items
+  const project = projects.find(p => p.slug === projectFromRoute.slug) ?? projectFromRoute
+  const lateralItems = projects.map(p => ({
     href: `/projects/${p.slug}`,
     title: p.title,
   }))
   const sections = project.sections || []
-  const projectIndex = enabledProjects.findIndex(p => p.slug === project.slug)
+  const projectIndex = projects.findIndex(p => p.slug === project.slug)
 
   // The stats travel with the challenge row, so the two have to be paired
   // before either is rendered.

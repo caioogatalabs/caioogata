@@ -14,7 +14,7 @@ import { absoluteUrl, languageAlternates } from '@/lib/seo'
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const today = new Date()
-  const projects = content.projects.items.filter(p => !p.disabled)
+  const projects = content.projects.items
 
   const paths: { path: string; priority: number }[] = [
     { path: '/', priority: 1.0 },

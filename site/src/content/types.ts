@@ -146,7 +146,6 @@ export interface ProjectItem {
   /** Home list cover, a 16:10 1920x1200 screen (PROJECTS-GUIDE.md › Home Cover). Falls back to the first image. */
   cover?: string
   gridLayout?: 'default' | 'large-only'
-  disabled?: boolean
   sections?: ProjectSection[]
   year?: string
   colors?: [string, string, string]
