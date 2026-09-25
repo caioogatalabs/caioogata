@@ -134,6 +134,8 @@ export interface ProjectItem {
   title: string
   slug: string
   description: string
+  /** The line under the project on the home list. Falls back to the first sentence of `description`. */
+  summary?: string
   role?: string
   technologies?: string
   impact?: string

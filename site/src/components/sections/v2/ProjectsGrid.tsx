@@ -18,13 +18,13 @@ function coverOf(project: Project): string | undefined {
 }
 
 /**
- * PLACEHOLDER — the column wants a two-line summary and `description` runs
- * 345–554 characters. There is no summary field in the content yet, so this
- * takes the first sentence. Replace with an authored `summary` per project.
+ * The column wants a short line and `description` runs 345–554 characters, so
+ * a project states its own `summary`; without one, the first sentence of the
+ * description stands in.
  */
 function summaryOf(project: Project): string {
-  const first = project.description.split(/(?<=\.)\s/)[0] ?? project.description
-  return first
+  if (project.summary) return project.summary
+  return project.description.split(/(?<=\.)\s/)[0] ?? project.description
 }
 
 /**
@@ -175,7 +175,7 @@ export function ProjectsGrid() {
                 like the title on the other side. */}
             <GridItem span={2} start={11}>
               <Reveal key={current.slug} token={current.slug}>
-                <p className="-entrance -mask-down -a-1 text-balance text-body-md leading-[1.5] text-text-secondary">
+                <p className="-entrance -mask-down -a-1 text-balance text-[14px] leading-[1.5] text-text-secondary">
                   {summaryOf(current)}
                 </p>
               </Reveal>
