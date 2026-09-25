@@ -60,9 +60,9 @@
   "hero": {
     "name": "Caio Ogata",
     "welcomeTitle": "Welcome to Caio Ogata Portfolio",
-    "tagline": "Creative Designer who learned to build.",
+    "tagline": "Creative Designer who designs and builds.",
     "tagline2": "Twenty years in advertising, fifteen in interfaces, and a self-taught path into code.",
-    "summary": "Caio Ogata is a Creative Designer who learned to build. Twenty years in advertising, fifteen in interfaces, and a self-taught path into code. Based in Porto Alegre, he works across brand, interface and the code underneath — and takes it from idea to production.",
+    "summary": "Caio Ogata is a Creative Designer who designs and develops websites. Twenty years in advertising, fifteen in interfaces, and a self-taught path into code. Based in Porto Alegre, he works across brand, interface and the code underneath, taking projects from idea to production.",
     "location": "Porto Alegre, Brazil",
     "cta": {
       "copy": "Share with AI",
@@ -2249,7 +2249,7 @@
     },
     "intro": {
       "headlineLine1": "Creative Designer",
-      "headlineLine2": "who learned to build.",
+      "headlineLine2": "who designs and builds.",
       "askAi": "Ask AI about Caio",
       "scrollDown": "scroll down"
     },
@@ -2339,7 +2339,7 @@
     "seo": {
       "home": {
         "title": "Caio Ogata — Creative Designer",
-        "description": "Creative Designer who learned to build. Twenty years in advertising, fifteen in interfaces, and a self-taught path into code."
+        "description": "Creative Designer who designs and builds. Twenty years in advertising, fifteen in interfaces, and a self-taught path into code."
       },
       "about": {
         "title": "About - Caio Ogata",

@@ -60,9 +60,9 @@
   "hero": {
     "name": "Caio Ogata",
     "welcomeTitle": "Bem-vindo ao portfólio de Caio Ogata",
-    "tagline": "Creative Designer que aprendeu a desenvolver.",
-    "tagline2": "Vinte anos de publicidade, quinze de interfaces e um caminho autodidata até o código.",
-    "summary": "Caio Ogata é Creative Designer. Vinte anos de publicidade, quinze de interfaces e um caminho autodidata até o código. De Porto Alegre, trabalha entre marca, interface e tecnologia, acompanhando uma ideia por inteiro, do conceito ao que finalmente ganha vida em produção.",
+    "tagline": "Creative Designer que desenha e desenvolve.",
+    "tagline2": "São vinte anos em publicidade, quinze trabalhando com interfaces e um caminho autodidata até o código.",
+    "summary": "Caio Ogata é Creative Designer e cria e desenvolve sites. São vinte anos em publicidade, quinze trabalhando com interfaces e um caminho autodidata até o código. De Porto Alegre, trabalha entre marca, interface e o código por trás delas, levando projetos da ideia à produção.",
     "location": "Porto Alegre, Brasil",
     "cta": {
       "copy": "Compartilhar com IA",
@@ -2249,7 +2249,7 @@
     },
     "intro": {
       "headlineLine1": "Creative Designer",
-      "headlineLine2": "que aprendeu a desenvolver.",
+      "headlineLine2": "que desenha e desenvolve.",
       "askAi": "Pergunte à IA",
       "scrollDown": "role para baixo"
     },
@@ -2339,7 +2339,7 @@
     "seo": {
       "home": {
         "title": "Caio Ogata — Creative Designer",
-        "description": "Creative Designer que aprendeu a desenvolver. Vinte anos de publicidade, quinze de interfaces e um caminho autodidata até o código."
+        "description": "Creative Designer que desenha e desenvolve. São vinte anos em publicidade, quinze trabalhando com interfaces e um caminho autodidata até o código."
       },
       "about": {
         "title": "Sobre - Caio Ogata",
