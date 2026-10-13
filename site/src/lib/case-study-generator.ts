@@ -26,7 +26,7 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 **Industry**: Edge Computing Platform
 **Project Type**: Comprehensive Brand Identity System
 **Duration**: 2021–2022
-**Role**: Design Director Director
+**Role**: Design Director
 **Deliverable**: Azion Brand Book v2 (complete brand guidelines and visual identity system)
 
 ---
@@ -417,7 +417,7 @@ optimized_for: Claude, ChatGPT, Gemini, LLMs
 **Setor**: Plataforma de Edge Computing
 **Tipo de Projeto**: Sistema Abrangente de Identidade de Marca
 **Duração**: 2021–2022
-**Papel**: Design Director Director
+**Papel**: Design Director
 **Entrega**: Azion Brand Book v2 (diretrizes completas de marca e sistema de identidade visual)
 
 ---
