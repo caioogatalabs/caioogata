@@ -11,7 +11,7 @@ import { CopyEmail } from '@/components/ui/CopyEmail'
 const SOCIAL = [
   { label: 'Linkedin', href: 'https://www.linkedin.com/in/caioogata/' },
   { label: 'GitHub', href: 'https://github.com/caioogatalabs' },
-  { label: 'Instagram', href: 'https://www.instagram.com/caioogata.labs' },
+  { label: 'Instagram', href: 'https://www.instagram.com/caioogata/' },
   { label: 'Youtube', href: 'https://www.youtube.com/@caioogatalabs' },
 ] as const
 
