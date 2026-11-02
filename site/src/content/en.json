@@ -2317,7 +2317,8 @@
       "links": "Links",
       "challenge": "Challenge",
       "solution": "Solution",
-      "results": "Results"
+      "results": "Results",
+      "nextProject": "Next Project"
     },
     "video": {
       "mute": "mute",

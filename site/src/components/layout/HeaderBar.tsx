@@ -102,14 +102,16 @@ function usePublishMetrics(stickyTop: boolean) {
 }
 
 /**
- * True once the project navigation strip has climbed to the top of an open
- * project page — the moment the header hands it the place.
+ * True once the body of an open project — everything after the hero — has
+ * climbed to the top of the viewport, the moment the header steps aside. The
+ * case then reads with only the navigation strip pinned at the bottom.
  *
- * The header watches the strip rather than the strip telling the header: the
- * rule ("the site bar yields here") belongs to the bar, and this keeps
- * PageNavigation a plain strip that five routes share without knowing why.
+ * The header watches the page rather than the page telling the header: the
+ * rule ("the site bar yields here") belongs to the bar. It used to watch the
+ * strip itself, back when the strip pinned to the top and took the header's
+ * place, and found it by its English aria-label, so /pt never yielded.
  */
-function useYieldToProjectNav(active: boolean) {
+function useYieldToProjectBody(active: boolean) {
   const [yielded, setYielded] = useState(false)
 
   useEffect(() => {
@@ -121,8 +123,8 @@ function useYieldToProjectNav(active: boolean) {
     let ticking = false
     const check = () => {
       ticking = false
-      const nav = document.querySelector('nav[aria-label="Page navigation"]')
-      if (nav) setYielded(nav.getBoundingClientRect().top <= 1)
+      const body = document.querySelector('[data-project-body]')
+      if (body) setYielded(body.getBoundingClientRect().top <= 1)
     }
     const onScroll = () => {
       if (!ticking) {
@@ -179,11 +181,12 @@ export function HeaderBar() {
   // `/projects` itself is an index, not a project, so only a slug counts.
   const isOpenProject = /^\/projects\/[^/]+$/.test(stripLocale(pathname))
 
-  // On an open project the bar holds the top until the project navigation
-  // reaches it, then steps aside and lets that strip have the place. Elsewhere
-  // the strip pins below the bar instead, which is what `--sticky-top` carries.
+  // On an open project the bar holds the top until the case body reaches it,
+  // then steps aside; the project navigation is pinned to the bottom there.
+  // Elsewhere the strip pins below the bar instead, which is what
+  // `--sticky-top` carries.
   const ref = usePublishMetrics(!isOpenProject)
-  const yielded = useYieldToProjectNav(isOpenProject)
+  const yielded = useYieldToProjectBody(isOpenProject)
 
   const { content, localize } = useLanguage()
   const t = content.ui.header

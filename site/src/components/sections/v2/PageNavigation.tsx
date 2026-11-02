@@ -25,6 +25,7 @@ import { usePathname } from 'next/navigation'
 import { useInteractionMode } from '@/hooks/useInteractionMode'
 import { fill, useLanguage } from '@/components/providers/LanguageProvider'
 import { stripLocale } from '@/lib/i18n'
+import { Grid, GridItem } from '@/components/layout/Grid'
 
 export interface PageNavigationLateralItem {
   href: string
@@ -37,6 +38,8 @@ export interface PageNavigationProps {
     items: PageNavigationLateralItem[]
     currentIndex: number
     scope: string  // 'categories' | 'projects'
+    /** Replaces the "to navigate {scope}" hint beside the arrows. */
+    label?: string
   }
   /**
    * Render up/down/enter hints for in-page item navigation. Visual-only —
@@ -48,10 +51,22 @@ export interface PageNavigationProps {
     enterLabel?: string  // e.g. "to expand" — defaults to "to expand"
   }
   /**
-   * When false, the nav renders inline (no sticky positioning, no backdrop blur).
-   * Used for the bottom navbar on Experience. Defaults to true (sticky top).
+   * Which viewport edge the strip pins to. 'top' (the default) pins it under
+   * the header. 'bottom' pins it to the foot of the viewport for as long as
+   * its parent is on screen, so it has to be the parent's last child — the
+   * open project uses it that way. When false, the nav renders inline (no
+   * sticky positioning, no backdrop blur), the bottom mirror on /philosophy
+   * and the projects index.
    */
-  sticky?: boolean
+  sticky?: 'top' | 'bottom' | false
+  /**
+   * Lay the strip on the page's 12-column grid instead of one inline row:
+   * Esc on the left, the lateral arrows set flush right in the last two
+   * columns, the lane the open project's image descriptions take
+   * (ProjectGalleryFeatureList, ProjectGalleryFullDetail). `items` is not
+   * rendered in this layout.
+   */
+  grid?: boolean
 }
 
 function ArrowLeftIcon() {
@@ -122,7 +137,7 @@ function KeyBadgeDisabled({
   )
 }
 
-export function PageNavigation({ back, lateral, items, sticky = true }: PageNavigationProps) {
+export function PageNavigation({ back, lateral, items, sticky = 'top', grid = false }: PageNavigationProps) {
   const { content, localize } = useLanguage()
   const t = content.ui.pageNav
   // Callers pass unprefixed paths; they are localized here, at the link.
@@ -184,9 +199,86 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
   // Adaptive Esc keycap: arrow icon for mouse/touch, literal "Esc" text for keyboard.
   const showBackAsArrow = mode === 'mouse' || mode === 'touch'
 
-  const navClassName = sticky
-    ? 'sticky top-[var(--sticky-top,0px)] z-40 bg-bg backdrop-blur-xl border-t border-border-secondary px-5 md:px-8 lg:px-8 py-3'
-    : 'bg-bg border-t border-border-secondary px-5 md:px-8 lg:px-8 py-3'
+  // In the grid layout the Grid carries the gutter, so the strip only pads
+  // vertically.
+  const STRIP = `bg-bg border-t border-border-subtle py-3 ${grid ? '' : 'px-5 md:px-8 lg:px-8'}`
+  const navClassName =
+    sticky === 'top'
+      ? `sticky top-[var(--sticky-top,0px)] z-40 backdrop-blur-xl ${STRIP}`
+      : sticky === 'bottom'
+        ? `sticky bottom-0 z-40 backdrop-blur-xl ${STRIP}`
+        : STRIP
+
+  const escGroup = showEsc && (
+    <div className="flex items-center gap-1.5">
+      <KeyBadgeLink
+        href={backHref}
+        forwardRef={escLinkRef}
+        isActive={activeKey === 'esc'}
+        ariaLabel={back?.label ?? t.backHome}
+      >
+        {showBackAsArrow ? <ArrowLeftIcon /> : 'Esc'}
+      </KeyBadgeLink>
+      <span className="text-xs text-text-tertiary">
+        {back?.label ?? t.backHome}
+      </span>
+    </div>
+  )
+
+  const lateralGroup = lateral && (
+    <div className="flex items-center gap-1">
+      {prev ? (
+        <KeyBadgeLink
+          href={localize(prev.href)}
+          forwardRef={prevLinkRef}
+          isActive={activeKey === 'left'}
+          ariaLabel={fill(t.previous, { title: prev.title })}
+        >
+          <ArrowLeftIcon />
+        </KeyBadgeLink>
+      ) : (
+        <KeyBadgeDisabled ariaLabel={t.previousDisabled}>
+          <ArrowLeftIcon />
+        </KeyBadgeDisabled>
+      )}
+      {next ? (
+        <KeyBadgeLink
+          href={localize(next.href)}
+          forwardRef={nextLinkRef}
+          isActive={activeKey === 'right'}
+          ariaLabel={fill(t.next, { title: next.title })}
+        >
+          <ArrowRightIcon />
+        </KeyBadgeLink>
+      ) : (
+        <KeyBadgeDisabled ariaLabel={t.nextDisabled}>
+          <ArrowRightIcon />
+        </KeyBadgeDisabled>
+      )}
+      <span className="text-xs text-text-tertiary ml-0.5">
+        {lateral.label ?? fill(t.navigateScope, { scope: lateral.scope })}
+      </span>
+    </div>
+  )
+
+  if (grid) {
+    return (
+      <nav aria-label={t.label} className={navClassName}>
+        <Grid className="items-center">
+          {escGroup && (
+            <GridItem span={10} tabletSpan={4} mobileSpan={2}>
+              {escGroup}
+            </GridItem>
+          )}
+          {lateralGroup && (
+            <GridItem span={2} start={11} tabletSpan={4} tabletStart={5} mobileSpan={2} className="flex justify-end whitespace-nowrap">
+              {lateralGroup}
+            </GridItem>
+          )}
+        </Grid>
+      </nav>
+    )
+  }
 
   return (
     <nav
@@ -194,62 +286,11 @@ export function PageNavigation({ back, lateral, items, sticky = true }: PageNavi
       className={navClassName}
     >
       <div className="flex items-center gap-3 flex-wrap">
-        {showEsc && (
-          <>
-            <div className="flex items-center gap-1.5">
-              <KeyBadgeLink
-                href={backHref}
-                forwardRef={escLinkRef}
-                isActive={activeKey === 'esc'}
-                ariaLabel={back?.label ?? t.backHome}
-              >
-                {showBackAsArrow ? <ArrowLeftIcon /> : 'Esc'}
-              </KeyBadgeLink>
-              <span className="text-xs text-text-tertiary">
-                {back?.label ?? t.backHome}
-              </span>
-            </div>
-            {lateral && (
-              <span className="text-xs text-text-tertiary opacity-40">·</span>
-            )}
-          </>
+        {escGroup}
+        {escGroup && lateralGroup && (
+          <span className="text-xs text-text-tertiary opacity-40">·</span>
         )}
-
-        {lateral && (
-          <div className="flex items-center gap-1">
-            {prev ? (
-              <KeyBadgeLink
-                href={localize(prev.href)}
-                forwardRef={prevLinkRef}
-                isActive={activeKey === 'left'}
-                ariaLabel={fill(t.previous, { title: prev.title })}
-              >
-                <ArrowLeftIcon />
-              </KeyBadgeLink>
-            ) : (
-              <KeyBadgeDisabled ariaLabel={t.previousDisabled}>
-                <ArrowLeftIcon />
-              </KeyBadgeDisabled>
-            )}
-            {next ? (
-              <KeyBadgeLink
-                href={localize(next.href)}
-                forwardRef={nextLinkRef}
-                isActive={activeKey === 'right'}
-                ariaLabel={fill(t.next, { title: next.title })}
-              >
-                <ArrowRightIcon />
-              </KeyBadgeLink>
-            ) : (
-              <KeyBadgeDisabled ariaLabel={t.nextDisabled}>
-                <ArrowRightIcon />
-              </KeyBadgeDisabled>
-            )}
-            <span className="text-xs text-text-tertiary ml-0.5">
-              {fill(t.navigateScope, { scope: lateral.scope })}
-            </span>
-          </div>
-        )}
+        {lateralGroup}
 
         {items && (
           <>

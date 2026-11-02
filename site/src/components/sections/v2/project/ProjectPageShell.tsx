@@ -89,7 +89,8 @@ export function ProjectPageShell({ project: projectFromRoute }: ProjectPageShell
 
   const heroSection = sections.find(s => s.type === 'hero')
   const heroIndex = sections.findIndex(s => s.type === 'hero')
-  const restSections = sections.filter(s => s.type !== 'hero')
+  const restSections = sections.filter(s => s.type !== 'hero' && s.type !== 'info')
+  const infoSection = sections.find(s => s.type === 'info')
 
   return (
     <div className="min-h-screen bg-bg overflow-x-clip">
@@ -108,22 +109,44 @@ export function ProjectPageShell({ project: projectFromRoute }: ProjectPageShell
         )}
       </div>
 
-      {/* Unified page navigation — below hero (single instance) */}
-      <PageNavigation
-        back={{ href: '/', label: content.ui.project.backHome }}
-        lateral={{ items: lateralItems, currentIndex: projectIndex, scope: 'projects' }}
-      />
+      {/* Case body — everything after the hero. The navigation strip sits
+          in it just before the credits, pinned to the foot of the viewport:
+          confined to this wrapper, it rises in from the bottom edge as the
+          hero ends, holds there through the case, and comes to rest on top of
+          the credits as they arrive. HeaderBar watches `data-project-body` to
+          step aside once the body reaches the top. */}
+      <div data-project-body>
+        {restSections.map((section, i) => (
+          <SectionBlock
+            key={i}
+            section={section}
+            index={i}
+            project={project}
+            projectIndex={projectIndex}
+          />
+        ))}
 
-      {/* Remaining sections */}
-      {restSections.map((section, i) => (
-        <SectionBlock
-          key={i}
-          section={section}
-          index={i}
-          project={project}
-          projectIndex={projectIndex}
+        <PageNavigation
+          sticky="bottom"
+          grid
+          back={{ href: '/', label: content.ui.project.backHome }}
+          lateral={{
+            items: lateralItems,
+            currentIndex: projectIndex,
+            scope: content.ui.pageNav.scopeProjects,
+            label: content.ui.project.nextProject,
+          }}
         />
-      ))}
+
+        {infoSection && (
+          <SectionBlock
+            section={infoSection}
+            index={restSections.length}
+            project={project}
+            projectIndex={projectIndex}
+          />
+        )}
+      </div>
     </div>
   )
 }

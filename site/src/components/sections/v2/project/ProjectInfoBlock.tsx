@@ -37,11 +37,11 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
   return (
     <section
       ref={sectionRef as React.RefObject<HTMLElement>}
-      className="pt-24 pb-8 border-t border-border-primary"
+      className="pt-24 pb-8 border-t border-border-subtle"
     >
       <Grid>
-        {/* Col 1: Project + Role + Year */}
-        <GridItem span={3} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-0">
+        {/* Columns 1-4: Project + Role + Year — the case's label lane */}
+        <GridItem span={4} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-0">
           <div className="space-y-6">
             <div>
               <Label>{t.project}</Label>
@@ -58,14 +58,15 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
           </div>
         </GridItem>
 
-        {/* Col 2: Technologies */}
-        <GridItem span={3} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-1">
+        {/* Columns 5-7: Technologies, from column 5 where the case's images
+            and body copy start */}
+        <GridItem span={3} start={5} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-1">
           <Label>{t.technologies}</Label>
           <Value>{project.technologies || '\u2014'}</Value>
         </GridItem>
 
-        {/* Col 3: Credits */}
-        <GridItem span={3} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-2">
+        {/* Columns 8-9: Credits */}
+        <GridItem span={2} start={8} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-2">
           <Label>{t.credits}</Label>
           {project.credits && project.credits.length > 0 ? (
             <div className="space-y-1">
@@ -97,8 +98,8 @@ export function ProjectInfoBlock({ project }: ProjectInfoBlockProps) {
           )}
         </GridItem>
 
-        {/* Col 4: Links */}
-        <GridItem span={3} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-3">
+        {/* Columns 10-12: Links */}
+        <GridItem span={3} start={10} tabletSpan={4} mobileSpan={4} className="-entrance -fade -a-3">
           <Label>{t.links}</Label>
           {project.links && project.links.length > 0 ? (
             <div className="flex flex-col gap-2">
