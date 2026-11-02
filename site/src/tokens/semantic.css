@@ -45,6 +45,9 @@
   --color-border-primary:             var(--primitive-neutral-300);
   --color-border-secondary:           var(--primitive-neutral-400);
   --color-border-tertiary-default:    var(--primitive-neutral-400);
+  /* The quiet structural rule — rows, strips, dividers. One step off the
+     bg, on the same primitive as surface-primary in every theme. */
+  --color-border-subtle:              var(--primitive-neutral-450);
   --color-border-brand:               var(--primitive-brand-400);
   --color-border-focus:               var(--primitive-brand-400);
   --color-border-inverse:             var(--primitive-neutral-700);
@@ -134,6 +137,7 @@
   --color-border-primary:             var(--primitive-neutral-600);
   --color-border-secondary:           var(--primitive-neutral-500);
   --color-border-tertiary-default:    var(--primitive-neutral-400);
+  --color-border-subtle:              var(--primitive-neutral-100);
   --color-border-inverse:             var(--primitive-neutral-100);
   --color-border-brand:               var(--primitive-brand-700);
   --color-border-focus:               var(--primitive-brand-700);
@@ -171,6 +175,7 @@
   --color-border-primary:             var(--primitive-brand-800);
   --color-border-secondary:           var(--primitive-brand-700);
   --color-border-tertiary-default:    var(--primitive-brand-600);
+  --color-border-subtle:              var(--primitive-brand-300);
   --color-border-inverse:             var(--primitive-brand-200);
   --color-border-brand:               var(--primitive-brand-950);
   --color-border-focus:               var(--primitive-brand-950);

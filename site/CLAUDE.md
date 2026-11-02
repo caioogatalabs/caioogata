@@ -79,7 +79,9 @@ Priority for resolving in-view inside `<SplitText>`: explicit `inView` prop > `<
 </div>
 ```
 
-`AnimatedDivider` defaults to absolute-positioned, 1px tall, full width of its `relative` parent, drawn left → right via `scaleX(0 → 1)` with `transform-origin: left`. Reads `<RevealGroup>` context for `inView` like `<SplitText>`, or accepts an explicit `inView` prop. `delayMs` shifts the draw to match a SplitText with the same `baseDelayMs`. `colorToken` defaults to `border-secondary` and resolves to `var(--color-{token})`.
+`AnimatedDivider` defaults to absolute-positioned, 1px tall, full width of its `relative` parent, drawn left → right via `scaleX(0 → 1)` with `transform-origin: left`. Reads `<RevealGroup>` context for `inView` like `<SplitText>`, or accepts an explicit `inView` prop. `delayMs` shifts the draw to match a SplitText with the same `baseDelayMs`. `colorToken` defaults to `border-subtle` and resolves to `var(--color-{token})`.
+
+**One tone for every structural rule** — `border-subtle` (`--primitive-neutral-450` on the dark default, the same step as `surface-primary`; `neutral-100` in light, `brand-300` in inverse). The navigation strip, the project credits, the impact numbers, the /about rows and the /experience rows all draw with it. It replaced a mix of `border-primary`, `border-secondary` and Experience's `border-primary/10`, which was the tone it was matched to. Reach for `border-primary` / `border-secondary` only for a line that has to stand out.
 
 Applied where rows have synced text reveals: Education timeline (per entry, via row's own `useInView`), Bio Core Expertise items (each item gets a divider with the same `delayMs` as its SplitText, both inside `<RevealGroup>`), Skills accordion rows (extracted to `<SkillsRow>` with own `useInView`).
 

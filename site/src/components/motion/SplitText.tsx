@@ -333,11 +333,12 @@ interface AnimatedDividerProps {
   /** Draw duration. Default 600ms. */
   durationMs?: number
   /**
-   * Token for the line color. Default `border-secondary`. Resolves to
-   * `var(--color-{token})` via inline style — works regardless of whether the
-   * Tailwind `bg-{token}` utility exists for the chosen token.
+   * Token for the line color. Default `border-subtle`, the tone every
+   * structural rule on the site shares. Resolves to `var(--color-{token})` via
+   * inline style — works regardless of whether the Tailwind `bg-{token}`
+   * utility exists for the chosen token.
    */
-  colorToken?: 'border-primary' | 'border-secondary' | 'border-brand' | 'border-inverse'
+  colorToken?: 'border-subtle' | 'border-primary' | 'border-secondary' | 'border-brand' | 'border-inverse'
   /** Override absolute positioning for non-row contexts. Default top: 0, full width. */
   className?: string
 }
@@ -357,7 +358,7 @@ export function AnimatedDivider({
   inView,
   delayMs = 0,
   durationMs = 600,
-  colorToken = 'border-secondary',
+  colorToken = 'border-subtle',
   className = 'absolute top-0 left-0 right-0 h-px',
 }: AnimatedDividerProps) {
   const groupInView = useContext(RevealContext)

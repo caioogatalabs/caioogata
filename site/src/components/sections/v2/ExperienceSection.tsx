@@ -215,7 +215,7 @@ function ExperienceRow({ job, index, isOpen, reducedMotion, panelHeight }: Exper
     <div
       data-experience-row
       role="listitem"
-      className={`-entrance -slide-up ${staggerClass} border-t border-border-primary/10 last:border-b`}
+      className={`-entrance -slide-up ${staggerClass} border-t border-border-subtle last:border-b`}
     >
       {/* Header — date (1-2) company (4-6) title (7-10) indicator (11-12).
           Company and title sit on the same lanes the panel's text blocks use
